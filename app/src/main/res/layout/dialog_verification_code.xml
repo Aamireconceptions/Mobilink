@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="0dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_rad10_corn10"
+        android:padding="25dp">
+
+        <LinearLayout
+            android:id="@+id/ll_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_grey"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.95"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="ENTER CODE"
+                android:text=""
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.05"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_next"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_code"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="You will receive a short code from your carrier\nplease check your inbox."
+            android:textSize="12sp"/>
+    </RelativeLayout>
+</RelativeLayout>
