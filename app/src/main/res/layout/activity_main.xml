@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        android:src="@drawable/bizstore_ooredoo"/>
+        android:src="@drawable/bizstore_ooredoo_logo"/>
 
     <LinearLayout
         android:id="@+id/ll_sign_up"
@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/ic_bg_red"
+        android:background="@drawable/btn_red"
         android:gravity="center">
 
         <TextView

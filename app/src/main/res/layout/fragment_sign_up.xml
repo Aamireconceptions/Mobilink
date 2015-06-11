@@ -63,7 +63,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ic_bg_red"
+        android:background="@drawable/btn_red"
         android:gravity="center">
 
         <TextView

@@ -15,10 +15,15 @@ import static java.lang.Thread.setDefaultUncaughtExceptionHandler;
 
 public class BizStore extends Application
 {
-    private String deafultFont = "fonts/Futura/FuturaLT-Book.ttf";
-    private String monospaceFont = "fonts/Futura/FuturaLT.ttf";
-    private String serifFont = "fonts/Opifico/Opificio_Bold.ttf";
-    private String sans_serif = "fonts/Opifico/Opificio.ttf";
+    private final static String DEFAULT = "DEFAULT";
+    private final static String MONOSPACE = "MONOSPACE";
+    private final static String SERIF = "SERIF";
+    private final static String SANS_SERIF = "SANS_SERIF";
+
+    private final static String DEFAULT_FONT = "fonts/Futura/FuturaLT-Book.ttf";
+    private final static String MONOSPACE_FONT = "fonts/Futura/FuturaLT.ttf";
+    private final static String SERIF_FONT = "fonts/Opifico/Opificio_Bold.ttf";
+    private final static String SANS_SERIF_FONT = "fonts/Opifico/Opificio.ttf";
 
     public void onCreate()
     {
@@ -36,10 +41,9 @@ public class BizStore extends Application
 
     private void overrideDefaultFonts()
     {
-        FontUtils.setDefaultFont(this, "DEFAULT", deafultFont);
-        FontUtils.setDefaultFont(this, "MONOSPACE", monospaceFont);
-        FontUtils.setDefaultFont(this, "SERIF", serifFont);
-        FontUtils.setDefaultFont(this, "SANS_SERIF", sans_serif);
+        FontUtils.setDefaultFont(this, DEFAULT, DEFAULT_FONT);
+        FontUtils.setDefaultFont(this, MONOSPACE, MONOSPACE_FONT);
+        FontUtils.setDefaultFont(this, SERIF, SERIF_FONT);
+        FontUtils.setDefaultFont(this, SANS_SERIF, SANS_SERIF_FONT);
     }
-
 }

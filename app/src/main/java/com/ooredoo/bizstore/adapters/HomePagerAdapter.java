@@ -31,6 +31,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
     @Override
     public Fragment getItem(int position)
     {
+        System.out.println("Creating "+position);
+
         switch(position)
         {
             case 0:

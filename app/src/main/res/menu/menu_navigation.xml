@@ -4,17 +4,17 @@
     <group android:checkableBehavior="single">
         <item
             android:checked="true"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/circle_check"
             android:title="First item"/>
 
 
         <item
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/circle_unchecked"
             android:title="Second item"/>
 
         <item
             android:title="Sub Header"
-            android:icon="@drawable/ic_launcher">
+            android:icon="@drawable/circle_check">
 
         <menu>
 
