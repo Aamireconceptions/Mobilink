@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:checked="true"
+            android:icon="@drawable/ic_launcher"
+            android:title="First item"/>
+
+
+        <item
+            android:icon="@drawable/ic_launcher"
+            android:title="Second item"/>
+
+        <item
+            android:title="Sub Header"
+            android:icon="@drawable/ic_launcher">
+
+        <menu>
+
+            <item
+
+                android:title="First sub item"/>
+
+
+            <item
+
+                android:title="Second sub item"/>
+
+        </menu>
+
+        </item>
+
+    </group>
+
+</menu>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="random">#ff8732</color>
+    <color name="tool_bar">#f7f7f7</color>
+    <color name="red">#ec1b24</color>
+    <color name="grey">#e6e7e8</color>
+    <color name="status_bar">#f2f2f2</color>
+
+</resources>
