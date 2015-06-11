@@ -3,24 +3,27 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:checked="true"
-            android:icon="@drawable/circle_check"
-            android:title="First item"/>
+            android:checked="false"
+            android:title="First item"
+            android:icon="@drawable/ic_launcher" />
 
 
         <item
-            android:icon="@drawable/circle_unchecked"
+            android:checked="true"
+            android:icon="@drawable/ic_search"
             android:title="Second item"/>
 
         <item
+            android:icon="@drawable/circle_check"
             android:title="Sub Header"
-            android:icon="@drawable/circle_check">
+            >
 
         <menu>
 
             <item
 
-                android:title="First sub item"/>
+                android:title="First sub item"
+                android:icon="@drawable/circle_check"/>
 
 
             <item
