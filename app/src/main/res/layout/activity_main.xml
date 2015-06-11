@@ -12,21 +12,16 @@
         android:layout_marginTop="150dp"
         android:src="@drawable/bizstore_ooredoo_logo"/>
 
-    <LinearLayout
-        android:id="@+id/ll_sign_up"
+    <Button
+        android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:background="@drawable/btn_red"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/SIGNUP"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
+        android:gravity="center"
+        android:text="@string/SIGNUP"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>

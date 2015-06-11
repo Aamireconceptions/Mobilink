@@ -19,7 +19,7 @@ public class WelcomeFragment extends BaseFragment {
     }
 
     public void init(View parent) {
-        parent.findViewById(R.id.ll_next).setOnClickListener(this);
+        parent.findViewById(R.id.btn_next).setOnClickListener(this);
     }
 
     @Override

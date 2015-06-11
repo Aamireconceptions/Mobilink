@@ -13,7 +13,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-        findViewById(R.id.ll_sign_up).setOnClickListener(this);
+        findViewById(R.id.btn_next).setOnClickListener(this);
     }
 
     @Override

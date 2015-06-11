@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_red"
         android:background="@color/grey"
-        android:padding="12dp"
+        android:padding="10dp"
         android:text="@string/sms_charges"/>
 
     <TextView
@@ -55,21 +55,16 @@
         android:textSize="14sp"
         android:textStyle="normal"/>
 
-    <LinearLayout
-        android:id="@+id/ll_next"
+    <Button
+        android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/btn_red"
-        android:gravity="center">
+        android:gravity="center"
+        android:text="@string/NEXT"
+        android:textColor="@android:color/white"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/NEXT"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
 </RelativeLayout>
