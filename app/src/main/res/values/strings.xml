@@ -10,7 +10,7 @@
     <string name="search">Search</string>
     <string name="home">Home</string>
     <string name="top_deals">Top Deals</string>
-    <string name="food_dinning">Food and Dinning</string>
+    <string name="food_dining">Food and Dining</string>
     <string name="shopping">Shopping</string>
     <string name="CONGRATULATIONS">CONGRATULATIONS</string>
     <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on BIZSTORE.\n\nFind popular venues, great local businesses,\nDiscover deals, products & services closest to you, whereever you are!]]></string>
@@ -26,4 +26,29 @@
     <string name="SIGNUP">SIGNUP</string>
     <string name="SUBSCRIBE">SUBSCRIBE</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="top_brands">Top Brands</string>
+    <string name="health_fitness">Health &amp; Fitness</string>
+    <string name="top_malls">Top Malls</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="deals_of_the_day">Deals Of The Day</string>
+    <string name="my_deals">My Deals</string>
+    <string name="recommended">Recommended</string>
+    <string name="recent_searches">Recent Searches</string>
+    <string name="recent_viewed">Recent Viewed</string>
+    <string name="categories">Categories</string>
+    <string name="settings">Settings</string>
+    <string name="electronics">Electronics</string>
+    <string name="hotels_spa">Hotels &amp; Spa</string>
+    <string name="markets_malls">Markets and Malls</string>
+    <string name="automotive">Automotive</string>
+    <string name="travel_tours">Travel &amp; Tours</string>
+    <string name="jewelry_exchange">Jewelry &amp; Exchange</string>
+    <string name="sports_fitness">Sports &amp; Fitness</string>
+    <string name="my_account">My Account</string>
+    <string name="subscription_settings">Subscription Settings</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
+    <string name="un_subscribe">Unsubscribe</string>
+
+
 </resources>

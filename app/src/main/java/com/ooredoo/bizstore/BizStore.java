@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.Build;
 
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.Logger;
 
 import static java.lang.Thread.UncaughtExceptionHandler;
 import static java.lang.Thread.setDefaultUncaughtExceptionHandler;
@@ -27,6 +28,8 @@ public class BizStore extends Application
 
     public void onCreate()
     {
+        Logger.setEnabled(true);
+
         overrideDefaultFonts();
 
        /* setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler()

@@ -76,7 +76,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
             case 2:
 
-                return activity.getString(R.string.food_dinning);
+                return activity.getString(R.string.food_dining);
 
             case 3:
 

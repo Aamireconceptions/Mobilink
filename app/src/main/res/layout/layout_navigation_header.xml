@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="36dp"
+        android:gravity="center_vertical"
+        android:background="@color/random">
+
+        <ImageView
+            android:id="@+id/dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+974 434 9900"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doha, Qatar"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="18dp"
+        android:drawableLeft="@drawable/ic_home"
+        android:drawablePadding="12dp"
+        android:text="@string/home"/>
+
+    <TextView
+        android:id="@+id/my_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="18dp"
+        android:drawableLeft="@drawable/ic_favourite"
+        android:drawablePadding="12dp"
+        android:text="@string/my_deals"/>
+
+    <TextView
+        android:id="@+id/recommended"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="18dp"
+        android:drawableLeft="@drawable/ic_recommended"
+        android:drawablePadding="12dp"
+        android:text="@string/recommended"/>
+
+    <TextView
+        android:id="@+id/recent_searches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="18dp"
+        android:drawableLeft="@drawable/ic_recent_searches"
+        android:drawablePadding="12dp"
+        android:text="@string/recent_searches"/>
+
+    <TextView
+        android:id="@+id/recent_viewed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="18dp"
+        android:drawableLeft="@drawable/ic_recent_viewed"
+        android:drawablePadding="12dp"
+        android:text="@string/recent_viewed"/>
+
+</LinearLayout>

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+   <!-- <group android:checkableBehavior="single">
+
         <item
             android:checked="false"
             android:title="First item"
-            android:icon="@drawable/ic_launcher" />
+            android:icon="@drawable/ic_launcher"
+            android:actionLayout="@layout/layout_horizontal_entertainment"/>
 
 
         <item
@@ -34,6 +36,26 @@
 
         </item>
 
-    </group>
+    </group>-->
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/my_deals"
+        android:actionLayout="@layout/layout_navigation_view_header"
+
+        android:title="@string/my_deals"
+        android:icon="@drawable/ic_favourite"/>
+
+    <item
+        android:title="@string/recommended"
+        android:icon="@drawable/ic_recommended"/>
+
+    <item
+        android:title="@string/recent_searches"
+        android:icon="@drawable/ic_recent_searches"/>
 
 </menu>
