@@ -1,15 +1,13 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
+import android.view.WindowManager;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.activities.BaseActivity;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 
 /**
@@ -44,6 +42,7 @@ public class SignUpFragment extends BaseFragment {
         final Dialog dialog = builder.create();
 
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         view.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,8 +53,8 @@ public class SignUpFragment extends BaseFragment {
             }
         });
 
-        dialog.setCancelable(false);
-        builder.setCancelable(false);
+        dialog.setCancelable(true);
+        builder.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
