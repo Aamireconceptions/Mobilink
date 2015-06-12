@@ -87,7 +87,7 @@
             android:layout_marginTop="-15dp"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:src="@drawable/circle_check"
+            android:src="@drawable/circle_unchecked"
             android:textColor="@color/white"/>
 
         <ImageButton
