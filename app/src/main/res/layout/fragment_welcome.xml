@@ -19,6 +19,7 @@
             android:padding="12dp"
             android:text="@string/CONGRATULATIONS"
             android:textColor="@color/red"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -40,6 +41,7 @@
             android:background="@drawable/btn_red"
             android:gravity="center"
             android:text="@string/LETS_START"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
     </RelativeLayout>
 </RelativeLayout>
