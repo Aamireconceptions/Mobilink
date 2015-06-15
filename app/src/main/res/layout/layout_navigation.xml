@@ -9,6 +9,7 @@
         android:layout_gravity="start"
         android:divider="@null"
         android:background="@color/white"
+
         />
 
 </merge>

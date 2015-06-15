@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * Created by Babar on 12-Jun-15.
  */
-public class NavigationMenuUtils
-{
+public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseListener, ExpandableListView.OnGroupExpandListener {
     private AppCompatActivity activity;
 
     private ExpandableListView expandableListView;
@@ -27,7 +26,7 @@ public class NavigationMenuUtils
 
     private HashMap<String, List<NavigationItem>> childList;
 
-    private int start, end;
+   // private int start, end;
     
     private final String[] groupNames, categories, settings;
     
@@ -76,45 +75,45 @@ public class NavigationMenuUtils
 
         expandableListView.addHeaderView(navigationHeader);
         expandableListView.setAdapter(adapter);
+        expandableListView.setOnGroupCollapseListener(this);
+        expandableListView.setOnGroupExpandListener(this);
     }
 
     private void setIndicatorBounds()
     {
-        expandableListView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener()
-        {
+        expandableListView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout()
             {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                 {
                     expandableListView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                    start = expandableListView.getRight() - (int) Converter.convertDpToPixels(5);
-
-                    end = expandableListView.getWidth();
                 }
                 else
                 {
                     expandableListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-
-                    start = expandableListView.getRight() - (int) Converter.convertDpToPixels(5);
-
-                    end = expandableListView.getWidth();
                 }
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-                {
-                    expandableListView.setIndicatorBoundsRelative(start, end);
-                }
-                else
-                {
-                    expandableListView.setIndicatorBounds(start, end);
-                }
-
+                applyIndicatorBounds();
             }
         });
     }
 
+    private void applyIndicatorBounds()
+    {
+        int start = expandableListView.getWidth() - (int) Converter.convertDpToPixels(40);
+
+        int end = expandableListView.getWidth();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+        {
+            expandableListView.setIndicatorBoundsRelative(start, end);
+        }
+        else
+        {
+            expandableListView.setIndicatorBounds(start, end);
+        }
+    }
 
     private void prepareNavigationMenuData()
     {
@@ -156,6 +155,19 @@ public class NavigationMenuUtils
         childList.put(groupList.get(0).getItemName(), categoriesList);
         childList.put(groupList.get(1).getItemName(), settingsList);
     }
-    
-    
+
+
+    @Override
+    public void onGroupCollapse(int groupPosition)
+    {
+        Logger.print(groupPosition+" Collapsed");
+
+
+    }
+
+    @Override
+    public void onGroupExpand(int groupPosition)
+    {
+        Logger.print(groupPosition+" Expanded");
+    }
 }

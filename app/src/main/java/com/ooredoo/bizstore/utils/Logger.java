@@ -46,7 +46,7 @@ public class Logger
         }
     }
 
-    public static void println(String msg)
+    public static void print(String msg)
     {
         if(enabled)
         {
