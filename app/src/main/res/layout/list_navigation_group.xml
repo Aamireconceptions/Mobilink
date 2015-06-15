@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/status_bar">
+    android:background="@drawable/group_bg">
 
     <TextView
         android:id="@+id/name"
@@ -13,6 +13,7 @@
         android:padding="18dp"
         android:drawableLeft="@drawable/ic_recent_viewed"
         android:drawablePadding="12dp"
-        android:text="Categories"/>
+        android:text="Categories"
+        android:textColor="@android:color/primary_text_light"/>
 
 </LinearLayout>

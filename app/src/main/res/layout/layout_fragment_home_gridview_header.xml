@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:text="@string/top_deals"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:typeface="serif"
+        android:textColor="@color/home_heading_color" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"

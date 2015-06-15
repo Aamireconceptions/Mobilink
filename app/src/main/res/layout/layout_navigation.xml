@@ -9,7 +9,6 @@
         android:layout_gravity="start"
         android:divider="@null"
         android:background="@color/white"
-
-        />
+        android:groupIndicator="@drawable/group_selector" />
 
 </merge>

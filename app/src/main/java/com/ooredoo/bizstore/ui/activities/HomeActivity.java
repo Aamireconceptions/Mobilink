@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.model.NavigationItem;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 
 import java.util.ArrayList;
@@ -48,6 +49,8 @@ public class HomeActivity extends AppCompatActivity
 
     private void init()
     {
+        MemoryCache.getInstance();
+
         homePagerAdapter = new HomePagerAdapter(this);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -95,10 +98,6 @@ public class HomeActivity extends AppCompatActivity
         viewPager.setAdapter(homePagerAdapter);
         viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
     }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
