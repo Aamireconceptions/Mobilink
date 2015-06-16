@@ -49,6 +49,28 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="un_subscribe">Unsubscribe</string>
+    <string name="shopping_specialty">Shopping and Specialty</string>
+    <string name="title_activity_filter">FilterActivity</string>
+    <string name="type">Type</string>
+    <string name="deals_discount">Deals and Discounts</string>
+    <string name="business_directory">Business and Directory</string>
+    <string name="sort_by">Sort By</string>
+    <string name="distance">Distance</string>
+    <string name="mi">(mi)</string>
+    <string name="_0.5">0.5</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_10">10</string>
+    <string name="_15">15</string>
+    <string name="_20">20</string>
+    <string name="rating">Rating</string>
+    <string name="discount">Discount</string>
+    <string name="category_selection">Category Selection</string>
+
+
 
 
 </resources>

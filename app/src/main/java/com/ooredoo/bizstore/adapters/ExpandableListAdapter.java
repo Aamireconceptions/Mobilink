@@ -123,6 +123,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         tvName.setText(name);
         tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
 
+        int color;
+        if(name.equals(context.getString(R.string.electronics)))
+        {
+            color = context.getResources().getColor(R.color.grey);
+        }
+        else
+        {
+            color = context.getResources().getColor(R.color.white);
+        }
+
+        tvName.setBackgroundColor(color);
+
         return convertView;
     }
 
