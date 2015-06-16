@@ -4,7 +4,8 @@
 <RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -214,7 +215,10 @@
             android:text="@string/discount"/>
 
 
-
+        <com.ooredoo.bizstore.views.RangeSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/discount_checkbox"/>
 
 
 
