@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_favourite"/>
+            android:src="@drawable/ic_like_active"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -101,10 +101,10 @@
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
-            android:layout_height="15dp"
+            android:layout_height="17dp"
             android:layout_centerVertical="true"
             android:numStars="5"
-            android:progressDrawable="@drawable/ic_star_yellow"
+            android:progressDrawable="@drawable/ic_star_active"
             android:rating="4.0"
             android:stepSize="1.0"/>
 
@@ -115,7 +115,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@+id/tv_views"
-            android:src="@drawable/ic_shopping"/>
+            android:src="@drawable/ic_views"/>
 
         <TextView
             android:id="@+id/tv_views"
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_favourite"/>
+            android:src="@drawable/ic_share"/>
     </RelativeLayout>
 
 </LinearLayout>

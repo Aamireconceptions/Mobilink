@@ -10,7 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
-        android:background="@color/red"
+        android:background="@drawable/btn_red1"
         android:gravity="center"
         android:text="@string/New_Deals"
         android:textColor="@android:color/white"
@@ -21,20 +21,20 @@
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="0dp"
         android:layout_toRightOf="@+id/btn_new_deals"
-        android:background="@color/grey"
+        android:background="@drawable/btn_lt_grey2"
         android:gravity="center"
         android:text="@string/Popular_Deals"
         android:textColor="@android:color/white"
         android:textStyle="bold"/>
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_categories"/>
+        android:src="@drawable/ic_filter_default"/>
 
 </RelativeLayout>

@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_launcher"/>
+        android:src="@drawable/ic_deal_tag"/>
 
     <TextView
         android:id="@+id/tv_title"
