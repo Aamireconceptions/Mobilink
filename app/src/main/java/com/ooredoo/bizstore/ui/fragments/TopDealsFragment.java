@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
@@ -19,10 +20,10 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopDealsFragment extends Fragment {
-
+public class TopDealsFragment extends Fragment implements View.OnClickListener {
     HomeActivity mActivity;
 
+    Button btnNewDeals, btnPopularDeals;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,12 @@ public class TopDealsFragment extends Fragment {
 
         pageIndicator.setViewPager(viewPager);
 
+        btnNewDeals = (Button) header_filters.findViewById(R.id.btn_new_deals);
+        btnPopularDeals = (Button) header_filters.findViewById(R.id.btn_popular_deals);
+
+        btnNewDeals.setOnClickListener(this);
+        btnPopularDeals.setOnClickListener(this);
+
         listView.addHeaderView(header_view_pager);
         listView.addHeaderView(header_filters);
 
@@ -57,6 +64,10 @@ public class TopDealsFragment extends Fragment {
     }
 
     private void init(View v) {
+        populateDeals(v);
+    }
+
+    private void populateDeals(View v) {
         List<Deal> deals = new ArrayList<>();
         deals.add(new Deal());
         deals.add(new Deal());
@@ -67,6 +78,15 @@ public class TopDealsFragment extends Fragment {
         ListView listView = (ListView) v.findViewById(R.id.lv);
         TopDealsAdapter adapter = new TopDealsAdapter(mActivity, R.layout.list_item_top_deal, deals);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if(id == R.id.btn_new_deals || id == R.id.btn_popular_deals) {
+            btnNewDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_lt_grey1 : R.drawable.btn_red1);
+            btnPopularDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_red2 : R.drawable.btn_lt_grey2);
+        }
     }
 
     public static TopDealsFragment newInstance() {

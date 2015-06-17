@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
@@ -15,9 +16,10 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodAndDinningFragment extends Fragment {
+public class FoodAndDinningFragment extends Fragment implements View.OnClickListener {
     HomeActivity mActivity;
 
+    Button btnNewDeals, btnPopularDeals;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,12 @@ public class FoodAndDinningFragment extends Fragment {
         View header_filters = inflater.inflate(R.layout.header_deals, null);
 
         ListView listView = (ListView) v.findViewById(R.id.lv);
+
+        btnNewDeals = (Button) header_filters.findViewById(R.id.btn_new_deals);
+        btnPopularDeals = (Button) header_filters.findViewById(R.id.btn_popular_deals);
+
+        btnNewDeals.setOnClickListener(this);
+        btnPopularDeals.setOnClickListener(this);
 
         listView.addHeaderView(header_filters);
 
@@ -51,6 +59,15 @@ public class FoodAndDinningFragment extends Fragment {
         ListView listView = (ListView) v.findViewById(R.id.lv);
         TopDealsAdapter adapter = new TopDealsAdapter(mActivity, R.layout.list_item_food_n_dining, deals);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if(id == R.id.btn_new_deals || id == R.id.btn_popular_deals) {
+            btnNewDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_lt_grey1 : R.drawable.btn_red1);
+            btnPopularDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_red2 : R.drawable.btn_lt_grey2);
+        }
     }
 
     public static FoodAndDinningFragment newInstance() {
