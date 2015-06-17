@@ -1,23 +1,47 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:fillViewport="true">
+
 <RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:background="@color/white">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red"/>
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
+        android:minHeight="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:background="@color/red">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_back_white"/>
+
+        <ImageView
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_done_white"/>
+
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/header"
         android:paddingLeft="@dimen/_16sdp"
         android:paddingRight="@dimen/_16sdp"
         android:paddingTop="@dimen/_10sdp"
@@ -31,6 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/type"
         android:padding="@dimen/_16sdp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/checkbox_selector"
+        android:drawablePadding="@dimen/_8sdp"
         android:text="@string/deals_discount"/>
 
     <TextView
@@ -39,6 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/deals_discount_checkbox"
         android:padding="@dimen/_16sdp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/checkbox_selector"
+        android:drawablePadding="@dimen/_8sdp"
         android:text="@string/business_directory"/>
 
     <View
@@ -71,6 +101,9 @@
             android:id="@+id/distance_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/checkbox_selector"
+            android:drawablePadding="@dimen/_8sdp"
             android:text="@string/distance"/>
 
         <TextView
@@ -146,6 +179,9 @@
             android:id="@+id/rating_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/checkbox_selector"
+            android:drawablePadding="@dimen/_8sdp"
             android:text="@string/rating"/>
 
         <LinearLayout
@@ -251,6 +287,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/category_selection"
         android:padding="@dimen/_16sdp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/checkbox_selector"
+        android:drawablePadding="@dimen/_8sdp"
         android:text="@string/food_dining"/>
 
     <TextView
@@ -259,6 +298,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/food_dinning_checkbox"
         android:padding="@dimen/_16sdp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/checkbox_selector"
+        android:drawablePadding="@dimen/_8sdp"
         android:text="@string/electronics"/>
 
     <TextView
@@ -267,6 +309,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/electronics_checkbox"
         android:padding="@dimen/_16sdp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/checkbox_selector"
+        android:drawablePadding="@dimen/_8sdp"
         android:text="@string/hotels_spa"/>
 
 

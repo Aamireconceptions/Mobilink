@@ -164,7 +164,7 @@ public class RangeSeekBar<T extends Number> extends ImageView
         // make RangeSeekBar focusable. This solves focus handling issues in case
         // EditText widgets are being used along with the RangeSeekBar within ScrollView.
         setFocusable(true);
-        setFocusableInTouchMode(true);
+        //setFocusableInTouchMode(true);
         mScaledTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 

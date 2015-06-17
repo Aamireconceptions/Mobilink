@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.ui.activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -15,7 +14,7 @@ public class FilterActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_filter);
+        setContentView(R.layout.layout_filter);
     }
 
     @Override

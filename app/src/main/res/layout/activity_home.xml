@@ -60,6 +60,8 @@
 
         <include layout="@layout/layout_navigation"/>
 
+        <include layout="@layout/layout_filter"/>
+
     </android.support.v4.widget.DrawerLayout>
 
 </RelativeLayout>
