@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+              android:background="@color/white"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_26sdp"
+        android:background="@color/grey"
         android:gravity="center_vertical"
-        android:background="@color/grey">
+        android:padding="@dimen/_26sdp">
 
         <ImageView
             android:id="@+id/dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@drawable/tmp_profile"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,8 +28,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+974 434 9900"
-                android:textSize="16sp"
-                android:textColor="@android:color/primary_text_light"/>
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,8 +44,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_1sdp"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="@dimen/_1sdp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -61,10 +61,10 @@
         android:id="@+id/home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_16sdp"
         android:drawableLeft="@drawable/ic_home"
         android:drawablePadding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_16sdp"
         android:text="@string/home"
         android:textColor="@android:color/primary_text_light"/>
 
@@ -72,10 +72,10 @@
         android:id="@+id/my_deals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_16sdp"
         android:drawableLeft="@drawable/ic_favourite"
         android:drawablePadding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_16sdp"
         android:text="@string/my_deals"
         android:textColor="@android:color/primary_text_light"/>
 
@@ -83,10 +83,10 @@
         android:id="@+id/recommended"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_16sdp"
         android:drawableLeft="@drawable/ic_recommended"
         android:drawablePadding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_16sdp"
         android:text="@string/recommended"
         android:textColor="@android:color/primary_text_light"/>
 
@@ -94,10 +94,10 @@
         android:id="@+id/recent_searches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_16sdp"
         android:drawableLeft="@drawable/ic_recent_searches"
         android:drawablePadding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_16sdp"
         android:text="@string/recent_searches"
         android:textColor="@android:color/primary_text_light"/>
 
@@ -105,10 +105,10 @@
         android:id="@+id/recent_viewed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/_16sdp"
         android:drawableLeft="@drawable/ic_recent_viewed"
         android:drawablePadding="@dimen/_12sdp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_16sdp"
         android:text="@string/recent_viewed"
         android:textColor="@android:color/primary_text_light"/>
 

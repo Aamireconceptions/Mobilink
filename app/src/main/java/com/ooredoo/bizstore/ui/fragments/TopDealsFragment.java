@@ -55,6 +55,7 @@ public class TopDealsFragment extends Fragment implements View.OnClickListener {
         btnNewDeals.setOnClickListener(this);
         btnPopularDeals.setOnClickListener(this);
 
+        viewPager.setCurrentItem(0, true);
         listView.addHeaderView(header_view_pager);
         listView.addHeaderView(header_filters);
 
@@ -84,8 +85,8 @@ public class TopDealsFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.btn_new_deals || id == R.id.btn_popular_deals) {
-            btnNewDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_lt_grey1 : R.drawable.btn_red1);
-            btnPopularDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_red2 : R.drawable.btn_lt_grey2);
+            btnNewDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_red1 : R.drawable.btn_lt_grey1);
+            btnPopularDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_lt_grey2 : R.drawable.btn_red2);
         }
     }
 

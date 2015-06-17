@@ -65,8 +65,8 @@ public class FoodAndDinningFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.btn_new_deals || id == R.id.btn_popular_deals) {
-            btnNewDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_lt_grey1 : R.drawable.btn_red1);
-            btnPopularDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_red2 : R.drawable.btn_lt_grey2);
+            btnNewDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_red1 : R.drawable.btn_lt_grey1);
+            btnPopularDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_lt_grey2 : R.drawable.btn_red2);
         }
     }
 
