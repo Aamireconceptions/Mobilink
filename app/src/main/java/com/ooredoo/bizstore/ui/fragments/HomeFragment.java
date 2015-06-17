@@ -9,9 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.views.HeaderGridView;
 
 public class HomeFragment extends Fragment
 {
+    private Activity activity;
+
     public static HomeFragment newInstance()
     {
         HomeFragment fragment = new HomeFragment();
@@ -39,7 +43,16 @@ public class HomeFragment extends Fragment
 
     private void init(View v)
     {
+        activity = getActivity();
 
+        HeaderGridView headerGridView = (HeaderGridView) v.findViewById(R.id.home_grid_view);
+
+        LayoutInflater inflater = (LayoutInflater) activity.getLayoutInflater();
+
+        View header = inflater.inflate(R.layout.layout_fragment_home_gridview_header, null);
+
+        headerGridView.addHeaderView(header);
+        headerGridView.setAdapter(null);
     }
 
 

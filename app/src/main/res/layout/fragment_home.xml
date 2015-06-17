@@ -4,7 +4,7 @@
     android:orientation="vertical">
 
 
-    <GridView
+    <com.ooredoo.bizstore.views.HeaderGridView
         android:id="@+id/home_grid_view"
         android:layout_width="match_parent"
         android:layout_height="0dip"

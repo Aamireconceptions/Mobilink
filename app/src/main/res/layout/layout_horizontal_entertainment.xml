@@ -1,53 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="30dp"
-    android:paddingBottom="30dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:gravity="center"
-    android:orientation="horizontal">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/entertainment"
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/_26sdp"
+    android:paddingBottom="@dimen/_26sdp"
+    android:paddingLeft="@dimen/_8sdp"
+    android:paddingRight="@dimen/_8sdp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/movie_tickets"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:src="@drawable/ic_launcher"/>
+        android:gravity="center"
+        android:drawableTop="@drawable/ic_launcher"
+        android:drawablePadding="@dimen/_4sdp"
+        android:text="@string/movie_tickets"
+        android:textColor="@color/home_category_item_color"/>
 
    <!-- <View
         android:layout_width="1dip"
         android:layout_height="wrap_content"
         android:background="@color/status_bar"/>-->
 
-    <ImageView
-        android:id="@+id/shopping"
+    <TextView
+        android:id="@+id/events"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:src="@drawable/ic_launcher"/>
+        android:gravity="center"
+        android:drawableTop="@drawable/ic_launcher"
+        android:drawablePadding="@dimen/_4sdp"
+        android:text="@string/events"
+        android:textColor="@color/home_category_item_color"/>
 
   <!--  <View
         android:layout_width="1dip"
         android:layout_height="wrap_content"/>-->
 
-    <ImageView
-        android:id="@+id/fashion"
+    <TextView
+        android:id="@+id/jokes"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:src="@drawable/ic_launcher"/>
-
-  <!--  <View
-        android:layout_width="1dip"
-        android:layout_height="wrap_content"/>-->
-
-    <ImageView
-        android:id="@+id/restaurants"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/ic_launcher"/>
+        android:gravity="center"
+        android:drawableTop="@drawable/ic_launcher"
+        android:drawablePadding="@dimen/_4sdp"
+        android:text="@string/jokes"
+        android:textColor="@color/home_category_item_color"/>
 
 </LinearLayout>
+
+</HorizontalScrollView>

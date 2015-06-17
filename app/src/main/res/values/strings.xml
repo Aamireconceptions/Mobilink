@@ -69,10 +69,17 @@
     <string name="rating">Rating</string>
     <string name="discount">Discount</string>
     <string name="category_selection">Category Selection</string>
-
     <string name="search_hint">Type here</string>
     <string name="Search_for_Deals">Search for Deals</string>
     <string name="Search_for_Business">Search for Business</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="fashion">Fashion</string>
+    <string name="weight_loss">Weight Loss</string>
+    <string name="fitness">Fitness</string>
+    <string name="beauty_tips">Beauty Tips</string>
+    <string name="movie_tickets">Movie Tickets</string>
+    <string name="events">Events</string>
+    <string name="jokes">Jokes</string>
 
     <string name="New_Deals">New Deals</string>
     <string name="Popular_Deals">Popular Deals</string>

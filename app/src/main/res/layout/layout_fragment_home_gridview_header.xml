@@ -13,23 +13,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
         android:text="@string/top_deals"
         android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_color" />
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
-
-        <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/layout_horizontal_top_deals"/>
-
-    </HorizontalScrollView>
+    <include layout="@layout/layout_horizontal_top_deals"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/second_view_pager"
@@ -40,9 +33,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
         android:text="@string/top_brands"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:typeface="serif"/>
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
@@ -52,28 +49,26 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
         android:text="@string/health_fitness"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:typeface="serif"/>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
-
-        <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/layout_horizontal_health_fitness"/>
-
-    </HorizontalScrollView>
+    <include layout="@layout/layout_horizontal_health_fitness"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
         android:text="@string/top_malls"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:typeface="serif"/>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -85,27 +80,26 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
         android:text="@string/entertainment"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:typeface="serif"/>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
+    <include layout="@layout/layout_horizontal_entertainment"/>
 
-        <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/layout_horizontal_entertainment"/>
-
-    </HorizontalScrollView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
         android:text="@string/deals_of_the_day"
-        android:textAllCaps="true"/>
+        android:textAllCaps="true"
+        android:typeface="serif"/>
 
 </LinearLayout>

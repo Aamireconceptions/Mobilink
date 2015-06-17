@@ -30,7 +30,8 @@ import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
     public DrawerLayout drawerLayout;
     public ListView mSuggestionsListView, mSearchResultsListView;
     public SuggestionsAdapter mSuggestionsAdapter;
@@ -54,7 +55,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void init() {
-        MemoryCache.getInstance();
 
         homePagerAdapter = new HomePagerAdapter(this);
 
@@ -64,6 +64,10 @@ public class HomeActivity extends AppCompatActivity {
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
 
+        acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
+        acSearch.setThreshold(1);
+        acSearch.addTextChangedListener(new SearchTextWatcher());
+
         NavigationMenuUtils navigationMenuUtils = new NavigationMenuUtils(this, expandableListView);
         navigationMenuUtils.setupNavigationMenu();
 
@@ -72,10 +76,6 @@ public class HomeActivity extends AppCompatActivity {
         setupTabs();
 
         setupPager();
-
-        acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
-        acSearch.setThreshold(1);
-        acSearch.addTextChangedListener(new SearchTextWatcher());
     }
 
     private void setupToolbar() {

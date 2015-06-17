@@ -380,7 +380,7 @@ public class HeaderGridView extends GridView
             if(position < numHeadersAndPlaceHolders)
             {
                 return (position % mNumCoulumns == 0)
-                        &&
+                                    &&
                         mHeaderViewInfos.get(position / mNumCoulumns).isSelectable;
             }
 
