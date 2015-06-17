@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+    <Button
+        android:id="@+id/btn_new_deals"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:text="@string/New_Deals"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btn_popular_deals"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/btn_new_deals"
+        android:background="@color/grey"
+        android:gravity="center"
+        android:text="@string/Popular_Deals"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_categories"/>
+
+</RelativeLayout>

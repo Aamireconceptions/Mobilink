@@ -74,4 +74,7 @@
     <string name="Search_for_Deals">Search for Deals</string>
     <string name="Search_for_Business">Search for Business</string>
 
+    <string name="New_Deals">New Deals</string>
+    <string name="Popular_Deals">Popular Deals</string>
+
 </resources>

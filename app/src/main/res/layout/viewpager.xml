@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="235dp"
+        android:layout_alignParentTop="true"/>
+
+    <com.ooredoo.bizstore.ui.CirclePageIndicator
+        android:id="@+id/pager_indicator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_pager"
+        android:layout_marginTop="-20dp"
+        android:padding="4dip"/>
+</RelativeLayout>
