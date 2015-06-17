@@ -70,7 +70,8 @@
     <string name="discount">Discount</string>
     <string name="category_selection">Category Selection</string>
 
-
-
+    <string name="search_hint">Type here</string>
+    <string name="Search_for_Deals">Search for Deals</string>
+    <string name="Search_for_Business">Search for Business</string>
 
 </resources>

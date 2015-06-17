@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginLeft="2dp"
+              android:layout_marginRight="2dp"
+              android:background="@color/grey"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="0.45"
+            android:checked="true"
+            android:padding="2dp"
+            android:text="@string/Search_for_Deals"
+            android:textSize="14sp"/>
+
+        <View
+            android:layout_width="0.25dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.02"
+            android:background="@color/grey"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="0.548"
+            android:padding="2dp"
+            android:text="@string/Search_for_Business"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/grey"/>
+
+    <TextView
+        android:id="@+id/tv_search_results"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:padding="5dp"
+        android:text="10 - SEARCH RESULTS"
+        android:textColor="@color/hex808080"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:id="@+id/lv_search_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:divider="@color/grey"
+        android:dividerHeight="8dp"
+        android:scrollbars="none"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/lv_search_suggestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:scrollbars="none"
+        android:visibility="visible"/>
+</LinearLayout>

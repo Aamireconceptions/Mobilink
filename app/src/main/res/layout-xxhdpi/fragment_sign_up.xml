@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp">
+                android:paddingBottom="@dimen/_10sdp">
 
     <TextView
         android:id="@+id/tv_sms_charges"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_red"
         android:background="@color/grey"
-        android:padding="15dp"
+        android:padding="@dimen/_10sdp"
         android:text="@string/sms_charges"/>
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_sms_charges"
-        android:padding="15dp"
+        android:padding="@dimen/_10sdp"
         android:text="@string/num_confirm_text"/>
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_width="10dp"
         android:layout_height="40dp"
         android:layout_below="@+id/tv_confirm_code"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="@dimen/_10sdp"
         android:gravity="left|center_vertical"
         android:text="@string/plus_sign"
         android:textStyle="bold"/>
