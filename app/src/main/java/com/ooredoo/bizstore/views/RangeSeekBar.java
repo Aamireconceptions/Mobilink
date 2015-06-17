@@ -29,6 +29,7 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.Converter;
@@ -143,14 +144,22 @@ public class RangeSeekBar<T extends Number> extends ImageView
         INITIAL_PADDING = Converter.convertDpToPixels(INITIAL_PADDING_IN_DP);
         mTextSize = (int) Converter.convertDpToPixels(DEFAULT_TEXT_SIZE_IN_DP);
         mDistanceToTop = (int) Converter.convertDpToPixels(DEFAULT_TEXT_DISTANCE_TO_TOP_IN_DP);
-        mTextOffset = (int) (this.mTextSize + Converter.convertDpToPixels(DEFAULT_TEXT_DISTANCE_TO_BUTTON_IN_DP)
-                             + this.mDistanceToTop);
+        /*mTextOffset = (int) (this.mTextSize + Converter.convertDpToPixels(DEFAULT_TEXT_DISTANCE_TO_BUTTON_IN_DP)
+                             + this.mDistanceToTop);*/
+
+        mTextOffset = (int) (Converter.convertDpToPixels(HEIGHT_IN_DP) / 2) - mDistanceToTop;
+
         float lineHeight = Converter.convertDpToPixels(LINE_HEIGHT_IN_DP);
 
         mRect = new RectF(padding,
                           mTextOffset + thumbHalfHeight - lineHeight / 2,
                           getWidth() - padding,
                           mTextOffset + thumbHalfHeight + lineHeight / 2);
+
+        /*mRect = new RectF(padding,
+                Converter.convertDpToPixels(HEIGHT_IN_DP) / 2 - lineHeight / 2,
+                getWidth() - padding,
+                Converter.convertDpToPixels(HEIGHT_IN_DP) - lineHeight );*/
 
         // make RangeSeekBar focusable. This solves focus handling issues in case
         // EditText widgets are being used along with the RangeSeekBar within ScrollView.
@@ -514,11 +523,13 @@ public class RangeSeekBar<T extends Number> extends ImageView
         return true;
     }
 
-    private final void onSecondaryPointerUp(MotionEvent ev) {
+    private final void onSecondaryPointerUp(MotionEvent ev)
+    {
         final int pointerIndex = (ev.getAction() & ACTION_POINTER_INDEX_MASK) >> ACTION_POINTER_INDEX_SHIFT;
 
         final int pointerId = ev.getPointerId(pointerIndex);
-        if (pointerId == mActivePointerId) {
+        if (pointerId == mActivePointerId)
+        {
             // This was our active pointer going up. Choose
             // a new active pointer and adjust accordingly.
             // TODO: Make this decision more intelligent.
@@ -574,9 +585,11 @@ public class RangeSeekBar<T extends Number> extends ImageView
      * Ensures correct size of the widget.
      */
     @Override
-    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         int width = 200;
-        if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(widthMeasureSpec)) {
+        if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(widthMeasureSpec))
+        {
             width = MeasureSpec.getSize(widthMeasureSpec);
         }
 
@@ -585,9 +598,10 @@ public class RangeSeekBar<T extends Number> extends ImageView
         {
             height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
         }
+
         setMeasuredDimension(width, height);
     }
-
+    Bitmap bg = BitmapFactory.decodeResource(getResources(), R.drawable.shape_slider_bg);
     /**
      * Draws the widget on the given canvas.
      */
@@ -602,13 +616,15 @@ public class RangeSeekBar<T extends Number> extends ImageView
         paint.setAntiAlias(true);
 
         // draw min and max labels
-        String minLabel = "Min";
+        /*String minLabel = "Min";
         String maxLabel = "Max";
         float minMaxLabelSize = Math.max(paint.measureText(minLabel), paint.measureText(maxLabel));
         float minMaxHeight = mTextOffset + thumbHalfHeight + mTextSize / 3;
         canvas.drawText(minLabel, 0, minMaxHeight, paint);
         canvas.drawText(maxLabel, getWidth() - minMaxLabelSize, minMaxHeight, paint);
-        padding = INITIAL_PADDING + minMaxLabelSize + thumbHalfWidth;
+        padding = INITIAL_PADDING + minMaxLabelSize + thumbHalfWidth;*/
+
+        padding = INITIAL_PADDING + thumbHalfWidth;
 
         // draw seek bar background line
         mRect.left = padding;
@@ -643,7 +659,7 @@ public class RangeSeekBar<T extends Number> extends ImageView
         // draw the text if sliders have moved from default edges
         if (!selectedValuesAreDefault) {
             paint.setTextSize(mTextSize);
-            paint.setColor(Color.WHITE);
+            paint.setColor(Color.BLACK);
             // give text a bit more space here so it doesn't get cut off
             int offset = (int) Converter.convertDpToPixels(TEXT_LATERAL_PADDING_IN_DP);
 
@@ -654,15 +670,25 @@ public class RangeSeekBar<T extends Number> extends ImageView
 
             if (!mSingleThumb)
             {
-                canvas.drawText(minText,
+                /*canvas.drawText(minText,
                                 normalizedToScreen(normalizedMinValue) - minTextWidth * 0.5f,
                                 mDistanceToTop + mTextSize,
-                                paint);
+                                paint);*/
+
+                canvas.drawText(minText,
+                        normalizedToScreen(normalizedMinValue) - minTextWidth * 0.5f,
+                        mTextOffset + Converter.convertDpToPixels(mDistanceToTop)
+                                + thumbHalfHeight
+                                + Converter.convertDpToPixels(LINE_HEIGHT_IN_DP) /2 + mTextSize,
+                        paint);
+
             }
 
             canvas.drawText(maxText,
                             normalizedToScreen(normalizedMaxValue) - maxTextWidth * 0.5f,
-                            mDistanceToTop + mTextSize,
+                            mTextOffset + Converter.convertDpToPixels(mDistanceToTop)
+                            + thumbHalfHeight
+                            + Converter.convertDpToPixels(LINE_HEIGHT_IN_DP) /2 + mTextSize,
                             paint);
         }
     }
@@ -715,6 +741,9 @@ public class RangeSeekBar<T extends Number> extends ImageView
 
         canvas.drawBitmap(buttonToDraw, screenCoord - thumbHalfWidth,
                           mTextOffset, paint);
+
+        /*canvas.drawBitmap(buttonToDraw, screenCoord - thumbHalfWidth,
+                Converter.convertDpToPixels(HEIGHT_IN_DP) / 2 - Converter.convertDpToPixels(LINE_HEIGHT_IN_DP) / 2, paint);*/
     }
 
     /**

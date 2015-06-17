@@ -218,7 +218,8 @@
         <com.ooredoo.bizstore.views.RangeSeekBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/discount_checkbox"/>
+            android:layout_below="@+id/discount_checkbox"
+            android:background="@color/grey"/>
 
 
 
