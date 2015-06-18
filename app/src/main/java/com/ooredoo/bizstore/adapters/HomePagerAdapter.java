@@ -1,9 +1,7 @@
 package com.ooredoo.bizstore.adapters;
 
-
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ooredoo.bizstore.R;
@@ -18,13 +16,12 @@ import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
  */
 public class HomePagerAdapter extends FragmentPagerAdapter
 {
-    private AppCompatActivity activity;
-
     private final static int PAGE_COUNT = 4;
+    private AppCompatActivity activity;
 
     public HomePagerAdapter(AppCompatActivity activity)
     {
-        super(activity.getFragmentManager());
+        super(activity.getSupportFragmentManager());
 
         this.activity = activity;
     }

@@ -1,7 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.TopDealsAdapter;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.ColorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,8 @@ public class FoodAndDinningFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.btn_new_deals || id == R.id.btn_popular_deals) {
+            btnNewDeals.setTextColor(id == R.id.btn_new_deals ? ColorUtils.WHITE : ColorUtils.BLACK);
+            btnPopularDeals.setTextColor(id == R.id.btn_new_deals ? ColorUtils.BLACK : ColorUtils.WHITE);
             btnNewDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_red1 : R.drawable.btn_lt_grey1);
             btnPopularDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_lt_grey2 : R.drawable.btn_red2);
         }

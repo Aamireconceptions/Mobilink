@@ -1,8 +1,8 @@
 package com.ooredoo.bizstore.adapters;
 
-import android.app.Fragment;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ooredoo.bizstore.ui.fragments.TopDealFragment;
 
@@ -13,8 +13,8 @@ import com.ooredoo.bizstore.ui.fragments.TopDealFragment;
 public class TopDealsPagerAdapter extends FragmentPagerAdapter {
     private final static int PAGE_COUNT = 4;
 
-    public TopDealsPagerAdapter(AppCompatActivity activity) {
-        super(activity.getFragmentManager());
+    public TopDealsPagerAdapter(FragmentManager fm) {
+        super(fm);
     }
 
     @Override

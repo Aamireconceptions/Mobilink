@@ -1,8 +1,8 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,13 +36,6 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener
 
     private SnackBarUtils snackBarUtils;
 
-    public static ShoppingFragment newInstance()
-    {
-        ShoppingFragment fragment = new ShoppingFragment();
-
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -51,8 +44,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
 
@@ -70,7 +62,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener
     private void init(View v)
     {
         activity = getActivity();
-        
+
         snackBarUtils = new SnackBarUtils(activity, v);
 
         deals = new ArrayList<>();
@@ -91,17 +83,22 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener
         ShoppingTask shoppingTask = new ShoppingTask(adapter, progressBar, snackBarUtils);
     }
 
-
     @Override
     public void onClick(View v)
     {
-        switch (v.getId())
-        {
+        switch(v.getId()) {
             case R.id.filter:
 
                 ((HomeActivity) activity).drawerLayout.openDrawer(GravityCompat.END);
 
                 break;
         }
+    }
+
+    public static ShoppingFragment newInstance()
+    {
+        ShoppingFragment fragment = new ShoppingFragment();
+
+        return fragment;
     }
 }

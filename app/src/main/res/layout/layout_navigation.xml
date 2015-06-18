@@ -7,8 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:divider="@null"
         android:background="@color/white"
-        android:groupIndicator="@drawable/group_selector" />
+        android:divider="@null"
+        android:groupIndicator="@drawable/group_selector"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="none"/>
 
 </merge>
