@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +25,6 @@ import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
-import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
@@ -68,6 +66,9 @@ public class HomeActivity extends AppCompatActivity
 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
         acSearch.setThreshold(1);
+
+        mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
+
         acSearch.addTextChangedListener(new SearchTextWatcher());
 
         NavigationMenuUtils navigationMenuUtils = new NavigationMenuUtils(this, expandableListView);

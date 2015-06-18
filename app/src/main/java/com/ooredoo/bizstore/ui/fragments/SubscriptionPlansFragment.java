@@ -10,6 +10,8 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 
 import static android.text.Html.fromHtml;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 
 /**
  * @author Pehlaj Rai
@@ -51,6 +53,7 @@ public class SubscriptionPlansFragment extends BaseFragment {
         int id = v.getId();
         if(id == R.id.btn_next) {
             if(isPlanSelected) {
+                updateVal(mActivity, LOGIN_STATUS, true);
                 SignUpActivity activity = (SignUpActivity) mActivity;
                 activity.startActivity(HomeActivity.class);
             }
