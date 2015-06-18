@@ -57,13 +57,13 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                                      R.drawable.ic_travel, R.drawable.ic_entertainment,
                                      R.drawable.ic_jewelry, R.drawable.ic_sports};
 
-        settings = new String[] {activity.getString(R.string.my_account), activity.getString(R.string.subscription_settings),
-                                 activity.getString(R.string.help), activity.getString(R.string.about),
-                                 activity.getString(R.string.un_subscribe)};
+        settings = new String[] {activity.getString(R.string.my_account), activity.getString(R.string.my_notifications),
+                                 activity.getString(R.string.rate_us), activity.getString(R.string.help),
+                                 activity.getString(R.string.about), activity.getString(R.string.un_subscribe)};
 
-        settingsResIds = new int[]{R.drawable.ic_user, R.drawable.ic_subscription,
-                                   R.drawable.ic_help, R.drawable.ic_about,
-                                   R.drawable.ic_unsubscribe};
+        settingsResIds = new int[]{R.drawable.ic_user, R.drawable.ic_notification,
+                                   R.drawable.ic_rate, R.drawable.ic_help,
+                                   R.drawable.ic_about, R.drawable.ic_unsubscribe};
     }
 
     public void setupNavigationMenu()

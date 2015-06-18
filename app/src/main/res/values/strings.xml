@@ -45,7 +45,7 @@
     <string name="jewelry_exchange">Jewelry &amp; Exchange</string>
     <string name="sports_fitness">Sports &amp; Fitness</string>
     <string name="my_account">My Account</string>
-    <string name="subscription_settings">Subscription Settings</string>
+    <string name="my_notifications">My Notifications</string>
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="un_subscribe">Unsubscribe</string>
@@ -83,5 +83,6 @@
     <string name="New_Deals">New Deals</string>
     <string name="Popular_Deals">Popular Deals</string>
     <string name="error_no_internet">No Internet Connection</string>
+    <string name="rate_us">Rate Us on Playstore</string>
 
 </resources>
