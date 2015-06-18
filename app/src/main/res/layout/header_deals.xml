@@ -8,26 +8,28 @@
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="6dp"
         android:background="@drawable/btn_red1"
         android:gravity="center"
         android:text="@string/New_Deals"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        android:textStyle="normal"/>
 
     <Button
         android:id="@+id/btn_popular_deals"
         android:layout_width="125dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="0dp"
         android:layout_toRightOf="@+id/btn_new_deals"
         android:background="@drawable/btn_lt_grey2"
         android:gravity="center"
         android:text="@string/Popular_Deals"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textStyle="normal"/>
 
     <ImageButton
         android:layout_width="40dp"
