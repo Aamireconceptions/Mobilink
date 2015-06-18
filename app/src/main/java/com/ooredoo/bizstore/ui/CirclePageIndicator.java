@@ -30,6 +30,7 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -83,7 +84,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
         final Resources res = getResources();
         final int defaultPageColor = res.getColor(R.color.default_circle_indicator_page_color);
         //default_circle_indicator_fill_color
-        final int defaultFillColor = res.getColor(R.color.red);
+        final int defaultFillColor = res.getColor(R.color.white);
         final int defaultOrientation = res.getInteger(R.integer.default_circle_indicator_orientation);
         final int defaultStrokeColor = res.getColor(R.color.default_circle_indicator_stroke_color);
         final float defaultStrokeWidth = res.getDimension(R.dimen.default_circle_indicator_stroke_width);
@@ -199,9 +200,11 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
     public boolean onTouchEvent(MotionEvent ev) {
         if(super.onTouchEvent(ev)) {
+            Log.i("super.onTouchEvent", "...");
             return true;
         }
         if((mViewPager == null) || (mViewPager.getAdapter().getCount() == 0)) {
+            Log.i("VIEW_PAGER", "NULL");
             return false;
         }
 
