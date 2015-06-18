@@ -13,7 +13,7 @@
         android:layout_gravity="left|center_vertical"
         android:background="@drawable/border_grey"
         android:gravity="top|left|center_vertical"
-        android:padding="@dimen/_10sdp">
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/iv_type"
@@ -27,10 +27,12 @@
             android:id="@+id/tv_type"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_toLeftOf="@+id/iv_fav"
             android:layout_toRightOf="@+id/iv_type"
             android:gravity="left|center_vertical"
+            android:paddingTop="2dp"
             android:singleLine="true"
             android:text="@string/top_deals"
             android:textColor="@color/black"
@@ -42,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:padding="5dp"
             android:src="@drawable/ic_like_active"/>
     </RelativeLayout>
 
