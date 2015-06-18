@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Babar on 12-Jun-15.
+ * @author  Babar
+ * @since 12-Jun-15.
  */
 public class ExpandableListAdapter extends BaseExpandableListAdapter
 {

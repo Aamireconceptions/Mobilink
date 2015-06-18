@@ -5,7 +5,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 /**
- * Created by Babar on 12-Jun-15.
+ * @author  Babar
+ * @since 12-Jun-15.
  */
 public class Converter
 {

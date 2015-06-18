@@ -37,7 +37,8 @@ import com.ooredoo.bizstore.utils.Converter;
 import java.math.BigDecimal;
 
 /**
- * Created by Babar on 16-Jun-15.
+ * @author Babar
+ * @since 16-Jun-15.
  */
 public class RangeSeekBar<T extends Number> extends ImageView
 {

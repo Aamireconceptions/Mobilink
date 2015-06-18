@@ -5,7 +5,8 @@ import android.support.v4.view.ViewPager;
 
 
 /**
- * Created by Babar on 11-Jun-15.
+ * @author  Babar
+ * @since 11-Jun-15.
  */
 public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
 {

@@ -12,6 +12,9 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.views.HeaderGridView;
 
+/**
+ * @author Babar
+ */
 public class HomeFragment extends Fragment
 {
     private Activity activity;

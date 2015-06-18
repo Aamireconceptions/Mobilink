@@ -17,7 +17,8 @@ import android.widget.WrapperListAdapter;
 import java.util.ArrayList;
 
 /**
- * Created by Babar on 12-Jun-15.
+ * @author  Babar
+ * @since 12-Jun-15.
  */
 public class HeaderGridView extends GridView
 {

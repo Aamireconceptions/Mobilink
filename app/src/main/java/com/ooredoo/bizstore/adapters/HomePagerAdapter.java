@@ -13,7 +13,8 @@ import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 
 /**
- * Created by Babar on 11-Jun-15.
+ * @author Babar
+ * @since 11-Jun-15.
  */
 public class HomePagerAdapter extends FragmentPagerAdapter
 {

@@ -6,7 +6,8 @@ import android.graphics.BitmapFactory;
 import java.io.InputStream;
 
 /**
- * Created by Babar on 15-Jun-15.
+ * @author  Babar
+ * @since 15-Jun-15.
  */
 public class BitmapProcessor
 {
@@ -33,7 +34,7 @@ public class BitmapProcessor
         Logger.logI("Modified Width:", ""+width);
         Logger.logI("Modified Height:", ""+height);
 
-        return null;
+        return bitmap;
     }
 
     public int calculateInSampleSize(BitmapFactory.Options options,

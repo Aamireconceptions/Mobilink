@@ -29,6 +29,7 @@ import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 
+
 public class HomeActivity extends AppCompatActivity
 {
     public DrawerLayout drawerLayout;

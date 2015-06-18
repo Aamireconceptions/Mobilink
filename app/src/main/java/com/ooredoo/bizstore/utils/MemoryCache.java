@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.util.LruCache;
 
 /**
- * Created by Babar on 15-Jun-15.
+ * @author  Babar
+ * @since 15-Jun-15.
  */
 public class MemoryCache
 {

@@ -3,7 +3,8 @@ package com.ooredoo.bizstore.utils;
 import android.util.Log;
 
 /**
- * Created by Babar on 12-Jun-15.
+ * @author  Babar
+ * @since 12-Jun-15.
  */
 public class Logger
 {

@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Babar on 10-Jun-15.
+ * @author Babar
+ * @since 10-Jun-15.
  */
 public class FontUtils
 {
