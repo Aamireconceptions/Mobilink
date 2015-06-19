@@ -158,6 +158,10 @@ public class HomeActivity extends AppCompatActivity
         searchPopup.showAsDropDown(acSearch, 10, 55);
     }
 
+    public void openRightDrawer() {
+        drawerLayout.openDrawer(GravityCompat.END);
+    }
+
     public class SearchTextWatcher implements TextWatcher {
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
