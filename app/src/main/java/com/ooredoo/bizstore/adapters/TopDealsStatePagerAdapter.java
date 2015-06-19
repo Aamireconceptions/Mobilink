@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 /**
@@ -9,6 +10,10 @@ import android.support.v13.app.FragmentStatePagerAdapter;
  */
 public class TopDealsStatePagerAdapter extends FragmentStatePagerAdapter
 {
+
+    public TopDealsStatePagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
 
     @Override
     public Fragment getItem(int position) {
