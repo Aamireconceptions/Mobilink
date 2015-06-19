@@ -1,86 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:fillViewport="true">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/white"
-        android:gravity="center"
+        android:paddingTop="@dimen/_30sdp"
+        android:paddingBottom="@dimen/_30sdp"
+        android:paddingLeft="@dimen/_12sdp"
+        android:paddingRight="@dimen/_12sdp"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/_26sdp"
-        android:paddingLeft="@dimen/_4sdp"
-        android:paddingRight="@dimen/_4sdp"
-        android:paddingTop="@dimen/_26sdp">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/entertainment"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="3.1"
-            android:drawablePadding="@dimen/_4sdp"
-            android:drawableTop="@drawable/entertainment"
+            android:layout_weight="3"
             android:gravity="center"
-            android:singleLine="true"
+            android:drawableTop="@drawable/entertainment"
+            android:drawablePadding="@dimen/_4sdp"
             android:text="@string/entertainment"
-            android:textColor="@color/home_category_item_color"
-            android:textScaleX="0.95"/>
+            android:textColor="@color/home_category_item_color"/>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="65dp"
-            android:layout_margin="@dimen/_3sdp"
-            android:background="@color/status_bar"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:src="@drawable/horizontal_separator"/>
 
         <TextView
             android:id="@+id/shopping"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:drawablePadding="@dimen/_4sdp"
-            android:drawableTop="@drawable/shopping"
             android:gravity="center"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:drawableTop="@drawable/shopping"
+            android:drawablePadding="@dimen/_4sdp"
             android:text="@string/shopping"
-            android:textColor="@color/home_category_item_color"
-            android:textScaleX="0.95"/>
+            android:textColor="@color/home_category_item_color"/>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="60dp"
-            android:layout_margin="@dimen/_3sdp"
-            android:background="@color/status_bar"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:src="@drawable/horizontal_separator"/>
 
         <TextView
             android:id="@+id/fashion"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:drawablePadding="@dimen/_4sdp"
-            android:drawableTop="@drawable/fashion"
             android:gravity="center"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:drawableTop="@drawable/fashion"
+            android:drawablePadding="@dimen/_4sdp"
             android:text="@string/fashion"
             android:textColor="@color/home_category_item_color"/>
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="60dp"
-            android:layout_margin="@dimen/_3sdp"
-            android:background="@color/status_bar"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:src="@drawable/horizontal_separator"/>
 
         <TextView
             android:id="@+id/restaurants"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:drawablePadding="@dimen/_4sdp"
-            android:drawableTop="@drawable/restaurants"
             android:gravity="center"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:drawableTop="@drawable/restaurants"
+            android:drawablePadding="@dimen/_4sdp"
             android:text="@string/restaurants"
-            android:textColor="@color/home_category_item_color"
-            android:textScaleX="0.95"/>
+            android:textColor="@color/home_category_item_color"/>
 
     </LinearLayout>
 

@@ -2,33 +2,40 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.TopBrandsPagerAdapter;
-import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
-import com.ooredoo.bizstore.ui.CirclePageIndicator;
-import com.ooredoo.bizstore.ui.PageIndicator;
-import com.ooredoo.bizstore.views.HeaderGridView;
 
 /**
  * @author Babar
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment
+{
     private Activity activity;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public static HomeFragment newInstance()
+    {
+        HomeFragment fragment = new HomeFragment();
+
+        return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         init(v);
@@ -36,39 +43,19 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
-    private void init(View v) {
+    private void init(View v)
+    {
         activity = getActivity();
 
-        HeaderGridView headerGridView = (HeaderGridView) v.findViewById(R.id.home_grid_view);
+        ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 
         LayoutInflater inflater = activity.getLayoutInflater();
 
-        View header = inflater.inflate(R.layout.layout_fragment_home_gridview_header, null);
+        View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);
 
-        TopBrandsPagerAdapter brandsAdapter = new TopBrandsPagerAdapter(getChildFragmentManager());
-        TopDealsPagerAdapter promoDealsAdapter = new TopDealsPagerAdapter(getChildFragmentManager());
-        TopDealsPagerAdapter featuredDealsAdapter = new TopDealsPagerAdapter(getChildFragmentManager());
+        listView.addHeaderView(header);
+        listView.setAdapter(null);
 
-        setupViewPager(header, R.id.vp_top_brands, R.id.indicator_top_brands, brandsAdapter);
-        setupViewPager(header, R.id.vp_promo_deals, R.id.indicator_promo_deals, promoDealsAdapter);
-        setupViewPager(header, R.id.vp_featured_deals, R.id.indicator_featured_deals, featuredDealsAdapter);
-
-        headerGridView.addHeaderView(header);
-        headerGridView.setAdapter(null);
+        ViewPager topDealsPager = (ViewPager) v.findViewById(R.id.top_deals_pager);
     }
-
-    private static void setupViewPager(View parent, int pagerId, int indicatorId, FragmentPagerAdapter adapter) {
-        ViewPager viewPager = (ViewPager) parent.findViewById(pagerId);
-        PageIndicator pageIndicator = (CirclePageIndicator) parent.findViewById(indicatorId);
-        viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(0, true);
-        pageIndicator.setViewPager(viewPager);
-    }
-
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-
-        return fragment;
-    }
-
 }

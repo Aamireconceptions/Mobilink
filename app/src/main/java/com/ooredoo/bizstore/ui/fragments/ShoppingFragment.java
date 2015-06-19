@@ -1,8 +1,9 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;

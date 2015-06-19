@@ -46,7 +46,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="@dimen/_6sdp"
-        android:paddingTop="@dimen/_6sdp">
+        android:paddingTop="@dimen/_6sdp"
+        android:visibility="gone">
 
         <Button
             android:layout_width="135dp"

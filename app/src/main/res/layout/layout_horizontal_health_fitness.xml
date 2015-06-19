@@ -4,63 +4,61 @@
     android:layout_height="wrap_content"
     android:fillViewport="true">
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:background="@color/white"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/_26sdp"
-    android:paddingLeft="@dimen/_8sdp"
-    android:paddingRight="@dimen/_8sdp"
-    android:paddingTop="@dimen/_26sdp">
-
-    <TextView
-        android:id="@+id/weight_loss"
-        android:layout_width="0dip"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:drawablePadding="@dimen/_4sdp"
-        android:drawableTop="@drawable/weight"
-        android:gravity="center"
-        android:text="@string/weight_loss"
-        android:textColor="@color/home_category_item_color"/>
+        android:paddingTop="@dimen/_30sdp"
+        android:paddingBottom="@dimen/_30sdp"
+        android:paddingLeft="@dimen/_12sdp"
+        android:paddingRight="@dimen/_12sdp"
+        android:orientation="horizontal"
+        android:background="@color/white">
 
-    <View
-        android:layout_width="1dip"
-        android:layout_height="65dp"
-        android:layout_margin="@dimen/_4sdp"
-        android:background="@color/status_bar"/>
+        <TextView
+            android:id="@+id/weight_loss"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@drawable/weight"
+            android:drawablePadding="@dimen/_4sdp"
+            android:text="@string/weight_loss"
+            android:textColor="@color/home_category_item_color"/>
 
-    <TextView
-        android:id="@+id/fitness"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:drawablePadding="@dimen/_4sdp"
-        android:drawableTop="@drawable/fitness"
-        android:gravity="center"
-        android:text="@string/fitness"
-        android:textColor="@color/home_category_item_color"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:src="@drawable/horizontal_separator"/>
 
-    <View
-        android:layout_width="1dip"
-        android:layout_height="65dp"
-        android:layout_margin="@dimen/_4sdp"
-        android:background="@color/status_bar"/>
+        <TextView
+            android:id="@+id/fitness"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@drawable/fitness"
+            android:drawablePadding="@dimen/_4sdp"
+            android:text="@string/fitness"
+            android:textColor="@color/home_category_item_color"/>
 
-    <TextView
-        android:id="@+id/beauty_tips"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:drawablePadding="@dimen/_4sdp"
-        android:drawableTop="@drawable/hairstyle"
-        android:gravity="center"
-        android:text="@string/beauty_tips"
-        android:textColor="@color/home_category_item_color"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:src="@drawable/horizontal_separator"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/beauty_tips"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@drawable/hairstyle"
+            android:drawablePadding="@dimen/_4sdp"
+            android:text="@string/beauty_tips"
+            android:textColor="@color/home_category_item_color"/>
+
+    </LinearLayout>
 
 </HorizontalScrollView>
