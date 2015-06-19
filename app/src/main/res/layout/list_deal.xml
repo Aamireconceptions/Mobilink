@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:rating="3"
+            android:progressDrawable="@drawable/deal_rating_bar"
             style="?android:attr/ratingBarStyleSmall"/>
 
         <ImageView

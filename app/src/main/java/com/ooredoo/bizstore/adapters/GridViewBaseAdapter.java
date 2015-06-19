@@ -50,7 +50,8 @@ public class GridViewBaseAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-        return deals.size();
+       /* return deals.size();*/
+        return 8;
     }
 
     @Override
@@ -62,7 +63,8 @@ public class GridViewBaseAdapter extends BaseAdapter
     @Override
     public long getItemId(int position)
     {
-        return deals.get(position).id;
+       /* return deals.get(position).id;*/
+        return 0;
     }
 
     @Override
@@ -88,12 +90,12 @@ public class GridViewBaseAdapter extends BaseAdapter
             holder = (Holder) grid.getTag();
         }
 
-        holder.ivFav.setSelected(getItem(position).isFav);
+       /* holder.ivFav.setSelected(getItem(position).isFav);
 
         holder.tvTitle.setText(getItem(position).title);
-        holder.tvDiscount.setText(getItem(position).discount);
+        holder.tvDiscount.setText(getItem(position).discount);*/
 
-        return null;
+        return grid;
     }
 
     private static class Holder

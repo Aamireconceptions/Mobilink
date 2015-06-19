@@ -10,21 +10,25 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/_8sdp">
 
-        <ImageView
+        <Button
             android:id="@+id/new_deals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/bt_tab_style_left_selector"/>
+            android:text="@string/new_deals"
+            android:textColor="@color/black_white_selector"
+            android:background="@drawable/bt_tab_style_left_selector"/>
 
-        <ImageView
+        <Button
             android:id="@+id/popular_deals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/new_deals"
             android:layout_centerVertical="true"
-            android:src="@drawable/bt_tab_style_right_selector"/>
+            android:text="@string/popular_deals"
+            android:textColor="@color/black_white_selector"
+            android:background="@drawable/bt_tab_style_right_selector"/>
 
         <ImageView
             android:id="@+id/filter"

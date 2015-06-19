@@ -80,8 +80,8 @@
     <string name="movie_tickets">Movie Tickets</string>
     <string name="events">Events</string>
     <string name="jokes">Jokes</string>
-    <string name="New_Deals">New Deals</string>
-    <string name="Popular_Deals">Popular Deals</string>
+    <string name="new_deals">New Deals</string>
+    <string name="popular_deals">Popular Deals</string>
     <string name="error_no_internet">No Internet Connection</string>
     <string name="rate_us">Rate Us on Playstore</string>
     <string name="English">English</string>
