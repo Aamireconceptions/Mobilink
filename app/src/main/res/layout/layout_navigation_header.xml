@@ -49,16 +49,17 @@
         android:paddingTop="@dimen/_6sdp">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="135dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="0.4dp"
             android:background="@drawable/btn_dark_red"
             android:text="@string/English"
             android:textAllCaps="false"
             android:textColor="@color/white"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="135dp"
+            android:layout_height="45dp"
             android:background="@drawable/btn_lt_grey"
             android:text="@string/arabic"
             android:textAllCaps="false"/>
