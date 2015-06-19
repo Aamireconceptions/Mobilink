@@ -11,8 +11,8 @@ import com.ooredoo.bizstore.ui.fragments.TopBrandFragment;
  * @since 16-Jun-15.
  */
 public class TopBrandsPagerAdapter extends FragmentPagerAdapter {
-    private final static int PAGE_COUNT = 4;
-    private final static float PAGE_WIDTH = 33.33f;
+    private final static int PAGE_COUNT = 8;
+    private final static float PAGE_WIDTH = 0.31f;
 
     public TopBrandsPagerAdapter(FragmentManager fm) {
         super(fm);

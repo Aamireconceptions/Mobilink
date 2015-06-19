@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
         TopDealsPagerAdapter promoDealsAdapter = new TopDealsPagerAdapter(getChildFragmentManager());
         TopDealsPagerAdapter featuredDealsAdapter = new TopDealsPagerAdapter(getChildFragmentManager());
 
-        setupViewPager(header, R.id.vp_top_brands, R.id.indicator_top_brands, brandsAdapter);
+        setupViewPager(header, R.id.vp_top_brands, 0, brandsAdapter);
         setupViewPager(header, R.id.vp_promo_deals, R.id.indicator_promo_deals, promoDealsAdapter);
         setupViewPager(header, R.id.vp_featured_deals, R.id.indicator_featured_deals, featuredDealsAdapter);
 
@@ -59,10 +59,12 @@ public class HomeFragment extends Fragment {
 
     private static void setupViewPager(View parent, int pagerId, int indicatorId, FragmentPagerAdapter adapter) {
         ViewPager viewPager = (ViewPager) parent.findViewById(pagerId);
-        PageIndicator pageIndicator = (CirclePageIndicator) parent.findViewById(indicatorId);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0, true);
-        pageIndicator.setViewPager(viewPager);
+        if(indicatorId > 0) {
+            PageIndicator pageIndicator = (CirclePageIndicator) parent.findViewById(indicatorId);
+            pageIndicator.setViewPager(viewPager);
+        }
     }
 
     public static HomeFragment newInstance() {
