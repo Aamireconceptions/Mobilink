@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.TopDealsStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.HomePromoStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.HomeTopBrandsStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.HomeTopDealsStatePagerAdapter;
 
 /**
  * @author Babar
@@ -57,14 +59,14 @@ public class HomeFragment extends Fragment
         listView.addHeaderView(header);
         listView.setAdapter(null);
 
-        ViewPager topDealsPager = (ViewPager) v.findViewById(R.id.top_deals_pager);
-        topDealsPager.setAdapter(new TopDealsStatePagerAdapter(getFragmentManager()));
+        ViewPager topDealsPager = (ViewPager) v.findViewById(R.id.home_top_deals_pager);
+        topDealsPager.setAdapter(new HomeTopDealsStatePagerAdapter(getFragmentManager()));
 
-        ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
-        promoPager.setAdapter(new TopDealsStatePagerAdapter(getFragmentManager()));
+        ViewPager promoPager = (ViewPager) v.findViewById(R.id.home_promo_pager);
+        promoPager.setAdapter(new HomePromoStatePagerAdapter(getFragmentManager()));
 
-        ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
-        topBrandsPager.setAdapter(new TopDealsStatePagerAdapter(getFragmentManager()));
+        ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.home_top_brands_pager);
+        topBrandsPager.setAdapter(new HomeTopBrandsStatePagerAdapter(getFragmentManager()));
 
     }
 }

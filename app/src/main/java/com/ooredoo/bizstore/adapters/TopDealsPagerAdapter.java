@@ -6,7 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
-import com.ooredoo.bizstore.ui.fragments.TopDealFragment;
+import com.ooredoo.bizstore.ui.fragments.HomeTopDealFragment;
 
 /**
  * @author Pehlaj Rai
@@ -21,7 +21,7 @@ public class TopDealsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return TopDealFragment.newInstance();
+        return HomeTopDealFragment.newInstance();
     }
 
     @Override

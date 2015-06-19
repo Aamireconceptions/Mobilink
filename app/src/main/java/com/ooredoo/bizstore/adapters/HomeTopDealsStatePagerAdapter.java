@@ -4,16 +4,16 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
-import com.ooredoo.bizstore.ui.fragments.TopDealFragment;
+import com.ooredoo.bizstore.ui.fragments.HomeTopDealFragment;
 
 /**
  * @author by Babar
  * @since 19-Jun-15.
  */
-public class TopDealsStatePagerAdapter extends FragmentStatePagerAdapter
+public class HomeTopDealsStatePagerAdapter extends FragmentStatePagerAdapter
 {
 
-    public TopDealsStatePagerAdapter(FragmentManager fm)
+    public HomeTopDealsStatePagerAdapter(FragmentManager fm)
     {
         super(fm);
     }
@@ -21,7 +21,7 @@ public class TopDealsStatePagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return TopDealFragment.newInstance();
+        return HomeTopDealFragment.newInstance();
     }
 
     @Override
