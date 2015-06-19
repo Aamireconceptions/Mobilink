@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.TopDealsStatePagerAdapter;
 
 /**
  * @author Babar
@@ -57,5 +58,7 @@ public class HomeFragment extends Fragment
         listView.setAdapter(null);
 
         ViewPager topDealsPager = (ViewPager) v.findViewById(R.id.top_deals_pager);
+        topDealsPager.setAdapter(new TopDealsStatePagerAdapter(getFragmentManager()));
+
     }
 }

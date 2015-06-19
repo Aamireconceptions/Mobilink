@@ -14,30 +14,32 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
  * @author pehlaj.rai
  * @since 16-Jun-15
  */
-public class TopDealFragment extends Fragment {
+public class TopDealFragment extends Fragment
+{
 
-    HomeActivity mActivity;
+    private HomeActivity mActivity;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public static TopDealFragment newInstance()
+    {
+        TopDealFragment fragment = new TopDealFragment();
+
+        return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_top_deal, container, false);
 
-        mActivity = (HomeActivity) getActivity();
         init(v);
 
         return v;
     }
 
-    private void init(View v) {
-    }
+   private void init(View v)
+   {
+       mActivity = (HomeActivity) getActivity();
+   }
 
-    public static TopDealFragment newInstance() {
-        TopDealFragment fragment = new TopDealFragment();
-        return fragment;
-    }
+
 }
