@@ -1,82 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fillViewport="true"
-    >
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:fillViewport="true">
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/_26sdp"
-    android:paddingBottom="@dimen/_26sdp"
-    android:paddingLeft="@dimen/_8sdp"
-    android:paddingRight="@dimen/_8sdp"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:background="@color/white">
-
-    <TextView
-        android:id="@+id/entertainment"
-        android:layout_width="0dip"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white"
         android:gravity="center"
-        android:drawableTop="@drawable/ic_launcher"
-        android:drawablePadding="@dimen/_4sdp"
-        android:text="@string/entertainment"
-        android:textColor="@color/home_category_item_color"/>
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_26sdp"
+        android:paddingLeft="@dimen/_4sdp"
+        android:paddingRight="@dimen/_4sdp"
+        android:paddingTop="@dimen/_26sdp">
 
-   <!-- <View
-        android:layout_width="1dip"
-        android:layout_height="wrap_content"
-        android:background="@color/status_bar"/>-->
+        <TextView
+            android:id="@+id/entertainment"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.1"
+            android:drawablePadding="@dimen/_4sdp"
+            android:drawableTop="@drawable/entertainment"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/entertainment"
+            android:textColor="@color/home_category_item_color"
+            android:textScaleX="0.95"/>
 
-    <TextView
-        android:id="@+id/shopping"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:layout_marginLeft="@dimen/_6sdp"
-        android:drawableTop="@drawable/ic_launcher"
-        android:drawablePadding="@dimen/_4sdp"
-        android:text="@string/shopping"
-        android:textColor="@color/home_category_item_color"/>
+        <View
+            android:layout_width="1dip"
+            android:layout_height="65dp"
+            android:layout_margin="@dimen/_3sdp"
+            android:background="@color/status_bar"/>
 
+        <TextView
+            android:id="@+id/shopping"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:drawablePadding="@dimen/_4sdp"
+            android:drawableTop="@drawable/shopping"
+            android:gravity="center"
+            android:text="@string/shopping"
+            android:textColor="@color/home_category_item_color"
+            android:textScaleX="0.95"/>
 
-  <!--  <View
-        android:layout_width="1dip"
-        android:layout_height="wrap_content"/>-->
+        <View
+            android:layout_width="1dip"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/_3sdp"
+            android:background="@color/status_bar"/>
 
-    <TextView
-        android:id="@+id/fashion"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:layout_marginLeft="@dimen/_6sdp"
-        android:drawableTop="@drawable/ic_launcher"
-        android:drawablePadding="@dimen/_4sdp"
-        android:text="@string/fashion"
-        android:textColor="@color/home_category_item_color"/>
+        <TextView
+            android:id="@+id/fashion"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:drawablePadding="@dimen/_4sdp"
+            android:drawableTop="@drawable/fashion"
+            android:gravity="center"
+            android:text="@string/fashion"
+            android:textColor="@color/home_category_item_color"/>
 
-  <!--  <View
-        android:layout_width="1dip"
-        android:layout_height="wrap_content"/>-->
+        <View
+            android:layout_width="1dip"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/_3sdp"
+            android:background="@color/status_bar"/>
 
-    <TextView
-        android:id="@+id/restaurants"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:layout_marginLeft="@dimen/_6sdp"
-        android:drawableTop="@drawable/ic_launcher"
-        android:drawablePadding="@dimen/_4sdp"
-        android:text="@string/restaurants"
-        android:textColor="@color/home_category_item_color"/>
+        <TextView
+            android:id="@+id/restaurants"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:drawablePadding="@dimen/_4sdp"
+            android:drawableTop="@drawable/restaurants"
+            android:gravity="center"
+            android:text="@string/restaurants"
+            android:textColor="@color/home_category_item_color"
+            android:textScaleX="0.95"/>
 
-</LinearLayout>
+    </LinearLayout>
 
 </HorizontalScrollView>

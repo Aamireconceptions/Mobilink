@@ -5,59 +5,61 @@
     android:fillViewport="true">
 
 <LinearLayout
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/_26sdp"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/_26sdp"
     android:paddingLeft="@dimen/_8sdp"
     android:paddingRight="@dimen/_8sdp"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:background="@color/white">
+    android:paddingTop="@dimen/_26sdp">
 
     <TextView
         android:id="@+id/weight_loss"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
-        android:drawableTop="@drawable/ic_launcher"
         android:drawablePadding="@dimen/_4sdp"
+        android:drawableTop="@drawable/weight"
+        android:gravity="center"
         android:text="@string/weight_loss"
         android:textColor="@color/home_category_item_color"/>
 
-   <!-- <View
+    <View
         android:layout_width="1dip"
-        android:layout_height="wrap_content"
-        android:background="@color/status_bar"/>-->
+        android:layout_height="65dp"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@color/status_bar"/>
 
     <TextView
         android:id="@+id/fitness"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
-        android:drawableTop="@drawable/ic_launcher"
         android:drawablePadding="@dimen/_4sdp"
+        android:drawableTop="@drawable/fitness"
+        android:gravity="center"
         android:text="@string/fitness"
         android:textColor="@color/home_category_item_color"/>
 
-  <!--  <View
+    <View
         android:layout_width="1dip"
-        android:layout_height="wrap_content"/>-->
+        android:layout_height="65dp"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@color/status_bar"/>
 
     <TextView
         android:id="@+id/beauty_tips"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
-        android:drawableTop="@drawable/ic_launcher"
         android:drawablePadding="@dimen/_4sdp"
+        android:drawableTop="@drawable/hairstyle"
+        android:gravity="center"
         android:text="@string/beauty_tips"
         android:textColor="@color/home_category_item_color"/>
-
-
 
 </LinearLayout>
 
