@@ -60,5 +60,11 @@ public class HomeFragment extends Fragment
         ViewPager topDealsPager = (ViewPager) v.findViewById(R.id.top_deals_pager);
         topDealsPager.setAdapter(new TopDealsStatePagerAdapter(getFragmentManager()));
 
+        ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
+        promoPager.setAdapter(new TopDealsStatePagerAdapter(getFragmentManager()));
+
+        ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
+        topBrandsPager.setAdapter(new TopDealsStatePagerAdapter(getFragmentManager()));
+
     }
 }
