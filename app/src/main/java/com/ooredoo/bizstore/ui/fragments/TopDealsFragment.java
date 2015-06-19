@@ -24,11 +24,6 @@ public class TopDealsFragment extends Fragment {
     HomeActivity mActivity;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_top_deals, container, false);
 

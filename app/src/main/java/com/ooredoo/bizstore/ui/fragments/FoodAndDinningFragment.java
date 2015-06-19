@@ -20,12 +20,6 @@ public class FoodAndDinningFragment extends Fragment {
     HomeActivity mActivity;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_food_dinning, container, false);
         mActivity = (HomeActivity) getActivity();
