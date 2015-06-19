@@ -84,5 +84,7 @@
     <string name="Popular_Deals">Popular Deals</string>
     <string name="error_no_internet">No Internet Connection</string>
     <string name="rate_us">Rate Us on Playstore</string>
+    <string name="English">English</string>
+    <string name="arabic">العربية</string>
 
 </resources>

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/grey"
         android:gravity="center_vertical"
-        android:padding="@dimen/_26sdp">
+        android:padding="@dimen/_20sdp">
 
         <ImageView
             android:id="@+id/dp"
@@ -45,15 +45,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="@dimen/_1sdp">
+        android:paddingBottom="@dimen/_6sdp"
+        android:paddingTop="@dimen/_6sdp">
 
-        <ImageView
+        <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_dark_red"
+            android:text="@string/English"
+            android:textAllCaps="false"
+            android:textColor="@color/white"/>
 
-        <ImageView
+        <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_lt_grey"
+            android:text="@string/arabic"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 
