@@ -62,7 +62,8 @@ public class ListViewBaseAdapter extends BaseAdapter
     @Override
     public long getItemId(int position)
     {
-        return deals.get(position).id;
+        /*return deals.get(position).id;*/
+        return 0;
     }
 
     @Override
@@ -91,9 +92,7 @@ public class ListViewBaseAdapter extends BaseAdapter
             holder = (Holder) row.getTag();
         }
 
-
-
-        return null;
+        return row;
     }
 
     private static class Holder

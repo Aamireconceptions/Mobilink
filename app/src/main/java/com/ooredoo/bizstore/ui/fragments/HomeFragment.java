@@ -13,6 +13,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePromoStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.HomeTopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.HomeTopDealsStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 
 /**
  * @author Babar
@@ -56,8 +57,10 @@ public class HomeFragment extends Fragment
 
         View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);
 
+        ListViewBaseAdapter adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, null);
+
         listView.addHeaderView(header);
-        listView.setAdapter(null);
+        listView.setAdapter(adapter);
 
         ViewPager topDealsPager = (ViewPager) v.findViewById(R.id.home_top_deals_pager);
         topDealsPager.setAdapter(new HomeTopDealsStatePagerAdapter(getFragmentManager()));
