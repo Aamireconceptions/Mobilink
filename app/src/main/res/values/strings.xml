@@ -88,4 +88,9 @@
     <string name="arabic">العربية</string>
 
     <string name="is_arabic">true</string>
+    <string name="title_activity_share_app">ShareAppActivity</string>
+    <string name="share_app_note">Bizstore app will send a sms message to given phone number. Carrier SMS charges may apply.</string>
+    <string name="enter_number">Please Enter Mobile Number</string>
+    <string name="sharing_msg">Sharing Message</string>
+    <string name="share_now">Share Now</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
@@ -25,6 +27,7 @@ import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
@@ -53,10 +56,11 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         init();
+
+        startActivity(new Intent(this, ShareAppActivity.class));
     }
 
     private void init() {
-
         homePagerAdapter = new HomePagerAdapter(this);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
