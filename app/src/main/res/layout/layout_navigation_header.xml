@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:orientation="vertical">
 
             <TextView
@@ -44,12 +44,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
+        android:layoutDirection="ltr"
         android:paddingBottom="@dimen/_6sdp"
         android:paddingTop="@dimen/_6sdp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <Button
+            android:id="@+id/btn_lang_english"
             android:layout_width="135dp"
             android:layout_height="45dp"
             android:layout_marginTop="0.4dp"
@@ -59,6 +62,7 @@
             android:textColor="@color/white"/>
 
         <Button
+            android:id="@+id/btn_lang_arabic"
             android:layout_width="135dp"
             android:layout_height="45dp"
             android:background="@drawable/btn_lt_grey"
@@ -73,10 +77,13 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_home"
         android:drawablePadding="@dimen/_12sdp"
-        android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_home"
+        android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
         android:text="@string/home"
-        android:textColor="@android:color/primary_text_light"/>
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/primary_text_light"
+        android:textDirection="inherit"/>
 
     <TextView
         android:id="@+id/my_deals"
@@ -84,10 +91,13 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_favourite"
         android:drawablePadding="@dimen/_12sdp"
-        android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_favourite"
+        android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
         android:text="@string/my_deals"
-        android:textColor="@android:color/primary_text_light"/>
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/primary_text_light"
+        android:textDirection="inherit"/>
 
     <TextView
         android:id="@+id/recommended"
@@ -95,10 +105,13 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_recommended"
         android:drawablePadding="@dimen/_12sdp"
-        android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_recommended"
+        android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
         android:text="@string/recommended"
-        android:textColor="@android:color/primary_text_light"/>
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/primary_text_light"
+        android:textDirection="inherit"/>
 
     <TextView
         android:id="@+id/recent_searches"
@@ -106,10 +119,13 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_recent_searches"
         android:drawablePadding="@dimen/_12sdp"
-        android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_recent_searches"
+        android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
         android:text="@string/recent_searches"
-        android:textColor="@android:color/primary_text_light"/>
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/primary_text_light"
+        android:textDirection="inherit"/>
 
     <TextView
         android:id="@+id/recent_viewed"
@@ -117,9 +133,12 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_recent_viewed"
         android:drawablePadding="@dimen/_12sdp"
-        android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_recent_viewed"
+        android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
         android:text="@string/recent_viewed"
-        android:textColor="@android:color/primary_text_light"/>
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/primary_text_light"
+        android:textDirection="inherit"/>
 
 </LinearLayout>
