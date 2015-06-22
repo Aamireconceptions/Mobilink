@@ -39,4 +39,15 @@
         android:textColor="@color/hex808080"
         android:textSize="14sp"/>
 
+    <TextView
+        android:id="@+id/tv_discount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_desc"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/iv"
+        android:gravity="left|center_vertical"
+        android:text="30% OFF"
+        android:textColor="@color/red"
+        android:textSize="14sp"/>
 </RelativeLayout>

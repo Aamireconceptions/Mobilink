@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:gravity="left|center_vertical"
         android:text="@string/search"
         android:textColor="@color/hex808080"

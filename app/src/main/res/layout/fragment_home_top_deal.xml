@@ -3,7 +3,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/iv_featured_banner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"

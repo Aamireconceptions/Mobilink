@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,25 +17,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
+import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
-import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 
-
-public class HomeActivity extends AppCompatActivity
-{
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     public static boolean rtl = false;
     public DrawerLayout drawerLayout;
     public ListView mSuggestionsListView, mSearchResultsListView;
@@ -133,7 +132,7 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void showHideSearchBar(boolean show) {
+    public void showHideSearchBar(boolean show) {
         isSearchEnabled = show;
         mMenu.findItem(R.id.search).setVisible(show);
         mMenu.findItem(R.id.action_search).setVisible(!show);
@@ -145,30 +144,66 @@ public class HomeActivity extends AppCompatActivity
                 @Override
                 public void run() {
                     showSearchPopup();
-                    tabLayout.setAlpha(0.45f);
-                    viewPager.setAlpha(0.45f);
                 }
             }, 100);
         } else {
-            tabLayout.setAlpha(1f);
-            viewPager.setAlpha(1f);
-            searchPopup.dismiss();
+            hideSearchPopup();
         }
     }
 
-    private void showSearchPopup() {
+    public void showSearchPopup() {
+        tabLayout.setAlpha(0.45f);
+        viewPager.setAlpha(0.45f);
         View view = getLayoutInflater().inflate(R.layout.search_popup, null);
         searchPopup = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mSearchResultsListView = (ListView) view.findViewById(R.id.lv_search_results);
         mSuggestionsListView = (ListView) view.findViewById(R.id.lv_search_suggestions);
         mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
         mSuggestionsListView.setAdapter(mSuggestionsAdapter);
+        view.findViewById(R.id.cb_search_deals).setOnClickListener(this);
+        view.findViewById(R.id.cb_search_business).setOnClickListener(this);
         view.findViewById(R.id.tv_search_results).setVisibility(View.GONE);
         searchPopup.showAsDropDown(acSearch, 10, 55);
     }
 
+    public void hideSearchPopup() {
+        tabLayout.setAlpha(1f);
+        viewPager.setAlpha(1f);
+        searchPopup.dismiss();
+    }
     public void openRightDrawer() {
         drawerLayout.openDrawer(GravityCompat.END);
+    }
+
+    public void hideTabs() {
+        tabLayout.setVisibility(View.GONE);
+        viewPager.setVisibility(View.GONE);
+    }
+
+    public void showTabs() {
+        viewPager.setVisibility(View.VISIBLE);
+        tabLayout.setVisibility(View.VISIBLE);
+        findViewById(R.id.fragment_container).setVisibility(View.GONE);
+    }
+
+    public void showFragment(Fragment fragment) {
+        hideTabs();
+        findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment, "").commit();
+        //replaceFragmentWithBackStack(this, R.id.fragment_container, fragment, "DEAL_DETAIL");
+    }
+
+    @Override
+    public void onClick(View v) {
+        CheckBox cbSearchDeals = (CheckBox) searchPopup.getContentView().findViewById(R.id.cb_search_deals);
+        CheckBox cbSearchBusiness = (CheckBox) searchPopup.getContentView().findViewById(R.id.cb_search_deals);
+        if(cbSearchDeals.isChecked() && cbSearchBusiness.isChecked()) {
+            SearchResultsAdapter.searchType = 3;
+        } else if(cbSearchBusiness.isChecked()) {
+            SearchResultsAdapter.searchType = 2;
+        } else if(cbSearchDeals.isChecked()) {
+            SearchResultsAdapter.searchType = 1;
+        }
     }
 
     public class SearchTextWatcher implements TextWatcher {

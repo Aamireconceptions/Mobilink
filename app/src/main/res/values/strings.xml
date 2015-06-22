@@ -93,4 +93,9 @@
     <string name="enter_number">Please Enter Mobile Number</string>
     <string name="sharing_msg">Sharing Message</string>
     <string name="share_now">Share Now</string>
+    <string name="Preview">Preview</string>
+    <string name="Deal_Description">Deal Description</string>
+    <string name="Address">Address</string>
+    <string name="Contact_Information">Contact Information</string>
+    <string name="Category">Category</string>
 </resources>
