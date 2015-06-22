@@ -35,11 +35,11 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTop">
 
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.FilterActivity"
@@ -50,11 +50,11 @@
             android:label="@string/title_activity_share_app"
             android:parentActivityName=".ui.activities.HomeActivity">
 
-            <intent-filter>
+          <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
     </application>
 
