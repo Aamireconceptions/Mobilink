@@ -32,6 +32,7 @@ import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 
 public class HomeActivity extends AppCompatActivity
 {
+    public static boolean rtl = false;
     public DrawerLayout drawerLayout;
     public ListView mSuggestionsListView, mSearchResultsListView;
     public SuggestionsAdapter mSuggestionsAdapter;
@@ -140,9 +141,13 @@ public class HomeActivity extends AppCompatActivity
                 @Override
                 public void run() {
                     showSearchPopup();
+                    tabLayout.setAlpha(0.45f);
+                    viewPager.setAlpha(0.45f);
                 }
             }, 100);
         } else {
+            tabLayout.setAlpha(1f);
+            viewPager.setAlpha(1f);
             searchPopup.dismiss();
         }
     }

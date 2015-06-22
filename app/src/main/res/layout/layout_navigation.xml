@@ -10,7 +10,10 @@
         android:background="@color/white"
         android:divider="@null"
         android:groupIndicator="@drawable/group_selector"
+        android:layoutDirection="ltr"
         android:scrollbarStyle="insideOverlay"
-        android:scrollbars="none"/>
+        android:scrollbars="none"
+        android:textAlignment="viewStart"
+        android:textDirection="anyRtl"/>
 
 </merge>

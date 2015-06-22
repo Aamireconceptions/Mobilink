@@ -1,320 +1,315 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="end"
-    android:fillViewport="true">
-
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fillViewport="true"
+            android:layoutDirection="inherit">
 
     <RelativeLayout
-        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/_18sdp"
-        android:paddingRight="@dimen/_18sdp"
-        android:minHeight="?attr/actionBarSize"
-        android:gravity="center_vertical"
-        android:background="@color/red">
+        android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_back_white"/>
-
-        <ImageView
-            android:id="@+id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_done_white"/>
-
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:paddingLeft="@dimen/_16sdp"
-        android:paddingRight="@dimen/_16sdp"
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
-        android:text="@string/type"
-        android:background="@color/grey"/>
-
-    <TextView
-        android:id="@+id/deals_discount_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/type"
-        android:padding="@dimen/_16sdp"
-        android:gravity="center_vertical"
-        android:drawableLeft="@drawable/checkbox_selector"
-        android:drawablePadding="@dimen/_8sdp"
-        android:text="@string/deals_discount"/>
-
-    <TextView
-        android:id="@+id/business_directory_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/deals_discount_checkbox"
-        android:padding="@dimen/_16sdp"
-        android:gravity="center_vertical"
-        android:drawableLeft="@drawable/checkbox_selector"
-        android:drawablePadding="@dimen/_8sdp"
-        android:text="@string/business_directory"/>
-
-    <View
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_below="@+id/business_directory_checkbox"
-        android:background="@color/grey"/>
-
-    <TextView
-        android:id="@+id/sort_by"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line1"
-        android:paddingLeft="@dimen/_16sdp"
-        android:paddingRight="@dimen/_16sdp"
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
-        android:text="@string/sort_by"
-        android:background="@color/grey"/>
-
-    <RelativeLayout
-        android:id="@+id/distance_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sort_by"
-        android:padding="@dimen/_16sdp">
-
-        <TextView
-            android:id="@+id/distance_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@color/red"
             android:gravity="center_vertical"
-            android:drawableLeft="@drawable/checkbox_selector"
-            android:drawablePadding="@dimen/_8sdp"
-            android:text="@string/distance"/>
+            android:minHeight="?attr/actionBarSize"
+            android:paddingEnd="@dimen/_18sdp"
+            android:paddingStart="@dimen/_18sdp">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_back_white"/>
+
+            <ImageView
+                android:id="@+id/done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_done_white"/>
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/mi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/distance_checkbox"
-            android:layout_marginLeft="@dimen/_2sdp"
-            android:layout_alignBaseline="@+id/distance_checkbox"
-            android:text="@string/mi" />
-
-        <LinearLayout
+            android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mi"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/_0.5"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_0.5"/>
-
-            <Button
-                android:id="@+id/_2"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_2"/>
-
-            <Button
-                android:id="@+id/_10"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_10"/>
-
-            <Button
-                android:id="@+id/_15"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_15"/>
-
-            <Button
-                android:id="@+id/_20"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_20"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_below="@+id/distance_layout"
-        android:background="@color/grey"/>
-
-    <RelativeLayout
-        android:id="@+id/rating_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line2"
-        android:padding="@dimen/_16sdp">
+            android:layout_below="@+id/header"
+            android:background="@color/grey"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:text="@string/type"/>
 
         <TextView
-            android:id="@+id/rating_checkbox"
-            android:layout_width="wrap_content"
+            android:id="@+id/deals_discount_checkbox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/type"
+            android:drawablePadding="@dimen/_8sdp"
+            android:drawableStart="@drawable/checkbox_selector"
             android:gravity="center_vertical"
-            android:drawableLeft="@drawable/checkbox_selector"
-            android:drawablePadding="@dimen/_8sdp"
-            android:text="@string/rating"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rating_checkbox"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/rating_1"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_1"/>
-
-            <Button
-                android:id="@+id/rating_2"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_2"/>
-
-            <Button
-                android:id="@+id/_3"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_3"/>
-
-            <Button
-                android:id="@+id/_4"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_4"/>
-
-            <Button
-                android:id="@+id/_5"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_5"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/line3"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_below="@+id/rating_layout"
-        android:background="@color/grey"/>
-
-    <RelativeLayout
-        android:id="@+id/discount_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line3"
-        android:padding="@dimen/_16sdp">
+            android:padding="@dimen/_16sdp"
+            android:text="@string/deals_discount"/>
 
         <TextView
-            android:id="@+id/discount_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/discount"/>
-
-
-        <com.ooredoo.bizstore.views.RangeSeekBar
+            android:id="@+id/business_directory_checkbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/discount_checkbox"
+            android:layout_below="@+id/deals_discount_checkbox"
+            android:drawablePadding="@dimen/_8sdp"
+            android:drawableStart="@drawable/checkbox_selector"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_16sdp"
+            android:text="@string/business_directory"/>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/business_directory_checkbox"
             android:background="@color/grey"/>
 
+        <TextView
+            android:id="@+id/sort_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
+            android:background="@color/grey"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingLeft="@dimen/_16sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:text="@string/sort_by"/>
 
+        <RelativeLayout
+            android:id="@+id/distance_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sort_by"
+            android:padding="@dimen/_16sdp"
+            android:visibility="gone">
 
+            <TextView
+                android:id="@+id/distance_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableStart="@drawable/checkbox_selector"
+                android:gravity="center_vertical"
+                android:text="@string/distance"/>
+
+            <TextView
+                android:id="@+id/mi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/distance_checkbox"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_toRightOf="@+id/distance_checkbox"
+                android:text="@string/mi"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mi"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/_0.5"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_0.5"/>
+
+                <Button
+                    android:id="@+id/_2"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_2"/>
+
+                <Button
+                    android:id="@+id/_10"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_10"/>
+
+                <Button
+                    android:id="@+id/_15"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_15"/>
+
+                <Button
+                    android:id="@+id/_20"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_20"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/distance_layout"
+            android:background="@color/grey"/>
+
+        <RelativeLayout
+            android:id="@+id/rating_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line2"
+            android:padding="@dimen/_16sdp">
+
+            <TextView
+                android:id="@+id/rating_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableStart="@drawable/checkbox_selector"
+                android:gravity="center_vertical"
+                android:text="@string/rating"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rating_checkbox"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/rating_1"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_1"/>
+
+                <Button
+                    android:id="@+id/rating_2"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_2"/>
+
+                <Button
+                    android:id="@+id/_3"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_3"/>
+
+                <Button
+                    android:id="@+id/_4"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_4"/>
+
+                <Button
+                    android:id="@+id/_5"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_5"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/rating_layout"
+            android:background="@color/grey"/>
+
+        <RelativeLayout
+            android:id="@+id/discount_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line3"
+            android:padding="@dimen/_16sdp">
+
+            <TextView
+                android:id="@+id/discount_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discount"/>
+
+            <com.ooredoo.bizstore.views.RangeSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/discount_checkbox"
+                android:background="@color/grey"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/discount_layout"
+            android:background="@color/grey"/>
+
+        <TextView
+            android:id="@+id/category_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line4"
+            android:background="@color/grey"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:text="@string/category_selection"/>
+
+        <TextView
+            android:id="@+id/food_dinning_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/category_selection"
+            android:drawablePadding="@dimen/_8sdp"
+            android:drawableStart="@drawable/checkbox_selector"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_16sdp"
+            android:text="@string/food_dining"/>
+
+        <TextView
+            android:id="@+id/electronics_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_dinning_checkbox"
+            android:drawablePadding="@dimen/_8sdp"
+            android:drawableStart="@drawable/checkbox_selector"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_16sdp"
+            android:text="@string/electronics"/>
+
+        <TextView
+            android:id="@+id/hotels_spa_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/electronics_checkbox"
+            android:drawablePadding="@dimen/_8sdp"
+            android:drawableStart="@drawable/checkbox_selector"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_16sdp"
+            android:text="@string/hotels_spa"/>
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/line4"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_below="@+id/discount_layout"
-        android:background="@color/grey"/>
-
-    <TextView
-        android:id="@+id/category_selection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line4"
-        android:paddingLeft="@dimen/_16sdp"
-        android:paddingRight="@dimen/_16sdp"
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
-        android:text="@string/category_selection"
-        android:background="@color/grey"/>
-
-    <TextView
-        android:id="@+id/food_dinning_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/category_selection"
-        android:padding="@dimen/_16sdp"
-        android:gravity="center_vertical"
-        android:drawableLeft="@drawable/checkbox_selector"
-        android:drawablePadding="@dimen/_8sdp"
-        android:text="@string/food_dining"/>
-
-    <TextView
-        android:id="@+id/electronics_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/food_dinning_checkbox"
-        android:padding="@dimen/_16sdp"
-        android:gravity="center_vertical"
-        android:drawableLeft="@drawable/checkbox_selector"
-        android:drawablePadding="@dimen/_8sdp"
-        android:text="@string/electronics"/>
-
-    <TextView
-        android:id="@+id/hotels_spa_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/electronics_checkbox"
-        android:padding="@dimen/_16sdp"
-        android:gravity="center_vertical"
-        android:drawableLeft="@drawable/checkbox_selector"
-        android:drawablePadding="@dimen/_8sdp"
-        android:text="@string/hotels_spa"/>
-
-
-
-</RelativeLayout>
 </ScrollView>

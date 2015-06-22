@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.NavigationItem;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -100,8 +101,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         tvName.setText(name);
-        tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
-
+        if(HomeActivity.rtl) {
+            tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
+        } else {
+            tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
+        }
+        tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
+        tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
         return convertView;
     }
 
@@ -122,8 +128,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         tvName.setText(name);
-        tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
+        if(HomeActivity.rtl) {
+            tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
+        } else {
+            tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
+        }
 
+        tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
+        tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
         return convertView;
     }
 

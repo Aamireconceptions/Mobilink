@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="start"
+              android:gravity="start"
+              android:layoutDirection="ltr"
+              android:textAlignment="viewStart"
+              android:textDirection="anyRtl">
 
     <TextView
         android:id="@+id/name"
@@ -14,9 +18,11 @@
         android:drawablePadding="12dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:gravity="center_vertical"
+        android:gravity="start"
+        android:layoutDirection="ltr"
         android:padding="18dp"
         android:text="Top Deals"
+        android:textAlignment="textStart"
         android:textColor="@color/text_color_selector"/>
 
 </LinearLayout>
