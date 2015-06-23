@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -35,11 +36,15 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 
     private SnackBarUtils snackBarUtils;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private View lastSelected;
 
+    public static ShoppingFragment newInstance()
+    {
+        ShoppingFragment fragment = new ShoppingFragment();
+
+        return fragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,24 +76,53 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 
         ImageView ivFilter = (ImageView) v.findViewById(R.id.filter);
         ivFilter.setOnClickListener(this);
+
+        Button btNewDeals = (Button) v.findViewById(R.id.new_deals);
+        btNewDeals.setOnClickListener(this);
+
+        Button btPopularDeals = (Button) v.findViewById(R.id.popular_deals);
+        btPopularDeals.setOnClickListener(this);
     }
 
-    private void loadDeals() {
+    private void loadDeals()
+    {
         ShoppingTask shoppingTask = new ShoppingTask(adapter, progressBar, snackBarUtils);
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
+    public void onClick(View v)
+    {
+        switch(v.getId())
+        {
+            case R.id.new_deals:
+
+                setSelected(v);
+
+                break;
+
+            case R.id.popular_deals:
+
+                setSelected(v);
+
+                break;
+
             case R.id.filter:
-                ((HomeActivity) activity).showHideDrawer(GravityCompat.END, true);
+
+                ((HomeActivity) activity).drawerLayout.openDrawer(GravityCompat.END);
+
                 break;
         }
     }
 
-    public static ShoppingFragment newInstance() {
-        ShoppingFragment fragment = new ShoppingFragment();
+    private void setSelected(View v)
+    {
+        if(lastSelected != null)
+        {
+            lastSelected.setSelected(false);
+        }
 
-        return fragment;
+        v.setSelected(true);
+
+        lastSelected = v;
     }
 }

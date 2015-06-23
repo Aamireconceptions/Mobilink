@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.ooredoo.bizstore"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ooredoo.bizstore" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -18,6 +17,7 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,7 +33,7 @@
             android:configChanges="locale|layoutDirection"
             android:label="@string/title_activity_home"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.activities.FilterActivity"
@@ -41,7 +41,12 @@
         </activity>
         <activity
             android:name=".ui.activities.ShareAppActivity"
-            android:label="@string/title_activity_share_app"
+            android:label="@string/share_app_with_friends"
+            android:parentActivityName=".ui.activities.HomeActivity" >
+        </activity>
+        <activity
+            android:name=".ui.activities.MyDealsActivity"
+            android:label="@string/my_deals"
             android:parentActivityName=".ui.activities.HomeActivity">
         </activity>
     </application>

@@ -104,4 +104,6 @@
     <string name="ENTER_CODE">ENTER CODE</string>
     <string name="verification_code_details">You will receive a short code from your carrier\nplease check your inbox.</string>
     <string name="unsub_details">by unsubscribing bizstore you will no longer get promotion or service alerts from application.</string>
+    <string name="title_activity_my_deals">MyDealsActivity</string>
+    <string name="share_app_with_friends">Share App with Friends</string>
 </resources>

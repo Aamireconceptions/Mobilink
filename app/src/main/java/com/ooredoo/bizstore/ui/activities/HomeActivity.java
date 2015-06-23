@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -116,7 +117,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initFilter()
     {
-        FilterOnClickListener clickListener = new FilterOnClickListener();
+        FilterOnClickListener clickListener = new FilterOnClickListener(this);
+
+        ImageView ivBack = (ImageView) findViewById(R.id.back);
+        ivBack.setOnClickListener(clickListener);
+
+        ImageView ivDone = (ImageView) findViewById(R.id.done);
+        ivDone.setOnClickListener(clickListener);
 
         TextView tvDealsAndDiscount = (TextView) findViewById(R.id.deals_discount_checkbox);
         tvDealsAndDiscount.setOnClickListener(clickListener);
