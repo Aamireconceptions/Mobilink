@@ -8,6 +8,7 @@ import android.widget.ExpandableListView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
+import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
 import com.ooredoo.bizstore.listeners.LanguageChangeListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -71,8 +72,11 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         View navigationHeader = activity.getLayoutInflater().inflate(R.layout.layout_navigation_header, null);
 
-        LanguageChangeListener languageChangeListener = new LanguageChangeListener((HomeActivity) activity, navigationHeader);
+        HomeActivity homeActivity = (HomeActivity) activity;
+        LanguageChangeListener languageChangeListener = new LanguageChangeListener(homeActivity, navigationHeader);
         languageChangeListener.expandableListView = expandableListView;
+
+        new HeaderNavigationListener(homeActivity, navigationHeader);
 
         ExpandableListAdapter adapter = new ExpandableListAdapter(activity, groupList, childList);
 
