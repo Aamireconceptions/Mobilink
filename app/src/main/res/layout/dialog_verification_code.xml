@@ -33,7 +33,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hapticFeedbackEnabled="true"
-                android:hint="ENTER CODE"
+                android:hint="@string/ENTER_CODE"
                 android:inputType="number"
                 android:text=""
                 android:textSize="16sp"
@@ -57,7 +57,7 @@
             android:layout_below="@+id/ll_code"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="You will receive a short code from your carrier\nplease check your inbox."
+            android:text="@string/verification_code_details"
             android:textSize="12sp"/>
     </RelativeLayout>
 </RelativeLayout>

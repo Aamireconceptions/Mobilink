@@ -98,4 +98,10 @@
     <string name="Address">Address</string>
     <string name="Contact_Information">Contact Information</string>
     <string name="Category">Category</string>
+    <string name="Unsubscribe_Bizstore">Unsubscribe Bizstore</string>
+    <string name="No">No</string>
+    <string name="Yes">Yes</string>
+    <string name="ENTER_CODE">ENTER CODE</string>
+    <string name="verification_code_details">You will receive a short code from your carrier\nplease check your inbox.</string>
+    <string name="unsub_details">by unsubscribing bizstore you will no longer get promotion or service alerts from application.</string>
 </resources>

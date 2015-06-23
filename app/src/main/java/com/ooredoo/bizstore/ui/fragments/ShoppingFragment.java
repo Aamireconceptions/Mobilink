@@ -3,7 +3,6 @@ package com.ooredoo.bizstore.ui.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-
 import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +24,7 @@ import java.util.List;
 /**
  * @author Babar
  */
-public class ShoppingFragment extends Fragment implements View.OnClickListener
-{
+public class ShoppingFragment extends Fragment implements View.OnClickListener {
     private Activity activity;
 
     private List<GenericDeal> deals;
@@ -38,15 +36,13 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener
     private SnackBarUtils snackBarUtils;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
 
         init(v);
@@ -55,13 +51,11 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void init(View v)
-    {
+    private void init(View v) {
         activity = getActivity();
 
         snackBarUtils = new SnackBarUtils(activity, v);
@@ -79,25 +73,20 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener
         ivFilter.setOnClickListener(this);
     }
 
-    private void loadDeals()
-    {
+    private void loadDeals() {
         ShoppingTask shoppingTask = new ShoppingTask(adapter, progressBar, snackBarUtils);
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         switch(v.getId()) {
             case R.id.filter:
-
-                ((HomeActivity) activity).drawerLayout.openDrawer(GravityCompat.END);
-
+                ((HomeActivity) activity).showHideDrawer(GravityCompat.END, true);
                 break;
         }
     }
 
-    public static ShoppingFragment newInstance()
-    {
+    public static ShoppingFragment newInstance() {
         ShoppingFragment fragment = new ShoppingFragment();
 
         return fragment;

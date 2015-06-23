@@ -1,7 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -55,12 +54,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
 
         init();
-
-        startActivity(new Intent(this, ShareAppActivity.class));
     }
 
     private void init() {
-        homePagerAdapter = new HomePagerAdapter(this);
+        homePagerAdapter = new HomePagerAdapter(getFragmentManager());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
@@ -124,12 +121,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             if(isSearchEnabled) {
                 showHideSearchBar(false);
             } else {
-                drawerLayout.openDrawer(GravityCompat.START);
+                showHideDrawer(GravityCompat.START, true);
             }
         } else if(id == R.id.action_search || id == R.id.search) {
             showHideSearchBar(id == R.id.action_search);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showHideDrawer(int gravity, boolean show) {
+        if(show) {
+            drawerLayout.openDrawer(gravity);
+        } else {
+            drawerLayout.closeDrawer(gravity);
+        }
     }
 
     public void showHideSearchBar(boolean show) {
@@ -171,9 +176,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setAlpha(1f);
         searchPopup.dismiss();
     }
-    public void openRightDrawer() {
-        drawerLayout.openDrawer(GravityCompat.END);
-    }
 
     public void hideTabs() {
         tabLayout.setVisibility(View.GONE);
@@ -191,6 +193,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment, "").commit();
         //replaceFragmentWithBackStack(this, R.id.fragment_container, fragment, "DEAL_DETAIL");
+    }
+
+    public void selectTab(int tabPosition) {
+        viewPager.setCurrentItem(tabPosition);
     }
 
     @Override

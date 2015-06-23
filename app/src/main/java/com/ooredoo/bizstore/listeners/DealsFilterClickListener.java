@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.listeners;
 
+import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.Button;
 
@@ -37,7 +38,7 @@ public class DealsFilterClickListener implements View.OnClickListener {
             btnNewDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_red1 : R.drawable.btn_lt_grey1);
             btnPopularDeals.setBackgroundResource(id == R.id.btn_new_deals ? R.drawable.btn_lt_grey2 : R.drawable.btn_red2);
         } else if(id == R.id.ib_filter) {
-            mActivity.openRightDrawer();
+            mActivity.showHideDrawer(GravityCompat.END, true);
         }
     }
 }

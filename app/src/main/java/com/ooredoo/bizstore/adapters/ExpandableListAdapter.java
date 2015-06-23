@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static com.ooredoo.bizstore.utils.DialogUtils.showUnSubscribeDialog;
 
 /**
  * @author  Babar
@@ -112,7 +115,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
     {
         if(convertView == null)
         {
@@ -136,6 +139,39 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
         tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
         tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(groupPosition == 0) {
+                    HomeActivity homeActivity = (HomeActivity) context;
+                    homeActivity.drawerLayout.closeDrawers();
+                    homeActivity.selectTab(childPosition + 1); //Skip Home Tab
+                } else if(groupPosition == 1) {
+                    switch(childPosition) {
+                        case 0:
+                            //TODO show 'My Account' screen
+                            break;
+                        case 1:
+                            //TODO show 'My Notifications' screen
+                            break;
+                        case 2:
+                            //TODO show 'Rate Us On Playstore' dialog
+                            break;
+                        case 3:
+                            //TODO show 'Help' screen
+                            break;
+                        case 4:
+                            //TODO show 'About' screen
+                            break;
+                        case 5:
+                            showUnSubscribeDialog((Activity) context);
+                            break;
+                    }
+                }
+            }
+        });
+
         return convertView;
     }
 
