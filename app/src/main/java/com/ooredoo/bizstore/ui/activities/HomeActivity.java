@@ -21,11 +21,13 @@ import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
+import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
@@ -81,6 +83,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setupTabs();
 
         setupPager();
+
+        initFilter();
     }
 
     private void setupToolbar() {
@@ -104,6 +108,30 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void setupPager() {
         viewPager.setAdapter(homePagerAdapter);
         viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
+    }
+
+    private void initFilter()
+    {
+        FilterOnClickListener clickListener = new FilterOnClickListener();
+
+        TextView tvDealsAndDiscount = (TextView) findViewById(R.id.deals_discount_checkbox);
+        tvDealsAndDiscount.setOnClickListener(clickListener);
+
+        TextView tvBusinessAndDirectory = (TextView) findViewById(R.id.business_directory_checkbox);
+        tvBusinessAndDirectory.setOnClickListener(clickListener);
+
+        TextView tvRating = (TextView) findViewById(R.id.rating_checkbox);
+        tvRating.setOnClickListener(clickListener);
+
+        TextView tvFoodAnDinning= (TextView) findViewById(R.id.food_dinning_checkbox);
+        tvFoodAnDinning.setOnClickListener(clickListener);
+
+        TextView tvElectronics = (TextView) findViewById(R.id.electronics_checkbox);
+        tvElectronics.setOnClickListener(clickListener);
+
+        TextView tvHotelsAndSpa = (TextView) findViewById(R.id.hotels_spa_checkbox);
+        tvHotelsAndSpa.setOnClickListener(clickListener);
+
     }
 
     @Override

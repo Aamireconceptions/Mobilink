@@ -1,9 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:fillViewport="true"
-            android:layoutDirection="inherit">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:fillViewport="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,12 +40,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
-            android:background="@color/grey"
-            android:paddingBottom="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingStart="@dimen/_16sdp"
+            android:gravity="center_vertical"
             android:paddingTop="@dimen/_10sdp"
-            android:text="@string/type"/>
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@string/type"
+            android:background="@drawable/filter_heading_bg"/>
 
         <TextView
             android:id="@+id/deals_discount_checkbox"
@@ -70,24 +70,18 @@
             android:padding="@dimen/_16sdp"
             android:text="@string/business_directory"/>
 
-        <View
-            android:id="@+id/line1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_below="@+id/business_directory_checkbox"
-            android:background="@color/grey"/>
-
         <TextView
             android:id="@+id/sort_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line1"
-            android:background="@color/grey"
-            android:paddingBottom="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingLeft="@dimen/_16sdp"
+            android:layout_below="@+id/business_directory_checkbox"
+            android:gravity="center_vertical"
             android:paddingTop="@dimen/_10sdp"
-            android:text="@string/sort_by"/>
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@string/sort_by"
+            android:background="@drawable/filter_heading_bg"/>
 
         <RelativeLayout
             android:id="@+id/distance_layout"
@@ -231,7 +225,7 @@
         </RelativeLayout>
 
         <View
-            android:id="@+id/line3"
+            android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:layout_below="@+id/rating_layout"
@@ -241,7 +235,7 @@
             android:id="@+id/discount_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line3"
+            android:layout_below="@+id/line"
             android:padding="@dimen/_16sdp">
 
             <TextView
@@ -258,24 +252,18 @@
 
         </RelativeLayout>
 
-        <View
-            android:id="@+id/line4"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_below="@+id/discount_layout"
-            android:background="@color/grey"/>
-
         <TextView
             android:id="@+id/category_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line4"
-            android:background="@color/grey"
-            android:paddingBottom="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingStart="@dimen/_16sdp"
+            android:layout_below="@+id/discount_layout"
+            android:gravity="center_vertical"
             android:paddingTop="@dimen/_10sdp"
-            android:text="@string/category_selection"/>
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@string/category_selection"
+            android:background="@drawable/filter_heading_bg"/>
 
         <TextView
             android:id="@+id/food_dinning_checkbox"
