@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -140,12 +142,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
         tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
 
-        convertView.setOnClickListener(new View.OnClickListener() {
+        tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Logger.print("NAVIGATION: " + groupPosition + ", " + childPosition);
                 if(groupPosition == 0) {
                     HomeActivity homeActivity = (HomeActivity) context;
-                    homeActivity.drawerLayout.closeDrawers();
+                    homeActivity.showHideDrawer(GravityCompat.START, false);
                     homeActivity.selectTab(childPosition + 1); //Skip Home Tab
                 } else if(groupPosition == 1) {
                     switch(childPosition) {
