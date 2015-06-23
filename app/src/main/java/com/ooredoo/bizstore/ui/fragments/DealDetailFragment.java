@@ -16,6 +16,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
  */
 public class DealDetailFragment extends Fragment implements View.OnClickListener {
     public boolean showBanner = false;
+    public boolean isFavorite = false;
 
     public int bannerResId = R.drawable.tmp_banner;
 
@@ -24,6 +25,7 @@ public class DealDetailFragment extends Fragment implements View.OnClickListener
         View v = inflater.inflate(R.layout.fragment_deal_details, container, false);
         ((ImageView) v.findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
         v.findViewById(R.id.iv_back).setOnClickListener(this);
+        v.findViewById(R.id.iv_favorite).setOnClickListener(this);
         v.findViewById(R.id.tv_hdr_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
         v.findViewById(R.id.iv_deal_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
         return v;
@@ -38,6 +40,10 @@ public class DealDetailFragment extends Fragment implements View.OnClickListener
             if(!showBanner) {
                 homeActivity.showHideSearchBar(true);
             }
+        } else if(viewId == R.id.iv_favorite) {
+            isFavorite = !isFavorite;
+            int favDrawable = isFavorite ? R.drawable.ic_like_big_active : R.drawable.ic_like_big_inactive;
+            ((ImageView) getView().findViewById(R.id.iv_favorite)).setImageResource(favDrawable);
         }
     }
 }

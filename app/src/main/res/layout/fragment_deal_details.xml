@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:padding="12dp"
-                android:src="@drawable/ic_like_inactive"/>
+                android:src="@drawable/ic_like_big_inactive"/>
             <LinearLayout
                 android:id="@+id/ll_details"
                 android:layout_width="match_parent"
