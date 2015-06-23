@@ -242,12 +242,17 @@
                 android:id="@+id/discount_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/discount"/>
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableStart="@drawable/checkbox_selector"
+                android:gravity="center_vertical"
+                android:text="@string/discount_offer"/>
 
             <com.ooredoo.bizstore.views.RangeSeekBar
+                android:id="@+id/discount_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/discount_checkbox"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/grey"/>
 
         </RelativeLayout>

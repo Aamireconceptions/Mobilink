@@ -67,7 +67,7 @@
     <string name="_15">15</string>
     <string name="_20">20</string>
     <string name="rating">Rating</string>
-    <string name="discount">Discount</string>
+    <string name="discount_offer">Discount Offer</string>
     <string name="category_selection">Category Selection</string>
     <string name="search_hint">Type here</string>
     <string name="Search_for_Deals">Search for Deals</string>

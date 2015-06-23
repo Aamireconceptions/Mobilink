@@ -16,7 +16,7 @@ public class Converter
 
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
 
-        Logger.print("DP: "+dp+ ", PX: "+px);
+       // Logger.print("DP: "+dp+ ", PX: "+px);
 
         return px;
     }

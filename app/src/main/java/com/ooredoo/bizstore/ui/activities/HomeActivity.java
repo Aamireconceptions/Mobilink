@@ -30,11 +30,15 @@ import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
+import com.ooredoo.bizstore.views.RangeSeekBar;
 
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener,
+                                                               RangeSeekBar.OnRangeSeekBarChangeListener
+{
     public static boolean rtl = false;
     public DrawerLayout drawerLayout;
     public ListView mSuggestionsListView, mSearchResultsListView;
@@ -132,6 +136,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         TextView tvHotelsAndSpa = (TextView) findViewById(R.id.hotels_spa_checkbox);
         tvHotelsAndSpa.setOnClickListener(clickListener);
 
+        RangeSeekBar<Integer> rangeSeekBar = (RangeSeekBar) findViewById(R.id.discount_seekbar);
+        rangeSeekBar.setOnRangeSeekBarChangeListener(this);
     }
 
     @Override
@@ -238,6 +244,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else if(cbSearchDeals.isChecked()) {
             SearchResultsAdapter.searchType = 1;
         }
+    }
+
+    @Override
+    public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue)
+    {
+
+        Logger.print("minValue:" + minValue + ", maxValue:"+maxValue);
+
     }
 
     public class SearchTextWatcher implements TextWatcher {

@@ -33,6 +33,7 @@ import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.math.BigDecimal;
 
@@ -70,9 +71,9 @@ public class RangeSeekBar<T extends Number> extends ImageView
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private final Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.drawable.ic_about);
-    private final Bitmap thumbPressedImage = BitmapFactory.decodeResource(getResources(), R.drawable.ic_about);
-    private final Bitmap thumbDisabledImage = BitmapFactory.decodeResource(getResources(), R.drawable.ic_about);
+    private final Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.drawable.filter_slider_thumb);
+    private final Bitmap thumbPressedImage = BitmapFactory.decodeResource(getResources(), R.drawable.filter_slider_thumb);
+    private final Bitmap thumbDisabledImage = BitmapFactory.decodeResource(getResources(), R.drawable.filter_slider_thumb);
 
     private final float thumbWidth = thumbImage.getWidth();
     private final float thumbHalfWidth = 0.5f * thumbWidth;
@@ -182,7 +183,7 @@ public class RangeSeekBar<T extends Number> extends ImageView
     private void setValuePrimAndNumberType()
     {
         absoluteMinValuePrim = absoluteMinValue.doubleValue();
-        absoluteMaxValuePrim = absoluteMinValue.doubleValue();
+        absoluteMaxValuePrim = absoluteMaxValue.doubleValue();
 
         numberType = NumberType.fromNumber(absoluteMinValue);
     }
@@ -635,8 +636,12 @@ public class RangeSeekBar<T extends Number> extends ImageView
         boolean selectedValuesAreDefault = (getSelectedMinValue().equals(getAbsoluteMinValue()) &&
                                             getSelectedMaxValue().equals(getAbsoluteMaxValue()));
 
-        int colorToUseForButtonsAndHighlightedLine = selectedValuesAreDefault ?
+        /*int colorToUseForButtonsAndHighlightedLine = selectedValuesAreDefault ?
                                                      Color.GRAY :    // default values
+                                                     DEFAULT_COLOR; //non default, filter is active*/
+
+        int colorToUseForButtonsAndHighlightedLine = selectedValuesAreDefault ?
+                                                     DEFAULT_COLOR :    // default values
                                                      DEFAULT_COLOR; //non default, filter is active
 
         // draw seek bar active range line
@@ -658,14 +663,15 @@ public class RangeSeekBar<T extends Number> extends ImageView
                   canvas, selectedValuesAreDefault);
 
         // draw the text if sliders have moved from default edges
-        if (!selectedValuesAreDefault) {
+       // if (!selectedValuesAreDefault)
+       // {
             paint.setTextSize(mTextSize);
             paint.setColor(Color.BLACK);
             // give text a bit more space here so it doesn't get cut off
             int offset = (int) Converter.convertDpToPixels(TEXT_LATERAL_PADDING_IN_DP);
 
-            String minText = String.valueOf(getSelectedMinValue());
-            String maxText = String.valueOf(getSelectedMaxValue());
+            String minText = String.valueOf(getSelectedMinValue()) + "%";
+            String maxText = String.valueOf(getSelectedMaxValue()) + "%";
             float minTextWidth = paint.measureText(minText) + offset;
             float maxTextWidth = paint.measureText(maxText) + offset;
 
@@ -677,22 +683,22 @@ public class RangeSeekBar<T extends Number> extends ImageView
                                 paint);*/
 
                 canvas.drawText(minText,
-                        normalizedToScreen(normalizedMinValue) - minTextWidth * 0.5f,
-                        mTextOffset + Converter.convertDpToPixels(mDistanceToTop)
+                                normalizedToScreen(normalizedMinValue) - minTextWidth * 0.5f,
+                                (mTextOffset + mDistanceToTop
                                 + thumbHalfHeight
-                                + Converter.convertDpToPixels(LINE_HEIGHT_IN_DP) /2 + mTextSize,
-                        paint);
+                                + Converter.convertDpToPixels(LINE_HEIGHT_IN_DP) / 2 + mTextSize),
+                                paint);
 
             }
 
             canvas.drawText(maxText,
                             normalizedToScreen(normalizedMaxValue) - maxTextWidth * 0.5f,
-                            mTextOffset + Converter.convertDpToPixels(mDistanceToTop)
+                            (mTextOffset + mDistanceToTop
                             + thumbHalfHeight
-                            + Converter.convertDpToPixels(LINE_HEIGHT_IN_DP) /2 + mTextSize,
+                            + Converter.convertDpToPixels(LINE_HEIGHT_IN_DP) / 2 + mTextSize),
                             paint);
         }
-    }
+   // }
 
     /**
      * Overridden to save instance state when device orientation changes. This method is called automatically if you assign an id to the RangeSeekBar widget using the {@link #setId(int)} method. Other members of this class than the normalized min and max values don't need to be saved.
