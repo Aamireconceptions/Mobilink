@@ -7,6 +7,8 @@ import android.view.View;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyDealsActivity;
+import com.ooredoo.bizstore.ui.activities.RecentSearchesActivity;
+import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.ui.activities.ShareAppActivity;
 
 /**
@@ -43,10 +45,10 @@ public class HeaderNavigationListener implements View.OnClickListener {
                 mActivity.startActivity(new Intent(mActivity, ShareAppActivity.class));
                 break;
             case R.id.recent_searches:
-                //TODO show 'Recent Searches' screen
+                mActivity.startActivity(new Intent(mActivity, RecentSearchesActivity.class));
                 break;
             case R.id.recent_viewed:
-                //TODO show 'Recent Viewed' screen
+                mActivity.startActivity(new Intent(mActivity, RecentViewedActivity.class));
                 break;
         }
     }

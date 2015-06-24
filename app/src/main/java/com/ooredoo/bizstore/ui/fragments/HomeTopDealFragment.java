@@ -1,16 +1,18 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 
 /**
- * Created by Babar on 19-Jun-15.
+ * @author Babar
+ * @since 19-Jun-15.
  */
 public class HomeTopDealFragment extends Fragment implements View.OnClickListener {
     @Override
@@ -23,10 +25,7 @@ public class HomeTopDealFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.iv_featured_banner) {
-            HomeActivity homeActivity = (HomeActivity) getActivity();
-            DealDetailFragment fragment = new DealDetailFragment();
-            fragment.showBanner = true;
-            homeActivity.showFragment(fragment);
+            startActivity(new Intent(getActivity(), DealDetailActivity.class));
         }
     }
 

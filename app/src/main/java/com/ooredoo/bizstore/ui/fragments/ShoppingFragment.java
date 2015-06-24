@@ -38,14 +38,6 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 
     private View lastSelected;
 
-    public static ShoppingFragment newInstance()
-    {
-        ShoppingFragment fragment = new ShoppingFragment();
-
-        return fragment;
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
@@ -82,6 +74,10 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
 
         Button btPopularDeals = (Button) v.findViewById(R.id.popular_deals);
         btPopularDeals.setOnClickListener(this);
+
+        btNewDeals.setSelected(true);
+
+        lastSelected = btNewDeals;
     }
 
     private void loadDeals()
@@ -124,5 +120,11 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         v.setSelected(true);
 
         lastSelected = v;
+    }
+
+    public static ShoppingFragment newInstance() {
+        ShoppingFragment fragment = new ShoppingFragment();
+
+        return fragment;
     }
 }

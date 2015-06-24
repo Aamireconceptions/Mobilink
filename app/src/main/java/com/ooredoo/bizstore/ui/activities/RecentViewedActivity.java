@@ -11,13 +11,11 @@ import android.widget.ListView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 
-public class MyDealsActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class RecentViewedActivity extends AppCompatActivity implements View.OnClickListener {
     private View lastSelected;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_deals);
@@ -25,17 +23,15 @@ public class MyDealsActivity extends AppCompatActivity implements View.OnClickLi
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         setupToolbar();
 
         Button btNewDeals = (Button) findViewById(R.id.btn_new_deals);
-        btNewDeals.setOnClickListener(this);
-
         Button btPopularDeals = (Button) findViewById(R.id.btn_popular_deals);
-        btPopularDeals.setOnClickListener(this);
 
         btNewDeals.setSelected(true);
+        btNewDeals.setOnClickListener(this);
+        btPopularDeals.setOnClickListener(this);
 
         lastSelected = btNewDeals;
 
@@ -46,8 +42,7 @@ public class MyDealsActivity extends AppCompatActivity implements View.OnClickLi
         listView.setAdapter(adapter);
     }
 
-    private void setupToolbar()
-    {
+    private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,10 +52,8 @@ public class MyDealsActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch(v.getId()) {
             case R.id.btn_new_deals:
 
                 setSelected(v);
@@ -76,10 +69,8 @@ public class MyDealsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void setSelected(View v)
-    {
-        if(lastSelected != null)
-        {
+    private void setSelected(View v) {
+        if(lastSelected != null) {
             lastSelected.setSelected(false);
         }
 
@@ -87,5 +78,4 @@ public class MyDealsActivity extends AppCompatActivity implements View.OnClickLi
 
         lastSelected = v;
     }
-
 }

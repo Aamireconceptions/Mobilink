@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="@drawable/bg_signup"
                 tools:context=".MainActivity">
 
     <ImageView
@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        android:src="@drawable/bizstore_ooredoo_logo"/>
+        android:src="@drawable/bizstore_ooredoo_logo"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btn_next"
@@ -22,7 +23,42 @@
         android:background="@drawable/btn_red"
         android:gravity="center"
         android:text="@string/SIGNUP"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:textColor="@android:color/white"/>
+        android:visibility="gone"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_lang_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0.4dp"
+            android:background="@drawable/btn_dark_red"
+            android:text="@string/English"
+            android:textAllCaps="false"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/btn_lang_arabic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:layout_toEndOf="@+id/btn_lang_english"
+            android:background="@drawable/btn_lt_grey"
+            android:text="@string/arabic"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
 </RelativeLayout>

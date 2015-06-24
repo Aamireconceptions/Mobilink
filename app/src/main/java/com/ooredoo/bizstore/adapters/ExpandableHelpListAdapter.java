@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.GravityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.model.NavigationItem;
+import com.ooredoo.bizstore.model.Question;
 import com.ooredoo.bizstore.ui.activities.AboutUsActivity;
 import com.ooredoo.bizstore.ui.activities.HelpActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -25,20 +26,17 @@ import static com.ooredoo.bizstore.utils.DialogUtils.showRateAppDialog;
 import static com.ooredoo.bizstore.utils.DialogUtils.showUnSubscribeDialog;
 
 /**
- * @author  Babar
- * @since 12-Jun-15.
+ * @author Pehlaj Rai
+ * @since 24-Jun-15.
  */
-public class ExpandableListAdapter extends BaseExpandableListAdapter
-{
+public class ExpandableHelpListAdapter extends BaseExpandableListAdapter {
     private Context context;
 
-    private List<NavigationItem> groupList;
+    private List<Question> groupList;
 
-    private HashMap<String, List<NavigationItem>> childList;
+    private HashMap<String, List<Question>> childList;
 
-    public ExpandableListAdapter(Context context, List<NavigationItem> groupList,
-                                 HashMap<String, List<NavigationItem>> childList)
-    {
+    public ExpandableHelpListAdapter(Context context, List<Question> groupList, HashMap<String, List<Question>> childList) {
         this.context = context;
 
         this.groupList = groupList;
@@ -47,102 +45,81 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     }
 
     @Override
-    public int getGroupCount()
-    {
+    public int getGroupCount() {
         return groupList.size();
     }
 
     @Override
-    public int getChildrenCount(int groupPosition)
-    {
-        List<NavigationItem> childList = this.childList.get(groupList.get(groupPosition).getItemName());
+    public int getChildrenCount(int groupPosition) {
+        List<Question> childList = this.childList.get(groupList.get(groupPosition).getQuestion());
 
         return childList.size();
     }
 
     @Override
-    public Object getGroup(int groupPosition)
-    {
+    public Object getGroup(int groupPosition) {
         return groupList.get(groupPosition);
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition)
-    {
-        List<NavigationItem> childList = this.childList.get(groupList.get(groupPosition).getItemName());
+    public Object getChild(int groupPosition, int childPosition) {
+        List<Question> childList = this.childList.get(groupList.get(groupPosition).getQuestion());
 
-        NavigationItem navigationItem = childList.get(childPosition);
+        Question item = childList.get(childPosition);
 
-        return navigationItem;
+        Log.i("QUESTION", item.getQuestion());
+        return item;
     }
 
     @Override
-    public long getGroupId(int groupPosition)
-    {
+    public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
     @Override
-    public long getChildId(int groupPosition, int childPosition)
-    {
+    public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
     @Override
-    public boolean hasStableIds()
-    {
+    public boolean hasStableIds() {
         return false;
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
-    {
-        if(convertView == null)
-        {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = inflater.inflate(R.layout.list_navigation_group, parent, false);
         }
 
-        NavigationItem navigationItem = (NavigationItem) getGroup(groupPosition);
+        Question item = (Question) getGroup(groupPosition);
 
-        String name = navigationItem.getItemName();
-        int resId = navigationItem.getResId();
+        String name = item.getQuestion();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         tvName.setText(name);
-        if(HomeActivity.rtl) {
-            tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
-        } else {
-            tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
-        }
+
         tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
         tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
         return convertView;
     }
 
     @Override
-    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
-    {
-        if(convertView == null)
-        {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = inflater.inflate(R.layout.list_navigation_child, parent, false);
         }
 
-        NavigationItem navigationItem = (NavigationItem) getChild(groupPosition, childPosition);
+        Question item = (Question) getChild(groupPosition, childPosition);
 
-        String name = navigationItem.getItemName();
-        int resId = navigationItem.getResId();
+        String name = item.getAnswer();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         tvName.setText(name);
-        if(HomeActivity.rtl) {
-            tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
-        } else {
-            tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
-        }
 
         tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
         tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
@@ -186,8 +163,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     }
 
     @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition)
-    {
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
     }
 

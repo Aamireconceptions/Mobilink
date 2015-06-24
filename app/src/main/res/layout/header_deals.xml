@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="@dimen/_6sdp">
 
     <Button
         android:id="@+id/btn_new_deals"
@@ -10,11 +10,11 @@
         android:layout_alignParentStart="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="6dp"
-        android:background="@drawable/btn_red1"
+        android:background="@drawable/bt_tab_style_left_selector"
         android:gravity="center"
         android:text="@string/new_deals"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black_white_selector"
         android:textStyle="normal"/>
 
     <Button
@@ -24,20 +24,21 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="0dp"
         android:layout_toRightOf="@+id/btn_new_deals"
-        android:background="@drawable/btn_lt_grey2"
+        android:background="@drawable/bt_tab_style_right_selector"
         android:gravity="center"
         android:text="@string/popular_deals"
         android:textAllCaps="false"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black_white_selector"
         android:textStyle="normal"/>
 
     <ImageButton
         android:id="@+id/ib_filter"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_filter_default"/>
+        android:background="@android:color/transparent"
+        android:src="@drawable/filter_image_selector"/>
 
 </RelativeLayout>

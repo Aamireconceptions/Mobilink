@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ooredoo.bizstore" >
+<manifest
+    package="com.ooredoo.bizstore"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -47,8 +49,56 @@
         <activity
             android:name=".ui.activities.MyDealsActivity"
             android:label="@string/my_deals"
-            android:parentActivityName=".ui.activities.HomeActivity">
-        </activity>
+            android:parentActivityName=".ui.activities.HomeActivity"/>
+        <activity
+            android:name=".ui.activities.DealDetailActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/title_activity_home"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.AboutUsActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/About_Us"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.MyAccountActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/my_account"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.HelpActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/help"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.RecentViewedActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/recent_viewed"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.RecentSearchesActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/recent_searches"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.NotificationsActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/my_notifications"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

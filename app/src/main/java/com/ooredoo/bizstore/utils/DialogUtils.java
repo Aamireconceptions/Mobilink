@@ -20,6 +20,41 @@ import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackSt
  */
 public class DialogUtils {
 
+    public static void showRateAppDialog(final Activity activity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        LayoutInflater inflater = activity.getLayoutInflater();
+
+        //TODO implement Rate Us dialog
+        View view = inflater.inflate(R.layout.dialog_rate_app, null);
+        builder.setView(view);
+
+        final Dialog dialog = builder.create();
+
+        dialog.setTitle("Help us spread the world. Rate us on Google Play");
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        view.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        view.findViewById(R.id.btn_unsub).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO unsubscribe
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setCancelable(true);
+        builder.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
     public static void showUnSubscribeDialog(final Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();

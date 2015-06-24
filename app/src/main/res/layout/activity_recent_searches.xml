@@ -10,16 +10,16 @@
         android:theme="@style/toolBarTheme"/>
 
     <include
-        android:id="@+id/header"
-        layout="@layout/header_deals"
+        android:id="@+id/no_data_view"
+        layout="@layout/no_data_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_centerInParent="true"/>
 
     <ListView
-        android:id="@+id/list_view"
-        android:layout_width="wrap_content"
+        android:id="@+id/lv_recent_searches"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"/>
+        android:visibility="visible"/>
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.adapters;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,9 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.BusinessDetailFragment;
-import com.ooredoo.bizstore.ui.fragments.DealDetailFragment;
 
 import java.util.List;
 
@@ -80,8 +81,7 @@ public class SearchResultsAdapter extends ArrayAdapter<Deal> {
                 Log.i("ITEM", String.valueOf(item.type));
                 if(item.type == DEAL) {
                     //TODO show deal details
-                    mActivity.showHideSearchBar(false);
-                    mActivity.showFragment(new DealDetailFragment());
+                    mActivity.startActivity(new Intent(mActivity, DealDetailActivity.class));
                 } else if(item.type == BUSINESS) {
                     //TODO show business details
                     mActivity.showHideSearchBar(false);

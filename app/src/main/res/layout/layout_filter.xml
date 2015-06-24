@@ -1,8 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="end"
-    android:fillViewport="true">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fillViewport="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,13 +40,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
+            android:background="@drawable/filter_heading_bg"
             android:gravity="center_vertical"
-            android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
-            android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
-            android:text="@string/type"
-            android:background="@drawable/filter_heading_bg"/>
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:text="@string/type"/>
 
         <TextView
             android:id="@+id/deals_discount_checkbox"
@@ -75,13 +75,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/business_directory_checkbox"
+            android:background="@drawable/filter_heading_bg"
             android:gravity="center_vertical"
-            android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
-            android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
-            android:text="@string/sort_by"
-            android:background="@drawable/filter_heading_bg"/>
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:text="@string/sort_by"/>
 
         <RelativeLayout
             android:id="@+id/distance_layout"
@@ -262,13 +262,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/discount_layout"
+            android:background="@drawable/filter_heading_bg"
             android:gravity="center_vertical"
-            android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
-            android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
-            android:text="@string/category_selection"
-            android:background="@drawable/filter_heading_bg"/>
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:text="@string/category_selection"/>
 
         <TextView
             android:id="@+id/food_dinning_checkbox"

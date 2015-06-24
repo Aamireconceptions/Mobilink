@@ -45,8 +45,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public ListView mSuggestionsListView, mSearchResultsListView;
     public SuggestionsAdapter mSuggestionsAdapter;
     public PopupWindow searchPopup;
+    public ActionBar mActionBar;
     Menu mMenu;
-    ActionBar mActionBar;
     AutoCompleteTextView acSearch;
     private HomePagerAdapter homePagerAdapter;
     private TabLayout tabLayout;

@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/toolBarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/iv_profile_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/tmp_banner"/>
+
+        <ImageView
+            android:id="@+id/iv_edit_dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_profile_pic"
+            android:layout_alignEnd="@+id/iv_profile_pic"
+            android:baselineAlignBottom="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_edit_grey"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/iv_profile_pic"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/group_bg">
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_gravity="start|center_vertical"
+                android:layout_toStartOf="@+id/iv_edit_name"
+                android:background="@android:color/transparent"
+                android:focusable="false"
+                android:gravity="start|center_vertical"
+                android:hint="@string/name_hint"
+                android:paddingStart="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+            <ImageView
+                android:id="@+id/iv_edit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_edit_grey"/>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_number"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/rl_name"
+            android:layout_centerVertical="true"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/group_bg"
+            android:editable="false"
+            android:gravity="start|center_vertical"
+            android:paddingStart="10dp"
+            android:text="+9741234567"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_number"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/share_app_with_friends"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

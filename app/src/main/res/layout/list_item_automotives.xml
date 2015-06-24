@@ -11,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left|center_vertical"
-        android:background="@drawable/border_grey"
+        android:background="@drawable/deal_header_bg"
         android:gravity="top|left|center_vertical"
         android:padding="10dp">
 
@@ -28,7 +28,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="6dp"
             android:layout_toLeftOf="@+id/iv_fav"
             android:layout_toRightOf="@+id/iv_type"
             android:gravity="left|center_vertical"
@@ -87,7 +87,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:gravity="left|center_vertical"
             android:singleLine="true"
-            android:text="@string/_20"
+            android:text="30% OFF"
             android:textColor="@color/red"
             android:textSize="14sp"/>
 
@@ -97,18 +97,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left|center_vertical"
-        android:background="@drawable/border_grey"
+        android:background="@drawable/deal_footer_bg"
         android:gravity="top|left|center_vertical"
         android:padding="@dimen/_8sdp">
 
         <RatingBar
             android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
-            android:layout_height="17dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:numStars="5"
-            android:progressDrawable="@drawable/ic_star_active"
-            android:rating="4.0"
+            android:progressDrawable="@drawable/deal_rating_bar"
+            android:rating="3"
             android:stepSize="1.0"/>
 
         <ImageView

@@ -9,17 +9,19 @@
         android:background="@color/red"
         android:theme="@style/toolBarTheme"/>
 
-    <include
-        android:id="@+id/header"
-        layout="@layout/header_deals"
+    <ExpandableListView
+        android:id="@+id/expandable_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"/>
-
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"/>
+        android:layout_below="@+id/toolbar"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        android:divider="@null"
+        android:groupIndicator="@drawable/group_selector"
+        android:layoutDirection="ltr"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="none"
+        android:textAlignment="viewStart"
+        android:textDirection="anyRtl"/>
 
 </RelativeLayout>

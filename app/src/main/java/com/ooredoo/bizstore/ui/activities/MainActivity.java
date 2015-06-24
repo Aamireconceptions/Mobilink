@@ -16,12 +16,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-        findViewById(R.id.btn_next).setOnClickListener(this);
+        findViewById(R.id.btn_lang_arabic).setOnClickListener(this);
+        findViewById(R.id.btn_lang_english).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        startActivity(SignUpActivity.class);
+        int viewId = v.getId();
+        if(viewId == R.id.btn_lang_arabic || viewId == R.id.btn_lang_english) {
+            HomeActivity.rtl = viewId == R.id.btn_lang_arabic;
+            startActivity(SignUpActivity.class);
+        }
     }
 
     @Override
