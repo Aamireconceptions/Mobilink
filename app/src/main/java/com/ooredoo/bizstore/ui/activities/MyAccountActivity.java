@@ -1,5 +1,11 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -9,16 +15,26 @@ import android.widget.ImageView;
 
 import com.ooredoo.bizstore.R;
 
+import java.io.File;
+
+import static android.os.Environment.getExternalStorageDirectory;
+import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.makeText;
+import static com.ooredoo.bizstore.utils.DialogUtils.showUserDpSelectionDialog;
+
 /**
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
 public class MyAccountActivity extends BaseActivity implements View.OnClickListener {
 
+    public boolean hasUserSelectedPic = false;
     EditText etName;
     boolean canEditDp = false;
     boolean canEditName = false;
-
+    ImageView ivProfilePic;
+    //TODO change image path
+    String path = getExternalStorageDirectory() + "/images/bizstore_user_dp.png";
     public MyAccountActivity() {
         super();
         layoutResId = R.layout.activity_my_account;
@@ -28,6 +44,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     public void init() {
         setupToolbar();
         etName = (EditText) findViewById(R.id.et_name);
+        ivProfilePic = (ImageView) findViewById(R.id.iv_profile_pic);
         findViewById(R.id.iv_edit_dp).setOnClickListener(this);
         findViewById(R.id.iv_edit_name).setOnClickListener(this);
     }
@@ -52,11 +69,72 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             ImageView ivEdit = (ImageView) v;
             ivEdit.setImageResource(canEditDp ? R.drawable.ic_done_white : R.drawable.ic_edit_grey);
             if(canEditDp) {
-                //TODO show camera preview in activity
+                showUserDpSelectionDialog(this);
             } else {
-                //TODO hide camera etc
+                if(hasUserSelectedPic) {
+                    //TODO upload picture to server
+                } else {
+                    makeText(getApplicationContext(), "Please select picture", LENGTH_SHORT).show();
+                }
             }
         }
+    }
+
+    public void takePicture() {
+
+        Log.i("camera", "startCameraActivity()");
+        File file = new File(path);
+        Uri outputFileUri = Uri.fromFile(file);
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+        startActivityForResult(intent, 1);
+
+    }
+
+    public void uploadExisting() {
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, 2);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 2 && resultCode == RESULT_OK && null != data) {
+
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+            ivProfilePic.setImageBitmap(bitmap);
+        } else {
+
+            Log.i("SonaSys", "resultCode: " + resultCode);
+            switch(resultCode) {
+                case 0:
+                    Log.i("SonaSys", "User cancelled");
+                    break;
+                case -1:
+                    onPhotoTaken();
+                    break;
+            }
+        }
+    }
+
+    protected void onPhotoTaken() {
+        Log.i("SonaSys", "onPhotoTaken");
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+        ivProfilePic.setImageBitmap(bitmap);
+        ivProfilePic.setBackground(null);
     }
 
     private void setupToolbar() {

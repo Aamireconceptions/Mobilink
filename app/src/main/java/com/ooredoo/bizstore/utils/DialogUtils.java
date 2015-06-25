@@ -2,13 +2,16 @@ package com.ooredoo.bizstore.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
@@ -19,6 +22,51 @@ import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackSt
  * @since 6/18/2015.
  */
 public class DialogUtils {
+
+    public static void showUserDpSelectionDialog(final MyAccountActivity activity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        LayoutInflater inflater = activity.getLayoutInflater();
+
+        View view = inflater.inflate(R.layout.dialog_select_user_dp_option, null);
+        builder.setView(view);
+
+        final Dialog dialog = builder.create();
+
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        view.findViewById(R.id.btn_select_pic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.uploadExisting();
+                activity.hasUserSelectedPic = true;
+                dialog.dismiss();
+            }
+        });
+
+        view.findViewById(R.id.btn_take_pic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.takePicture();
+                activity.hasUserSelectedPic = true;
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK) {
+                    activity.hasUserSelectedPic = false;
+                }
+                return false;
+            }
+        });
+        dialog.setCancelable(true);
+        builder.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
 
     public static void showRateAppDialog(final Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
