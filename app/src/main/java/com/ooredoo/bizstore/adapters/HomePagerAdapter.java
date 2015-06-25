@@ -22,7 +22,8 @@ import com.ooredoo.bizstore.ui.fragments.TravelFragment;
  * @author Babar
  * @since 11-Jun-15.
  */
-public class HomePagerAdapter extends FragmentPagerAdapter {
+public class HomePagerAdapter extends FragmentPagerAdapter
+{
     private final static int PAGE_COUNT = 12;
 
     public HomePagerAdapter(FragmentManager fragmentManager) {
@@ -69,11 +70,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public CharSequence getPageTitle(int position) {
-
-        if(position >= 0 && position < AppConstant.TAB_NAMES.length) {
-            return AppConstant.TAB_NAMES[position];
-        }
-        return null;
+    public CharSequence getPageTitle(int position)
+    {
+        return AppConstant.TAB_NAMES[position];
     }
 }

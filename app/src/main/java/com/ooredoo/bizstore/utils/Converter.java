@@ -10,7 +10,7 @@ import android.util.TypedValue;
  */
 public class Converter
 {
-    public static float convertDpToPixels(int dp)
+    public static float convertDpToPixels(float dp)
     {
         Resources resources = Resources.getSystem();
 

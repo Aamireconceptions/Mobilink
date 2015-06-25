@@ -10,7 +10,7 @@ import com.ooredoo.bizstore.ui.fragments.FeaturedFragment;
 import java.util.List;
 
 /**
- * @author by Babar
+ * @author Babar
  * @since 19-Jun-15.
  */
 public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
@@ -21,6 +21,11 @@ public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
     {
         super(fm);
 
+        this.deals = deals;
+    }
+
+    public void setData(List<GenericDeal> deals)
+    {
         this.deals = deals;
     }
 

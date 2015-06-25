@@ -16,6 +16,8 @@ import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.FeaturedAsyncTask;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.CirclePageIndicator;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +76,6 @@ public class HomeFragment extends Fragment
 
         ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
         topBrandsPager.setAdapter(new TopBrandsStatePagerAdapter(getFragmentManager()));
-
     }
 
     private void initAndLoadFeaturedDeals(View v)
@@ -86,5 +87,10 @@ public class HomeFragment extends Fragment
         ViewPager featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
         featuredPager.setAdapter(adapter);
 
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.circle_page_indicator);
+        circlePageIndicator.setViewPager(featuredPager);
+
+        FeaturedAsyncTask featuredAsyncTask = new FeaturedAsyncTask(adapter, featuredPager);
+        featuredAsyncTask.execute();
     }
 }

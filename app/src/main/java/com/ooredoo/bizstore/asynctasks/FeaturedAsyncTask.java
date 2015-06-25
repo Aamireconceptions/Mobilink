@@ -1,14 +1,17 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.IOException;
@@ -23,21 +26,17 @@ import java.util.List;
  */
 public class FeaturedAsyncTask extends BaseAsyncTask<String, Void, String>
 {
-    private ProgressBar progressBar;
+    private FeaturedStatePagerAdapter adapter;
 
-    private SnackBarUtils snackBarUtils;
+    private ViewPager featuredPager;
 
     private final static String SERVICE_URL = "";
 
-    public FeaturedAsyncTask(ProgressBar progressBar)
+    public FeaturedAsyncTask(FeaturedStatePagerAdapter adapter, ViewPager featuredPager)
     {
+        this.adapter = adapter;
 
-    }
-
-    @Override
-    protected void onPreExecute()
-    {
-        super.onPreExecute();
+        this.featuredPager = featuredPager;
     }
 
     @Override
@@ -62,15 +61,20 @@ public class FeaturedAsyncTask extends BaseAsyncTask<String, Void, String>
 
         if(result != null)
         {
+            featuredPager.setBackground(null);
+
             Gson gson = new Gson();
 
             Response response = gson.fromJson(result, Response.class);
 
             List<GenericDeal> deals = response.deals;
+
+            adapter.setData(deals);
+            adapter.notifyDataSetChanged();
         }
         else
         {
-            snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
+            Logger.print("FeaturedAsyncTask: Failed to download due to no internet");
         }
     }
 

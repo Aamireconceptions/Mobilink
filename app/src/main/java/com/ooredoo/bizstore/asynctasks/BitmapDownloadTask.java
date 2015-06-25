@@ -1,7 +1,7 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -18,7 +18,7 @@ import java.net.URL;
  * @author  Babar
  * @since 18-Jun-15.
  */
-public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap>
+public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 {
     private ImageView imageView;
 
@@ -38,6 +38,14 @@ public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap>
     }
 
     @Override
+    protected void onPreExecute()
+    {
+        super.onPreExecute();
+
+        showProgress(View.VISIBLE);
+    }
+
+    @Override
     protected Bitmap doInBackground(String... params)
     {
         imgUrl = params[0];
@@ -50,8 +58,12 @@ public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap>
     {
         super.onPostExecute(bitmap);
 
+        showProgress(View.GONE);
+
         if(bitmap != null)
         {
+            memoryCache.addBitmapToCache(imgUrl, bitmap);
+
             imageView.setImageBitmap(bitmap);
         }
     }
@@ -79,5 +91,13 @@ public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap>
         }
 
         return null;
+    }
+
+    private void showProgress(int visible)
+    {
+        if(progressBar != null)
+        {
+            progressBar.setVisibility(visible);
+        }
     }
 }

@@ -20,7 +20,7 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
     @Override
     public void onTabSelected(TabLayout.Tab tab)
     {
-       System.out.println( tab.getPosition());
+       System.out.println("Tab Selected:"+ tab.getPosition());
 
         viewPager.setCurrentItem(tab.getPosition(), true);
     }
