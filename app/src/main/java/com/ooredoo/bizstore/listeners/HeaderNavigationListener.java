@@ -8,6 +8,8 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyDealsActivity;
 import com.ooredoo.bizstore.ui.activities.RecentSearchesActivity;
+
+
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.ui.activities.ShareAppActivity;
 

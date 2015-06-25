@@ -2,6 +2,11 @@ package com.ooredoo.bizstore.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 
 import java.io.InputStream;
 
@@ -64,5 +69,35 @@ public class BitmapProcessor
         }
 
         return inSampleSize;
+    }
+
+    public Bitmap makeBitmapRound(Bitmap src)
+    {
+        int width = src.getWidth();
+        int height = src.getHeight();
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+       // Canvas canvas = new Canvas(bitmap);
+
+        BitmapShader shader = new BitmapShader(src, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setShader(shader);
+
+
+
+        RectF rectF = new RectF(0.0f, 0.0f, width, height);
+
+        // rect contains the bounds of the shape
+        // radius is the radius in pixels of the rounded corners
+        // paint contains the shader that will texture the shape
+
+        Canvas canvas = new Canvas(src);
+
+        canvas.drawRoundRect(rectF, 30, 30, paint);
+
+        return src;
     }
 }

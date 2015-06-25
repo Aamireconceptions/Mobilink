@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Bizstore</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
@@ -86,7 +85,6 @@
     <string name="rate_us">Rate Us on Playstore</string>
     <string name="English">English</string>
     <string name="arabic">العربية</string>
-
     <string name="is_arabic">true</string>
     <string name="title_activity_share_app">ShareAppActivity</string>
     <string name="share_app_note">Bizstore app will send a sms message to given phone number. Carrier SMS charges may apply.</string>
@@ -109,4 +107,7 @@
     <string name="About_Us">About Us</string>
     <string name="select_all">Select All</string>
     <string name="name_hint">Enter Your Name</string>
+    <string name="title_activity_recent_searches">RecentSearchesActivity</string>
+    <string name="no_recent_searches">No Recent Searches Found</string>
+
 </resources>
