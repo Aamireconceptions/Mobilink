@@ -71,8 +71,7 @@ public class HomeFragment extends Fragment
 
         initAndLoadFeaturedDeals(v);
 
-        ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
-        promoPager.setAdapter(new PromoStatePagerAdapter(getFragmentManager()));
+        initAndLoadPromotions(v);
 
         ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
         topBrandsPager.setAdapter(new TopBrandsStatePagerAdapter(getFragmentManager()));
@@ -82,15 +81,31 @@ public class HomeFragment extends Fragment
     {
         List<GenericDeal> deals = new ArrayList<>();
 
-        FeaturedStatePagerAdapter adapter= new FeaturedStatePagerAdapter(getFragmentManager(), deals);
+        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
 
         ViewPager featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
         featuredPager.setAdapter(adapter);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.circle_page_indicator);
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.featured_indicator);
         circlePageIndicator.setViewPager(featuredPager);
 
         FeaturedAsyncTask featuredAsyncTask = new FeaturedAsyncTask(adapter, featuredPager);
+        featuredAsyncTask.execute();
+    }
+
+    private void initAndLoadPromotions(View v)
+    {
+        List<GenericDeal> deals = new ArrayList<>();
+
+        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
+
+        ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
+        promoPager.setAdapter(adapter);
+
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.promo_indicator);
+        circlePageIndicator.setViewPager(promoPager);
+
+        FeaturedAsyncTask featuredAsyncTask = new FeaturedAsyncTask(adapter, promoPager);
         featuredAsyncTask.execute();
     }
 }

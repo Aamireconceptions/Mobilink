@@ -56,7 +56,7 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
 
         v.setOnClickListener(this);
 
-        ImageView imageView = (ImageView) v.findViewById(R.id.iv_featured_banner);
+        ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
 
         ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 

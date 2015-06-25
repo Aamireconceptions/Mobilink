@@ -1,39 +1,95 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MemoryCache;
 
 /**
  * @author Babar
  * @since 19-Jun-15.
  */
-public class PromoFragment extends Fragment implements View.OnClickListener {
+public class PromoFragment extends Fragment implements View.OnClickListener
+{
+    public static PromoFragment newInstance(int id)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+
+        PromoFragment fragment = new PromoFragment();
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_promo, container, false);
-        v.findViewById(R.id.iv_promo_banner).setOnClickListener(this);
+
+        initAndLoadBanner(v);
+
         return v;
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.iv_promo_banner) {
-            HomeActivity homeActivity = (HomeActivity) getActivity();
-            DealDetailFragment fragment = new DealDetailFragment();
-            fragment.showBanner = true;
-            fragment.bannerResId = R.drawable.tmp_listing;
-            homeActivity.showFragment(fragment);
+    private void initAndLoadBanner(View v)
+    {
+        Bundle bundle = getArguments();
+
+        int id = bundle.getInt("id");
+
+        v.setOnClickListener(this);
+
+        ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
+
+        ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+
+        MemoryCache memoryCache = MemoryCache.getInstance();
+
+        String url = BaseAsyncTask.BASE_URL + id;
+
+        Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+        if(bitmap != null)
+        {
+            imageView.setImageBitmap(bitmap);
+        }
+        else
+        {
+            Logger.print("Root Width:" + v.getWidth());
+
+            Resources resources = Resources.getSystem();
+
+            int reqWidth = v.getWidth();
+            int reqHeight = (int) Converter.convertDpToPixels
+                    (resources.getDimension(R.dimen._180sdp) / resources.getDisplayMetrics().density);
+
+            Logger.print("req Width Pixels:" + reqWidth);
+            Logger.print("req Height Pixels:" + reqHeight);
+
+            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
+            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
         }
     }
 
-    public static PromoFragment newInstance() {
-        PromoFragment fragment = new PromoFragment();
-        return fragment;
+    @Override
+    public void onClick(View v)
+    {
+
     }
+
+
 }
