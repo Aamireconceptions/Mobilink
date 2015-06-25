@@ -124,16 +124,20 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
             result = readStream(inputStream);
 
             Logger.print("Shopping getDeals: "+result);
+
+            return result;
         }
         finally
         {
+            Logger.print("Entered Finally");
+
             if(inputStream != null)
             {
+                Logger.print("Closing Stream");
+
                 inputStream.close();
             }
 
         }
-
-        return result;
     }
 }

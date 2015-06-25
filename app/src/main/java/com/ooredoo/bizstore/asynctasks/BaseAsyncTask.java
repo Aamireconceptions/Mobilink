@@ -19,7 +19,7 @@ import java.util.Map;
  * @author Babar
  * @since 18-Jun-15.
  */
-public abstract class BaseAsyncTask<Params, Progess, Result> extends AsyncTask<Params, Progess, Result>
+public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result>
 {
     private final static String ENCODING = "UTF-8";
 
@@ -68,25 +68,36 @@ public abstract class BaseAsyncTask<Params, Progess, Result> extends AsyncTask<P
     {
         StringBuilder stringBuilder = new StringBuilder();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, ENCODING));
+        BufferedReader reader = null;
 
-        String line = "";
-
-        while((line = reader.readLine()) != null)
+        try
         {
-            stringBuilder.append(line);
-        }
+            reader = new BufferedReader(new InputStreamReader(stream, ENCODING));
 
-        if(reader != null)
+            String line = "";
+
+            while((line = reader.readLine()) != null)
+            {
+                stringBuilder.append(line);
+            }
+
+            return stringBuilder.toString();
+        }
+        finally
         {
-            reader.close();
-        }
+            Logger.print("Entered Finally");
 
-        return stringBuilder.toString();
+            if(reader != null)
+            {
+                reader.close();
+
+                Logger.print("Closing Reader");
+            }
+        }
     }
 
-    public HttpURLConnection openConnectionAndConnect(URL url) throws IOException {
-
+    public HttpURLConnection openConnectionAndConnect(URL url) throws IOException
+    {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setConnectTimeout(CONNECTION_TIME_OUT);
         connection.setReadTimeout(READ_TIME_OUT);
