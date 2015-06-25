@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
@@ -21,15 +22,19 @@ public class BitmapDownloadTask extends AsyncTask<String, Void, Bitmap>
 {
     private ImageView imageView;
 
+    private ProgressBar progressBar;
+
     private String imgUrl;
 
     private BitmapProcessor bitmapProcessor = new BitmapProcessor();
 
     private MemoryCache memoryCache = MemoryCache.getInstance();
 
-    public BitmapDownloadTask(ImageView imageView)
+    public BitmapDownloadTask(ImageView imageView, ProgressBar progressBar)
     {
         this.imageView = imageView;
+
+        this.progressBar = progressBar;
     }
 
     @Override

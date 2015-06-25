@@ -13,6 +13,7 @@ import com.ooredoo.bizstore.adapters.TopDealsAdapter;
 import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.listeners.DealsFilterClickListener;
 import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -39,7 +40,9 @@ public class TopDealsFragment extends Fragment {
         ViewPager viewPager = (ViewPager) header_view_pager.findViewById(R.id.view_pager);
         PageIndicator pageIndicator = (CirclePageIndicator) header_view_pager.findViewById(R.id.pager_indicator);
 
-        TopDealsPagerAdapter pagerAdapter = new TopDealsPagerAdapter(getChildFragmentManager());
+        List<GenericDeal> deals = new ArrayList<>();
+
+        TopDealsPagerAdapter pagerAdapter = new TopDealsPagerAdapter(getChildFragmentManager(), deals);
 
         viewPager.setAdapter(pagerAdapter);
 

@@ -7,5 +7,5 @@ import java.util.List;
  */
 public class Response
 {
-    public List<GenericDeal> shoppingList;
+    public List<GenericDeal> deals;
 }

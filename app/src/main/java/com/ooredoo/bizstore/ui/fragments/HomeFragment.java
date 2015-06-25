@@ -14,6 +14,11 @@ import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
+import com.ooredoo.bizstore.asynctasks.FeaturedAsyncTask;
+import com.ooredoo.bizstore.model.GenericDeal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Babar
@@ -62,14 +67,24 @@ public class HomeFragment extends Fragment
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
 
-        ViewPager featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
-        featuredPager.setAdapter(new FeaturedStatePagerAdapter(getFragmentManager()));
+        initAndLoadFeaturedDeals(v);
 
         ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
         promoPager.setAdapter(new PromoStatePagerAdapter(getFragmentManager()));
 
         ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
         topBrandsPager.setAdapter(new TopBrandsStatePagerAdapter(getFragmentManager()));
+
+    }
+
+    private void initAndLoadFeaturedDeals(View v)
+    {
+        List<GenericDeal> deals = new ArrayList<>();
+
+        FeaturedStatePagerAdapter adapter= new FeaturedStatePagerAdapter(getFragmentManager(), deals);
+
+        ViewPager featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
+        featuredPager.setAdapter(adapter);
 
     }
 }

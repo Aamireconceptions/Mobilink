@@ -80,7 +80,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<GenericDeal> deals = response.shoppingList;
+            List<GenericDeal> deals = response.deals;
 
             for(GenericDeal deal : deals)
             {
