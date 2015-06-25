@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
+import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -62,6 +63,7 @@ public class ShoppingFragment extends Fragment implements View.OnClickListener {
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
 
         GridView gridView = (GridView) v.findViewById(R.id.shopping_gridview);
+        gridView.setOnItemClickListener(new DealGridOnItemClickListener(activity, adapter));
         gridView.setAdapter(adapter);
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);

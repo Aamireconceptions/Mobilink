@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/home_top_deals_pager"
+        android:id="@+id/featured_pager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_180sdp" />
 
@@ -24,7 +24,7 @@
     <include layout="@layout/layout_horizontal_top_deals" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/home_promo_pager"
+        android:id="@+id/promo_pager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_160sdp" />
 
@@ -40,7 +40,7 @@
         android:typeface="serif"/>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/home_top_brands_pager"
+        android:id="@+id/top_brands_pager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_120sdp" />
 

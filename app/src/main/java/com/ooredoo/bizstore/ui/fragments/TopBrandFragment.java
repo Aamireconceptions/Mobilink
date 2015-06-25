@@ -12,11 +12,11 @@ import com.ooredoo.bizstore.R;
  * @author Babar
  * @since 19-Jun-15.
  */
-public class HomeTopBrandFragment extends Fragment
+public class TopBrandFragment extends Fragment
 {
-    public static HomeTopBrandFragment newInstance()
+    public static TopBrandFragment newInstance()
     {
-        HomeTopBrandFragment fragment = new HomeTopBrandFragment();
+        TopBrandFragment fragment = new TopBrandFragment();
 
         return fragment;
     }
@@ -24,7 +24,7 @@ public class HomeTopBrandFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_home_top_brand, container, false);
+        View v = inflater.inflate(R.layout.fragment_top_brand, container, false);
 
         return v;
     }

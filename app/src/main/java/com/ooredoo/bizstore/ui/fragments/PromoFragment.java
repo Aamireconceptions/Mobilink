@@ -13,10 +13,10 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
  * @author Babar
  * @since 19-Jun-15.
  */
-public class HomePromoFragment extends Fragment implements View.OnClickListener {
+public class PromoFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home_promo, container, false);
+        View v = inflater.inflate(R.layout.fragment_promo, container, false);
         v.findViewById(R.id.iv_promo_banner).setOnClickListener(this);
         return v;
     }
@@ -32,8 +32,8 @@ public class HomePromoFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    public static HomePromoFragment newInstance() {
-        HomePromoFragment fragment = new HomePromoFragment();
+    public static PromoFragment newInstance() {
+        PromoFragment fragment = new PromoFragment();
         return fragment;
     }
 }

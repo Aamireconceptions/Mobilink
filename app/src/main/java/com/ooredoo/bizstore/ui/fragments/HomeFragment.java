@@ -1,8 +1,8 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.HomePromoStatePagerAdapter;
-import com.ooredoo.bizstore.adapters.HomeTopBrandsStatePagerAdapter;
-import com.ooredoo.bizstore.adapters.HomeTopDealsStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 
 /**
  * @author Babar
@@ -62,14 +62,14 @@ public class HomeFragment extends Fragment
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
 
-        ViewPager topDealsPager = (ViewPager) v.findViewById(R.id.home_top_deals_pager);
-        topDealsPager.setAdapter(new HomeTopDealsStatePagerAdapter(getFragmentManager()));
+        ViewPager featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
+        featuredPager.setAdapter(new FeaturedStatePagerAdapter(getFragmentManager()));
 
-        ViewPager promoPager = (ViewPager) v.findViewById(R.id.home_promo_pager);
-        promoPager.setAdapter(new HomePromoStatePagerAdapter(getFragmentManager()));
+        ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
+        promoPager.setAdapter(new PromoStatePagerAdapter(getFragmentManager()));
 
-        ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.home_top_brands_pager);
-        topBrandsPager.setAdapter(new HomeTopBrandsStatePagerAdapter(getFragmentManager()));
+        ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
+        topBrandsPager.setAdapter(new TopBrandsStatePagerAdapter(getFragmentManager()));
 
     }
 }

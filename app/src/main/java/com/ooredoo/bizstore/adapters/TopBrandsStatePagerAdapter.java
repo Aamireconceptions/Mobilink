@@ -4,18 +4,18 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
-import com.ooredoo.bizstore.ui.fragments.HomeTopBrandFragment;
+import com.ooredoo.bizstore.ui.fragments.TopBrandFragment;
 
 /**
  * @author  Babar
  * @since 19-Jun-15.
  */
-public class HomeTopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
+public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
 {
 
     private final static float PAGE_WIDTH = 0.33f;
 
-    public HomeTopBrandsStatePagerAdapter(FragmentManager fm)
+    public TopBrandsStatePagerAdapter(FragmentManager fm)
     {
         super(fm);
     }
@@ -23,7 +23,7 @@ public class HomeTopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return HomeTopBrandFragment.newInstance();
+        return TopBrandFragment.newInstance();
     }
 
     @Override

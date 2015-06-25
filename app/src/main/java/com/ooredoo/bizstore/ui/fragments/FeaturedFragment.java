@@ -14,10 +14,10 @@ import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
  * @author Babar
  * @since 19-Jun-15.
  */
-public class HomeTopDealFragment extends Fragment implements View.OnClickListener {
+public class FeaturedFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home_top_deal, container, false);
+        View v = inflater.inflate(R.layout.fragment_featured, container, false);
         v.findViewById(R.id.iv_featured_banner).setOnClickListener(this);
         return v;
     }
@@ -29,8 +29,8 @@ public class HomeTopDealFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public static HomeTopDealFragment newInstance() {
-        HomeTopDealFragment fragment = new HomeTopDealFragment();
+    public static FeaturedFragment newInstance() {
+        FeaturedFragment fragment = new FeaturedFragment();
         return fragment;
     }
 }
