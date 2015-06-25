@@ -46,6 +46,12 @@ public class GridViewBaseAdapter extends BaseAdapter
         memoryCache = MemoryCache.getInstance();
     }
 
+    public void setData(List<GenericDeal> deals)
+    {
+        this.deals = deals;
+    }
+
+
 
     @Override
     public int getCount()
@@ -68,7 +74,7 @@ public class GridViewBaseAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
         View grid = convertView;
 
@@ -89,6 +95,18 @@ public class GridViewBaseAdapter extends BaseAdapter
         {
             holder = (Holder) grid.getTag();
         }
+
+        holder.ivFav.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                GenericDeal genericDeal = getItem(position);
+                genericDeal.isFav = !v.isSelected();
+
+                notifyDataSetChanged();
+            }
+        });
 
        /* holder.ivFav.setSelected(getItem(position).isFav);
 

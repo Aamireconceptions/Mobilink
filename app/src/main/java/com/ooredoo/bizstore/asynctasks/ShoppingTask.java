@@ -1,20 +1,20 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.google.gson.Gson;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +76,19 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
         if(result != null)
         {
+            Gson gson = new Gson();
 
+            Response response = gson.fromJson(result, Response.class);
+
+            List<GenericDeal> deals = response.shoppingList;
+
+            for(GenericDeal deal : deals)
+            {
+                Logger.print("Title: "+deal.title);
+            }
+
+            adapter.setData(deals);
+            adapter.notifyDataSetChanged();
         }
         else
         {

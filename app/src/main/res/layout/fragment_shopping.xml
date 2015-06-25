@@ -7,12 +7,13 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_6sdp">
+        android:padding="@dimen/_12sdp">
 
         <Button
             android:id="@+id/new_deals"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+            android:layout_width="@dimen/_115sdp"
+            android:layout_height="@dimen/_34sdp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:text="@string/new_deals"
@@ -22,8 +23,8 @@
 
         <Button
             android:id="@+id/popular_deals"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_115sdp"
+            android:layout_height="@dimen/_34sdp"
             android:layout_toRightOf="@+id/new_deals"
             android:layout_centerVertical="true"
             android:text="@string/popular_deals"

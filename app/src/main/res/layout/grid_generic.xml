@@ -41,7 +41,7 @@
         android:id="@+id/fav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_like_inactive"
+        android:src="@drawable/fav_selector"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_8sdp"/>
