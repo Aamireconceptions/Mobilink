@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +22,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 {
     private ListViewBaseAdapter adapter;
 
-    private final static String SERVICE_URL = "";
+    private final static String SERVICE_URL = "http://10.1.3.45/econ/ooredoo/index.php/api/en/deals/26";
 
     public DealsTask(ListViewBaseAdapter adapter)
     {
@@ -57,6 +58,11 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             Response response = gson.fromJson(result, Response.class);
 
             deals = response.deals;
+
+            for(GenericDeal genericDeal : deals)
+            {
+                Logger.print("title:"+genericDeal.title);
+            }
 
             adapter.setData(deals);
             adapter.notifyDataSetChanged();

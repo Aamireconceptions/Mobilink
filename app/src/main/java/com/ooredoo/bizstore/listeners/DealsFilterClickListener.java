@@ -11,7 +11,8 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
  * @author Pehlaj Rai
  * @since 6/19/2015.
  */
-public class DealsFilterClickListener implements View.OnClickListener {
+public class DealsFilterClickListener implements View.OnClickListener
+{
 
     View dealsFilterView;
     HomeActivity mActivity;
@@ -28,7 +29,7 @@ public class DealsFilterClickListener implements View.OnClickListener {
         btnNewDeals.setSelected(true);
         btnNewDeals.setOnClickListener(this);
         btnPopularDeals.setOnClickListener(this);
-        dealsFilterView.findViewById(R.id.ib_filter).setOnClickListener(this);
+        dealsFilterView.findViewById(R.id.iv_filter).setOnClickListener(this);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class DealsFilterClickListener implements View.OnClickListener {
             btnNewDeals.setSelected(isNewDealsFilter);
             btnPopularDeals.setSelected(!isNewDealsFilter);
             //TODO implement deals' filter
-        } else if(id == R.id.ib_filter) {
+        } else if(id == R.id.iv_filter) {
             mActivity.showHideDrawer(GravityCompat.END, true);
         }
     }

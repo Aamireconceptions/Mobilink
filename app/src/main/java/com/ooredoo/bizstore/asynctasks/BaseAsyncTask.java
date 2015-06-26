@@ -91,7 +91,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
             {
                 reader.close();
 
-                Logger.print("BaseAsync Closing Reader");
+                Logger.print("BaseAsyncClosing Reader");
             }
         }
     }
