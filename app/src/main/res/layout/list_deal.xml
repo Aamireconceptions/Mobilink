@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_like_inactive"/>
+            android:src="@drawable/fav_selector"/>
 
     </RelativeLayout>
 
@@ -46,7 +46,7 @@
             android:textColor="@color/red"/>
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_6sdp"

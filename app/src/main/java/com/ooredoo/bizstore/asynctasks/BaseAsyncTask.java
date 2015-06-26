@@ -85,13 +85,13 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         }
         finally
         {
-            Logger.print("Entered Finally");
+            Logger.print("BaseAsync Entered Finally");
 
             if(reader != null)
             {
                 reader.close();
 
-                Logger.print("Closing Reader");
+                Logger.print("BaseAsync Closing Reader");
             }
         }
     }

@@ -6,9 +6,11 @@ package com.ooredoo.bizstore.model;
  */
 public class GenericDeal
 {
-    public int id;
+    public int id, views;
 
-    public String title, discount;
+    public String title, detail, discount, category;
 
     public boolean isFav;
+
+    public float rating;
 }

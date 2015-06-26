@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
@@ -43,6 +44,11 @@ public class ListViewBaseAdapter extends BaseAdapter
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         memoryCache = MemoryCache.getInstance();
+    }
+
+    public void setData(List<GenericDeal> deals)
+    {
+        this.deals = deals;
     }
 
 
@@ -80,7 +86,7 @@ public class ListViewBaseAdapter extends BaseAdapter
             holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
             holder.ivFav = (ImageView) row.findViewById(R.id.fav);
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
-            holder.tvDescription = (TextView) row.findViewById(R.id.description);
+            holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
             holder.tvViews = (TextView) row.findViewById(R.id.views);
             holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
@@ -92,14 +98,56 @@ public class ListViewBaseAdapter extends BaseAdapter
             holder = (Holder) row.getTag();
         }
 
+       /* String category = getItem(position).category;
+
+        holder.tvCategory.setText(category);
+        holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(
+                         ResourceUtils.getDrawableResId(context, category),
+                         0,
+                         0,
+                         0);
+
+        holder.ivFav.setSelected(getItem(position).isFav);
+        holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
+
+        holder.tvTitle.setText(getItem(position).title);
+
+        holder.tvDetail.setText(getItem(position).detail);
+
+        holder.tvDiscount.setText(getItem(position).discount);
+
+        holder.rbRatings.setRating(getItem(position).rating);
+
+        holder.tvViews.setText(String.valueOf(getItem(position).views));*/
+
         return row;
+    }
+
+    private class FavouriteOnClickListener implements View.OnClickListener
+    {
+        private int position;
+
+        public FavouriteOnClickListener(int position)
+        {
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View v)
+        {
+            boolean isSelected = v.isSelected();
+
+            v.setSelected(!isSelected);
+
+            getItem(position).isFav = !isSelected;
+        }
     }
 
     private static class Holder
     {
         ImageView ivFav;
 
-        TextView tvCategory, tvTitle, tvDescription, tvDiscount, tvViews;
+        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;
 
         RatingBar rbRatings;
     }
