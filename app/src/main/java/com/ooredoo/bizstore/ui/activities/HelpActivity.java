@@ -87,8 +87,8 @@ public class HelpActivity extends BaseActivity {
     private void setGroupIndicatorBounds() {
         float width = getResources().getDisplayMetrics().widthPixels;
 
-        int left = (int) (width - convertDpToPixels(50));
-        int right = (int) (width - convertDpToPixels(20));
+        int left = (int) (width - convertDpToPixels(30));
+        int right = (int) (width - convertDpToPixels(0));
 
         mExpListView.setIndicatorBounds(left, right);
         if(android.os.Build.VERSION.SDK_INT >= 18) {

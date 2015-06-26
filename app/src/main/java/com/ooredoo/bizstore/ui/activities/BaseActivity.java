@@ -11,15 +11,18 @@ import android.view.View.OnClickListener;
  * @since 6/11/2015.
  */
 public abstract class BaseActivity extends AppCompatActivity implements OnClickListener {
+
+    protected Intent intent;
     protected int layoutResId;
 
     public BaseActivity() {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layoutResId);
+        intent = getIntent();
         init();
     }
 

@@ -5,9 +5,9 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.ooredoo.bizstore.model.Brand;
-import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.fragments.TopBrandFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,9 +16,8 @@ import java.util.List;
  */
 public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
 {
-    private List<Brand> brands;
-
     private final static float PAGE_WIDTH = 0.33f;
+    private List<Brand> brands = new ArrayList<>();
 
     public TopBrandsStatePagerAdapter(FragmentManager fm, List<Brand> brands)
     {
@@ -40,7 +39,7 @@ public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
 
     @Override
     public int getCount() {
-        return 6;
+        return brands.size();
     }
 
     @Override

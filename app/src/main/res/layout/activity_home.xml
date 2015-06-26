@@ -18,6 +18,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="2dp"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" >
@@ -28,8 +29,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:focusable="true"
-                    android:hint="@string/search_hint"
-                    android:text=""
+                    android:hint="@string/search"
                     android:visibility="gone"/>
 
             </android.support.v7.widget.Toolbar>

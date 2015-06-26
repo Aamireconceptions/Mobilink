@@ -110,5 +110,9 @@
     <string name="title_activity_recent_searches">RecentSearchesActivity</string>
     <string name="no_recent_searches">No Recent Searches Found</string>
     <string name="my_businesses">My Businesses</string>
+    <string name="share">share</string>
+    <string name="rate">rate</string>
+    <string name="call">call</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

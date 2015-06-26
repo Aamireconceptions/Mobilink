@@ -3,14 +3,13 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal"
-              android:layout_marginLeft="2dp"
-              android:layout_marginRight="2dp"
               android:background="@color/grey"
               android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="0dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -20,52 +19,76 @@
             android:id="@+id/cb_search_deals"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_weight="0.45"
             android:button="@drawable/checkbox_button"
             android:checked="true"
-            android:padding="2dp"
+            android:paddingStart="@dimen/_8sdp"
             android:text="@string/Search_for_Deals"
-            android:textSize="14sp"/>
+            android:textSize="13sp"/>
 
         <View
             android:layout_width="0.25dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.02"
+            android:layout_weight="0.015"
             android:background="@color/grey"/>
 
         <CheckBox
             android:id="@+id/cb_search_business"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginLeft="4dp"
-            android:layout_weight="0.548"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_weight="0.50"
             android:button="@drawable/checkbox_button"
-            android:padding="2dp"
-            android:text="@string/Search_for_Business"/>
+            android:paddingStart="@dimen/_8sdp"
+            android:text="@string/Search_for_Business"
+            android:textSize="13sp"/>
     </LinearLayout>
 
     <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/grey"/>
 
-    <TextView
-        android:id="@+id/tv_search_results"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/grey"
-        android:padding="5dp"
-        android:text="10 - SEARCH RESULTS"
-        android:textColor="@color/hex808080"
-        android:textStyle="bold"/>
+    <RelativeLayout
+        android:id="@+id/rl_search_results"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="start|center_vertical"
+        android:background="@color/red"
+        android:gravity="start|center_vertical">
+
+        <TextView
+            android:id="@+id/tv_search_results"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/iv_filter_results"
+            android:paddingLeft="15dp"
+            android:text="Showing 10 Results"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="normal"/>
+
+        <ImageView
+            android:id="@+id/iv_filter_results"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_filter"/>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/lv_search_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="0dp"
         android:divider="@color/grey"
-        android:dividerHeight="8dp"
+        android:dividerHeight="0.15dp"
         android:scrollbars="none"
         android:visibility="gone"/>
 
@@ -73,8 +96,8 @@
         android:id="@+id/lv_search_suggestions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/white"
+        android:layout_margin="0dp"
+        android:background="@drawable/bg_grey_rad2"
         android:scrollbars="none"
         android:visibility="visible"/>
 </LinearLayout>

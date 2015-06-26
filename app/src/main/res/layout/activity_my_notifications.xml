@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:padding="@dimen/_6sdp"
+        android:background="@color/white"
+        android:padding="16dp"
         android:text="@string/sms_charges"/>
 
     <RelativeLayout
@@ -24,8 +25,10 @@
         android:layout_height="50dp"
         android:layout_below="@+id/tv_notifications_heading"
         android:background="@color/grey"
+        android:paddingBottom="2dp"
         android:paddingEnd="12dp"
-        android:paddingStart="15dp">
+        android:paddingStart="20dp"
+        android:paddingTop="2dp">
 
         <TextView
             android:id="@+id/tv_select_all"
@@ -37,7 +40,10 @@
             android:background="@color/grey"
             android:gravity="start|center_vertical"
             android:text="@string/select_all"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textScaleX="0.95"
+            android:textSize="16sp"
+            android:textStyle="normal"/>
 
         <CheckBox
             android:id="@+id/cb_select_all"

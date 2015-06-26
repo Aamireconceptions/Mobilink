@@ -60,9 +60,12 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
         List<Deal> searchResults = search("", 1);
 
         Logger.logI("SUGGESTION", suggestion);
-        TextView tvSearchResults = (TextView) mActivity.searchPopup.getContentView().findViewById(R.id.tv_search_results);
-        tvSearchResults.setText(suggestions.length + " - SEARCH RESULTS");
+        View searchDropDown = mActivity.searchPopup.getContentView();
+        searchDropDown.findViewById(R.id.divider).setVisibility(View.GONE);
+        TextView tvSearchResults = (TextView) searchDropDown.findViewById(R.id.tv_search_results);
+        tvSearchResults.setText("Showing " + suggestions.length + " Results");
         tvSearchResults.setVisibility(View.VISIBLE);
+        ((View) tvSearchResults.getParent()).setVisibility(View.VISIBLE);
         SearchResultsAdapter adapter = new SearchResultsAdapter(mActivity, R.layout.search_result_item, searchResults);
         mActivity.mSearchResultsListView.setAdapter(adapter);
         mActivity.mSuggestionsListView.setVisibility(View.GONE);

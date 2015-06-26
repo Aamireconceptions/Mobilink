@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.adapters;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +10,13 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
-import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.fragments.BusinessDetailFragment;
 
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.DEAL;
+import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.SEARCH_BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.SEARCH_DEALS;
 import static com.ooredoo.bizstore.AppConstant.SEARCH_DEALS_AND_BUSINESS;
@@ -80,12 +78,9 @@ public class SearchResultsAdapter extends ArrayAdapter<Deal> {
             public void onClick(View v) {
                 Log.i("ITEM", String.valueOf(item.type));
                 if(item.type == DEAL) {
-                    //TODO show deal details
-                    mActivity.startActivity(new Intent(mActivity, DealDetailActivity.class));
+                    mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], 0L); //TODO replace 0L with deal id
                 } else if(item.type == BUSINESS) {
-                    //TODO show business details
-                    mActivity.showHideSearchBar(false);
-                    mActivity.showFragment(new BusinessDetailFragment());
+                    mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], 0L); //TODO replace 0L with business id
                 }
             }
         });

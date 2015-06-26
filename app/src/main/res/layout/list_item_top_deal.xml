@@ -76,7 +76,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:gravity="left|center_vertical"
             android:text="@string/sms_charges"
-            android:textColor="@color/black"
+            android:textColor="@color/hex4d4d4c"
             android:textSize="14sp"/>
 
         <TextView

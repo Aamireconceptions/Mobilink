@@ -13,6 +13,9 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.List;
 
+import static com.ooredoo.bizstore.AppConstant.DEAL;
+import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
+
 public class TopDealsAdapter extends ArrayAdapter<Deal> {
 
     HomeActivity mActivity;
@@ -60,6 +63,13 @@ public class TopDealsAdapter extends ArrayAdapter<Deal> {
         holder.tvTitle.setText(deal.title);
         holder.tvViews.setText(deal.views);
         holder.tvDiscount.setText(deal.discount);*/
+
+        holder.tvDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[2], deal.id);
+            }
+        });
 
         ImageView ivFav = (ImageView) view.findViewById(R.id.iv_fav);
 

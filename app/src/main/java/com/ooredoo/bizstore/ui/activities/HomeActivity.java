@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
@@ -26,7 +28,6 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
-import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
@@ -35,6 +36,10 @@ import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
+import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORY;
+import static com.ooredoo.bizstore.AppConstant.DETAIL_TYPE;
+import static com.ooredoo.bizstore.AppConstant.TYPE_ID;
+import static com.ooredoo.bizstore.adapters.SearchResultsAdapter.searchType;
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener,
@@ -208,7 +213,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mSuggestionsListView.setAdapter(mSuggestionsAdapter);
         view.findViewById(R.id.cb_search_deals).setOnClickListener(this);
         view.findViewById(R.id.cb_search_business).setOnClickListener(this);
-        view.findViewById(R.id.tv_search_results).setVisibility(View.GONE);
+        view.findViewById(R.id.rl_search_results).setVisibility(View.GONE);
         searchPopup.showAsDropDown(acSearch, 10, 55);
     }
 
@@ -243,14 +248,23 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         CheckBox cbSearchDeals = (CheckBox) searchPopup.getContentView().findViewById(R.id.cb_search_deals);
-        CheckBox cbSearchBusiness = (CheckBox) searchPopup.getContentView().findViewById(R.id.cb_search_deals);
+        CheckBox cbSearchBusiness = (CheckBox) searchPopup.getContentView().findViewById(R.id.cb_search_business);
         if(cbSearchDeals.isChecked() && cbSearchBusiness.isChecked()) {
-            SearchResultsAdapter.searchType = 3;
+            searchType = 3;
         } else if(cbSearchBusiness.isChecked()) {
-            SearchResultsAdapter.searchType = 2;
+            searchType = 2;
         } else if(cbSearchDeals.isChecked()) {
-            SearchResultsAdapter.searchType = 1;
+            searchType = 1;
         }
+        Logger.print("SEARCH_FILTER: " + searchType);
+        refreshSearchResults();
+    }
+
+    public void refreshSearchResults() {
+        ArrayAdapter adapter = (ArrayAdapter) mSearchResultsListView.getAdapter();
+        adapter.notifyDataSetChanged();
+        mSearchResultsListView.refreshDrawableState();
+        mSearchResultsListView.invalidateViews();
     }
 
     @Override
@@ -259,6 +273,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         Logger.print("minValue:" + minValue + ", maxValue:"+maxValue);
 
+    }
+
+    public void showDetailActivity(int detailType, String dealCategory, long typeId) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(TYPE_ID, typeId);
+        intent.putExtra(DETAIL_TYPE, detailType);
+        intent.putExtra(DEAL_CATEGORY, dealCategory);
+        startActivity(intent);
     }
 
     public class SearchTextWatcher implements TextWatcher {

@@ -18,26 +18,16 @@ import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
+import static com.ooredoo.bizstore.AppConstant.DEAL;
+import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
+
 /**
  * @author Babar
  * @since 19-Jun-15.
  */
-public class PromoFragment extends Fragment implements View.OnClickListener
-{
-    public static PromoFragment newInstance(int id)
-    {
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
-
-        PromoFragment fragment = new PromoFragment();
-        fragment.setArguments(bundle);
-
-        return fragment;
-    }
-
+public class PromoFragment extends Fragment implements View.OnClickListener {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_promo, container, false);
 
         initAndLoadBanner(v);
@@ -45,15 +35,13 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         return v;
     }
 
-    private void initAndLoadBanner(View v)
-    {
+    private void initAndLoadBanner(View v) {
         Bundle bundle = getArguments();
 
         int id = bundle.getInt("id");
 
-        v.setOnClickListener(this);
-
         ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
+        imageView.setOnClickListener(this);
 
         ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
@@ -63,19 +51,15 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
         Bitmap bitmap = memoryCache.getBitmapFromCache(url);
 
-        if(bitmap != null)
-        {
+        if(bitmap != null) {
             imageView.setImageBitmap(bitmap);
-        }
-        else
-        {
+        } else {
             Logger.print("Root Width:" + v.getWidth());
 
             Resources resources = Resources.getSystem();
 
             int reqWidth = v.getWidth();
-            int reqHeight = (int) Converter.convertDpToPixels
-                    (resources.getDimension(R.dimen._180sdp) / resources.getDisplayMetrics().density);
+            int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._180sdp) / resources.getDisplayMetrics().density);
 
             Logger.print("req Width Pixels:" + reqWidth);
             Logger.print("req Height Pixels:" + reqHeight);
@@ -86,10 +70,21 @@ public class PromoFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View v)
-    {
-
+    public void onClick(View v) {
+        if(v.getId() == R.id.image_view) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            homeActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], 0L); //TODO replace 0L with deal id
+        }
     }
 
+    public static PromoFragment newInstance(int id) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+
+        PromoFragment fragment = new PromoFragment();
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
 
 }

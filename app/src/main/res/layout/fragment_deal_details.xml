@@ -1,13 +1,14 @@
-<ScrollView
+<com.ooredoo.bizstore.utils.ScrollViewHelper
     android:id="@+id/scrollView"
     xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/grey">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/rl_header"
@@ -17,18 +18,13 @@
             android:background="@drawable/bg_detail">
 
             <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:src="@drawable/ic_back_arrow_white"/>
-            <ImageView
                 android:id="@+id/iv_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:padding="12dp"
+                android:padding="10dp"
                 android:src="@drawable/ic_like_big_inactive"/>
+
             <LinearLayout
                 android:id="@+id/ll_details"
                 android:layout_width="match_parent"
@@ -104,7 +100,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="CALL"
+                        android:text="@string/call"
+                        android:textAllCaps="true"
                         android:textColor="@color/white"/>
                     <TextView
                         android:layout_width="0dp"
@@ -120,7 +117,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="RATE"
+                        android:text="@string/rate"
+                        android:textAllCaps="true"
                         android:textColor="@color/white"/>
                     <TextView
                         android:layout_width="0dp"
@@ -128,149 +126,170 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="SHARE"
+                        android:text="@string/share"
+                        android:textAllCaps="true"
                         android:textColor="@color/white"/>
                 </TableRow>
             </TableLayout>
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_header"
             android:orientation="vertical"
             android:padding="10dp">
-            <TextView
-                android:id="@+id/tv_hdr_banner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true"
-                android:layout_margin="0dp"
-                android:background="@drawable/deal_header_bg"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/Preview"
-                android:textColor="@color/red"/>
-            <ImageView
-                android:id="@+id/iv_deal_banner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_hdr_banner"
-                android:layout_marginTop="0dp"
-                android:src="@drawable/tmp_banner"/>
-            <TextView
-                android:id="@+id/tv_hdr_deal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/iv_deal_banner"
-                android:layout_margin="0dp"
-                android:background="@drawable/deal_header_bg"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/Deal_Description"
-                android:textColor="@color/red"/>
-            <TextView
-                android:id="@+id/tv_deal_desc"
+
+            <LinearLayout
+                android:id="@+id/ll_banner_preview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_hdr_deal"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/border_grey"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:text="@string/sms_charges"
-                android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/tv_discount"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_hdr_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="0dp"
+                    android:background="@drawable/deal_header_bg"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:text="@string/Preview"
+                    android:textColor="@color/red"/>
+                <ImageView
+                    android:id="@+id/iv_deal_banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:src="@drawable/tmp_banner"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_deal_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_deal_desc"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/deal_footer_bg"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:text="30% OFF"
-                android:textColor="@color/red"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_hdr_deal_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/iv_deal_banner"
+                    android:layout_margin="0dp"
+                    android:background="@drawable/deal_header_bg"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:text="@string/Deal_Description"
+                    android:textColor="@color/red"/>
+                <TextView
+                    android:id="@+id/tv_deal_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/border_grey"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/sms_charges"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/tv_discount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/deal_footer_bg"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="30% OFF"
+                    android:textColor="@color/red"/>
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_hdr_contact_info"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/tv_discount"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/deal_header_bg"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
                 android:text="@string/Contact_Information"
                 android:textColor="@color/red"/>
             <TextView
                 android:id="@+id/tv_contact"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:layout_below="@+id/tv_hdr_contact_info"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/deal_footer_bg"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="@string/_20"
                 android:textColor="@color/black"/>
+
             <TextView
                 android:id="@+id/tv_hdr_address"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/tv_contact"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/deal_header_bg"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
                 android:text="@string/Address"
                 android:textColor="@color/red"/>
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:layout_below="@+id/tv_hdr_address"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/deal_footer_bg"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="AJ PLAZA, STREET 1, F-10 Markaz, Islamabad"
                 android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/tv_hdr_category"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/tv_address"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/deal_header_bg"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/Category"
-                android:textColor="@color/red"/>
-            <RelativeLayout
+
+            <LinearLayout
+                android:id="@+id/ll_deal_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_hdr_category"
-                android:background="@drawable/deal_footer_bg">
-                <ImageView
-                    android:id="@+id/iv_deal_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/tv_category"
-                    android:layout_alignTop="@+id/tv_category"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:src="@drawable/ic_jewelry"/>
+                android:orientation="vertical">
+
                 <TextView
-                    android:id="@+id/tv_category"
+                    android:id="@+id/tv_hdr_category"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_toEndOf="@+id/iv_deal_category"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/deal_header_bg"
                     android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:text="Jewellery"
-                    android:textColor="@color/black"/>
-            </RelativeLayout>
-        </RelativeLayout>
-    </RelativeLayout>
-</ScrollView>
+                    android:paddingStart="10dp"
+                    android:text="@string/Category"
+                    android:textColor="@color/red"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_hdr_category"
+                    android:background="@drawable/deal_footer_bg">
+                    <ImageView
+                        android:id="@+id/iv_deal_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_category"
+                        android:layout_alignTop="@+id/tv_category"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:src="@drawable/ic_jewelry"/>
+                    <TextView
+                        android:id="@+id/tv_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toEndOf="@+id/iv_deal_category"
+                        android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:text="Jewellery"
+                        android:textColor="@color/black"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.ooredoo.bizstore.utils.ScrollViewHelper>

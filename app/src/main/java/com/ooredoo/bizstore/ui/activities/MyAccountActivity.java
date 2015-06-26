@@ -20,7 +20,6 @@ import java.io.File;
 import static android.os.Environment.getExternalStorageDirectory;
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
-import static com.ooredoo.bizstore.utils.DialogUtils.showUserDpSelectionDialog;
 
 /**
  * @author Pehlaj Rai
@@ -69,7 +68,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             ImageView ivEdit = (ImageView) v;
             ivEdit.setImageResource(canEditDp ? R.drawable.ic_done_white : R.drawable.ic_edit_grey);
             if(canEditDp) {
-                showUserDpSelectionDialog(this);
+                selectPicture();
             } else {
                 if(hasUserSelectedPic) {
                     //TODO upload picture to server
@@ -91,9 +90,15 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
     }
 
-    public void uploadExisting() {
-        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, 2);
+    public void selectPicture() {
+        File file = new File(path);
+        Uri outputFileUri = Uri.fromFile(file);
+        final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.setType("image/*");
+        intent.setAction(Intent.EXTRA_INITIAL_INTENTS);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+        startActivityForResult(intent, 2);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
