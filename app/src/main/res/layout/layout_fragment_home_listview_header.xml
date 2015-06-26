@@ -45,7 +45,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/promo_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@drawable/feature_banner"/>
 
         <com.ooredoo.bizstore.ui.CirclePageIndicator
             android:id="@+id/promo_indicator"
@@ -98,7 +99,12 @@
         android:textAllCaps="true"
         android:typeface="serif"/>
 
-    <include layout="@layout/layout_horizontal_top_malls"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/top_malls_pager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_140sdp" />
+
+    <!--<include layout="@layout/layout_horizontal_top_malls"/>-->
 
     <TextView
         android:layout_width="match_parent"

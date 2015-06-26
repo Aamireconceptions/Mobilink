@@ -109,5 +109,6 @@
     <string name="name_hint">Enter Your Name</string>
     <string name="title_activity_recent_searches">RecentSearchesActivity</string>
     <string name="no_recent_searches">No Recent Searches Found</string>
+    <string name="my_businesses">My Businesses</string>
 
 </resources>

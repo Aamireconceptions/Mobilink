@@ -12,14 +12,14 @@ import com.ooredoo.bizstore.R;
  * @author Babar
  * @since 19-Jun-15.
  */
-public class TopBrandFragment extends Fragment
+public class TopMallFragment extends Fragment
 {
-    public static TopBrandFragment newInstance(int id)
+    public static TopMallFragment newInstance(int id)
     {
         Bundle bundle = new Bundle();
         bundle.putInt("id", id);
 
-        TopBrandFragment fragment = new TopBrandFragment();
+        TopMallFragment fragment = new TopMallFragment();
         fragment.setArguments(bundle);
 
         return fragment;

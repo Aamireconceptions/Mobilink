@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -9,12 +9,44 @@
         android:background="@color/red"
         android:theme="@style/toolBarTheme"/>
 
-    <include
+    <RelativeLayout
         android:id="@+id/header"
-        layout="@layout/header_deals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/toolbar"
+        android:padding="@dimen/_12sdp">
+
+        <Button
+            android:id="@+id/my_deals"
+            android:layout_width="@dimen/_115sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/my_deals"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"
+            android:background="@drawable/bt_tab_style_left_selector"/>
+
+        <Button
+            android:id="@+id/my_businesses"
+            android:layout_width="@dimen/_115sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_toRightOf="@+id/my_deals"
+            android:layout_centerVertical="true"
+            android:text="@string/my_businesses"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"
+            android:background="@drawable/bt_tab_style_right_selector"/>
+
+        <ImageView
+            android:id="@+id/ib_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_filter_default"/>
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/list_view"

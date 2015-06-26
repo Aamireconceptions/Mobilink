@@ -8,4 +8,8 @@ import java.util.List;
 public class Response
 {
     public List<GenericDeal> deals;
+
+    public List<Brand> brands;
+
+    public List<Mall> malls;
 }

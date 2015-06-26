@@ -1,42 +1,35 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
-import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
 /**
  * Created by Babar on 25-Jun-15.
  */
-public class FeaturedAsyncTask extends BaseAsyncTask<String, Void, String>
+public class PromoTask extends BaseAsyncTask<String, Void, String>
 {
     private FeaturedStatePagerAdapter adapter;
 
-    private ViewPager featuredPager;
+    private ViewPager viewPager;
 
     private final static String SERVICE_URL = "";
 
-    public FeaturedAsyncTask(FeaturedStatePagerAdapter adapter, ViewPager featuredPager)
+    public PromoTask(FeaturedStatePagerAdapter adapter, ViewPager viewPager)
     {
         this.adapter = adapter;
 
-        this.featuredPager = featuredPager;
+        this.viewPager = viewPager;
     }
 
     @Override
@@ -44,7 +37,7 @@ public class FeaturedAsyncTask extends BaseAsyncTask<String, Void, String>
     {
         try
         {
-            return getFeatured();
+            return getPromos();
         }
         catch (IOException e)
         {
@@ -61,7 +54,7 @@ public class FeaturedAsyncTask extends BaseAsyncTask<String, Void, String>
 
         if(result != null)
         {
-            featuredPager.setBackground(null);
+            viewPager.setBackground(null);
 
             Gson gson = new Gson();
 
@@ -74,11 +67,11 @@ public class FeaturedAsyncTask extends BaseAsyncTask<String, Void, String>
         }
         else
         {
-            Logger.print("FeaturedAsyncTask: Failed to download due to no internet");
+            Logger.print("PromoAsyncTask: Failed to download Banners due to no internet");
         }
     }
 
-    private String getFeatured() throws IOException
+    private String getPromos() throws IOException
     {
         String result = null;
 

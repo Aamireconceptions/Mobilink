@@ -13,11 +13,15 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
-import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
-import com.ooredoo.bizstore.asynctasks.FeaturedAsyncTask;
+import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
+import com.ooredoo.bizstore.asynctasks.FeaturedTask;
+import com.ooredoo.bizstore.asynctasks.PromoTask;
+import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
+import com.ooredoo.bizstore.asynctasks.TopMallsTask;
+import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
-import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,39 +77,80 @@ public class HomeFragment extends Fragment
 
         initAndLoadPromotions(v);
 
-        ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
-        topBrandsPager.setAdapter(new TopBrandsStatePagerAdapter(getFragmentManager()));
+        initAndLoadTopBrands(v);
+
+        initAndLoadTopMalls(v);
     }
 
     private void initAndLoadFeaturedDeals(View v)
     {
         List<GenericDeal> deals = new ArrayList<>();
 
-        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
+        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(),
+                                                                          deals);
 
         ViewPager featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
         featuredPager.setAdapter(adapter);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.featured_indicator);
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
+                                                   v.findViewById(R.id.featured_indicator);
         circlePageIndicator.setViewPager(featuredPager);
 
-        FeaturedAsyncTask featuredAsyncTask = new FeaturedAsyncTask(adapter, featuredPager);
-        featuredAsyncTask.execute();
+        FeaturedTask featuredTask = new FeaturedTask(adapter, featuredPager);
+        featuredTask.execute();
     }
 
     private void initAndLoadPromotions(View v)
     {
         List<GenericDeal> deals = new ArrayList<>();
 
-        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
+        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(),
+                                                deals);
 
         ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
         promoPager.setAdapter(adapter);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.promo_indicator);
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
+                                                   v.findViewById(R.id.promo_indicator);
         circlePageIndicator.setViewPager(promoPager);
 
-        FeaturedAsyncTask featuredAsyncTask = new FeaturedAsyncTask(adapter, promoPager);
-        featuredAsyncTask.execute();
+        PromoTask promoTask = new PromoTask(adapter, promoPager);
+        promoTask.execute();
+    }
+
+    private void initAndLoadTopBrands(View v)
+    {
+        List<Brand> brands = new ArrayList<>();
+
+        TopBrandsStatePagerAdapter adapter = new TopBrandsStatePagerAdapter(getFragmentManager(),
+                                                                            brands);
+
+        ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
+        topBrandsPager.setAdapter(adapter);
+
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
+                                                   v.findViewById(R.id.promo_indicator);
+        circlePageIndicator.setViewPager(topBrandsPager);
+
+        TopBrandsTask topBrandsTask = new TopBrandsTask(adapter, topBrandsPager);
+        topBrandsTask.execute();
+    }
+
+    private void initAndLoadTopMalls(View v)
+    {
+        List<Mall> malls = new ArrayList<>();
+
+        TopMallsStatePagerAdapter adapter = new TopMallsStatePagerAdapter(getFragmentManager(),
+                                                                          malls);
+
+        ViewPager topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
+        topMallsPager.setAdapter(adapter);
+
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
+                                                   v.findViewById(R.id.promo_indicator);
+        circlePageIndicator.setViewPager(topMallsPager);
+
+        TopMallsTask topMallsTask = new TopMallsTask(adapter, topMallsPager);
+        topMallsTask.execute();
     }
 }

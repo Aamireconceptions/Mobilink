@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
+        android:scrollbars="none"
         android:verticalSpacing="@dimen/_6sdp"
         android:horizontalSpacing="@dimen/_6sdp"
         android:layout_marginLeft="@dimen/_6sdp"

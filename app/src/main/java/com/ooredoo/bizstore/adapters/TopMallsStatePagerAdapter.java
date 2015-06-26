@@ -5,8 +5,9 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.ooredoo.bizstore.model.Brand;
-import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.fragments.TopBrandFragment;
+import com.ooredoo.bizstore.ui.fragments.TopMallFragment;
 
 import java.util.List;
 
@@ -14,28 +15,30 @@ import java.util.List;
  * @author  Babar
  * @since 19-Jun-15.
  */
-public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
+public class TopMallsStatePagerAdapter extends FragmentStatePagerAdapter
 {
-    private List<Brand> brands;
+    private List<Mall> malls;
 
     private final static float PAGE_WIDTH = 0.33f;
 
-    public TopBrandsStatePagerAdapter(FragmentManager fm, List<Brand> brands)
+    public TopMallsStatePagerAdapter(FragmentManager fm, List<Mall> malls)
     {
         super(fm);
 
-        this.brands = brands;
+        this.malls = malls;
     }
 
-    public void setData(List<Brand> brands)
+    public void setData(List<Mall> malls)
     {
-        this.brands = brands;
+        this.malls = malls;
     }
 
     @Override
     public Fragment getItem(int position)
     {
-        return TopBrandFragment.newInstance(brands.get(position).id);
+        //return TopMallFragment.newInstance(malls.get(position).id);
+
+        return TopMallFragment.newInstance(1);
     }
 
     @Override
