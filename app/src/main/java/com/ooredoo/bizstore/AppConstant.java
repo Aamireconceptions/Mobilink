@@ -23,4 +23,6 @@ public class AppConstant {
 
     public static String[] DEAL_CATEGORIES = { "Promo", "Featured", "Top", "Shopping", "Electronics", "Hotels", "Malls", "Automotive", "Travel", "Entertainment", "Jewellery", "Sports" };
 
+    public static float MAX_ALPHA = 1.0f;
+
 }

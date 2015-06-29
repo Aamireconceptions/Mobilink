@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.ui.activities;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,16 +35,18 @@ import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
+import com.ooredoo.bizstore.views.RangeSeekBar.OnRangeSeekBarChangeListener;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DETAIL_TYPE;
+import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
 import static com.ooredoo.bizstore.AppConstant.TYPE_ID;
 import static com.ooredoo.bizstore.adapters.SearchResultsAdapter.searchType;
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.BASE_URL;
+import static com.ooredoo.bizstore.utils.PropertyUtils.getAppUrl;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener,
-                                                               RangeSeekBar.OnRangeSeekBarChangeListener
-{
+public class HomeActivity extends AppCompatActivity implements OnClickListener, OnRangeSeekBarChangeListener {
     public static boolean rtl = false;
     public DrawerLayout drawerLayout;
     public ListView mSuggestionsListView, mSearchResultsListView;
@@ -64,6 +66,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home);
+
+        BASE_URL = getAppUrl(this);
 
         init();
     }
@@ -218,27 +222,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void hideSearchPopup() {
-        tabLayout.setAlpha(1f);
-        viewPager.setAlpha(1f);
+        tabLayout.setAlpha(MAX_ALPHA);
+        viewPager.setAlpha(MAX_ALPHA);
         searchPopup.dismiss();
-    }
-
-    public void hideTabs() {
-        tabLayout.setVisibility(View.GONE);
-        viewPager.setVisibility(View.GONE);
-    }
-
-    public void showTabs() {
-        viewPager.setVisibility(View.VISIBLE);
-        tabLayout.setVisibility(View.VISIBLE);
-        findViewById(R.id.fragment_container).setVisibility(View.GONE);
-    }
-
-    public void showFragment(Fragment fragment) {
-        hideTabs();
-        findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment, "").commit();
-        //replaceFragmentWithBackStack(this, R.id.fragment_container, fragment, "DEAL_DETAIL");
     }
 
     public void selectTab(int tabPosition) {

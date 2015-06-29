@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:maxHeight="260dp"
             android:background="@drawable/tmp_banner"/>
 
         <ImageView

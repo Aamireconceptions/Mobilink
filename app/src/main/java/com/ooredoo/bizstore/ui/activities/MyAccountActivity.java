@@ -118,6 +118,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             cursor.close();
 
             Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+            ivProfilePic.setBackground(null);
             ivProfilePic.setImageBitmap(bitmap);
         } else {
 

@@ -1,28 +1,28 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.widget.BaseAdapter;
-
 import com.google.gson.Gson;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Response;
-import com.ooredoo.bizstore.utils.Logger;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Babar on 26-Jun-15.
  */
-public class DealsTask extends BaseAsyncTask<String, Void, String>
+public class DealsTask extends BaseAsyncTask<String, Void, List<GenericDeal>>
 {
     private ListViewBaseAdapter adapter;
-
-    private final static String SERVICE_URL = "http://10.1.3.45/econ/ooredoo/index.php/api/en/deals/26";
 
     public DealsTask(ListViewBaseAdapter adapter)
     {
@@ -30,7 +30,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     }
 
     @Override
-    protected String doInBackground(String... params)
+    protected List<GenericDeal> doInBackground(String... params)
     {
         try
         {
@@ -45,47 +45,35 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     }
 
     @Override
-    protected void onPostExecute(String result)
-    {
+    protected void onPostExecute(List<GenericDeal> result) {
         super.onPostExecute(result);
 
-        if(result != null)
-        {
-            List<GenericDeal> deals;
-
-            Gson gson = new Gson();
-
-            Response response = gson.fromJson(result, Response.class);
-
-            deals = response.deals;
-
-            for(GenericDeal genericDeal : deals)
-            {
-                Logger.print("title:"+genericDeal.title);
-            }
-
-            adapter.setData(deals);
+        if(result != null) {
+            adapter.setData(result);
             adapter.notifyDataSetChanged();
         }
     }
 
-    private String getDeals(String type) throws IOException
-    {
-        String result = null;
+    private List<GenericDeal> getDeals(String type) throws IOException {
+        List<NameValuePair> params = BizStore.getUserCredentials();
 
-        URL url = new URL(BASE_URL + SERVICE_URL);
+        params.add(new BasicNameValuePair("type", type));
+
+        setServiceUrl("deals", params);
+
+        URL url = new URL(serviceUrl);
 
         HttpURLConnection connection = openConnectionAndConnect(url);
 
         InputStream inputStream = connection.getInputStream();
 
-        result = readStream(inputStream);
+        Reader reader = new InputStreamReader(inputStream);
 
-        return result;
+        Gson gson = new Gson();
+
+        List<GenericDeal> deals = Arrays.asList(gson.fromJson(reader, GenericDeal[].class));
+
+        return deals;
     }
-
-
-
-
 
 }
