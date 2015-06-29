@@ -10,11 +10,10 @@ import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 
-public class MyDealsActivity extends AppCompatActivity implements View.OnClickListener
+public class MyDealsActivity extends AppCompatActivity
 {
-    private View lastSelected;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,20 +28,13 @@ public class MyDealsActivity extends AppCompatActivity implements View.OnClickLi
     {
         setupToolbar();
 
-        Button btNewDeals = (Button) findViewById(R.id.btn_new_deals);
-        btNewDeals.setOnClickListener(this);
+        Button btNewDeals = (Button) findViewById(R.id.new_deals);
 
-        Button btPopularDeals = (Button) findViewById(R.id.btn_popular_deals);
-        btPopularDeals.setOnClickListener(this);
-
-        btNewDeals.setSelected(true);
-
-        lastSelected = btNewDeals;
-
-        ListView listView = (ListView) findViewById(R.id.list_view);
+        Button btPopularDeals = (Button) findViewById(R.id.popular_deals);
 
         ListViewBaseAdapter adapter = new ListViewBaseAdapter(this, R.layout.list_deal, null);
 
+        ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
     }
 
@@ -53,39 +45,5 @@ public class MyDealsActivity extends AppCompatActivity implements View.OnClickLi
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
     }
-
-    @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
-            case R.id.btn_new_deals:
-
-                setSelected(v);
-
-                break;
-
-            case R.id.btn_popular_deals:
-
-                setSelected(v);
-
-                break;
-        }
-
-    }
-
-    private void setSelected(View v)
-    {
-        if(lastSelected != null)
-        {
-            lastSelected.setSelected(false);
-        }
-
-        v.setSelected(true);
-
-        lastSelected = v;
-    }
-
 }

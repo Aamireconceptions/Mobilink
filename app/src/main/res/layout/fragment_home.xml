@@ -7,6 +7,8 @@
         android:id="@+id/home_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="@dimen/_4sdp"
         android:scrollbars="none"/>
 
     <ProgressBar
