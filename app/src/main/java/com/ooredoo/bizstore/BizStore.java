@@ -1,21 +1,30 @@
 package com.ooredoo.bizstore;
 
 import android.app.Application;
-import android.os.Build;
 
+import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
-import static java.lang.Thread.UncaughtExceptionHandler;
-import static java.lang.Thread.setDefaultUncaughtExceptionHandler;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.encryptVal;
 
 /**
  * @author pehlaj.rai
  * @since 6/10/2015.
  */
 
-public class BizStore extends Application
-{
+public class BizStore extends Application {
+
+    private static final User user = new User();
+
+    private static String language = "en";
+
     private final static String DEFAULT = "DEFAULT";
     private final static String MONOSPACE = "MONOSPACE";
     private final static String SERIF = "SERIF";
@@ -49,4 +58,32 @@ public class BizStore extends Application
         FontUtils.setDefaultFont(this, SERIF, SERIF_FONT);
         FontUtils.setDefaultFont(this, SANS_SERIF, SANS_SERIF_FONT);
     }
+
+    public static List<NameValuePair> getUserCredentials() {
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("msisdn", user.username));
+        params.add(new BasicNameValuePair("password", encryptVal(user.password)));
+        return params;
+    }
+
+    public void setUserName(String userName) {
+        user.username = userName;
+    }
+
+    public void setPassword(String password) {
+        user.password = password;
+    }
+
+    public static User getUser() {
+        return user;
+    }
+
+    public static String getLanguage() {
+        return language;
+    }
+
+    public static void setLanguage(String language) {
+        BizStore.language = language;
+    }
+
 }
