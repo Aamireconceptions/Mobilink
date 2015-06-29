@@ -8,29 +8,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
-import com.ooredoo.bizstore.adapters.TopDealsAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
-import com.ooredoo.bizstore.listeners.DealsFilterClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
-import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JewelleryFragment extends Fragment
+public class JewelryFragment extends Fragment
 {
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
 
-    public static JewelleryFragment newInstance()
+    private ProgressBar progressBar;
+
+    public static JewelryFragment newInstance()
     {
-        JewelleryFragment fragment = new JewelleryFragment();
+        JewelryFragment fragment = new JewelryFragment();
 
         return fragment;
     }
@@ -72,11 +72,13 @@ public class JewelleryFragment extends Fragment
         ListView listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
+
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
     private void fetchAndDisplayJewelry()
     {
-        DealsTask dealsTask = new DealsTask(adapter);
+        DealsTask dealsTask = new DealsTask(adapter, progressBar);
         dealsTask.execute("jewelry");
     }
 }

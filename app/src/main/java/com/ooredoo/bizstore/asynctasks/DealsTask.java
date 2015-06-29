@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.widget.BaseAdapter;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
@@ -12,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +22,23 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 {
     private ListViewBaseAdapter adapter;
 
+    private ProgressBar progressBar;
+
     private final static String SERVICE_URL = "http://10.1.3.38/econ/ooredoo/index.php/api/en/deals/26";
 
-    public DealsTask(ListViewBaseAdapter adapter)
+    public DealsTask(ListViewBaseAdapter adapter, ProgressBar progressBar)
     {
         this.adapter = adapter;
+
+        this.progressBar = progressBar;
+    }
+
+    @Override
+    protected void onPreExecute()
+    {
+        super.onPreExecute();
+
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -48,6 +60,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     protected void onPostExecute(String result)
     {
         super.onPostExecute(result);
+
+        progressBar.setVisibility(View.GONE);
 
         if(result != null)
         {

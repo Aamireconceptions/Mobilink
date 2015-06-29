@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
@@ -24,6 +25,8 @@ public class HotelsAndSpasFragment extends Fragment
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
+
+    private ProgressBar progressBar;
 
     public static HotelsAndSpasFragment newInstance()
     {
@@ -69,11 +72,13 @@ public class HotelsAndSpasFragment extends Fragment
         ListView listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
+
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
     private void fetchAndDisplayHotelsAndSpas()
     {
-        DealsTask dealsTask = new DealsTask(adapter);
+        DealsTask dealsTask = new DealsTask(adapter, progressBar);
         dealsTask.execute("hotels_spas");
     }
 }

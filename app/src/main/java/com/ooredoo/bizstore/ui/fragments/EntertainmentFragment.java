@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
-import com.ooredoo.bizstore.adapters.TopDealsAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
-import com.ooredoo.bizstore.listeners.DealsFilterClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
-import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
@@ -27,6 +25,8 @@ public class EntertainmentFragment extends Fragment
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
+
+    private ProgressBar progressBar;
 
     public static EntertainmentFragment newInstance()
     {
@@ -72,11 +72,13 @@ public class EntertainmentFragment extends Fragment
         ListView listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
+
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
     private void fetchAndDisplayEntertainment()
     {
-        DealsTask dealsTask = new DealsTask(adapter);
+        DealsTask dealsTask = new DealsTask(adapter, progressBar);
         dealsTask.execute("entertainment");
     }
 }

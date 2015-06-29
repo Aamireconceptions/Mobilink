@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
@@ -36,6 +37,8 @@ public class HomeFragment extends Fragment
 
     private ListViewBaseAdapter adapter;
 
+    private ProgressBar progressBar;
+
     public static HomeFragment newInstance()
     {
         HomeFragment fragment = new HomeFragment();
@@ -59,6 +62,8 @@ public class HomeFragment extends Fragment
         activity = getActivity();
 
         ListView listView = (ListView) v.findViewById(R.id.home_list_view);
+
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         LayoutInflater inflater = activity.getLayoutInflater();
 
@@ -156,7 +161,7 @@ public class HomeFragment extends Fragment
 
     private void initAndLoadDealsOfTheDay()
     {
-        DealsTask dealsTask = new DealsTask(adapter);
+        DealsTask dealsTask = new DealsTask(adapter, progressBar);
         dealsTask.execute("deals_of_the_day");
     }
 }
