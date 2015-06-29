@@ -14,6 +14,7 @@ import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.FeaturedTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
@@ -33,18 +34,13 @@ public class HomeFragment extends Fragment
 {
     private Activity activity;
 
+    private ListViewBaseAdapter adapter;
+
     public static HomeFragment newInstance()
     {
         HomeFragment fragment = new HomeFragment();
 
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -70,7 +66,7 @@ public class HomeFragment extends Fragment
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        ListViewBaseAdapter adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
 
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
@@ -82,6 +78,8 @@ public class HomeFragment extends Fragment
         initAndLoadTopBrands(v);
 
         initAndLoadTopMalls(v);
+
+        initAndLoadDealsOfTheDay();
     }
 
     private void initAndLoadFeaturedDeals(View v)
@@ -158,6 +156,7 @@ public class HomeFragment extends Fragment
 
     private void initAndLoadDealsOfTheDay()
     {
-
+        DealsTask dealsTask = new DealsTask(adapter);
+        dealsTask.execute("deals_of_the_day");
     }
 }

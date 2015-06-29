@@ -35,7 +35,7 @@ public class HotelsAndSpasFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_food_dinning, container, false);
+        View v = inflater.inflate(R.layout.fragment_list_view, container, false);
 
         init(v, inflater);
 
@@ -66,7 +66,7 @@ public class HotelsAndSpasFragment extends Fragment
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
 
-        ListView listView = (ListView) v.findViewById(R.id.lv);
+        ListView listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
     }
@@ -76,17 +76,4 @@ public class HotelsAndSpasFragment extends Fragment
         DealsTask dealsTask = new DealsTask(adapter);
         dealsTask.execute("hotels_spas");
     }
-
-    /*private void init(View v) {
-        List<Deal> deals = new ArrayList<>();
-        deals.add(new Deal());
-        deals.add(new Deal());
-        deals.add(new Deal());
-        deals.add(new Deal());
-        deals.add(new Deal());
-        deals.add(new Deal());
-        ListView listView = (ListView) v.findViewById(R.id.lv);
-        TopDealsAdapter adapter = new TopDealsAdapter(mActivity, R.layout.list_item_food_n_dining, deals);
-        listView.setAdapter(adapter);
-    }*/
 }
