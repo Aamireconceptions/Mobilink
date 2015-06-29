@@ -13,6 +13,8 @@ public class FilterOnClickListener implements View.OnClickListener
 {
     private HomeActivity homeActivity;
 
+    private View lastSelected;
+
     public FilterOnClickListener(HomeActivity homeActivity)
     {
         this.homeActivity = homeActivity;
@@ -23,6 +25,25 @@ public class FilterOnClickListener implements View.OnClickListener
     {
         switch (v.getId())
         {
+
+            case R.id.new_deals:
+
+                setSelected(v);
+
+                break;
+
+            case R.id.popular_deals:
+
+                setSelected(v);
+
+                break;
+
+            case R.id.filter:
+
+                homeActivity.drawerLayout.openDrawer(GravityCompat.END);
+
+                break;
+
             case R.id.back:
 
                 homeActivity.drawerLayout.closeDrawer(GravityCompat.END);
@@ -53,9 +74,17 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 break;
         }
-
-        v.setSelected(!v.isSelected());
     }
 
+    public void setSelected(View v)
+    {
+        if(lastSelected != null)
+        {
+            lastSelected.setSelected(false);
+        }
 
+        v.setSelected(true);
+
+        lastSelected = v;
+    }
 }

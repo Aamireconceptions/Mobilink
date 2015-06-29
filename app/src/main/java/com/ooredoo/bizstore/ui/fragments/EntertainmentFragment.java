@@ -38,31 +38,29 @@ public class EntertainmentFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_list_view, container, false);
+        View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
-        init(v, inflater);
+        init(v);
 
         fetchAndDisplayEntertainment();
 
         return v;
     }
 
-    private void init(View v, LayoutInflater inflater)
+    private void init(View v)
     {
         activity = (HomeActivity) getActivity();
 
-        View header = inflater.inflate(R.layout.header_deals, null);
-
         FilterOnClickListener clickListener = new FilterOnClickListener(activity);
 
-        Button btNewDeals = (Button) header.findViewById(R.id.btn_new_deals);
+        Button btNewDeals = (Button) v.findViewById(R.id.new_deals);
         btNewDeals.setOnClickListener(clickListener);
-        btNewDeals.setSelected(true);
+        clickListener.setSelected(btNewDeals);
 
-        Button btPopularDeals = (Button) header.findViewById(R.id.btn_popular_deals);
+        Button btPopularDeals = (Button) v.findViewById(R.id.popular_deals);
         btPopularDeals.setOnClickListener(clickListener);
 
-        ImageView ivFilter = (ImageView) header.findViewById(R.id.iv_filter);
+        ImageView ivFilter = (ImageView) v.findViewById(R.id.filter);
         ivFilter.setOnClickListener(clickListener);
 
         List<GenericDeal> deals = new ArrayList<>();
@@ -70,7 +68,6 @@ public class EntertainmentFragment extends Fragment
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
-        listView.addHeaderView(header);
         listView.setAdapter(adapter);
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
