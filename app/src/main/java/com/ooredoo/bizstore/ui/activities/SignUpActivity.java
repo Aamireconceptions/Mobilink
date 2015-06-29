@@ -24,7 +24,7 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public void init() {
-        BASE_URL = getAppUrl(this);
+        //BASE_URL = getAppUrl(this);
         setupToolbar();
         mFragmentManager = getFragmentManager();
         addFragmentWithBackStack(this, R.id.fragment_container, new SignUpFragment(), "SignUp");

@@ -6,14 +6,6 @@ import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.encryptVal;
-
 /**
  * @author pehlaj.rai
  * @since 6/10/2015.
@@ -59,12 +51,12 @@ public class BizStore extends Application {
         FontUtils.setDefaultFont(this, SANS_SERIF, SANS_SERIF_FONT);
     }
 
-    public static List<NameValuePair> getUserCredentials() {
+  /*  public static List<NameValuePair> getUserCredentials() {
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("msisdn", user.username));
         params.add(new BasicNameValuePair("password", encryptVal(user.password)));
         return params;
-    }
+    }*/
 
     public void setUserName(String userName) {
         user.username = userName;

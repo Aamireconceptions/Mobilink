@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         setContentView(R.layout.activity_home);
 
-        BASE_URL = getAppUrl(this);
+       // BASE_URL = getAppUrl(this);
 
         init();
     }

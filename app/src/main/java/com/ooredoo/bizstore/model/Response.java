@@ -1,5 +1,7 @@
 package com.ooredoo.bizstore.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,7 @@ import java.util.List;
  */
 public class Response
 {
+    @SerializedName("results")
     public List<GenericDeal> deals;
 
     public List<Brand> brands;

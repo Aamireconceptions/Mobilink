@@ -1,36 +1,35 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.os.AsyncTask;
-import android.util.Base64;
 
 import com.ooredoo.bizstore.utils.Logger;
-
-import org.apache.http.NameValuePair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-
-import static android.util.Base64.encode;
-import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Babar
  * @since 18-Jun-15.
  */
-public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
+public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result>
+{
     private final static String ENCODING = "UTF-8";
+
     private final static String AMPERSAND = "&";
+
     private final static String EQUAL = "=";
-    private final static String QUESTION_MARK = "?";
 
-    public static String BASE_URL = "";
+    public final static String BASE_URL = "";
 
-    public final static int CONNECTION_TIME_OUT = 5 * 1000;
+    public final static int CONNECTION_TIME_OUT = 15 * 1000;
 
     public final static int  READ_TIME_OUT = 10 * 1000;
 
@@ -38,46 +37,26 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String ID = "id";
 
-    protected String serviceUrl;
-
-    public void setServiceUrl(String serviceUrl) {
-        this.serviceUrl = serviceUrl;
-    }
-
-    public void setServiceUrl(String serviceName, List<NameValuePair> params) {
-        String baseUrl = BASE_URL.concat(serviceName.concat(QUESTION_MARK));
-        String query = createQuery(params);
-        serviceUrl = baseUrl.concat(query);
-    }
-
-    public static String encryptVal(String str) {
-        String tmp = "";
-        if(isNotNullOrEmpty(str)) {
-            try {
-                tmp = new String(encode(str.getBytes(), Base64.DEFAULT)).trim();
-            } catch(Throwable e) {
-                e.printStackTrace();
-            }
-        }
-        return tmp;
-    }
-
-    public String createQuery(List<NameValuePair> params)
+    public String createQuery(HashMap<String, String> params) throws UnsupportedEncodingException
     {
         StringBuilder stringBuilder = new StringBuilder();
 
         boolean isFirst = true;
 
-        for(NameValuePair nameValuePair : params) {
-            if(isFirst) {
+        for(Map.Entry<String, String> entry : params.entrySet())
+        {
+            if(isFirst)
+            {
                 isFirst = false;
-            } else {
+            }
+            else
+            {
                 stringBuilder.append(AMPERSAND);
             }
 
-            stringBuilder.append(nameValuePair.getName());
+            stringBuilder.append(URLEncoder.encode(entry.getKey(), ENCODING));
             stringBuilder.append(EQUAL);
-            stringBuilder.append(nameValuePair.getValue());
+            stringBuilder.append(URLEncoder.encode(entry.getValue(), ENCODING));
         }
 
         Logger.print("URL Query: "+stringBuilder.toString());
@@ -128,4 +107,28 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
         return connection;
     }
+
+    protected String serviceUrl;
+
+    public void setServiceUrl(String serviceUrl) {
+        this.serviceUrl = serviceUrl;
+    }
+
+    /*public void setServiceUrl(String serviceName, List<NameValuePair> params) {
+        String baseUrl = BASE_URL.concat(serviceName.concat(QUESTION_MARK));
+        String query = createQuery(params);
+        serviceUrl = baseUrl.concat(query);
+    }*/
+
+    /*public static String encryptVal(String str) {
+        String tmp = "";
+        if(isNotNullOrEmpty(str)) {
+            try {
+                tmp = new String(encode(str.getBytes(), Base64.DEFAULT)).trim();
+            } catch(Throwable e) {
+                e.printStackTrace();
+            }
+        }
+        return tmp;
+    }*/
 }

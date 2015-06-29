@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment
         circlePageIndicator.setViewPager(featuredPager);
 
         FeaturedTask featuredTask = new FeaturedTask(adapter, featuredPager);
-        featuredTask.execute();
+        //featuredTask.execute();
     }
 
     private void initAndLoadPromotions(View v)
@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment
         circlePageIndicator.setViewPager(promoPager);
 
         PromoTask promoTask = new PromoTask(adapter, promoPager);
-        promoTask.execute();
+        //promoTask.execute();
     }
 
     private void initAndLoadTopBrands(View v)
@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment
         circlePageIndicator.setViewPager(topBrandsPager);
 
         TopBrandsTask topBrandsTask = new TopBrandsTask(adapter, topBrandsPager);
-        topBrandsTask.execute();
+       // topBrandsTask.execute();
     }
 
     private void initAndLoadTopMalls(View v)
@@ -151,6 +151,6 @@ public class HomeFragment extends Fragment
         circlePageIndicator.setViewPager(topMallsPager);
 
         TopMallsTask topMallsTask = new TopMallsTask(adapter, topMallsPager);
-        topMallsTask.execute();
+        //topMallsTask.execute();
     }
 }
