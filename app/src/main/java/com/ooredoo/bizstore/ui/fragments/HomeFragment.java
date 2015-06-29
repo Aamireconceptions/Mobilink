@@ -68,7 +68,9 @@ public class HomeFragment extends Fragment
 
         View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);
 
-        ListViewBaseAdapter adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, null);
+        List<GenericDeal> deals = new ArrayList<>();
+
+        ListViewBaseAdapter adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
 
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
@@ -152,5 +154,10 @@ public class HomeFragment extends Fragment
 
         TopMallsTask topMallsTask = new TopMallsTask(adapter, topMallsPager);
         //topMallsTask.execute();
+    }
+
+    private void initAndLoadDealsOfTheDay()
+    {
+
     }
 }

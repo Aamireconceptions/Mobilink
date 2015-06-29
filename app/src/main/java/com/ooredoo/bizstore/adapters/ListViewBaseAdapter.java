@@ -55,8 +55,7 @@ public class ListViewBaseAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-        /*return deals.size();*/
-        return 6;
+        return deals.size();
     }
 
     @Override
@@ -68,8 +67,7 @@ public class ListViewBaseAdapter extends BaseAdapter
     @Override
     public long getItemId(int position)
     {
-        /*return deals.get(position).id;*/
-        return 0;
+        return deals.get(position).id;
     }
 
     @Override
@@ -98,14 +96,14 @@ public class ListViewBaseAdapter extends BaseAdapter
             holder = (Holder) row.getTag();
         }
 
-       /* String category = getItem(position).category;
+        /*String category = getItem(position).category;
 
         holder.tvCategory.setText(category);
         holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(
                          ResourceUtils.getDrawableResId(context, category),
                          0,
                          0,
-                         0);
+                         0);*/
 
         holder.ivFav.setSelected(getItem(position).isFav);
         holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
@@ -116,9 +114,9 @@ public class ListViewBaseAdapter extends BaseAdapter
 
         holder.tvDiscount.setText(getItem(position).discount);
 
-        holder.rbRatings.setRating(getItem(position).rating);
+       // holder.rbRatings.setRating(getItem(position).rating);
 
-        holder.tvViews.setText(String.valueOf(getItem(position).views));*/
+       // holder.tvViews.setText(String.valueOf(getItem(position).views));
 
         return row;
     }

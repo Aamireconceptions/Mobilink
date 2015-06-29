@@ -86,8 +86,4 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         return result;
     }
 
-
-
-
-
 }

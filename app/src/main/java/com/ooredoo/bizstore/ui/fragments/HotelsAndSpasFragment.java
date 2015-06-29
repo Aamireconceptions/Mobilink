@@ -54,6 +54,7 @@ public class HotelsAndSpasFragment extends Fragment
 
         Button btNewDeals = (Button) header.findViewById(R.id.btn_new_deals);
         btNewDeals.setOnClickListener(clickListener);
+        btNewDeals.setSelected(true);
 
         Button btPopularDeals = (Button) header.findViewById(R.id.btn_popular_deals);
         btPopularDeals.setOnClickListener(clickListener);
