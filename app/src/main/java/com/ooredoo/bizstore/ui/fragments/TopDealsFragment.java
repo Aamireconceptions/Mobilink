@@ -12,6 +12,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.DealsAdapter;
 import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.listeners.DealsFilterClickListener;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
@@ -61,13 +62,13 @@ public class TopDealsFragment extends Fragment {
     }
 
     private void populateDeals(View v) {
-        List<GenericDeal> deals = new ArrayList<>();
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
+        List<Deal> deals = new ArrayList<>();
+        deals.add(new Deal());
+        deals.add(new Deal());
+        deals.add(new Deal());
+        deals.add(new Deal());
+        deals.add(new Deal());
+        deals.add(new Deal());
         ListView listView = (ListView) v.findViewById(R.id.lv);
         DealsAdapter adapter = new DealsAdapter(mActivity, R.layout.list_item_deal, deals);
         listView.setAdapter(adapter);
