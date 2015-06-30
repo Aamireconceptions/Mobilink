@@ -81,23 +81,25 @@ public class HomeFragment extends Fragment
 
         initAndLoadFeaturedDeals(v);
 
-        initAndLoadPromotions(v);
+       // initAndLoadPromotions(v);
 
-        initAndLoadTopBrands(v);
+       // initAndLoadTopBrands(v);
 
-        initAndLoadTopMalls(v);
+       // initAndLoadTopMalls(v);
 
-        initAndLoadDealsOfTheDay();
+       // initAndLoadDealsOfTheDay();
     }
 
     private void initAndLoadFeaturedDeals(View v)
     {
+        /*List<GenericDeal> deals = new ArrayList<>();
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());*/
+
         List<GenericDeal> deals = new ArrayList<>();
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
 
         FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
 
@@ -108,7 +110,7 @@ public class HomeFragment extends Fragment
         circlePageIndicator.setViewPager(featuredPager);
 
         FeaturedTask featuredTask = new FeaturedTask(adapter, featuredPager);
-        //featuredTask.execute();
+        featuredTask.execute();
     }
 
     private void initAndLoadPromotions(View v)

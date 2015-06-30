@@ -29,7 +29,7 @@ public class TopDealsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return FeaturedFragment.newInstance(deals.get(position).id);
+        return FeaturedFragment.newInstance(deals.get(position).image.bannerUrl);
     }
 
     @Override

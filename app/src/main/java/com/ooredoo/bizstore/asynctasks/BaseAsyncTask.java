@@ -40,6 +40,12 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String ID = "id";
 
+    public final static String OS = "os";
+
+    public final static String ANDROID = "android";
+
+    public final static String IMAGE_BASE_URL = "http://10.1.3.10/";
+
     public String createQuery(HashMap<String, String> params) throws UnsupportedEncodingException
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -57,7 +63,6 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
                 stringBuilder.append(AMPERSAND);
             }
 
-            Logger.logE("Entty value:", ""+entry.getValue());
             stringBuilder.append(URLEncoder.encode(entry.getKey(), ENCODING));
             stringBuilder.append(EQUAL);
             stringBuilder.append(URLEncoder.encode(entry.getValue(), ENCODING));

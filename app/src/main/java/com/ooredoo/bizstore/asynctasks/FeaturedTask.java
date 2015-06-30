@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
     private ViewPager viewPager;
 
-    private final static String SERVICE_URL = "";
+    private final static String SERVICE_URL= "en/featureddeals?";
 
     public FeaturedTask(FeaturedStatePagerAdapter adapter, ViewPager viewPager)
     {
@@ -62,6 +63,11 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
             List<GenericDeal> deals = response.deals;
 
+            for(GenericDeal genericDeal : deals)
+            {
+                Logger.print("onPost:"+genericDeal.image.bannerUrl);
+            }
+
             adapter.setData(deals);
             adapter.notifyDataSetChanged();
         }
@@ -79,13 +85,22 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
         try
         {
-            URL url = new URL(BASE_URL + SERVICE_URL);
+            HashMap<String, String> params = new HashMap<>();
+            params.put(OS, ANDROID);
+
+            String query = createQuery(params);
+
+            URL url = new URL(BASE_URL + SERVICE_URL + query);
+
+            Logger.print("getFeatured() URL:"+ url.toString());
 
             HttpURLConnection connection = openConnectionAndConnect(url);
 
             inputStream = connection.getInputStream();
 
             result = readStream(inputStream);
+
+            Logger.print("getFeatured: "+result);
 
             return result;
 

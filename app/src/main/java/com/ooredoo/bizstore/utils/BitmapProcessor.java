@@ -26,6 +26,12 @@ public class BitmapProcessor
 
         BitmapFactory.decodeStream(inputStream, null, options);
 
+        int width = options.outWidth;
+        int height = options.outHeight;
+
+        Logger.print("Actual Width: "+width);
+        Logger.print("Actual Height: " + height);
+
         int sampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
         options.inJustDecodeBounds = false;
@@ -33,11 +39,11 @@ public class BitmapProcessor
 
         bitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
-        final int width = bitmap.getWidth();
-        final int height = bitmap.getHeight();
+        width = bitmap.getWidth();
+        height = bitmap.getHeight();
 
-        Logger.logI("Modified Width:", ""+width);
-        Logger.logI("Modified Height:", ""+height);
+        Logger.print("Modified Width: "+width);
+        Logger.print("Modified Height: " + height);
 
         return bitmap;
     }
