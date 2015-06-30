@@ -1,9 +1,14 @@
 package com.ooredoo.bizstore.utils;
 
+import android.util.Base64;
+
 import java.security.NoSuchAlgorithmException;
 
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+
 /**
- * Created by Babar on 29-Jun-15.
+ * @author Babar
+ * @since 29-Jun-15.
  */
 public class CryptoUtils
 {
@@ -37,4 +42,15 @@ public class CryptoUtils
         return null;
     }
 
+    public static String encodeToBase64(String str) {
+        String tmp = "";
+        if(isNotNullOrEmpty(str)) {
+            try {
+                tmp = new String(Base64.encode(str.getBytes(), Base64.DEFAULT)).trim();
+            } catch(Throwable e) {
+                e.printStackTrace();
+            }
+        }
+        return tmp;
+    }
 }

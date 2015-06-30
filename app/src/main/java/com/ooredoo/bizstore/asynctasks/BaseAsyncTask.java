@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.os.AsyncTask;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.BufferedReader;
@@ -26,8 +27,10 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     private final static String AMPERSAND = "&";
 
     private final static String EQUAL = "=";
+    private final static String SLASH = "/";
+    private final static String QUESTION_MARK = "?";
 
-    public final static String BASE_URL = "";
+    public static String BASE_URL = "";
 
     public final static int CONNECTION_TIME_OUT = 15 * 1000;
 
@@ -64,6 +67,21 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         return stringBuilder.toString();
     }
 
+    public String getJson() throws IOException {
+
+        String result;
+
+        URL url = new URL(serviceUrl);
+
+        HttpURLConnection connection = openConnectionAndConnect(url);
+
+        InputStream inputStream = connection.getInputStream();
+
+        result = readStream(inputStream);
+
+        return result;
+    }
+
     public String readStream(InputStream stream) throws IOException
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -74,7 +92,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         {
             reader = new BufferedReader(new InputStreamReader(stream, ENCODING));
 
-            String line = "";
+            String line;
 
             while((line = reader.readLine()) != null)
             {
@@ -114,21 +132,21 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         this.serviceUrl = serviceUrl;
     }
 
-    /*public void setServiceUrl(String serviceName, List<NameValuePair> params) {
-        String baseUrl = BASE_URL.concat(serviceName.concat(QUESTION_MARK));
-        String query = createQuery(params);
-        serviceUrl = baseUrl.concat(query);
-    }*/
-
-    /*public static String encryptVal(String str) {
-        String tmp = "";
-        if(isNotNullOrEmpty(str)) {
-            try {
-                tmp = new String(encode(str.getBytes(), Base64.DEFAULT)).trim();
-            } catch(Throwable e) {
-                e.printStackTrace();
-            }
+    public void setServiceUrl(String serviceName, HashMap<String, String> params) {
+        String lang = BizStore.getLanguage();
+        String baseUrl = BASE_URL.concat(lang + SLASH + serviceName + QUESTION_MARK);
+        HashMap<String, String> credentials = BizStore.getUserCredentials();
+        HashMap<String, String> serviceParams = new HashMap<>();
+        serviceParams.putAll(credentials);
+        serviceParams.putAll(params);
+        try {
+            String query = createQuery(serviceParams);
+            //serviceUrl = baseUrl.concat(query); //TODO remove comment
+            serviceUrl = baseUrl + SLASH + "26";//TODO
+        } catch(UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        return tmp;
-    }*/
+        Logger.logI("SERVICE_URL", serviceUrl);
+    }
+
 }

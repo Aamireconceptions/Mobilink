@@ -10,13 +10,12 @@ import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Babar on 26-Jun-15.
+ * @author Babar
+ * @since 26-Jun-15.
  */
 public class DealsTask extends BaseAsyncTask<String, Void, String>
 {
@@ -24,32 +23,24 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
     private ProgressBar progressBar;
 
-    private final static String SERVICE_URL = "http://10.1.3.38/econ/ooredoo/index.php/api/en/deals/26";
-
-    public DealsTask(ListViewBaseAdapter adapter, ProgressBar progressBar)
-    {
+    public DealsTask(ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.adapter = adapter;
 
         this.progressBar = progressBar;
     }
 
     @Override
-    protected void onPreExecute()
-    {
+    protected void onPreExecute() {
         super.onPreExecute();
 
         progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    protected String doInBackground(String... params)
-    {
-        try
-        {
+    protected String doInBackground(String... params) {
+        try {
             return getDeals(params[0]);
-        }
-        catch (IOException e)
-        {
+        } catch(IOException e) {
             e.printStackTrace();
         }
 
@@ -57,14 +48,12 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     }
 
     @Override
-    protected void onPostExecute(String result)
-    {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
         progressBar.setVisibility(View.GONE);
 
-        if(result != null)
-        {
+        if(result != null) {
             List<GenericDeal> deals;
 
             Gson gson = new Gson();
@@ -73,8 +62,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
             deals = response.deals;
 
-            for(GenericDeal genericDeal : deals)
-            {
+            for(GenericDeal genericDeal : deals) {
                 Logger.print("title:"+genericDeal.title);
             }
 
@@ -83,17 +71,16 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
-    private String getDeals(String type) throws IOException
-    {
-        String result = null;
+    private String getDeals(String category) throws IOException {
+        String result;
 
-        URL url = new URL(BASE_URL + SERVICE_URL);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("category", category);
+        setServiceUrl("deals", params);
 
-        HttpURLConnection connection = openConnectionAndConnect(url);
+        setServiceUrl(BASE_URL + "en/deals/26"); //TODO remove this line
 
-        InputStream inputStream = connection.getInputStream();
-
-        result = readStream(inputStream);
+        result = getJson();
 
         Logger.print("getDeals:"+result);
 

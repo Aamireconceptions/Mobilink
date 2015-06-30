@@ -65,7 +65,7 @@ public class PromoFragment extends Fragment implements View.OnClickListener {
             Logger.print("req Height Pixels:" + reqHeight);
 
             BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
-            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+            //TODO bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
         }
     }
 

@@ -12,31 +12,26 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
-import static com.ooredoo.bizstore.AppConstant.ACTION_DETAIL;
-import static com.ooredoo.bizstore.AppConstant.BUSINESS;
-import static com.ooredoo.bizstore.AppConstant.DEAL;
-import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORY;
-import static com.ooredoo.bizstore.AppConstant.DETAIL_TYPE;
+import static com.ooredoo.bizstore.AppConstant.ACTION_BUSINESS_DETAIL;
+import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
-import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 /**
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
-public class DetailActivity extends BaseActivity implements OnClickListener {
+public class BusinessDetailActivity extends BaseActivity implements OnClickListener {
 
-    public int detailType;
-    public String dealCategory;
+    public String category;
     public boolean showBanner = false;
     public boolean isFavorite = false;
 
     public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
-    public DetailActivity() {
+    public BusinessDetailActivity() {
         super();
-        layoutResId = R.layout.activity_deal_details;
+        layoutResId = R.layout.activity_business_details;
     }
 
     @Override
@@ -60,14 +55,13 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
             startActivity(intent);
         } else if(viewId == R.id.iv_share) {
             //TODO implement share functionality
-            Intent intent = new Intent(ACTION_DETAIL);
+            Intent intent = new Intent(ACTION_BUSINESS_DETAIL);
             startActivity(intent);
         }
     }
 
     private void initViews() {
-        detailType = intent.getIntExtra(DETAIL_TYPE, 0);
-        dealCategory = intent.getStringExtra(DEAL_CATEGORY);
+        category = intent.getStringExtra(CATEGORY);
         ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
         findViewById(R.id.iv_call).setOnClickListener(this);
@@ -78,17 +72,10 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
         findViewById(R.id.tv_hdr_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
         findViewById(R.id.iv_deal_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
 
-        if(detailType == BUSINESS) {
-            findViewById(R.id.ll_deal_details).setVisibility(View.GONE);
-            findViewById(R.id.ll_deal_category).setVisibility(View.GONE);
-            findViewById(R.id.ll_banner_preview).setVisibility(View.GONE);
-        } else if(detailType == DEAL) {
-            if(isNotNullOrEmpty(dealCategory)) {
-                if(dealCategory.equalsIgnoreCase("PROMO") || dealCategory.equalsIgnoreCase("FEATURED")) {
-                    findViewById(R.id.ll_banner_preview).setVisibility(View.VISIBLE);
-                }
-            }
-        }
+        findViewById(R.id.ll_deal_details).setVisibility(View.GONE);
+        findViewById(R.id.ll_deal_category).setVisibility(View.GONE);
+        findViewById(R.id.ll_banner_preview).setVisibility(View.GONE);
+
         ScrollViewHelper scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
     }
@@ -99,5 +86,6 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setShowHideAnimationEnabled(false);
+        mActionBar.setTitle("Charles & Keith");
     }
 }

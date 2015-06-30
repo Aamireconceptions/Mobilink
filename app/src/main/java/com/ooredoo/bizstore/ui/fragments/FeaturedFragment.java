@@ -19,7 +19,6 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
-import static java.lang.String.valueOf;
 
 /**
  * @author Babar
@@ -65,7 +64,7 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener {
             Logger.print("req Height Pixels:" + reqHeight);
 
             BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
-            bitmapDownloadTask.execute(url, valueOf(reqWidth), valueOf(reqHeight));
+            //bitmapDownloadTask.execute(url, valueOf(reqWidth), valueOf(reqHeight));
         }
     }
 

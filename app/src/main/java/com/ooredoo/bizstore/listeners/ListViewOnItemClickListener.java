@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.ui.activities.DetailActivity;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 
 /**
  * Created by Babar on 29-Jun-15.
@@ -26,7 +25,7 @@ public class ListViewOnItemClickListener implements AdapterView.OnItemClickListe
     {
         GenericDeal genericDeal = (GenericDeal) parent.getItemAtPosition(position);
 
-        Intent intent = new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(context, DealDetailActivity.class);
         intent.putExtra("id", genericDeal.id);
 
         context.startActivity(intent);

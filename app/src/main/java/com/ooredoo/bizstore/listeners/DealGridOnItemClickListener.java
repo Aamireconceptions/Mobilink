@@ -7,12 +7,10 @@ import android.widget.AdapterView;
 
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.ui.activities.DetailActivity;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 
-import static com.ooredoo.bizstore.AppConstant.DEAL;
+import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
-import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORY;
-import static com.ooredoo.bizstore.AppConstant.DETAIL_TYPE;
 import static com.ooredoo.bizstore.AppConstant.TYPE_ID;
 
 /**
@@ -38,10 +36,9 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
 
         int dealId = genericDeal.id;
 
-        Intent intent = new Intent(activity, DetailActivity.class);
+        Intent intent = new Intent(activity, DealDetailActivity.class);
         intent.putExtra(TYPE_ID, dealId);
-        intent.putExtra(DETAIL_TYPE, DEAL);
-        intent.putExtra(DEAL_CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
+        intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
 
         activity.startActivity(intent);
     }

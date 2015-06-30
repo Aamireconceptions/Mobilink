@@ -6,6 +6,10 @@ import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
+import java.util.HashMap;
+
+import static com.ooredoo.bizstore.utils.CryptoUtils.encodeToBase64;
+
 /**
  * @author pehlaj.rai
  * @since 6/10/2015.
@@ -51,12 +55,12 @@ public class BizStore extends Application {
         FontUtils.setDefaultFont(this, SANS_SERIF, SANS_SERIF_FONT);
     }
 
-  /*  public static List<NameValuePair> getUserCredentials() {
-        List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("msisdn", user.username));
-        params.add(new BasicNameValuePair("password", encryptVal(user.password)));
+    public static HashMap<String, String> getUserCredentials() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("msisdn", user.username);
+        params.put("password", encodeToBase64(user.password));
         return params;
-    }*/
+    }
 
     public void setUserName(String userName) {
         user.username = userName;

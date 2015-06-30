@@ -37,8 +37,8 @@ import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 import com.ooredoo.bizstore.views.RangeSeekBar.OnRangeSeekBarChangeListener;
 
-import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORY;
-import static com.ooredoo.bizstore.AppConstant.DETAIL_TYPE;
+import static com.ooredoo.bizstore.AppConstant.BUSINESS;
+import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
 import static com.ooredoo.bizstore.AppConstant.TYPE_ID;
 import static com.ooredoo.bizstore.adapters.SearchResultsAdapter.searchType;
@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         setContentView(R.layout.activity_home);
 
-       // BASE_URL = getAppUrl(this);
+        BASE_URL = getAppUrl(this);
 
         init();
     }
@@ -262,10 +262,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void showDetailActivity(int detailType, String dealCategory, long typeId) {
-        Intent intent = new Intent(this, DetailActivity.class);
+        Intent intent = new Intent();
+        intent.setClass(this, detailType == BUSINESS ? BusinessDetailActivity.class : DealDetailActivity.class);
         intent.putExtra(TYPE_ID, typeId);
-        intent.putExtra(DETAIL_TYPE, detailType);
-        intent.putExtra(DEAL_CATEGORY, dealCategory);
+        intent.putExtra(CATEGORY, dealCategory);
         startActivity(intent);
     }
 
