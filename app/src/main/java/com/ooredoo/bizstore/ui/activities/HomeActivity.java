@@ -134,14 +134,32 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         ImageView ivDone = (ImageView) findViewById(R.id.done);
         ivDone.setOnClickListener(clickListener);
 
-        TextView tvDealsAndDiscount = (TextView) findViewById(R.id.deals_discount_checkbox);
+        /*TextView tvDealsAndDiscount = (TextView) findViewById(R.id.deals_discount_checkbox);
         tvDealsAndDiscount.setOnClickListener(clickListener);
 
         TextView tvBusinessAndDirectory = (TextView) findViewById(R.id.business_directory_checkbox);
-        tvBusinessAndDirectory.setOnClickListener(clickListener);
+        tvBusinessAndDirectory.setOnClickListener(clickListener);*/
 
         TextView tvRating = (TextView) findViewById(R.id.rating_checkbox);
         tvRating.setOnClickListener(clickListener);
+
+        TextView tvRating1 = (TextView) findViewById(R.id.rating_1);
+        tvRating1.setOnClickListener(clickListener);
+
+        TextView tvRating2 = (TextView) findViewById(R.id.rating_2);
+        tvRating2.setOnClickListener(clickListener);
+
+        TextView tvRating3 = (TextView) findViewById(R.id.rating_3);
+        tvRating3.setOnClickListener(clickListener);
+
+        TextView tvRating4 = (TextView) findViewById(R.id.rating_4);
+        tvRating4.setOnClickListener(clickListener);
+
+        TextView tvRating5 = (TextView) findViewById(R.id.rating_5);
+        tvRating5.setOnClickListener(clickListener);
+
+        TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
+        tvDiscount.setOnClickListener(clickListener);
 
         TextView tvFoodAnDinning= (TextView) findViewById(R.id.food_dinning_checkbox);
         tvFoodAnDinning.setOnClickListener(clickListener);

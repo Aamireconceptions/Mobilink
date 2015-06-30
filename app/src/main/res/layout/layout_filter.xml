@@ -35,7 +35,7 @@
 
         </RelativeLayout>
 
-        <TextView
+        <!--<TextView
             android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,13 +68,13 @@
             android:drawableStart="@drawable/checkbox_selector"
             android:gravity="center_vertical"
             android:padding="@dimen/_16sdp"
-            android:text="@string/business_directory"/>
+            android:text="@string/business_directory"/>-->
 
         <TextView
             android:id="@+id/sort_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/business_directory_checkbox"
+            android:layout_below="@+id/header"
             android:background="@drawable/filter_heading_bg"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_10sdp"
@@ -185,40 +185,60 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal">
 
-                <Button
+                <TextView
                     android:id="@+id/rating_1"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_1"/>
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="@string/_1"
+                    android:background="@drawable/rating_selector"/>
 
-                <Button
+                <TextView
                     android:id="@+id/rating_2"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_2"/>
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="@string/_2"
+                    android:background="@drawable/rating_selector"/>
 
-                <Button
-                    android:id="@+id/_3"
+                <TextView
+                    android:id="@+id/rating_3"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_3"/>
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="@string/_3"
+                    android:background="@drawable/rating_selector"/>
 
-                <Button
-                    android:id="@+id/_4"
+                <TextView
+                    android:id="@+id/rating_4"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_4"/>
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="@string/_4"
+                    android:background="@drawable/rating_selector"/>
 
-                <Button
-                    android:id="@+id/_5"
+                <TextView
+                    android:id="@+id/rating_5"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_5"/>
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="@string/_5"
+                    android:background="@drawable/rating_selector"/>
 
             </LinearLayout>
 

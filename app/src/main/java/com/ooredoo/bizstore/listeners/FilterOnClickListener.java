@@ -13,7 +13,11 @@ public class FilterOnClickListener implements View.OnClickListener
 {
     private HomeActivity homeActivity;
 
-    private View lastSelected;
+    private View lastRatingSelected;
+
+    private View lastButtonSelected;
+
+    public String rating, minDiscount, maxDiscount;
 
     public FilterOnClickListener(HomeActivity homeActivity)
     {
@@ -28,13 +32,13 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.new_deals:
 
-                setSelected(v);
+                setButtonSelected(v);
 
                 break;
 
             case R.id.popular_deals:
 
-                setSelected(v);
+                setButtonSelected(v);
 
                 break;
 
@@ -55,7 +59,7 @@ public class FilterOnClickListener implements View.OnClickListener
                 homeActivity.drawerLayout.closeDrawer(GravityCompat.END);
 
                 break;
-            case R.id.deals_discount_checkbox:
+            /*case R.id.deals_discount_checkbox:
 
                 if(v.isSelected())
                 {
@@ -72,19 +76,85 @@ public class FilterOnClickListener implements View.OnClickListener
             case R.id.business_directory_checkbox:
 
 
+                break;*/
+
+            case R.id.rating_checkbox:
+
+                if(v.isSelected())
+                {
+
+                }
+                else
+                {
+                    rating = null;
+                }
+
+                setCheckboxSelected(v);
+
+                break;
+
+            case R.id.rating_1:
+
+                setRatingSelected(v);
+
+                break;
+
+            case R.id.rating_2:
+
+                setRatingSelected(v);
+
+                break;
+
+
+            case R.id.rating_3:
+
+                setRatingSelected(v);
+
+                break;
+
+            case R.id.discount_checkbox:
+
+                if(v.isSelected())
+                {
+
+                }
+                else
+                {
+
+                }
+
+                setCheckboxSelected(v);
+
                 break;
         }
     }
 
-    public void setSelected(View v)
+    public void setButtonSelected(View v)
     {
-        if(lastSelected != null)
+        if(lastButtonSelected != null)
         {
-            lastSelected.setSelected(false);
+            lastButtonSelected.setSelected(false);
         }
 
         v.setSelected(true);
 
-        lastSelected = v;
+        lastButtonSelected = v;
+    }
+
+    public void setRatingSelected(View v)
+    {
+        if(lastRatingSelected != null)
+        {
+            lastRatingSelected.setSelected(false);
+        }
+
+        v.setSelected(true);
+
+        lastRatingSelected = v;
+    }
+
+    private void setCheckboxSelected(View v)
+    {
+        v.setSelected(!v.isSelected());
     }
 }

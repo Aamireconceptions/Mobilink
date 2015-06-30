@@ -2,8 +2,10 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -23,17 +25,24 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
     private ProgressBar progressBar;
 
+    private TextView tvDealsOfTheDay;
+
     public DealsTask(ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.adapter = adapter;
 
         this.progressBar = progressBar;
     }
 
+    public void setTvDealsOfTheDay(TextView tvDealsOfTheDay)
+    {
+        this.tvDealsOfTheDay = tvDealsOfTheDay;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-        progressBar.setVisibility(View.VISIBLE);
+        if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
 
     @Override
@@ -51,23 +60,41 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        progressBar.setVisibility(View.GONE);
+        if(progressBar != null) { progressBar.setVisibility(View.GONE); };
 
         if(result != null) {
             List<GenericDeal> deals;
 
             Gson gson = new Gson();
 
-            Response response = gson.fromJson(result, Response.class);
+            try
+            {
+                Response response = gson.fromJson(result, Response.class);
 
-            deals = response.deals;
+                deals = response.deals;
 
-            for(GenericDeal genericDeal : deals) {
-                Logger.print("title:"+genericDeal.title);
+                for(GenericDeal genericDeal : deals) {
+                    Logger.print("title:"+genericDeal.title);
+                }
+
+                adapter.setData(deals);
+                adapter.notifyDataSetChanged();
+
+                showTvDealsOfTheDay();
+            }
+            catch (JsonSyntaxException e)
+            {
+                e.printStackTrace();
             }
 
-            adapter.setData(deals);
-            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void showTvDealsOfTheDay()
+    {
+        if(tvDealsOfTheDay != null)
+        {
+            tvDealsOfTheDay.setVisibility(View.VISIBLE);
         }
     }
 
@@ -76,9 +103,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put("category", category);
+
         setServiceUrl("deals", params);
 
-        setServiceUrl(BASE_URL + "en/deals/26"); //TODO remove this line
+       // setServiceUrl(BASE_URL + "en/deals/26"); //TODO remove this line
 
         result = getJson();
 

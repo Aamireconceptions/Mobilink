@@ -56,7 +56,7 @@ public class TravelFragment extends Fragment
 
         Button btNewDeals = (Button) v.findViewById(R.id.new_deals);
         btNewDeals.setOnClickListener(clickListener);
-        clickListener.setSelected(btNewDeals);
+        clickListener.setButtonSelected(btNewDeals);
 
         Button btPopularDeals = (Button) v.findViewById(R.id.popular_deals);
         btPopularDeals.setOnClickListener(clickListener);

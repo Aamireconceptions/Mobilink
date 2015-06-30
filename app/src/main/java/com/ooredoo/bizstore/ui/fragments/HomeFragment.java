@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
@@ -25,6 +26,8 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +38,9 @@ public class HomeFragment extends Fragment
 {
     private Activity activity;
 
-    private ListViewBaseAdapter adapter;
+    private TextView tvDealsOfTheDay;
 
-    private ProgressBar progressBar;
+    private ListViewBaseAdapter adapter;
 
     public static HomeFragment newInstance()
     {
@@ -63,11 +66,11 @@ public class HomeFragment extends Fragment
 
         ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 
-        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-
         LayoutInflater inflater = activity.getLayoutInflater();
 
         View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);
+
+        tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -181,7 +184,8 @@ public class HomeFragment extends Fragment
 
     private void initAndLoadDealsOfTheDay()
     {
-        DealsTask dealsTask = new DealsTask(adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(adapter, null);
+        dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
         dealsTask.execute("deals_of_the_day");
     }
 }

@@ -57,6 +57,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
                 stringBuilder.append(AMPERSAND);
             }
 
+            Logger.logE("Entty value:", ""+entry.getValue());
             stringBuilder.append(URLEncoder.encode(entry.getKey(), ENCODING));
             stringBuilder.append(EQUAL);
             stringBuilder.append(URLEncoder.encode(entry.getValue(), ENCODING));
@@ -137,12 +138,13 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         String baseUrl = BASE_URL.concat(lang + SLASH + serviceName + QUESTION_MARK);
         HashMap<String, String> credentials = BizStore.getUserCredentials();
         HashMap<String, String> serviceParams = new HashMap<>();
-        serviceParams.putAll(credentials);
+        //serviceParams.putAll(credentials);
         serviceParams.putAll(params);
+        serviceParams.put("os", "android");
         try {
             String query = createQuery(serviceParams);
-            //serviceUrl = baseUrl.concat(query); //TODO remove comment
-            serviceUrl = baseUrl + SLASH + "26";//TODO
+            serviceUrl = baseUrl.concat(query); //TODO remove comment
+            //serviceUrl = baseUrl + SLASH + "26";//TODO
         } catch(UnsupportedEncodingException e) {
             e.printStackTrace();
         }

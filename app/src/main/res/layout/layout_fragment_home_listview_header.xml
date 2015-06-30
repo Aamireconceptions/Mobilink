@@ -121,6 +121,7 @@
 
 
     <TextView
+        android:id="@+id/deals_of_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_12sdp"
@@ -129,6 +130,8 @@
         android:paddingRight="@dimen/_18sdp"
         android:text="@string/deals_of_the_day"
         android:textAllCaps="true"
-        android:typeface="serif"/>
+        android:typeface="serif"
+        android:visibility="gone"/>
+
 
 </LinearLayout>
