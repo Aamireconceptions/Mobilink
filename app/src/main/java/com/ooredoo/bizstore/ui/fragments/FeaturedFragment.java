@@ -14,7 +14,6 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -60,7 +59,7 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener {
             Resources resources = Resources.getSystem();
 
             int reqWidth = v.getWidth();
-            int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._180sdp) / resources.getDisplayMetrics().density);
+            int reqHeight = v.getHeight(); //int) Converter.convertDpToPixels(resources.getDimension(R.dimen._180sdp) / resources.getDisplayMetrics().density);
 
             Logger.print("req Width Pixels:" + reqWidth);
             Logger.print("req Height Pixels:" + reqHeight);
