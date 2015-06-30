@@ -8,7 +8,6 @@ import android.support.v13.app.FragmentPagerAdapter;
 
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.fragments.FeaturedFragment;
-import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 
 import java.util.List;
 

@@ -2,14 +2,13 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.TopDealsAdapter;
+import com.ooredoo.bizstore.adapters.DealsAdapter;
 import com.ooredoo.bizstore.listeners.DealsFilterClickListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -47,7 +46,7 @@ public class FoodAndDinningFragment extends Fragment {
         deals.add(new Deal());
         deals.add(new Deal());
         ListView listView = (ListView) v.findViewById(R.id.lv);
-        TopDealsAdapter adapter = new TopDealsAdapter(mActivity, R.layout.list_item_food_n_dining, deals);
+        DealsAdapter adapter = new DealsAdapter(mActivity, R.layout.list_item_deal, deals);
         listView.setAdapter(adapter);
     }
 

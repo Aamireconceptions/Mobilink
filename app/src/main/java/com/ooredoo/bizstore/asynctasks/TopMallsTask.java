@@ -3,9 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.support.v4.view.ViewPager;
 
 import com.google.gson.Gson;
-import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
-import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
@@ -14,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +61,12 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<Mall> malls = response.malls;
+            List<Mall> malls = new ArrayList<>();//response.malls;
+            malls.add(new Mall());
+            malls.add(new Mall());
+            malls.add(new Mall());
+            malls.add(new Mall());
+            malls.add(new Mall());
 
             adapter.setData(malls);
             adapter.notifyDataSetChanged();

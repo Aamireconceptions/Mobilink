@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,7 +61,13 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<GenericDeal> deals = response.deals;
+            List<GenericDeal> deals = new ArrayList<>();//response.deals;//TODO replace with actual data
+            deals.add(new GenericDeal());
+            deals.add(new GenericDeal());
+            deals.add(new GenericDeal());
+            deals.add(new GenericDeal());
+            deals.add(new GenericDeal());
+
 
             adapter.setData(deals);
             adapter.notifyDataSetChanged();

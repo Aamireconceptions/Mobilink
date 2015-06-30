@@ -13,13 +13,16 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.List;
 
-public class TravelAdapter extends ArrayAdapter<Deal> {
+import static com.ooredoo.bizstore.AppConstant.DEAL;
+import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
+
+public class DealsAdapter extends ArrayAdapter<Deal> {
 
     HomeActivity mActivity;
     int layoutResID;
     List<Deal> items;
 
-    public TravelAdapter(HomeActivity activity, int layoutResourceID, List<Deal> items) {
+    public DealsAdapter(HomeActivity activity, int layoutResourceID, List<Deal> items) {
         super(activity, layoutResourceID, items);
         this.mActivity = activity;
         this.items = items;
@@ -60,6 +63,13 @@ public class TravelAdapter extends ArrayAdapter<Deal> {
         holder.tvTitle.setText(deal.title);
         holder.tvViews.setText(deal.views);
         holder.tvDiscount.setText(deal.discount);*/
+
+        holder.tvDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[2], deal.id);
+            }
+        });
 
         ImageView ivFav = (ImageView) view.findViewById(R.id.iv_fav);
 

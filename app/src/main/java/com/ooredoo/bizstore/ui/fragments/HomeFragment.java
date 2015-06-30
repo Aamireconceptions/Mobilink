@@ -12,8 +12,8 @@ import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
-import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.FeaturedTask;
@@ -90,15 +90,18 @@ public class HomeFragment extends Fragment
     private void initAndLoadFeaturedDeals(View v)
     {
         List<GenericDeal> deals = new ArrayList<>();
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
 
-        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(),
-                                                                          deals);
+        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
 
         ViewPager featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
         featuredPager.setAdapter(adapter);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
-                                                   v.findViewById(R.id.featured_indicator);
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.featured_indicator);
         circlePageIndicator.setViewPager(featuredPager);
 
         FeaturedTask featuredTask = new FeaturedTask(adapter, featuredPager);
@@ -108,9 +111,13 @@ public class HomeFragment extends Fragment
     private void initAndLoadPromotions(View v)
     {
         List<GenericDeal> deals = new ArrayList<>();
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
+        deals.add(new GenericDeal());
 
-        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(),
-                                                deals);
+        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
 
         ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
         promoPager.setAdapter(adapter);
@@ -126,6 +133,11 @@ public class HomeFragment extends Fragment
     private void initAndLoadTopBrands(View v)
     {
         List<Brand> brands = new ArrayList<>();
+        brands.add(new Brand());
+        brands.add(new Brand());
+        brands.add(new Brand());
+        brands.add(new Brand());
+        brands.add(new Brand());
 
         TopBrandsStatePagerAdapter adapter = new TopBrandsStatePagerAdapter(getFragmentManager(),
                                                                             brands);
@@ -144,11 +156,17 @@ public class HomeFragment extends Fragment
     private void initAndLoadTopMalls(View v)
     {
         List<Mall> malls = new ArrayList<>();
+        malls.add(new Mall());
+        malls.add(new Mall());
+        malls.add(new Mall());
+        malls.add(new Mall());
+        malls.add(new Mall());
 
         TopMallsStatePagerAdapter adapter = new TopMallsStatePagerAdapter(getFragmentManager(),
                                                                           malls);
 
         ViewPager topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
+
         topMallsPager.setAdapter(adapter);
 
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
@@ -156,6 +174,8 @@ public class HomeFragment extends Fragment
         circlePageIndicator.setViewPager(topMallsPager);
 
         TopMallsTask topMallsTask = new TopMallsTask(adapter, topMallsPager);
+
+        adapter.notifyDataSetChanged();
         //topMallsTask.execute();
     }
 
