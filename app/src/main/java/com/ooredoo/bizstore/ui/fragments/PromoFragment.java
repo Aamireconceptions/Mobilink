@@ -73,7 +73,7 @@ public class PromoFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if(v.getId() == R.id.image_view) {
             HomeActivity homeActivity = (HomeActivity) getActivity();
-            homeActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], 0L); //TODO replace 0L with deal id
+            homeActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], 0); //TODO replace 0 with deal id
         }
     }
 

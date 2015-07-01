@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,19 +19,19 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
 
     Activity mActivity;
     int layoutResID;
-    List<Notification> items;
+    List<Notification> notifications;
 
-    public NotificationsAdapter(Activity activity, int layoutResourceID, List<Notification> items) {
-        super(activity, layoutResourceID, items);
+    public NotificationsAdapter(Activity activity, int layoutResourceID, List<Notification> notifications) {
+        super(activity, layoutResourceID, notifications);
         this.mActivity = activity;
-        this.items = items;
+        this.notifications = notifications;
         this.layoutResID = layoutResourceID;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final Notification item = this.items.get(position);
+        final Notification notification = this.notifications.get(position);
 
         final Holder holder;
         View view = convertView;
@@ -53,31 +54,53 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
             view.setTag(holder);
         }
 
-        holder.tvTitle.setText(item.title);
-        holder.checkBox.setChecked(item.enabled);
-        holder.ivCategory.setImageResource(item.icon);
+        holder.checkBox.setOnCheckedChangeListener(new CheckBoxChangeListener(position));
+
+        holder.tvTitle.setText(notification.title);
+        holder.checkBox.setChecked(notification.enabled);
+        holder.ivCategory.setImageResource(notification.icon);
 
         holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean checked = holder.checkBox.isChecked();
-                holder.checkBox.setChecked(!checked);
+                toggleCheckBox(holder.checkBox, notification);
             }
         });
 
         holder.ivCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean checked = holder.checkBox.isChecked();
-                holder.checkBox.setChecked(!checked);
+                toggleCheckBox(holder.checkBox, notification);
             }
         });
 
         return view;
     }
 
-    public void updateItems(List<Notification> items) {
-        this.items = items;
+    private void toggleCheckBox(CheckBox checkBox, Notification notification) {
+        boolean isChecked = checkBox.isChecked();
+        checkBox.setChecked(!isChecked);
+        notification.enabled = !isChecked;
+        notification.save();
+    }
+
+    public void updateItems(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    private class CheckBoxChangeListener implements CompoundButton.OnCheckedChangeListener {
+        int position;
+
+        public CheckBoxChangeListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            Notification notification = getItem(position);
+            notification.enabled = isChecked;
+            notification.save();
+        }
     }
 
     private static class Holder {

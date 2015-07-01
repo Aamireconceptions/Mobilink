@@ -4,19 +4,19 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
+import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
-import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.adapters.FavoritesAdapter;
+import com.ooredoo.bizstore.model.Deal;
 
-public class MyDealsActivity extends AppCompatActivity
-{
+import java.util.List;
+
+public class MyDealsActivity extends AppCompatActivity {
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_deals);
@@ -24,22 +24,21 @@ public class MyDealsActivity extends AppCompatActivity
         init();
     }
 
-    private void init()
-    {
+    private void init() {
+
         setupToolbar();
 
-        Button btNewDeals = (Button) findViewById(R.id.new_deals);
+        Select select = new Select();
 
-        Button btPopularDeals = (Button) findViewById(R.id.popular_deals);
+        List<Deal> deals = select.all().from(Deal.class).where("isFavorite = 1").execute();
 
-        ListViewBaseAdapter adapter = new ListViewBaseAdapter(this, R.layout.list_deal, null);
+        FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.list_item_deal, deals);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
     }
 
-    private void setupToolbar()
-    {
+    private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -6,12 +6,15 @@ package com.ooredoo.bizstore;
  */
 public class AppConstant {
 
+    public static final String ID = "ID";
     public static final String TYPE_ID = "TYPE_ID";
     public static final String BUSINESS_TYPE = "BUSINESS_TYPE";
     public static final String CATEGORY = "CATEGORIES";
 
     public final static String ACTION_DEAL_DETAIL = "com.ooredoo.bizstore.deal_detail";
     public final static String ACTION_BUSINESS_DETAIL = "com.ooredoo.bizstore.business_detail";
+
+    public static int NOTIFICATION_COUNT = 11;
 
     public static int DEAL = 1;
     public static int BUSINESS = 2;

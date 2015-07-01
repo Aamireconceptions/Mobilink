@@ -78,9 +78,9 @@ public class SearchResultsAdapter extends ArrayAdapter<Deal> {
             public void onClick(View v) {
                 Log.i("ITEM", String.valueOf(item.type));
                 if(item.type == DEAL) {
-                    mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], 0L); //TODO replace 0L with deal id
+                    mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], item.id); //TODO replace 0L with deal id
                 } else if(item.type == BUSINESS) {
-                    mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], 0L); //TODO replace 0L with business id
+                    mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], item.id); //TODO replace 0L with business id
                 }
             }
         });

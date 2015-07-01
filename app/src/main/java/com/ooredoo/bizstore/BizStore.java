@@ -1,7 +1,6 @@
 package com.ooredoo.bizstore;
 
-import android.app.Application;
-
+import com.activeandroid.ActiveAndroid;
 import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -15,7 +14,7 @@ import static com.ooredoo.bizstore.utils.CryptoUtils.encodeToBase64;
  * @since 6/10/2015.
  */
 
-public class BizStore extends Application {
+public class BizStore extends com.activeandroid.app.Application {
 
     private static final User user = new User();
 
@@ -31,9 +30,11 @@ public class BizStore extends Application {
     private final static String SERIF_FONT = "fonts/Opifico/Opificio_Bold.ttf";
     private final static String SANS_SERIF_FONT = "fonts/Opifico/Opificio.ttf";
 
-    public void onCreate()
-    {
+    public void onCreate() {
+
         Logger.setEnabled(true);
+
+        ActiveAndroid.initialize(this);
 
         overrideDefaultFonts();
 

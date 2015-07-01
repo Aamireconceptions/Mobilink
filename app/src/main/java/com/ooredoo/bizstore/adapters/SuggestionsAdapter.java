@@ -75,13 +75,13 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
     public List<Deal> search(String keyword, int type) {
         //TODO search for deals/businesses & populate list
         List<Deal> searchResults = new ArrayList<>();
-        searchResults.add(new Deal(0, 1, "Title", "30%", "Description", "Islamabad"));
-        searchResults.add(new Deal(0, 1, "Title", "30%", "Description", "Islamabad"));
-        searchResults.add(new Deal(0, 2, "Title", "30%", "Description", "Islamabad"));
-        searchResults.add(new Deal(0, 1, "Title", "30%", "Description", "Islamabad"));
-        searchResults.add(new Deal(0, 1, "Title", "30%", "Description", "Islamabad"));
-        searchResults.add(new Deal(0, 2, "Title", "30%", "Description", "Islamabad"));
-        searchResults.add(new Deal(0, 1, "Title", "30%", "Description", "Islamabad"));
+        searchResults.add(new Deal(1, 1, "Title", 30, "Description", "Islamabad"));
+        searchResults.add(new Deal(2, 1, "Title", 30, "Description", "Islamabad"));
+        searchResults.add(new Deal(3, 2, "Title", 30, "Description", "Islamabad"));
+        searchResults.add(new Deal(4, 1, "Title", 30, "Description", "Islamabad"));
+        searchResults.add(new Deal(5, 1, "Title", 30, "Description", "Islamabad"));
+        searchResults.add(new Deal(6, 2, "Title", 30, "Description", "Islamabad"));
+        searchResults.add(new Deal(7, 1, "Title", 30, "Description", "Islamabad"));
         return searchResults;
     }
 }

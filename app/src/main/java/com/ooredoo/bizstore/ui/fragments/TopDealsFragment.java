@@ -63,12 +63,13 @@ public class TopDealsFragment extends Fragment {
 
     private void populateDeals(View v) {
         List<Deal> deals = new ArrayList<>();
-        deals.add(new Deal());
-        deals.add(new Deal());
-        deals.add(new Deal());
-        deals.add(new Deal());
-        deals.add(new Deal());
-        deals.add(new Deal());
+        deals.add(new Deal(1, 1, "A", 20, "", ""));
+        deals.add(new Deal(2, 1, "B", 10, "", ""));
+        deals.add(new Deal(3, 1, "C", 40, "", ""));
+        deals.add(new Deal(4, 1, "D", 30, "", ""));
+        deals.add(new Deal(5, 1, "E", 15, "", ""));
+        deals.add(new Deal(6, 1, "F", 25, "", ""));
+        deals.add(new Deal(7, 1, "G", 30, "", ""));
         ListView listView = (ListView) v.findViewById(R.id.lv);
         DealsAdapter adapter = new DealsAdapter(mActivity, R.layout.list_item_deal, deals);
         listView.setAdapter(adapter);

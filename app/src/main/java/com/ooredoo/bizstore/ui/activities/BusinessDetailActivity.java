@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
+import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -28,6 +29,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
+
+    private int id;
 
     public BusinessDetailActivity() {
         super();
@@ -61,6 +64,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     }
 
     private void initViews() {
+        id = intent.getIntExtra(AppConstant.ID, 0);
         category = intent.getStringExtra(CATEGORY);
         ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 

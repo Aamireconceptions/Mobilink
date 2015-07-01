@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
@@ -25,8 +24,6 @@ import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -188,6 +185,6 @@ public class HomeFragment extends Fragment
     {
         DealsTask dealsTask = new DealsTask(adapter, null);
         dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
-        dealsTask.execute("deals_of_the_day");
+        //dealsTask.execute("deals_of_the_day");
     }
 }

@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
@@ -40,7 +41,6 @@ import com.ooredoo.bizstore.views.RangeSeekBar.OnRangeSeekBarChangeListener;
 import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
-import static com.ooredoo.bizstore.AppConstant.TYPE_ID;
 import static com.ooredoo.bizstore.adapters.SearchResultsAdapter.searchType;
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.BASE_URL;
@@ -272,17 +272,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     @Override
-    public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue)
-    {
-
+    public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
         Logger.print("minValue:" + minValue + ", maxValue:"+maxValue);
-
     }
 
     public void showDetailActivity(int detailType, String dealCategory, long typeId) {
         Intent intent = new Intent();
         intent.setClass(this, detailType == BUSINESS ? BusinessDetailActivity.class : DealDetailActivity.class);
-        intent.putExtra(TYPE_ID, typeId);
+        intent.putExtra(AppConstant.ID, typeId);
         intent.putExtra(CATEGORY, dealCategory);
         startActivity(intent);
     }
