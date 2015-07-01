@@ -33,6 +33,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
+import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
@@ -53,7 +54,7 @@ import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.BASE_URL;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.PropertyUtils.getAppUrl;
 
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnRangeSeekBarChangeListener, OnKeyListener {
+public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener {
     public static boolean rtl = false;
     public DrawerLayout drawerLayout;
     public ListView mSuggestionsListView, mSearchResultsListView;
@@ -68,7 +69,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private ExpandableListView expandableListView;
     private boolean isSearchEnabled = false;
 
-    public String ratingFilter, minDiscount, maxDiscount;
+    public boolean doApplyDiscount = false;
+
+    public String ratingFilter;
+
+    public int minDiscount, maxDiscount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +187,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvHotelsAndSpa.setOnClickListener(clickListener);
 
         RangeSeekBar<Integer> rangeSeekBar = (RangeSeekBar) findViewById(R.id.discount_seekbar);
-        rangeSeekBar.setOnRangeSeekBarChangeListener(this);
+        rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
     }
 
     @Override
@@ -282,11 +287,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         }
         mSearchResultsListView.refreshDrawableState();
         mSearchResultsListView.invalidateViews();
-    }
-
-    @Override
-    public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-        Logger.print("minValue:" + minValue + ", maxValue:"+maxValue);
     }
 
     public void showDetailActivity(int detailType, String dealCategory, long typeId) {

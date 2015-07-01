@@ -138,14 +138,7 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.discount_checkbox:
 
-                if(v.isSelected())
-                {
-
-                }
-                else
-                {
-
-                }
+                activity.doApplyDiscount = v.isSelected();
 
                 setCheckboxSelected(v);
 
