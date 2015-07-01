@@ -44,7 +44,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name=".ui.activities.HomeActivity"
-            android:configChanges="locale|layoutDirection"
+            android:configChanges="locale"
             android:label="@string/title_activity_home"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>

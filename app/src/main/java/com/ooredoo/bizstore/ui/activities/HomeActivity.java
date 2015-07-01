@@ -36,6 +36,7 @@ import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
+import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
@@ -254,7 +255,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void selectTab(int tabPosition) {
-        viewPager.setCurrentItem(tabPosition);
+        viewPager.setCurrentItem(tabPosition, true);
     }
 
     @Override

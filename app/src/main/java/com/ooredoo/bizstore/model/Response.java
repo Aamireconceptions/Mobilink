@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class Response
 {
+    @SerializedName("result")
+    public int resultCode;
+
     @SerializedName("results")
     public List<GenericDeal> deals;
 

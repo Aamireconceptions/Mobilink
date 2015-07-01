@@ -1,8 +1,6 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +9,10 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.NavigationItem;
-import com.ooredoo.bizstore.ui.activities.AboutUsActivity;
-import com.ooredoo.bizstore.ui.activities.HelpActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
-import com.ooredoo.bizstore.ui.activities.NotificationsActivity;
-import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.HashMap;
 import java.util.List;
-
-import static com.ooredoo.bizstore.utils.DialogUtils.showRateAppDialog;
-import static com.ooredoo.bizstore.utils.DialogUtils.showUnSubscribeDialog;
 
 /**
  * @author  Babar
@@ -122,7 +112,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     }
 
     @Override
-    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
     {
         if(convertView == null)
         {
@@ -147,52 +137,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
         tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
 
-        final HomeActivity homeActivity = (HomeActivity) context;
-
-        tvName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                homeActivity.showHideDrawer(GravityCompat.START, false);
-                Logger.print("NAVIGATION: " + groupPosition + ", " + childPosition);
-                if(groupPosition == 0) {
-                    homeActivity.selectTab(childPosition + 1); //Skip Home Tab
-                } else if(groupPosition == 1) {
-                    switch(childPosition) {
-                        case 0:
-                            showActivity(MyAccountActivity.class);
-                            break;
-                        case 1:
-                            //TODO show 'My Notifications' screen
-                            showActivity(NotificationsActivity.class);
-                            break;
-                        case 2:
-                            showRateAppDialog(homeActivity);
-                            break;
-                        case 3:
-                            showActivity(HelpActivity.class);
-                            break;
-                        case 4:
-                            showActivity(AboutUsActivity.class);
-                            break;
-                        case 5:
-                            showUnSubscribeDialog(homeActivity);
-                            break;
-                    }
-                }
-            }
-        });
-
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition)
     {
-        return false;
-    }
-
-    private void showActivity(Class cls) {
-        final HomeActivity homeActivity = (HomeActivity) context;
-        homeActivity.startActivity(new Intent(context, cls));
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.support.v4.view.GravityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
@@ -11,7 +12,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
  */
 public class FilterOnClickListener implements View.OnClickListener
 {
-    private HomeActivity homeActivity;
+    private AppCompatActivity activity;
 
     private View lastRatingSelected;
 
@@ -19,9 +20,9 @@ public class FilterOnClickListener implements View.OnClickListener
 
     public String rating, minDiscount, maxDiscount;
 
-    public FilterOnClickListener(HomeActivity homeActivity)
+    public FilterOnClickListener(AppCompatActivity activity)
     {
-        this.homeActivity = homeActivity;
+        this.activity = activity;
     }
 
     @Override
@@ -44,19 +45,19 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.filter:
 
-                homeActivity.drawerLayout.openDrawer(GravityCompat.END);
+                ((HomeActivity)activity).drawerLayout.openDrawer(GravityCompat.END);
 
                 break;
 
             case R.id.back:
 
-                homeActivity.drawerLayout.closeDrawer(GravityCompat.END);
+                ((HomeActivity)activity).drawerLayout.closeDrawer(GravityCompat.END);
 
                 break;
 
             case R.id.done:
 
-                homeActivity.drawerLayout.closeDrawer(GravityCompat.END);
+                ((HomeActivity)activity).drawerLayout.closeDrawer(GravityCompat.END);
 
                 break;
             /*case R.id.deals_discount_checkbox:

@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-              android:background="@color/white"
-              android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|start"
         android:padding="@dimen/_20sdp">
 
         <ImageView
@@ -75,70 +75,65 @@
         android:id="@+id/app_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_home"
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_home"
         android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
         android:text="@string/home"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="inherit"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/my_deals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_favourite"
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_favourite"
         android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
         android:text="@string/my_deals"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="inherit"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/recommended"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_recommended"
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_recommended"
         android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
         android:text="@string/recommended"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="inherit"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/recent_searches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_recent_searches"
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_recent_searches"
         android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
         android:text="@string/recent_searches"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="inherit"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/recent_viewed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_recent_viewed"
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_recent_viewed"
         android:gravity="start|center_vertical"
         android:padding="@dimen/_16sdp"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
         android:text="@string/recent_viewed"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="inherit"/>
+        android:textColor="@android:color/primary_text_light" />
 
 </LinearLayout>

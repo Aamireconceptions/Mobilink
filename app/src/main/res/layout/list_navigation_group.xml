@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@drawable/group_bg"
-              android:layoutDirection="inherit"
-    android:orientation="vertical"
-              android:textAlignment="inherit"
-              android:textDirection="inherit">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/group_bg"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_recent_viewed"
         android:drawablePadding="12dp"
         android:drawableStart="@drawable/ic_recent_viewed"
         android:gravity="start|center_vertical"
         android:padding="18dp"
+        android:textDirection="locale"
+        android:layoutDirection="locale"
         android:text="Categories"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="inherit"/>
+        android:textColor="@android:color/primary_text_light" />
 
 </LinearLayout>

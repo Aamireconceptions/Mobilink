@@ -4,12 +4,15 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
 import com.ooredoo.bizstore.listeners.LanguageChangeListener;
+import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
+import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
@@ -75,6 +78,14 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         LanguageChangeListener languageChangeListener = new LanguageChangeListener(homeActivity, navigationHeader);
         languageChangeListener.expandableListView = expandableListView;
 
+       /* NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
+
+        Button btEnglish = (Button) navigationHeader.findViewById(R.id.btn_lang_english);
+        btEnglish.setOnClickListener(clickListener);
+
+        Button btArabic = (Button) navigationHeader.findViewById(R.id.btn_lang_arabic);
+        btArabic.setOnClickListener(clickListener);*/
+
         new HeaderNavigationListener(homeActivity, navigationHeader);
 
         ExpandableListAdapter adapter = new ExpandableListAdapter(activity, groupList, childList);
@@ -83,6 +94,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         expandableListView.setAdapter(adapter);
         expandableListView.setOnGroupCollapseListener(this);
         expandableListView.setOnGroupExpandListener(this);
+        expandableListView.setOnChildClickListener(new NavigationMenuChildClickListener(homeActivity, adapter));
     }
 
     private void setIndicatorBounds()

@@ -10,8 +10,6 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 public class MainActivity extends BaseActivity {
 
-    private MemoryCache memoryCache = MemoryCache.getInstance();
-
     public MainActivity() {
         super();
         layoutResId = R.layout.activity_main;
@@ -39,13 +37,5 @@ public class MainActivity extends BaseActivity {
         if(check) {
             startActivity(HomeActivity.class);
         }
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-
-        memoryCache.tearDown();
     }
 }

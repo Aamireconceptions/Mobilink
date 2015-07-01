@@ -4,21 +4,25 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.util.LayoutDirection;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.RecentDealsAdapter;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.RecentDeal;
+import com.ooredoo.bizstore.utils.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RecentViewedActivity extends AppCompatActivity implements View.OnClickListener {
-    private View lastSelected;
+public class RecentViewedActivity extends AppCompatActivity
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,24 +33,24 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         init();
     }
 
-    private void init() {
+    private void init()
+    {
         setupToolbar();
 
-        Button btnNewDeals = (Button) findViewById(R.id.new_deals);
-        Button btnPopularDeals = (Button) findViewById(R.id.popular_deals);
+        FilterOnClickListener clickListener = new FilterOnClickListener(this);
 
-        btnNewDeals.setSelected(true);
-        btnNewDeals.setOnClickListener(this);
-        btnPopularDeals.setOnClickListener(this);
+        Button btNewDeals = (Button) findViewById(R.id.new_deals);
+        btNewDeals.setOnClickListener(clickListener);
+        clickListener.setButtonSelected(btNewDeals);
 
-        lastSelected = btnNewDeals;
+        Button btPopularDeals = (Button) findViewById(R.id.popular_deals);
+        btPopularDeals.setOnClickListener(clickListener);
 
-        List<RecentDeal> deals = new Select().all().from(RecentDeal.class).execute();
+        List<GenericDeal> deals = new ArrayList<>();
+
+        ListViewBaseAdapter adapter = new ListViewBaseAdapter(this, R.layout.list_deal, deals);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
-
-        RecentDealsAdapter adapter = new RecentDealsAdapter(this, R.layout.list_item_deal, deals);
-
         listView.setAdapter(adapter);
     }
 
@@ -56,32 +60,9 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
     }
 
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.new_deals:
-                setSelected(v);
-                break;
 
-            case R.id.popular_deals:
-                setSelected(v);
-                break;
-        }
-
-    }
-
-    private void setSelected(View v) {
-        if(lastSelected != null) {
-            lastSelected.setSelected(false);
-        }
-
-        v.setSelected(true);
-
-        lastSelected = v;
-    }
 
     public static void addToRecentViewed(Deal deal) {
         if(deal != null && deal.id > 0) {
@@ -96,7 +77,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.city = deal.city;
             rd.title = deal.title;
             rd.discount = deal.discount;
-            Log.i("UPDATE", "EXISTING---" + rd.title);
+            Logger.logI("UPDATE", "EXISTING---" + rd.title);
             rd.save();
         }
     }

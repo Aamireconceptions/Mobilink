@@ -70,8 +70,6 @@ public class MemoryCache
     public void tearDown()
     {
         lruCache.evictAll();
-
-        lruCache = null;
     }
 
 
