@@ -3,11 +3,14 @@ package com.ooredoo.bizstore.ui.activities;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 public class MainActivity extends BaseActivity {
+
+    private MemoryCache memoryCache = MemoryCache.getInstance();
 
     public MainActivity() {
         super();
@@ -36,5 +39,13 @@ public class MainActivity extends BaseActivity {
         if(check) {
             startActivity(HomeActivity.class);
         }
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        memoryCache.tearDown();
     }
 }

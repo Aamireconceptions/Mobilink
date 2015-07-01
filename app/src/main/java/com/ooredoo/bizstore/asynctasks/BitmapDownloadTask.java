@@ -26,9 +26,11 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     private String imgUrl;
 
-    private BitmapProcessor bitmapProcessor = new BitmapProcessor();
+    private BitmapProcessor bitmapProcessor = new BitmapProcessor(this);
 
     private MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private URL url;
 
     public BitmapDownloadTask(ImageView imageView, ProgressBar progressBar)
     {
@@ -72,9 +74,9 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     {
         try
         {
-            URL url = new URL(imgUrl);
+            url = new URL(imgUrl);
 
-            InputStream inputStream = url.openStream();
+            InputStream inputStream = openStream();
 
             int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
             int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));
@@ -91,6 +93,11 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         }
 
         return null;
+    }
+
+    public InputStream openStream() throws IOException
+    {
+        return url.openStream();
     }
 
     private void showProgress(int visible)

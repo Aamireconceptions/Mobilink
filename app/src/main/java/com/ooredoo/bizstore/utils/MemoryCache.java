@@ -67,5 +67,12 @@ public class MemoryCache
         return lruCache.get(key);
     }
 
+    public void tearDown()
+    {
+        lruCache.evictAll();
+
+        lruCache = null;
+    }
+
 
 }

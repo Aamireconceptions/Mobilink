@@ -8,6 +8,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -16,9 +19,15 @@ import java.io.InputStream;
  */
 public class BitmapProcessor
 {
-    public Bitmap decodeSampledBitmapFromStream(InputStream inputStream,
-                                                int reqWidth, int reqHeight)
+    private BitmapDownloadTask bitmapDownloadTask;
+
+    public BitmapProcessor(BitmapDownloadTask bitmapDownloadTask)
     {
+        this.bitmapDownloadTask = bitmapDownloadTask;
+    }
+
+    public Bitmap decodeSampledBitmapFromStream(InputStream inputStream,
+                                                int reqWidth, int reqHeight) throws IOException {
         Bitmap bitmap = null;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -37,11 +46,14 @@ public class BitmapProcessor
         options.inJustDecodeBounds = false;
         options.inSampleSize = sampleSize;
 
+        inputStream = bitmapDownloadTask.openStream();
+
         bitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
         width = bitmap.getWidth();
         height = bitmap.getHeight();
 
+        Logger.print("inSample:"+sampleSize);
         Logger.print("Modified Width: "+width);
         Logger.print("Modified Height: " + height);
 
@@ -53,9 +65,6 @@ public class BitmapProcessor
     {
         final int width = options.outWidth;
         final int height = options.outHeight;
-
-        Logger.logI("Orignal Width:", ""+width);
-        Logger.logI("Orignal Height:", ""+height);
 
         int inSampleSize = 1;
 
