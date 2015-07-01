@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.adapters.RecentDealsAdapter;
+import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.RecentDeal;
+
+import java.util.List;
 
 public class RecentViewedActivity extends AppCompatActivity implements View.OnClickListener {
     private View lastSelected;
@@ -26,18 +32,20 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
     private void init() {
         setupToolbar();
 
-        Button btNewDeals = (Button) findViewById(R.id.btn_new_deals);
-        Button btPopularDeals = (Button) findViewById(R.id.btn_popular_deals);
+        Button btnNewDeals = (Button) findViewById(R.id.new_deals);
+        Button btnPopularDeals = (Button) findViewById(R.id.popular_deals);
 
-        btNewDeals.setSelected(true);
-        btNewDeals.setOnClickListener(this);
-        btPopularDeals.setOnClickListener(this);
+        btnNewDeals.setSelected(true);
+        btnNewDeals.setOnClickListener(this);
+        btnPopularDeals.setOnClickListener(this);
 
-        lastSelected = btNewDeals;
+        lastSelected = btnNewDeals;
+
+        List<RecentDeal> deals = new Select().all().from(RecentDeal.class).execute();
 
         ListView listView = (ListView) findViewById(R.id.list_view);
 
-        ListViewBaseAdapter adapter = new ListViewBaseAdapter(this, R.layout.list_deal, null);
+        RecentDealsAdapter adapter = new RecentDealsAdapter(this, R.layout.list_item_deal, deals);
 
         listView.setAdapter(adapter);
     }
@@ -54,16 +62,12 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.btn_new_deals:
-
+            case R.id.new_deals:
                 setSelected(v);
-
                 break;
 
-            case R.id.btn_popular_deals:
-
+            case R.id.popular_deals:
                 setSelected(v);
-
                 break;
         }
 
@@ -77,5 +81,23 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         v.setSelected(true);
 
         lastSelected = v;
+    }
+
+    public static void addToRecentViewed(Deal deal) {
+        if(deal != null && deal.id > 0) {
+            RecentDeal rd = new RecentDeal();
+            List<RecentDeal> deals = new Select().all().from(RecentDeal.class).where("dealId=" + deal.id).execute();
+            if(deals != null && deals.size() > 0) {
+                rd = deals.get(0);
+            }
+            rd.id = deal.id;
+            rd.type = deal.type;
+            rd.desc = deal.desc;
+            rd.city = deal.city;
+            rd.title = deal.title;
+            rd.discount = deal.discount;
+            Log.i("UPDATE", "EXISTING---" + rd.title);
+            rd.save();
+        }
     }
 }

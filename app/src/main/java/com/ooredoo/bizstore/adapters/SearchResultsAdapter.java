@@ -35,6 +35,10 @@ public class SearchResultsAdapter extends ArrayAdapter<Deal> {
         this.layoutResID = layoutResourceID;
     }
 
+    public void setData(List<Deal> deals) {
+        this.results = deals;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

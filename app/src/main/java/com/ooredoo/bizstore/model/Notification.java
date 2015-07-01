@@ -8,11 +8,11 @@ import com.activeandroid.annotation.Table;
  * @author Pehlaj Rai
  * @since 2/3/2015.
  */
-@Table(name = "notifications")
+@Table(name = "obs_notifications")
 public class Notification extends Model {
 
-    @Column(name = "notificationId")
-    public long notificationId; //Uppercase to avoid conflict
+    @Column(name = "notificationId", notNull = true)
+    public long id;
 
     @Column(name = "icon", notNull = false)
     public int icon;
@@ -23,10 +23,19 @@ public class Notification extends Model {
     @Column(name = "isEnabled")
     public boolean enabled;
 
-    public Notification(long id, int icon, String title, boolean enabled) {
+    public Notification() {
+
+    }
+
+    public Notification(long id, boolean enabled, int icon, String title) {
+        this.id = id;
         this.icon = icon;
         this.title = title;
         this.enabled = enabled;
-        this.notificationId = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ", Title: " + title + ", Icon : " + icon + ", Enabled : " + enabled;
     }
 }

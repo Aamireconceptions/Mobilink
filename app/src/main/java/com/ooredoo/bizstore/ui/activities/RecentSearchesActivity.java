@@ -1,22 +1,23 @@
 package com.ooredoo.bizstore.ui.activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
+import com.ooredoo.bizstore.model.SearchItem;
 
-public class RecentSearchesActivity extends AppCompatActivity
-{
+import java.util.List;
+
+public class RecentSearchesActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_recent_searches);
@@ -24,47 +25,27 @@ public class RecentSearchesActivity extends AppCompatActivity
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         setupToolbar();
 
-        TextView tvListEmptyView = (TextView) findViewById(R.id.empty_view);
+        List<SearchItem> searchItems = new Select().all().from(SearchItem.class).execute();
 
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        listView.setEmptyView(tvListEmptyView);
+        ListView listView = (ListView) findViewById(R.id.lv_recent_searches);
 
+        RecentSearchesAdapter adapter = new RecentSearchesAdapter(this, R.layout.list_item_recent_search, searchItems);
+
+        listView.setAdapter(adapter);
+
+        boolean noSearchItemFound = searchItems.size() == 0;
+        listView.setVisibility(noSearchItemFound ? View.GONE : View.VISIBLE);
+        findViewById(R.id.no_data_view).setVisibility(noSearchItemFound ? View.VISIBLE : View.GONE);
     }
 
-    private void setupToolbar()
-    {
+    private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recent_searches, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }

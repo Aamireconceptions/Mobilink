@@ -2,10 +2,12 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.NotificationsAdapter;
 import com.ooredoo.bizstore.model.Notification;
@@ -51,7 +53,7 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
             cbSelectAll.setChecked(checkAll);
             for(Notification notification : notifications) {
                 notification.enabled = checkAll;
-                notification.save();
+                saveNotification(notification);
             }
             mAdapter.updateItems(notifications);
             mAdapter.notifyDataSetChanged();
@@ -67,25 +69,34 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
 
     public void initNotificationsData() {
         notifications = new ArrayList<>();
-        notifications.add(new Notification(1, R.drawable.ic_top_deals, getString(R.string.top_deals), true));
-        notifications.add(new Notification(2, R.drawable.ic_food_dining, getString(R.string.food_dining), false));
-        notifications.add(new Notification(3, R.drawable.ic_shopping, getString(R.string.shopping), true));
-        notifications.add(new Notification(4, R.drawable.ic_electronics, getString(R.string.electronics), false));
-        notifications.add(new Notification(5, R.drawable.ic_hotels, getString(R.string.hotels_spa), false));
-        notifications.add(new Notification(6, R.drawable.ic_malls, getString(R.string.markets_malls), false));
-        notifications.add(new Notification(7, R.drawable.ic_automotive, getString(R.string.automotive), false));
-        notifications.add(new Notification(8, R.drawable.ic_travel, getString(R.string.travel_tours), false));
-        notifications.add(new Notification(9, R.drawable.ic_entertainment, getString(R.string.entertainment), false));
-        notifications.add(new Notification(10, R.drawable.ic_jewelry, getString(R.string.jewelry_exchange), false));
-        notifications.add(new Notification(11, R.drawable.ic_sports, getString(R.string.sports_fitness), false));
+        notifications.add(new Notification(1, false, R.drawable.ic_top_deals, getString(R.string.top_deals)));
+        notifications.add(new Notification(2, false, R.drawable.ic_food_dining, getString(R.string.food_dining)));
+        notifications.add(new Notification(3, false, R.drawable.ic_shopping, getString(R.string.shopping)));
+        notifications.add(new Notification(4, false, R.drawable.ic_electronics, getString(R.string.electronics)));
+        notifications.add(new Notification(5, false, R.drawable.ic_hotels, getString(R.string.hotels_spa)));
+        notifications.add(new Notification(6, false, R.drawable.ic_malls, getString(R.string.markets_malls)));
+        notifications.add(new Notification(7, false, R.drawable.ic_automotive, getString(R.string.automotive)));
+        notifications.add(new Notification(8, false, R.drawable.ic_travel, getString(R.string.travel_tours)));
+        notifications.add(new Notification(9, false, R.drawable.ic_entertainment, getString(R.string.entertainment)));
+        notifications.add(new Notification(10, false, R.drawable.ic_jewelry, getString(R.string.jewelry_exchange)));
+        notifications.add(new Notification(11, false, R.drawable.ic_sports, getString(R.string.sports_fitness)));
+    }
 
-        for(int i = 0; i < notifications.size(); i++) {
-            Notification n = notifications.get(i);
-            Notification notification = Notification.load(Notification.class, n.notificationId);
-            if(notification != null) {
+    public void saveNotification(Notification notification) {
+        if(notification != null && notification.id > 0) {
+            List<Notification> notifications = new Select().all().from(Notification.class).where("notificationId=" + notification.id).execute();
+            if(notifications == null || notifications.size() == 0) {
+                Log.i("SAVE", "NEW---" + notification.toString());
+                notification.save();
+            } else {
+                Notification n = notifications.get(0);
+                n.id = notification.id;
+                n.icon = notification.icon;
+                n.title = notification.title;
                 n.enabled = notification.enabled;
+                Log.i("UPDATE", "EXISTING---" + n.toString());
+                n.save();
             }
         }
     }
-
 }

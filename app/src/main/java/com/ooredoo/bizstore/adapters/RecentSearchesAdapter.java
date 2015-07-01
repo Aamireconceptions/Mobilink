@@ -50,6 +50,11 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
             view.setTag(holder);
         }
 
+        String results = item.resultCount + " Results Found";
+
+        holder.tvKeyword.setText(item.keyword);
+        holder.tvResultCount.setText(results);
+
         return view;
     }
 

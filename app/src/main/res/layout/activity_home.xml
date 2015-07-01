@@ -29,6 +29,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:focusable="true"
+                    android:singleLine="true"
                     android:hint="@string/search"
                     android:visibility="gone"/>
 

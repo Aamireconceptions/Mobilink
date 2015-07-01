@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,10 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Notification;
+import com.ooredoo.bizstore.ui.activities.NotificationsActivity;
 
 import java.util.List;
 
@@ -54,6 +57,12 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
             view.setTag(holder);
         }
 
+        List<Notification> n = new Select().all().from(Notification.class).where("notificationId=" + notification.id).execute();
+        if(n != null) {
+            notification.enabled = n.get(0).enabled;
+            Log.i("ENABLED: " + notification.id, position + " - " + notification.enabled);
+        }
+
         holder.checkBox.setOnCheckedChangeListener(new CheckBoxChangeListener(position));
 
         holder.tvTitle.setText(notification.title);
@@ -81,7 +90,7 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
         boolean isChecked = checkBox.isChecked();
         checkBox.setChecked(!isChecked);
         notification.enabled = !isChecked;
-        notification.save();
+        ((NotificationsActivity) mActivity).saveNotification(notification);
     }
 
     public void updateItems(List<Notification> notifications) {
@@ -99,7 +108,7 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             Notification notification = getItem(position);
             notification.enabled = isChecked;
-            notification.save();
+            ((NotificationsActivity) mActivity).saveNotification(notification);
         }
     }
 

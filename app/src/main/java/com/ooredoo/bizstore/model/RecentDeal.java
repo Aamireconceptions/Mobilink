@@ -9,8 +9,8 @@ import com.activeandroid.annotation.Table;
  * @since 2/3/2015.
  */
 
-@Table(name = "obs_deals")
-public class Deal extends Model {
+@Table(name = "obs_recent_deals")
+public class RecentDeal extends Model {
 
     @Column(name = "dealId", notNull = true)
     public long id;
@@ -39,10 +39,10 @@ public class Deal extends Model {
     @Column(name = "isFavorite")
     public boolean isFavorite;
 
-    public Deal() {
+    public RecentDeal() {
     }
 
-    public Deal(long id, int type, String title, int discount, String desc, String city) {
+    public RecentDeal(long id, int type, String title, int discount, String desc, String city) {
         this.id = id;
         this.type = type;
         this.desc = desc;

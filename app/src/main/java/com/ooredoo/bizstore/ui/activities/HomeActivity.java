@@ -12,10 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -30,6 +32,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
+import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
@@ -38,15 +41,18 @@ import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 import com.ooredoo.bizstore.views.RangeSeekBar.OnRangeSeekBarChangeListener;
 
+import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
 import static com.ooredoo.bizstore.adapters.SearchResultsAdapter.searchType;
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.BASE_URL;
+import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.PropertyUtils.getAppUrl;
 
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnRangeSeekBarChangeListener {
+public class HomeActivity extends AppCompatActivity implements OnClickListener, OnRangeSeekBarChangeListener, OnKeyListener {
     public static boolean rtl = false;
     public DrawerLayout drawerLayout;
     public ListView mSuggestionsListView, mSearchResultsListView;
@@ -88,6 +94,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
 
         acSearch.addTextChangedListener(new SearchTextWatcher());
+
+        acSearch.setOnKeyListener(this);
 
         NavigationMenuUtils navigationMenuUtils = new NavigationMenuUtils(this, expandableListView);
         navigationMenuUtils.setupNavigationMenu();
@@ -266,7 +274,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void refreshSearchResults() {
         ArrayAdapter adapter = (ArrayAdapter) mSearchResultsListView.getAdapter();
-        adapter.notifyDataSetChanged();
+        if(adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
         mSearchResultsListView.refreshDrawableState();
         mSearchResultsListView.invalidateViews();
     }
@@ -296,5 +306,23 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             mSuggestionsAdapter.getFilter().filter(edt.toString());
             mSuggestionsAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        int viewId = v.getId();
+        if(viewId == R.id.ac_search) {
+            if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                if(hasInternetConnection(this)) {
+                    //TODO implement Search
+                    String keyword = ((AutoCompleteTextView) v).getText().toString();
+                    Logger.print("SEARCH_KEYWORD: " + keyword);
+                    new SearchTask(this).execute(keyword);
+                } else {
+                    makeText(getApplicationContext(), AppConstant.INTERNET_CONN_ERR, LENGTH_SHORT).show();
+                }
+            }
+        }
+        return false;
     }
 }
