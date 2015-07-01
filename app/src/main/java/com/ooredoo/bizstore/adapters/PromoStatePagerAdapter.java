@@ -24,10 +24,15 @@ public class PromoStatePagerAdapter extends FragmentStatePagerAdapter
         this.deals = deals;
     }
 
+    public void setData(List<GenericDeal> deals)
+    {
+        this.deals = deals;
+    }
+
     @Override
     public Fragment getItem(int position)
     {
-        return PromoFragment.newInstance(deals.get(position).id);
+        return PromoFragment.newInstance(deals.get(position).image.bannerUrl);
     }
 
     @Override

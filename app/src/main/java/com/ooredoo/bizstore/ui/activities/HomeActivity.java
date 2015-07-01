@@ -68,6 +68,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private ExpandableListView expandableListView;
     private boolean isSearchEnabled = false;
 
+    public String ratingFilter, minDiscount, maxDiscount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

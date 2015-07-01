@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -25,7 +26,19 @@ import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
  * @author Babar
  * @since 19-Jun-15.
  */
-public class PromoFragment extends Fragment implements View.OnClickListener {
+public class PromoFragment extends Fragment implements View.OnClickListener
+{
+    public static PromoFragment newInstance(String imgUrl)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("image_url", imgUrl);
+
+        PromoFragment fragment = new PromoFragment();
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_promo, container, false);
@@ -35,56 +48,60 @@ public class PromoFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    private void initAndLoadBanner(View v) {
+    private void initAndLoadBanner(View v)
+    {
+        Activity activity = getActivity();
+
         Bundle bundle = getArguments();
 
-        int id = bundle.getInt("id");
+        String imgUrl = bundle.getString("image_url");
 
         ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
         imageView.setOnClickListener(this);
 
         ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
-        MemoryCache memoryCache = MemoryCache.getInstance();
+        if(imgUrl != null)
+        {
+            Logger.print("imgUrl was NOT null");
+            MemoryCache memoryCache = MemoryCache.getInstance();
 
-        String url = BaseAsyncTask.BASE_URL + id;
+            String url = BaseAsyncTask.IMAGE_BASE_URL + imgUrl;
 
-        Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+            Logger.logE("FRAGMENT URL:", url);
 
-        if(bitmap != null) {
-            imageView.setImageBitmap(bitmap);
-        } else {
-            Logger.print("Root Width:" + v.getWidth());
+            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
 
-            Resources resources = Resources.getSystem();
+            if(bitmap != null) {
+                imageView.setImageBitmap(bitmap);
+            } else {
+                Logger.print("Root Width:" + v.getWidth());
 
-            int reqWidth = v.getWidth();
-            int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._180sdp) / resources.getDisplayMetrics().density);
+                Resources resources = activity.getResources();
 
-            Logger.print("req Width Pixels:" + reqWidth);
-            Logger.print("req Height Pixels:" + reqHeight);
+                int reqWidth = resources.getDisplayMetrics().widthPixels;
 
-            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
-            //TODO bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._160sdp)
+                        /
+                        resources.getDisplayMetrics().density);
+
+                Logger.print("req Width Pixels:" + reqWidth);
+                Logger.print("req Height Pixels:" + reqHeight);
+
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
+                bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+            }
         }
+        else
+        {
+            Logger.print("imgUrl was null");
+        }
+
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.image_view) {
-            HomeActivity homeActivity = (HomeActivity) getActivity();
-            homeActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], 0); //TODO replace 0 with deal id
-        }
-    }
 
-    public static PromoFragment newInstance(int id) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
-
-        PromoFragment fragment = new PromoFragment();
-        fragment.setArguments(bundle);
-
-        return fragment;
     }
 
 }

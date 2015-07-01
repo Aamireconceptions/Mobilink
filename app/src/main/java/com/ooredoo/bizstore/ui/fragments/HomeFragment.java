@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -78,24 +79,17 @@ public class HomeFragment extends Fragment
 
         initAndLoadFeaturedDeals(v);
 
-       // initAndLoadPromotions(v);
+        initAndLoadPromotions(v);
 
        // initAndLoadTopBrands(v);
 
        // initAndLoadTopMalls(v);
 
-       // initAndLoadDealsOfTheDay();
+        initAndLoadDealsOfTheDay();
     }
 
     private void initAndLoadFeaturedDeals(View v)
     {
-        /*List<GenericDeal> deals = new ArrayList<>();
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());*/
-
         List<GenericDeal> deals = new ArrayList<>();
 
         FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
@@ -113,13 +107,8 @@ public class HomeFragment extends Fragment
     private void initAndLoadPromotions(View v)
     {
         List<GenericDeal> deals = new ArrayList<>();
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
-        deals.add(new GenericDeal());
 
-        FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
+        PromoStatePagerAdapter adapter = new PromoStatePagerAdapter(getFragmentManager(), deals);
 
         ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
         promoPager.setAdapter(adapter);
@@ -129,7 +118,7 @@ public class HomeFragment extends Fragment
         circlePageIndicator.setViewPager(promoPager);
 
         PromoTask promoTask = new PromoTask(adapter, promoPager);
-        //promoTask.execute();
+        promoTask.execute();
     }
 
     private void initAndLoadTopBrands(View v)
@@ -185,6 +174,6 @@ public class HomeFragment extends Fragment
     {
         DealsTask dealsTask = new DealsTask(adapter, null);
         dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
-        //dealsTask.execute("deals_of_the_day");
+        dealsTask.execute("deals_of_the_day");
     }
 }

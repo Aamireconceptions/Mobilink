@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.LayoutDirection;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.activeandroid.query.Select;
@@ -37,14 +38,12 @@ public class RecentViewedActivity extends AppCompatActivity
     {
         setupToolbar();
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(this);
-
         Button btNewDeals = (Button) findViewById(R.id.new_deals);
-        btNewDeals.setOnClickListener(clickListener);
-        clickListener.setButtonSelected(btNewDeals);
 
         Button btPopularDeals = (Button) findViewById(R.id.popular_deals);
-        btPopularDeals.setOnClickListener(clickListener);
+
+        ImageView ivFilter = (ImageView) findViewById(R.id.filter);
+        ivFilter.setVisibility(View.GONE);
 
         List<GenericDeal> deals = new ArrayList<>();
 

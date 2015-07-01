@@ -12,6 +12,9 @@ import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +29,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     private ProgressBar progressBar;
 
     private TextView tvDealsOfTheDay;
+
+    private final static String SERVICE_URL= "en/deals?";
 
     public DealsTask(ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.adapter = adapter;
@@ -98,21 +103,40 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
-    private String getDeals(String category) throws IOException {
+    private String getDeals(String category) throws IOException
+    {
         String result;
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("category", category);
+        InputStream inputStream = null;
 
-        setServiceUrl("deals", params);
+        try
+        {
+            HashMap<String, String> params = new HashMap<>();
+            params.put(OS, ANDROID);
+            params.put("category", category);
 
-       // setServiceUrl(BASE_URL + "en/deals/26"); //TODO remove this line
+            String query = createQuery(params);
 
-        result = getJson();
+            URL url = new URL(BASE_URL + SERVICE_URL + query);
 
-        Logger.print("getDeals:"+result);
+            Logger.print("getDeals() URL:" + url.toString());
+
+            HttpURLConnection connection = openConnectionAndConnect(url);
+
+            inputStream = connection.getInputStream();
+
+            result = readStream(inputStream);
+
+            Logger.print("getDeals: "+result);
+        }
+        finally
+        {
+            if(inputStream != null)
+            {
+                inputStream.close();
+            }
+        }
 
         return result;
     }
-
 }

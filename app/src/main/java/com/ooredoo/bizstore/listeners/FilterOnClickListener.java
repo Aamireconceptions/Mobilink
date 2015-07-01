@@ -4,6 +4,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
@@ -12,7 +13,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
  */
 public class FilterOnClickListener implements View.OnClickListener
 {
-    private AppCompatActivity activity;
+    private HomeActivity activity;
 
     private View lastRatingSelected;
 
@@ -20,7 +21,7 @@ public class FilterOnClickListener implements View.OnClickListener
 
     public String rating, minDiscount, maxDiscount;
 
-    public FilterOnClickListener(AppCompatActivity activity)
+    public FilterOnClickListener(HomeActivity activity)
     {
         this.activity = activity;
     }
@@ -45,19 +46,19 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.filter:
 
-                ((HomeActivity)activity).drawerLayout.openDrawer(GravityCompat.END);
+                activity.drawerLayout.openDrawer(GravityCompat.END);
 
                 break;
 
             case R.id.back:
 
-                ((HomeActivity)activity).drawerLayout.closeDrawer(GravityCompat.END);
+                activity.drawerLayout.closeDrawer(GravityCompat.END);
 
                 break;
 
             case R.id.done:
 
-                ((HomeActivity)activity).drawerLayout.closeDrawer(GravityCompat.END);
+                activity.drawerLayout.closeDrawer(GravityCompat.END);
 
                 break;
             /*case R.id.deals_discount_checkbox:
@@ -98,11 +99,15 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 setRatingSelected(v);
 
+                activity.ratingFilter = "1";
+
                 break;
 
             case R.id.rating_2:
 
                 setRatingSelected(v);
+
+                activity.ratingFilter = "2";
 
                 break;
 
@@ -110,6 +115,24 @@ public class FilterOnClickListener implements View.OnClickListener
             case R.id.rating_3:
 
                 setRatingSelected(v);
+
+                activity.ratingFilter = "3";
+
+                break;
+
+            case R.id.rating_4:
+
+                setRatingSelected(v);
+
+                activity.ratingFilter = "4";
+
+                break;
+
+            case R.id.rating_5:
+
+                setRatingSelected(v);
+
+                activity.ratingFilter = "5";
 
                 break;
 
