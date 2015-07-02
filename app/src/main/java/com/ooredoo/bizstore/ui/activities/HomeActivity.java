@@ -328,6 +328,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if(searchPopup != null)
         searchPopup.dismiss();
     }
 }

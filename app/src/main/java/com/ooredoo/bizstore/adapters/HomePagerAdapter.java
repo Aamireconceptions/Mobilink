@@ -8,7 +8,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.ui.fragments.AutomotiveFragment;
 import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
-import com.ooredoo.bizstore.ui.fragments.FoodAndDinningFragment;
+import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 import com.ooredoo.bizstore.ui.fragments.JewelryFragment;
@@ -40,7 +40,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
             case 1:
                 return TopDealsFragment.newInstance();
             case 2:
-                return FoodAndDinningFragment.newInstance();
+                return FoodAndDiningFragment.newInstance();
             case 3:
                 return ShoppingFragment.newInstance();
             case 4:

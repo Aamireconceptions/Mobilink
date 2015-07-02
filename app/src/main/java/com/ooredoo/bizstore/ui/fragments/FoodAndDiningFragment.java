@@ -40,7 +40,7 @@ public class FoodAndDiningFragment extends Fragment {
 
         init(v);
 
-        fetchAndDisplayElectronics();
+        fetchAndDisplayFoodAndDining();
 
         return v;
     }
@@ -71,7 +71,7 @@ public class FoodAndDiningFragment extends Fragment {
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayElectronics() {
+    private void fetchAndDisplayFoodAndDining() {
         DealsTask dealsTask = new DealsTask(adapter, progressBar);
         dealsTask.execute("food");
     }

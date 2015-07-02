@@ -78,14 +78,18 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                 deals = response.deals;
 
-                for(GenericDeal genericDeal : deals) {
-                    Logger.print("title:"+genericDeal.title);
+                if(response.resultCode != -1)
+                {
+                    for(GenericDeal genericDeal : deals) {
+                        Logger.print("title:"+genericDeal.title);
+                    }
+
+                    adapter.setData(deals);
+                    adapter.notifyDataSetChanged();
+
+                    showTvDealsOfTheDay();
                 }
 
-                adapter.setData(deals);
-                adapter.notifyDataSetChanged();
-
-                showTvDealsOfTheDay();
             }
             catch (JsonSyntaxException e)
             {
