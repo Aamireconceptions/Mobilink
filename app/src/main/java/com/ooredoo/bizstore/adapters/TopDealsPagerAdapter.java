@@ -15,7 +15,8 @@ import java.util.List;
  * @author Pehlaj Rai
  * @since 16-Jun-15.
  */
-public class TopDealsPagerAdapter extends FragmentPagerAdapter {
+public class TopDealsPagerAdapter extends FragmentPagerAdapter
+{
     private final static int PAGE_COUNT = 4;
 
     private List<GenericDeal> deals;
@@ -27,8 +28,15 @@ public class TopDealsPagerAdapter extends FragmentPagerAdapter {
         this.deals = deals;
     }
 
+    public void setData(List<GenericDeal> deals)
+    {
+        this.deals = deals;
+    }
+
+
     @Override
-    public Fragment getItem(int position) {
+    public Fragment getItem(int position)
+    {
         return FeaturedFragment.newInstance(deals.get(position).image.bannerUrl);
     }
 

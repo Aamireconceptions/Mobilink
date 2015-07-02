@@ -79,13 +79,13 @@ public class HomeFragment extends Fragment
 
         initAndLoadFeaturedDeals(v);
 
-        //initAndLoadPromotions(v);
+        initAndLoadPromotions(v);
 
         //initAndLoadTopBrands(v);
 
         //initAndLoadTopMalls(v);
 
-        //initAndLoadDealsOfTheDay();
+        initAndLoadDealsOfTheDay();
     }
 
     private void initAndLoadFeaturedDeals(View v)

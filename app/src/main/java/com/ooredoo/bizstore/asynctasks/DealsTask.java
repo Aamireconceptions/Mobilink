@@ -91,7 +91,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             {
                 e.printStackTrace();
             }
-
         }
     }
 
