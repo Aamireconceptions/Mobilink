@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,10 +34,12 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
+import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
+import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
@@ -50,7 +53,8 @@ import static com.ooredoo.bizstore.adapters.SearchResultsAdapter.searchType;
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener {
+public class HomeActivity extends AppCompatActivity implements
+                                  OnClickListener, OnKeyListener, OnFilterChangeListener {
     public static boolean rtl = false;
     public DrawerLayout drawerLayout;
     public ListView mSuggestionsListView, mSearchResultsListView;
@@ -66,6 +70,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private boolean isSearchEnabled = false;
 
     public boolean doApplyDiscount = false;
+
+    public boolean doApplyRating = false;
 
     public String ratingFilter;
 
@@ -83,6 +89,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     private void init() {
+        TopDealsFragment topDealsFragment = null;
+        OnFilterChangeListener onFilterChangeListener = topDealsFragment;
+
         homePagerAdapter = new HomePagerAdapter(getFragmentManager());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -291,6 +300,21 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         intent.putExtra(AppConstant.ID, typeId);
         intent.putExtra(CATEGORY, dealCategory);
         startActivity(intent);
+    }
+
+    private Fragment currentFragment;
+
+    public void setCurrentFragment(Fragment currentFragment)
+    {
+        this.currentFragment = currentFragment;
+    }
+
+    @Override
+    public void onFilterChange()
+    {
+        Logger.print("HomeActivity onFilterChange");
+
+        ((OnFilterChangeListener) currentFragment).onFilterChange();
     }
 
     public class SearchTextWatcher implements TextWatcher {

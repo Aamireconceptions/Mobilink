@@ -15,17 +15,19 @@ import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.FeaturedTask;
 import com.ooredoo.bizstore.asynctasks.TopDealsBannersTask;
+import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DealsFilterClickListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopDealsFragment extends Fragment
+public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 {
     private HomeActivity mActivity;
 
@@ -51,6 +53,7 @@ public class TopDealsFragment extends Fragment
     private void init(View v, LayoutInflater inflater)
     {
         mActivity = (HomeActivity) getActivity();
+        mActivity.setCurrentFragment(this);
 
         headerViewPager = inflater.inflate(R.layout.viewpager, null);
         headerFilter = inflater.inflate(R.layout.header_deals, null);
@@ -89,5 +92,11 @@ public class TopDealsFragment extends Fragment
     {
         DealsTask dealsTask = new DealsTask(adapter, null);
         dealsTask.execute("top_deals");
+    }
+
+    @Override
+    public void onFilterChange()
+    {
+        Logger.print("TopDealsFragment onFilterChange");
     }
 }

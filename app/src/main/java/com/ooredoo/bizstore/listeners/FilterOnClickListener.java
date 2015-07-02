@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 /**
@@ -21,9 +22,13 @@ public class FilterOnClickListener implements View.OnClickListener
 
     public String rating, minDiscount, maxDiscount;
 
+    private OnFilterChangeListener onFilterChangeListener;
+
     public FilterOnClickListener(HomeActivity activity)
     {
         this.activity = activity;
+
+        onFilterChangeListener = activity;
     }
 
     @Override
@@ -60,6 +65,8 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
 
+                onFilterChangeListener.onFilterChange();
+
                 break;
             /*case R.id.deals_discount_checkbox:
 
@@ -82,14 +89,7 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.rating_checkbox:
 
-                if(v.isSelected())
-                {
-
-                }
-                else
-                {
-                    rating = null;
-                }
+                activity.doApplyRating = v.isSelected();
 
                 setCheckboxSelected(v);
 
