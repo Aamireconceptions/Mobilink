@@ -70,7 +70,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
         setServiceUrl("deals", params);
 
-        //result = getJson();
+        result = getJson();
 
         Logger.print("getDeals:" + result);
 

@@ -64,14 +64,14 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
     }
 
     private String getTopBrands() throws IOException {
-        String result = null;
+        String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put("category", "top_brands");
 
         setServiceUrl("deals", params);
 
-        ////TODO remove comment result = getJson();
+        result = getJson();
 
         Logger.print("getDeals:" + result);
 

@@ -9,9 +9,7 @@ import android.view.Menu;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
 
-import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.BASE_URL;
 import static com.ooredoo.bizstore.utils.FragmentUtils.addFragmentWithBackStack;
-import static com.ooredoo.bizstore.utils.PropertyUtils.getAppUrl;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -24,7 +22,7 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public void init() {
-        BASE_URL = getAppUrl(this);
+        //BASE_URL = getAppUrl(this);
         setupToolbar();
         mFragmentManager = getFragmentManager();
         addFragmentWithBackStack(this, R.id.fragment_container, new SignUpFragment(), "SignUp");

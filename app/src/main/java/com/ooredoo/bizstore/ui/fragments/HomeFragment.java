@@ -77,15 +77,15 @@ public class HomeFragment extends Fragment
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
 
-        initAndLoadFeaturedDeals(v);
+        //initAndLoadFeaturedDeals(v);
 
-        initAndLoadPromotions(v);
+        //initAndLoadPromotions(v);
 
-        initAndLoadTopBrands(v);
+        //initAndLoadTopBrands(v);
 
-        initAndLoadTopMalls(v);
+        //initAndLoadTopMalls(v);
 
-        initAndLoadDealsOfTheDay();
+        //initAndLoadDealsOfTheDay();
     }
 
     private void initAndLoadFeaturedDeals(View v)

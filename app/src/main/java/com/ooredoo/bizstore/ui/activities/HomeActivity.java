@@ -48,9 +48,7 @@ import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
 import static com.ooredoo.bizstore.adapters.SearchResultsAdapter.searchType;
 import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
-import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.BASE_URL;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
-import static com.ooredoo.bizstore.utils.PropertyUtils.getAppUrl;
 
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener {
     public static boolean rtl = false;
@@ -79,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         setContentView(R.layout.activity_home);
 
-        BASE_URL = getAppUrl(this);
+        //BASE_URL = getAppUrl(this);
 
         init();
     }

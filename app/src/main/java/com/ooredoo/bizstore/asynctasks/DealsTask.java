@@ -12,9 +12,6 @@ import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,15 +19,12 @@ import java.util.List;
  * @author Babar
  * @since 26-Jun-15.
  */
-public class DealsTask extends BaseAsyncTask<String, Void, String>
-{
+public class DealsTask extends BaseAsyncTask<String, Void, String> {
     private ListViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
 
     private TextView tvDealsOfTheDay;
-
-    private final static String SERVICE_URL= "en/deals?";
 
     public DealsTask(ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.adapter = adapter;
@@ -38,8 +32,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         this.progressBar = progressBar;
     }
 
-    public void setTvDealsOfTheDay(TextView tvDealsOfTheDay)
-    {
+    public void setTvDealsOfTheDay(TextView tvDealsOfTheDay) {
         this.tvDealsOfTheDay = tvDealsOfTheDay;
     }
 
@@ -65,77 +58,50 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        if(progressBar != null) { progressBar.setVisibility(View.GONE); };
+        if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         if(result != null) {
             List<GenericDeal> deals;
 
             Gson gson = new Gson();
 
-            try
-            {
+            try {
                 Response response = gson.fromJson(result, Response.class);
 
                 deals = response.deals;
 
                 for(GenericDeal genericDeal : deals) {
-                    Logger.print("title:"+genericDeal.title);
+                    Logger.print("title:" + genericDeal.title);
                 }
 
                 adapter.setData(deals);
                 adapter.notifyDataSetChanged();
 
                 showTvDealsOfTheDay();
-            }
-            catch (JsonSyntaxException e)
-            {
+            } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }
 
         }
     }
 
-    private void showTvDealsOfTheDay()
-    {
-        if(tvDealsOfTheDay != null)
-        {
+    private void showTvDealsOfTheDay() {
+        if(tvDealsOfTheDay != null) {
             tvDealsOfTheDay.setVisibility(View.VISIBLE);
         }
     }
 
-    private String getDeals(String category) throws IOException
-    {
+    private String getDeals(String category) throws IOException {
         String result;
 
-        InputStream inputStream = null;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("category", category);
 
-        try
-        {
-            HashMap<String, String> params = new HashMap<>();
-            params.put(OS, ANDROID);
-            params.put("category", category);
+        setServiceUrl("deals", params);
 
-            String query = createQuery(params);
+        result = getJson();
 
-            URL url = new URL(BASE_URL + SERVICE_URL + query);
-
-            Logger.print("getDeals() URL:" + url.toString());
-
-            HttpURLConnection connection = openConnectionAndConnect(url);
-
-            inputStream = connection.getInputStream();
-
-            result = readStream(inputStream);
-
-            Logger.print("getDeals: "+result);
-        }
-        finally
-        {
-            if(inputStream != null)
-            {
-                inputStream.close();
-            }
-        }
+        Logger.print("getDeals:" + result);
 
         return result;
     }
