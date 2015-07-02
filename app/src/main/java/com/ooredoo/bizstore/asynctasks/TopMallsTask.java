@@ -5,63 +5,50 @@ import android.support.v4.view.ViewPager;
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
 import com.ooredoo.bizstore.model.Mall;
-import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Babar on 25-Jun-15.
+ * @author Babar
+ * @since 25-Jun-15.
  */
-public class TopMallsTask extends BaseAsyncTask<String, Void, String>
-{
+public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     private TopMallsStatePagerAdapter adapter;
 
     private ViewPager viewPager;
 
-    private final static String SERVICE_URL = "";
-
-    public TopMallsTask(TopMallsStatePagerAdapter adapter, ViewPager viewPager)
-    {
+    public TopMallsTask(TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
         this.adapter = adapter;
 
         this.viewPager = viewPager;
     }
 
     @Override
-    protected String doInBackground(String... params)
-    {
-        try
-        {
-            return getPromos();
-        }
-        catch (IOException e)
-        {
+    protected String doInBackground(String... params) {
+        try {
+            return getTopMalls();
+        } catch(IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
     @Override
-    protected void onPostExecute(String result)
-    {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        if(result != null)
-        {
+        if(result != null) {
             viewPager.setBackground(null);
 
             Gson gson = new Gson();
 
-            Response response = gson.fromJson(result, Response.class);
+            //TODO remove comment Response response = gson.fromJson(result, Response.class);
 
-            List<Mall> malls = new ArrayList<>();//response.malls;
+            List<Mall> malls = new ArrayList<>();//TODO response.malls;
             malls.add(new Mall());
             malls.add(new Mall());
             malls.add(new Mall());
@@ -70,38 +57,23 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String>
 
             adapter.setData(malls);
             adapter.notifyDataSetChanged();
-        }
-        else
-        {
+        } else {
             Logger.print("TopBrandsAsyncTask: Failed to download Banners due to no internet");
         }
     }
 
-    private String getPromos() throws IOException
-    {
+    private String getTopMalls() throws IOException {
         String result = null;
 
-        InputStream inputStream = null;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("category", "top_malls");
 
-        try
-        {
-            URL url = new URL(BASE_URL + SERVICE_URL);
+        setServiceUrl("deals", params);
 
-            HttpURLConnection connection = openConnectionAndConnect(url);
+        //result = getJson();
 
-            inputStream = connection.getInputStream();
+        Logger.print("getDeals:" + result);
 
-            result = readStream(inputStream);
-
-            return result;
-
-        }
-        finally
-        {
-            if(inputStream != null)
-            {
-                inputStream.close();
-            }
-        }
+        return result;
     }
 }

@@ -15,7 +15,12 @@ public class Response
     @SerializedName("results")
     public List<GenericDeal> deals;
 
+    //@SerializedName("results")
+    public List<Deal> searchResults;
+
+    @SerializedName("brands")
     public List<Brand> brands;
 
+    @SerializedName("malls")
     public List<Mall> malls;
 }

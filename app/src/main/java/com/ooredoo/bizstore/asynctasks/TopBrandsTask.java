@@ -5,43 +5,33 @@ import android.support.v4.view.ViewPager;
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.model.Brand;
-import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Babar on 25-Jun-15.
+ * @author Babar
+ * @since 25-Jun-15.
  */
-public class TopBrandsTask extends BaseAsyncTask<String, Void, String>
-{
+public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
     private TopBrandsStatePagerAdapter adapter;
 
     private ViewPager viewPager;
 
-    private final static String SERVICE_URL = "";
-
-    public TopBrandsTask(TopBrandsStatePagerAdapter adapter, ViewPager viewPager)
-    {
+    public TopBrandsTask(TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
         this.adapter = adapter;
 
         this.viewPager = viewPager;
     }
 
     @Override
-    protected String doInBackground(String... params)
-    {
-        try
-        {
-            return getPromos();
-        }
-        catch (IOException e)
-        {
+    protected String doInBackground(String... params) {
+        try {
+            return getTopBrands();
+        } catch(IOException e) {
             e.printStackTrace();
         }
 
@@ -49,19 +39,17 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String>
     }
 
     @Override
-    protected void onPostExecute(String result)
-    {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        if(result != null)
-        {
+        if(result != null) {
             viewPager.setBackground(null);
 
             Gson gson = new Gson();
 
-            Response response = gson.fromJson(result, Response.class);
+            //TODO remove comment Response response = gson.fromJson(result, Response.class);
 
-            List<Brand> brands = new ArrayList<>();//response.brands;
+            List<Brand> brands = new ArrayList<>();//TODO response.brands;
             brands.add(new Brand());
             brands.add(new Brand());
             brands.add(new Brand());
@@ -70,38 +58,23 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String>
 
             adapter.setData(brands);
             adapter.notifyDataSetChanged();
-        }
-        else
-        {
+        } else {
             Logger.print("TopBrandsAsyncTask: Failed to download Banners due to no internet");
         }
     }
 
-    private String getPromos() throws IOException
-    {
+    private String getTopBrands() throws IOException {
         String result = null;
 
-        InputStream inputStream = null;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("category", "top_brands");
 
-        try
-        {
-            URL url = new URL(BASE_URL + SERVICE_URL);
+        setServiceUrl("deals", params);
 
-            HttpURLConnection connection = openConnectionAndConnect(url);
+        ////TODO remove comment result = getJson();
 
-            inputStream = connection.getInputStream();
+        Logger.print("getDeals:" + result);
 
-            result = readStream(inputStream);
-
-            return result;
-
-        }
-        finally
-        {
-            if(inputStream != null)
-            {
-                inputStream.close();
-            }
-        }
+        return result;
     }
 }

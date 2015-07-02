@@ -31,7 +31,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
-    private int id;
+    private long id;
     public DealDetailActivity() {
         super();
         layoutResId = R.layout.activity_deal_details;
@@ -64,7 +64,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     }
 
     private void initViews() {
-        id = intent.getIntExtra(AppConstant.ID, 0);
+        id = intent.getLongExtra(AppConstant.ID, 0);
         category = intent.getStringExtra(CATEGORY);
         ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 

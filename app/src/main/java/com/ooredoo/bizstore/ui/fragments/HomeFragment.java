@@ -81,9 +81,9 @@ public class HomeFragment extends Fragment
 
         initAndLoadPromotions(v);
 
-       // initAndLoadTopBrands(v);
+        initAndLoadTopBrands(v);
 
-       // initAndLoadTopMalls(v);
+        initAndLoadTopMalls(v);
 
         initAndLoadDealsOfTheDay();
     }
@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment
         circlePageIndicator.setViewPager(topBrandsPager);
 
         TopBrandsTask topBrandsTask = new TopBrandsTask(adapter, topBrandsPager);
-       // topBrandsTask.execute();
+        topBrandsTask.execute();
     }
 
     private void initAndLoadTopMalls(View v)
@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment
         TopMallsTask topMallsTask = new TopMallsTask(adapter, topMallsPager);
 
         adapter.notifyDataSetChanged();
-        //topMallsTask.execute();
+        topMallsTask.execute();
     }
 
     private void initAndLoadDealsOfTheDay()
