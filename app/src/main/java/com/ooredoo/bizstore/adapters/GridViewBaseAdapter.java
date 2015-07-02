@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.util.List;
@@ -33,6 +37,8 @@ public class GridViewBaseAdapter extends BaseAdapter
 
     private MemoryCache memoryCache;
 
+    private int reqWidth, reqHeight;
+
     public GridViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals)
     {
         this.context = context;
@@ -44,6 +50,12 @@ public class GridViewBaseAdapter extends BaseAdapter
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         memoryCache = MemoryCache.getInstance();
+
+        reqWidth = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
+
+        reqHeight = Resources.getSystem().getDisplayMetrics().heightPixels / 2;
+
+        Logger.print("GridView thumbnail reqWidth:"+reqWidth+", reqHeight: "+reqHeight);
     }
 
     public void setData(List<GenericDeal> deals)
@@ -107,6 +119,22 @@ public class GridViewBaseAdapter extends BaseAdapter
                 notifyDataSetChanged();
             }
         });
+
+        /*String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + getItem(position).image.logoUrl;
+
+        Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+        if(bitmap != null)
+        {
+            holder.ivThumbnail.setImageBitmap(bitmap);
+        }
+        else
+        {
+            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail,
+                                                                           null);
+            bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth),
+                                       String.valueOf(reqHeight));
+        }*/
 
        /* holder.ivFav.setSelected(getItem(position).isFav);
 

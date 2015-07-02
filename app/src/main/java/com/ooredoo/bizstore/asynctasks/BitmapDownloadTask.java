@@ -44,7 +44,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     {
         super.onPreExecute();
 
-        showProgress(View.VISIBLE);
+       // showProgress(View.VISIBLE);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     {
         super.onPostExecute(bitmap);
 
-        showProgress(View.GONE);
+       // showProgress(View.GONE);
 
         if(bitmap != null)
         {
