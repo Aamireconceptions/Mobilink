@@ -15,7 +15,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * @author Babar
@@ -31,7 +30,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     private final static String SLASH = "/";
     private final static String QUESTION_MARK = "?";
 
-    public static final String BASE_URL = "http://203.215.183.98:10009/ooredoo/index.php/api/";
+    public static String BASE_URL = "";
 
     public final static int CONNECTION_TIME_OUT = 15 * 1000;
 
@@ -84,14 +83,9 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
         InputStream inputStream = connection.getInputStream();
 
-        result = convertStreamToString(inputStream);
+        result = readStream(inputStream);
 
         return result;
-    }
-
-    protected String convertStreamToString(InputStream is) {
-        Scanner s = new Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
     }
 
     public String readStream(InputStream stream) throws IOException
@@ -146,20 +140,16 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public void setServiceUrl(String serviceName, HashMap<String, String> params) {
         String lang = BizStore.getLanguage();
-
         String baseUrl = BASE_URL.concat(lang + SLASH + serviceName + QUESTION_MARK);
-
-        HashMap<String, String> serviceParams = new HashMap<>();
-
         HashMap<String, String> credentials = BizStore.getUserCredentials();
+        HashMap<String, String> serviceParams = new HashMap<>();
         //serviceParams.putAll(credentials);
-
         serviceParams.putAll(params);
         serviceParams.put("os", "android");
-
         try {
             String query = createQuery(serviceParams);
             serviceUrl = baseUrl.concat(query); //TODO remove comment
+            //serviceUrl = baseUrl + SLASH + "26";//TODO
         } catch(UnsupportedEncodingException e) {
             e.printStackTrace();
         }

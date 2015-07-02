@@ -9,29 +9,39 @@ import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * @author Babar
- * @since 25-Jun-15.
+ * Created by Babar on 25-Jun-15.
  */
-public class FeaturedTask extends BaseAsyncTask<String, Void, String> {
+public class FeaturedTask extends BaseAsyncTask<String, Void, String>
+{
     private FeaturedStatePagerAdapter adapter;
 
     private ViewPager viewPager;
 
-    public FeaturedTask(FeaturedStatePagerAdapter adapter, ViewPager viewPager) {
+    private final static String SERVICE_URL= "en/featureddeals?";
+
+    public FeaturedTask(FeaturedStatePagerAdapter adapter, ViewPager viewPager)
+    {
         this.adapter = adapter;
 
         this.viewPager = viewPager;
     }
 
     @Override
-    protected String doInBackground(String... params) {
-        try {
+    protected String doInBackground(String... params)
+    {
+        try
+        {
             return getFeatured();
-        } catch(IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
 
@@ -39,37 +49,68 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(String result)
+    {
         super.onPostExecute(result);
 
-        if(result != null) {
+        if(result != null)
+        {
             viewPager.setBackground(null);
 
             Gson gson = new Gson();
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<GenericDeal> dealList = response.deals;
+            List<GenericDeal> deals = response.deals;
 
-            for(GenericDeal genericDeal : dealList) {
-                Logger.print("onPost:" + genericDeal.image.bannerUrl);
+            for(GenericDeal genericDeal : deals)
+            {
+                Logger.print("onPost:"+genericDeal.image.bannerUrl);
             }
 
-            adapter.setData(dealList);
+            adapter.setData(deals);
             adapter.notifyDataSetChanged();
-        } else {
+        }
+        else
+        {
             Logger.print("FeaturedAsyncTask: Failed to download banners due to no internet");
         }
     }
 
-    private String getFeatured() throws IOException {
+    private String getFeatured() throws IOException
+    {
+        String result = null;
 
-        setServiceUrl("featureddeals", new HashMap<String, String>());
+        InputStream inputStream = null;
 
-        String result = getJson();
+        try
+        {
+            HashMap<String, String> params = new HashMap<>();
+            params.put(OS, ANDROID);
 
-        Logger.logI("FEATURED_DEALS", result);
+            String query = createQuery(params);
 
-        return result;
+            URL url = new URL(BASE_URL + SERVICE_URL + query);
+
+            Logger.print("getFeatured() URL:"+ url.toString());
+
+            HttpURLConnection connection = openConnectionAndConnect(url);
+
+            inputStream = connection.getInputStream();
+
+            result = readStream(inputStream);
+
+            Logger.print("getFeatured: "+result);
+
+            return result;
+
+        }
+        finally
+        {
+            if(inputStream != null)
+            {
+                inputStream.close();
+            }
+        }
     }
 }
