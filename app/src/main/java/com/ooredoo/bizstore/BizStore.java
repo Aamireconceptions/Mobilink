@@ -4,6 +4,7 @@ import com.activeandroid.ActiveAndroid;
 import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import java.util.HashMap;
 

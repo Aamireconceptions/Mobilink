@@ -78,6 +78,11 @@ public class HomeActivity extends AppCompatActivity implements
     public int minDiscount, maxDiscount;
 
     public View searchView;
+
+    public RangeSeekBar<Integer> rangeSeekBar;
+
+    private TextView tvRating1, tvRating2, tvRating3, tvRating4, tvRating5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,19 +173,19 @@ public class HomeActivity extends AppCompatActivity implements
         TextView tvRating = (TextView) findViewById(R.id.rating_checkbox);
         tvRating.setOnClickListener(clickListener);
 
-        TextView tvRating1 = (TextView) findViewById(R.id.rating_1);
+        tvRating1 = (TextView) findViewById(R.id.rating_1);
         tvRating1.setOnClickListener(clickListener);
 
-        TextView tvRating2 = (TextView) findViewById(R.id.rating_2);
+        tvRating2 = (TextView) findViewById(R.id.rating_2);
         tvRating2.setOnClickListener(clickListener);
 
-        TextView tvRating3 = (TextView) findViewById(R.id.rating_3);
+        tvRating3 = (TextView) findViewById(R.id.rating_3);
         tvRating3.setOnClickListener(clickListener);
 
-        TextView tvRating4 = (TextView) findViewById(R.id.rating_4);
+        tvRating4 = (TextView) findViewById(R.id.rating_4);
         tvRating4.setOnClickListener(clickListener);
 
-        TextView tvRating5 = (TextView) findViewById(R.id.rating_5);
+        tvRating5 = (TextView) findViewById(R.id.rating_5);
         tvRating5.setOnClickListener(clickListener);
 
         TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
@@ -195,8 +200,18 @@ public class HomeActivity extends AppCompatActivity implements
         TextView tvHotelsAndSpa = (TextView) findViewById(R.id.hotels_spa_checkbox);
         tvHotelsAndSpa.setOnClickListener(clickListener);
 
-        RangeSeekBar<Integer> rangeSeekBar = (RangeSeekBar) findViewById(R.id.discount_seekbar);
+        rangeSeekBar = (RangeSeekBar) findViewById(R.id.discount_seekbar);
+        rangeSeekBar.setEnabled(false);
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
+    }
+
+    public void setRatingEnabled(boolean enabled)
+    {
+        tvRating1.setEnabled(enabled);
+        tvRating2.setEnabled(enabled);
+        tvRating3.setEnabled(enabled);
+        tvRating4.setEnabled(enabled);
+        tvRating5.setEnabled(enabled);
     }
 
     @Override

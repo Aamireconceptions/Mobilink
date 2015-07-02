@@ -196,7 +196,8 @@
                     android:paddingBottom="@dimen/_12sdp"
                     android:text="@string/_1"
                     android:textColor="@color/black_white_selector"
-                    android:background="@drawable/rating_selector"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="false"/>
 
                 <TextView
                     android:id="@+id/rating_2"
@@ -208,7 +209,8 @@
                     android:paddingBottom="@dimen/_12sdp"
                     android:text="@string/_2"
                     android:textColor="@color/black_white_selector"
-                    android:background="@drawable/rating_selector"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="false"/>
 
                 <TextView
                     android:id="@+id/rating_3"
@@ -220,7 +222,8 @@
                     android:paddingBottom="@dimen/_12sdp"
                     android:text="@string/_3"
                     android:textColor="@color/black_white_selector"
-                    android:background="@drawable/rating_selector"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="false"/>
 
                 <TextView
                     android:id="@+id/rating_4"
@@ -232,7 +235,8 @@
                     android:paddingBottom="@dimen/_12sdp"
                     android:text="@string/_4"
                     android:textColor="@color/black_white_selector"
-                    android:background="@drawable/rating_selector"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="false"/>
 
                 <TextView
                     android:id="@+id/rating_5"
@@ -244,7 +248,8 @@
                     android:paddingBottom="@dimen/_12sdp"
                     android:text="@string/_5"
                     android:textColor="@color/black_white_selector"
-                    android:background="@drawable/rating_selector"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="false"/>
 
             </LinearLayout>
 
@@ -279,7 +284,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/discount_checkbox"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/grey"/>
+                android:background="@color/grey" />
 
         </RelativeLayout>
 

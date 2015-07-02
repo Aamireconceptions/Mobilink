@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -30,7 +31,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
     private TextView tvDealsOfTheDay;
 
-    private final static String SERVICE_URL= "en/deals?";
+    private final static String SERVICE_NAME = "/deals?";
 
     public DealsTask(ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.adapter = adapter;
@@ -120,7 +121,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
             String query = createQuery(params);
 
-            URL url = new URL(BASE_URL + SERVICE_URL + query);
+            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
             Logger.print("getDeals() URL:" + url.toString());
 

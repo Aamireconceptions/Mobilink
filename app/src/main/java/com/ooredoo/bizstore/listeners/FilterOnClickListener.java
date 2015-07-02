@@ -8,6 +8,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Logger;
 
 /**
  * Created by Babar on 23-Jun-15.
@@ -89,9 +90,14 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.rating_checkbox:
 
+                setCheckboxSelected(v);
+
                 activity.doApplyRating = v.isSelected();
 
-                setCheckboxSelected(v);
+
+                activity.setRatingEnabled(v.isSelected());
+
+                if(lastRatingSelected != null) { lastRatingSelected.setSelected(false);};
 
                 break;
 
@@ -138,9 +144,11 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.discount_checkbox:
 
+                setCheckboxSelected(v);
+
                 activity.doApplyDiscount = v.isSelected();
 
-                setCheckboxSelected(v);
+                activity.rangeSeekBar.setEnabled(v.isSelected());
 
                 break;
         }

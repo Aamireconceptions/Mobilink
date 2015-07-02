@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.support.v4.view.ViewPager;
 
 import com.google.gson.Gson;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -24,7 +25,7 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
 
     private ViewPager viewPager;
 
-    private final static String SERVICE_URL= "en/featureddeals?";
+    private final static String SERVICE_NAME = "/featureddeals?";
 
     public TopDealsBannersTask(TopDealsPagerAdapter adapter, ViewPager viewPager)
     {
@@ -90,7 +91,7 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
 
             String query = createQuery(params);
 
-            URL url = new URL(BASE_URL + SERVICE_URL + query);
+            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
             Logger.print("getTopDealsBanners URL:"+ url.toString());
 
