@@ -14,5 +14,5 @@ public class Deals {
     public int resultCode;
 
     @SerializedName("results")
-    public List<GenericDeal> list;
+    public List<Deal> list;
 }
