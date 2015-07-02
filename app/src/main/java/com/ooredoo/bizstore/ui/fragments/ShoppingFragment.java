@@ -53,6 +53,7 @@ public class ShoppingFragment extends Fragment
 
     private void init(View v) {
         activity = (HomeActivity) getActivity();
+        activity.setCurrentFragment(this);
 
         snackBarUtils = new SnackBarUtils(activity, v);
 

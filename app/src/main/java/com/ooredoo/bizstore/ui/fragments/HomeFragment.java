@@ -25,6 +25,7 @@ import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment
 {
-    private Activity activity;
+    private HomeActivity activity;
 
     private TextView tvDealsOfTheDay;
 
@@ -60,7 +61,8 @@ public class HomeFragment extends Fragment
 
     private void init(View v)
     {
-        activity = getActivity();
+        activity = (HomeActivity) getActivity();
+        activity.setCurrentFragment(this);
 
         ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 

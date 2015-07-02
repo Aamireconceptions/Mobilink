@@ -45,8 +45,10 @@ public class FoodAndDiningFragment extends Fragment {
         return v;
     }
 
-    private void init(View v) {
+    private void init(View v)
+    {
         activity = (HomeActivity) getActivity();
+        activity.setCurrentFragment(this);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity);
 
