@@ -3,6 +3,10 @@ package com.ooredoo.bizstore.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * @author Pehlaj Rai
@@ -12,6 +16,7 @@ import com.activeandroid.annotation.Table;
 @Table(name = "obs_deals")
 public class Deal extends Model {
 
+    @SerializedName("id")
     @Column(name = "dealId", notNull = true)
     public long id;
 
@@ -51,4 +56,12 @@ public class Deal extends Model {
         this.discount = discount;
     }
 
+    public static boolean isFavorite(Deal deal) {
+        List<Deal> deals = new Select().all().from(Deal.class).where("dealId = " + deal.id + " AND isFavorite = 1").execute();
+
+        if(deals != null && deals.size() > 0) {
+            return deals.get(0).isFavorite;
+        }
+        return false;
+    }
 }

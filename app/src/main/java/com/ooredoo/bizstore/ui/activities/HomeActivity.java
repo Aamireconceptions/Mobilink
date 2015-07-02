@@ -77,11 +77,15 @@ public class HomeActivity extends AppCompatActivity implements
 
     public int minDiscount, maxDiscount;
 
+    public View searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home);
+
+        searchView = getLayoutInflater().inflate(R.layout.search_popup, null);
+        searchPopup = new PopupWindow(searchView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         //BASE_URL = getAppUrl(this);
 
@@ -248,15 +252,13 @@ public class HomeActivity extends AppCompatActivity implements
     public void showSearchPopup() {
         tabLayout.setAlpha(0.45f);
         viewPager.setAlpha(0.45f);
-        View view = getLayoutInflater().inflate(R.layout.search_popup, null);
-        searchPopup = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mSearchResultsListView = (ListView) view.findViewById(R.id.lv_search_results);
-        mSuggestionsListView = (ListView) view.findViewById(R.id.lv_search_suggestions);
+        mSearchResultsListView = (ListView) searchView.findViewById(R.id.lv_search_results);
+        mSuggestionsListView = (ListView) searchView.findViewById(R.id.lv_search_suggestions);
         mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
         mSuggestionsListView.setAdapter(mSuggestionsAdapter);
-        view.findViewById(R.id.cb_search_deals).setOnClickListener(this);
-        view.findViewById(R.id.cb_search_business).setOnClickListener(this);
-        view.findViewById(R.id.rl_search_results).setVisibility(View.GONE);
+        searchView.findViewById(R.id.cb_search_deals).setOnClickListener(this);
+        searchView.findViewById(R.id.cb_search_business).setOnClickListener(this);
+        searchView.findViewById(R.id.rl_search_results).setVisibility(View.GONE);
         searchPopup.showAsDropDown(acSearch, 10, 55);
     }
 
@@ -352,8 +354,7 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if(searchPopup != null)
+        //TODO exception
         searchPopup.dismiss();
     }
 }

@@ -1,10 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
@@ -14,7 +12,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,8 +24,6 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
 
     private HomeActivity mActivity;
 
-    private ProgressBar progressBar;
-
     private String keyword;
 
     public SearchTask(HomeActivity activity) {
@@ -37,8 +33,6 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
-        if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
 
     @Override
@@ -57,16 +51,11 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        if(progressBar != null) { progressBar.setVisibility(View.GONE); }
-
         if(result != null) {
-            List<Deal> deals;
-
-            Gson gson = new Gson();
-
             try {
-                deals = Arrays.asList(gson.fromJson(result, Deal[].class));
+                //TODO Results results = new Gson().fromJson(result, Results.class);
 
+                List<Deal> deals = new ArrayList<>();//results.list;
                 for(Deal deal : deals) {
                     Logger.print("Search Result: " + deal.title);
                 }
@@ -87,7 +76,6 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

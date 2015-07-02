@@ -74,6 +74,8 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
             }
         });
 
+        deal.isFavorite = RecentDeal.isFavorite(deal);
+
         ImageView ivFav = (ImageView) view.findViewById(R.id.iv_fav);
 
         updateFavoriteIcon(deal.isFavorite, ivFav);
@@ -81,12 +83,12 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
         holder.ivFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deal.isFavorite = false;
+                deal.isFavorite = !deal.isFavorite;
                 deal.save();
-                deals.remove(deal);
-                notifyDataSetChanged();
+                updateFavoriteIcon(deal.isFavorite, holder.ivFav);
             }
         });
+
         return view;
     }
 
