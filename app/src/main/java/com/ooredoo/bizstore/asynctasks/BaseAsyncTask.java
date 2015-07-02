@@ -30,7 +30,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     private final static String SLASH = "/";
     private final static String QUESTION_MARK = "?";
 
-    public static String BASE_URL = "";
+    public static String BASE_URL = "http://203.215.183.98:10009/ooredoo/index.php/api/";
 
     public final static int CONNECTION_TIME_OUT = 15 * 1000;
 
@@ -78,6 +78,19 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         String result;
 
         URL url = new URL(serviceUrl);
+
+        HttpURLConnection connection = openConnectionAndConnect(url);
+
+        InputStream inputStream = connection.getInputStream();
+
+        result = readStream(inputStream);
+
+        return result;
+    }
+
+    public String getJson(URL url) throws IOException
+    {
+        String result;
 
         HttpURLConnection connection = openConnectionAndConnect(url);
 

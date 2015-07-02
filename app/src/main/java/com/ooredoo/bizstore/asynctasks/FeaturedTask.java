@@ -79,7 +79,7 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
     private String getFeatured() throws IOException
     {
-        String result = null;
+        String result;
 
         InputStream inputStream = null;
 
@@ -94,11 +94,7 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
             Logger.print("getFeatured() URL:"+ url.toString());
 
-            HttpURLConnection connection = openConnectionAndConnect(url);
-
-            inputStream = connection.getInputStream();
-
-            result = readStream(inputStream);
+            result = getJson(url);
 
             Logger.print("getFeatured: "+result);
 

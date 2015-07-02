@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
 
-        //initAndLoadFeaturedDeals(v);
+        initAndLoadFeaturedDeals(v);
 
         //initAndLoadPromotions(v);
 
