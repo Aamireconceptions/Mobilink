@@ -32,7 +32,7 @@
             android:layout_marginTop="10dp">
 
             <TextView
-                android:id="@+id/tv_daily_plan_details"
+                android:id="@+id/tv_plan_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/red_popup_left"
@@ -44,9 +44,9 @@
                 android:id="@+id/tv_daily_plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_daily_plan_details"
+                android:layout_alignLeft="@+id/tv_plan_details"
                 android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/tv_daily_plan_details"
+                android:layout_alignRight="@+id/tv_plan_details"
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="@string/WEEKLY_PLAN"
@@ -55,7 +55,7 @@
         </RelativeLayout>
 
         <ImageButton
-            android:id="@+id/btn_daily_plan"
+            android:id="@+id/ib_sub__plan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/rl_sub_plans"
@@ -71,11 +71,11 @@
             android:id="@+id/btn_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_daily_plan"
+            android:layout_below="@+id/ib_sub__plan"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="15dp"
-            android:alpha="0.4"
+            android:alpha="1.0"
             android:background="@drawable/btn_red"
             android:gravity="center"
             android:text="@string/SUBSCRIBE"

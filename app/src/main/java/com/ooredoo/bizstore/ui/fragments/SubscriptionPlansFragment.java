@@ -2,14 +2,11 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 
-import static android.text.Html.fromHtml;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 
@@ -21,7 +18,6 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 public class SubscriptionPlansFragment extends BaseFragment {
 
     Button btnNext;
-    ImageButton btnDailyPlan, btnWeeklyPlan;
 
     public SubscriptionPlansFragment() {
         super();
@@ -30,16 +26,7 @@ public class SubscriptionPlansFragment extends BaseFragment {
 
     public void init(View parent) {
         btnNext = (Button) parent.findViewById(R.id.btn_next);
-        btnDailyPlan = (ImageButton) parent.findViewById(R.id.btn_daily_plan);
-
-        TextView tvDailyPlanBox = ((TextView) parent.findViewById(R.id.tv_daily_plan_details));
-
         btnNext.setOnClickListener(this);
-        btnDailyPlan.setOnClickListener(this);
-        btnWeeklyPlan.setOnClickListener(this);
-
-        tvDailyPlanBox.setOnClickListener(this);
-        tvDailyPlanBox.setText(fromHtml(getString(R.string.daily_plan_details)));
     }
 
     @Override

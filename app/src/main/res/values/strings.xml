@@ -14,10 +14,8 @@
     <string name="CONGRATULATIONS">CONGRATULATIONS</string>
     <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on BIZSTORE.\n\nFind popular venues, great local businesses,\nDiscover deals, products & services closest to you, whereever you are!]]></string>
     <string name="LETS_START">LET\'S START</string>
-    <string name="daily_plan_details"><![CDATA[QAR <b>9</b>\nPER MONTH]]></string>
-    <string name="weekly_plan_details"><![CDATA[QAR <b>2</b>\nPER WEEK]]></string>
+    <string name="weekly_plan_details"><![CDATA[QAR <b>9</b>\nPER WEEK]]></string>
     <string name="WEEKLY_PLAN">WEEKLY PLAN</string>
-    <string name="DAILY_PLAN">DAILY PLAN</string>
     <string name="SUBSCRIPTION_PLANS">SUBSCRIPTION PLANS</string>
     <string name="sms_charges">Bizstore app will send a one time sms message to verify your phone number. Carrier SMS charges may apply.</string>
     <string name="num_confirm_text">Please confirm your country code and enter your phone number.</string>
