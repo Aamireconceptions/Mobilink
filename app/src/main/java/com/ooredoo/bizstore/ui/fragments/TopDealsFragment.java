@@ -9,15 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.DealsAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
-import com.ooredoo.bizstore.asynctasks.FeaturedTask;
 import com.ooredoo.bizstore.asynctasks.TopDealsBannersTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
-import com.ooredoo.bizstore.listeners.DealsFilterClickListener;
-import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
@@ -61,6 +57,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         List<GenericDeal> deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(mActivity, R.layout.list_deal, deals);
+        adapter.setCategory("Top");
 
         ListView listView = (ListView) v.findViewById(R.id.lv);
         listView.addHeaderView(headerViewPager);

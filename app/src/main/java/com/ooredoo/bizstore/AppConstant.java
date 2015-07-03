@@ -25,9 +25,9 @@ public class AppConstant {
     public static short SEARCH_BUSINESS = 2;
     public static short SEARCH_DEALS_AND_BUSINESS = 3;
 
-    public static String[] TAB_NAMES = { "Home", "Top Deals", "Food", "Shopping", "Electronics", "Hotels & Spas", "Malls", "Automotive", "Travel", "Entertainment", "Jewelery", "Sports & Fitness" };
+    public static String[] TAB_NAMES = { "Home", "Top Deals", "Food", "Shopping", "Electronics", "Hotels & Spas", "Malls", "Automotive", "Travel", "Entertainment", "Jewellery", "Sports & Fitness" };
 
-    public static String[] DEAL_CATEGORIES = { "Promo", "Featured", "Top", "Shopping", "Electronics", "Hotels", "Malls", "Automotive", "Travel", "Entertainment", "Jewelery", "Sports" };
+    public static String[] DEAL_CATEGORIES = { "Promo", "Featured", "Top", "Shopping", "Electronics", "Hotels", "Malls", "Automotive", "Travel", "Entertainment", "Jewellery", "Sports" };
 
     public static float MAX_ALPHA = 1.0f;
 

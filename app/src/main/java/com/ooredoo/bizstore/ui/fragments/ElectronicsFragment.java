@@ -68,6 +68,7 @@ public class ElectronicsFragment extends Fragment
         List<GenericDeal> deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter.setCategory("Electronics");
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
         listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));

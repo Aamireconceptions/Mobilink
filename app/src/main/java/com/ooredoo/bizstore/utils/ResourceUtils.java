@@ -4,24 +4,41 @@ import android.content.Context;
 
 import com.ooredoo.bizstore.R;
 
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+
 /**
- * Created by Babar on 26-Jun-15.
+ * @author Babar
+ * @since 26-Jun-15.
  */
-public class ResourceUtils
-{
-    private final static String SHOPPING = "shopping";
+public class ResourceUtils {
 
-    public static int getDrawableResId(Context context, String type)
-    {
-        switch (type)
-        {
-            case SHOPPING:
+    public static int getDrawableResId(Context context, String type) {
 
-                return R.drawable.ic_shopping;
-
-
+        if(isNotNullOrEmpty(type)) {
+            switch(type) {
+                case "Shopping":
+                    return R.drawable.ic_shopping;
+                case "Automotive":
+                    return R.drawable.ic_automotive;
+                case "Travel & Tours":
+                    return R.drawable.ic_travel;
+                case "Jewellery":
+                    return R.drawable.ic_jewelry;
+                case "Malls":
+                    return R.drawable.ic_malls;
+                case "Entertainment":
+                    return R.drawable.ic_entertainment;
+                case "Electronics":
+                    return R.drawable.ic_electronics;
+                case "Sports & Fitness":
+                    return R.drawable.ic_sports;
+                case "Hotels & Spas":
+                    return R.drawable.ic_hotels;
+                case "Food & Dining":
+                    return R.drawable.ic_food_dining;
+            }
         }
 
-        return -1;
+        return 0;
     }
 }

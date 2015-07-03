@@ -65,7 +65,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
         holder.tvDesc.setText(deal.desc);
         holder.tvTitle.setText(deal.title);
         holder.tvViews.setText(valueOf(deal.views));
-        holder.tvDiscount.setText(valueOf(deal.discount));
+        holder.tvDiscount.setText(String.valueOf(deal.discount) + "% OFF");
 
         holder.tvDesc.setOnClickListener(new View.OnClickListener() {
             @Override

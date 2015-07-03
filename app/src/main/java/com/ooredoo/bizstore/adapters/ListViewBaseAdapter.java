@@ -20,9 +20,11 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
+import static com.ooredoo.bizstore.utils.ResourceUtils.getDrawableResId;
 
 /**
- * Created by Babar on 19-Jun-15.
+ * @author Babar
+ * @since 19-Jun-15.
  */
 public class ListViewBaseAdapter extends BaseAdapter {
     private Context context;
@@ -37,6 +39,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     private MemoryCache memoryCache;
 
+    private String category;
+
     public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals) {
         this.context = context;
 
@@ -47,6 +51,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         memoryCache = MemoryCache.getInstance();
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setData(List<GenericDeal> deals) {
@@ -93,11 +101,13 @@ public class ListViewBaseAdapter extends BaseAdapter {
             holder = (Holder) row.getTag();
         }
 
-        /*
         String category = deal.category;
         holder.tvCategory.setText(category);
-        holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(ResourceUtils.getDrawableResId(context, category), 0, 0, 0);
-        */
+
+        int drawable = getDrawableResId(context, this.category);
+        if(drawable > 0) {
+            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
+        }
 
         deal.isFav = Deal.isFavorite(deal.id);
 
@@ -108,7 +118,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvDetail.setText(deal.detail);
 
-        holder.tvDiscount.setText(String.valueOf(deal.discount));
+        holder.tvDiscount.setText(String.valueOf(deal.discount) + "% OFF");
 
         holder.tvDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +128,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 ((HomeActivity) context).showDetailActivity(DEAL, DEAL_CATEGORIES[2], deal.id);
             }
         });
+
         // holder.rbRatings.setRating(getItem(position).rating);
 
         // holder.tvViews.setText(String.valueOf(getItem(position).views));
