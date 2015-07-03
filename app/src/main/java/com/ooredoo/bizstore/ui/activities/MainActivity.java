@@ -3,7 +3,6 @@ package com.ooredoo.bizstore.ui.activities;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
@@ -25,7 +24,7 @@ public class MainActivity extends BaseActivity {
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.btn_lang_arabic || viewId == R.id.btn_lang_english) {
-            HomeActivity.rtl = viewId == R.id.btn_lang_arabic;
+            //TODO remove comment HomeActivity.rtl = viewId == R.id.btn_lang_arabic;
             startActivity(SignUpActivity.class);
         }
     }

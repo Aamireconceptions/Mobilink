@@ -1,7 +1,9 @@
 package com.ooredoo.bizstore.ui.fragments;
 
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -25,6 +27,9 @@ public class SubscriptionPlansFragment extends BaseFragment {
     }
 
     public void init(View parent) {
+        TextView tvPlanDetails = (TextView) parent.findViewById(R.id.tv_plan_details);
+        tvPlanDetails.setText(Html.fromHtml(getString(R.string.weekly_plan_details)));
+
         btnNext = (Button) parent.findViewById(R.id.btn_next);
         btnNext.setOnClickListener(this);
     }

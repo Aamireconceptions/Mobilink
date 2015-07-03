@@ -36,16 +36,16 @@ public class SignUpActivity extends BaseActivity {
         setTitle("");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        //actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setLogo(R.drawable.ic_bizstore);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

@@ -101,6 +101,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         tvName.setText(name);
+
         if(HomeActivity.rtl) {
             tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
         } else {

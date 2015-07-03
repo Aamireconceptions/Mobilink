@@ -19,6 +19,7 @@
             android:background="@color/grey"
             android:gravity="center"
             android:padding="12dp"
+            android:textSize="16sp"
             android:text="@string/SUBSCRIPTION_PLANS"
             android:textColor="@color/red"
             android:textStyle="bold"/>
@@ -41,7 +42,7 @@
                 android:text="@string/plan_details"/>
 
             <TextView
-                android:id="@+id/tv_daily_plan"
+                android:id="@+id/tv_weekly_plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tv_plan_details"

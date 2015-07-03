@@ -16,7 +16,7 @@
     <string name="LETS_START">LET\'S START</string>
     <string name="weekly_plan_details"><![CDATA[QAR <b>9</b>\nPER WEEK]]></string>
     <string name="WEEKLY_PLAN">WEEKLY PLAN</string>
-    <string name="SUBSCRIPTION_PLANS">SUBSCRIPTION PLANS</string>
+    <string name="SUBSCRIPTION_PLANS">SUBSCRIPTION PLAN</string>
     <string name="sms_charges">Bizstore app will send a one time sms message to verify your phone number. Carrier SMS charges may apply.</string>
     <string name="num_confirm_text">Please confirm your country code and enter your phone number.</string>
     <string name="NEXT">NEXT</string>
@@ -112,6 +112,6 @@
     <string name="rate">rate</string>
     <string name="call">call</string>
     <string name="cancel">Cancel</string>
-    <string name="plan_details">QAR 9\nPER WEEK</string>
+    <string name="plan_details">QAR <b>9</b>\nPER WEEK</string>
 
 </resources>

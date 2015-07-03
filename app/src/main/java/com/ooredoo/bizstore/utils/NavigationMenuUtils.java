@@ -4,15 +4,12 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
-import com.ooredoo.bizstore.listeners.LanguageChangeListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
-import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
@@ -39,8 +36,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         this.activity = activity;
 
         this.expandableListView = expandableListView;
-        
-        groupNames = new String[]{activity.getString(R.string.categories), activity.getString(R.string.settings)};
+
+        groupNames = new String[] { " Categories", activity.getString(R.string.settings) };
 
         groupResIds = new int[]{R.drawable.ic_categories, R.drawable.ic_settings};
 
@@ -75,8 +72,10 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         View navigationHeader = activity.getLayoutInflater().inflate(R.layout.layout_navigation_header, null);
 
         HomeActivity homeActivity = (HomeActivity) activity;
-        LanguageChangeListener languageChangeListener = new LanguageChangeListener(homeActivity, navigationHeader);
-        languageChangeListener.expandableListView = expandableListView;
+
+        //TODO remove following comment to enable arabic/english version
+        /*LanguageChangeListener languageChangeListener = new LanguageChangeListener(homeActivity, navigationHeader);
+        languageChangeListener.expandableListView = expandableListView;*/
 
        /* NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
 

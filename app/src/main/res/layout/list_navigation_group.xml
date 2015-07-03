@@ -16,6 +16,7 @@
         android:textDirection="locale"
         android:layoutDirection="locale"
         android:text="Categories"
+        android:textStyle="bold"
         android:textColor="@android:color/primary_text_light" />
 
 </LinearLayout>
