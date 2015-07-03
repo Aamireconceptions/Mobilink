@@ -10,17 +10,21 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
+
+import static com.ooredoo.bizstore.AppConstant.DEAL;
+import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 
 /**
  * Created by Babar on 19-Jun-15.
  */
-public class ListViewBaseAdapter extends BaseAdapter
-{
+public class ListViewBaseAdapter extends BaseAdapter {
     private Context context;
 
     private int layoutResId;
@@ -33,8 +37,7 @@ public class ListViewBaseAdapter extends BaseAdapter
 
     private MemoryCache memoryCache;
 
-    public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals)
-    {
+    public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals) {
         this.context = context;
 
         this.layoutResId = layoutResId;
@@ -46,37 +49,33 @@ public class ListViewBaseAdapter extends BaseAdapter
         memoryCache = MemoryCache.getInstance();
     }
 
-    public void setData(List<GenericDeal> deals)
-    {
+    public void setData(List<GenericDeal> deals) {
         this.deals = deals;
     }
 
-
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return deals.size();
     }
 
     @Override
-    public GenericDeal getItem(int position)
-    {
+    public GenericDeal getItem(int position) {
         return deals.get(position);
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return deals.get(position).id;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        final GenericDeal deal = getItem(position);
+
         View row = convertView;
 
-        if(row == null)
-        {
+        if(row == null) {
             row = inflater.inflate(layoutResId, parent, false);
 
             holder = new Holder();
@@ -90,59 +89,64 @@ public class ListViewBaseAdapter extends BaseAdapter
             holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
 
             row.setTag(holder);
-        }
-        else
-        {
+        } else {
             holder = (Holder) row.getTag();
         }
 
-        /*String category = getItem(position).category;
-
+        /*
+        String category = deal.category;
         holder.tvCategory.setText(category);
-        holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(
-                         ResourceUtils.getDrawableResId(context, category),
-                         0,
-                         0,
-                         0);*/
+        holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(ResourceUtils.getDrawableResId(context, category), 0, 0, 0);
+        */
 
-        holder.ivFav.setSelected(getItem(position).isFav);
+        deal.isFav = Deal.isFavorite(deal.id);
+
+        holder.ivFav.setSelected(deal.isFav);
         holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
-        holder.tvTitle.setText(getItem(position).title);
+        holder.tvTitle.setText(deal.title);
 
-        holder.tvDetail.setText(getItem(position).detail);
+        holder.tvDetail.setText(deal.detail);
 
-        holder.tvDiscount.setText(getItem(position).discount);
+        holder.tvDiscount.setText(String.valueOf(deal.discount));
 
-       // holder.rbRatings.setRating(getItem(position).rating);
+        holder.tvDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Deal recentDeal = new Deal(deal);
+                RecentViewedActivity.addToRecentViewed(recentDeal);
+                ((HomeActivity) context).showDetailActivity(DEAL, DEAL_CATEGORIES[2], deal.id);
+            }
+        });
+        // holder.rbRatings.setRating(getItem(position).rating);
 
-       // holder.tvViews.setText(String.valueOf(getItem(position).views));
+        // holder.tvViews.setText(String.valueOf(getItem(position).views));
 
         return row;
     }
 
-    private class FavouriteOnClickListener implements View.OnClickListener
-    {
+    private class FavouriteOnClickListener implements View.OnClickListener {
         private int position;
 
-        public FavouriteOnClickListener(int position)
-        {
+        public FavouriteOnClickListener(int position) {
             this.position = position;
         }
 
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             boolean isSelected = v.isSelected();
 
             v.setSelected(!isSelected);
 
-            getItem(position).isFav = !isSelected;
+            GenericDeal genericDeal = getItem(position);
+            genericDeal.isFav = !isSelected;
+
+            Deal favDeal = new Deal(genericDeal);
+            favDeal.save();
         }
     }
 
-    private static class Holder
-    {
+    private static class Holder {
         ImageView ivFav;
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;

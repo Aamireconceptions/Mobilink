@@ -26,8 +26,8 @@ public class Deal extends Model {
     @Column(name = "daysLeft", notNull = false)
     public int daysLeft;
 
-    @Column(name = "restaurantId", notNull = false)
-    public long restaurantId;
+    @Column(name = "businessId", notNull = false)
+    public long businessId;
 
     @Column(name = "desc")
     public String desc;
@@ -40,6 +40,12 @@ public class Deal extends Model {
 
     @Column(name = "discount")
     public int discount;
+
+    @Column(name = "views", notNull = false)
+    public int views;
+
+    @Column(name = "rating", notNull = false)
+    public float rating;
 
     @Column(name = "isFavorite")
     public boolean isFavorite;
@@ -56,8 +62,18 @@ public class Deal extends Model {
         this.discount = discount;
     }
 
-    public static boolean isFavorite(Deal deal) {
-        List<Deal> deals = new Select().all().from(Deal.class).where("dealId = " + deal.id + " AND isFavorite = 1").execute();
+    public Deal(GenericDeal deal) {
+        this.id = deal.id;
+        this.desc = deal.detail;
+        this.title = deal.title;
+        this.views = deal.views;
+        this.rating = deal.rating;
+        this.isFavorite = deal.isFav;
+        this.discount = deal.discount;
+    }
+
+    public static boolean isFavorite(long dealId) {
+        List<Deal> deals = new Select().all().from(Deal.class).where("dealId = " + dealId + " AND isFavorite = 1").execute();
 
         if(deals != null && deals.size() > 0) {
             return deals.get(0).isFavorite;

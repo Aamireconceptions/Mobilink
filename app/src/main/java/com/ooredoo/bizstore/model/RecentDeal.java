@@ -21,11 +21,17 @@ public class RecentDeal extends Model {
     @Column(name = "type", notNull = false)
     public int type;
 
+    @Column(name = "views", notNull = false)
+    public int views;
+
+    @Column(name = "rating", notNull = false)
+    public float rating;
+
     @Column(name = "daysLeft", notNull = false)
     public int daysLeft;
 
-    @Column(name = "restaurantId", notNull = false)
-    public long restaurantId;
+    @Column(name = "businessId", notNull = false)
+    public long businessId;
 
     @Column(name = "desc")
     public String desc;
@@ -52,6 +58,16 @@ public class RecentDeal extends Model {
         this.city = city;
         this.title = title;
         this.discount = discount;
+    }
+
+    public RecentDeal(GenericDeal deal) {
+        this.id = deal.id;
+        this.desc = deal.detail;
+        this.title = deal.title;
+        this.views = deal.views;
+        this.rating = deal.rating;
+        this.isFavorite = deal.isFav;
+        this.discount = deal.discount;
     }
 
     public static boolean isFavorite(RecentDeal deal) {

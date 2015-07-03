@@ -75,7 +75,7 @@ public class DealsAdapter extends ArrayAdapter<Deal> {
 
         ImageView ivFav = (ImageView) view.findViewById(R.id.iv_fav);
 
-        deal.isFavorite = Deal.isFavorite(deal);
+        deal.isFavorite = Deal.isFavorite(deal.id);
 
         updateFavoriteIcon(deal.isFavorite, ivFav);
 

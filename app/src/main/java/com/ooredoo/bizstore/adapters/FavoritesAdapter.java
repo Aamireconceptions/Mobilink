@@ -18,6 +18,7 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
+import static java.lang.String.valueOf;
 
 public class FavoritesAdapter extends ArrayAdapter<Deal> {
 
@@ -61,11 +62,10 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
             view.setTag(holder);
         }
 
-        //TODO un-comment after implementing web services
-        /*holder.tvDesc.setText(deal.desc);
+        holder.tvDesc.setText(deal.desc);
         holder.tvTitle.setText(deal.title);
-        holder.tvViews.setText(deal.views);
-        holder.tvDiscount.setText(deal.discount);*/
+        holder.tvViews.setText(valueOf(deal.views));
+        holder.tvDiscount.setText(valueOf(deal.discount));
 
         holder.tvDesc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,11 +74,9 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
             }
         });
 
-        ImageView ivFav = (ImageView) view.findViewById(R.id.iv_fav);
+        deal.isFavorite = Deal.isFavorite(deal.id);
 
-        deal.isFavorite = Deal.isFavorite(deal);
-
-        updateFavoriteIcon(deal.isFavorite, ivFav);
+        holder.ivFav.setSelected(deal.isFavorite);
 
         holder.ivFav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,14 +96,6 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
         intent.putExtra(AppConstant.ID, typeId);
         intent.putExtra(CATEGORY, dealCategory);
         mActivity.startActivity(intent);
-    }
-
-    public static void updateFavoriteIcon(boolean isFavorite, ImageView ivFav) {
-        int favResId = R.drawable.ic_like_inactive;
-        if(isFavorite) {
-            favResId = R.drawable.ic_like_active;
-        }
-        ivFav.setImageResource(favResId);
     }
 
     private static class Holder {
