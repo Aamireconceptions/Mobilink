@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
 import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
@@ -43,26 +44,6 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         initViews();
     }
 
-    @Override
-    public void onClick(View v) {
-        int viewId = v.getId();
-        if(viewId == R.id.iv_favorite) {
-            isFavorite = !isFavorite;
-            int favDrawable = isFavorite ? R.drawable.ic_like_big_active : R.drawable.ic_like_big_inactive;
-            ((ImageView) findViewById(R.id.iv_favorite)).setImageResource(favDrawable);
-        } else if(viewId == R.id.iv_rate) {
-            showRatingDialog(this);
-        } else if(viewId == R.id.iv_call) {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:03352899951")); //TODO replace number
-            startActivity(intent);
-        } else if(viewId == R.id.iv_share) {
-            //TODO implement share functionality
-            Intent intent = new Intent(ACTION_DEAL_DETAIL);
-            startActivity(intent);
-        }
-    }
-
     private void initViews() {
         id = intent.getLongExtra(AppConstant.ID, 0);
         category = intent.getStringExtra(CATEGORY);
@@ -72,6 +53,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         findViewById(R.id.iv_rate).setOnClickListener(this);
         findViewById(R.id.iv_share).setOnClickListener(this);
         findViewById(R.id.iv_favorite).setOnClickListener(this);
+
+        if(id > 0) {
+            isFavorite = Deal.isFavorite(id);
+            findViewById(R.id.iv_favorite).setSelected(isFavorite);
+        }
 
         findViewById(R.id.tv_hdr_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
         findViewById(R.id.iv_deal_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
@@ -87,6 +73,32 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         }
         ScrollViewHelper scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+    }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        if(viewId == R.id.iv_favorite) {
+            isFavorite = !isFavorite;
+            v.setSelected(isFavorite);
+            if(id > 0) {
+                Deal deal = Deal.load(Deal.class, id);
+                if(deal != null) {
+                    deal.isFavorite = isFavorite;
+                    deal.save();
+                }
+            }
+        } else if(viewId == R.id.iv_rate) {
+            showRatingDialog(this);
+        } else if(viewId == R.id.iv_call) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:03352899951")); //TODO replace number
+            startActivity(intent);
+        } else if(viewId == R.id.iv_share) {
+            //TODO implement share functionality
+            Intent intent = new Intent(ACTION_DEAL_DETAIL);
+            startActivity(intent);
+        }
     }
 
     private void setupToolbar() {

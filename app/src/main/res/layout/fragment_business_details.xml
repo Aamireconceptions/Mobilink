@@ -1,7 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/grey">
+            android:background="@color/grey"
+            android:scrollbars="none"
+            android:scrollbarStyle="insideOverlay">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,19 +16,6 @@
             android:layout_marginBottom="0dp"
             android:background="@drawable/bg_detail">
 
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:src="@drawable/ic_back_arrow_white"/>
-            <ImageView
-                android:id="@+id/iv_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:padding="12dp"
-                android:src="@drawable/ic_like_big_inactive"/>
             <LinearLayout
                 android:id="@+id/ll_details"
                 android:layout_width="match_parent"
@@ -40,16 +29,18 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Charles &amp; Ketih"
-                    android:textColor="#FFFFFFFF"
-                    android:textSize="@dimen/_16sdp"
+                    android:text="Charles &amp; Keith"
+                    android:textColor="#F7F7F7"
+                    android:textSize="16sp"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/tv_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="Charles &amp; Ketih"/>
+                    android:text="Hayat Plaza, Qatar"
+                    android:textColor="@color/grey"
+                    android:textStyle="normal"/>
                 <RatingBar
                     android:id="@+id/rating_bar"
                     android:layout_width="wrap_content"
