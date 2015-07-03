@@ -1,13 +1,10 @@
 package com.ooredoo.bizstore.ui.fragments;
 
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.SignUpActivity;
-
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 
 /**
  * @author Pehlaj Rai
@@ -27,10 +24,7 @@ public class WelcomeFragment extends BaseFragment {
 
     @Override
     public void onClick(View v) {
-        updateVal(mActivity, LOGIN_STATUS, true);
-        SignUpActivity activity = (SignUpActivity) mActivity;
-        activity.startActivity(HomeActivity.class);
-        /*AppCompatActivity activity = (AppCompatActivity) mActivity;
-        FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container, new SubscriptionPlansFragment(), "Welcome");*/
+        AppCompatActivity activity = (AppCompatActivity) mActivity;
+        FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container, new SubscriptionPlansFragment(), "Welcome");
     }
 }

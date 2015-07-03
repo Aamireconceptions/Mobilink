@@ -14,7 +14,7 @@
     <string name="CONGRATULATIONS">CONGRATULATIONS</string>
     <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on BIZSTORE.\n\nFind popular venues, great local businesses,\nDiscover deals, products & services closest to you, whereever you are!]]></string>
     <string name="LETS_START">LET\'S START</string>
-    <string name="daily_plan_details"><![CDATA[QAR <b>1</b>\nPER DAY]]></string>
+    <string name="daily_plan_details"><![CDATA[QAR <b>9</b>\nPER MONTH]]></string>
     <string name="weekly_plan_details"><![CDATA[QAR <b>2</b>\nPER WEEK]]></string>
     <string name="WEEKLY_PLAN">WEEKLY PLAN</string>
     <string name="DAILY_PLAN">DAILY PLAN</string>
@@ -114,5 +114,6 @@
     <string name="rate">rate</string>
     <string name="call">call</string>
     <string name="cancel">Cancel</string>
+    <string name="plan_details">QAR 9\nPER WEEK</string>
 
 </resources>
