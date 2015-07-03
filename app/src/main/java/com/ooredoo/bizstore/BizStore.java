@@ -26,10 +26,10 @@ public class BizStore extends com.activeandroid.app.Application {
     private final static String SERIF = "SERIF";
     private final static String SANS_SERIF = "SANS_SERIF";
 
-    private final static String DEFAULT_FONT = "fonts/Futura/FuturaLT-Book.ttf";
-    private final static String MONOSPACE_FONT = "fonts/Futura/FuturaLT.ttf";
-    private final static String SERIF_FONT = "fonts/Opifico/Opificio_Bold.ttf";
-    private final static String SANS_SERIF_FONT = "fonts/Opifico/Opificio.ttf";
+    public final static String DEFAULT_FONT = "fonts/Futura/FuturaLT-Book.ttf";
+    public final static String MONOSPACE_FONT = "fonts/Futura/FuturaLT.ttf";
+    public final static String SERIF_FONT = "fonts/Opifico/Opificio_Bold.ttf";
+    public final static String SANS_SERIF_FONT = "fonts/Opifico/Opificio.ttf";
 
     public void onCreate() {
 

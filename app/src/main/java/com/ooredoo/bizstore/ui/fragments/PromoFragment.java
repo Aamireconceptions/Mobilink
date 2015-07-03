@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
@@ -28,10 +29,15 @@ import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
  */
 public class PromoFragment extends Fragment implements View.OnClickListener
 {
-    public static PromoFragment newInstance(String imgUrl)
+    private HomeActivity activity;
+
+    private int id;
+
+    public static PromoFragment newInstance(String imgUrl, int id)
     {
         Bundle bundle = new Bundle();
         bundle.putString("image_url", imgUrl);
+        bundle.putInt("id", id);
 
         PromoFragment fragment = new PromoFragment();
         fragment.setArguments(bundle);
@@ -42,6 +48,7 @@ public class PromoFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_promo, container, false);
+        v.setOnClickListener(this);
 
         initAndLoadBanner(v);
 
@@ -50,14 +57,15 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
     private void initAndLoadBanner(View v)
     {
-        Activity activity = getActivity();
+        activity = (HomeActivity) getActivity();
 
         Bundle bundle = getArguments();
 
         String imgUrl = bundle.getString("image_url");
 
+        id = bundle.getInt("id");
+
         ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
-        imageView.setOnClickListener(this);
 
         ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
@@ -100,8 +108,9 @@ public class PromoFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View v) {
-
+    public void onClick(View v)
+    {
+        activity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], id);
     }
 
 }

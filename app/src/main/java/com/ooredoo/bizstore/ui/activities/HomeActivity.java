@@ -311,7 +311,8 @@ public class HomeActivity extends AppCompatActivity implements
         mSearchResultsListView.invalidateViews();
     }
 
-    public void showDetailActivity(int detailType, String dealCategory, long typeId) {
+    public void showDetailActivity(int detailType, String dealCategory, long typeId)
+    {
         Intent intent = new Intent();
         intent.setClass(this, detailType == BUSINESS ? BusinessDetailActivity.class : DealDetailActivity.class);
         intent.putExtra(AppConstant.ID, typeId);

@@ -32,7 +32,8 @@ public class PromoStatePagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return PromoFragment.newInstance(deals.get(position).image.bannerUrl);
+        return PromoFragment.newInstance(deals.get(position).image.bannerUrl,
+                                         deals.get(position).id);
     }
 
     @Override

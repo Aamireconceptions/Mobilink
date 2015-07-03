@@ -28,10 +28,15 @@ import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
  */
 public class FeaturedFragment extends Fragment implements View.OnClickListener
 {
-    public static FeaturedFragment newInstance(String imgUrl)
+    private HomeActivity activity;
+
+    private int id;
+
+    public static FeaturedFragment newInstance(String imgUrl, int id)
     {
         Bundle bundle = new Bundle();
         bundle.putString("image_url", imgUrl);
+        bundle.putInt("id", id);
 
         FeaturedFragment fragment = new FeaturedFragment();
         fragment.setArguments(bundle);
@@ -50,11 +55,13 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
 
     private void initAndLoadBanner(View v)
     {
-        Activity activity = getActivity();
+        activity = (HomeActivity) getActivity();
 
         Bundle bundle = getArguments();
 
         String imgUrl = bundle.getString("image_url");
+
+        id = bundle.getInt("id");
 
         ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
         imageView.setOnClickListener(this);
@@ -102,8 +109,7 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.image_view) {
-            HomeActivity homeActivity = (HomeActivity) getActivity();
-            homeActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[1], 0); //TODO replace 0 with deal id
+            activity.showDetailActivity(DEAL, DEAL_CATEGORIES[1], id);
         }
     }
 
