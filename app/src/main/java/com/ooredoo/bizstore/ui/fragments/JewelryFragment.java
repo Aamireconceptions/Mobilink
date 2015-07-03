@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.listeners.ListViewOnItemClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;

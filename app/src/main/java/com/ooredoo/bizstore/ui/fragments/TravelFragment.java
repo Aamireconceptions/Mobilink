@@ -17,6 +17,7 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.ListViewOnItemClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +69,7 @@ public class TravelFragment extends Fragment
         List<GenericDeal> deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
-        adapter.setCategory(activity.getString(R.string.travel_tours));
+        adapter.setCategory(ResourceUtils.TRAVEL_AND_TOUR);
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
         listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));

@@ -23,8 +23,8 @@ public class DealsFilterClickListener implements View.OnClickListener
         this.mActivity = mActivity;
         this.dealsFilterView = dealsFilterView;
 
-        btnNewDeals = (Button) dealsFilterView.findViewById(R.id.btn_new_deals);
-        btnPopularDeals = (Button) dealsFilterView.findViewById(R.id.btn_popular_deals);
+        /*btnNewDeals = (Button) dealsFilterView.findViewById(R.id.btn_new_deals);
+        btnPopularDeals = (Button) dealsFilterView.findViewById(R.id.btn_popular_deals);*/
 
         btnNewDeals.setSelected(true);
         btnNewDeals.setOnClickListener(this);
@@ -35,13 +35,13 @@ public class DealsFilterClickListener implements View.OnClickListener
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.btn_new_deals || id == R.id.btn_popular_deals) {
+       /* if(id == R.id.btn_new_deals || id == R.id.btn_popular_deals) {
             boolean isNewDealsFilter = id == R.id.btn_new_deals;
             btnNewDeals.setSelected(isNewDealsFilter);
             btnPopularDeals.setSelected(!isNewDealsFilter);
             //TODO implement deals' filter
         } else if(id == R.id.iv_filter) {
             mActivity.showHideDrawer(GravityCompat.END, true);
-        }
+        }*/
     }
 }

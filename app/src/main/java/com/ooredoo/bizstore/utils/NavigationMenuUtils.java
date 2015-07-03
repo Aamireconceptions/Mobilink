@@ -37,7 +37,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         this.expandableListView = expandableListView;
 
-        groupNames = new String[] { " Categories", activity.getString(R.string.settings) };
+        groupNames = new String[] { activity.getString(R.string.categories), activity.getString(R.string.settings) };
 
         groupResIds = new int[]{R.drawable.ic_categories, R.drawable.ic_settings};
 
@@ -52,7 +52,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                                      R.drawable.ic_electronics, R.drawable.ic_hotels,
                                      R.drawable.ic_malls, R.drawable.ic_automotive,
                                      R.drawable.ic_travel, R.drawable.ic_entertainment,
-                                     R.drawable.ic_jewelry, R.drawable.ic_sports};
+                                     R.drawable.ic_jewellery, R.drawable.ic_sports};
 
         settings = new String[] {activity.getString(R.string.my_account), activity.getString(R.string.my_notifications),
                                  activity.getString(R.string.rate_us), activity.getString(R.string.help),

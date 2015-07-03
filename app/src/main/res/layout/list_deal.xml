@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:padding="10dp">
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/_8sdp"
+    android:paddingRight="@dimen/_8sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:drawableStart="@drawable/ic_shopping"
+            android:drawableLeft="@drawable/ic_shopping"
             android:drawablePadding="@dimen/_6sdp"
             android:text="Shopping"
             android:textColor="@android:color/primary_text_light"/>

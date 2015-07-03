@@ -78,7 +78,7 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         notifications.add(new Notification(7, false, R.drawable.ic_automotive, getString(R.string.automotive)));
         notifications.add(new Notification(8, false, R.drawable.ic_travel, getString(R.string.travel_tours)));
         notifications.add(new Notification(9, false, R.drawable.ic_entertainment, getString(R.string.entertainment)));
-        notifications.add(new Notification(10, false, R.drawable.ic_jewelry, getString(R.string.jewelry_exchange)));
+        notifications.add(new Notification(10, false, R.drawable.ic_jewellery, getString(R.string.jewelry_exchange)));
         notifications.add(new Notification(11, false, R.drawable.ic_sports, getString(R.string.sports_fitness)));
     }
 

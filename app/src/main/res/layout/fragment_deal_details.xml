@@ -269,7 +269,7 @@
                         android:layout_alignTop="@+id/tv_category"
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
-                        android:src="@drawable/ic_jewelry"/>
+                        android:src="@drawable/ic_jewellery"/>
                     <TextView
                         android:id="@+id/tv_category"
                         android:layout_width="match_parent"

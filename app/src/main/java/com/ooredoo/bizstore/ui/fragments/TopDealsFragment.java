@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
@@ -14,11 +15,13 @@ import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.TopDealsBannersTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +57,21 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         headerViewPager = inflater.inflate(R.layout.viewpager, null);
         headerFilter = inflater.inflate(R.layout.header_deals, null);
 
+        FilterOnClickListener clickListener = new FilterOnClickListener(mActivity);
+
+        Button btNewDeals = (Button) headerFilter.findViewById(R.id.new_deals);
+        btNewDeals.setOnClickListener(clickListener);
+        clickListener.setButtonSelected(btNewDeals);
+
+        Button btPopularDeals = (Button) headerFilter.findViewById(R.id.popular_deals);
+        btPopularDeals.setOnClickListener(clickListener);
+
         List<GenericDeal> deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(mActivity, R.layout.list_deal, deals);
-        adapter.setCategory("Top");
+        adapter.setCategory(ResourceUtils.AUTOMOTIVE);
 
-        ListView listView = (ListView) v.findViewById(R.id.lv);
+        ListView listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(headerViewPager);
         listView.addHeaderView(headerFilter);
         listView.setAdapter(adapter);

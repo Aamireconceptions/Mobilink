@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/red"
-            android:gravity="center_vertical"
             android:minHeight="?attr/actionBarSize"
             android:paddingEnd="@dimen/_18sdp"
             android:paddingStart="@dimen/_18sdp">
@@ -23,13 +22,25 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_alignParentStart="true"
                 android:src="@drawable/ic_back_white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/back"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:text="@string/filter_results"
+                android:textSize="18sp"
+                android:textColor="@color/white" />
 
             <ImageView
                 android:id="@+id/done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_done_white"/>
 

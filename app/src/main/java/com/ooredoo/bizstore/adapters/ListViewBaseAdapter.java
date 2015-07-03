@@ -15,6 +15,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
@@ -104,10 +105,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
         String category = deal.category;
         holder.tvCategory.setText(category);
 
-        int drawable = getDrawableResId(context, this.category);
-        if(drawable > 0) {
-            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0);
-        }
+        holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds
+                         (ResourceUtils.getDrawableResId(context, this.category), 0, 0, 0);
 
         deal.isFav = Deal.isFavorite(deal.id);
 
@@ -118,7 +117,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvDetail.setText(deal.detail);
 
-        holder.tvDiscount.setText(String.valueOf(deal.discount) + "% OFF");
+        holder.tvDiscount.setText(String.valueOf(deal.discount)
+                                  +
+                                  context.getString(R.string.percentage_off));
 
         holder.tvDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,9 +130,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
         });
 
-        // holder.rbRatings.setRating(getItem(position).rating);
+         holder.rbRatings.setRating(getItem(position).rating);
 
-        // holder.tvViews.setText(String.valueOf(getItem(position).views));
+         holder.tvViews.setText(String.valueOf(getItem(position).views));
 
         return row;
     }

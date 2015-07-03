@@ -113,5 +113,6 @@
     <string name="call">call</string>
     <string name="cancel">Cancel</string>
     <string name="plan_details">QAR <b>9</b>\nPER WEEK</string>
-
+    <string name="filter_results">Filter Results</string>
+    <string name="percentage_off">"% OFF"</string>
 </resources>

@@ -4,7 +4,7 @@
     android:padding="@dimen/_12sdp">
 
     <Button
-        android:id="@+id/btn_new_deals"
+        android:id="@+id/new_deals"
         android:layout_width="@dimen/_115sdp"
         android:layout_height="@dimen/_34sdp"
         android:layout_alignParentStart="true"
@@ -15,10 +15,10 @@
         android:background="@drawable/bt_tab_style_left_selector"/>
 
     <Button
-        android:id="@+id/btn_popular_deals"
+        android:id="@+id/popular_deals"
         android:layout_width="@dimen/_115sdp"
         android:layout_height="@dimen/_34sdp"
-        android:layout_toRightOf="@+id/btn_new_deals"
+        android:layout_toRightOf="@+id/new_deals"
         android:layout_centerVertical="true"
         android:text="@string/popular_deals"
         android:textAllCaps="false"

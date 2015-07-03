@@ -9,7 +9,7 @@
         <item name="colorPrimary">@color/tool_bar</item>
 
         <!--   darker variant for the status bar and contextual app bars -->
-        <item name="colorPrimaryDark">@color/status_bar</item>
+        <item name="colorPrimaryDark">@color/red</item>
 
         <!--   theme UI controls like checkboxes and text fields -->
         <!--<item name="colorAccent">@color/red</item>-->
