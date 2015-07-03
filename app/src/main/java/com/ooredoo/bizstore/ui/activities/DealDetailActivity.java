@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
+import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -35,7 +36,6 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     public String category;
     public boolean showBanner = false;
-    public boolean isFavorite = false;
 
     public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
@@ -43,6 +43,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     ScrollViewHelper scrollViewHelper;
 
     private long id;
+
+    private Deal src;
+
     public DealDetailActivity() {
         super();
         layoutResId = R.layout.activity_deal_details;
@@ -73,11 +76,6 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         findViewById(R.id.iv_share).setOnClickListener(this);
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
-        if(id > 0) {
-            isFavorite = Deal.isFavorite(id);
-            findViewById(R.id.iv_favorite).setSelected(isFavorite);
-        }
-
         findViewById(R.id.tv_hdr_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
         findViewById(R.id.iv_deal_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
 
@@ -94,6 +92,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     public void populateData(GenericDeal deal) {
         if(deal != null) {
+            src = new Deal(deal);
+            src.id = id;
+            IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "deals", id);
+            incrementViewsTask.execute();
             mActionBar.setTitle(deal.title);
             scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
             ((TextView) findViewById(R.id.tv_title)).setText(deal.title);
@@ -106,6 +108,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(deal.views));
             ((TextView) findViewById(R.id.tv_discount)).setText(valueOf(deal.discount));
             scrollViewHelper.setAlpha(1f);
+            src.isFavorite = Deal.isFavorite(id);
+            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
@@ -115,14 +119,12 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.iv_favorite) {
-            isFavorite = !isFavorite;
-            v.setSelected(isFavorite);
-            if(id > 0) {
-                Deal deal = Deal.load(Deal.class, id);
-                if(deal != null) {
-                    deal.isFavorite = isFavorite;
-                    deal.save();
-                }
+            if(src != null) {
+                src.isFavorite = !src.isFavorite;
+                v.setSelected(src.isFavorite);
+                Deal.updateDealAsFavorite(src);
+            } else {
+                //TODO src == null => No detail found OR any exception occurred.
             }
         } else if(viewId == R.id.iv_rate) {
             showRatingDialog(this);

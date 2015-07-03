@@ -7,17 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
+import static com.ooredoo.bizstore.AppConstant.PERCENT_OFF;
 import static java.lang.String.valueOf;
 
 public class FavoritesAdapter extends ArrayAdapter<Deal> {
@@ -56,22 +60,34 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
             holder.tvTitle = (TextView) view.findViewById(R.id.tv_title);
             holder.tvViews = (TextView) view.findViewById(R.id.tv_views);
             holder.tvDiscount = (TextView) view.findViewById(R.id.tv_discount);
+            holder.tvCategory = (TextView) view.findViewById(R.id.tv_category);
             holder.ivFav = (ImageView) view.findViewById(R.id.iv_fav);
             holder.ivShare = (ImageView) view.findViewById(R.id.iv_share);
+            holder.ivCategory = (ImageView) view.findViewById(R.id.iv_category);
+            holder.rbRatings = (RatingBar) view.findViewById(R.id.rating_bar);
 
             view.setTag(holder);
+        }
+
+        String category = deal.category;
+        holder.tvCategory.setText(category);
+
+        int categoryDrawable = ResourceUtils.getDrawableResId(mActivity, deal.category);
+        if(categoryDrawable > 0) {
+            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
         }
 
         holder.tvDesc.setText(deal.desc);
         holder.tvTitle.setText(deal.title);
         holder.tvViews.setText(valueOf(deal.views));
-        holder.tvDiscount.setText(String.valueOf(deal.discount)
-                                  +
-                                  mActivity.getString(R.string.percentage_off));
+        holder.tvDiscount.setText(String.valueOf(deal.discount) + PERCENT_OFF);
 
-        holder.tvDesc.setOnClickListener(new View.OnClickListener() {
+        holder.rbRatings.setRating(deal.rating);
+
+        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecentViewedActivity.addToRecentViewed(deal);
                 showDetailActivity(DEAL_CATEGORIES[2], deal.id);
             }
         });
@@ -101,7 +117,8 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
     }
 
     private static class Holder {
-        ImageView ivFav, ivShare;
-        TextView tvTitle, tvViews, tvDesc, tvDiscount;
+        ImageView ivFav, ivShare, ivCategory;
+        RatingBar rbRatings;
+        TextView tvTitle, tvViews, tvDesc, tvDiscount, tvCategory;
     }
 }

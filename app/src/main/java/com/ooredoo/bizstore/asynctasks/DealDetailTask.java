@@ -2,7 +2,6 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -25,8 +24,6 @@ public class DealDetailTask extends BaseAsyncTask<String, Void, String> {
     private DealDetailActivity detailActivity;
 
     private ProgressBar progressBar;
-
-    private TextView tvDealsOfTheDay;
 
     private final static String SERVICE_NAME = "/getdetails?";
 

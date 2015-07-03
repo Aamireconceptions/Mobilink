@@ -16,7 +16,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/iv_type"
+            android:id="@+id/iv_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -24,13 +24,13 @@
             android:src="@drawable/ic_shopping"/>
 
         <TextView
-            android:id="@+id/tv_type"
+            android:id="@+id/tv_category"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="6dp"
             android:layout_toLeftOf="@+id/iv_fav"
-            android:layout_toRightOf="@+id/iv_type"
+            android:layout_toRightOf="@+id/iv_category"
             android:gravity="left|center_vertical"
             android:paddingTop="2dp"
             android:singleLine="true"
@@ -102,7 +102,7 @@
         android:padding="@dimen/_8sdp">
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/rating_bar"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

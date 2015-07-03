@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.RecentDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 
@@ -69,7 +70,7 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
                                   +
                                   mActivity.getString(R.string.percentage_off));
 
-        holder.tvDesc.setOnClickListener(new View.OnClickListener() {
+        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDetailActivity(DEAL_CATEGORIES[2], deal.id);
@@ -84,8 +85,9 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
             @Override
             public void onClick(View v) {
                 deal.isFavorite = !deal.isFavorite;
-                deal.save();
                 v.setSelected(deal.isFavorite);
+                Deal favDeal = new Deal(deal);
+                Deal.updateDealAsFavorite(favDeal);
             }
         });
 

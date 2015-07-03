@@ -42,6 +42,9 @@ public class RecentDeal extends Model {
     @Column(name = "title")
     public String title;
 
+    @Column(name = "category", notNull = false)
+    public String category;
+
     @Column(name = "discount")
     public int discount;
 

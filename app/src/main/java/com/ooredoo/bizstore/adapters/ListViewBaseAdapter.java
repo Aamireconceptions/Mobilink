@@ -14,6 +14,7 @@ import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 
@@ -21,6 +22,8 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
+import static com.ooredoo.bizstore.AppConstant.PERCENT_OFF;
+import static java.lang.String.valueOf;
 
 /**
  * @author Babar
@@ -112,8 +115,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
         String category = deal.category;
         holder.tvCategory.setText(category);
 
-        holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds
-                         (ResourceUtils.getDrawableResId(context, this.category), 0, 0, 0);
+        int categoryDrawable = ResourceUtils.getDrawableResId(context, this.category);
+        if(categoryDrawable > 0) {
+            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
+        }
 
         deal.isFav = Deal.isFavorite(deal.id);
 
@@ -124,9 +129,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvDetail.setText(deal.detail);
 
-        holder.tvDiscount.setText(String.valueOf(deal.discount)
-                                  +
-                                  context.getString(R.string.percentage_off));
+        holder.tvDiscount.setText(valueOf(deal.discount) + PERCENT_OFF);
 
         holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +142,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
          holder.rbRatings.setRating(getItem(position).rating);
 
-         holder.tvViews.setText(String.valueOf(getItem(position).views));
+        holder.tvViews.setText(valueOf(getItem(position).views));
 
         return row;
     }
@@ -155,13 +158,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
         public void onClick(View v) {
             boolean isSelected = v.isSelected();
 
-            v.setSelected(!isSelected);
-
             GenericDeal genericDeal = getItem(position);
+
+            Logger.logI("FAV_DEAL: " + genericDeal.id, String.valueOf(genericDeal.isFav));
+
             genericDeal.isFav = !isSelected;
 
+            v.setSelected(!isSelected);
+
             Deal favDeal = new Deal(genericDeal);
-            favDeal.save();
+            Deal.updateDealAsFavorite(favDeal);
         }
     }
 

@@ -1,10 +1,13 @@
 package com.ooredoo.bizstore.model;
 
+import android.util.Log;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 import com.google.gson.annotations.SerializedName;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.List;
 
@@ -38,6 +41,9 @@ public class Deal extends Model {
     @Column(name = "title")
     public String title;
 
+    @Column(name = "category", notNull = false)
+    public String category;
+
     @Column(name = "discount")
     public int discount;
 
@@ -70,6 +76,20 @@ public class Deal extends Model {
         this.rating = deal.rating;
         this.isFavorite = deal.isFav;
         this.discount = deal.discount;
+        this.category = deal.category;
+        Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
+    }
+
+    public Deal(RecentDeal deal) {
+        this.id = deal.id;
+        this.desc = deal.desc;
+        this.title = deal.title;
+        this.views = deal.views;
+        this.rating = deal.rating;
+        this.discount = deal.discount;
+        this.category = deal.category;
+        this.isFavorite = deal.isFavorite;
+        Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
 
     public static boolean isFavorite(long dealId) {
@@ -79,5 +99,27 @@ public class Deal extends Model {
             return deals.get(0).isFavorite;
         }
         return false;
+    }
+
+    public static void updateDealAsFavorite(Deal deal) {
+        if(deal != null && deal.id > 0) {
+            Deal favDeal = new Deal();
+            List<Deal> deals = new Select().all().from(Deal.class).where("dealId=" + deal.id).execute();
+            if(deals != null && deals.size() > 0) {
+                favDeal = deals.get(0);
+            }
+            favDeal.id = deal.id;
+            favDeal.city = deal.city;
+            favDeal.desc = deal.desc;
+            favDeal.type = deal.type;
+            favDeal.views = deal.views;
+            favDeal.title = deal.title;
+            favDeal.rating = deal.rating;
+            favDeal.category = deal.category;
+            favDeal.discount = deal.discount;
+            favDeal.isFavorite = deal.isFavorite;
+            Log.i("UPDATE_FAV_DEAL: " + deal.id, "---" + deal.isFavorite);
+            favDeal.save();
+        }
     }
 }
