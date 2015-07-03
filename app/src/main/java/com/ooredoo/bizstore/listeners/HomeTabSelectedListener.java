@@ -1,7 +1,13 @@
 package com.ooredoo.bizstore.listeners;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+
+import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Logger;
 
 
 /**
@@ -10,19 +16,37 @@ import android.support.v4.view.ViewPager;
  */
 public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
 {
+    private HomeActivity homeActivity;
+
     private ViewPager viewPager;
 
-    public HomeTabSelectedListener(ViewPager viewPager)
+    public HomeTabSelectedListener(HomeActivity homeActivity, ViewPager viewPager)
     {
+        this.homeActivity = homeActivity;
+
         this.viewPager = viewPager;
     }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab)
     {
-       System.out.println("Tab Selected:"+ tab.getPosition());
+       System.out.println("Tab Selected:" + tab.getPosition());
 
         viewPager.setCurrentItem(tab.getPosition(), true);
+
+        setCurrentFragment();
+    }
+
+    private void setCurrentFragment()
+    {
+        Fragment fragment = homeActivity.getFragmentManager().
+                            findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + viewPager.getCurrentItem());
+
+        if(fragment != null)
+        {
+            Logger.print("frag not null: "+fragment);
+            homeActivity.setCurrentFragment(fragment);
+        }
     }
 
     @Override

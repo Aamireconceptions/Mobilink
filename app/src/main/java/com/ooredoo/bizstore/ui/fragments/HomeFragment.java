@@ -21,6 +21,7 @@ import com.ooredoo.bizstore.asynctasks.FeaturedTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
 import com.ooredoo.bizstore.asynctasks.TopMallsTask;
+import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
@@ -33,7 +34,7 @@ import java.util.List;
 /**
  * @author Babar
  */
-public class HomeFragment extends Fragment
+public class HomeFragment extends Fragment implements OnFilterChangeListener
 {
     private HomeActivity activity;
 
@@ -174,8 +175,14 @@ public class HomeFragment extends Fragment
 
     private void initAndLoadDealsOfTheDay()
     {
-        DealsTask dealsTask = new DealsTask(adapter, null);
+        DealsTask dealsTask = new DealsTask(activity, adapter, null);
         dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
         dealsTask.execute("deals_of_the_day");
+    }
+
+    @Override
+    public void onFilterChange()
+    {
+        initAndLoadDealsOfTheDay();
     }
 }

@@ -10,6 +10,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ import java.util.List;
  */
 public class DealsTask extends BaseAsyncTask<String, Void, String>
 {
+    private HomeActivity homeActivity;
+
     private ListViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
@@ -33,11 +36,16 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
     private final static String SERVICE_NAME = "/deals?";
 
-    public DealsTask(ListViewBaseAdapter adapter, ProgressBar progressBar) {
+    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar)
+    {
+        this.homeActivity = homeActivity;
+
         this.adapter = adapter;
 
         this.progressBar = progressBar;
     }
+
+
 
     public void setTvDealsOfTheDay(TextView tvDealsOfTheDay)
     {
@@ -63,7 +71,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(String result)
+    {
         super.onPostExecute(result);
 
         if(progressBar != null) { progressBar.setVisibility(View.GONE); };
@@ -85,11 +94,19 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                         Logger.print("title:"+genericDeal.title);
                     }
 
-                    adapter.setData(deals);
-                    adapter.notifyDataSetChanged();
+
 
                     showTvDealsOfTheDay();
                 }
+
+                adapter.clearData();
+
+                if(deals != null)
+                {
+                    adapter.setData(deals);
+                }
+
+                adapter.notifyDataSetChanged();
 
             }
             catch (JsonSyntaxException e)
@@ -118,6 +135,17 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             HashMap<String, String> params = new HashMap<>();
             params.put(OS, ANDROID);
             params.put("category", category);
+
+            if(homeActivity.doApplyRating && homeActivity.ratingFilter != null)
+            {
+                params.put("rating", homeActivity.ratingFilter);
+            }
+
+            if(homeActivity.doApplyDiscount)
+            {
+                params.put("min_discount", String.valueOf(homeActivity.minDiscount));
+                params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
+            }
 
             String query = createQuery(params);
 

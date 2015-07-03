@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     public String ratingFilter;
 
-    public int minDiscount, maxDiscount;
+    public int minDiscount = 0, maxDiscount = 0;
 
     public View searchView;
 
@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private void setupTabs() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(viewPager));
+        tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
     }

@@ -29,7 +29,7 @@ public class DealsFilterClickListener implements View.OnClickListener
         btnNewDeals.setSelected(true);
         btnNewDeals.setOnClickListener(this);
         btnPopularDeals.setOnClickListener(this);
-        dealsFilterView.findViewById(R.id.iv_filter).setOnClickListener(this);
+       // dealsFilterView.findViewById(R.id.iv_filter).setOnClickListener(this);
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
 import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
-import com.ooredoo.bizstore.ui.fragments.JewelryFragment;
+import com.ooredoo.bizstore.ui.fragments.JewelleryFragment;
 import com.ooredoo.bizstore.ui.fragments.MallsFragment;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.SportsAndFitnessFragment;
@@ -56,7 +56,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
             case 9:
                 return EntertainmentFragment.newInstance();
             case 10:
-                return JewelryFragment.newInstance();
+                return JewelleryFragment.newInstance();
             case 11:
                 return SportsAndFitnessFragment.newInstance();
         }

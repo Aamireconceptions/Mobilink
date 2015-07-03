@@ -62,6 +62,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
         this.deals = deals;
     }
 
+    public void clearData()
+    {
+        if(this.deals != null)
+        {
+            deals.clear();
+        }
+    }
+
     @Override
     public int getCount() {
         return deals.size();

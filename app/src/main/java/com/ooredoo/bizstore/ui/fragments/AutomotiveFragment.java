@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
+import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.ListViewOnItemClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -22,7 +23,7 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutomotiveFragment extends Fragment
+public class AutomotiveFragment extends Fragment implements OnFilterChangeListener
 {
     private HomeActivity activity;
 
@@ -52,7 +53,6 @@ public class AutomotiveFragment extends Fragment
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
-        activity.setCurrentFragment(this);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity);
 
@@ -80,7 +80,13 @@ public class AutomotiveFragment extends Fragment
 
     private void fetchAndDisplayAutomotive()
     {
-        DealsTask dealsTask = new DealsTask(adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
         dealsTask.execute("automotive");
+    }
+
+    @Override
+    public void onFilterChange() {
+
+        fetchAndDisplayAutomotive();
     }
 }

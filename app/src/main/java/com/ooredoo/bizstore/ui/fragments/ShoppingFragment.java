@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
+import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * @author Babar
  */
-public class ShoppingFragment extends Fragment
+public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 {
     private HomeActivity activity;
 
@@ -53,7 +54,6 @@ public class ShoppingFragment extends Fragment
 
     private void init(View v) {
         activity = (HomeActivity) getActivity();
-        activity.setCurrentFragment(this);
 
         snackBarUtils = new SnackBarUtils(activity, v);
 
@@ -89,5 +89,11 @@ public class ShoppingFragment extends Fragment
         ShoppingFragment fragment = new ShoppingFragment();
 
         return fragment;
+    }
+
+    @Override
+    public void onFilterChange()
+    {
+
     }
 }

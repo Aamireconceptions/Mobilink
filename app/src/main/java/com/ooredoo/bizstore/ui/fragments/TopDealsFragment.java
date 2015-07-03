@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.ooredoo.bizstore.R;
@@ -17,6 +18,7 @@ import com.ooredoo.bizstore.asynctasks.TopDealsBannersTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -52,7 +54,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     private void init(View v, LayoutInflater inflater)
     {
         mActivity = (HomeActivity) getActivity();
-        mActivity.setCurrentFragment(this);
 
         headerViewPager = inflater.inflate(R.layout.viewpager, null);
         headerFilter = inflater.inflate(R.layout.header_deals, null);
@@ -65,6 +66,9 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         Button btPopularDeals = (Button) headerFilter.findViewById(R.id.popular_deals);
         btPopularDeals.setOnClickListener(clickListener);
+
+        ImageView ivFilter = (ImageView) headerFilter.findViewById(R.id.filter);
+        ivFilter.setOnClickListener(clickListener);
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -99,7 +103,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private void loadTopDeals()
     {
-        DealsTask dealsTask = new DealsTask(adapter, null);
+        DealsTask dealsTask = new DealsTask(mActivity, adapter, null);
         dealsTask.execute("top_deals");
     }
 
@@ -107,5 +111,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     public void onFilterChange()
     {
         Logger.print("TopDealsFragment onFilterChange");
+
+        loadTopDeals();
     }
 }
