@@ -13,7 +13,7 @@ public class GenericDeal {
     @SerializedName("desc")
     public String detail;
 
-    public String title, category;
+    public String title, category, contact, address;
 
     @SerializedName("images")
     public Image image;

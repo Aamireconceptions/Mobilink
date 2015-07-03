@@ -7,12 +7,20 @@
         android:id="@+id/scrollViewHelper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         android:scrollbars="none"
         android:scrollbarStyle="insideOverlay">
 
         <include layout="@layout/fragment_deal_details"/>
 
     </com.ooredoo.bizstore.utils.ScrollViewHelper>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

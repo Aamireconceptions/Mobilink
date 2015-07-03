@@ -7,17 +7,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
+import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import static java.lang.String.valueOf;
 
 /**
  * @author Pehlaj Rai
@@ -31,6 +39,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
+
+    ScrollViewHelper scrollViewHelper;
 
     private long id;
     public DealDetailActivity() {
@@ -47,6 +57,15 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     private void initViews() {
         id = intent.getLongExtra(AppConstant.ID, 0);
         category = intent.getStringExtra(CATEGORY);
+
+        scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
+        scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+        if(id > 0) {
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+            DealDetailTask dealDetailTask = new DealDetailTask(this, progressBar);
+            dealDetailTask.execute(String.valueOf(id));
+            scrollViewHelper.setAlpha(0.4f);
+        }
         ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
         findViewById(R.id.iv_call).setOnClickListener(this);
@@ -71,8 +90,25 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 findViewById(R.id.ll_banner_preview).setVisibility(View.VISIBLE);
             }
         }
-        ScrollViewHelper scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
-        scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+    }
+
+    public void populateData(GenericDeal deal) {
+        if(deal != null) {
+            mActionBar.setTitle(deal.title);
+            scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+            ((TextView) findViewById(R.id.tv_title)).setText(deal.title);
+            ((TextView) findViewById(R.id.tv_contact)).setText(deal.contact);
+            ((TextView) findViewById(R.id.tv_deal_desc)).setText(deal.detail);
+            ((TextView) findViewById(R.id.tv_address)).setText(deal.address);
+            ((TextView) findViewById(R.id.tv_location)).setText(deal.address);
+            ((TextView) findViewById(R.id.tv_category)).setText(deal.category);
+            ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
+            ((TextView) findViewById(R.id.tv_views)).setText(valueOf(deal.views));
+            ((TextView) findViewById(R.id.tv_discount)).setText(valueOf(deal.discount));
+            scrollViewHelper.setAlpha(1f);
+        } else {
+            makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -107,6 +143,5 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setShowHideAnimationEnabled(false);
-        mActionBar.setTitle("Charles & Keith");
     }
 }

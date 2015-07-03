@@ -21,7 +21,6 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
-import static com.ooredoo.bizstore.utils.ResourceUtils.getDrawableResId;
 
 /**
  * @author Babar
@@ -129,7 +128,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                                   +
                                   context.getString(R.string.percentage_off));
 
-        holder.tvDetail.setOnClickListener(new View.OnClickListener() {
+        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Deal recentDeal = new Deal(deal);
