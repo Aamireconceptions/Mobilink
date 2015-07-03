@@ -12,7 +12,8 @@
         android:id="@+id/pager_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/view_pager"
-        android:layout_marginTop="-20dp"
-        android:padding="4dip"/>
+        android:padding="@dimen/_4sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_14sdp"
+        />
 </RelativeLayout>

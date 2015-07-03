@@ -18,9 +18,9 @@
             android:id="@+id/featured_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/_12sdp"/>
+            android:layout_marginBottom="@dimen/_1sdp"/>
 
     </RelativeLayout>
 
@@ -52,9 +52,9 @@
             android:id="@+id/promo_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/_12sdp"/>
+            android:layout_marginBottom="@dimen/_1sdp"/>
 
     </RelativeLayout>
 
