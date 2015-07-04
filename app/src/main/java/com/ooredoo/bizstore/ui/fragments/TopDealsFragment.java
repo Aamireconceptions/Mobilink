@@ -18,7 +18,6 @@ import com.ooredoo.bizstore.asynctasks.TopDealsBannersTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -27,6 +26,9 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.ooredoo.bizstore.utils.CategoryUtils.CT_TOP;
+import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
 
 public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 {
@@ -55,10 +57,12 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     {
         mActivity = (HomeActivity) getActivity();
 
+        showSubCategories(mActivity, CT_TOP);
+
         headerViewPager = inflater.inflate(R.layout.viewpager, null);
         headerFilter = inflater.inflate(R.layout.header_deals, null);
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(mActivity);
+        FilterOnClickListener clickListener = new FilterOnClickListener(mActivity, CT_TOP);
 
         Button btNewDeals = (Button) headerFilter.findViewById(R.id.new_deals);
         btNewDeals.setOnClickListener(clickListener);

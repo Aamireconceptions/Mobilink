@@ -39,6 +39,7 @@ import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
+import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
@@ -82,6 +83,8 @@ public class HomeActivity extends AppCompatActivity implements
     public RangeSeekBar<Integer> rangeSeekBar;
 
     private TextView tvRating1, tvRating2, tvRating3, tvRating4, tvRating5;
+
+    SubCategoryChangeListener subCategoryChangeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +159,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private void initFilter()
     {
-        FilterOnClickListener clickListener = new FilterOnClickListener(this);
+        FilterOnClickListener clickListener = new FilterOnClickListener(this, 0);
 
         ImageView ivBack = (ImageView) findViewById(R.id.back);
         ivBack.setOnClickListener(clickListener);
@@ -191,18 +194,11 @@ public class HomeActivity extends AppCompatActivity implements
         TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
         tvDiscount.setOnClickListener(clickListener);
 
-        TextView tvFoodAnDinning= (TextView) findViewById(R.id.food_dinning_checkbox);
-        tvFoodAnDinning.setOnClickListener(clickListener);
-
-        TextView tvElectronics = (TextView) findViewById(R.id.electronics_checkbox);
-        tvElectronics.setOnClickListener(clickListener);
-
-        TextView tvHotelsAndSpa = (TextView) findViewById(R.id.hotels_spa_checkbox);
-        tvHotelsAndSpa.setOnClickListener(clickListener);
-
         rangeSeekBar = (RangeSeekBar) findViewById(R.id.discount_seekbar);
         rangeSeekBar.setEnabled(false);
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
+
+        subCategoryChangeListener = new SubCategoryChangeListener(this);
     }
 
     public void setRatingEnabled(boolean enabled)

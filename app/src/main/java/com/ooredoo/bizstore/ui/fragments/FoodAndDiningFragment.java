@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.ListViewOnItemClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 
@@ -53,7 +54,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     {
         activity = (HomeActivity) getActivity();
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity);
+        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
 
         Button btNewDeals = (Button) v.findViewById(R.id.new_deals);
         btNewDeals.setOnClickListener(clickListener);

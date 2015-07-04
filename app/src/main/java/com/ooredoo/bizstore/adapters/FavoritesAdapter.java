@@ -84,7 +84,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
 
         holder.rbRatings.setRating(deal.rating);
 
-        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RecentViewedActivity.addToRecentViewed(deal);

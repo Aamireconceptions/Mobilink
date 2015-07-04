@@ -66,11 +66,9 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
         holder.tvDesc.setText(deal.desc);
         holder.tvTitle.setText(deal.title);
         holder.tvViews.setText(valueOf(deal.views));
-        holder.tvDiscount.setText(String.valueOf(deal.discount)
-                                  +
-                                  mActivity.getString(R.string.percentage_off));
+        holder.tvDiscount.setText(String.valueOf(deal.discount) + mActivity.getString(R.string.percentage_off));
 
-        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDetailActivity(DEAL_CATEGORIES[2], deal.id);

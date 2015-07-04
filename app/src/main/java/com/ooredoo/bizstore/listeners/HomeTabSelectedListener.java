@@ -1,11 +1,11 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -34,6 +34,8 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
 
         viewPager.setCurrentItem(tab.getPosition(), true);
 
+        DealsTask.sortColumn = "views";
+        DealsTask.subCategories = "";
         setCurrentFragment();
     }
 
@@ -51,7 +53,8 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-
+        DealsTask.sortColumn = "views";
+        DealsTask.subCategories = "";
     }
 
     @Override

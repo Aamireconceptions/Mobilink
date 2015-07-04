@@ -49,6 +49,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_deal_detail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left|center_vertical"

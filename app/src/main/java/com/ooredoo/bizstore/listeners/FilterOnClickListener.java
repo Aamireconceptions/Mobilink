@@ -1,13 +1,13 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.support.v4.view.GravityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 /**
@@ -25,9 +25,13 @@ public class FilterOnClickListener implements View.OnClickListener
 
     private OnFilterChangeListener onFilterChangeListener;
 
-    public FilterOnClickListener(HomeActivity activity)
+    private int category;
+
+    public FilterOnClickListener(HomeActivity activity, int category)
     {
         this.activity = activity;
+
+        this.category = category;
 
         onFilterChangeListener = activity;
     }
@@ -42,11 +46,17 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 setButtonSelected(v);
 
+                DealsTask.sortColumn = "createdate";
+                onFilterChangeListener.onFilterChange();
+
                 break;
 
             case R.id.popular_deals:
 
                 setButtonSelected(v);
+
+                DealsTask.sortColumn = "views";
+                onFilterChangeListener.onFilterChange();
 
                 break;
 
@@ -54,6 +64,16 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 activity.drawerLayout.openDrawer(GravityCompat.END);
 
+                if(category > 0) {
+                    if(category == CategoryUtils.CT_TOP || category == CategoryUtils.CT_TRAVEL) {
+                        //There are no sub categories in TOP/TRAVEL categories
+                        activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
+                    } else {
+                        activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
+                    }
+                    Logger.logI("CATEGORY", String.valueOf(category));
+                    CategoryUtils.showSubCategories(activity, category);
+                }
                 break;
 
             case R.id.back:
@@ -65,6 +85,11 @@ public class FilterOnClickListener implements View.OnClickListener
             case R.id.done:
 
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
+
+                String subCategories = CategoryUtils.getSelectedSubCategories(category);
+                DealsTask.subCategories = subCategories;
+
+                Logger.logI("SELECTION", subCategories);
 
                 onFilterChangeListener.onFilterChange();
 
@@ -97,7 +122,7 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 activity.setRatingEnabled(v.isSelected());
 
-                if(lastRatingSelected != null) { lastRatingSelected.setSelected(false);};
+                if(lastRatingSelected != null) { lastRatingSelected.setSelected(false);}
 
                 break;
 

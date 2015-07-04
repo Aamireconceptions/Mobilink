@@ -23,6 +23,9 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.CategoryUtils.CT_SHOPPING;
+import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
+
 /**
  * @author Babar
  */
@@ -67,7 +70,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity);
+        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CT_SHOPPING);
 
         ImageView ivFilter = (ImageView) v.findViewById(R.id.filter);
         ivFilter.setOnClickListener(clickListener);
@@ -78,6 +81,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         Button btPopularDeals = (Button) v.findViewById(R.id.popular_deals);
         btPopularDeals.setOnClickListener(clickListener);
+
+        activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
+
+        showSubCategories(activity, CT_SHOPPING);
     }
 
     private void loadDeals()

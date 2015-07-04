@@ -15,17 +15,17 @@ import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 /**
  * @author Babar
  * @since 26-Jun-15.
  */
-public class DealsTask extends BaseAsyncTask<String, Void, String>
-{
+public class DealsTask extends BaseAsyncTask<String, Void, String> {
     private HomeActivity homeActivity;
 
     private ListViewBaseAdapter adapter;
@@ -36,8 +36,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
     private final static String SERVICE_NAME = "/deals?";
 
-    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar)
-    {
+    public static String sortColumn = "createdate"; //Default new deals
+    public static String subCategories;
+
+    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.homeActivity = homeActivity;
 
         this.adapter = adapter;
@@ -45,10 +47,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         this.progressBar = progressBar;
     }
 
-
-
-    public void setTvDealsOfTheDay(TextView tvDealsOfTheDay)
-    {
+    public void setTvDealsOfTheDay(TextView tvDealsOfTheDay) {
         this.tvDealsOfTheDay = tvDealsOfTheDay;
     }
 
@@ -71,78 +70,75 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     }
 
     @Override
-    protected void onPostExecute(String result)
-    {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        if(progressBar != null) { progressBar.setVisibility(View.GONE); };
+        if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         if(result != null) {
             List<GenericDeal> deals;
 
             Gson gson = new Gson();
 
-            try
-            {
+            try {
                 Response response = gson.fromJson(result, Response.class);
 
                 deals = response.deals;
 
-                if(response.resultCode != -1)
-                {
-                    for(GenericDeal genericDeal : deals) {
-                        Logger.print("title:"+genericDeal.title);
-                    }
-
-
+                if(response.resultCode != -1) {
+                    /*for(GenericDeal genericDeal : deals) {
+                        Logger.print("title:" + genericDeal.title);
+                    }*/
 
                     showTvDealsOfTheDay();
                 }
 
                 adapter.clearData();
 
-                if(deals != null)
-                {
+                if(deals != null) {
                     adapter.setData(deals);
                 }
 
                 adapter.notifyDataSetChanged();
 
-            }
-            catch (JsonSyntaxException e)
-            {
+            } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void showTvDealsOfTheDay()
-    {
-        if(tvDealsOfTheDay != null)
-        {
+    private void showTvDealsOfTheDay() {
+        if(tvDealsOfTheDay != null) {
             tvDealsOfTheDay.setVisibility(View.VISIBLE);
         }
     }
 
-    private String getDeals(String category) throws IOException
-    {
+    private String getDeals(String category) throws IOException {
         String result;
 
         InputStream inputStream = null;
 
-        try
-        {
+        try {
             HashMap<String, String> params = new HashMap<>();
             params.put(OS, ANDROID);
             params.put("category", category);
 
-            if(homeActivity.doApplyRating && homeActivity.ratingFilter != null)
-            {
+            Logger.print("Sort by: " + sortColumn);
+            Logger.print("Sub Categories: " + subCategories);
+
+            if(isNotNullOrEmpty(sortColumn)) {
+                params.put("sort", sortColumn);
+            }
+
+            if(isNotNullOrEmpty(subCategories)) {
+                params.put("subcategories", subCategories);
+            }
+
+            if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
                 params.put("rating", homeActivity.ratingFilter);
             }
 
-            if(homeActivity.doApplyDiscount)
-            {
+            if(homeActivity.doApplyDiscount) {
                 params.put("min_discount", String.valueOf(homeActivity.minDiscount));
                 params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
             }
@@ -161,12 +157,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
             result = getJson(url);
 
-            Logger.print("getDeals: "+result);
-        }
-        finally
-        {
-            if(inputStream != null)
-            {
+            Logger.print("getDeals: " + result);
+        } finally {
+            if(inputStream != null) {
                 inputStream.close();
             }
         }

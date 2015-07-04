@@ -131,7 +131,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvDiscount.setText(valueOf(deal.discount) + PERCENT_OFF);
 
-        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+        row.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Deal recentDeal = new Deal(deal);
