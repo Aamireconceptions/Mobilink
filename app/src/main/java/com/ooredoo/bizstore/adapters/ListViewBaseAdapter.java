@@ -101,6 +101,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             holder = new Holder();
 
+            holder.layout = row.findViewById(R.id.layout_deal_detail);
             holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
             holder.ivFav = (ImageView) row.findViewById(R.id.fav);
             holder.ivShare = (ImageView) row.findViewById(R.id.share);
@@ -134,7 +135,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvDiscount.setText(valueOf(deal.discount) + PERCENT_OFF);
 
-        row.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+        holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Deal recentDeal = new Deal(deal);
@@ -182,6 +183,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
     }
 
     private static class Holder {
+
+        View layout;
+
         ImageView ivFav, ivShare;
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;

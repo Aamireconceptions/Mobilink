@@ -1,8 +1,13 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Activity;
+import android.widget.RatingBar;
 
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -49,6 +54,17 @@ public class UpdateRatingTask extends BaseAsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+
+        float rating = 0;
+        try {
+            JSONObject response = new JSONObject(result);
+            rating = (float) (response.has("rating") ? response.getDouble("rating") : rating);
+            Logger.logI("RATING", String.valueOf(rating));
+        } catch(JSONException jse) {
+            jse.printStackTrace();
+        }
+
+        ((RatingBar) mActivity.findViewById(R.id.rating_bar)).setRating(rating);
         Logger.logI(LOG_TAG, isNotNullOrEmpty(result) ? result : "ERR_UPDATING_RATING");
     }
 

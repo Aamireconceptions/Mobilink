@@ -109,8 +109,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         }
         ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
+        findViewById(R.id.tv_call).setOnClickListener(this);
         findViewById(R.id.iv_call).setOnClickListener(this);
+        findViewById(R.id.tv_rate).setOnClickListener(this);
         findViewById(R.id.iv_rate).setOnClickListener(this);
+        findViewById(R.id.tv_share).setOnClickListener(this);
         findViewById(R.id.iv_share).setOnClickListener(this);
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
@@ -164,13 +167,13 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             } else {
                 //TODO src == null => No detail found OR any exception occurred.
             }
-        } else if(viewId == R.id.iv_rate) {
+        } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
             ratingDialog = showRatingDialog(this, "deals", id);
-        } else if(viewId == R.id.iv_call) {
+        } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:03352899951")); //TODO replace number
             startActivity(intent);
-        } else if(viewId == R.id.iv_share) {
+        } else if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
             //TODO implement share functionality
             shareDeal(this, src.id);
         }

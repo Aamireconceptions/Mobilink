@@ -56,6 +56,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
         if(view == null) {
             view = inflater.inflate(layoutResID, parent, false);
 
+            holder.layout = view.findViewById(R.id.layout_deal_detail);
             holder.tvDesc = (TextView) view.findViewById(R.id.tv_desc);
             holder.tvTitle = (TextView) view.findViewById(R.id.tv_title);
             holder.tvViews = (TextView) view.findViewById(R.id.tv_views);
@@ -72,9 +73,9 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
         String category = deal.category;
         holder.tvCategory.setText(category);
 
-        int categoryDrawable = ResourceUtils.getDrawableResId(mActivity, deal.category);
-        if(categoryDrawable > 0) {
-            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
+        int categoryIcon = ResourceUtils.getDrawableResId(mActivity, deal.category);
+        if(categoryIcon > 0) {
+            holder.ivCategory.setImageResource(categoryIcon);
         }
 
         holder.tvDesc.setText(deal.desc);
@@ -84,7 +85,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
 
         holder.rbRatings.setRating(deal.rating);
 
-        view.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+        holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RecentViewedActivity.addToRecentViewed(deal);
@@ -124,6 +125,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
     }
 
     private static class Holder {
+        View layout;
         ImageView ivFav, ivShare, ivCategory;
         RatingBar rbRatings;
         TextView tvTitle, tvViews, tvDesc, tvDiscount, tvCategory;

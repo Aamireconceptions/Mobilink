@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.activeandroid.query.Select;
@@ -32,14 +31,14 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
     private void init() {
         setupToolbar();
 
-        Button btnNewDeals = (Button) findViewById(R.id.new_deals);
+        /*Button btnNewDeals = (Button) findViewById(R.id.new_deals);
         Button btnPopularDeals = (Button) findViewById(R.id.popular_deals);
 
         btnNewDeals.setSelected(true);
         btnNewDeals.setOnClickListener(this);
         btnPopularDeals.setOnClickListener(this);
 
-        lastSelected = btnNewDeals;
+        lastSelected = btnNewDeals;*/
 
         List<RecentDeal> deals = new Select().all().from(RecentDeal.class).execute();
 
@@ -97,6 +96,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.title = deal.title;
             rd.views = deal.views;
             rd.rating = deal.rating;
+            rd.category = deal.category;
             rd.discount = deal.discount;
             Log.i("UPDATE", "EXISTING---" + rd.title);
             rd.save();

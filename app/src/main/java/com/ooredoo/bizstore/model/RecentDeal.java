@@ -71,6 +71,7 @@ public class RecentDeal extends Model {
         this.rating = deal.rating;
         this.isFavorite = deal.isFav;
         this.discount = deal.discount;
+        this.category = deal.category;
     }
 
     public static boolean isFavorite(RecentDeal deal) {

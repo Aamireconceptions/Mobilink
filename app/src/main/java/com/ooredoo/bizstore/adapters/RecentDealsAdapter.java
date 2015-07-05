@@ -14,6 +14,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.RecentDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
@@ -53,22 +54,31 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
         if(view == null) {
             view = inflater.inflate(layoutResID, parent, false);
 
+            holder.layout = view.findViewById(R.id.layout_deal_detail);
             holder.tvDesc = (TextView) view.findViewById(R.id.tv_desc);
             holder.tvTitle = (TextView) view.findViewById(R.id.tv_title);
             holder.tvViews = (TextView) view.findViewById(R.id.tv_views);
+            holder.tvCategory = (TextView) view.findViewById(R.id.tv_category);
             holder.tvDiscount = (TextView) view.findViewById(R.id.tv_discount);
             holder.ivFav = (ImageView) view.findViewById(R.id.iv_fav);
             holder.ivShare = (ImageView) view.findViewById(R.id.iv_share);
+            holder.ivCategory = (ImageView) view.findViewById(R.id.iv_category);
 
             view.setTag(holder);
         }
 
         holder.tvDesc.setText(deal.desc);
         holder.tvTitle.setText(deal.title);
+        holder.tvCategory.setText(deal.category);
         holder.tvViews.setText(valueOf(deal.views));
         holder.tvDiscount.setText(String.valueOf(deal.discount) + mActivity.getString(R.string.percentage_off));
 
-        view.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+        int categoryIcon = ResourceUtils.getDrawableResId(mActivity, deal.category);
+        if(categoryIcon > 0) {
+            holder.ivCategory.setImageResource(categoryIcon);
+        }
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDetailActivity(DEAL_CATEGORIES[2], deal.id);
@@ -108,7 +118,8 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
     }
 
     private static class Holder {
-        ImageView ivFav, ivShare;
-        TextView tvTitle, tvViews, tvDesc, tvDiscount;
+        View layout;
+        ImageView ivFav, ivShare, ivCategory;
+        TextView tvTitle, tvViews, tvDesc, tvDiscount, tvCategory;
     }
 }
