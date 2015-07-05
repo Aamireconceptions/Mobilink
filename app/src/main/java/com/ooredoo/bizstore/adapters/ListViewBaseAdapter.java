@@ -140,9 +140,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
         });
 
-         holder.rbRatings.setRating(getItem(position).rating);
+        holder.rbRatings.setRating(deal.rating);
 
-        holder.tvViews.setText(valueOf(getItem(position).views));
+        holder.tvViews.setText(valueOf(deal.views));
 
         return row;
     }

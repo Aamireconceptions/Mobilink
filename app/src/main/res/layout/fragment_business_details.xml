@@ -42,12 +42,14 @@
                     android:textColor="@color/grey"
                     android:textStyle="normal"/>
                 <RatingBar
-                    android:id="@+id/rating_bar"
+                    android:id="@+id/ratings_bar"
                     android:layout_width="wrap_content"
-                    android:layout_height="17dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:rating="3"
                     android:layout_marginTop="6dp"
-                    android:progressDrawable="@drawable/ic_star_active"
-                    android:rating="4.3"/>
+                    android:progressDrawable="@drawable/deal_rating_bar"
+                    style="?android:attr/ratingBarStyleSmall"/>
             </LinearLayout>
 
             <TableLayout

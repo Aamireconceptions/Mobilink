@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
@@ -46,6 +47,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     private Deal src;
 
+    private Dialog ratingDialog;
+
     public DealDetailActivity() {
         super();
         layoutResId = R.layout.activity_deal_details;
@@ -67,7 +70,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
             DealDetailTask dealDetailTask = new DealDetailTask(this, progressBar);
             dealDetailTask.execute(String.valueOf(id));
-            scrollViewHelper.setAlpha(0.4f);
+            scrollViewHelper.setAlpha(0.1f);
         }
         ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
@@ -127,7 +130,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 //TODO src == null => No detail found OR any exception occurred.
             }
         } else if(viewId == R.id.iv_rate) {
-            showRatingDialog(this);
+            ratingDialog = showRatingDialog(this, "deals", id);
         } else if(viewId == R.id.iv_call) {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:03352899951")); //TODO replace number
@@ -136,6 +139,14 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             //TODO implement share functionality
             Intent intent = new Intent(ACTION_DEAL_DETAIL);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(ratingDialog != null && ratingDialog.isShowing()) {
+            ratingDialog.dismiss();
         }
     }
 

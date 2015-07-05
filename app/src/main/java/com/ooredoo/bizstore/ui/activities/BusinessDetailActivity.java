@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
@@ -31,6 +32,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     private int id;
 
+    private Dialog ratingDialog;
     public BusinessDetailActivity() {
         super();
         layoutResId = R.layout.activity_business_details;
@@ -48,7 +50,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         if(viewId == R.id.iv_favorite) {
             //TODO update favorite business
         } else if(viewId == R.id.iv_rate) {
-            showRatingDialog(this);
+            ratingDialog = showRatingDialog(this, "business", id);
         } else if(viewId == R.id.iv_call) {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:03352899951")); //TODO replace number
@@ -71,6 +73,14 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         ScrollViewHelper scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(ratingDialog != null && ratingDialog.isShowing()) {
+            ratingDialog.dismiss();
+        }
     }
 
     private void setupToolbar() {

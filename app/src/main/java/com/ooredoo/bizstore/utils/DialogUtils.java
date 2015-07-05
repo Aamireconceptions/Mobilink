@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RatingBar;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
@@ -20,7 +22,7 @@ import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackSt
  */
 public class DialogUtils {
 
-    public static void showRatingDialog(final Activity activity) {
+    public static Dialog showRatingDialog(final Activity activity, final String type, final long typeId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
 
@@ -29,6 +31,14 @@ public class DialogUtils {
 
         final Dialog dialog = builder.create();
 
+        ((RatingBar) view.findViewById(R.id.rating_bar)).setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                new UpdateRatingTask(activity, type, typeId, rating).execute();
+                dialog.dismiss();
+            }
+        });
+
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -36,6 +46,7 @@ public class DialogUtils {
         builder.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+        return dialog;
     }
 
     public static void showUnSubscribeDialog(final Activity activity) {
