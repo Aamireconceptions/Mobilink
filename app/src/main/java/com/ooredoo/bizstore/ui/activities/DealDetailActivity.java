@@ -46,9 +46,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     ScrollViewHelper scrollViewHelper;
 
-    private long id;
+    private int id;
 
-    private Deal src;
+    public Deal src;
+
+    public static GenericDeal selectedDeal;
 
     private Dialog ratingDialog;
 
@@ -85,7 +87,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 String paramId = uri.getQueryParameter("id");
 
                 Logger.print("Extras: " + paramId);
-                id = intent.getLongExtra(AppConstant.ID, 0);
+                id = intent.getIntExtra(AppConstant.ID, 0);
                 getIntent().putExtra(AppConstant.ID, Long.parseLong(paramId));
                 getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
                 initViews();
@@ -94,7 +96,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     }
 
     private void initViews() {
-        id = intent.getLongExtra(AppConstant.ID, 0);
+        id = intent.getIntExtra(AppConstant.ID, 0);
 
         Logger.logI("DETAIL_ID", valueOf(id));
         category = intent.getStringExtra(CATEGORY);

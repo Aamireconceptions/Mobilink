@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.widget.RatingBar;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import org.json.JSONException;
@@ -62,6 +65,17 @@ public class UpdateRatingTask extends BaseAsyncTask<Void, Void, String> {
             Logger.logI("RATING", String.valueOf(rating));
         } catch(JSONException jse) {
             jse.printStackTrace();
+        }
+
+        if(DealDetailActivity.selectedDeal != null) {
+            DealDetailActivity.selectedDeal.rating = rating;
+        }
+
+        DealDetailActivity detailActivity = (DealDetailActivity) mActivity;
+        if(detailActivity != null && detailActivity.src != null) {
+            detailActivity.src.rating = rating;
+            Deal.updateDealAsFavorite(detailActivity.src);
+            RecentViewedActivity.addToRecentViewed(detailActivity.src);
         }
 
         ((RatingBar) mActivity.findViewById(R.id.rating_bar)).setRating(rating);

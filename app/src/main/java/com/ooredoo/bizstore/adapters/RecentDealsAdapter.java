@@ -81,6 +81,7 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DealDetailActivity.selectedDeal = null;
                 showDetailActivity(DEAL_CATEGORIES[2], deal.id);
             }
         });

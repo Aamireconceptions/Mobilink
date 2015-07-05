@@ -21,7 +21,7 @@ public class Deal extends Model {
 
     @SerializedName("id")
     @Column(name = "dealId", notNull = true)
-    public long id;
+    public int id;
 
     @Column(name = "type", notNull = false)
     public int type;
@@ -59,7 +59,7 @@ public class Deal extends Model {
     public Deal() {
     }
 
-    public Deal(long id, int type, String title, int discount, String desc, String city) {
+    public Deal(int id, int type, String title, int discount, String desc, String city) {
         this.id = id;
         this.type = type;
         this.desc = desc;

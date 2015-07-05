@@ -89,6 +89,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
             @Override
             public void onClick(View v) {
                 RecentViewedActivity.addToRecentViewed(deal);
+                DealDetailActivity.selectedDeal = null;
                 showDetailActivity(DEAL_CATEGORIES[2], deal.id);
             }
         });

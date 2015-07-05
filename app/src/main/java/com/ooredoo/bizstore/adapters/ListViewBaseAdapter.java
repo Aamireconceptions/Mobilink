@@ -140,6 +140,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Deal recentDeal = new Deal(deal);
                 RecentViewedActivity.addToRecentViewed(recentDeal);
+                DealDetailActivity.selectedDeal = deal;
                 ((HomeActivity) context).showDetailActivity(DEAL, DEAL_CATEGORIES[2], deal.id);
             }
         });

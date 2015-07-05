@@ -16,7 +16,7 @@ import java.util.List;
 public class RecentDeal extends Model {
 
     @Column(name = "dealId", notNull = true)
-    public long id;
+    public int id;
 
     @Column(name = "type", notNull = false)
     public int type;
@@ -54,7 +54,7 @@ public class RecentDeal extends Model {
     public RecentDeal() {
     }
 
-    public RecentDeal(long id, int type, String title, int discount, String desc, String city) {
+    public RecentDeal(int id, int type, String title, int discount, String desc, String city) {
         this.id = id;
         this.type = type;
         this.desc = desc;
