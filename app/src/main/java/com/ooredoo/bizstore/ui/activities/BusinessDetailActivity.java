@@ -11,10 +11,12 @@ import android.view.View.OnClickListener;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
-import static com.ooredoo.bizstore.AppConstant.ACTION_BUSINESS_DETAIL;
+import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
+import static com.ooredoo.bizstore.ui.activities.DealDetailActivity.startShareIntent;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 
 /**
@@ -57,8 +59,16 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             startActivity(intent);
         } else if(viewId == R.id.iv_share) {
             //TODO implement share functionality
-            Intent intent = new Intent(ACTION_BUSINESS_DETAIL);
-            startActivity(intent);
+            Intent intent = new Intent();
+            intent.setAction(ACTION_DEAL_DETAIL);
+
+            String uri = intent.toUri(0);
+
+            Logger.print("Uri: " + uri);
+
+            uri = "View this awesome Restaurant on BizStore http://ooredoo.bizstore/business_detail?id=" + id;
+
+            startShareIntent(this, uri, id);
         }
     }
 

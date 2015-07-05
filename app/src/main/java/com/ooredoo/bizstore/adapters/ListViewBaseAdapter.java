@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.Logger;
@@ -101,6 +103,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
             holder.ivFav = (ImageView) row.findViewById(R.id.fav);
+            holder.ivShare = (ImageView) row.findViewById(R.id.share);
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
@@ -140,6 +143,13 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
         });
 
+        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DealDetailActivity.shareDeal((Activity) context, deal.id);
+            }
+        });
+
         holder.rbRatings.setRating(deal.rating);
 
         holder.tvViews.setText(valueOf(deal.views));
@@ -172,7 +182,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
     }
 
     private static class Holder {
-        ImageView ivFav;
+        ImageView ivFav, ivShare;
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;
 

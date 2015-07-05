@@ -75,6 +75,13 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
             }
         });
 
+        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DealDetailActivity.shareDeal(mActivity, deal.id);
+            }
+        });
+
         deal.isFavorite = RecentDeal.isFavorite(deal);
 
         holder.ivFav.setSelected(deal.isFavorite);

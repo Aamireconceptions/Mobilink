@@ -92,6 +92,13 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
             }
         });
 
+        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DealDetailActivity.shareDeal(mActivity, deal.id);
+            }
+        });
+
         deal.isFavorite = Deal.isFavorite(deal.id);
 
         holder.ivFav.setSelected(deal.isFavorite);

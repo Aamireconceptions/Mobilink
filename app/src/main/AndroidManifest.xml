@@ -45,7 +45,7 @@
         <activity
             android:name=".ui.activities.HomeActivity"
             android:configChanges="locale"
-            android:label="@string/title_activity_home"
+            android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity
@@ -62,13 +62,31 @@
         <activity
             android:name=".ui.activities.DealDetailActivity"
             android:configChanges="locale|layoutDirection"
-            android:label="@string/title_activity_home"
+            android:label="@string/app_name"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="com.ooredoo.bizstore.deal_detail"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <action android:name="com.ooredoo.bizstore.deal_detail"/>
+
+                <data
+                    android:scheme="http"
+                    android:host="ooredoo.bizstore"
+                    android:pathPrefix="/deal_detail"
+                    android:pathPattern=".*"/>
+
+                <data
+                    android:scheme="http"
+                    android:host="ooredoo.bizstore"
+                    android:pathPrefix="/deal_detail"/>
+
             </intent-filter>
         </activity>
         <activity

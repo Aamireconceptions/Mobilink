@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,12 +20,14 @@ import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
+import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
@@ -58,10 +61,42 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     public void init() {
         setupToolbar();
         initViews();
+        handleIntentFilter();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        Logger.logI("DEAL_DETAIL", "onNewIntent");
+
+        setIntent(intent);
+
+        handleIntentFilter();
+    }
+
+    private void handleIntentFilter() {
+        Intent intent = getIntent();
+
+        if(intent != null) {
+            Uri uri = intent.getData();
+
+            if(uri != null) {
+                String paramId = uri.getQueryParameter("id");
+
+                Logger.print("Extras: " + paramId);
+                id = intent.getLongExtra(AppConstant.ID, 0);
+                getIntent().putExtra(AppConstant.ID, Long.parseLong(paramId));
+                getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
+                initViews();
+            }
+        }
     }
 
     private void initViews() {
         id = intent.getLongExtra(AppConstant.ID, 0);
+
+        Logger.logI("DETAIL_ID", valueOf(id));
         category = intent.getStringExtra(CATEGORY);
 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
@@ -137,9 +172,31 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             startActivity(intent);
         } else if(viewId == R.id.iv_share) {
             //TODO implement share functionality
-            Intent intent = new Intent(ACTION_DEAL_DETAIL);
-            startActivity(intent);
+            shareDeal(this, src.id);
         }
+    }
+
+    public static void shareDeal(Activity activity, long dealId) {
+        Intent intent = new Intent();
+        intent.setAction(ACTION_DEAL_DETAIL);
+
+        String uri = intent.toUri(0);
+
+        Logger.print("Uri: " + uri);
+
+        uri = "View this awesome deal on BizStore http://ooredoo.bizstore/deal_detail?id=" + dealId;
+
+        startShareIntent(activity, uri, dealId);
+    }
+
+    public static void startShareIntent(Activity activity, String uri, long id) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        intent.setType("text/plain");
+        intent.putExtra(AppConstant.ID, id);
+        intent.putExtra(Intent.EXTRA_TEXT, uri);
+
+        activity.startActivity(intent);
     }
 
     @Override
