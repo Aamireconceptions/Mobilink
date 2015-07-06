@@ -15,6 +15,13 @@
         android:layout_below="@+id/toolbar"
         layout="@layout/layout_filter_header"/-->
 
+    <include
+        android:id="@+id/no_data_view"
+        layout="@layout/no_data_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"

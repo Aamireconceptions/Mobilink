@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
@@ -48,6 +50,17 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         RecentDealsAdapter adapter = new RecentDealsAdapter(this, R.layout.list_item_deal, deals);
 
         listView.setAdapter(adapter);
+
+        toggleEmptyView(deals.size());
+
+    }
+
+    private void toggleEmptyView(int count) {
+        boolean noSearchItemFound = count == 0;
+        findViewById(R.id.list_view).setVisibility(noSearchItemFound ? View.GONE : View.VISIBLE);
+        findViewById(R.id.no_data_view).setVisibility(noSearchItemFound ? View.VISIBLE : View.GONE);
+        ((TextView) findViewById(R.id.tv_no_data)).setText("No recent viewed item found.");
+        ((ImageView) findViewById(R.id.ic_no_data)).setImageResource(R.drawable.recent_searches);
     }
 
     private void setupToolbar() {

@@ -6,17 +6,17 @@
                 android:padding="@dimen/_6sdp">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/ic_no_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:src="@drawable/recent_searches"/>
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_no_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/icon"
+        android:layout_below="@+id/ic_no_data"
         android:layout_centerHorizontal="true"
         android:layout_gravity="left|center_vertical"
         android:layout_marginTop="20dp"
@@ -28,14 +28,15 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/tv_status"
+        android:id="@+id/tv_no_data_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title"
+        android:layout_below="@+id/tv_no_data"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:maxWidth="250dp"
+        android:visibility="gone"
         android:text="@string/sms_charges"
         android:textSize="12sp"/>
 
