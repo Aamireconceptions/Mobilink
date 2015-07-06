@@ -5,6 +5,7 @@ import android.widget.RatingBar;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.Logger;
@@ -59,14 +60,30 @@ public class UpdateRatingTask extends BaseAsyncTask<Void, Void, String> {
         super.onPostExecute(result);
 
         float rating = 0;
-        try {
-            JSONObject response = new JSONObject(result);
-            rating = (float) (response.has("rating") ? response.getDouble("rating") : rating);
-            Logger.logI("RATING", String.valueOf(rating));
-        } catch(JSONException jse) {
-            jse.printStackTrace();
-        }
 
+        if(isNotNullOrEmpty(result)) {
+            try {
+                JSONObject response = new JSONObject(result);
+                rating = (float) (response.has("rating") ? response.getDouble("rating") : rating);
+                Logger.logI("RATING", String.valueOf(rating));
+            } catch(JSONException jse) {
+                jse.printStackTrace();
+            }
+
+            if(isNotNullOrEmpty(type)) {
+                if(type.equalsIgnoreCase("business")) {
+                    updateBusiness(rating);
+                } else {
+                    updateDeal(rating);
+                }
+            }
+
+            ((RatingBar) mActivity.findViewById(R.id.rating_bar)).setRating(rating);
+            Logger.logI(LOG_TAG, isNotNullOrEmpty(result) ? result : "ERR_UPDATING_RATING");
+        }
+    }
+
+    private void updateDeal(float rating) {
         if(DealDetailActivity.selectedDeal != null) {
             DealDetailActivity.selectedDeal.rating = rating;
         }
@@ -77,9 +94,17 @@ public class UpdateRatingTask extends BaseAsyncTask<Void, Void, String> {
             Deal.updateDealAsFavorite(detailActivity.src);
             RecentViewedActivity.addToRecentViewed(detailActivity.src);
         }
+    }
 
-        ((RatingBar) mActivity.findViewById(R.id.rating_bar)).setRating(rating);
-        Logger.logI(LOG_TAG, isNotNullOrEmpty(result) ? result : "ERR_UPDATING_RATING");
+    private void updateBusiness(float rating) {
+        if(BusinessDetailActivity.selectedBusiness != null) {
+            BusinessDetailActivity.selectedBusiness.rating = rating;
+        }
+
+        BusinessDetailActivity detailActivity = (BusinessDetailActivity) mActivity;
+        if(detailActivity != null && detailActivity.src != null) {
+            detailActivity.src.rating = rating;
+        }
     }
 
     private String updateRating() throws IOException {

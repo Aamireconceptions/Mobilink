@@ -29,7 +29,6 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Charles &amp; Keith"
                     android:textColor="#F7F7F7"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
@@ -38,15 +37,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="Hayat Plaza, Qatar"
                     android:textColor="@color/grey"
                     android:textStyle="normal"/>
                 <RatingBar
-                    android:id="@+id/ratings_bar"
+                    android:id="@+id/rating_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:rating="3"
+                    android:rating="0"
                     android:layout_marginTop="6dp"
                     android:progressDrawable="@drawable/deal_rating_bar"
                     style="?android:attr/ratingBarStyleSmall"/>
@@ -90,6 +88,7 @@
                 </TableRow>
                 <TableRow android:layout_marginBottom="15dp">
                     <TextView
+                        android:id="@+id/tv_call"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -98,14 +97,16 @@
                         android:text="CALL"
                         android:textColor="@color/white"/>
                     <TextView
+                        android:id="@+id/tv_views"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="13090"
+                        android:text="0"
                         android:textColor="@color/white"/>
                     <TextView
+                        android:id="@+id/tv_rate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -114,6 +115,7 @@
                         android:text="RATE"
                         android:textColor="@color/white"/>
                     <TextView
+                        android:id="@+id/tv_share"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -149,7 +151,6 @@
                 android:background="@drawable/deal_footer_bg"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:text="@string/Contact_Information"
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/tv_hdr_address"
@@ -169,7 +170,6 @@
                 android:background="@drawable/deal_footer_bg"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:text="AJ PLAZA, STREET 1, F-10 Markaz, Islamabad"
                 android:textColor="@color/black"/>
         </LinearLayout>
     </RelativeLayout>

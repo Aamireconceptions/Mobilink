@@ -41,6 +41,12 @@ public class Deal extends Model {
     @Column(name = "title")
     public String title;
 
+    @Column(name = "contact", notNull = false)
+    public String contact;
+
+    @Column(name = "address", notNull = false)
+    public String address;
+
     @Column(name = "category", notNull = false)
     public String category;
 
@@ -74,6 +80,8 @@ public class Deal extends Model {
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
+        this.contact = deal.contact;
+        this.address = deal.address;
         this.isFavorite = deal.isFav;
         this.discount = deal.discount;
         this.category = deal.category;
@@ -86,6 +94,8 @@ public class Deal extends Model {
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
+        this.address = deal.address;
+        this.contact = deal.contact;
         this.discount = deal.discount;
         this.category = deal.category;
         this.isFavorite = deal.isFavorite;

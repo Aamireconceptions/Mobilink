@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:rating="3"
+            android:rating="0"
             android:progressDrawable="@drawable/deal_rating_bar"
             style="?android:attr/ratingBarStyleSmall"/>
 
@@ -104,7 +104,7 @@
             android:layout_marginEnd="@dimen/_12sdp"
             android:drawableStart="@drawable/ic_views"
             android:drawablePadding="@dimen/_4sdp"
-            android:text="523"/>
+            android:text="0"/>
 
     </RelativeLayout>
 

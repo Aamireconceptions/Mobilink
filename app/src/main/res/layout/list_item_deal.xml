@@ -110,7 +110,7 @@
             android:layout_centerVertical="true"
             android:numStars="5"
             android:progressDrawable="@drawable/deal_rating_bar"
-            android:rating="3"
+            android:rating="0"
             android:stepSize="1.0"/>
 
         <ImageView
@@ -131,7 +131,7 @@
             android:layout_toLeftOf="@+id/iv_share"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:text="12080"
+            android:text="0"
             android:textColor="@color/black"
             android:textSize="14sp"/>
 

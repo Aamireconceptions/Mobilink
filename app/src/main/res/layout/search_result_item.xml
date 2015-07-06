@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_desc"
             android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/iv"
             android:gravity="left|center_vertical"
             android:text="30% OFF"
             android:textColor="@color/red"
@@ -65,7 +66,7 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/iv"
         android:progressDrawable="@drawable/deal_rating_bar"
-        android:rating="3"/>
+        android:rating="0"/>
 
     <TextView
         android:id="@+id/tv_views"
@@ -78,6 +79,6 @@
         android:drawablePadding="@dimen/_4sdp"
         android:drawableStart="@drawable/ic_views"
         android:gravity="center"
-        android:text="523"/>
+        android:text="0"/>
 
 </RelativeLayout>

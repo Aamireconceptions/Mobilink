@@ -11,6 +11,8 @@ public class AppConstant {
     public static final String BUSINESS_TYPE = "BUSINESS_TYPE";
     public static final String CATEGORY = "CATEGORIES";
 
+    public static final String DIALER_PREFIX = "tel:";
+
     public static final String PERCENT_OFF = " % OFF";
 
     public static final String INTERNET_CONN_ERR = "No Internet connection";

@@ -28,6 +28,7 @@ import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
+import static com.ooredoo.bizstore.AppConstant.DIALER_PREFIX;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
@@ -88,7 +89,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
                 Logger.print("Extras: " + paramId);
                 id = intent.getIntExtra(AppConstant.ID, 0);
-                getIntent().putExtra(AppConstant.ID, Long.parseLong(paramId));
+                getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
                 getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
                 initViews();
             }
@@ -172,11 +173,14 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
             ratingDialog = showRatingDialog(this, "deals", id);
         } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:03352899951")); //TODO replace number
-            startActivity(intent);
+            if(src != null && isNotNullOrEmpty(src.contact)) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(DIALER_PREFIX.concat(src.contact)));
+                startActivity(intent);
+            } else {
+                makeText(getApplicationContext(), "No contact number found", LENGTH_LONG).show();
+            }
         } else if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
-            //TODO implement share functionality
             shareDeal(this, src.id);
         }
     }

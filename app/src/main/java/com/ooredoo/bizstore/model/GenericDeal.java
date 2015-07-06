@@ -29,6 +29,8 @@ public class GenericDeal {
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
+        this.address = deal.address;
+        this.contact = deal.contact;
         this.discount = deal.discount;
         this.category = deal.category;
         this.isFav = deal.isFavorite;
@@ -41,6 +43,8 @@ public class GenericDeal {
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
+        this.address = deal.address;
+        this.contact = deal.contact;
         this.discount = deal.discount;
         this.category = deal.category;
         this.isFav = deal.isFavorite;

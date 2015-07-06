@@ -42,6 +42,12 @@ public class RecentDeal extends Model {
     @Column(name = "title")
     public String title;
 
+    @Column(name = "contact", notNull = false)
+    public String contact;
+
+    @Column(name = "address", notNull = false)
+    public String address;
+
     @Column(name = "category", notNull = false)
     public String category;
 
@@ -54,21 +60,14 @@ public class RecentDeal extends Model {
     public RecentDeal() {
     }
 
-    public RecentDeal(int id, int type, String title, int discount, String desc, String city) {
-        this.id = id;
-        this.type = type;
-        this.desc = desc;
-        this.city = city;
-        this.title = title;
-        this.discount = discount;
-    }
-
     public RecentDeal(GenericDeal deal) {
         this.id = deal.id;
         this.desc = deal.detail;
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
+        this.address = deal.address;
+        this.contact = deal.contact;
         this.isFavorite = deal.isFav;
         this.discount = deal.discount;
         this.category = deal.category;

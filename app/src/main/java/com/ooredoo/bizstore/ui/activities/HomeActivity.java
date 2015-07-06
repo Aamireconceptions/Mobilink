@@ -40,7 +40,6 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
-import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
@@ -101,8 +100,6 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     private void init() {
-        TopDealsFragment topDealsFragment = null;
-        OnFilterChangeListener onFilterChangeListener = topDealsFragment;
 
         homePagerAdapter = new HomePagerAdapter(getFragmentManager());
 
@@ -115,6 +112,9 @@ public class HomeActivity extends AppCompatActivity implements
 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
         acSearch.setThreshold(1);
+
+        mSearchResultsListView = (ListView) searchView.findViewById(R.id.lv_search_results);
+        mSuggestionsListView = (ListView) searchView.findViewById(R.id.lv_search_suggestions);
 
         mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
 
@@ -266,8 +266,6 @@ public class HomeActivity extends AppCompatActivity implements
     public void showSearchPopup() {
         tabLayout.setAlpha(0.45f);
         viewPager.setAlpha(0.45f);
-        mSearchResultsListView = (ListView) searchView.findViewById(R.id.lv_search_results);
-        mSuggestionsListView = (ListView) searchView.findViewById(R.id.lv_search_suggestions);
         mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
         mSuggestionsListView.setAdapter(mSuggestionsAdapter);
         searchView.findViewById(R.id.cb_search_deals).setOnClickListener(this);

@@ -10,7 +10,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.SearchResult;
+import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.StringUtils;
 
@@ -84,6 +86,8 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
         holder.tvViews.setText(valueOf(result.views));
         holder.tvDiscount.setText(String.valueOf(result.discount) + PERCENT_OFF);
 
+        holder.ratingBar.setRating(result.rating);
+
         if(searchType == SEARCH_DEALS_AND_BUSINESS) {
             view.setVisibility(View.VISIBLE);
         } else if(searchType == SEARCH_BUSINESS && !isBusiness) {
@@ -97,9 +101,10 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
             public void onClick(View v) {
                 Log.i("ITEM", String.valueOf(result.type));
                 if(isBusiness) {
-                    mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], result.id); //TODO replace 0L with business id
+                    BusinessDetailActivity.selectedBusiness = new Business(result);
+                    mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], result.id);
                 } else {
-                    mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], result.id); //TODO replace 0L with deal id
+                    mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], result.id);
                 }
             }
         });
