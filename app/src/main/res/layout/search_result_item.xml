@@ -16,38 +16,68 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_deal_tag"/>
 
-    <TextView
-        android:id="@+id/tv_title"
+    <RelativeLayout
+        android:id="@+id/rl_search_result"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:text="@string/top_deals"
+            android:textColor="@color/red"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginTop="8dp"
+            android:gravity="left|center_vertical"
+            android:text="@string/sms_charges"
+            android:textColor="@color/hex808080"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_discount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_desc"
+            android:layout_marginTop="8dp"
+            android:gravity="left|center_vertical"
+            android:text="30% OFF"
+            android:textColor="@color/red"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_search_result"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/iv"
-        android:gravity="left|center_vertical"
-        android:singleLine="true"
-        android:text="@string/top_deals"
-        android:textColor="@color/red"
-        android:textSize="14sp"/>
+        android:progressDrawable="@drawable/deal_rating_bar"
+        android:rating="3"/>
 
     <TextView
-        android:id="@+id/tv_desc"
-        android:layout_width="fill_parent"
+        android:id="@+id/tv_views"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title"
-        android:layout_marginTop="8dp"
-        android:layout_toRightOf="@+id/iv"
-        android:gravity="left|center_vertical"
-        android:text="@string/sms_charges"
-        android:textColor="@color/hex808080"
-        android:textSize="14sp"/>
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/rl_search_result"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="@dimen/_4sdp"
+        android:drawableStart="@drawable/ic_views"
+        android:gravity="center"
+        android:text="523"/>
 
-    <TextView
-        android:id="@+id/tv_discount"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_desc"
-        android:layout_marginTop="8dp"
-        android:layout_toRightOf="@+id/iv"
-        android:gravity="left|center_vertical"
-        android:text="30% OFF"
-        android:textColor="@color/red"
-        android:textSize="14sp"/>
 </RelativeLayout>

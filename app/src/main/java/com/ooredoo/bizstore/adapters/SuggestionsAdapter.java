@@ -7,12 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.utils.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SuggestionsAdapter extends ArrayAdapter<String> {
 
@@ -57,8 +53,10 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
     }
 
     protected void setClickListener(String suggestion) {
-        List<Deal> searchResults = search("", 1);
+        new SearchTask(mActivity).execute(suggestion);
 
+        /*
+        List<SearchResult> searchResults = new ArrayList<>();
         Logger.logI("SUGGESTION", suggestion);
         View searchDropDown = mActivity.searchPopup.getContentView();
         searchDropDown.findViewById(R.id.divider).setVisibility(View.GONE);
@@ -70,18 +68,7 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
         mActivity.mSearchResultsListView.setAdapter(adapter);
         mActivity.mSuggestionsListView.setVisibility(View.GONE);
         mActivity.mSearchResultsListView.setVisibility(View.VISIBLE);
+        */
     }
 
-    public List<Deal> search(String keyword, int type) {
-        //TODO search for deals/businesses & populate list
-        List<Deal> searchResults = new ArrayList<>();
-        searchResults.add(new Deal(1, 1, "Title", 30, "Description", "Islamabad"));
-        searchResults.add(new Deal(2, 1, "Title", 30, "Description", "Islamabad"));
-        searchResults.add(new Deal(3, 2, "Title", 30, "Description", "Islamabad"));
-        searchResults.add(new Deal(4, 1, "Title", 30, "Description", "Islamabad"));
-        searchResults.add(new Deal(5, 1, "Title", 30, "Description", "Islamabad"));
-        searchResults.add(new Deal(6, 2, "Title", 30, "Description", "Islamabad"));
-        searchResults.add(new Deal(7, 1, "Title", 30, "Description", "Islamabad"));
-        return searchResults;
-    }
 }

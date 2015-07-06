@@ -3,11 +3,13 @@ package com.ooredoo.bizstore.asynctasks;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
-import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.Results;
 import com.ooredoo.bizstore.model.SearchItem;
+import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -53,25 +55,31 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
 
         if(result != null) {
             try {
-                //TODO Results results = new Gson().fromJson(result, Results.class);
+                Results results = new Gson().fromJson(result, Results.class);
 
-                List<Deal> deals = new ArrayList<>();//results.list;
-                for(Deal deal : deals) {
-                    Logger.print("Search Result: " + deal.title);
+                List<SearchResult> searchResults = results.list;
+
+                if(searchResults == null)
+                    searchResults = new ArrayList<>();
+
+                if(searchResults.size() > 0) {
+                    for(SearchResult searchResult : searchResults) {
+                        Logger.print("Search Result: " + searchResult.title);
+                    }
                 }
 
                 View searchDropDown = mActivity.searchPopup.getContentView();
                 searchDropDown.findViewById(R.id.divider).setVisibility(View.GONE);
                 TextView tvSearchResults = (TextView) searchDropDown.findViewById(R.id.tv_search_results);
-                tvSearchResults.setText("Showing " + deals.size() + " Results");
-                new SearchItem(0, keyword, deals.size()).save();
+                tvSearchResults.setText("Showing " + searchResults.size() + " Results");
+                new SearchItem(0, keyword, searchResults.size()).save();
                 tvSearchResults.setVisibility(View.VISIBLE);
                 ((View) tvSearchResults.getParent()).setVisibility(View.VISIBLE);
-                SearchResultsAdapter adapter = new SearchResultsAdapter(mActivity, R.layout.search_result_item, deals);
+                SearchResultsAdapter adapter = new SearchResultsAdapter(mActivity, R.layout.search_result_item, searchResults);
                 mActivity.mSearchResultsListView.setAdapter(adapter);
                 mActivity.mSuggestionsListView.setVisibility(View.GONE);
                 mActivity.mSearchResultsListView.setVisibility(View.VISIBLE);
-                adapter.setData(deals);
+                adapter.setData(searchResults);
                 adapter.notifyDataSetChanged();
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();

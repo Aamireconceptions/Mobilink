@@ -223,6 +223,9 @@ public class HomeActivity extends AppCompatActivity implements
         int id = item.getItemId();
         if(id == android.R.id.home) {
             if(isSearchEnabled) {
+                searchView.findViewById(R.id.rl_search_results).setVisibility(View.GONE);
+                mSearchResultsListView.setVisibility(View.GONE);
+                mSuggestionsListView.setVisibility(View.VISIBLE);
                 showHideSearchBar(false);
             } else {
                 showHideDrawer(GravityCompat.START, true);
@@ -350,7 +353,6 @@ public class HomeActivity extends AppCompatActivity implements
         if(viewId == R.id.ac_search) {
             if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 if(hasInternetConnection(this)) {
-                    //TODO implement Search
                     String keyword = ((AutoCompleteTextView) v).getText().toString();
                     Logger.print("SEARCH_KEYWORD: " + keyword);
                     new SearchTask(this).execute(keyword);
