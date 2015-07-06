@@ -52,46 +52,6 @@
         android:layout_height="10dp"
         android:background="@color/grey"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_search_results"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="start|center_vertical"
-        android:background="@color/red"
-        android:gravity="start|center_vertical">
-
-        <TextView
-            android:id="@+id/tv_search_results"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/iv_filter_results"
-            android:paddingLeft="15dp"
-            android:text="Showing 10 Results"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="normal"/>
-
-        <ImageView
-            android:id="@+id/iv_filter_results"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_filter"/>
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/lv_search_results"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:divider="@color/white"
-        android:dividerHeight="0dp"
-        android:scrollbars="none"
-        android:visibility="gone"/>
-
     <ListView
         android:id="@+id/lv_search_suggestions"
         android:layout_width="match_parent"

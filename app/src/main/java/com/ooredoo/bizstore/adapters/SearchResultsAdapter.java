@@ -22,14 +22,10 @@ import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.PERCENT_OFF;
-import static com.ooredoo.bizstore.AppConstant.SEARCH_BUSINESS;
-import static com.ooredoo.bizstore.AppConstant.SEARCH_DEALS;
-import static com.ooredoo.bizstore.AppConstant.SEARCH_DEALS_AND_BUSINESS;
 import static java.lang.String.valueOf;
 
 public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
 
-    public static int searchType = 0;
     HomeActivity mActivity;
     int layoutResID;
     List<SearchResult> results;
@@ -81,20 +77,12 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
         holder.tvDiscount.setVisibility(isBusiness ? View.GONE : View.VISIBLE);
         holder.ivTypeIcon.setImageResource(isBusiness ? R.drawable.ic_business : R.drawable.ic_deal_tag);
 
-        holder.tvDesc.setText(result.desc);
+        holder.tvDesc.setText(result.description);
         holder.tvTitle.setText(result.title);
         holder.tvViews.setText(valueOf(result.views));
         holder.tvDiscount.setText(String.valueOf(result.discount) + PERCENT_OFF);
 
         holder.ratingBar.setRating(result.rating);
-
-        if(searchType == SEARCH_DEALS_AND_BUSINESS) {
-            view.setVisibility(View.VISIBLE);
-        } else if(searchType == SEARCH_BUSINESS && !isBusiness) {
-            view.setVisibility(View.GONE);
-        } else if(searchType == SEARCH_DEALS && isBusiness) {
-            view.setVisibility(View.GONE);
-        }
 
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override

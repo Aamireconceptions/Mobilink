@@ -79,7 +79,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
             holder.ivCategory.setImageResource(categoryIcon);
         }
 
-        holder.tvDesc.setText(deal.desc);
+        holder.tvDesc.setText(deal.description);
         holder.tvTitle.setText(deal.title);
         holder.tvViews.setText(valueOf(deal.views));
         holder.tvDiscount.setText(String.valueOf(deal.discount) + PERCENT_OFF);

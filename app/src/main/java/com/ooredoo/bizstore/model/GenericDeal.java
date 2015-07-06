@@ -11,8 +11,7 @@ public class GenericDeal {
 
     public int id, views, discount;
 
-    @SerializedName("desc")
-    public String detail;
+    public String description;
 
     public String title, category, contact, address;
 
@@ -25,7 +24,6 @@ public class GenericDeal {
 
     public GenericDeal(RecentDeal deal) {
         this.id = deal.id;
-        this.detail = deal.desc;
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
@@ -34,12 +32,12 @@ public class GenericDeal {
         this.discount = deal.discount;
         this.category = deal.category;
         this.isFav = deal.isFavorite;
+        this.description = deal.description;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
 
     public GenericDeal(Deal deal) {
         this.id = deal.id;
-        this.detail = deal.desc;
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
@@ -48,6 +46,7 @@ public class GenericDeal {
         this.discount = deal.discount;
         this.category = deal.category;
         this.isFav = deal.isFavorite;
+        this.description = deal.description;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
 }

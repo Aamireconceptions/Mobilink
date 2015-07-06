@@ -67,7 +67,7 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
             view.setTag(holder);
         }
 
-        holder.tvDesc.setText(deal.desc);
+        holder.tvDesc.setText(deal.description);
         holder.tvTitle.setText(deal.title);
         holder.tvCategory.setText(deal.category);
         holder.tvViews.setText(valueOf(deal.views));

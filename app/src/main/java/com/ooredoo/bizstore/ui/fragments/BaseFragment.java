@@ -44,14 +44,14 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
     }
 
-    public void hideKeyboard() {
+    public static void hideKeyboard(Activity activity) {
         try {
-            View view = mActivity.getCurrentFocus();
+            View view = activity.getCurrentFocus();
             if(view != null) {
-                InputMethodManager inputManager = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
-            Window window = mActivity.getWindow();
+            Window window = activity.getWindow();
             if(window != null) {
                 window.setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             }

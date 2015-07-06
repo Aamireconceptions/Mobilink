@@ -144,7 +144,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
             ((TextView) findViewById(R.id.tv_title)).setText(deal.title);
             ((TextView) findViewById(R.id.tv_contact)).setText(deal.contact);
-            ((TextView) findViewById(R.id.tv_deal_desc)).setText(deal.detail);
+            ((TextView) findViewById(R.id.tv_deal_desc)).setText(deal.description);
             ((TextView) findViewById(R.id.tv_address)).setText(deal.address);
             ((TextView) findViewById(R.id.tv_location)).setText(deal.address);
             ((TextView) findViewById(R.id.tv_category)).setText(deal.category);

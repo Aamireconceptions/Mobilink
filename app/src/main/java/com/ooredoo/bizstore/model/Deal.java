@@ -33,7 +33,7 @@ public class Deal extends Model {
     public long businessId;
 
     @Column(name = "desc")
-    public String desc;
+    public String description;
 
     @Column(name = "city", notNull = false)
     public String city;
@@ -68,7 +68,7 @@ public class Deal extends Model {
     public Deal(int id, int type, String title, int discount, String desc, String city) {
         this.id = id;
         this.type = type;
-        this.desc = desc;
+        this.description = desc;
         this.city = city;
         this.title = title;
         this.discount = discount;
@@ -76,7 +76,6 @@ public class Deal extends Model {
 
     public Deal(GenericDeal deal) {
         this.id = deal.id;
-        this.desc = deal.detail;
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
@@ -85,12 +84,12 @@ public class Deal extends Model {
         this.isFavorite = deal.isFav;
         this.discount = deal.discount;
         this.category = deal.category;
+        this.description = deal.description;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }
 
     public Deal(RecentDeal deal) {
         this.id = deal.id;
-        this.desc = deal.desc;
         this.title = deal.title;
         this.views = deal.views;
         this.rating = deal.rating;
@@ -99,6 +98,7 @@ public class Deal extends Model {
         this.discount = deal.discount;
         this.category = deal.category;
         this.isFavorite = deal.isFavorite;
+        this.description = deal.description;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
 
@@ -120,7 +120,7 @@ public class Deal extends Model {
             }
             favDeal.id = deal.id;
             favDeal.city = deal.city;
-            favDeal.desc = deal.desc;
+            favDeal.description = deal.description;
             favDeal.type = deal.type;
             favDeal.views = deal.views;
             favDeal.title = deal.title;
@@ -128,6 +128,7 @@ public class Deal extends Model {
             favDeal.category = deal.category;
             favDeal.discount = deal.discount;
             favDeal.isFavorite = deal.isFavorite;
+            favDeal.description = deal.description;
             Log.i("UPDATE_FAV_DEAL: " + deal.id, "---" + deal.isFavorite);
             favDeal.save();
         }

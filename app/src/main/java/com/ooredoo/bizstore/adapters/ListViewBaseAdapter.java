@@ -131,7 +131,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvTitle.setText(deal.title);
 
-        holder.tvDetail.setText(deal.detail);
+        holder.tvDetail.setText(deal.description);
 
         holder.tvDiscount.setText(valueOf(deal.discount) + PERCENT_OFF);
 

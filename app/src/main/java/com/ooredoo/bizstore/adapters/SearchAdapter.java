@@ -81,7 +81,7 @@ public class SearchAdapter extends android.widget.ArrayAdapter {
 
         holder.tvTitle.setText(getItem(position).title);
 
-        holder.tvDetail.setText(getItem(position).desc);
+        holder.tvDetail.setText(getItem(position).description);
 
         holder.tvDiscount.setText(getItem(position).discount);
 

@@ -46,7 +46,7 @@ public class RecentSearchesFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                hideKeyboard();
+                hideKeyboard(mActivity);
                 AppCompatActivity activity = (AppCompatActivity) mActivity;
                 FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container, new WelcomeFragment(), "");
             }

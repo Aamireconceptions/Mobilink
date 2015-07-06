@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,8 +12,8 @@ import java.util.List;
 public class Results {
 
     @SerializedName("result")
-    public int resultCode;
+    public int resultCode = -1;
 
     @SerializedName("results")
-    public List<SearchResult> list;
+    public List<SearchResult> list = new ArrayList<>();
 }

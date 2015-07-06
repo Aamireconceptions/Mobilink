@@ -60,7 +60,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.list_view).setVisibility(noSearchItemFound ? View.GONE : View.VISIBLE);
         findViewById(R.id.no_data_view).setVisibility(noSearchItemFound ? View.VISIBLE : View.GONE);
         ((TextView) findViewById(R.id.tv_no_data)).setText("No recent viewed item found.");
-        ((ImageView) findViewById(R.id.ic_no_data)).setImageResource(R.drawable.recent_searches);
+        ((ImageView) findViewById(R.id.ic_no_data)).setImageResource(R.drawable.recent_viewed);
     }
 
     private void setupToolbar() {
@@ -105,7 +105,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             }
             rd.id = deal.id;
             rd.type = deal.type;
-            rd.desc = deal.desc;
+            rd.description = deal.description;
             rd.city = deal.city;
             rd.title = deal.title;
             rd.views = deal.views;
@@ -125,12 +125,12 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
                 rd = deals.get(0);
             }
             rd.id = deal.id;
-            rd.desc = deal.detail;
             rd.title = deal.title;
             rd.views = deal.views;
             rd.rating = deal.rating;
-            rd.category = deal.category;
             rd.discount = deal.discount;
+            rd.category = deal.category;
+            rd.description = deal.description;
             Log.i("UPDATE", "EXISTING---" + rd.title);
             rd.save();
         }

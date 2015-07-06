@@ -5,18 +5,22 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.ooredoo.bizstore.AppData;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.model.Results;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.fragments.BaseFragment;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.ooredoo.bizstore.AppData.searchResults;
+import static com.ooredoo.bizstore.ui.activities.HomeActivity.searchType;
 
 /**
  * @author Pehlaj Rai
@@ -55,32 +59,40 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
 
         if(result != null) {
             try {
-                Results results = new Gson().fromJson(result, Results.class);
+                AppData.searchResults = new Gson().fromJson(result, Results.class);
 
-                List<SearchResult> searchResults = results.list;
+                if(AppData.searchResults.list == null)
+                    AppData.searchResults.list = new ArrayList<>();
 
-                if(searchResults == null)
-                    searchResults = new ArrayList<>();
+                Logger.logI("TYPE", searchType);
 
-                if(searchResults.size() > 0) {
-                    for(SearchResult searchResult : searchResults) {
-                        Logger.print("Search Result: " + searchResult.title);
+                Logger.logI("COUNT", String.valueOf(AppData.searchResults.list.size()));
+
+                List<SearchResult> results = new ArrayList<>();
+                if(AppData.searchResults.list.size() > 0) {
+                    if(searchType.equalsIgnoreCase("all")) {
+                        results = searchResults.list;
+                    } else if(searchType.equalsIgnoreCase("business")) {
+                        results = HomeActivity.getBusinesses();
+                    } else {
+                        results = HomeActivity.getDeals();
                     }
                 }
 
-                View searchDropDown = mActivity.searchPopup.getContentView();
-                searchDropDown.findViewById(R.id.divider).setVisibility(View.GONE);
-                TextView tvSearchResults = (TextView) searchDropDown.findViewById(R.id.tv_search_results);
-                tvSearchResults.setText("Showing " + searchResults.size() + " Results");
-                new SearchItem(0, keyword, searchResults.size()).save();
+                mActivity.hideSearchPopup();
+                HomeActivity.isShowResults = true;
+                mActivity.findViewById(R.id.layout_search_results).setVisibility(View.VISIBLE);
+
+                TextView tvSearchResults = (TextView) mActivity.findViewById(R.id.tv_search_results);
+                tvSearchResults.setText("Showing " + results.size() + " Results");
                 tvSearchResults.setVisibility(View.VISIBLE);
-                ((View) tvSearchResults.getParent()).setVisibility(View.VISIBLE);
-                SearchResultsAdapter adapter = new SearchResultsAdapter(mActivity, R.layout.search_result_item, searchResults);
-                mActivity.mSearchResultsListView.setAdapter(adapter);
-                mActivity.mSuggestionsListView.setVisibility(View.GONE);
-                mActivity.mSearchResultsListView.setVisibility(View.VISIBLE);
-                adapter.setData(searchResults);
-                adapter.notifyDataSetChanged();
+
+                SearchItem searchItem = new SearchItem(0, keyword, results.size());
+                SearchItem.addToRecentSearches(searchItem);
+
+                mActivity.populateSearchResults(results);
+
+                BaseFragment.hideKeyboard(mActivity);
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }

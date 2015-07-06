@@ -34,7 +34,7 @@ public class RecentDeal extends Model {
     public long businessId;
 
     @Column(name = "desc")
-    public String desc;
+    public String description;
 
     @Column(name = "city", notNull = false)
     public String city;
@@ -58,19 +58,6 @@ public class RecentDeal extends Model {
     public boolean isFavorite;
 
     public RecentDeal() {
-    }
-
-    public RecentDeal(GenericDeal deal) {
-        this.id = deal.id;
-        this.desc = deal.detail;
-        this.title = deal.title;
-        this.views = deal.views;
-        this.rating = deal.rating;
-        this.address = deal.address;
-        this.contact = deal.contact;
-        this.isFavorite = deal.isFav;
-        this.discount = deal.discount;
-        this.category = deal.category;
     }
 
     public static boolean isFavorite(RecentDeal deal) {
