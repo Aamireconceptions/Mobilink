@@ -58,7 +58,7 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
         }
 
         List<Notification> n = new Select().all().from(Notification.class).where("notificationId=" + notification.id).execute();
-        if(n != null) {
+        if(n != null && n.size() > 0) {
             notification.enabled = n.get(0).enabled;
             Log.i("ENABLED: " + notification.id, position + " - " + notification.enabled);
         }
