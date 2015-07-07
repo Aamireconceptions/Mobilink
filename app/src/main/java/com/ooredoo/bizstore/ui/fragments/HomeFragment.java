@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -22,6 +21,7 @@ import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
 import com.ooredoo.bizstore.asynctasks.TopMallsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
@@ -41,6 +41,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
     private TextView tvDealsOfTheDay;
 
     private ListViewBaseAdapter adapter;
+
+    DashboardItemClickListener dashboardItemClickListener;
 
     public static HomeFragment newInstance()
     {
@@ -71,6 +73,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
 
         View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);
 
+        setDashboardItemsClickListener(header);
+
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
 
         List<GenericDeal> deals = new ArrayList<>();
@@ -89,6 +93,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         //initAndLoadTopMalls(v);
 
         initAndLoadDealsOfTheDay();
+    }
+
+    private void setDashboardItemsClickListener(View parent) {
+        dashboardItemClickListener = new DashboardItemClickListener(activity);
+
+        parent.findViewById(R.id.jokes).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.events).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.movie_tickets).setOnClickListener(dashboardItemClickListener);
     }
 
     private void initAndLoadFeaturedDeals(View v)

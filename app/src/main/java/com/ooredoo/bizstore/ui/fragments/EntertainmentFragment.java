@@ -24,6 +24,8 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+
 public class EntertainmentFragment extends Fragment implements OnFilterChangeListener
 {
     private HomeActivity activity;
@@ -31,6 +33,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     private ListViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
+
+    public static String subCategory;
 
     public static EntertainmentFragment newInstance()
     {
@@ -84,6 +88,12 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     private void fetchAndDisplayEntertainment()
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+
+        if(isNotNullOrEmpty(subCategory)) {
+            DealsTask.subCategories = subCategory;
+            subCategory = ""; //Reset sub category filter.
+        }
+
         dealsTask.execute("entertainment");
     }
 
