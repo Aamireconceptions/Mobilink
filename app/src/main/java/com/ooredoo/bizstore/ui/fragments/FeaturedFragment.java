@@ -32,11 +32,11 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
 
     private int id;
 
-    public static FeaturedFragment newInstance(String imgUrl, int id)
+    public static FeaturedFragment newInstance(int id, String imgUrl)
     {
         Bundle bundle = new Bundle();
-        bundle.putString("image_url", imgUrl);
         bundle.putInt("id", id);
+        bundle.putString("image_url", imgUrl);
 
         FeaturedFragment fragment = new FeaturedFragment();
         fragment.setArguments(bundle);

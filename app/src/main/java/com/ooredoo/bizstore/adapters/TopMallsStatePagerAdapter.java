@@ -36,14 +36,16 @@ public class TopMallsStatePagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        //return TopMallFragment.newInstance(malls.get(position).id);
+        Mall mall = malls.get(position);
 
-        return TopMallFragment.newInstance(1);
+        return TopMallFragment.newInstance(mall.id,
+                                           mall.name,
+                                           mall.image.logoUrl);
     }
 
     @Override
     public int getCount() {
-        return 6;
+        return malls.size();
     }
 
     @Override

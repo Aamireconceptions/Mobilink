@@ -89,11 +89,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:background="@color/tool_bar"
-                android:gravity="center"
                 android:padding="@dimen/_8sdp"
-                android:text="Lorem ispum ioasdasdas dasdas"
-                android:textColor="@android:color/primary_text_light"/>
+                android:text="@string/share_with_friends_txt"
+                android:textColor="@android:color/primary_text_light"
+                android:background="@color/tool_bar"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -103,7 +102,8 @@
                 android:text="@string/share_now"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:onClick="shareApp"/>
 
         </LinearLayout>
 

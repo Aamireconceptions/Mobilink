@@ -3,11 +3,15 @@ package com.ooredoo.bizstore.asynctasks;
 import android.support.v4.view.ViewPager;
 
 import com.google.gson.Gson;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
+import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Mall;
+import com.ooredoo.bizstore.model.MallResponse;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +21,12 @@ import java.util.List;
  * @since 25-Jun-15.
  */
 public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
+
     private TopMallsStatePagerAdapter adapter;
 
     private ViewPager viewPager;
+
+    private final static String SERVICE_NAME = "/topmall?";
 
     public TopMallsTask(TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
         this.adapter = adapter;
@@ -30,7 +37,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            return getTopMalls();
+            return getTopMalls(params[0]);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -46,33 +53,32 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
             Gson gson = new Gson();
 
-            //TODO remove comment Response response = gson.fromJson(result, Response.class);
+            MallResponse mallResponse = gson.fromJson(result, MallResponse.class);
 
-            List<Mall> malls = new ArrayList<>();//TODO response.malls;
-            malls.add(new Mall());
-            malls.add(new Mall());
-            malls.add(new Mall());
-            malls.add(new Mall());
-            malls.add(new Mall());
-
-            adapter.setData(malls);
+            adapter.setData(mallResponse.malls);
             adapter.notifyDataSetChanged();
         } else {
             Logger.print("TopBrandsAsyncTask: Failed to download Banners due to no internet");
         }
     }
 
-    private String getTopMalls() throws IOException {
-        String result = null;
+    private String getTopMalls(String category) throws IOException
+    {
+        String result;
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("category", "top_malls");
+        params.put(OS, ANDROID);
+        params.put(CATEGORY, category);
 
-        setServiceUrl("deals", params);
+        String query = createQuery(params);
 
-        result = getJson();
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-        Logger.print("getDeals:" + result);
+        Logger.print("getTopMalls() URL:"+ url.toString());
+
+        result = getJson(url);
+
+        Logger.print("getTopMalls:" + result);
 
         return result;
     }

@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
 
         initAndLoadPromotions(v);
 
-        //initAndLoadTopBrands(v);
+        initAndLoadTopBrands(v);
 
         //initAndLoadTopMalls(v);
 
@@ -148,11 +148,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
     private void initAndLoadTopBrands(View v)
     {
         List<Brand> brands = new ArrayList<>();
-        brands.add(new Brand());
-        brands.add(new Brand());
-        brands.add(new Brand());
-        brands.add(new Brand());
-        brands.add(new Brand());
 
         TopBrandsStatePagerAdapter adapter = new TopBrandsStatePagerAdapter(getFragmentManager(),
                                                                             brands);
@@ -160,33 +155,19 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
         topBrandsPager.setAdapter(adapter);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
-                                                   v.findViewById(R.id.promo_indicator);
-        circlePageIndicator.setViewPager(topBrandsPager);
-
         TopBrandsTask topBrandsTask = new TopBrandsTask(adapter, topBrandsPager);
-        topBrandsTask.execute();
+        topBrandsTask.execute("malls");
     }
 
     private void initAndLoadTopMalls(View v)
     {
         List<Mall> malls = new ArrayList<>();
-        malls.add(new Mall());
-        malls.add(new Mall());
-        malls.add(new Mall());
-        malls.add(new Mall());
-        malls.add(new Mall());
 
         TopMallsStatePagerAdapter adapter = new TopMallsStatePagerAdapter(getFragmentManager(),
                                                                           malls);
 
         ViewPager topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
-
         topMallsPager.setAdapter(adapter);
-
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
-                                                   v.findViewById(R.id.promo_indicator);
-        circlePageIndicator.setViewPager(topMallsPager);
 
         TopMallsTask topMallsTask = new TopMallsTask(adapter, topMallsPager);
 

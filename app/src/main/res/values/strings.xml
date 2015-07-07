@@ -88,6 +88,7 @@
     <string name="share_app_note">Bizstore app will send a sms message to given phone number. Carrier SMS charges may apply.</string>
     <string name="enter_number">Please Enter Mobile Number</string>
     <string name="sharing_msg">Sharing Message</string>
+    <string name="share_with_friends_txt">"Hi,\n\n I just found this great app for you called Ooredoo biz store. You can find businesses and enjoy the best deals &amp; discounts in your town.\n\nSend SMS to 7000 to download the application"\n\nPlease use the short code which is being used to download the application. Thanks</string>
     <string name="share_now">Share Now</string>
     <string name="Preview">Preview</string>
     <string name="Deal_Description">Deal Description</string>

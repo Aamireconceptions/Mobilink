@@ -71,7 +71,7 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
 
         if(imgUrl != null)
         {
-            Logger.print("imgUrl was NOT null");
+            Logger.print("Top Brand imgUrl was NOT null");
             MemoryCache memoryCache = MemoryCache.getInstance();
 
             String url = BaseAsyncTask.IMAGE_BASE_URL + imgUrl;
@@ -102,7 +102,7 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
         }
         else
         {
-            Logger.print("imgUrl was null");
+            Logger.print("Top Brand imgUrl was null");
         }
     }
 

@@ -6,4 +6,8 @@ package com.ooredoo.bizstore.model;
 public class Mall
 {
     public int id;
+
+    public String name;
+
+    public Image image;
 }

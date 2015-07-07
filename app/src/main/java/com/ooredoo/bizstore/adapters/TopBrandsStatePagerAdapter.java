@@ -34,7 +34,9 @@ public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return TopBrandFragment.newInstance(brands.get(position).image.bannerUrl);
+        Brand brand = brands.get(position);
+
+        return TopBrandFragment.newInstance(brand.id, brand.image.logoUrl);
     }
 
     @Override

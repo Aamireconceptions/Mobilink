@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.support.v4.view.ViewPager;
 
 import com.google.gson.Gson;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.BrandResponse;
@@ -24,7 +25,7 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
     private ViewPager viewPager;
 
-    private final static String SERVICE_NAME = "/topbrands";
+    private final static String SERVICE_NAME = "/topbrand?";
 
     public TopBrandsTask(TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
         this.adapter = adapter;
@@ -35,7 +36,7 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            return getTopBrands();
+            return getTopBrands(params[0]);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -65,15 +66,16 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
         }
     }
 
-    private String getTopBrands() throws IOException {
+    private String getTopBrands(String category) throws IOException {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
+        params.put(CATEGORY, category);
 
         String query = createQuery(params);
 
-        URL url = new URL(BASE_URL + SERVICE_NAME + query);
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
         Logger.print("getTopBrands() URL:"+ url.toString());
 

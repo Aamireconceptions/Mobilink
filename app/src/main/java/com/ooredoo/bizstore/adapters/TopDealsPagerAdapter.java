@@ -17,8 +17,6 @@ import java.util.List;
  */
 public class TopDealsPagerAdapter extends FragmentPagerAdapter
 {
-    private final static int PAGE_COUNT = 4;
-
     private List<GenericDeal> deals;
 
     public TopDealsPagerAdapter(FragmentManager fm, List<GenericDeal> deals)
@@ -37,7 +35,8 @@ public class TopDealsPagerAdapter extends FragmentPagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return FeaturedFragment.newInstance(deals.get(position).image.bannerUrl, deals.get(position).id);
+        return FeaturedFragment.newInstance(deals.get(position).id,
+                                            deals.get(position).image.bannerUrl);
     }
 
     @Override
