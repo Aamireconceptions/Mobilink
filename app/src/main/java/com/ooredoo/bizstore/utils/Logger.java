@@ -2,6 +2,8 @@ package com.ooredoo.bizstore.utils;
 
 import android.util.Log;
 
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+
 /**
  * @author  Babar
  * @since 12-Jun-15.
@@ -17,7 +19,7 @@ public class Logger
 
     public static void logD(String tag, String msg)
     {
-        if(enabled)
+        if(isNotNullOrEmpty(msg) && enabled)
         {
             Log.d(tag, msg);
         }
@@ -25,7 +27,7 @@ public class Logger
 
     public static void logV(String tag, String msg)
     {
-        if(enabled)
+        if(isNotNullOrEmpty(msg) && enabled)
         {
             Log.v(tag, msg);
         }
@@ -33,7 +35,7 @@ public class Logger
 
     public static void logE(String tag, String msg)
     {
-        if(enabled)
+        if(isNotNullOrEmpty(msg) && enabled)
         {
             Log.e(tag, msg);
         }
@@ -41,7 +43,7 @@ public class Logger
 
     public static void logI(String tag, String msg)
     {
-        if(enabled)
+        if(isNotNullOrEmpty(msg) && enabled)
         {
             Log.i(tag, msg);
         }
