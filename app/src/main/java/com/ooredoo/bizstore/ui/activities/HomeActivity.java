@@ -33,6 +33,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
+import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
@@ -54,7 +55,7 @@ import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
 import static com.ooredoo.bizstore.AppData.searchResults;
-import static com.ooredoo.bizstore.adapters.SuggestionsAdapter.suggestions;
+import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
@@ -104,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public CheckBox cbSearchDeals, cbSearchBusinesses;
 
+    public static ImageView profilePicture;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +113,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setContentView(R.layout.activity_home);
 
         init();
+
+        new SearchSuggestionsTask(this).execute();
     }
 
     private void init() {
@@ -144,7 +148,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
         mSuggestionsListView = (ListView) searchView.findViewById(R.id.lv_search_suggestions);
 
-        mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
+        mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, new String[] {});
 
         acSearch.addTextChangedListener(new SearchTextWatcher());
 
@@ -301,10 +305,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         isShowResults = false;
         tabLayout.setAlpha(0.25f);
         viewPager.setAlpha(0.25f);
-        mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions); //TODO get suggestions from server
-        mSuggestionsListView.setAdapter(mSuggestionsAdapter);
+        setSuggestions();
         findViewById(R.id.layout_search_results).setVisibility(View.GONE);
         searchPopup.showAsDropDown(acSearch, 10, 55);
+    }
+
+    public void setSuggestions() {
+        String[] suggestions = new String[] {};
+        if(searchSuggestions.list != null) {
+            suggestions = searchSuggestions.list;
+        }
+        mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
+        mSuggestionsListView.setAdapter(mSuggestionsAdapter);
+        mSuggestionsAdapter.notifyDataSetChanged();
     }
 
     public void hideSearchPopup() {

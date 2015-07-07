@@ -35,4 +35,5 @@ public class AppConstant {
 
     public static float MAX_ALPHA = 1.0f;
 
+    public static String PROFILE_PIC_URL = "/storage/emulated/0/Pehlaj/Food Court/480DPI/Assts optimized/drawable-xxhdpi/detail_restaurant.jpg";
 }

@@ -12,19 +12,20 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 public class SuggestionsAdapter extends ArrayAdapter<String> {
 
-    public static String[] suggestions = { "ooredoo", "ooredoo qatar", "ooredoo property portal", "ooredoo foodcourt", "ooredoo bizstore" };
-
     HomeActivity mActivity;
     int layoutResID;
-    String[] items;
+    String[] suggestions;
 
-    public SuggestionsAdapter(HomeActivity activity, int layoutResourceID, String[] items) {
-        super(activity, layoutResourceID, items);
+    public SuggestionsAdapter(HomeActivity activity, int layoutResourceID, String[] suggestions) {
+        super(activity, layoutResourceID, suggestions);
         this.mActivity = activity;
-        this.items = items;
+        this.suggestions = suggestions;
         this.layoutResID = layoutResourceID;
     }
 
+    public void setData(String[] suggestions) {
+        this.suggestions = suggestions;
+    }
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
@@ -40,7 +41,7 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
         final LayoutInflater inflater = mActivity.getLayoutInflater();
         convertView = inflater.inflate(layoutResID, null);
 
-        final String item = this.items[position];
+        final String item = this.suggestions[position];
         final TextView textView = (TextView) convertView.findViewById(R.id.tv_title);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,21 +55,5 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
 
     protected void setClickListener(String suggestion) {
         new SearchTask(mActivity).execute(suggestion);
-
-        /*
-        List<SearchResult> searchResults = new ArrayList<>();
-        Logger.logI("SUGGESTION", suggestion);
-        View searchDropDown = mActivity.searchPopup.getContentView();
-        searchDropDown.findViewById(R.id.divider).setVisibility(View.GONE);
-        TextView tvSearchResults = (TextView) searchDropDown.findViewById(R.id.tv_search_results);
-        tvSearchResults.setText("Showing " + suggestions.length + " Results");
-        tvSearchResults.setVisibility(View.VISIBLE);
-        ((View) tvSearchResults.getParent()).setVisibility(View.VISIBLE);
-        SearchResultsAdapter adapter = new SearchResultsAdapter(mActivity, R.layout.search_result_item, searchResults);
-        mActivity.mSearchResultsListView.setAdapter(adapter);
-        mActivity.mSuggestionsListView.setVisibility(View.GONE);
-        mActivity.mSearchResultsListView.setVisibility(View.VISIBLE);
-        */
     }
-
 }

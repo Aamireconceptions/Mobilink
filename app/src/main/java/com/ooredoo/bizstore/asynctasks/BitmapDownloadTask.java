@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -106,5 +107,12 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         {
             progressBar.setVisibility(visible);
         }
+    }
+
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        return rotatedBitmap;
     }
 }

@@ -5,4 +5,5 @@
         <attr name="absoluteMaxValue" format="integer|float"/>
         <attr name="singleThumb" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="RoundedImageView"/>
 </resources>
