@@ -27,7 +27,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
     private ViewPager viewPager;
 
-    private final static String SERVICE_NAME = "/featureddeals?";
+    private final static String SERVICE_NAME = "/promotionaldeals?";
 
     public PromoTask(PromoStatePagerAdapter adapter, ViewPager viewPager)
     {

@@ -98,6 +98,15 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
     private void setDashboardItemsClickListener(View parent) {
         dashboardItemClickListener = new DashboardItemClickListener(activity);
 
+        parent.findViewById(R.id.entertainment).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.shopping).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.fashion).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.restaurants).setOnClickListener(dashboardItemClickListener);
+
+        parent.findViewById(R.id.weight_loss).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.fitness).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.beauty_tips).setOnClickListener(dashboardItemClickListener);
+
         parent.findViewById(R.id.jokes).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.events).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.movie_tickets).setOnClickListener(dashboardItemClickListener);

@@ -29,6 +29,7 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.CategoryUtils.CT_TOP;
 import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 {
@@ -38,8 +39,11 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private ListViewBaseAdapter adapter;
 
+    public static String subCategory = "";
+
     public static TopDealsFragment newInstance() {
         TopDealsFragment fragment = new TopDealsFragment();
+
         return fragment;
     }
 
@@ -89,6 +93,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         loadTopDeals();
     }
 
+
+
     private void initAndLoadTopDealsBanner()
     {
         List<GenericDeal> deals = new ArrayList<>();
@@ -108,6 +114,12 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     private void loadTopDeals()
     {
         DealsTask dealsTask = new DealsTask(mActivity, adapter, null);
+
+        if(isNotNullOrEmpty(subCategory)) {
+            DealsTask.subCategories = subCategory;
+            subCategory = ""; //Reset sub category filter.
+        }
+
         dealsTask.execute("top_deals");
     }
 

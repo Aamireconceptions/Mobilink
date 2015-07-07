@@ -5,5 +5,5 @@ package com.ooredoo.bizstore.interfaces;
  */
 public interface OnFilterChangeListener
 {
-    public void onFilterChange();
+   void onFilterChange();
 }
