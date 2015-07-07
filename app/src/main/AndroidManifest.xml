@@ -54,7 +54,8 @@
         <activity
             android:name=".ui.activities.ShareAppActivity"
             android:label="@string/share_app_with_friends"
-            android:parentActivityName=".ui.activities.HomeActivity"/>
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|"/>
         <activity
             android:name=".ui.activities.MyDealsActivity"
             android:label="@string/my_deals"

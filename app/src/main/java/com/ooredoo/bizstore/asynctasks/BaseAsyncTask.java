@@ -46,6 +46,10 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String CATEGORY = "category";
 
+    public final static String PHONE_NUMBER = "phone_number";
+
+    public final static String MESSAGE = "message";
+
     public final static String IMAGE_BASE_URL = "http://203.215.183.98:10009/";
 
     public String createQuery(HashMap<String, String> params) throws UnsupportedEncodingException

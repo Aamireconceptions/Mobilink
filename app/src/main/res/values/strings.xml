@@ -116,4 +116,7 @@
     <string name="plan_details">QAR <b>9</b>\nPER WEEK</string>
     <string name="filter_results">Filter Results</string>
     <string name="percentage_off">"% OFF"</string>
+    <string name="error_provide_num">Please provide the phone number</string>
+    <string name="please_wait">Please wait</string>
+    <string name="success_shared">Successfully shared</string>
 </resources>
