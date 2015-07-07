@@ -34,7 +34,7 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
 
         viewPager.setCurrentItem(tab.getPosition(), true);
 
-        DealsTask.sortColumn = "views";
+        DealsTask.sortColumn = "createdate";
         DealsTask.subCategories = "";
         setCurrentFragment();
     }
@@ -53,7 +53,7 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-        DealsTask.sortColumn = "views";
+        DealsTask.sortColumn = "createdate";
         DealsTask.subCategories = "";
     }
 

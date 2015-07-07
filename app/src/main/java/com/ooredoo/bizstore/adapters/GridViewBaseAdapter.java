@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -68,8 +70,7 @@ public class GridViewBaseAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-       /* return deals.size();*/
-        return 8;
+        return deals.size();
     }
 
     @Override
@@ -79,10 +80,8 @@ public class GridViewBaseAdapter extends BaseAdapter
     }
 
     @Override
-    public long getItemId(int position)
-    {
-       /* return deals.get(position).id;*/
-        return 0;
+    public long getItemId(int position) {
+        return deals == null || deals.size() == 0 ? 0 : deals.get(position).id;
     }
 
     @Override
@@ -108,40 +107,56 @@ public class GridViewBaseAdapter extends BaseAdapter
             holder = (Holder) grid.getTag();
         }
 
-        holder.ivFav.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                GenericDeal genericDeal = getItem(position);
-                genericDeal.isFav = !v.isSelected();
+        final GenericDeal deal = getItem(position);
 
-                notifyDataSetChanged();
+        deal.isFav = Deal.isFavorite(deal.id);
+
+        holder.ivFav.setSelected(deal.isFav);
+
+        holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
+
+        Image image = deal.image;
+        if(image != null && image.logoUrl != null) {
+            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + deal.image.logoUrl;
+
+            Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+            if(bitmap != null) {
+                holder.ivThumbnail.setImageBitmap(bitmap);
+            } else {
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail, null);
+                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
-        });
-
-        /*String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + getItem(position).image.logoUrl;
-
-        Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
-
-        if(bitmap != null)
-        {
-            holder.ivThumbnail.setImageBitmap(bitmap);
         }
-        else
-        {
-            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail,
-                                                                           null);
-            bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth),
-                                       String.valueOf(reqHeight));
-        }*/
 
-       /* holder.ivFav.setSelected(getItem(position).isFav);
-
-        holder.tvTitle.setText(getItem(position).title);
-        holder.tvDiscount.setText(getItem(position).discount);*/
+        holder.tvTitle.setText(deal.title);
+        holder.tvDiscount.setText(String.valueOf(deal.discount));
 
         return grid;
+    }
+
+    private class FavouriteOnClickListener implements View.OnClickListener {
+        private int position;
+
+        public FavouriteOnClickListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            boolean isSelected = v.isSelected();
+
+            GenericDeal genericDeal = getItem(position);
+
+            Logger.logI("FAV_DEAL: " + genericDeal.id, String.valueOf(genericDeal.isFav));
+
+            genericDeal.isFav = !isSelected;
+
+            v.setSelected(!isSelected);
+
+            Deal favDeal = new Deal(genericDeal);
+            Deal.updateDealAsFavorite(favDeal);
+        }
     }
 
     private static class Holder

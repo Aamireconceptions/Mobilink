@@ -1,12 +1,14 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -16,6 +18,7 @@ import com.ooredoo.bizstore.utils.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,7 +31,7 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class DealsTask extends BaseAsyncTask<String, Void, String> {
     private HomeActivity homeActivity;
 
-    private ListViewBaseAdapter adapter;
+    private BaseAdapter adapter;
 
     private ProgressBar progressBar;
 
@@ -39,7 +42,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     public static String sortColumn = "createdate"; //Default new deals
     public static String subCategories;
 
-    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar) {
+    public String category;
+
+    public DealsTask(HomeActivity homeActivity, BaseAdapter adapter, ProgressBar progressBar) {
         this.homeActivity = homeActivity;
 
         this.adapter = adapter;
@@ -61,7 +66,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            return getDeals(params[0]);
+            category = params[0];
+            return getDeals(category);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -93,10 +99,15 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                     showTvDealsOfTheDay();
                 }
 
-                adapter.clearData();
+                if(deals == null)
+                    deals = new ArrayList<>();
 
-                if(deals != null) {
-                    adapter.setData(deals);
+                if(isNotNullOrEmpty(category) && category.equalsIgnoreCase("shopping")) {
+                    ((GridViewBaseAdapter) adapter).setData(deals);
+                } else {
+                    ListViewBaseAdapter listViewBaseAdapter = ((ListViewBaseAdapter) adapter);
+                    listViewBaseAdapter.clearData();
+                    listViewBaseAdapter.setData(deals);
                 }
 
                 adapter.notifyDataSetChanged();
