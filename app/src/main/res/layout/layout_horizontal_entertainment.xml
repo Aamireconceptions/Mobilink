@@ -25,7 +25,7 @@
             android:drawableTop="@drawable/tickets"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/movie_tickets"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
          <ImageView
              android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:drawableTop="@drawable/events"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/events"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:drawableTop="@drawable/jokes"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/jokes"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
     </LinearLayout>
 

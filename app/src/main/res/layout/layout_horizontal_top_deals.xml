@@ -23,7 +23,7 @@
             android:drawableTop="@drawable/entertainment"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/entertainment"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
             android:drawableTop="@drawable/shopping"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/shopping"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
 
         <ImageView
@@ -64,7 +64,7 @@
             android:drawableTop="@drawable/fashion"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/fashion"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:drawableTop="@drawable/restaurants"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/restaurants"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
     </LinearLayout>
 

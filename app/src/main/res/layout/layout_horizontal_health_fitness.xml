@@ -25,7 +25,7 @@
             android:drawableTop="@drawable/weight"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/weight_loss"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:drawableTop="@drawable/fitness"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/fitness"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
             android:drawableTop="@drawable/hairstyle"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/beauty_tips"
-            android:textColor="@color/home_category_item_color"/>
+            android:textColor="@color/home_category_item"/>
 
     </LinearLayout>
 

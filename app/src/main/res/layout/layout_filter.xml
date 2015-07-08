@@ -15,8 +15,8 @@
             android:layout_height="wrap_content"
             android:background="@color/red"
             android:minHeight="?attr/actionBarSize"
-            android:paddingEnd="@dimen/_18sdp"
-            android:paddingStart="@dimen/_18sdp">
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_4sdp">
 
             <ImageView
                 android:id="@+id/back"

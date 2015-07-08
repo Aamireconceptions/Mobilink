@@ -46,8 +46,4 @@
         android:layout_marginRight="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_8sdp"/>
 
-
-
-
-
 </RelativeLayout>

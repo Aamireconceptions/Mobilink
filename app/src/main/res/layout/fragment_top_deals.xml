@@ -10,4 +10,5 @@
         android:scrollbars="none"
         android:divider="@null"
         android:dividerHeight="@dimen/_8sdp"/>
+
 </LinearLayout>

@@ -55,7 +55,7 @@ public class GridViewBaseAdapter extends BaseAdapter
 
         reqWidth = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
 
-        reqHeight = Resources.getSystem().getDisplayMetrics().heightPixels / 2;
+        reqHeight = reqWidth;
 
         Logger.print("GridView thumbnail reqWidth:"+reqWidth+", reqHeight: "+reqHeight);
     }
