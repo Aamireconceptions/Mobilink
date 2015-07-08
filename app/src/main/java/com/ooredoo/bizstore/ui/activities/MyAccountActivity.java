@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.utils.BitmapProcessor;
 
 import java.io.File;
 
@@ -56,7 +57,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        Bitmap rotatedBitmap = BitmapDownloadTask.rotateBitmap(bitmap, 90);
+        Bitmap rotatedBitmap = BitmapProcessor.rotateBitmap(bitmap, 90);
         ivProfilePic.setImageBitmap(rotatedBitmap);
         ivProfilePic.setBackground(null);
     }
@@ -136,7 +137,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             Log.i("PIC", path);
 
             Bitmap bitmap = BitmapFactory.decodeFile(path);
-            Bitmap rotatedBitmap = BitmapDownloadTask.rotateBitmap(bitmap, 90);
+            Bitmap rotatedBitmap = BitmapProcessor.rotateBitmap(bitmap, 90);
             ivProfilePic.setBackground(null);
             ivProfilePic.setImageBitmap(rotatedBitmap);
             profilePicture.setImageBitmap(rotatedBitmap);
@@ -160,7 +161,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        Bitmap rotatedBitmap = BitmapDownloadTask.rotateBitmap(bitmap, 90);
+        Bitmap rotatedBitmap = BitmapProcessor.rotateBitmap(bitmap, 90);
         ivProfilePic.setBackground(null);
         ivProfilePic.setImageBitmap(rotatedBitmap);
         if(profilePicture != null) {
