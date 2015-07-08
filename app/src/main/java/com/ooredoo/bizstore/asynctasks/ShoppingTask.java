@@ -10,6 +10,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
@@ -20,23 +21,33 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+
 /**
  * @author Babar
  * @since 18-Jun-15.
  */
 public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 {
+    private HomeActivity homeActivity;
+
     private GridViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
 
     private SnackBarUtils snackBarUtils;
 
+    public static String sortColumn = "createdate";
+
+    public static String subCategories;
+
     private final static String SERVICE_NAME = "/deals?";
 
-    public ShoppingTask(GridViewBaseAdapter adapter, ProgressBar progressBar,
-                        SnackBarUtils snackBarUtils)
+    public ShoppingTask(HomeActivity homeActivity, GridViewBaseAdapter adapter,
+                        ProgressBar progressBar, SnackBarUtils snackBarUtils)
     {
+        this.homeActivity = homeActivity;
+
         this.adapter = adapter;
 
         this.progressBar = progressBar;
@@ -81,14 +92,16 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<GenericDeal> deals = response.deals;
+            adapter.clearData();
 
-            for(GenericDeal deal : deals)
+            if(response.resultCode != -1)
             {
-                Logger.print("Title: "+deal.title);
+                List<GenericDeal> deals = response.deals;
+
+                adapter.setData(deals);
+
             }
 
-            adapter.setData(deals);
             adapter.notifyDataSetChanged();
         }
         else
@@ -109,21 +122,33 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
             params.put(OS, ANDROID);
             params.put(CATEGORY, category);
 
+            Logger.print("Sort by: " + sortColumn);
+            Logger.print("Sub Categories: " + subCategories);
+
+            if(isNotNullOrEmpty(sortColumn)) {
+                params.put("sort", sortColumn);
+            }
+
+            if(isNotNullOrEmpty(subCategories)) {
+                params.put("subcategories", subCategories);
+            }
+
+            if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
+                params.put("rating", homeActivity.ratingFilter);
+            }
+
+            if(homeActivity.doApplyDiscount) {
+                params.put("min_discount", String.valueOf(homeActivity.minDiscount));
+                params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
+            }
+
             String query = createQuery(params);
 
             URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(CONNECTION_TIME_OUT);
-            conn.setReadTimeout(READ_TIME_OUT);
-            conn.setRequestMethod(METHOD);
-            conn.setDoInput(true);
-            //conn.setDoOutput(true);
-            conn.connect();
+            Logger.print("Shopping url: "+url.toString());
 
-            inputStream = conn.getInputStream();
-
-            result = readStream(inputStream);
+            result = getJson(url);
 
             Logger.print("Shopping getDeals: "+result);
 

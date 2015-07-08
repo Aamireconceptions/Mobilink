@@ -26,6 +26,7 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.CategoryUtils.CT_SHOPPING;
 import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 /**
  * @author Babar
@@ -91,8 +92,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private void loadDeals()
     {
+        ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils);
 
-        ShoppingTask shoppingTask = new ShoppingTask(adapter, progressBar, snackBarUtils);
         shoppingTask.execute("shopping");
     }
 

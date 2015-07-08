@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
+import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -47,6 +48,8 @@ public class FilterOnClickListener implements View.OnClickListener
                 setButtonSelected(v);
 
                 DealsTask.sortColumn = "createdate";
+                ShoppingTask.sortColumn = "createdate";
+
                 onFilterChangeListener.onFilterChange();
 
                 break;
@@ -56,6 +59,8 @@ public class FilterOnClickListener implements View.OnClickListener
                 setButtonSelected(v);
 
                 DealsTask.sortColumn = "views";
+                ShoppingTask.sortColumn = "views";
+
                 onFilterChangeListener.onFilterChange();
 
                 break;
@@ -88,6 +93,7 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 String subCategories = CategoryUtils.getSelectedSubCategories(category);
                 DealsTask.subCategories = subCategories;
+                ShoppingTask.subCategories = subCategories;
 
                 Logger.logI("SELECTION", subCategories);
 

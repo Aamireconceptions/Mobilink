@@ -65,7 +65,10 @@ public class GridViewBaseAdapter extends BaseAdapter
         this.deals = deals;
     }
 
-
+    public void clearData()
+    {
+        deals.clear();
+    }
 
     @Override
     public int getCount()
