@@ -29,7 +29,7 @@ public class BitmapProcessor
 
     public Bitmap decodeSampledBitmapFromStream(InputStream inputStream,
                                                 int reqWidth, int reqHeight) throws IOException {
-        Bitmap bitmap = null;
+        Bitmap bitmap;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;

@@ -46,7 +46,7 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View v = inflater.inflate(R.layout.fragment_top_brand, container, false);
+        View v = inflater.inflate(R.layout.fragment_top_mall, container, false);
         v.setOnClickListener(this);
 
         initAndLoadTopMalls(v);

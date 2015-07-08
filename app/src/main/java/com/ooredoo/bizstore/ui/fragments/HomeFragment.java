@@ -84,13 +84,13 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         listView.addHeaderView(header);
         listView.setAdapter(adapter);
 
-        initAndLoadFeaturedDeals(v);
-
         initAndLoadPromotions(v);
+
+        initAndLoadFeaturedDeals(v);
 
         initAndLoadTopBrands(v);
 
-        //initAndLoadTopMalls(v);
+        initAndLoadTopMalls(v);
 
         initAndLoadDealsOfTheDay();
     }
@@ -112,6 +112,23 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         parent.findViewById(R.id.movie_tickets).setOnClickListener(dashboardItemClickListener);
     }
 
+    private void initAndLoadPromotions(View v)
+    {
+        List<GenericDeal> deals = new ArrayList<>();
+
+        PromoStatePagerAdapter adapter = new PromoStatePagerAdapter(getFragmentManager(), deals);
+
+        ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
+        promoPager.setAdapter(adapter);
+
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
+                v.findViewById(R.id.promo_indicator);
+        circlePageIndicator.setViewPager(promoPager);
+
+        PromoTask promoTask = new PromoTask(adapter, promoPager);
+        promoTask.execute();
+    }
+
     private void initAndLoadFeaturedDeals(View v)
     {
         List<GenericDeal> deals = new ArrayList<>();
@@ -126,23 +143,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
 
         FeaturedTask featuredTask = new FeaturedTask(adapter, featuredPager);
         featuredTask.execute();
-    }
-
-    private void initAndLoadPromotions(View v)
-    {
-        List<GenericDeal> deals = new ArrayList<>();
-
-        PromoStatePagerAdapter adapter = new PromoStatePagerAdapter(getFragmentManager(), deals);
-
-        ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
-        promoPager.setAdapter(adapter);
-
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
-                                                   v.findViewById(R.id.promo_indicator);
-        circlePageIndicator.setViewPager(promoPager);
-
-        PromoTask promoTask = new PromoTask(adapter, promoPager);
-        promoTask.execute();
     }
 
     private void initAndLoadTopBrands(View v)
@@ -170,9 +170,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         topMallsPager.setAdapter(adapter);
 
         TopMallsTask topMallsTask = new TopMallsTask(adapter, topMallsPager);
-
-        adapter.notifyDataSetChanged();
-        topMallsTask.execute();
+        topMallsTask.execute("malls");
     }
 
     private void initAndLoadDealsOfTheDay()

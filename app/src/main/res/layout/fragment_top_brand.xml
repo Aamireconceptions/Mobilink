@@ -2,8 +2,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:paddingTop="@dimen/_12sdp"
-    android:paddingBottom="@dimen/_12sdp"
+    android:paddingTop="@dimen/_6sdp"
+    android:paddingBottom="@dimen/_6sdp"
     android:paddingLeft="@dimen/_6sdp"
     android:paddingRight="@dimen/_6sdp"
     android:background="@color/grey">
@@ -13,11 +13,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/tmp_brand"/>
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 
 </LinearLayout>

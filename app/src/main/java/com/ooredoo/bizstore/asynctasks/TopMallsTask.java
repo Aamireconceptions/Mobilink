@@ -26,7 +26,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
     private ViewPager viewPager;
 
-    private final static String SERVICE_NAME = "/topmall?";
+    private final static String SERVICE_NAME = "/topbrand?";
 
     public TopMallsTask(TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
         this.adapter = adapter;

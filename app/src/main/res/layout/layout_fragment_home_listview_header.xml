@@ -9,13 +9,13 @@
         android:layout_height="@dimen/_180sdp">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/featured_pager"
+            android:id="@+id/promo_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/feature_banner"/>
 
         <com.ooredoo.bizstore.ui.CirclePageIndicator
-            android:id="@+id/featured_indicator"
+            android:id="@+id/promo_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_4sdp"
@@ -43,13 +43,13 @@
         android:layout_height="@dimen/_160sdp">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/promo_pager"
+            android:id="@+id/featured_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/feature_banner"/>
 
         <com.ooredoo.bizstore.ui.CirclePageIndicator
-            android:id="@+id/promo_indicator"
+            android:id="@+id/featured_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_4sdp"
@@ -73,7 +73,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/top_brands_pager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp" />
+        android:layout_height="@dimen/_160sdp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -102,7 +102,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/top_malls_pager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_140sdp" />
+        android:layout_height="@dimen/_160sdp" />
 
     <!--<include layout="@layout/layout_horizontal_top_malls"/>-->
 
