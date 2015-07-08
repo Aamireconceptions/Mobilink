@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.SearchItem;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
     Activity mActivity;
     int layoutResID;
     List<SearchItem> items;
+
+    public static HomeActivity homeActivity;
 
     public RecentSearchesAdapter(Activity activity, int layoutResourceID, List<SearchItem> items) {
         super(activity, layoutResourceID, items);
@@ -54,6 +57,14 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
 
         holder.tvKeyword.setText(item.keyword);
         holder.tvResultCount.setText(results);
+
+        holder.tvKeyword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeActivity.executeSearchTask(item.keyword);
+                mActivity.onBackPressed();
+            }
+        });
 
         return view;
     }

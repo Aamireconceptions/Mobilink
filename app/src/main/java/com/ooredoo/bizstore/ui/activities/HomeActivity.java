@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
+import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
@@ -118,6 +119,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     private void init() {
+
+        RecentSearchesAdapter.homeActivity = this;
 
         searchView = getLayoutInflater().inflate(R.layout.search_popup, null);
         searchPopup = new PopupWindow(searchView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -428,6 +431,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mSearchResultsListView.setAdapter(mSearchResultsAdapter);
         mSearchResultsAdapter.setData(searchResultList);
         mSearchResultsAdapter.notifyDataSetChanged();
+    }
+
+    public void executeSearchTask(String keyword) {
+        new SearchTask(this).execute(keyword);
     }
 
     public class SearchTextWatcher implements TextWatcher {
