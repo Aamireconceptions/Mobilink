@@ -44,6 +44,7 @@ import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
@@ -473,5 +474,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         super.onDestroy();
         //TODO exception
         searchPopup.dismiss();
+
+        MemoryCache.getInstance().tearDown();
     }
 }

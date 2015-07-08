@@ -177,7 +177,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, null);
         dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
-        dealsTask.execute("deals_of_the_day");
+        dealsTask.execute("dealofday");
     }
 
     @Override
