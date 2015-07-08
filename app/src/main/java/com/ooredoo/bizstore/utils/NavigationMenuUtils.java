@@ -49,13 +49,26 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         groupResIds = new int[] { R.drawable.ic_categories, R.drawable.ic_settings };
 
-        categories = new String[] { activity.getString(R.string.top_deals), activity.getString(R.string.food_dining), activity.getString(R.string.shopping_speciality), activity.getString(R.string.electronics), activity.getString(R.string.hotels_spa), activity.getString(R.string.markets_malls), activity.getString(R.string.automotive), activity.getString(R.string.travel_tours), activity.getString(R.string.entertainment), activity.getString(R.string.jewelry_exchange), activity.getString(R.string.sports_fitness) };
+        categories = new String[] { activity.getString(R.string.top_deals), activity.getString(R.string.food_dining), activity.getString(R.string.shopping_speciality),
+                activity.getString(R.string.electronics), activity.getString(R.string.hotels_spa),
+                activity.getString(R.string.markets_malls), activity.getString(R.string.automotive),
+                activity.getString(R.string.travel_tours), activity.getString(R.string.entertainment),
+                activity.getString(R.string.jewelry_exchange), activity.getString(R.string.sports_fitness)};
 
-        categoriesResIds = new int[] { R.drawable.ic_top_deals, R.drawable.ic_food_dining, R.drawable.ic_shopping, R.drawable.ic_electronics, R.drawable.ic_hotels, R.drawable.ic_malls, R.drawable.ic_automotive, R.drawable.ic_travel, R.drawable.ic_entertainment, R.drawable.ic_jewellery, R.drawable.ic_sports };
+        categoriesResIds = new int[]{R.drawable.ic_top_deals, R.drawable.ic_food_dining,
+                R.drawable.ic_shopping,
+                R.drawable.ic_electronics, R.drawable.ic_hotels,
+                R.drawable.ic_malls, R.drawable.ic_automotive,
+                R.drawable.ic_travel, R.drawable.ic_entertainment,
+                R.drawable.ic_jewellery, R.drawable.ic_sports};
 
-        settings = new String[] { activity.getString(R.string.my_account), activity.getString(R.string.my_notifications), activity.getString(R.string.rate_us), activity.getString(R.string.help), activity.getString(R.string.about), activity.getString(R.string.un_subscribe) };
+        settings = new String[] {activity.getString(R.string.my_account), activity.getString(R.string.my_notifications),
+                activity.getString(R.string.rate_us), activity.getString(R.string.help),
+                activity.getString(R.string.about), activity.getString(R.string.un_subscribe)};
 
-        settingsResIds = new int[] { R.drawable.ic_user, R.drawable.ic_notification, R.drawable.ic_rate, R.drawable.ic_help, R.drawable.ic_about, R.drawable.ic_unsubscribe };
+        settingsResIds = new int[]{R.drawable.ic_user, R.drawable.ic_notification,
+                R.drawable.ic_rate, R.drawable.ic_help,
+                R.drawable.ic_about, R.drawable.ic_unsubscribe};
     }
 
     public void setupNavigationMenu() {
