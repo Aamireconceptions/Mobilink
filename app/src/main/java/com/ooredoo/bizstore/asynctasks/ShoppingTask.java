@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -31,7 +32,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
     private SnackBarUtils snackBarUtils;
 
-    private final static String SERVICE_URL = "";
+    private final static String SERVICE_NAME = "/deals?";
 
     public ShoppingTask(GridViewBaseAdapter adapter, ProgressBar progressBar,
                         SnackBarUtils snackBarUtils)
@@ -49,7 +50,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
     {
         try
         {
-            return getDeals();
+            return getDeals(params[0]);
         }
         catch (IOException e)
         {
@@ -96,7 +97,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
-    private String getDeals() throws IOException
+    private String getDeals(String category) throws IOException
     {
         String result = null;
 
@@ -105,11 +106,12 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         try
         {
             HashMap<String, String> params = new HashMap<>();
-            params.put(ID, "0");
+            params.put(OS, ANDROID);
+            params.put(CATEGORY, category);
 
             String query = createQuery(params);
 
-            URL url = new URL(BASE_URL + SERVICE_URL + query);
+            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(CONNECTION_TIME_OUT);

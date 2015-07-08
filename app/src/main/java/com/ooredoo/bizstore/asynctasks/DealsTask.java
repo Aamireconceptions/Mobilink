@@ -31,7 +31,7 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class DealsTask extends BaseAsyncTask<String, Void, String> {
     private HomeActivity homeActivity;
 
-    private BaseAdapter adapter;
+    private ListViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
 
@@ -44,7 +44,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     public String category;
 
-    public DealsTask(HomeActivity homeActivity, BaseAdapter adapter, ProgressBar progressBar) {
+    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.homeActivity = homeActivity;
 
         this.adapter = adapter;
@@ -91,23 +91,19 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
                 deals = response.deals;
 
-                if(response.resultCode != -1) {
-                    /*for(GenericDeal genericDeal : deals) {
-                        Logger.print("title:" + genericDeal.title);
-                    }*/
+                adapter.clearData();
+
+                if(response.resultCode != -1)
+                {
+                    for(GenericDeal genericDeal : deals) {
+                        Logger.print("title:"+genericDeal.title);
+                    }
+
+
 
                     showTvDealsOfTheDay();
-                }
 
-                if(deals == null)
-                    deals = new ArrayList<>();
-
-                if(isNotNullOrEmpty(category) && category.equalsIgnoreCase("shopping")) {
-                    ((GridViewBaseAdapter) adapter).setData(deals);
-                } else {
-                    ListViewBaseAdapter listViewBaseAdapter = ((ListViewBaseAdapter) adapter);
-                    listViewBaseAdapter.clearData();
-                    listViewBaseAdapter.setData(deals);
+                    adapter.setData(deals);
                 }
 
                 adapter.notifyDataSetChanged();
