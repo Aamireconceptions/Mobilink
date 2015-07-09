@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
+import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.ShareAppTask;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -50,9 +51,9 @@ public class ShareAppActivity extends AppCompatActivity
     {
         String phoneNum = etPhoneNum.getText().toString().trim();
 
-        if(!phoneNum.isEmpty())
+        if(!phoneNum.isEmpty() && phoneNum.length() >= AppConstant.MSISDN_MIN_LEN)
         {
-            phoneNum = "974" + phoneNum;
+            phoneNum = "+974" + phoneNum;
 
             ShareAppTask shareAppTask = new ShareAppTask(this, snackBarUtils);
             //shareAppTask.execute(phoneNum, getString(R.string.share_app_with_friends));

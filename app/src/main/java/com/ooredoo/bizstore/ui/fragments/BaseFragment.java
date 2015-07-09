@@ -24,6 +24,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 
     protected Activity mActivity;
 
+    protected View view;
+
     public BaseFragment() {
     }
 
@@ -32,6 +34,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
         View root = inflater.inflate(layoutResId, container, false);
 
         mActivity = getActivity();
+
+        view = root;
 
         init(root);
 

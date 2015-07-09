@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_10sdp">
+                android:paddingBottom="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/tv_sms_charges"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey"
-        android:padding="@dimen/_10sdp"
+        android:padding="@dimen/_8sdp"
         android:text="@string/sms_charges"/>
 
     <TextView
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_sms_charges"
-        android:padding="@dimen/_10sdp"
+        android:padding="@dimen/_8sdp"
         android:text="@string/num_confirm_text"/>
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_width="10dp"
         android:layout_height="40dp"
         android:layout_below="@+id/tv_confirm_code"
-        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
         android:gravity="left|center_vertical"
         android:text="@string/plus_sign"
         android:textStyle="bold"/>
@@ -51,6 +51,8 @@
         android:layout_below="@+id/tv_confirm_code"
         android:layout_toRightOf="@+id/et_country_code"
         android:inputType="number"
+        android:hint="@string/phone_number"
+        android:singleLine="true"
         android:textSize="14sp"
         android:textStyle="normal"/>
 
@@ -60,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:background="@drawable/btn_red"
         android:gravity="center"
         android:text="@string/NEXT"

@@ -2,11 +2,13 @@ package com.ooredoo.bizstore.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.RatingBar;
 
 import com.ooredoo.bizstore.R;
@@ -14,7 +16,10 @@ import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
+import static com.ooredoo.bizstore.AppConstant.MSISDN_VERIFICATION_MSG;
+import static com.ooredoo.bizstore.AppConstant.VERIFICATION_CODE_MIN_LEN;
 import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackStack;
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 /**
  * @author pehlaj.rai
@@ -86,7 +91,7 @@ public class DialogUtils {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.dialog_verification_code, null);
+        final View view = inflater.inflate(R.layout.dialog_verification_code, null);
         builder.setView(view);
 
         final Dialog dialog = builder.create();
@@ -96,10 +101,16 @@ public class DialogUtils {
         view.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-                activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                AppCompatActivity compatActivity = (AppCompatActivity) activity;
-                replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "WELCOME_FRAGMENT");
+                EditText etCode = (EditText) view.findViewById(R.id.et_code);
+                String msisdn = etCode.getText().toString();
+                if(isNotNullOrEmpty(msisdn) && msisdn.length() >= VERIFICATION_CODE_MIN_LEN) {
+                    dialog.dismiss();
+                    activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                    AppCompatActivity compatActivity = (AppCompatActivity) activity;
+                    replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "WELCOME_FRAGMENT");
+                } else {
+                    Snackbar.make(etCode, MSISDN_VERIFICATION_MSG, Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
 

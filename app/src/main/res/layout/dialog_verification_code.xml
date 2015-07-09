@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_weight="0.95"
+                android:layout_weight="0.90"
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hapticFeedbackEnabled="true"
@@ -45,8 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0.05"
+                android:padding="10dp"
+                android:layout_weight="0.1"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_arrow_next"/>
         </LinearLayout>
