@@ -119,4 +119,23 @@
     <string name="error_provide_num">Please provide the phone number</string>
     <string name="please_wait">Please wait</string>
     <string name="success_shared">Successfully shared</string>
+    <string name="help_question1">What is Ooredoo Biz Store?</string>
+    <string name="help_answer1"><![CDATA[Ooredoo Biz Store is an SMS/IVR/Mobile Application based service which provides a platform to view best Deals & Discounts in Qatar. With major brands on-board ranging from fashion & lifestyle to health & fitness, shopping, restaurants, travelling and much more, Biz Store has it All! Biz Store also offers a variety of Exclusive Deals to the users who can later avail them from the respective stores/outlets.]]></string>
+    <string name="help_question2">What do I get from Ooredoo Biz Store?</string>
+    <string name="help_answer2"><![CDATA[Ooredoo Biz Store users can search address and contact details of businesses of their liking. The user also has multiple options to choose from based on which user will get latest deals, discounts & updates. The categories are:\n\t\t\t1.\tTop Deals\n\t\t\t2.\tTop Malls\n\t\t\t3.\tRestaurants and Deals\n\t\t\t4.\tShopping and specialty stores\n\t\t\t5.\tEducation\n\t\t\t6.\tLifestyle & Fashion\n\t\t\t7.\tEntertainment and Recreation]]></string>
+    <string name="help_question3">How can I subscribe in Ooredoo Biz Store?</string>
+    <string name="help_answer3">User can subscribe to Ooredoo Biz Store via following two mechanisms:</string>
+    <string name="help_answer3a">1. User can send SUB 1 to 92806 for SMS Service</string>
+    <string name="help_answer3b">2. Once the user is subscribed through the SMS medium and logs in to the Application, he will be charged at 9QAR/Week</string>
+    <string name="help_question4">How will I know that I am subscribed to Ooredoo Biz Store?</string>
+    <string name="help_answer4">User will get regular notifications regarding service subscription and their renewal status.</string>
+    <string name="help_question5">How can I unsubscribe from Ooredoo Biz Store?</string>
+    <string name="help_answer5">For unsubscribing from Ooredoo Biz Store, the user sends UNSUB to 92806. User will be presented with two options:</string>
+    <string name="help_answer5a">1. To stop category notifications</string>
+    <string name="help_answer5b">2. To unsubscribe from the complete service</string>
+    <string name="help_question6">What are the complete Service charges?</string>
+    <string name="help_answer6">There are two charging models which a user can opt for at time of subscription.</string>
+    <string name="help_answer6a">1. Application will be charged at 9 QAR/Week with fallback charging</string>
+    <string name="help_answer6_a">a. User will be subscribed, and if unsuccessful, system will attempt to deduct QAR 1.3/Day.</string>
+    <string name="help_answer6b">2. On SMS the service will be charged at 2 QAR/Week</string>
 </resources>
