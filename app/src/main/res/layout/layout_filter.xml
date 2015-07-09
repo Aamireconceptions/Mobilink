@@ -294,8 +294,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/discount_checkbox"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/grey"/>
+                android:layout_marginTop="@dimen/_10sdp" />
 
         </RelativeLayout>
 

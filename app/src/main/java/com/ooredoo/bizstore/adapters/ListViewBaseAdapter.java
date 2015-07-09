@@ -2,6 +2,9 @@ package com.ooredoo.bizstore.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +14,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
@@ -46,6 +52,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     private String category;
 
+    private int reqWidth, reqHeight;
+
     public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals) {
         this.context = context;
 
@@ -56,6 +64,13 @@ public class ListViewBaseAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         memoryCache = MemoryCache.getInstance();
+
+        Resources resources = context.getResources();
+
+        reqWidth = resources.getDisplayMetrics().widthPixels;
+
+        reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._120sdp)
+                    / resources.getDisplayMetrics().density);
     }
 
     public void setCategory(String category) {
@@ -110,18 +125,22 @@ public class ListViewBaseAdapter extends BaseAdapter {
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
             holder.tvViews = (TextView) row.findViewById(R.id.views);
             holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
+            holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
 
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
         }
 
-        String category = deal.category;
-        holder.tvCategory.setText(category);
+        if(holder.tvCategory != null)
+        {
+            String category = deal.category;
+            holder.tvCategory.setText(category);
 
-        int categoryDrawable = ResourceUtils.getDrawableResId(context, this.category);
-        if(categoryDrawable > 0) {
-            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
+            int categoryDrawable = ResourceUtils.getDrawableResId(context, this.category);
+            if(categoryDrawable > 0) {
+                holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
+            }
         }
 
         deal.isFav = Deal.isFavorite(deal.id);
@@ -156,6 +175,28 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvViews.setText(valueOf(deal.views));
 
+
+        String promotionalBanner = deal.image != null ? deal.image.promotionalUrl : null;
+
+        Logger.print("promotionalBanner: "+promotionalBanner);
+
+        if(promotionalBanner != null && holder.ivPromotional != null)
+        {
+            String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
+
+            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+            if(bitmap != null)
+            {
+                holder.ivPromotional.setImageBitmap(bitmap);
+            }
+            else
+            {
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional, null);
+                bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+            }
+        }
+
         return row;
     }
 
@@ -187,7 +228,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         View layout;
 
-        ImageView ivFav, ivShare;
+        ImageView ivFav, ivShare, ivPromotional;
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;
 

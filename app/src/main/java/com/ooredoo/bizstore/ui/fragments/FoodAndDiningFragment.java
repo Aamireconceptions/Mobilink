@@ -68,7 +68,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
