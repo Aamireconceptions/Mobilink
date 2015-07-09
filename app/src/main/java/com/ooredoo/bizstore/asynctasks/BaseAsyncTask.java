@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.os.AsyncTask;
+import android.util.Base64;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.utils.Logger;
@@ -13,7 +14,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,7 +53,11 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String MESSAGE = "message";
 
-    public final static String IMAGE_BASE_URL = "http://203.215.183.98:10009/";
+    public final static String HTTP_X_USERNAME = "HTTP_X_USERNAME";
+
+    public final static String HTTP_X_PASSWORD = "HTTP_X_PASSWORD";
+
+    public final static String IMAGE_BASE_URL = "http://203.215.183.98:10009";
 
     public String createQuery(HashMap<String, String> params) throws UnsupportedEncodingException
     {
@@ -141,7 +148,13 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public HttpURLConnection openConnectionAndConnect(URL url) throws IOException
     {
+        String credentials = BizStore.username + ":" + BizStore.password;
+
+       // String basicAuth = "Basic " + new String(Base64.encode(credentials.getBytes(), Base64.DEFAULT));
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
+        connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
         connection.setConnectTimeout(CONNECTION_TIME_OUT);
         connection.setReadTimeout(READ_TIME_OUT);
         connection.setRequestMethod(METHOD);
@@ -164,7 +177,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         HashMap<String, String> serviceParams = new HashMap<>();
         //serviceParams.putAll(credentials);
         serviceParams.putAll(params);
-        serviceParams.put("os", "android");
+
         try {
             String query = createQuery(serviceParams);
             serviceUrl = baseUrl.concat(query); //TODO remove comment

@@ -128,7 +128,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         try {
             HashMap<String, String> params = new HashMap<>();
             params.put(OS, ANDROID);
-            params.put("category", category);
+            params.put(CATEGORY, category);
 
             Logger.print("Sort by: " + sortColumn);
             Logger.print("Sub Categories: " + subCategories);

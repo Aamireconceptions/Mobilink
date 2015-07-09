@@ -62,6 +62,7 @@ public class SearchSuggestionsTask extends BaseAsyncTask<Void, Void, String> {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
+        params.put(OS, ANDROID);
 
         setServiceUrl("getsearchsuggestions", params);
 

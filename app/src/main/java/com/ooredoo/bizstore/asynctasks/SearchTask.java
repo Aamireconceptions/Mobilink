@@ -87,6 +87,7 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
+        params.put(OS, ANDROID);
         params.put("keyword", keyword);
 
         setServiceUrl("search", params);

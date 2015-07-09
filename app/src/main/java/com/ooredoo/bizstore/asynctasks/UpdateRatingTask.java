@@ -111,7 +111,7 @@ public class UpdateRatingTask extends BaseAsyncTask<Void, Void, String> {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
-
+        params.put(OS, ANDROID);
         params.put("type", type);
         params.put("id", String.valueOf(typeId));
         params.put("rating", String.valueOf(rating));
