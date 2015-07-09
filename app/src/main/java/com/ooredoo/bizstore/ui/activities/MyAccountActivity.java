@@ -2,10 +2,10 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -16,8 +16,6 @@ import android.widget.ImageView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
-import com.ooredoo.bizstore.utils.BitmapProcessor;
 
 import java.io.File;
 
@@ -57,8 +55,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        Bitmap rotatedBitmap = BitmapProcessor.rotateBitmap(bitmap, 90);
-        ivProfilePic.setImageBitmap(rotatedBitmap);
+        ivProfilePic.setImageBitmap(bitmap);
         ivProfilePic.setBackground(null);
     }
 
@@ -106,66 +103,90 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     public void selectPicture() {
         File file = new File(AppConstant.PROFILE_PIC_URL);
         Uri outputFileUri = Uri.fromFile(file);
-        final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.setType("image/*");
+        final Intent intent = new Intent();
         intent.setAction(Intent.EXTRA_INITIAL_INTENTS);
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
         intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        startActivityForResult(intent, 2);
+        startActivityForResult(intent, 1);
     }
+
+    boolean isCropEnabled;
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 2 && resultCode == RESULT_OK && null != data) {
+        Log.i("RequestCode: " + requestCode, "resultCode: " + resultCode);
+
+        if(resultCode == RESULT_OK && null != data) {
 
             hasUserSelectedPic = true;
             Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-
-            String path = cursor.getString(columnIndex);
-
-            cursor.close();
+            String path = selectedImage.getPath();
 
             Log.i("PIC", path);
 
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
-            Bitmap rotatedBitmap = BitmapProcessor.rotateBitmap(bitmap, 90);
+            Bundle extras = data.getExtras();
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
+            if(extras != null) {
+                //get the cropped bitmap
+                bitmap = extras.getParcelable("data");
+            }
             ivProfilePic.setBackground(null);
-            ivProfilePic.setImageBitmap(rotatedBitmap);
-            profilePicture.setImageBitmap(rotatedBitmap);
+            ivProfilePic.setImageBitmap(bitmap);
+            profilePicture.setImageBitmap(bitmap);
             profilePicture.setBackground(null);
+
         } else {
 
-            Log.i("SonaSys", "resultCode: " + resultCode);
-            switch(resultCode) {
-                case 0:
-                    Log.i("SonaSys", "User cancelled");
-                    break;
-                case -1:
-                    onPhotoTaken();
-                    break;
+            if(isCropEnabled) {
+                isCropEnabled = false;
+            } else {
+                switch(resultCode) {
+                    case 0:
+                        Log.i("SonaSys", "User cancelled");
+                        break;
+                    case -1:
+                        isCropEnabled = true;
+                        cropImage();
+                        onPhotoTaken();
+                        break;
+                }
             }
         }
+    }
+
+    private void cropImage() {
+
+        Intent cropIntent = new Intent("com.android.camera.action.CROP");
+        File file = new File(AppConstant.PROFILE_PIC_URL);
+        Uri uri = Uri.fromFile(file);
+        cropIntent.setType("image/*");
+        cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        cropIntent.setDataAndType(uri, "image/*");
+        cropIntent.putExtra("outputX", 1440);
+        cropIntent.putExtra("outputY", 1440);
+        cropIntent.putExtra("aspectX", 1);
+        cropIntent.putExtra("aspectY", 1);
+        cropIntent.putExtra("scale", "true");
+        cropIntent.putExtra("return-data", true);
+        startActivityForResult(cropIntent, 1);
+        isCropEnabled = true;
     }
 
     protected void onPhotoTaken() {
         Log.i("---", "onPhotoTaken");
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        Bitmap rotatedBitmap = BitmapProcessor.rotateBitmap(bitmap, 90);
         ivProfilePic.setBackground(null);
-        ivProfilePic.setImageBitmap(rotatedBitmap);
+        ivProfilePic.setImageBitmap(bitmap);
         if(profilePicture != null) {
-            profilePicture.setImageBitmap(rotatedBitmap);
+            profilePicture.setImageBitmap(bitmap);
             profilePicture.setBackground(null);
         }
     }

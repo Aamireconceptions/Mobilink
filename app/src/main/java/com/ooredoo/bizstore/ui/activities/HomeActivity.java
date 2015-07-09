@@ -42,6 +42,7 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
+import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -432,6 +433,25 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mSearchResultsListView.setAdapter(mSearchResultsAdapter);
         mSearchResultsAdapter.setData(searchResultList);
         mSearchResultsAdapter.notifyDataSetChanged();
+    }
+
+    public void setupSearchResults(String keyword, List<SearchResult> results) {
+
+        if(results == null)
+            results = new ArrayList<>();
+
+        SearchItem searchItem = new SearchItem(0, keyword, results.size());
+        SearchItem.addToRecentSearches(searchItem);
+
+        hideSearchPopup();
+        HomeActivity.isShowResults = true;
+        findViewById(R.id.layout_search_results).setVisibility(View.VISIBLE);
+
+        TextView tvSearchResults = (TextView) findViewById(R.id.tv_search_results);
+        tvSearchResults.setText("Showing " + results.size() + " Results");
+        tvSearchResults.setVisibility(View.VISIBLE);
+
+        populateSearchResults(results);
     }
 
     public void executeSearchTask(String keyword) {

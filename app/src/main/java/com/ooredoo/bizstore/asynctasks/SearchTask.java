@@ -1,14 +1,9 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.view.View;
-import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.AppData;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Results;
-import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
@@ -79,18 +74,7 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
                     }
                 }
 
-                mActivity.hideSearchPopup();
-                HomeActivity.isShowResults = true;
-                mActivity.findViewById(R.id.layout_search_results).setVisibility(View.VISIBLE);
-
-                TextView tvSearchResults = (TextView) mActivity.findViewById(R.id.tv_search_results);
-                tvSearchResults.setText("Showing " + results.size() + " Results");
-                tvSearchResults.setVisibility(View.VISIBLE);
-
-                SearchItem searchItem = new SearchItem(0, keyword, results.size());
-                SearchItem.addToRecentSearches(searchItem);
-
-                mActivity.populateSearchResults(results);
+                mActivity.setupSearchResults(keyword, results);
 
                 BaseFragment.hideKeyboard(mActivity);
             } catch(JsonSyntaxException e) {
