@@ -16,8 +16,8 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -96,7 +96,10 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
             if(response.resultCode != -1)
             {
-                List<GenericDeal> deals = response.deals;
+                List<GenericDeal> deals = new ArrayList<>();
+
+                if(response.deals != null)
+                    deals = response.deals;
 
                 adapter.setData(deals);
 

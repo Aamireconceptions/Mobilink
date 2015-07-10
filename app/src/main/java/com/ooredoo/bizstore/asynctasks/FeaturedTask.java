@@ -11,8 +11,8 @@ import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,7 +62,10 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<GenericDeal> deals = response.deals;
+            List<GenericDeal> deals = new ArrayList<>();
+
+            if(response.deals != null)
+                deals = response.deals;
 
             for(GenericDeal genericDeal : deals)
             {

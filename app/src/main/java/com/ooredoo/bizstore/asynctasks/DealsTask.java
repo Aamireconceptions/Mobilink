@@ -1,14 +1,12 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -82,14 +80,15 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         if(result != null) {
-            List<GenericDeal> deals;
+            List<GenericDeal> deals = new ArrayList<>();
 
             Gson gson = new Gson();
 
             try {
                 Response response = gson.fromJson(result, Response.class);
 
-                deals = response.deals;
+                if(response.deals != null)
+                    deals = response.deals;
 
                 adapter.clearData();
 
@@ -98,8 +97,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                     for(GenericDeal genericDeal : deals) {
                         Logger.print("title:"+genericDeal.title);
                     }
-
-
 
                     showTvDealsOfTheDay();
 

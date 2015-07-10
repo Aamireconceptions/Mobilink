@@ -4,7 +4,6 @@ import android.support.v4.view.ViewPager;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -64,7 +63,10 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<GenericDeal> deals = response.deals;
+            List<GenericDeal> deals = new ArrayList<>();
+
+            if(response.deals != null)
+                deals = response.deals;
 
             for(GenericDeal genericDeal : deals)
             {
