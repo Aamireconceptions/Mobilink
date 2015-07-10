@@ -80,20 +80,22 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         if(result != null) {
-            List<GenericDeal> deals = new ArrayList<>();
+            //List<GenericDeal> deals = null;
 
             Gson gson = new Gson();
 
             try {
                 Response response = gson.fromJson(result, Response.class);
 
-                if(response.deals != null)
-                    deals = response.deals;
+                /*if(response.deals != null)
+                    deals = response.deals;*/
 
                 adapter.clearData();
 
                 if(response.resultCode != -1)
                 {
+                    List<GenericDeal> deals = response.deals;
+
                     for(GenericDeal genericDeal : deals) {
                         Logger.print("title:"+genericDeal.title);
                     }

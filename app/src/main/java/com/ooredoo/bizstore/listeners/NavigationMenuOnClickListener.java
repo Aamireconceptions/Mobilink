@@ -86,6 +86,5 @@ public class NavigationMenuOnClickListener implements View.OnClickListener
                 .getBaseContext().getResources().getDisplayMetrics());
 
         activity.recreate();
-
     }
 }

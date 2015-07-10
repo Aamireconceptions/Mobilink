@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
     private HashMap<String, List<NavigationItem>> childList;
 
+    private int direction;
+
     public ExpandableListAdapter(Context context, List<NavigationItem> groupList,
                                  HashMap<String, List<NavigationItem>> childList)
     {
@@ -34,6 +38,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         this.groupList = groupList;
 
         this.childList = childList;
+
+        direction = BizStore.getLanguage().equals("en") ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL;
     }
 
     @Override
@@ -100,15 +106,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         int resId = navigationItem.getResId();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
+        tvName.setLayoutDirection(direction);
+        tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
         tvName.setText(name);
 
-        if(HomeActivity.rtl) {
+        /*if(HomeActivity.rtl) {
             tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
         } else {
             tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
         }
         tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
-        tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+        tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);*/
         return convertView;
     }
 
@@ -128,15 +136,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         int resId = navigationItem.getResId();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
-        tvName.setText(name);
-        if(HomeActivity.rtl) {
-            tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
-        } else {
-            tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
-        }
 
-        tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
-        tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+        tvName.setLayoutDirection(direction);
+        tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
+
+        tvName.setText(name);
+
+//        if(HomeActivity.rtl) {
+//            tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
+//        } else {
+//            tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
+//        }
+//
+//        tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
+//        tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
 
         return convertView;
     }

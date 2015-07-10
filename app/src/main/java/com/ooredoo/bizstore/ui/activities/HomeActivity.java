@@ -29,6 +29,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
@@ -113,6 +114,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Logger.print("HomeActivity onCreate");
         setContentView(R.layout.activity_home);
 
         init();
@@ -496,5 +498,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchPopup.dismiss();
 
         MemoryCache.getInstance().tearDown();
+
+        Logger.print("HomeActivity onDestroy");
     }
 }

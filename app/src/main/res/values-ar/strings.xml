@@ -30,10 +30,10 @@
     <string name="deals_of_the_day">عروض اليوم</string>
     <string name="my_deals">عروضي</string>
     <string name="recommended">موصى به</string>
-    <string name="recent_searches">Recent Searches</string>
+    <string name="recent_searches">عمليات البحث الأخيرة</string>
     <string name="recent_viewed">نتائج سابقة</string>
     <string name="categories">الفئات</string>
-    <string name="settings">Settings</string>
+    <string name="settings">تطبيق</string>
     <string name="electronics">إلكترونيات</string>
     <string name="hotels_spa">فنادق و منتجعات صحية</string>
     <string name="markets_malls">أسواق و مجمعات تجارية</string>

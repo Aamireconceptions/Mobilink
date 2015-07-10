@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/white"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,9 +57,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
         android:layoutDirection="ltr"
+        android:gravity="center"
         android:paddingBottom="@dimen/_6sdp"
         android:paddingTop="@dimen/_6sdp"
         android:visibility="visible">
@@ -92,11 +91,10 @@
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_home"
         android:gravity="start|center_vertical"
-        android:layoutDirection="locale"
+
         android:padding="@dimen/_16sdp"
         android:text="@string/home"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="locale"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/my_deals"
@@ -105,11 +103,10 @@
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_favourite"
         android:gravity="start|center_vertical"
-        android:layoutDirection="locale"
+
         android:padding="@dimen/_16sdp"
         android:text="@string/my_deals"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="locale"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/recommended"
@@ -118,11 +115,10 @@
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_recommended"
         android:gravity="start|center_vertical"
-        android:layoutDirection="locale"
+
         android:padding="@dimen/_16sdp"
         android:text="@string/recommended"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="locale"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/recent_searches"
@@ -131,11 +127,10 @@
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_recent_searches"
         android:gravity="start|center_vertical"
-        android:layoutDirection="locale"
+
         android:padding="@dimen/_16sdp"
         android:text="@string/recent_searches"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="locale"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/recent_viewed"
@@ -144,10 +139,9 @@
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_recent_viewed"
         android:gravity="start|center_vertical"
-        android:layoutDirection="locale"
+
         android:padding="@dimen/_16sdp"
         android:text="@string/recent_viewed"
-        android:textColor="@android:color/primary_text_light"
-        android:textDirection="locale"/>
+        android:textColor="@android:color/primary_text_light" />
 
 </LinearLayout>

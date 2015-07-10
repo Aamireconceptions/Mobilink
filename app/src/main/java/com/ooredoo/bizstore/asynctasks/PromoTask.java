@@ -57,8 +57,6 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
         if(result != null)
         {
-            viewPager.setBackground(null);
-
             Gson gson = new Gson();
 
             Response response = gson.fromJson(result, Response.class);
@@ -66,7 +64,11 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
             List<GenericDeal> deals = new ArrayList<>();
 
             if(response.deals != null)
+            {
+                viewPager.setBackground(null);
+
                 deals = response.deals;
+            }
 
             for(GenericDeal genericDeal : deals)
             {
@@ -75,6 +77,11 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
             adapter.setData(deals);
             adapter.notifyDataSetChanged();
+
+            if(BizStore.getLanguage().equals("ar"))
+            {
+                viewPager.setCurrentItem(deals.size() - 1);
+            }
         }
         else
         {

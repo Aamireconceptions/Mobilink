@@ -59,6 +59,11 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
             {
                 adapter.setData(brand.brands);
                 adapter.notifyDataSetChanged();
+
+                if(BizStore.getLanguage().equals("ar"))
+                {
+                    viewPager.setCurrentItem(brand.brands.size() - 1);
+                }
             }
 
         } else {

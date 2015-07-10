@@ -57,8 +57,13 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
             adapter.setData(mallResponse.malls);
             adapter.notifyDataSetChanged();
+
+            if(BizStore.getLanguage().equals("ar"))
+            {
+                viewPager.setCurrentItem(mallResponse.malls.size() - 1);
+            }
         } else {
-            Logger.print("TopBrandsAsyncTask: Failed to download Banners due to no internet");
+            Logger.print("TopMallsAsyncTask: Failed to download Banners due to no internet");
         }
     }
 

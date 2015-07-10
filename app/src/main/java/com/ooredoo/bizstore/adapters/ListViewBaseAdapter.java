@@ -150,7 +150,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvDetail.setText(deal.description);
 
-        holder.tvDiscount.setText(valueOf(deal.discount) + PERCENT_OFF);
+        holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,31 +170,34 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvViews.setText(valueOf(deal.views));
 
-        if(category == ResourceUtils.FOOD_AND_DINING) {
+        String promotionalBanner = deal.image != null ? deal.image.promotionalUrl : null;
 
-            String promotionalBanner = deal.image != null ? deal.image.promotionalUrl : null;
+        Logger.print("promotionalBanner: " + promotionalBanner);
 
-            Logger.print("promotionalBanner: " + promotionalBanner);
+        if(promotionalBanner != null && holder.ivPromotional != null)
+        {
+            String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
 
-            if(promotionalBanner != null && holder.ivPromotional != null) {
-                final String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
+            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
 
-                Bitmap bitmap = memoryCache.getBitmapFromCache(url);
-
-                if(bitmap != null) {
-                    holder.ivPromotional.setImageBitmap(bitmap);
-                } else {
-                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional, null);
-                    bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-
-                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDetail(deal);
-                    }
-                });
+            if(bitmap != null)
+            {
+                holder.ivPromotional.setImageBitmap(bitmap);
             }
+            else
+            {
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional, null);
+                bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+            }
+
+            holder.ivPromotional.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    showDetail(deal);
+                }
+            });
         }
 
         return row;

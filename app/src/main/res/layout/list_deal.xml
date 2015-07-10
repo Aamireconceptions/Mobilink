@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:drawableLeft="@drawable/ic_shopping"
+            android:drawableStart="@drawable/ic_shopping"
             android:drawablePadding="@dimen/_6sdp"
             android:text="Shopping"
             android:textColor="@android:color/primary_text_light"/>

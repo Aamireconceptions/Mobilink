@@ -65,7 +65,11 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
             List<GenericDeal> deals = new ArrayList<>();
 
             if(response.deals != null)
+            {
+                viewPager.setBackground(null);
+
                 deals = response.deals;
+            }
 
             for(GenericDeal genericDeal : deals)
             {
@@ -74,6 +78,11 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
             adapter.setData(deals);
             adapter.notifyDataSetChanged();
+
+            if(BizStore.getLanguage().equals("ar"))
+            {
+                viewPager.setCurrentItem(deals.size() - 1);
+            }
         }
         else
         {
