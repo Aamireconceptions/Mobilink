@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
+import com.ooredoo.bizstore.model.Subscription;
+import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
@@ -20,26 +23,53 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 public class SignUpFragment extends BaseFragment {
 
+    EditText etMsisdn;
     public SignUpFragment() {
         super();
         layoutResId = R.layout.fragment_sign_up;
     }
 
     public void init(View parent) {
+        etMsisdn = (EditText) parent.findViewById(R.id.et_phone_num);
         parent.findViewById(R.id.btn_next).setOnClickListener(this);
         mActivity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_VISIBLE | SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override
     public void onClick(View v) {
-        EditText etUserName = (EditText) view.findViewById(R.id.et_phone_num);
-        String msisdn = etUserName.getText().toString();
+        String msisdn = etMsisdn.getText().toString();
 
-        if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
-            showVerificationCodeDialog(mActivity);
+        String errMsg = "Error";
+        if(NetworkUtils.hasInternetConnection(mActivity)) {
+            if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
+                new SubscriptionTask(this).execute(msisdn);
+            } else {
+                errMsg = MSISDN_ERR_MSG;
+            }
         } else {
-            Snackbar.make(etUserName, MSISDN_ERR_MSG, Snackbar.LENGTH_SHORT).show();
+            errMsg = "Please connect to Internet.";
+        }
+
+        if(!errMsg.equals("Error")) {
+            Snackbar.make(etMsisdn, errMsg, Snackbar.LENGTH_LONG).show();
         }
     }
 
+    public void processSubscription(Subscription subscription) {
+        String errMsg = "Error";
+        if(subscription != null) {
+            if(subscription.resultCode == 200 || subscription.resultCode == 0) {
+                //TODO get verification code & save it
+                showVerificationCodeDialog(mActivity);
+            } else {
+                errMsg = subscription.desc;
+            }
+        } else {
+            errMsg = "Error connecting to server";
+        }
+
+        if(!errMsg.equals("Error")) {
+            Snackbar.make(etMsisdn, errMsg, Snackbar.LENGTH_LONG).show();
+        }
+    }
 }
