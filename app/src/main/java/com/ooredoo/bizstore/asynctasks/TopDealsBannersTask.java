@@ -4,7 +4,6 @@ import android.support.v4.view.ViewPager;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -13,6 +12,7 @@ import com.ooredoo.bizstore.utils.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,7 +62,11 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<GenericDeal> deals = response.deals;
+            List<GenericDeal> deals = new ArrayList<>();
+
+            if(response.deals != null) {
+                deals = response.deals;
+            }
 
             for(GenericDeal genericDeal : deals)
             {

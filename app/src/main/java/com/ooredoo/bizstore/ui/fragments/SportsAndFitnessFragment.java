@@ -15,7 +15,6 @@ import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
-import com.ooredoo.bizstore.listeners.ListViewOnItemClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -77,7 +76,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         adapter.setCategory(ResourceUtils.SPORTS_AND_FITNESS);
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
-        listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
+        //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
