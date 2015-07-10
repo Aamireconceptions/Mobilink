@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL;
-import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.PERCENT_OFF;
 import static java.lang.String.valueOf;
 
@@ -157,10 +155,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Deal recentDeal = new Deal(deal);
-                RecentViewedActivity.addToRecentViewed(recentDeal);
-                DealDetailActivity.selectedDeal = deal;
-                ((HomeActivity) context).showDetailActivity(DEAL, DEAL_CATEGORIES[2], deal.id);
+                showDetail(deal);
             }
         });
 
@@ -175,29 +170,41 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvViews.setText(valueOf(deal.views));
 
+        if(category == ResourceUtils.FOOD_AND_DINING) {
 
-        String promotionalBanner = deal.image != null ? deal.image.promotionalUrl : null;
+            String promotionalBanner = deal.image != null ? deal.image.promotionalUrl : null;
 
-        Logger.print("promotionalBanner: "+promotionalBanner);
+            Logger.print("promotionalBanner: " + promotionalBanner);
 
-        if(promotionalBanner != null && holder.ivPromotional != null)
-        {
-            String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
+            if(promotionalBanner != null && holder.ivPromotional != null) {
+                final String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
 
-            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+                Bitmap bitmap = memoryCache.getBitmapFromCache(url);
 
-            if(bitmap != null)
-            {
-                holder.ivPromotional.setImageBitmap(bitmap);
-            }
-            else
-            {
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional, null);
-                bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                if(bitmap != null) {
+                    holder.ivPromotional.setImageBitmap(bitmap);
+                } else {
+                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional, null);
+                    bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                }
+
+                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDetail(deal);
+                    }
+                });
             }
         }
 
         return row;
+    }
+
+    private void showDetail(GenericDeal deal) {
+        Deal recentDeal = new Deal(deal);
+        RecentViewedActivity.addToRecentViewed(recentDeal);
+        DealDetailActivity.selectedDeal = deal;
+        ((HomeActivity) context).showDetailActivity(DEAL, category, deal.id);
     }
 
     private class FavouriteOnClickListener implements View.OnClickListener {
