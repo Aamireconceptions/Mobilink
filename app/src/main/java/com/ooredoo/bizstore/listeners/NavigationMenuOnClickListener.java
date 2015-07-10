@@ -7,8 +7,10 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.View;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.Locale;
 
@@ -26,20 +28,27 @@ public class NavigationMenuOnClickListener implements View.OnClickListener
     public NavigationMenuOnClickListener(Activity activity)
     {
         this.activity = activity;
+
+        lang = BizStore.getLanguage();
     }
 
     @Override
     public void onClick(View v)
     {
+        Logger.print("lang:" + lang);
         switch (v.getId())
         {
             case R.id.btn_lang_english:
+
+                if(lang.equals("en")) return;
 
                 lang = "en";
 
                 break;
 
             case R.id.btn_lang_arabic:
+
+                if(lang.equals("ar")) return;
 
                 lang = "ar";
 
@@ -49,9 +58,11 @@ public class NavigationMenuOnClickListener implements View.OnClickListener
         setSelected(v);
 
         changeLocale();
+
+        BizStore.setLanguage(lang);
     }
 
-    private void setSelected(View v)
+    public void setSelected(View v)
     {
         if(lastSelected != null)
         {
@@ -75,5 +86,6 @@ public class NavigationMenuOnClickListener implements View.OnClickListener
                 .getBaseContext().getResources().getDisplayMetrics());
 
         activity.recreate();
+
     }
 }

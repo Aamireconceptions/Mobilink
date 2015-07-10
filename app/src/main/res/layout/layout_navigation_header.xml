@@ -69,18 +69,19 @@
             android:layout_width="135dp"
             android:layout_height="45dp"
             android:layout_marginTop="0.4dp"
-            android:background="@drawable/btn_dark_red"
+            android:background="@drawable/lang_left_selector"
             android:text="@string/English"
             android:textAllCaps="false"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black_white_selector"/>
 
         <Button
             android:id="@+id/btn_lang_arabic"
             android:layout_width="135dp"
             android:layout_height="45dp"
-            android:background="@drawable/btn_lt_grey"
+            android:background="@drawable/lang_right_selector"
             android:text="@string/arabic"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"/>
 
     </LinearLayout>
 

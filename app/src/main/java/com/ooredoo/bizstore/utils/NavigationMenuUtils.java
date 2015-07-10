@@ -8,14 +8,18 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
+import com.ooredoo.bizstore.listeners.LanguageChangeListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
+import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
@@ -86,13 +90,15 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         /*LanguageChangeListener languageChangeListener = new LanguageChangeListener(homeActivity, navigationHeader);
         languageChangeListener.expandableListView = expandableListView;*/
 
-       /* NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
+        NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
 
         Button btEnglish = (Button) navigationHeader.findViewById(R.id.btn_lang_english);
         btEnglish.setOnClickListener(clickListener);
+        if(BizStore.getLanguage().equals("en")) clickListener.setSelected(btEnglish);
 
         Button btArabic = (Button) navigationHeader.findViewById(R.id.btn_lang_arabic);
-        btArabic.setOnClickListener(clickListener);*/
+        btArabic.setOnClickListener(clickListener);
+        if(BizStore.getLanguage().equals("ar")) clickListener.setSelected(btArabic);
 
         new HeaderNavigationListener(homeActivity, navigationHeader);
 
