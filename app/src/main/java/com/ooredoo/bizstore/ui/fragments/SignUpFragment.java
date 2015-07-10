@@ -37,6 +37,11 @@ public class SignUpFragment extends BaseFragment {
 
     @Override
     public void onClick(View v) {
+        showVerificationCodeDialog(mActivity);
+        //TODO uncomment & remove above line subscribe();
+    }
+
+    private void subscribe() {
         String msisdn = etMsisdn.getText().toString();
 
         String errMsg = "Error";

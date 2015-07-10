@@ -13,6 +13,7 @@ import android.widget.RatingBar;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
+import com.ooredoo.bizstore.ui.fragments.BaseFragment;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
@@ -101,10 +102,19 @@ public class DialogUtils {
         view.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
+                BaseFragment.hideKeyboard(activity);
+                AppCompatActivity compatActivity = (AppCompatActivity) activity;
+                replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "WELCOME_FRAGMENT");
+                //TODO un-comment & remove above 3 lines processVerificationCode();
+            }
+
+            private void processVerificationCode() {
                 EditText etCode = (EditText) view.findViewById(R.id.et_code);
                 String msisdn = etCode.getText().toString();
                 if(isNotNullOrEmpty(msisdn) && msisdn.length() >= VERIFICATION_CODE_MIN_LEN) {
                     dialog.dismiss();
+                    BaseFragment.hideKeyboard(activity);
                     activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     AppCompatActivity compatActivity = (AppCompatActivity) activity;
                     replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "WELCOME_FRAGMENT");
