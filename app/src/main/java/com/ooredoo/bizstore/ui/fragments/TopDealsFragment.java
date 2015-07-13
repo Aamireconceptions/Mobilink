@@ -93,8 +93,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         loadTopDeals();
     }
 
-
-
     private void initAndLoadTopDealsBanner()
     {
         List<GenericDeal> deals = new ArrayList<>();

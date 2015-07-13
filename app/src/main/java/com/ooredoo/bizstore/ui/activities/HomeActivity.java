@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,11 +25,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
@@ -46,7 +49,6 @@ import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
@@ -63,7 +65,8 @@ import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener, OnFilterChangeListener {
+public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
+                                                               OnFilterChangeListener{
     public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
@@ -111,6 +114,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public CheckBox cbSearchDeals, cbSearchBusinesses;
 
     public static ImageView profilePicture;
+
+    private LinearLayout llTopDeals;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -345,6 +351,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         viewPager.setCurrentItem(tabPosition, true);
     }
 
+
+
     public class CheckBoxClickListener implements OnClickListener {
         @Override
         public void onClick(View v) {
@@ -481,6 +489,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             mSuggestionsAdapter.notifyDataSetChanged();
         }
     }
+
+
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {

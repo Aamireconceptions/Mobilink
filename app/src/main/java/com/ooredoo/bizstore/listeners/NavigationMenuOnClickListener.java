@@ -1,15 +1,11 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.Locale;
@@ -54,12 +50,12 @@ public class NavigationMenuOnClickListener implements View.OnClickListener
 
                 break;
         }
+        BizStore.setLanguage(lang);
 
         setSelected(v);
 
         changeLocale();
 
-        BizStore.setLanguage(lang);
     }
 
     public void setSelected(View v)

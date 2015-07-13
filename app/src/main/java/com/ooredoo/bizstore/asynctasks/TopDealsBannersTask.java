@@ -75,6 +75,11 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
 
             adapter.setData(deals);
             adapter.notifyDataSetChanged();
+
+            if(BizStore.getLanguage().equals("ar"))
+            {
+                viewPager.setCurrentItem(deals.size() - 1);
+            }
         }
         else
         {
