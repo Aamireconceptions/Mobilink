@@ -119,7 +119,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
         return view;
     }
 
-    public void showDetailActivity(String dealCategory, long typeId) {
+    public void showDetailActivity(String dealCategory, int typeId) {
         Intent intent = new Intent();
         intent.setClass(mActivity, DealDetailActivity.class);
         intent.putExtra(AppConstant.ID, typeId);

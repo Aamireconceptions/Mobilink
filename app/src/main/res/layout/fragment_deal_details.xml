@@ -199,7 +199,6 @@
                     android:background="@drawable/deal_footer_bg"
                     android:gravity="center_vertical"
                     android:padding="10dp"
-                    android:text="30% OFF"
                     android:textColor="@color/red"/>
 
             </LinearLayout>

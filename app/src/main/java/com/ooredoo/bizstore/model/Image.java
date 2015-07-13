@@ -17,6 +17,8 @@ public class Image
     @SerializedName("promotional")
     public String promotionalUrl;
 
+    public String featured;
+
     @SerializedName("grid")
     public String gridBannerUrl;
 

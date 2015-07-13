@@ -4,6 +4,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.EditText;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
@@ -47,6 +48,7 @@ public class SignUpFragment extends BaseFragment {
         String errMsg = "Error";
         if(NetworkUtils.hasInternetConnection(mActivity)) {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
+                BizStore.username = msisdn;
                 new SubscriptionTask(this).execute(msisdn);
             } else {
                 errMsg = MSISDN_ERR_MSG;
@@ -65,6 +67,7 @@ public class SignUpFragment extends BaseFragment {
         if(subscription != null) {
             if(subscription.resultCode == 200 || subscription.resultCode == 0) {
                 //TODO get verification code & save it
+                BizStore.password = subscription.password;
                 showVerificationCodeDialog(mActivity);
             } else {
                 errMsg = subscription.desc;

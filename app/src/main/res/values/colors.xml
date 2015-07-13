@@ -17,7 +17,6 @@
     <color name="home_mall_title">#e0e0e0</color>
     <color name="transparent">#00FFFFFF</color>
 
-    
     <drawable name="red">@color/red</drawable>
     <drawable name="transparent">@color/transparent</drawable>
     <drawable name="grey">@color/grey</drawable>

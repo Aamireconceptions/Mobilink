@@ -119,8 +119,8 @@ public class GridViewBaseAdapter extends BaseAdapter
         holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
         Image image = deal.image;
-        if(image != null && image.logoUrl != null) {
-            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + deal.image.logoUrl;
+        if(image != null && image.gridBannerUrl != null) {
+            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + deal.image.gridBannerUrl;
 
             Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 

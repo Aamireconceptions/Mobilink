@@ -13,7 +13,7 @@ public class AppConstant {
 
     public static final String DIALER_PREFIX = "tel:";
 
-    public static final String PERCENT_OFF = " % OFF";
+    public static final String PERCENT_OFF = "% OFF";
 
     public static final String INTERNET_CONN_ERR = "No Internet connection";
 

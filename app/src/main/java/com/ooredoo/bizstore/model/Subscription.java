@@ -12,4 +12,6 @@ public class Subscription {
     public int resultCode = -1;
 
     public String desc = null;
+
+    public String password;
 }

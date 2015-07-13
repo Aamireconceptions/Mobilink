@@ -13,14 +13,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 
+import static com.ooredoo.bizstore.BizStore.username;
+
 /**
- * Created by Babar on 07-Jul-15.
+ * @author Babar
+ * @since 07-Jul-15.
  */
 public class ShareAppTask extends BaseAsyncTask<String, Void, String>
 {
     private Context context;
 
-    private final static String SERVICE_NAME = "/shareApp?";
+    private final static String SERVICE_NAME = "/recommendService?";
 
     private ProgressDialog progressDialog;
 
@@ -46,7 +49,7 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
     {
         try
         {
-            return shareApp(params[0], params[1]);
+            return shareApp(params[0]);
         }
         catch (IOException e)
         {
@@ -73,18 +76,23 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
-    private String shareApp(String phoneNum, String msg) throws IOException
+    private String shareApp(String phoneNum) throws IOException
     {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(PHONE_NUMBER, phoneNum);
-        params.put(MESSAGE, msg);
+        params.put("msisdn_to", phoneNum);
+        params.put("msisdn_from", username == null ? "3331234567" : username); //TODO remove temp number i.e 3331234567
+        //params.put(MESSAGE, msg); //MESSAGE IS STORED ON SERVER
 
         String query = createQuery(params);
 
-        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+        String serviceUrl = BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query;
+
+        Logger.logI("SERVICE_URL", serviceUrl);
+
+        URL url = new URL(serviceUrl);
 
         result = getJson(url);
 

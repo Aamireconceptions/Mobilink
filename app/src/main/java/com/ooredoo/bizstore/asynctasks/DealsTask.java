@@ -16,7 +16,6 @@ import com.ooredoo.bizstore.utils.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,6 +80,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
         if(result != null) {
             //List<GenericDeal> deals = null;
+
+            Logger.logI("DEALS: " + category, result);
 
             Gson gson = new Gson();
 

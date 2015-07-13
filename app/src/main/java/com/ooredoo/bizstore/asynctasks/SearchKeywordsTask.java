@@ -14,11 +14,11 @@ import java.util.HashMap;
  * @author Pehlaj Rai
  * @since 01-Jul-15
  */
-public class SearchSuggestionsTask extends BaseAsyncTask<Void, Void, String> {
+public class SearchKeywordsTask extends BaseAsyncTask<Void, Void, String> {
 
     private HomeActivity mActivity;
 
-    public SearchSuggestionsTask(HomeActivity activity) {
+    public SearchKeywordsTask(HomeActivity activity) {
         this.mActivity = activity;
     }
 
@@ -30,7 +30,7 @@ public class SearchSuggestionsTask extends BaseAsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return getSearchSuggestions();
+            return getPredefinedSearches();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -58,13 +58,13 @@ public class SearchSuggestionsTask extends BaseAsyncTask<Void, Void, String> {
         }
     }
 
-    private String getSearchSuggestions() throws IOException {
+    private String getPredefinedSearches() throws IOException {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
 
-        setServiceUrl("getsearchsuggestions", params);
+        setServiceUrl("getpredefinedsearches", params);
 
         result = getJson();
 

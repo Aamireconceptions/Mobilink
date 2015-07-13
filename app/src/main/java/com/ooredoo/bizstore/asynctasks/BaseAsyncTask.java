@@ -1,7 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.os.AsyncTask;
-import android.util.Base64;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.utils.Logger;
@@ -14,9 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -176,6 +173,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         HashMap<String, String> credentials = BizStore.getUserCredentials();
         HashMap<String, String> serviceParams = new HashMap<>();
         //serviceParams.putAll(credentials);
+        serviceParams.put(OS, ANDROID);
         serviceParams.putAll(params);
 
         try {

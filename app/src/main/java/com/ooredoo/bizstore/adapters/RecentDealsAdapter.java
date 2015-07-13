@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
@@ -64,6 +65,8 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
             holder.ivShare = (ImageView) view.findViewById(R.id.iv_share);
             holder.ivCategory = (ImageView) view.findViewById(R.id.iv_category);
 
+            holder.ratingBar = (RatingBar) view.findViewById(R.id.rating_bar);
+
             view.setTag(holder);
         }
 
@@ -97,6 +100,8 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
 
         holder.ivFav.setSelected(deal.isFavorite);
 
+        holder.ratingBar.setRating(deal.rating);
+
         holder.ivFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +115,7 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
         return view;
     }
 
-    public void showDetailActivity(String dealCategory, long typeId) {
+    public void showDetailActivity(String dealCategory, int typeId) {
         Intent intent = new Intent();
         intent.setClass(mActivity, DealDetailActivity.class);
         intent.putExtra(AppConstant.ID, typeId);
@@ -120,6 +125,7 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
 
     private static class Holder {
         View layout;
+        RatingBar ratingBar;
         ImageView ivFav, ivShare, ivCategory;
         TextView tvTitle, tvViews, tvDesc, tvDiscount, tvCategory;
     }

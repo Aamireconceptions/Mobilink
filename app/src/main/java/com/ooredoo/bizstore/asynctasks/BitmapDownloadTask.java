@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.io.IOException;
@@ -74,6 +75,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     {
         try
         {
+            Logger.print("Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);
 
             InputStream inputStream = openStream();

@@ -5,9 +5,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.fragments.FeaturedFragment;
-import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.List;
 
@@ -34,8 +32,8 @@ public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return FeaturedFragment.newInstance(deals.get(position).id,
-                                            deals.get(position).image.bannerUrl);
+        String url = deals.get(position).image.featured;
+        return FeaturedFragment.newInstance(deals.get(position).id, url);
     }
 
     @Override

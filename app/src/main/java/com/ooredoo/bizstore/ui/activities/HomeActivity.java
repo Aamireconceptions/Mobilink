@@ -29,16 +29,16 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
-import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
+import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
+import com.ooredoo.bizstore.listeners.DrawerChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
@@ -67,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
+    private DrawerChangeListener mDrawerListener = new DrawerChangeListener(this);
 
     public ListView mSuggestionsListView, mSearchResultsListView;
 
@@ -119,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         init();
 
-        new SearchSuggestionsTask(this).execute();
+        new SearchKeywordsTask(this).execute();
     }
 
     private void init() {
@@ -144,6 +145,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+
+        drawerLayout.setDrawerListener(mDrawerListener);
 
         viewPager = (ViewPager) findViewById(R.id.home_viewpager);
 
@@ -260,9 +263,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         int id = item.getItemId();
         if(id == android.R.id.home) {
             if(isSearchEnabled) {
-                isShowResults = false;
-                findViewById(R.id.layout_search_results).setVisibility(View.VISIBLE);
-                showHideSearchBar(false);
+                hideSearchResults();
             } else {
                 showHideDrawer(GravityCompat.START, true);
             }
@@ -276,6 +277,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             showHideSearchBar(show);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void hideSearchResults() {
+        isShowResults = false;
+        findViewById(R.id.layout_search_results).setVisibility(View.VISIBLE);
+        showHideSearchBar(false);
     }
 
     public void showHideDrawer(int gravity, boolean show) {
@@ -449,6 +456,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         HomeActivity.isShowResults = true;
         findViewById(R.id.layout_search_results).setVisibility(View.VISIBLE);
 
+        findViewById(R.id.iv_filter_results).setVisibility(View.GONE);
         TextView tvSearchResults = (TextView) findViewById(R.id.tv_search_results);
         tvSearchResults.setText("Showing " + results.size() + " Results");
         tvSearchResults.setVisibility(View.VISIBLE);

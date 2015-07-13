@@ -28,7 +28,6 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL;
-import static com.ooredoo.bizstore.AppConstant.PERCENT_OFF;
 import static java.lang.String.valueOf;
 
 /**
@@ -170,7 +169,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvViews.setText(valueOf(deal.views));
 
-        String promotionalBanner = deal.image != null ? deal.image.promotionalUrl : null;
+        String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
 
         Logger.print("promotionalBanner: " + promotionalBanner);
 
