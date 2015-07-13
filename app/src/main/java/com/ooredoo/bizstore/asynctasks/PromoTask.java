@@ -40,6 +40,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
     {
         try
         {
+            Logger.print("doInBackground: PromoTask");
             return getPromos();
         }
         catch (IOException e)
@@ -72,7 +73,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
             for(GenericDeal genericDeal : deals)
             {
-                Logger.print("onPost:"+genericDeal.image.bannerUrl);
+                Logger.print("PromoTask :"+genericDeal.image.promotionalUrl);
             }
 
             adapter.setData(deals);
@@ -103,6 +104,8 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
             String query = createQuery(params);
 
             URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+            Logger.print("getPromos Url: "+url.toString());
 
             HttpURLConnection connection = openConnectionAndConnect(url);
 

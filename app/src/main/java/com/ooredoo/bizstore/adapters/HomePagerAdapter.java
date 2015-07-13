@@ -2,9 +2,11 @@ package com.ooredoo.bizstore.adapters;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.AutomotiveFragment;
 import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
@@ -24,10 +26,15 @@ import com.ooredoo.bizstore.ui.fragments.TravelFragment;
  */
 public class HomePagerAdapter extends FragmentPagerAdapter
 {
+    private Context context;
+
     private final static int PAGE_COUNT = 12;
 
-    public HomePagerAdapter(FragmentManager fragmentManager) {
+    public HomePagerAdapter(Context context, FragmentManager fragmentManager)
+    {
         super(fragmentManager);
+
+        this.context = context;
     }
 
     @Override
@@ -72,6 +79,57 @@ public class HomePagerAdapter extends FragmentPagerAdapter
     @Override
     public CharSequence getPageTitle(int position)
     {
-        return AppConstant.TAB_NAMES[position];
+        switch (position)
+        {
+            case 0:
+
+                return context.getString(R.string.home);
+
+            case 1:
+
+                return context.getString(R.string.top_deals);
+
+            case 2:
+
+                return context.getString(R.string.food_dining);
+
+            case 3:
+
+                return context.getString(R.string.shopping);
+
+            case 4:
+
+                return context.getString(R.string.electronics);
+
+            case 5:
+
+                return context.getString(R.string.hotels_spa);
+
+            case 6:
+
+                return context.getString(R.string.markets_malls);
+
+            case 7:
+
+                return context.getString(R.string.automotive);
+
+            case 8:
+
+                return context.getString(R.string.travel_tours);
+
+            case 9:
+
+                return context.getString(R.string.entertainment);
+
+            case 10:
+
+                return context.getString(R.string.jewelry_exchange);
+
+            case 11:
+
+                return context.getString(R.string.sports_fitness);
+        }
+
+        return "No Name";
     }
 }

@@ -122,13 +122,12 @@
                     android:visibility="visible"/>
             </LinearLayout>
 
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/red"
-                android:paddingEnd="@dimen/_10sdp"
-                android:paddingStart="@dimen/_10sdp"
                 app:tabIndicatorColor="@color/white"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/white"

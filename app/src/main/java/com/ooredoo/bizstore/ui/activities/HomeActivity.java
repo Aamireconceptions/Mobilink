@@ -141,7 +141,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         cbSearchDeals.setOnClickListener(checkBoxClickListener);
         cbSearchBusinesses.setOnClickListener(checkBoxClickListener);
 
-        homePagerAdapter = new HomePagerAdapter(getFragmentManager());
+        homePagerAdapter = new HomePagerAdapter(this, getFragmentManager());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
@@ -505,7 +505,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         //TODO exception
         searchPopup.dismiss();
 
-        MemoryCache.getInstance().tearDown();
+       // MemoryCache.getInstance().tearDown();
 
         Logger.print("HomeActivity onDestroy");
     }

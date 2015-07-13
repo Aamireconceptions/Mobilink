@@ -27,6 +27,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

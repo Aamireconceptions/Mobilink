@@ -57,6 +57,8 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
     private void initAndLoadBanner(View v)
     {
+
+
         activity = (HomeActivity) getActivity();
 
         Bundle bundle = getArguments();
@@ -79,6 +81,8 @@ public class PromoFragment extends Fragment implements View.OnClickListener
             Logger.logE("FRAGMENT URL:", url);
 
             Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+            Logger.print("PromoFragment bitmap: " +imageView);
 
             if(bitmap != null) {
                 imageView.setImageBitmap(bitmap);
