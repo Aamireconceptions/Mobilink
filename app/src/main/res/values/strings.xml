@@ -138,4 +138,41 @@
     <string name="help_answer6a">1. Application will be charged at 9 QAR/Week with fallback charging</string>
     <string name="help_answer6_a">a. User will be subscribed, and if unsuccessful, system will attempt to deduct QAR 1.3/Day.</string>
     <string name="help_answer6b">2. On SMS the service will be charged at 2 QAR/Week</string>
+
+    <!-- Sub Categories-->
+    <string name="Arabic">Arabic</string>
+    <string name="Turkish">Turkish</string>
+    <string name="Indian">Indian</string>
+    <string name="Chinese">Chinese</string>
+    <string name="Cafes">Cafes</string>
+    <string name="Fast_Food">Fast Food</string>
+    <string name="Italian">Italian</string>
+    <string name="Afghani">Afghani</string>
+    <string name="Lebanese">Lebanese</string>
+    <string name="Sweets_Confectionaries"><![CDATA[Sweets & Confectionaries]]></string>
+    <string name="Apparel">Apparel</string>
+    <string name="Home_Goods">Home Goods</string>
+    <string name="Sports_Fitness"><![CDATA[Sports & Fitness]]></string>
+    <string name="Electronics">Electronics</string>
+    <string name="Fashion_Beauty_Accessories"><![CDATA[Fashion & Beauty Accessories]]></string>
+    <string name="TV_Home_Entertainment"><![CDATA[TV & Home Entertainment]]></string>
+    <string name="Computers_Tablets"><![CDATA[Computers & Tablets]]></string>
+    <string name="Cameras_Photography"><![CDATA[Cameras & Photography]]></string>
+    <string name="Mobile_Phones_Accessories"><![CDATA[Mobile Phones & Accessories]]></string>
+    <string name="Salons">Salons</string>
+    <string name="Lodging">Lodging</string>
+    <string name="Spas">Spas</string>
+    <string name="Hypermarkets">Hypermarkets</string>
+    <string name="Malls">Malls</string>
+    <string name="Show_Rooms">Show Rooms</string>
+    <string name="Accessories">Accessories</string>
+    <string name="Services">Services</string>
+    <string name="Events">Events</string>
+    <string name="Kids_Activities"><![CDATA[Kids & Activities]]></string>
+    <string name="Cinemas">Cinemas</string>
+    <string name="Gold_Rate">Gold Rate</string>
+    <string name="Currency">Currency</string>
+    <string name="Clothing">Clothing</string>
+    <string name="Equipment">Equipment</string>
+
 </resources>

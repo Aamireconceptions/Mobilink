@@ -16,6 +16,7 @@ import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.MyDealsActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
+import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
     Activity mActivity;
     int layoutResID;
     List<Deal> deals;
+    private int prevItem = -1;
 
     public FavoritesAdapter(Activity activity, int layoutResourceID, List<Deal> items) {
         super(activity, layoutResourceID, items);
@@ -116,6 +118,11 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
                 ((MyDealsActivity) mActivity).toggleEmptyView(getCount());
             }
         });
+
+        AnimUtils.slideView(mActivity, view, prevItem < position);
+
+        prevItem = position;
+
         return view;
     }
 

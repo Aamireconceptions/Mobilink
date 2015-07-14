@@ -24,7 +24,7 @@
                 android:src="@drawable/tmp_profile"/>
 
             <ProgressBar
-                android:id="@+id/progress_bar"
+                android:id="@+id/pbProfilePic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -59,14 +59,14 @@
         android:layout_height="wrap_content"
         android:layoutDirection="ltr"
         android:gravity="center"
-        android:paddingBottom="@dimen/_6sdp"
-        android:paddingTop="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
         android:visibility="visible">
 
         <Button
             android:id="@+id/btn_lang_english"
-            android:layout_width="135dp"
-            android:layout_height="45dp"
+            android:layout_width="115dp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="0.4dp"
             android:background="@drawable/lang_left_selector"
             android:text="@string/English"
@@ -75,8 +75,8 @@
 
         <Button
             android:id="@+id/btn_lang_arabic"
-            android:layout_width="135dp"
-            android:layout_height="45dp"
+            android:layout_width="115dp"
+            android:layout_height="@dimen/_35sdp"
             android:background="@drawable/lang_right_selector"
             android:text="@string/arabic"
             android:textAllCaps="false"

@@ -1,6 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Dialog;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -41,6 +44,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     public String category;
 
+    private Dialog loader;
+
+    private ListView listView;
+
     public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.homeActivity = homeActivity;
 
@@ -53,11 +60,20 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         this.tvDealsOfTheDay = tvDealsOfTheDay;
     }
 
+    public void setListView(ListView listView) {
+        this.listView = listView;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-        if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
+        /*if(listView != null) listView.setVisibility(View.GONE);
+        if(loaderView != null) loaderView.setVisibility(View.VISIBLE);*/
+
+        loader = DialogUtils.createCustomLoader(homeActivity, "Loading...");
+
+        /*if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }*/
     }
 
     @Override
@@ -76,7 +92,13 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        if(progressBar != null) { progressBar.setVisibility(View.GONE); }
+        /*if(listView != null) listView.setVisibility(View.VISIBLE);
+        if(loaderView != null) loaderView.setVisibility(View.GONE);*/
+
+        if(loader != null && loader.isShowing())
+            loader.dismiss();
+
+        /*if(progressBar != null) { progressBar.setVisibility(View.GONE); }*/
 
         if(result != null) {
             //List<GenericDeal> deals = null;

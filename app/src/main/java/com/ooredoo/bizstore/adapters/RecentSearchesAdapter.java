@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.AnimUtils;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
     List<SearchItem> items;
 
     public static HomeActivity homeActivity;
+
+    private int prevItem = -1;
 
     public RecentSearchesAdapter(Activity activity, int layoutResourceID, List<SearchItem> items) {
         super(activity, layoutResourceID, items);
@@ -65,6 +68,10 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
                 mActivity.onBackPressed();
             }
         });
+
+        AnimUtils.slideView(mActivity, view, prevItem < position);
+
+        prevItem = position;
 
         return view;
     }

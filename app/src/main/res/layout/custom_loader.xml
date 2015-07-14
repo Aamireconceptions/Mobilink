@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout
+    android:id="@+id/rl_loader"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="100dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/iv_loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:src="@drawable/loading"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_loader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="0dp"
+        android:singleLine="true"
+        android:text="Please wait...!"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

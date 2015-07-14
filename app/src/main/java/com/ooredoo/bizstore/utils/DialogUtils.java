@@ -2,14 +2,19 @@ package com.ooredoo.bizstore.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
@@ -19,6 +24,8 @@ import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
 import static com.ooredoo.bizstore.AppConstant.MSISDN_VERIFICATION_MSG;
 import static com.ooredoo.bizstore.AppConstant.VERIFICATION_CODE_MIN_LEN;
+import static com.ooredoo.bizstore.BizStore.password;
+import static com.ooredoo.bizstore.utils.Converter.convertDpToPixels;
 import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackStack;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
@@ -27,6 +34,41 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
  * @since 6/18/2015.
  */
 public class DialogUtils {
+
+    public static Dialog createCustomLoader(Activity activity, String txt) {
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+
+        View view = inflater.inflate(R.layout.custom_loader, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setCancelable(false);
+
+        builder.setView(view);
+        Dialog dialog = builder.create();
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                return true;
+            }
+        });
+
+        final Animation animation = AnimationUtils.loadAnimation(activity, R.anim.rotate);
+        view.findViewById(R.id.iv_loader).startAnimation(animation);
+        ((TextView) view.findViewById(R.id.tv_title)).setText(txt);
+
+        dialog.show();
+
+        int width = (int) convertDpToPixels(200);
+        int height = (int) convertDpToPixels(125);
+
+        dialog.getWindow().setLayout(width, height);
+
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
+    }
 
     public static Dialog showRatingDialog(final Activity activity, final String type, final long typeId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -111,8 +153,8 @@ public class DialogUtils {
 
             private void processVerificationCode() {
                 EditText etCode = (EditText) view.findViewById(R.id.et_code);
-                String msisdn = etCode.getText().toString();
-                if(isNotNullOrEmpty(msisdn) && msisdn.length() >= VERIFICATION_CODE_MIN_LEN) {
+                String code = etCode.getText().toString();
+                if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN && code.equals(password)) {
                     dialog.dismiss();
                     BaseFragment.hideKeyboard(activity);
                     activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);

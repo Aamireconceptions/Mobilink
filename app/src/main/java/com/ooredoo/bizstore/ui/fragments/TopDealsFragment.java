@@ -41,6 +41,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     public static String subCategory = "";
 
+    private View mView;
     public static TopDealsFragment newInstance() {
         TopDealsFragment fragment = new TopDealsFragment();
 
@@ -51,6 +52,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_top_deals, container, false);
+
+        mView = v;
 
         init(v, inflater);
 
@@ -112,6 +115,11 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     private void loadTopDeals()
     {
         DealsTask dealsTask = new DealsTask(mActivity, adapter, null);
+
+        /*View loaderView = mView.findViewById(R.id.loader);
+        ListView listView = (ListView) mView.findViewById(R.id.list_view);
+        dealsTask.setListView(listView);
+        dealsTask.setLoaderView(loaderView);*/
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;

@@ -4,8 +4,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -13,15 +14,24 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.PictureUploadTask;
+import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.io.File;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
+import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.profilePicture;
+import static com.ooredoo.bizstore.utils.Converter.convertDpToPixels;
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import static java.lang.String.valueOf;
 
 /**
  * @author Pehlaj Rai
@@ -33,7 +43,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     EditText etName;
     boolean canEditDp = false;
     boolean canEditName = false;
-    ImageView ivProfilePic;
+    public ImageView ivProfilePic;
     //TODO change image path
 
     public MyAccountActivity() {
@@ -52,11 +62,18 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void loadPicture() {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
-        Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        ivProfilePic.setImageBitmap(bitmap);
-        ivProfilePic.setBackground(null);
+
+        Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
+
+        if(bitmap != null) {
+            ivProfilePic.setImageBitmap(bitmap);
+        } else {
+            int width = (int) convertDpToPixels(225);
+            int height = width;
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+            BitmapDownloadTask bitmapTask = new BitmapDownloadTask(ivProfilePic, progressBar);
+            bitmapTask.execute(PROFILE_PIC_URL, valueOf(width), valueOf(height));
+        }
     }
 
     @Override
@@ -82,7 +99,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 takePicture();
             } else {
                 if(hasUserSelectedPic) {
-                    //TODO upload picture to server
+                    uploadImageToServer(path);
                 } else {
                     makeText(getApplicationContext(), "Please select picture", LENGTH_SHORT).show();
                 }
@@ -90,105 +107,58 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    String path = "/storage/emulated/0/images/obs_user_dp.png";
+
     public void takePicture() {
         Log.i("camera", "startCameraActivity()");
-        File file = new File(AppConstant.PROFILE_PIC_URL);
+        File file = new File(path);
         Uri outputFileUri = Uri.fromFile(file);
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
         intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        intent.putExtra("return-data", true);
         startActivityForResult(intent, 1);
     }
 
-    public void selectPicture() {
-        File file = new File(AppConstant.PROFILE_PIC_URL);
-        Uri outputFileUri = Uri.fromFile(file);
-        final Intent intent = new Intent();
-        intent.setAction(Intent.EXTRA_INITIAL_INTENTS);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        startActivityForResult(intent, 1);
-    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-    boolean isCropEnabled;
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, intent);
 
         Log.i("RequestCode: " + requestCode, "resultCode: " + resultCode);
 
-        if(resultCode == RESULT_OK && null != data) {
+        hasUserSelectedPic = true;
 
-            hasUserSelectedPic = true;
-            Uri selectedImage = data.getData();
+        if(resultCode == RESULT_OK && null != intent) {
 
-            String path = selectedImage.getPath();
+            Uri selectedImage = intent.getData();
+
+            path = selectedImage.getPath();
 
             Log.i("PIC", path);
 
-            Bundle extras = data.getExtras();
-
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-            if(extras != null) {
-                //get the cropped bitmap
-                bitmap = extras.getParcelable("data");
-            }
-            ivProfilePic.setBackground(null);
-            ivProfilePic.setImageBitmap(bitmap);
-            profilePicture.setImageBitmap(bitmap);
-            profilePicture.setBackground(null);
-
         } else {
 
-            if(isCropEnabled) {
-                isCropEnabled = false;
-            } else {
                 switch(resultCode) {
                     case 0:
                         Log.i("SonaSys", "User cancelled");
                         break;
                     case -1:
-                        isCropEnabled = true;
-                        cropImage();
-                        onPhotoTaken();
+                        //isCropEnabled = true;
+                        Bitmap bitmap = decodeFile(path);
+                        ivProfilePic.setImageBitmap(bitmap);
+                        profilePicture.setImageBitmap(bitmap);
                         break;
-                }
             }
         }
     }
 
-    private void cropImage() {
-
-        Intent cropIntent = new Intent("com.android.camera.action.CROP");
-        File file = new File(AppConstant.PROFILE_PIC_URL);
-        Uri uri = Uri.fromFile(file);
-        cropIntent.setType("image/*");
-        cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        cropIntent.setDataAndType(uri, "image/*");
-        cropIntent.putExtra("outputX", 1440);
-        cropIntent.putExtra("outputY", 1440);
-        cropIntent.putExtra("aspectX", 1);
-        cropIntent.putExtra("aspectY", 1);
-        cropIntent.putExtra("scale", "true");
-        cropIntent.putExtra("return-data", true);
-        startActivityForResult(cropIntent, 1);
-        isCropEnabled = true;
-    }
-
-    protected void onPhotoTaken() {
-        Log.i("---", "onPhotoTaken");
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        ivProfilePic.setBackground(null);
+    public void uploadImageToServer(String path) {
+        Logger.print("IMG_PATH: " + path);
+        Bitmap bitmap = decodeFile(path);
         ivProfilePic.setImageBitmap(bitmap);
-        if(profilePicture != null) {
-            profilePicture.setImageBitmap(bitmap);
-            profilePicture.setBackground(null);
-        }
+        findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+        PictureUploadTask uploadTask = new PictureUploadTask(this, path);
+        uploadTask.execute();
     }
 
     private void setupToolbar() {
@@ -196,5 +166,79 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void updateProfilePicture(String path) {
+        if(isNotNullOrEmpty(path)) {
+            loadPicture();
+            Bitmap dpBitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
+
+            if(dpBitmap != null) {
+                profilePicture.setImageBitmap(dpBitmap);
+            } else {
+                int reqWidth = (int) convertDpToPixels(75);
+                int reqHeight = reqWidth;
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(profilePicture, null);
+                bitmapDownloadTask.execute(PROFILE_PIC_URL, valueOf(reqWidth), valueOf(reqHeight));
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Error uploading image", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static Bitmap decodeFile(String path) {
+        int orientation;
+        try {
+            if(path == null) {
+                return null;
+            }
+            // decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            // Find the correct scale value. It should be the power of 2.
+            final int REQUIRED_SIZE = 70;
+            int width_tmp = o.outWidth, height_tmp = o.outHeight;
+            int scale = 1;
+
+            // decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            Bitmap bm = BitmapFactory.decodeFile(path, o2);
+            Bitmap bitmap = bm;
+
+            ExifInterface exif = new ExifInterface(path);
+
+            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            Log.e("ExifInteface .........", "rotation =" + orientation);
+
+            // exif.setAttribute(ExifInterface.ORIENTATION_ROTATE_90, 90);
+
+            Log.e("orientation", "" + orientation);
+            Matrix m = new Matrix();
+
+            if((orientation == ExifInterface.ORIENTATION_ROTATE_180)) {
+                m.postRotate(180);
+                // m.postScale((float) bm.getWidth(), (float) bm.getHeight());
+                // if(m.preRotate(90)){
+                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
+                return bitmap;
+            } else if(orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+                m.postRotate(90);
+                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
+                return bitmap;
+            } else if(orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+                m.postRotate(270);
+                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
+                return bitmap;
+            }
+            return bitmap;
+        } catch(Exception e) {
+            return null;
+        }
+
     }
 }

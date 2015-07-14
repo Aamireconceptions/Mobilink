@@ -20,6 +20,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
+import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -35,6 +36,9 @@ import static java.lang.String.valueOf;
  * @since 19-Jun-15.
  */
 public class ListViewBaseAdapter extends BaseAdapter {
+
+    private Activity activity;
+
     private Context context;
 
     private int layoutResId;
@@ -51,8 +55,12 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     private int reqWidth, reqHeight;
 
+    private int prevItem = -1;
+
     public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals) {
         this.context = context;
+
+        this.activity = (Activity) context;
 
         this.layoutResId = layoutResId;
 
@@ -198,6 +206,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 }
             });
         }
+
+        AnimUtils.slideView(activity, row, prevItem < position);
+
+        prevItem = position;
 
         return row;
     }

@@ -14,6 +14,7 @@ import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
 import java.util.List;
@@ -29,6 +30,8 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
     HomeActivity mActivity;
     int layoutResID;
     List<SearchResult> results;
+
+    private int prevItem = -1;
 
     public SearchResultsAdapter(HomeActivity activity, int layoutResourceID, List<SearchResult> items) {
         super(activity, layoutResourceID, items);
@@ -96,6 +99,11 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
                 }
             }
         });
+
+        AnimUtils.slideView(mActivity, view, prevItem < position);
+
+        prevItem = position;
+
         return view;
     }
 

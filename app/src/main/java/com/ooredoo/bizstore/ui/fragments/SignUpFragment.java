@@ -66,7 +66,6 @@ public class SignUpFragment extends BaseFragment {
         String errMsg = "Error";
         if(subscription != null) {
             if(subscription.resultCode == 200 || subscription.resultCode == 0) {
-                //TODO get verification code & save it
                 BizStore.password = subscription.password;
                 showVerificationCodeDialog(mActivity);
             } else {

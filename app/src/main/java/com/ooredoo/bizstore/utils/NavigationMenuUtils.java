@@ -2,7 +2,6 @@ package com.ooredoo.bizstore.utils;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +10,13 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
-import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
-import com.ooredoo.bizstore.listeners.LanguageChangeListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
@@ -28,7 +27,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.profilePicture;
+import static com.ooredoo.bizstore.utils.Converter.convertDpToPixels;
+import static java.lang.String.valueOf;
 
 /**
  * @author Babar
@@ -118,11 +120,17 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         profilePicture.setMaxHeight((int) Converter.convertDpToPixels(100));
         profilePicture.setOnClickListener(this);
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
-        Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        profilePicture.setImageBitmap(bitmap);
-        profilePicture.setBackground(null);
+        Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
+
+        if(bitmap != null) {
+            profilePicture.setImageBitmap(bitmap);
+        } else {
+            int width = (int) convertDpToPixels(75);
+            int height = width;
+            ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
+            BitmapDownloadTask bitmapTask = new BitmapDownloadTask(profilePicture, progressBar);
+            bitmapTask.execute(PROFILE_PIC_URL, valueOf(width), valueOf(height));
+        }
 
         /*
         ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.progress_bar);

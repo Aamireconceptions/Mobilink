@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.AnimUtils;
 
 public class SuggestionsAdapter extends ArrayAdapter<String> {
 
@@ -25,6 +26,7 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
     public void setData(String[] suggestions) {
         this.suggestions = suggestions;
     }
+
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
@@ -49,6 +51,9 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
             }
         });
         textView.setText(item);
+
+        AnimUtils.slideView(mActivity, convertView, true);
+
         return convertView;
     }
 

@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +31,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
@@ -114,6 +113,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public CheckBox cbSearchDeals, cbSearchBusinesses;
 
     public static ImageView profilePicture;
+
+    public static Dialog loader;
 
     private LinearLayout llTopDeals;
 
@@ -351,8 +352,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         viewPager.setCurrentItem(tabPosition, true);
     }
 
-
-
     public class CheckBoxClickListener implements OnClickListener {
         @Override
         public void onClick(View v) {
@@ -489,8 +488,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             mSuggestionsAdapter.notifyDataSetChanged();
         }
     }
-
-
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
