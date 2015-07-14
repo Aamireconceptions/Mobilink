@@ -1,11 +1,8 @@
 ﻿<resources>
     <string name="app_name">Bizstore</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">تطبيق</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="plus_sign">+</string>
     <string name="phone_number">phone number</string>
-    <string name="title_activity_home">HomeActivity</string>
     <string name="search">Search</string>
     <string name="home">الرئيسية</string>
     <string name="top_deals">أفضل العروض</string>
@@ -22,7 +19,6 @@
     <string name="NEXT">NEXT</string>
     <string name="SIGNUP">SIGNUP</string>
     <string name="SUBSCRIBE">SUBSCRIBE</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="top_brands">أفضل الماركات</string>
     <string name="health_fitness">الصحة واللياقة</string>
     <string name="top_malls">أفضل المجمعات التجارية</string>
@@ -47,7 +43,6 @@
     <string name="about">عن التطبيق</string>
     <string name="un_subscribe">الغاء الاشتراك</string>
     <string name="shopping_speciality">التسوق</string>
-    <string name="title_activity_filter">FilterActivity</string>
     <string name="type">Type</string>
     <string name="deals_discount">Deals and Discounts</string>
     <string name="business_directory">Business and Directory</string>
@@ -84,7 +79,6 @@
     <string name="English">English</string>
     <string name="arabic">العربية</string>
     <string name="is_arabic">true</string>
-    <string name="title_activity_share_app">ShareAppActivity</string>
     <string name="share_app_note">Bizstore app will send a sms message to given phone number. Carrier SMS charges may apply.</string>
     <string name="enter_number">Please Enter Mobile Number</string>
     <string name="sharing_msg">Sharing Message</string>
@@ -101,12 +95,10 @@
     <string name="ENTER_CODE">ENTER CODE</string>
     <string name="verification_code_details">You will receive a short code from your carrier\nplease check your inbox.</string>
     <string name="unsub_details">الغاء الاشتراك في بيزستور يستنج عنه ايقاف كل التنبيهات لجميع العروض الجديدة من التطبيق</string>
-    <string name="title_activity_my_deals">MyDealsActivity</string>
     <string name="share_app_with_friends">Share App with Friends</string>
     <string name="About_Us">عن التطبيق</string>
     <string name="select_all">اخيتار كل</string>
     <string name="name_hint">Enter Your Name</string>
-    <string name="title_activity_recent_searches">RecentSearchesActivity</string>
     <string name="no_recent_searches">لا يوجد أي نتائج</string>
     <string name="my_businesses">My Businesses</string>
     <string name="share">شارك</string>
@@ -162,20 +154,20 @@
     <string name="Mobile_Phones_Accessories"><![CDATA[Mobile Phones & Accessories]]></string>
     <string name="Salons">Salons</string>
     <string name="Lodging">Lodging</string>
-    <string name="Spas">Spas</string>
-    <string name="Hypermarkets">Hypermarkets</string>
-    <string name="Malls">Malls</string>
-    <string name="Show_Rooms">Show Rooms</string>
-    <string name="Accessories">Accessories</string>
-    <string name="Services">Services</string>
-    <string name="Events">Events</string>
-    <string name="Kids_Activities"><![CDATA[Kids & Activities]]></string>
-    <string name="Cinemas">Cinemas</string>
-    <string name="Gold_Rate">Gold Rate</string>
-    <string name="Currency">Currency</string>
-    <string name="Clothing">Clothing</string>
-    <string name="Equipment">Equipment</string>
-    <string name="error_invalid_num">Please provide valid phone number</string>
-    <string name="error_invalid_verification_code">Please provide valid verification code</string>
+    <string name="Spas">منتجع صحي</string>
+    <string name="Hypermarkets">هايبرماركت</string>
+    <string name="Malls">مجمعات تجارية</string>
+    <string name="Show_Rooms">معارض</string>
+    <string name="Accessories">إكسسوارات</string>
+    <string name="Services">خدمات</string>
+    <string name="Events">أحداث</string>
+    <string name="Kids_Activities">أنشطة للأطفال></string>
+    <string name="Cinemas">سينما</string>
+    <string name="Gold_Rate">أسعار الذهب</string>
+    <string name="Currency">عملات</string>
+    <string name="Clothing">ملابس</string>
+    <string name="Equipment">مُعِدات</string>
+    <string name="error_invalid_num">الرجاء توفير رقم الهاتف الخاص بك</string>
+    <string name="error_invalid_verification_code">الرجاء توفير رقم التأكيد الذي أُرسل لك</string>
 
 </resources>
