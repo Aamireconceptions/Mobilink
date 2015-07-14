@@ -115,7 +115,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         Uri outputFileUri = Uri.fromFile(file);
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, 1);
     }
@@ -138,22 +138,23 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
         } else {
 
-                switch(resultCode) {
-                    case 0:
-                        Log.i("SonaSys", "User cancelled");
-                        break;
-                    case -1:
-                        //isCropEnabled = true;
-                        Bitmap bitmap = decodeFile(path);
-                        ivProfilePic.setImageBitmap(bitmap);
-                        profilePicture.setImageBitmap(bitmap);
-                        break;
+            switch(resultCode) {
+                case 0:
+                    Log.i("SonaSys", "User cancelled");
+                    break;
+                case -1:
+                    //isCropEnabled = true;
+                    Bitmap bitmap = decodeFile(path);
+                    ivProfilePic.setImageBitmap(bitmap);
+                    profilePicture.setImageBitmap(bitmap);
+                    break;
             }
         }
     }
 
     public void uploadImageToServer(String path) {
         Logger.print("IMG_PATH: " + path);
+        BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap bitmap = decodeFile(path);
         ivProfilePic.setImageBitmap(bitmap);
         findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
@@ -170,13 +171,18 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
     public void updateProfilePicture(String path) {
         if(isNotNullOrEmpty(path)) {
+
+            MemoryCache memoryCache = MemoryCache.getInstance();
+            memoryCache.tearDown();
+
             loadPicture();
-            Bitmap dpBitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
+
+            Bitmap dpBitmap = memoryCache.getBitmapFromCache(PROFILE_PIC_URL);
 
             if(dpBitmap != null) {
                 profilePicture.setImageBitmap(dpBitmap);
             } else {
-                int reqWidth = (int) convertDpToPixels(75);
+                int reqWidth = (int) convertDpToPixels(225);
                 int reqHeight = reqWidth;
                 BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(profilePicture, null);
                 bitmapDownloadTask.execute(PROFILE_PIC_URL, valueOf(reqWidth), valueOf(reqHeight));
@@ -185,6 +191,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "Error uploading image", Toast.LENGTH_LONG).show();
         }
     }
+
 
     public static Bitmap decodeFile(String path) {
         int orientation;
@@ -239,6 +246,5 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         } catch(Exception e) {
             return null;
         }
-
     }
 }

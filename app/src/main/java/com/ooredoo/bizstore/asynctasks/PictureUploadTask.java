@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.graphics.Bitmap;
 import android.util.Base64;
 import android.view.View;
 
@@ -41,8 +40,6 @@ public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
 
     private MyAccountActivity myAccountActivity;
 
-    Bitmap profilePicBitmap;
-
     public static final String IMAGE_UPLOAD_URL = "http://203.215.183.98:10009/ooredoo/index.php/api/en/uploadpic?os=android";
 
     private String pathProfilePic;
@@ -50,7 +47,6 @@ public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
     public PictureUploadTask(MyAccountActivity accountActivity, String pathProfilePic) {
         this.pathProfilePic = pathProfilePic;
         this.myAccountActivity = accountActivity;
-        profilePicBitmap = MyAccountActivity.decodeFile(pathProfilePic);
     }
 
     @Override
@@ -61,7 +57,7 @@ public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return uploadPictureToServer();
+            return uploadPictureToServer(pathProfilePic);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -90,10 +86,12 @@ public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
         }
     }
 
-    private String uploadPictureToServer() throws IOException {
+    private String uploadPictureToServer(String path) throws IOException {
 
         String result = null;
-        byte[] bytes = getImageBytes(pathProfilePic);
+
+        byte[] bytes = getImageBytes(path);
+
         String encoded_image = Base64.encodeToString(bytes, Base64.DEFAULT);
 
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();

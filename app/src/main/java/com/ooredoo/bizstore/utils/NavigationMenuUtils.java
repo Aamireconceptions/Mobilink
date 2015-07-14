@@ -125,7 +125,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         if(bitmap != null) {
             profilePicture.setImageBitmap(bitmap);
         } else {
-            int width = (int) convertDpToPixels(75);
+            int width = (int) convertDpToPixels(225);
             int height = width;
             ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
             BitmapDownloadTask bitmapTask = new BitmapDownloadTask(profilePicture, progressBar);
