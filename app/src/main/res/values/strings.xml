@@ -174,5 +174,7 @@
     <string name="Currency">Currency</string>
     <string name="Clothing">Clothing</string>
     <string name="Equipment">Equipment</string>
+    <string name="error_invalid_num">Please provide valid phone number</string>
+    <string name="error_invalid_verification_code">Please provide valid verification code</string>
 
 </resources>

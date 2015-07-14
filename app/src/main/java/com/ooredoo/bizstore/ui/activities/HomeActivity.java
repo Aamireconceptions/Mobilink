@@ -499,7 +499,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                     Logger.print("SEARCH_KEYWORD: " + keyword);
                     new SearchTask(this).execute(keyword);
                 } else {
-                    makeText(getApplicationContext(), AppConstant.INTERNET_CONN_ERR, LENGTH_SHORT).show();
+                    makeText(getApplicationContext(), getString(R.string.error_no_internet), LENGTH_SHORT).show();
                 }
             }
         }

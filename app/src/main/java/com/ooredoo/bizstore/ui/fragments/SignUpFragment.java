@@ -12,7 +12,6 @@ import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
-import static com.ooredoo.bizstore.AppConstant.MSISDN_ERR_MSG;
 import static com.ooredoo.bizstore.AppConstant.MSISDN_MIN_LEN;
 import static com.ooredoo.bizstore.utils.DialogUtils.showVerificationCodeDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
@@ -51,7 +50,7 @@ public class SignUpFragment extends BaseFragment {
                 BizStore.username = msisdn;
                 new SubscriptionTask(this).execute(msisdn);
             } else {
-                errMsg = MSISDN_ERR_MSG;
+                errMsg = getString(R.string.error_invalid_num);
             }
         } else {
             errMsg = "Please connect to Internet.";

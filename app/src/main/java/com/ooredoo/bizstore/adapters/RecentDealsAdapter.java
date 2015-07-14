@@ -115,7 +115,7 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
             }
         });
 
-        AnimUtils.slideView(mActivity, convertView, prevItem < position);
+        AnimUtils.slideView(mActivity, view, prevItem < position);
 
         prevItem = position;
 

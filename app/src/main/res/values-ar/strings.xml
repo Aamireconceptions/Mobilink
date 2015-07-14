@@ -51,7 +51,7 @@
     <string name="type">Type</string>
     <string name="deals_discount">Deals and Discounts</string>
     <string name="business_directory">Business and Directory</string>
-    <string name="sort_by">Sort By</string>
+    <string name="sort_by">التصنيف حسب</string>
     <string name="distance">Distance</string>
     <string name="mi">(mi)</string>
     <string name="_0.5">0.5</string>
@@ -92,7 +92,7 @@
     <string name="share_now">Share Now</string>
     <string name="Preview">عرض</string>
     <string name="Deal_Description">Deal Description</string>
-    <string name="Address">Address</string>
+    <string name="Address">العنوان</string>
     <string name="Contact_Information">Contact Information</string>
     <string name="Category">فئة</string>
     <string name="Unsubscribe_Bizstore">الغاء الاشتراك في بيزستور</string>
@@ -103,11 +103,11 @@
     <string name="unsub_details">الغاء الاشتراك في بيزستور يستنج عنه ايقاف كل التنبيهات لجميع العروض الجديدة من التطبيق</string>
     <string name="title_activity_my_deals">MyDealsActivity</string>
     <string name="share_app_with_friends">Share App with Friends</string>
-    <string name="About_Us">About Us</string>
-    <string name="select_all">Select All</string>
+    <string name="About_Us">عن التطبيق</string>
+    <string name="select_all">اخيتار كل</string>
     <string name="name_hint">Enter Your Name</string>
     <string name="title_activity_recent_searches">RecentSearchesActivity</string>
-    <string name="no_recent_searches">No Recent Searches Found</string>
+    <string name="no_recent_searches">لا يوجد أي نتائج</string>
     <string name="my_businesses">My Businesses</string>
     <string name="share">شارك</string>
     <string name="rate">قيم</string>
@@ -175,5 +175,7 @@
     <string name="Currency">Currency</string>
     <string name="Clothing">Clothing</string>
     <string name="Equipment">Equipment</string>
+    <string name="error_invalid_num">Please provide valid phone number</string>
+    <string name="error_invalid_verification_code">Please provide valid verification code</string>
 
 </resources>

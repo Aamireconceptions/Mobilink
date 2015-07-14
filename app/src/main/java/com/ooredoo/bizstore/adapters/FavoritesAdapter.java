@@ -23,7 +23,6 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
-import static com.ooredoo.bizstore.AppConstant.PERCENT_OFF;
 import static java.lang.String.valueOf;
 
 public class FavoritesAdapter extends ArrayAdapter<Deal> {
@@ -84,7 +83,8 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
         holder.tvDesc.setText(deal.description);
         holder.tvTitle.setText(deal.title);
         holder.tvViews.setText(valueOf(deal.views));
-        holder.tvDiscount.setText(String.valueOf(deal.discount) + PERCENT_OFF);
+        holder.tvDiscount.setText(String.valueOf(deal.discount) +
+                                  getContext().getString(R.string.percentage_off));
 
         holder.rbRatings.setRating(deal.rating);
 

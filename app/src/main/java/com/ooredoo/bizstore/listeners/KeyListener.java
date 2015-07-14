@@ -35,7 +35,7 @@ public class KeyListener implements View.OnKeyListener {
                     Logger.print("SEARCH_KEYWORD: " + keyword);
                     //new SearchTask(activity).execute(keyword);
                 } else {
-                    makeText(activity.getApplicationContext(), AppConstant.INTERNET_CONN_ERR, LENGTH_SHORT).show();
+                    makeText(activity.getApplicationContext(), activity.getString(R.string.error_no_internet), LENGTH_SHORT).show();
                 }
             }
         }

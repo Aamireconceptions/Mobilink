@@ -29,7 +29,6 @@ import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.DIALER_PREFIX;
-import static com.ooredoo.bizstore.AppConstant.PERCENT_OFF;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
@@ -151,7 +150,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ((TextView) findViewById(R.id.tv_category)).setText(deal.category);
             ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(deal.views));
-            ((TextView) findViewById(R.id.tv_discount)).setText(valueOf(deal.discount) + PERCENT_OFF);
+            ((TextView) findViewById(R.id.tv_discount)).setText(valueOf(deal.discount)
+                                                                + getString(R.string.percentage_off));
             scrollViewHelper.setAlpha(1f);
             src.isFavorite = Deal.isFavorite(id);
             findViewById(R.id.iv_favorite).setSelected(src.isFavorite);

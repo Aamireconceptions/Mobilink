@@ -22,7 +22,6 @@ import com.ooredoo.bizstore.ui.fragments.BaseFragment;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
-import static com.ooredoo.bizstore.AppConstant.MSISDN_VERIFICATION_MSG;
 import static com.ooredoo.bizstore.AppConstant.VERIFICATION_CODE_MIN_LEN;
 import static com.ooredoo.bizstore.BizStore.password;
 import static com.ooredoo.bizstore.utils.Converter.convertDpToPixels;
@@ -161,7 +160,7 @@ public class DialogUtils {
                     AppCompatActivity compatActivity = (AppCompatActivity) activity;
                     replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "WELCOME_FRAGMENT");
                 } else {
-                    Snackbar.make(etCode, MSISDN_VERIFICATION_MSG, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(etCode, activity.getString(R.string.error_invalid_verification_code), Snackbar.LENGTH_SHORT).show();
                 }
             }
         });

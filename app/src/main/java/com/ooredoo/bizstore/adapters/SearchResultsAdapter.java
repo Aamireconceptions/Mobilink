@@ -22,7 +22,6 @@ import java.util.List;
 import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
-import static com.ooredoo.bizstore.AppConstant.PERCENT_OFF;
 import static java.lang.String.valueOf;
 
 public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
@@ -83,7 +82,8 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
         holder.tvDesc.setText(result.description);
         holder.tvTitle.setText(result.title);
         holder.tvViews.setText(valueOf(result.views));
-        holder.tvDiscount.setText(String.valueOf(result.discount) + PERCENT_OFF);
+        holder.tvDiscount.setText(String.valueOf(result.discount)
+                                  + mActivity.getString(R.string.percentage_off));
 
         holder.ratingBar.setRating(result.rating);
 
