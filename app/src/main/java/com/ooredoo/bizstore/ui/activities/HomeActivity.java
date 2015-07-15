@@ -32,6 +32,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.PredefinedSearchesAdapter;
@@ -127,13 +128,21 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         Logger.print("HomeActivity onCreate");
         setContentView(R.layout.activity_home);
 
+        overrideFonts();
+
         init();
 
         new SearchKeywordsTask(this).execute();
     }
 
-    private void init() {
+    private void overrideFonts()
+    {
+        BizStore bizStore = (BizStore) getApplicationContext();
+        bizStore.overrideDefaultFonts();
+    }
 
+    private void init()
+    {
         RecentSearchesAdapter.homeActivity = this;
 
         searchView = getLayoutInflater().inflate(R.layout.search_popup, null);
@@ -278,6 +287,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home) {
+
+            Logger.print("as");
             if(isSearchEnabled) {
                 hideSearchResults();
             } else {
@@ -533,6 +544,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         }
         return false;
     }
+
+
 
     @Override
     protected void onDestroy() {

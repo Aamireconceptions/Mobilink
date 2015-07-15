@@ -5,7 +5,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"/>
+        android:layout_height="@dimen/_180sdp"/>
 
     <com.ooredoo.bizstore.ui.CirclePageIndicator
         android:id="@+id/pager_indicator"

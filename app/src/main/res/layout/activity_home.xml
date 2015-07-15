@@ -17,10 +17,10 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:layout_margin="2dp"
                 android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
+
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <AutoCompleteTextView
@@ -133,7 +133,8 @@
                 app:tabIndicatorColor="@color/white"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/white"/>
+                app:tabTextColor="@color/white"
+                app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small" />
 
             <FrameLayout
                 android:id="@+id/fragment_container"

@@ -25,5 +25,4 @@
         android:visibility="gone"
         style="?android:attr/progressBarStyleLarge"/>
 
-
 </RelativeLayout>

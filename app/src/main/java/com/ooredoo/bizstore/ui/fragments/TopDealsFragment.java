@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
@@ -21,6 +22,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 
@@ -75,8 +77,12 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         btNewDeals.setOnClickListener(clickListener);
         clickListener.setButtonSelected(btNewDeals);
 
+        FontUtils.setFont(mActivity, BizStore.DEFAULT_FONT, btNewDeals);
+
         Button btPopularDeals = (Button) headerFilter.findViewById(R.id.popular_deals);
         btPopularDeals.setOnClickListener(clickListener);
+
+        FontUtils.setFont(mActivity, BizStore.DEFAULT_FONT, btPopularDeals);
 
         ImageView ivFilter = (ImageView) headerFilter.findViewById(R.id.filter);
         ivFilter.setOnClickListener(clickListener);

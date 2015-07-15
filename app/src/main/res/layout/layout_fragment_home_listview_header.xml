@@ -25,6 +25,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/top_deals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_12sdp"
@@ -32,6 +33,7 @@
         android:paddingLeft="@dimen/_18sdp"
         android:paddingRight="@dimen/_18sdp"
         android:text="@string/top_deals"
+        android:textSize="16sp"
         android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
@@ -41,7 +43,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp">
+        android:layout_height="@dimen/_100sdp">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/featured_pager"
@@ -61,6 +63,7 @@
 
 
     <TextView
+        android:id="@+id/top_brands"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_12sdp"
@@ -68,6 +71,7 @@
         android:paddingLeft="@dimen/_18sdp"
         android:paddingRight="@dimen/_18sdp"
         android:text="@string/top_brands"
+        android:textSize="16sp"
         android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
@@ -80,6 +84,7 @@
         android:background="@color/home_pager_bg"/>
 
     <TextView
+        android:id="@+id/health_fitness"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_12sdp"
@@ -87,6 +92,7 @@
         android:paddingLeft="@dimen/_18sdp"
         android:paddingRight="@dimen/_18sdp"
         android:text="@string/health_fitness"
+        android:textSize="16sp"
         android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
@@ -95,6 +101,7 @@
     <include layout="@layout/layout_horizontal_health_fitness"/>
 
     <TextView
+        android:id="@+id/top_malls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_12sdp"
@@ -102,6 +109,7 @@
         android:paddingLeft="@dimen/_18sdp"
         android:paddingRight="@dimen/_18sdp"
         android:text="@string/top_malls"
+        android:textSize="16sp"
         android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
@@ -116,6 +124,7 @@
     <!--<include layout="@layout/layout_horizontal_top_malls"/>-->
 
     <TextView
+        android:id="@+id/entertainment_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_12sdp"
@@ -123,6 +132,7 @@
         android:paddingLeft="@dimen/_18sdp"
         android:paddingRight="@dimen/_18sdp"
         android:text="@string/entertainment"
+        android:textSize="16sp"
         android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
@@ -140,6 +150,7 @@
         android:paddingLeft="@dimen/_18sdp"
         android:paddingRight="@dimen/_18sdp"
         android:text="@string/deals_of_the_day"
+        android:textSize="16sp"
         android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"

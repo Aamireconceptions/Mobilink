@@ -5,8 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
@@ -72,7 +75,23 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
 
         if(result != null)
         {
-            snackBarUtils.showSimple(R.string.success_shared, Snackbar.LENGTH_SHORT);
+            try
+            {
+                Gson gson = new Gson();
+
+                Response response = gson.fromJson(result, Response.class);
+
+                if(response.resultCode != -1)
+                {
+                    snackBarUtils.showSimple(R.string.success_shared, Snackbar.LENGTH_SHORT);
+                }
+            }
+            catch (JsonSyntaxException e)
+            {
+                e.printStackTrace();
+
+                snackBarUtils.showSimple(R.string.error_server_down, Snackbar.LENGTH_SHORT);
+            }
         }
         else
         {
@@ -86,8 +105,8 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put("msisdn_to", phoneNum);
-        params.put("msisdn_from", username == null ? "3331234567" : username); //TODO remove temp number i.e 3331234567
+        params.put(MSISDN_TO, phoneNum);
+        params.put(MSISDN_FROM, username == null ? "3331234567" : username); //TODO remove temp number i.e 3331234567
         //params.put(MESSAGE, msg); //MESSAGE IS STORED ON SERVER
 
         String query = createQuery(params);

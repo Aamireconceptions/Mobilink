@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;

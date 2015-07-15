@@ -50,7 +50,7 @@ public class ShareAppActivity extends AppCompatActivity {
             phoneNum = "+974" + phoneNum;
 
             ShareAppTask shareAppTask = new ShareAppTask(this, snackBarUtils);
-            shareAppTask.execute(phoneNum, getString(R.string.share_app_with_friends));
+            shareAppTask.execute(phoneNum);
         } else {
             snackBarUtils.showSimple(R.string.error_provide_num, Snackbar.LENGTH_SHORT);
         }

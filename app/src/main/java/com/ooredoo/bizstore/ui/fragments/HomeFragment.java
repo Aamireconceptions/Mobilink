@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
@@ -28,6 +29,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.MyScroller;
 
 import java.lang.reflect.Field;
@@ -79,7 +81,23 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener {
 
         setDashboardItemsClickListener(header);
 
+        TextView tvTopDeals = (TextView) header.findViewById(R.id.top_deals);
+        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvTopDeals);
+
+        TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
+        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvTopBrands);
+
+        TextView tvHealthFitness = (TextView) header.findViewById(R.id.health_fitness);
+        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvHealthFitness);
+
+        TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
+        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvTopMalls);
+
+        TextView tvEntertainment = (TextView) header.findViewById(R.id.entertainment_header);
+        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvEntertainment);
+
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
+        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvDealsOfTheDay);
 
         List<GenericDeal> deals = new ArrayList<>();
 

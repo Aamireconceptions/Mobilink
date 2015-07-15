@@ -99,12 +99,13 @@ public class GridViewBaseAdapter extends BaseAdapter
         {
             grid = inflater.inflate(layoutResId, parent, false);
 
-           holder = new Holder();
+            holder = new Holder();
 
             holder.ivThumbnail = (ImageView) grid.findViewById(R.id.thumbnail);
             holder.ivFav = (ImageView) grid.findViewById(R.id.fav);
             holder.tvTitle = (TextView) grid.findViewById(R.id.title);
             holder.tvDiscount = (TextView) grid.findViewById(R.id.discount);
+            holder.progressBar = (ProgressBar) grid.findViewById(R.id.progress_bar);
 
             grid.setTag(holder);
         }
@@ -130,8 +131,8 @@ public class GridViewBaseAdapter extends BaseAdapter
             if(bitmap != null) {
                 holder.ivThumbnail.setImageBitmap(bitmap);
             } else {
-                ProgressBar progressBar = (ProgressBar) grid.findViewById(R.id.progress_bar);
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail, progressBar);
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail,
+                                                                               holder.progressBar);
                 bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
         }
@@ -171,5 +172,7 @@ public class GridViewBaseAdapter extends BaseAdapter
         ImageView ivThumbnail, ivFav;
 
         TextView tvTitle, tvDiscount;
+
+        ProgressBar progressBar;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -18,6 +19,7 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.ArrayList;
@@ -60,8 +62,12 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         btNewDeals.setOnClickListener(clickListener);
         clickListener.setButtonSelected(btNewDeals);
 
+        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btNewDeals);
+
         Button btPopularDeals = (Button) v.findViewById(R.id.popular_deals);
         btPopularDeals.setOnClickListener(clickListener);
+
+        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btPopularDeals);
 
         ImageView ivFilter = (ImageView) v.findViewById(R.id.filter);
         ivFilter.setOnClickListener(clickListener);

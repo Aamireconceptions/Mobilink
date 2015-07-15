@@ -6,6 +6,8 @@ import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -23,6 +25,8 @@ public class FontUtils
 
     private final static String LOLLIPOP_DEFAULT_FONT = "fonts/Futura/FuturaLT-Book.ttf";
 
+    private final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
+
     public static void setDefaultFont(Context context, String staticTypefaceFieldName,
                                       String fontAssetName)
     {
@@ -30,7 +34,9 @@ public class FontUtils
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            typeface = Typeface.createFromAsset(context.getAssets(), LOLLIPOP_DEFAULT_FONT);
+            String font = BizStore.getLanguage().equals("en") ? LOLLIPOP_DEFAULT_FONT : ARABIC_DEFAULT_FONT;
+
+            typeface = Typeface.createFromAsset(context.getAssets(), font);
 
             Map<String, Typeface> map = new HashMap<>();
             map.put(sanSerif, typeface);

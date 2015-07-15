@@ -35,6 +35,8 @@ public class BizStore extends com.activeandroid.app.Application {
     public final static String SERIF_FONT = "fonts/Opifico/Opificio_Bold.ttf";
     public final static String SANS_SERIF_FONT = "fonts/Opifico/Opificio.ttf";
 
+    public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
+
     public void onCreate() {
 
         Logger.setEnabled(true);
@@ -53,13 +55,16 @@ public class BizStore extends com.activeandroid.app.Application {
         });*/
     }
 
-    private void overrideDefaultFonts()
+    public void overrideDefaultFonts()
     {
-        FontUtils.setDefaultFont(this, DEFAULT, DEFAULT_FONT);
+        FontUtils.setDefaultFont(this,
+                                 DEFAULT, language.equals("en") ? DEFAULT_FONT : ARABIC_DEFAULT_FONT);
         FontUtils.setDefaultFont(this, MONOSPACE, MONOSPACE_FONT);
         FontUtils.setDefaultFont(this, SERIF, SERIF_FONT);
         FontUtils.setDefaultFont(this, SANS_SERIF, SANS_SERIF_FONT);
     }
+
+
 
     public static HashMap<String, String> getUserCredentials() {
         HashMap<String, String> params = new HashMap<>();

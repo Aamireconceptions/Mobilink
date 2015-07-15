@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
@@ -18,6 +19,7 @@ import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
@@ -78,8 +80,12 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         btNewDeals.setOnClickListener(clickListener);
         clickListener.setButtonSelected(btNewDeals);
 
+        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btNewDeals);
+
         Button btPopularDeals = (Button) v.findViewById(R.id.popular_deals);
         btPopularDeals.setOnClickListener(clickListener);
+
+        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btPopularDeals);
 
         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
 
