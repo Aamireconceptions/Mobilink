@@ -35,7 +35,7 @@ public class AppConstant {
 
     public static float MAX_ALPHA = 1.0f;
 
-    public static String PROFILE_PIC_URL = "http://203.215.183.98:10009/ooredoo/uploads/user/" + BizStore.username + ".png";
+    public static String PROFILE_PIC_URL = "/storage/emulated/0/obs_user_dp.png"; //TODO replace with "http://203.215.183.98:10009/ooredoo/uploads/user/" + BizStore.username + ".png";
 
     public static final int MSISDN_MIN_LEN = 7; //TODO CHANGE MINIMUM LENGTH for Msisdn
     public static final int VERIFICATION_CODE_MIN_LEN = 4; //TODO CHANGE MINIMUM LENGTH for Msisdn Verification Code

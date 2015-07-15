@@ -77,7 +77,7 @@ public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
                 JSONObject response = new JSONObject(result);
                 String path = response.has("image") ? response.getString("image") : "";
                 Logger.logI("UPLOADED_IMG_PATH", path);
-                myAccountActivity.updateProfilePicture(path);
+                //TODO un-comment myAccountActivity.updateProfilePicture(path);
             } catch(JSONException jse) {
                 jse.printStackTrace();
             }

@@ -21,6 +21,8 @@ public class SharedPrefUtils {
 
     public static final String LOGIN_STATUS = "OrdBs_LG_STATUS";
 
+    public static final String NAME = "OrdBs_LG_NAME";
+
     public static final String USERNAME = "OrdBs_LG_UZRNM";
     public static final String PASSWORD = "OrdBs_LG_PSWRD";
 
