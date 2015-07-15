@@ -349,7 +349,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, searches);
         mPredefinedSearchesListView.setAdapter(mPredefinedSearchesAdapter);
         mPredefinedSearchesAdapter.notifyDataSetChanged();
-        mPredefinedSearchesListView.setVisibility(View.GONE);
+        mPredefinedSearchesListView.setVisibility(View.VISIBLE);
     }
 
     public void hideSearchPopup() {
