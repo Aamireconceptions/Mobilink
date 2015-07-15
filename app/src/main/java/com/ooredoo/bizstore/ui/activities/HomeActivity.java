@@ -34,9 +34,9 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
+import com.ooredoo.bizstore.adapters.PredefinedSearchesAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
-import com.ooredoo.bizstore.adapters.SuggestionsAdapter;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -61,8 +61,8 @@ import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
+import static com.ooredoo.bizstore.AppData.predefinedSearches;
 import static com.ooredoo.bizstore.AppData.searchResults;
-import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
@@ -72,9 +72,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public DrawerLayout drawerLayout;
     private DrawerChangeListener mDrawerListener = new DrawerChangeListener(this);
 
-    public ListView mSuggestionsListView, mSearchResultsListView;
+    public ListView mPredefinedSearchesListView, mSearchResultsListView;
 
-    public SuggestionsAdapter mSuggestionsAdapter;
+    public PredefinedSearchesAdapter mPredefinedSearchesAdapter;
+
     public SearchResultsAdapter mSearchResultsAdapter;
 
     public PopupWindow searchPopup;
@@ -161,9 +162,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
 
         mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
-        mSuggestionsListView = (ListView) searchView.findViewById(R.id.lv_search_suggestions);
+        mPredefinedSearchesListView = (ListView) searchView.findViewById(R.id.lv_predefined_searches);
 
-        mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, new String[] {});
+        mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, new String[] {});
 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
 
@@ -335,19 +336,20 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         isShowResults = false;
         tabLayout.setAlpha(0.25f);
         viewPager.setAlpha(0.25f);
-        setSuggestions();
+        setPredefinedSearches();
         findViewById(R.id.layout_search_results).setVisibility(View.GONE);
         searchPopup.showAsDropDown(acSearch, 10, 55);
     }
 
-    public void setSuggestions() {
-        String[] suggestions = new String[] {};
-        if(searchSuggestions.list != null) {
-            suggestions = searchSuggestions.list;
+    public void setPredefinedSearches() {
+        String[] searches = new String[] {};
+        if(predefinedSearches.list != null) {
+            searches = predefinedSearches.list;
         }
-        mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, suggestions);
-        mSuggestionsListView.setAdapter(mSuggestionsAdapter);
-        mSuggestionsAdapter.notifyDataSetChanged();
+        mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, searches);
+        mPredefinedSearchesListView.setAdapter(mPredefinedSearchesAdapter);
+        mPredefinedSearchesAdapter.notifyDataSetChanged();
+        mPredefinedSearchesListView.setVisibility(View.GONE);
     }
 
     public void hideSearchPopup() {
@@ -496,8 +498,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         }
 
         public void afterTextChanged(Editable edt) {
-            mSuggestionsAdapter.getFilter().filter(edt.toString());
-            mSuggestionsAdapter.notifyDataSetChanged();
+            mPredefinedSearchesAdapter.getFilter().filter(edt.toString());
+            mPredefinedSearchesAdapter.notifyDataSetChanged();
         }
     }
 

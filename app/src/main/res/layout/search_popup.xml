@@ -53,7 +53,7 @@
         android:background="@color/grey"/>
 
     <ListView
-        android:id="@+id/lv_search_suggestions"
+        android:id="@+id/lv_predefined_searches"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_175sdp"
         android:layout_margin="0dp"

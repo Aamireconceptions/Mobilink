@@ -1,7 +1,7 @@
 package com.ooredoo.bizstore;
 
+import com.ooredoo.bizstore.model.PredefinedSearches;
 import com.ooredoo.bizstore.model.Results;
-import com.ooredoo.bizstore.model.Suggestions;
 
 /**
  * @author Pehlaj Rai
@@ -12,5 +12,5 @@ public final class AppData {
 
     public static Results searchResults;
 
-    public static Suggestions searchSuggestions = new Suggestions(); //Pre-defined search suggestions fetched from server
+    public static PredefinedSearches predefinedSearches = new PredefinedSearches(); //Pre-defined searches fetched from server
 }

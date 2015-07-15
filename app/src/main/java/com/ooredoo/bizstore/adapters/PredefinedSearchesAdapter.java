@@ -10,21 +10,21 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
 
-public class SuggestionsAdapter extends ArrayAdapter<String> {
+public class PredefinedSearchesAdapter extends ArrayAdapter<String> {
 
     HomeActivity mActivity;
     int layoutResID;
-    String[] suggestions;
+    String[] predefinedSearches;
 
-    public SuggestionsAdapter(HomeActivity activity, int layoutResourceID, String[] suggestions) {
-        super(activity, layoutResourceID, suggestions);
+    public PredefinedSearchesAdapter(HomeActivity activity, int layoutResourceID, String[] predefinedSearches) {
+        super(activity, layoutResourceID, predefinedSearches);
         this.mActivity = activity;
-        this.suggestions = suggestions;
+        this.predefinedSearches = predefinedSearches;
         this.layoutResID = layoutResourceID;
     }
 
-    public void setData(String[] suggestions) {
-        this.suggestions = suggestions;
+    public void setData(String[] predefinedSearches) {
+        this.predefinedSearches = predefinedSearches;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
         final LayoutInflater inflater = mActivity.getLayoutInflater();
         convertView = inflater.inflate(layoutResID, null);
 
-        final String item = this.suggestions[position];
+        final String item = this.predefinedSearches[position];
         final TextView textView = (TextView) convertView.findViewById(R.id.tv_title);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class SuggestionsAdapter extends ArrayAdapter<String> {
         return convertView;
     }
 
-    protected void setClickListener(String suggestion) {
-        mActivity.executeSearchTask(suggestion);
+    protected void setClickListener(String keyword) {
+        mActivity.executeSearchTask(keyword);
     }
 }

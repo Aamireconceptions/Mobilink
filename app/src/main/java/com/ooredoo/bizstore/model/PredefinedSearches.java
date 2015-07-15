@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Pehlaj Rai
  * @since 22-Jun-15.
  */
-public class Suggestions {
+public class PredefinedSearches {
 
     @SerializedName("result")
     public int resultCode = -1;
