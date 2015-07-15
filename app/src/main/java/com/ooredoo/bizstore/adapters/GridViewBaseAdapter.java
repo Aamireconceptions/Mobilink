@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
@@ -20,6 +21,8 @@ import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.util.List;
+
+import static java.lang.String.valueOf;
 
 /**
  * @author Babar
@@ -127,13 +130,14 @@ public class GridViewBaseAdapter extends BaseAdapter
             if(bitmap != null) {
                 holder.ivThumbnail.setImageBitmap(bitmap);
             } else {
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail, null);
+                ProgressBar progressBar = (ProgressBar) grid.findViewById(R.id.progress_bar);
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail, progressBar);
                 bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
         }
 
         holder.tvTitle.setText(deal.title);
-        holder.tvDiscount.setText(String.valueOf(deal.discount));
+        holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
         return grid;
     }

@@ -107,7 +107,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    String path = "/storage/emulated/0/images/obs_user_dp.png";
+    String path = "/storage/emulated/0/obs_user_dp.png";
 
     public void takePicture() {
         Log.i("camera", "startCameraActivity()");
@@ -140,6 +140,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
             switch(resultCode) {
                 case 0:
+                    hasUserSelectedPic = false;
                     Log.i("SonaSys", "User cancelled");
                     break;
                 case -1:
@@ -154,9 +155,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
     public void uploadImageToServer(String path) {
         Logger.print("IMG_PATH: " + path);
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        Bitmap bitmap = decodeFile(path);
-        ivProfilePic.setImageBitmap(bitmap);
         findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
         PictureUploadTask uploadTask = new PictureUploadTask(this, path);
         uploadTask.execute();

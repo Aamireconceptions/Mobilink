@@ -55,7 +55,7 @@
     <ListView
         android:id="@+id/lv_search_suggestions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_175sdp"
         android:layout_margin="0dp"
         android:background="@drawable/bg_grey_rad2"
         android:scrollbars="none"

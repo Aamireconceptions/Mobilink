@@ -30,6 +30,7 @@
                     android:background="@android:color/transparent"
                     android:focusable="true"
                     android:hint="@string/search"
+                    android:imeOptions="actionSearch"
                     android:singleLine="true"
                     android:visibility="gone"/>
 

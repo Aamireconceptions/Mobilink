@@ -39,6 +39,11 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
         this.layoutResID = layoutResourceID;
     }
 
+    public void setData(List<RecentDeal> deals) {
+        this.deals = deals;
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 

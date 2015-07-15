@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
@@ -48,6 +49,7 @@ import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
@@ -64,8 +66,7 @@ import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
-                                                               OnFilterChangeListener{
+public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener, OnFilterChangeListener, TextView.OnEditorActionListener {
     public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
@@ -159,17 +160,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
 
-        acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
-        acSearch.setThreshold(1);
-
         mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
         mSuggestionsListView = (ListView) searchView.findViewById(R.id.lv_search_suggestions);
 
         mSuggestionsAdapter = new SuggestionsAdapter(this, R.layout.suggestion_list_item, new String[] {});
 
-        acSearch.addTextChangedListener(new SearchTextWatcher());
+        acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
 
-        acSearch.setOnKeyListener(this);
+        setupSearchField();
 
         NavigationMenuUtils navigationMenuUtils = new NavigationMenuUtils(this, expandableListView);
         navigationMenuUtils.setupNavigationMenu();
@@ -181,6 +179,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setupPager();
 
         initFilter();
+    }
+
+    private void setupSearchField() {
+        acSearch.setThreshold(1);
+
+        acSearch.addTextChangedListener(new SearchTextWatcher());
+
+        acSearch.setOnKeyListener(this);
+
+        acSearch.setOnEditorActionListener(this);
     }
 
     private void setupToolbar() {
@@ -306,6 +314,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mMenu.findItem(R.id.action_search).setVisible(!show);
         mActionBar.setDisplayUseLogoEnabled(!show);
         if(!show) {
+            acSearch.setText(null);
             findViewById(R.id.layout_search_results).setVisibility(View.GONE);
         }
         mActionBar.setHomeAsUpIndicator(show ? R.drawable.ic_action_back : R.drawable.ic_menu);
@@ -346,6 +355,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tabLayout.setAlpha(MAX_ALPHA);
         viewPager.setAlpha(MAX_ALPHA);
         searchPopup.dismiss();
+        acSearch.setText(null);
     }
 
     public void selectTab(int tabPosition) {
@@ -456,8 +466,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(results == null)
             results = new ArrayList<>();
 
-        SearchItem searchItem = new SearchItem(0, keyword, results.size());
-        SearchItem.addToRecentSearches(searchItem);
+        if(results.size() > 0) {
+            SearchItem searchItem = new SearchItem(0, keyword, results.size());
+            SearchItem.addToRecentSearches(searchItem);
+        }
 
         hideSearchPopup();
         HomeActivity.isShowResults = true;
@@ -494,14 +506,28 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         int viewId = v.getId();
         if(viewId == R.id.ac_search) {
             if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                if(hasInternetConnection(this)) {
-                    String keyword = ((AutoCompleteTextView) v).getText().toString();
-                    Logger.print("SEARCH_KEYWORD: " + keyword);
-                    new SearchTask(this).execute(keyword);
-                } else {
-                    makeText(getApplicationContext(), getString(R.string.error_no_internet), LENGTH_SHORT).show();
-                }
+                performSearch((AutoCompleteTextView) v);
+                return true;
             }
+        }
+        return false;
+    }
+
+    private void performSearch(AutoCompleteTextView v) {
+        if(hasInternetConnection(this)) {
+            String keyword = v.getText().toString();
+            Logger.print("SEARCH_KEYWORD: " + keyword);
+            new SearchTask(this).execute(keyword);
+        } else {
+            makeText(getApplicationContext(), getString(R.string.error_no_internet), LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if((actionId & EditorInfo.IME_MASK_ACTION) == EditorInfo.IME_ACTION_SEARCH) {
+            performSearch((AutoCompleteTextView) v);
+            return true;
         }
         return false;
     }
@@ -512,7 +538,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         //TODO exception
         searchPopup.dismiss();
 
-       // MemoryCache.getInstance().tearDown();
+        MemoryCache.getInstance().tearDown();
 
         Logger.print("HomeActivity onDestroy");
     }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,11 +23,17 @@ import java.util.List;
 public class RecentViewedActivity extends AppCompatActivity implements View.OnClickListener {
     private View lastSelected;
 
+    private Button btnClearAll;
+
+    private ListView mListView;
+
+    private RecentDealsAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_my_deals);
+        setContentView(R.layout.activity_recent_deals);
 
         init();
     }
@@ -45,14 +52,19 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
 
         List<RecentDeal> deals = new Select().all().from(RecentDeal.class).execute();
 
-        ListView listView = (ListView) findViewById(R.id.list_view);
+        mListView = (ListView) findViewById(R.id.list_view);
 
-        RecentDealsAdapter adapter = new RecentDealsAdapter(this, R.layout.list_item_deal, deals);
+        mAdapter = new RecentDealsAdapter(this, R.layout.list_item_deal, deals);
 
-        listView.setAdapter(adapter);
+        mListView.setAdapter(mAdapter);
 
-        toggleEmptyView(deals.size());
+        int dealsCount = deals.size();
 
+        toggleEmptyView(dealsCount);
+
+        btnClearAll = (Button) findViewById(R.id.btn_clear);
+        btnClearAll.setOnClickListener(this);
+        btnClearAll.setVisibility(dealsCount == 0 ? View.GONE : View.VISIBLE);
     }
 
     private void toggleEmptyView(int count) {
@@ -82,8 +94,22 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             case R.id.popular_deals:
                 setSelected(v);
                 break;
+
+            case R.id.btn_clear:
+                clearRecentDeals();
+                break;
         }
 
+    }
+
+    public void clearRecentDeals() {
+        List<RecentDeal> deals = new Select().all().from(RecentDeal.class).execute();
+        for(RecentDeal deal : deals) {
+            deal.delete();
+        }
+        mAdapter.clear();
+        toggleEmptyView(0); //0 => NO_RECENT_VIEWED
+        btnClearAll.setVisibility(View.GONE);
     }
 
     private void setSelected(View v) {

@@ -1,7 +1,7 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Dialog;
 import android.os.AsyncTask;
-import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.utils.Logger;
@@ -57,7 +57,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String IMAGE_BASE_URL = "http://203.215.183.98:10009";
 
-    protected View loaderView;
+    protected Dialog dialog;
 
     public String createQuery(HashMap<String, String> params) throws UnsupportedEncodingException
     {
@@ -189,7 +189,8 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         Logger.logI("SERVICE_URL", serviceUrl);
     }
 
-    public void setLoaderView(View loaderView) {
-        this.loaderView = loaderView;
+    protected void closeDialog(Dialog dialog) {
+        if(dialog != null && dialog.isShowing())
+            dialog.dismiss();
     }
 }

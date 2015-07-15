@@ -122,8 +122,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             src.id = id;
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
-            mActionBar.setTitle(business.title);
-            scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+            if(isNotNullOrEmpty(business.title)) {
+                mActionBar.setTitle(business.title);
+                scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+            }
             ((TextView) findViewById(R.id.tv_title)).setText(business.title);
             ((TextView) findViewById(R.id.tv_contact)).setText(business.contact);
             ((TextView) findViewById(R.id.tv_address)).setText(business.address);

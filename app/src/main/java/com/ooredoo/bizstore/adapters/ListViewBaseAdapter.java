@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -193,7 +194,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
             else
             {
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional, null);
+                ProgressBar progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional, progressBar);
                 bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
 

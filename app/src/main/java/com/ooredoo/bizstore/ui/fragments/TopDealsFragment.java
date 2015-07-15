@@ -116,11 +116,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     {
         DealsTask dealsTask = new DealsTask(mActivity, adapter, null);
 
-        /*View loaderView = mView.findViewById(R.id.loader);
-        ListView listView = (ListView) mView.findViewById(R.id.list_view);
-        dealsTask.setListView(listView);
-        dealsTask.setLoaderView(loaderView);*/
-
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
             subCategory = ""; //Reset sub category filter.

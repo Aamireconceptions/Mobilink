@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.AppData.searchResults;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.searchType;
+import static com.ooredoo.bizstore.utils.DialogUtils.createCustomLoader;
 
 /**
  * @author Pehlaj Rai
@@ -34,6 +35,7 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        dialog = createCustomLoader(mActivity, "Searching...");
     }
 
     @Override
@@ -51,6 +53,7 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+        closeDialog(dialog);
 
         if(result != null) {
             try {

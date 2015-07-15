@@ -5,9 +5,12 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.ui.fragments.PromoFragment;
 
 import java.util.List;
+
+import static com.ooredoo.bizstore.ui.fragments.HomeFragment.startSlider;
 
 /**
  * @author by Babar
@@ -15,18 +18,20 @@ import java.util.List;
  */
 public class PromoStatePagerAdapter extends FragmentStatePagerAdapter
 {
-    private List<GenericDeal> deals;
+    public static List<GenericDeal> deals;
 
     public PromoStatePagerAdapter(FragmentManager fm, List<GenericDeal> deals)
     {
         super(fm);
 
-        this.deals = deals;
+        PromoStatePagerAdapter.deals = deals;
+        startSlider(deals, HomeFragment.promoPager);
     }
 
     public void setData(List<GenericDeal> deals)
     {
-        this.deals = deals;
+        PromoStatePagerAdapter.deals = deals;
+        startSlider(deals, HomeFragment.promoPager);
     }
 
     @Override

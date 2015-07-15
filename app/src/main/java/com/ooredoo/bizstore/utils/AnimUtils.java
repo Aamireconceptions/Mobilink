@@ -12,7 +12,7 @@ import com.ooredoo.bizstore.R;
  */
 public class AnimUtils {
 
-    public static int DURATION = 400;
+    public static int DURATION = 250;
 
     public static void slideView(Activity activity, View view, boolean slideInBottom) {
 

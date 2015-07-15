@@ -32,10 +32,9 @@
         android:textStyle="bold"/>
 
     <ListView
-        android:id="@+id/lv_recent_searches"
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_clear"
-        android:visibility="visible"/>
+        android:layout_below="@+id/btn_clear"/>
 
 </RelativeLayout>

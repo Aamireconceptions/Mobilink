@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import static com.ooredoo.bizstore.BizStore.username;
+import static com.ooredoo.bizstore.utils.DialogUtils.createCustomLoader;
 
 /**
  * @author Babar
@@ -23,7 +25,7 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
 {
     private Context context;
 
-    private final static String SERVICE_NAME = "/recommendService?";
+    private final static String SERVICE_NAME = "/recommendservice?";
 
     private ProgressDialog progressDialog;
 
@@ -41,7 +43,8 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPreExecute();
 
-        progressDialog = ProgressDialog.show(context, "", context.getString(R.string.please_wait));
+        dialog = createCustomLoader((Activity) context, "Sharing...");
+        /*progressDialog = ProgressDialog.show(context, "", context.getString(R.string.please_wait));*/
     }
 
     @Override
@@ -64,7 +67,8 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
-        progressDialog.dismiss();
+        closeDialog(dialog);
+        closeDialog(progressDialog);
 
         if(result != null)
         {

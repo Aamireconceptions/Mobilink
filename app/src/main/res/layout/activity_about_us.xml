@@ -43,7 +43,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="Copyright 2015 ooredoo Bizstore\nAll rights reserved."
+            android:text="@string/copyrights_text"
             android:textSize="12sp"/>
 
     </RelativeLayout>

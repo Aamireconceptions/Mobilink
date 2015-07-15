@@ -90,9 +90,13 @@ public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
 
         String result = null;
 
+        Logger.print("Image Path: " + path);
+
         byte[] bytes = getImageBytes(path);
 
         String encoded_image = Base64.encodeToString(bytes, Base64.DEFAULT);
+
+        Logger.print("Base64 Image: " + encoded_image);
 
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
 

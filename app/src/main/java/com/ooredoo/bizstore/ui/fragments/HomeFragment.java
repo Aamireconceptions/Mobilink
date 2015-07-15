@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,16 +28,18 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MyScroller;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * @author Babar
  */
-public class HomeFragment extends Fragment implements OnFilterChangeListener
-{
+public class HomeFragment extends Fragment implements OnFilterChangeListener {
     private HomeActivity activity;
 
     private TextView tvDealsOfTheDay;
@@ -45,17 +48,18 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
 
     DashboardItemClickListener dashboardItemClickListener;
 
-    public static HomeFragment newInstance()
-    {
+    public static ViewPager featuredPager, promoPager;
+
+    boolean sliderOn = true;
+
+    public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
 
         return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         init(v);
@@ -63,8 +67,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         return v;
     }
 
-    private void init(View v)
-    {
+    private void init(View v) {
         activity = (HomeActivity) getActivity();
         activity.setCurrentFragment(this);
 
@@ -113,31 +116,32 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         parent.findViewById(R.id.movie_tickets).setOnClickListener(dashboardItemClickListener);
     }
 
-    private void initAndLoadPromotions(View v)
-    {
+    private void initAndLoadPromotions(View v) {
         List<GenericDeal> deals = new ArrayList<>();
 
         PromoStatePagerAdapter adapter = new PromoStatePagerAdapter(getFragmentManager(), deals);
 
-        ViewPager promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
+        promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
         promoPager.setAdapter(adapter);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)
-                v.findViewById(R.id.promo_indicator);
+        setupScroller(promoPager);
+
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.promo_indicator);
         circlePageIndicator.setViewPager(promoPager);
 
         PromoTask promoTask = new PromoTask(adapter, promoPager);
         promoTask.execute();
     }
 
-    private void initAndLoadFeaturedDeals(View v)
-    {
+    private void initAndLoadFeaturedDeals(View v) {
         List<GenericDeal> deals = new ArrayList<>();
 
         FeaturedStatePagerAdapter adapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
 
-        ViewPager featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
+        featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
         featuredPager.setAdapter(adapter);
+
+        setupScroller(featuredPager);
 
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.featured_indicator);
         circlePageIndicator.setViewPager(featuredPager);
@@ -146,12 +150,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         featuredTask.execute();
     }
 
-    private void initAndLoadTopBrands(View v)
-    {
+    private void initAndLoadTopBrands(View v) {
         List<Brand> brands = new ArrayList<>();
 
-        TopBrandsStatePagerAdapter adapter = new TopBrandsStatePagerAdapter(getFragmentManager(),
-                                                                            brands);
+        TopBrandsStatePagerAdapter adapter = new TopBrandsStatePagerAdapter(getFragmentManager(), brands);
 
         ViewPager topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
         topBrandsPager.setAdapter(adapter);
@@ -160,12 +162,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         topBrandsTask.execute("malls");
     }
 
-    private void initAndLoadTopMalls(View v)
-    {
+    private void initAndLoadTopMalls(View v) {
         List<Mall> malls = new ArrayList<>();
 
-        TopMallsStatePagerAdapter adapter = new TopMallsStatePagerAdapter(getFragmentManager(),
-                                                                          malls);
+        TopMallsStatePagerAdapter adapter = new TopMallsStatePagerAdapter(getFragmentManager(), malls);
 
         ViewPager topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
         topMallsPager.setAdapter(adapter);
@@ -174,16 +174,86 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener
         topMallsTask.execute("malls");
     }
 
-    private void initAndLoadDealsOfTheDay()
-    {
+    private void initAndLoadDealsOfTheDay() {
         DealsTask dealsTask = new DealsTask(activity, adapter, null);
         dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
         dealsTask.execute("dealofday");
     }
 
+    private void setupScroller(ViewPager viewPager) {
+        try {
+            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            mScroller.set(viewPager, new MyScroller(activity));
+        } catch(IllegalAccessException e) {
+            e.printStackTrace();
+        } catch(NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public void onFilterChange()
-    {
+    public void onFilterChange() {
         initAndLoadDealsOfTheDay();
+    }
+
+    public static void startSlider(final List list, final ViewPager viewPager) {
+
+        Timer timer;
+
+        final Handler handler = new Handler();
+
+        final Runnable runnable = new Runnable() {
+
+            int position = 0;
+
+            boolean fwd = true;
+
+            @Override
+            public void run() {
+                if(list != null && list.size() > 0) {
+                    if(position < list.size() - 1 || !fwd) {
+                        if(position == 0) {
+                            fwd = true;
+                        }
+                    } else {
+                        fwd = false;
+                    }
+
+                    if(fwd)
+                        position++;
+                    else
+                        position--;
+
+                    viewPager.setCurrentItem(position, true);
+                    synchronized(viewPager) {
+                        viewPager.notifyAll();
+                    }
+                }
+            }
+        };
+
+        timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(runnable);
+            }
+        }, 3000, 3000);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sliderOn = true;
+        startSlider(PromoStatePagerAdapter.deals, promoPager);
+        startSlider(FeaturedStatePagerAdapter.deals, featuredPager);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sliderOn = false;
     }
 }

@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.activeandroid.query.Select;
@@ -14,7 +15,13 @@ import com.ooredoo.bizstore.model.SearchItem;
 
 import java.util.List;
 
-public class RecentSearchesActivity extends AppCompatActivity {
+public class RecentSearchesActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button btnClearAll;
+
+    private ListView mListView;
+
+    private RecentSearchesAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +37,18 @@ public class RecentSearchesActivity extends AppCompatActivity {
 
         List<SearchItem> searchItems = new Select().all().from(SearchItem.class).execute();
 
-        ListView listView = (ListView) findViewById(R.id.lv_recent_searches);
+        mListView = (ListView) findViewById(R.id.lv_recent_searches);
 
-        RecentSearchesAdapter adapter = new RecentSearchesAdapter(this, R.layout.list_item_recent_search, searchItems);
+        mAdapter = new RecentSearchesAdapter(this, R.layout.list_item_recent_search, searchItems);
 
-        listView.setAdapter(adapter);
+        mListView.setAdapter(mAdapter);
 
         boolean noSearchItemFound = searchItems.size() == 0;
-        listView.setVisibility(noSearchItemFound ? View.GONE : View.VISIBLE);
+
+        btnClearAll = (Button) findViewById(R.id.btn_clear);
+        btnClearAll.setOnClickListener(this);
+        btnClearAll.setVisibility(noSearchItemFound ? View.GONE : View.VISIBLE);
+
         findViewById(R.id.no_data_view).setVisibility(noSearchItemFound ? View.VISIBLE : View.GONE);
     }
 
@@ -48,4 +59,23 @@ public class RecentSearchesActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        if(viewId == R.id.btn_clear) {
+            clearRecentSearches();
+        }
+    }
+
+    public void clearRecentSearches() {
+        List<SearchItem> searchItems = new Select().all().from(SearchItem.class).execute();
+        for(SearchItem searchItem : searchItems) {
+            searchItem.delete();
+        }
+        mAdapter.clear();
+        btnClearAll.setVisibility(View.GONE);
+        findViewById(R.id.no_data_view).setVisibility(View.VISIBLE);
+    }
+
 }

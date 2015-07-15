@@ -1,8 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.app.Dialog;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -44,10 +42,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     public String category;
 
-    private Dialog loader;
-
-    private ListView listView;
-
     public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar) {
         this.homeActivity = homeActivity;
 
@@ -60,18 +54,11 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         this.tvDealsOfTheDay = tvDealsOfTheDay;
     }
 
-    public void setListView(ListView listView) {
-        this.listView = listView;
-    }
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-        /*if(listView != null) listView.setVisibility(View.GONE);
-        if(loaderView != null) loaderView.setVisibility(View.VISIBLE);*/
-
-        loader = DialogUtils.createCustomLoader(homeActivity, "Loading...");
+        dialog = DialogUtils.createCustomLoader(homeActivity, "Loading...");
 
         /*if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }*/
     }
@@ -92,11 +79,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        /*if(listView != null) listView.setVisibility(View.VISIBLE);
-        if(loaderView != null) loaderView.setVisibility(View.GONE);*/
-
-        if(loader != null && loader.isShowing())
-            loader.dismiss();
+        closeDialog(dialog);
 
         /*if(progressBar != null) { progressBar.setVisibility(View.GONE); }*/
 

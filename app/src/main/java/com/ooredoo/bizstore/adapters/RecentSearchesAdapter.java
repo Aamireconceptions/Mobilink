@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.utils.AnimUtils;
 
 import java.util.List;
 
@@ -29,6 +28,11 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
         this.mActivity = activity;
         this.items = items;
         this.layoutResID = layoutResourceID;
+    }
+
+    public void setData(List<SearchItem> searchItems) {
+        this.items = searchItems;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -69,7 +73,7 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
             }
         });
 
-        AnimUtils.slideView(mActivity, view, prevItem < position);
+        //AnimUtils.slideView(mActivity, view, prevItem < position);
 
         prevItem = position;
 

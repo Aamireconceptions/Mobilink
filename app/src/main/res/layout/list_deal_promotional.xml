@@ -18,6 +18,13 @@
             android:scaleType="fitXY"
             android:src="@drawable/deal_banner"/>
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+
         <ImageView
             android:id="@+id/fav"
             android:layout_width="wrap_content"
