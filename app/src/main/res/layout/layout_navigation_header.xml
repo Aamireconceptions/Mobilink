@@ -20,7 +20,6 @@
                 android:id="@+id/dp"
                 android:layout_width="@dimen/_75sdp"
                 android:layout_height="@dimen/_75sdp"
-                android:maxHeight="@dimen/_75sdp"
                 android:src="@drawable/tmp_profile"/>
 
             <ProgressBar
@@ -47,8 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:text="Doha, Qatar"/>
+                android:layout_marginTop="@dimen/_1sdp" />
 
         </LinearLayout>
 

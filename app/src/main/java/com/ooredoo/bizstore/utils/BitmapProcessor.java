@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.media.ExifInterface;
 
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 
@@ -61,6 +62,37 @@ public class BitmapProcessor
         return bitmap;
     }
 
+    public Bitmap decodeSampledBitmapFromFile(String pathName, int reqWidth, int reqHeight) throws IOException {
+        Bitmap bitmap;
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeFile(pathName, options);
+
+        int width = options.outWidth;
+        int height = options.outHeight;
+
+        Logger.print("Actual Width: "+width);
+        Logger.print("Actual Height: " + height);
+
+        int sampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = sampleSize;
+
+        bitmap = BitmapFactory.decodeFile(pathName, options);
+
+        width = bitmap.getWidth();
+        height = bitmap.getHeight();
+
+        Logger.print("inSample:"+sampleSize);
+        Logger.print("Modified Width: "+width);
+        Logger.print("Modified Height: " + height);
+
+        return rotateBitmapIfNeeded(pathName, bitmap);
+    }
+
     public int calculateInSampleSize(BitmapFactory.Options options,
                                      int requiredWidth, int requiredHeight)
     {
@@ -85,6 +117,30 @@ public class BitmapProcessor
         }
 
         return inSampleSize;
+    }
+
+    public Bitmap rotateBitmapIfNeeded(String pathName, Bitmap bitmap) throws IOException {
+        ExifInterface exifInterface = new ExifInterface(pathName);
+
+        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                                                        ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation)
+        {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+
+                return rotateBitmap(bitmap, 90);
+
+            case ExifInterface.ORIENTATION_ROTATE_180:
+
+                return rotateBitmap(bitmap, 180);
+
+            case ExifInterface.ORIENTATION_ROTATE_270:
+
+                return rotateBitmap(bitmap, 270);
+        }
+
+        return bitmap;
     }
 
     public Bitmap makeBitmapRound(Bitmap src)
@@ -120,7 +176,7 @@ public class BitmapProcessor
     public static Bitmap rotateBitmap(Bitmap bitmap, int degree) {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        return rotatedBitmap;
+
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 }

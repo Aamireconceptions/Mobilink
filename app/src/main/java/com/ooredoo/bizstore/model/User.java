@@ -1,10 +1,14 @@
 package com.ooredoo.bizstore.model;
 
+import android.graphics.Bitmap;
+
 /**
  * @author Pehlaj Rai
  * @since 11/11/2014.
  */
 public class User {
+
+    public static Bitmap dp;
 
     public String username;
     public String password;

@@ -55,13 +55,18 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
             MallResponse mallResponse = gson.fromJson(result, MallResponse.class);
 
-            adapter.setData(mallResponse.malls);
+            if(mallResponse.resultCode != - 1)
+            {
+                adapter.setData(mallResponse.malls);
+            }
+
             adapter.notifyDataSetChanged();
 
             if(BizStore.getLanguage().equals("ar"))
             {
                 viewPager.setCurrentItem(mallResponse.malls.size() - 1);
             }
+
         } else {
             Logger.print("TopMallsAsyncTask: Failed to download Banners due to no internet");
         }

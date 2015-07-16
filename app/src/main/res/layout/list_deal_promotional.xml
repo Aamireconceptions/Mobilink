@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/promotional_banner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
             android:src="@drawable/deal_banner"/>
 

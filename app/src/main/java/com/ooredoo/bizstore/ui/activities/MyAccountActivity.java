@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,9 +18,14 @@ import android.widget.ImageView;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.User;
+import com.ooredoo.bizstore.utils.BitmapProcessor;
+import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
@@ -40,6 +46,10 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     boolean canEditName = false;
     ImageView ivProfilePic;
     //TODO change image path
+
+    int reqWidth, reqHeight;
+
+    private BitmapProcessor bitmapProcessor;
 
     public MyAccountActivity() {
         super();
@@ -62,15 +72,35 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
         etNumber.setText(BizStore.username);
 
+        bitmapProcessor = new BitmapProcessor(null);
+
         loadPicture();
     }
 
     private void loadPicture() {
-        BitmapFactory.Options options = new BitmapFactory.Options();
+        /*BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
         ivProfilePic.setImageBitmap(bitmap);
-        ivProfilePic.setBackground(null);
+        ivProfilePic.setBackground(null);*/
+
+        reqWidth = getResources().getDisplayMetrics().widthPixels;
+
+        reqHeight = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._225sdp))
+                / getResources().getDisplayMetrics().density);
+
+
+        try
+        {
+            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromFile(AppConstant.PROFILE_PIC_URL,
+                                                                        reqWidth, reqHeight);
+
+            ivProfilePic.setImageBitmap(bitmap);
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -157,30 +187,50 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
             cursor.close();
 
-            Log.i("PIC", path);
+            Logger.print("PIC" + path);
 
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
+            try
+            {
+                reqWidth = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
+                        / getResources().getDisplayMetrics().density);
+
+                reqHeight = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
+                        / getResources().getDisplayMetrics().density);
+
+                Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromFile(path, reqWidth, reqHeight);
+                ivProfilePic.setImageBitmap(bitmap);
+
+                User.dp = bitmap;
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            /*Bitmap bitmap = BitmapFactory.decodeFile(path);
             ivProfilePic.setBackground(null);
             ivProfilePic.setImageBitmap(bitmap);
             profilePicture.setImageBitmap(bitmap);
             profilePicture.setBackground(null);
+
+            User.dp = bitmap;*/
         } else {
 
-            Log.i("SonaSys", "resultCode: " + resultCode);
+            Logger.print("SonaSys: resultCode: " + resultCode);
             switch(resultCode) {
                 case 0:
-                    Log.i("SonaSys", "User cancelled");
+                    Logger.print("SonaSys: User cancelled");
                     break;
                 case -1:
-                    onPhotoTaken();
+                    onPhotoTaken(AppConstant.PROFILE_PIC_URL);
                     break;
             }
         }
     }
 
-    protected void onPhotoTaken() {
-        Log.i("---", "onPhotoTaken");
-        BitmapFactory.Options options = new BitmapFactory.Options();
+    protected void onPhotoTaken(String path) {
+        Logger.print("onPhotoTaken");
+        /*BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
         ivProfilePic.setBackground(null);
@@ -188,6 +238,27 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         if(profilePicture != null) {
             profilePicture.setImageBitmap(bitmap);
             profilePicture.setBackground(null);
+        }
+
+        User.dp = bitmap;*/
+
+        try
+        {
+            reqWidth = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
+                    / getResources().getDisplayMetrics().density);
+
+            reqHeight = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
+                    / getResources().getDisplayMetrics().density);
+
+            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromFile(path, reqWidth, reqHeight);
+            profilePicture.setImageBitmap(bitmap);
+            ivProfilePic.setImageBitmap(bitmap);
+
+            User.dp = bitmap;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 

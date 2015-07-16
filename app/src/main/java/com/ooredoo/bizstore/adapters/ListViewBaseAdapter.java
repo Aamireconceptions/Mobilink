@@ -75,7 +75,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         reqWidth = resources.getDisplayMetrics().widthPixels;
 
-        reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._120sdp)
+        reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._105sdp)
                     / resources.getDisplayMetrics().density);
     }
 
