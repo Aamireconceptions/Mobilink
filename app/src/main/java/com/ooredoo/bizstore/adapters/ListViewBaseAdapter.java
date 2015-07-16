@@ -132,6 +132,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             holder.tvViews = (TextView) row.findViewById(R.id.views);
             holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
+            holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
 
             row.setTag(holder);
         } else {
@@ -191,11 +192,15 @@ public class ListViewBaseAdapter extends BaseAdapter {
             if(bitmap != null)
             {
                 holder.ivPromotional.setImageBitmap(bitmap);
+
+                holder.progressBar.setVisibility(View.GONE);
             }
             else
             {
-                ProgressBar progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional, progressBar);
+                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional,
+                                                        holder.progressBar);
                 bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
 
@@ -207,6 +212,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     showDetail(deal);
                 }
             });
+        }
+        else
+        {
+            if(holder.ivPromotional != null)
+            {
+                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                holder.progressBar.setVisibility(View.GONE);
+            }
         }
 
         AnimUtils.slideView(activity, row, prevItem < position);
@@ -256,5 +269,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;
 
         RatingBar rbRatings;
+
+        ProgressBar progressBar;
     }
 }

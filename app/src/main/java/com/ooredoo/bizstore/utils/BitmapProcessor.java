@@ -52,12 +52,15 @@ public class BitmapProcessor
 
         bitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
-        width = bitmap.getWidth();
-        height = bitmap.getHeight();
+        if(bitmap != null)
+        {
+            width = bitmap.getWidth();
+            height = bitmap.getHeight();
 
-        Logger.print("inSample:"+sampleSize);
-        Logger.print("Modified Width: "+width);
-        Logger.print("Modified Height: " + height);
+            Logger.print("inSample:"+sampleSize);
+            Logger.print("Modified Width: "+width);
+            Logger.print("Modified Height: " + height);
+        }
 
         return bitmap;
     }
@@ -83,14 +86,17 @@ public class BitmapProcessor
 
         bitmap = BitmapFactory.decodeFile(pathName, options);
 
-        width = bitmap.getWidth();
-        height = bitmap.getHeight();
+        if(bitmap != null)
+        {
+            width = bitmap.getWidth();
+            height = bitmap.getHeight();
 
-        Logger.print("inSample:"+sampleSize);
-        Logger.print("Modified Width: "+width);
-        Logger.print("Modified Height: " + height);
+            Logger.print("inSample:"+sampleSize);
+            Logger.print("Modified Width: "+width);
+            Logger.print("Modified Height: " + height);
+        }
 
-        return rotateBitmapIfNeeded(pathName, bitmap);
+        return bitmap != null ? rotateBitmapIfNeeded(pathName, bitmap) : null;
     }
 
     public int calculateInSampleSize(BitmapFactory.Options options,

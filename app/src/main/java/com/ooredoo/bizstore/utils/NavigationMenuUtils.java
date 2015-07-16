@@ -155,6 +155,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            if(bitmap != null)
             profilePicture.setImageBitmap(bitmap);
 
             User.dp = bitmap;

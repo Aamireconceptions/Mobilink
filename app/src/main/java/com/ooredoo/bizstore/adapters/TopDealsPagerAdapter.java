@@ -5,6 +5,7 @@ package com.ooredoo.bizstore.adapters;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.fragments.FeaturedFragment;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Pehlaj Rai
  * @since 16-Jun-15.
  */
-public class TopDealsPagerAdapter extends FragmentPagerAdapter
+public class TopDealsPagerAdapter extends FragmentStatePagerAdapter
 {
     private List<GenericDeal> deals;
 
@@ -35,7 +36,8 @@ public class TopDealsPagerAdapter extends FragmentPagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return FeaturedFragment.newInstance(deals.get(position).id, deals.get(position).image.featured);
+        return FeaturedFragment.newInstance(deals.get(position).id,
+                                            deals.get(position).image.featured);
     }
 
     @Override
