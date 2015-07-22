@@ -15,7 +15,9 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -25,7 +27,7 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeListener
+public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
 {
     private HomeActivity activity;
 
@@ -78,6 +80,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         adapter.setCategory(ResourceUtils.HOTELS_AND_SPA);
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
+        listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
@@ -93,6 +96,11 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onFilterChange()
     {
+        fetchAndDisplayHotelsAndSpas();
+    }
+
+    @Override
+    public void onRefreshStarted() {
         fetchAndDisplayHotelsAndSpas();
     }
 }

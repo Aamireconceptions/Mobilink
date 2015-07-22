@@ -7,6 +7,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -21,14 +22,18 @@ import java.util.List;
  */
 public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
 {
+    private HomeActivity mActivity;
+
     private TopDealsPagerAdapter adapter;
 
     private ViewPager viewPager;
 
     private final static String SERVICE_NAME = "/featureddeals?";
 
-    public TopDealsBannersTask(TopDealsPagerAdapter adapter, ViewPager viewPager)
+    public TopDealsBannersTask(HomeActivity mActivity, TopDealsPagerAdapter adapter, ViewPager viewPager)
     {
+        this.mActivity = mActivity;
+
         this.adapter = adapter;
 
         this.viewPager = viewPager;
@@ -54,6 +59,10 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
+        mActivity.onRefreshCompleted();
+
+        adapter.clear();
+
         if(result != null)
         {
             viewPager.setBackground(null);
@@ -74,7 +83,7 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
             }
 
             adapter.setData(deals);
-            adapter.notifyDataSetChanged();
+
 
             if(BizStore.getLanguage().equals("ar"))
             {
@@ -85,6 +94,8 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
         {
             Logger.print("TopDealsBannersTask: Failed to download banners due to no internet");
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     private String getTopDealsBanners() throws IOException

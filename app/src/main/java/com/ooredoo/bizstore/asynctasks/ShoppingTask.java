@@ -88,6 +88,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
+        homeActivity.onRefreshCompleted();
+
         this.progressBar.setVisibility(View.GONE);
 
         if(result != null)

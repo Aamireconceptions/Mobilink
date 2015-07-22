@@ -83,6 +83,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        homeActivity.onRefreshCompleted();
+
+        adapter.clearData();
+
         closeDialog(dialog);
 
         /*if(progressBar != null) { progressBar.setVisibility(View.GONE); }*/
@@ -100,7 +104,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                 /*if(response.deals != null)
                     deals = response.deals;*/
 
-                adapter.clearData();
+               // adapter.clearData();
 
                 if(response.resultCode != -1)
                 {
@@ -115,12 +119,14 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                     adapter.setData(deals);
                 }
 
-                adapter.notifyDataSetChanged();
+
 
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     private void showTvDealsOfTheDay() {

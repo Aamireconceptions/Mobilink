@@ -185,7 +185,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.tool_bar, R.color.grey);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         setupSearchField();

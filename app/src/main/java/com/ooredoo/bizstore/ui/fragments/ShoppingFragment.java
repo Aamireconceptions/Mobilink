@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -15,8 +16,10 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -31,7 +34,7 @@ import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
 /**
  * @author Babar
  */
-public class ShoppingFragment extends Fragment implements OnFilterChangeListener {
+public class ShoppingFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener {
     private HomeActivity activity;
 
     private List<GenericDeal> deals;
@@ -66,6 +69,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
 
         GridView gridView = (GridView) v.findViewById(R.id.shopping_gridview);
+        gridView.setOnScrollListener(new ScrollListener(activity));
         gridView.setOnItemClickListener(new DealGridOnItemClickListener(activity, adapter));
         gridView.setAdapter(adapter);
 
@@ -108,6 +112,12 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onFilterChange() {
+        loadDeals();
+    }
+
+    @Override
+    public void onRefreshStarted()
+    {
         loadDeals();
     }
 }

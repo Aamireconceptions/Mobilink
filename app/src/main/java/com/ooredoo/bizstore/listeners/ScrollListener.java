@@ -9,11 +9,11 @@ import com.ooredoo.bizstore.utils.Logger;
 /**
  * Created by Babar on 22-Jul-15.
  */
-public class ListScrollListener implements AbsListView.OnScrollListener
+public class ScrollListener implements AbsListView.OnScrollListener
 {
     HomeActivity homeActivity;
 
-    public ListScrollListener(HomeActivity homeActivity)
+    public ScrollListener(HomeActivity homeActivity)
     {
         this.homeActivity = homeActivity;
     }

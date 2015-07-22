@@ -15,7 +15,9 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -27,7 +29,7 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class SportsAndFitnessFragment extends Fragment implements OnFilterChangeListener
+public class SportsAndFitnessFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
 {
     private HomeActivity activity;
 
@@ -82,6 +84,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         adapter.setCategory(ResourceUtils.SPORTS_AND_FITNESS);
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
+        listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
@@ -103,6 +106,11 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     @Override
     public void onFilterChange()
     {
+        fetchAndDisplaySportsAndFitness();
+    }
+
+    @Override
+    public void onRefreshStarted() {
         fetchAndDisplaySportsAndFitness();
     }
 }

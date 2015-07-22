@@ -15,7 +15,9 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -27,7 +29,7 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class EntertainmentFragment extends Fragment implements OnFilterChangeListener
+public class EntertainmentFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
 {
     private HomeActivity activity;
 
@@ -84,6 +86,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         adapter.setCategory(ResourceUtils.ENTERTAINMENT);
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
+        listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
@@ -105,6 +108,11 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onFilterChange()
     {
+        fetchAndDisplayEntertainment();
+    }
+
+    @Override
+    public void onRefreshStarted() {
         fetchAndDisplayEntertainment();
     }
 }

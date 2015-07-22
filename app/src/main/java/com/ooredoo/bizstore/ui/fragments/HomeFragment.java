@@ -25,7 +25,7 @@ import com.ooredoo.bizstore.asynctasks.TopMallsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
-import com.ooredoo.bizstore.listeners.ListScrollListener;
+import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener, On
         activity.setCurrentFragment(this);
 
         ListView listView = (ListView) v.findViewById(R.id.home_list_view);
-        listView.setOnScrollListener(new ListScrollListener(activity));
+        listView.setOnScrollListener(new ScrollListener(activity));
 
         LayoutInflater inflater = activity.getLayoutInflater();
 

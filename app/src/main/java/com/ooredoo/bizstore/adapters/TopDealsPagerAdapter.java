@@ -44,4 +44,9 @@ public class TopDealsPagerAdapter extends FragmentStatePagerAdapter
     public int getCount() {
         return deals.size();
     }
+
+    public void clear()
+    {
+        deals.clear();
+    }
 }

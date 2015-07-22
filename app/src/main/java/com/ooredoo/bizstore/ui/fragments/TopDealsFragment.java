@@ -17,7 +17,9 @@ import com.ooredoo.bizstore.adapters.TopDealsPagerAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.TopDealsBannersTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.PageIndicator;
@@ -33,13 +35,15 @@ import static com.ooredoo.bizstore.utils.CategoryUtils.CT_TOP;
 import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class TopDealsFragment extends Fragment implements OnFilterChangeListener
+public class TopDealsFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
 {
     private HomeActivity mActivity;
 
     private View headerViewPager, headerFilter;
 
-    private ListViewBaseAdapter adapter;
+    private ViewPager viewPager;
+
+    private ListViewBaseAdapter listAdapter;
 
     public static String subCategory = "";
 
@@ -89,38 +93,46 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(mActivity, R.layout.list_deal, deals);
-        adapter.setCategory(ResourceUtils.AUTOMOTIVE);
+        listAdapter = new ListViewBaseAdapter(mActivity, R.layout.list_deal, deals);
+        listAdapter.setCategory(ResourceUtils.AUTOMOTIVE);
 
         ListView listView = (ListView) v.findViewById(R.id.list_view);
+        listView.setOnScrollListener(new ScrollListener(mActivity));
         listView.addHeaderView(headerViewPager);
         listView.addHeaderView(headerFilter);
-        listView.setAdapter(adapter);
+        listView.setAdapter(listAdapter);
 
         initAndLoadTopDealsBanner();
 
         loadTopDeals();
     }
 
+
+    TopDealsPagerAdapter topDealsadapter;
     private void initAndLoadTopDealsBanner()
     {
         List<GenericDeal> deals = new ArrayList<>();
 
-        TopDealsPagerAdapter adapter = new TopDealsPagerAdapter(getFragmentManager(), deals);
+        topDealsadapter = new TopDealsPagerAdapter(getFragmentManager(), deals);
 
-        ViewPager viewPager = (ViewPager) headerViewPager.findViewById(R.id.view_pager);
-        viewPager.setAdapter(adapter);
+        viewPager = (ViewPager) headerViewPager.findViewById(R.id.view_pager);
+        viewPager.setAdapter(topDealsadapter);
 
         PageIndicator pageIndicator = (CirclePageIndicator) headerViewPager.findViewById(R.id.pager_indicator);
         pageIndicator.setViewPager(viewPager);
 
-        TopDealsBannersTask topDealsBannersTask = new TopDealsBannersTask(adapter, viewPager);
+        loadTopDealBanners();
+    }
+
+    private void loadTopDealBanners()
+    {
+        TopDealsBannersTask topDealsBannersTask = new TopDealsBannersTask(mActivity, topDealsadapter, viewPager);
         topDealsBannersTask.execute();
     }
 
     private void loadTopDeals()
     {
-        DealsTask dealsTask = new DealsTask(mActivity, adapter, null);
+        DealsTask dealsTask = new DealsTask(mActivity, listAdapter, null);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
@@ -134,6 +146,14 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     public void onFilterChange()
     {
         Logger.print("TopDealsFragment onFilterChange");
+
+        loadTopDeals();
+    }
+
+    @Override
+    public void onRefreshStarted()
+    {
+        loadTopDealBanners();
 
         loadTopDeals();
     }
