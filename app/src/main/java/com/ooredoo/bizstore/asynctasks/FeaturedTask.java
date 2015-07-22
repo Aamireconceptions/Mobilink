@@ -7,6 +7,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -21,14 +22,18 @@ import java.util.List;
  */
 public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 {
+    private HomeActivity activity;
+
     private FeaturedStatePagerAdapter adapter;
 
     private ViewPager viewPager;
 
     private final static String SERVICE_NAME = "/featureddeals?";
 
-    public FeaturedTask(FeaturedStatePagerAdapter adapter, ViewPager viewPager)
+    public FeaturedTask(HomeActivity activity, FeaturedStatePagerAdapter adapter, ViewPager viewPager)
     {
+        this.activity = activity;
+
         this.adapter = adapter;
 
         this.viewPager = viewPager;
@@ -54,6 +59,10 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
+        activity.onRefreshCompleted();
+
+        adapter.clear();
+
         if(result != null)
         {
             viewPager.setBackground(null);
@@ -77,7 +86,7 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
             }
 
             adapter.setData(deals);
-            adapter.notifyDataSetChanged();
+
 
             if(BizStore.getLanguage().equals("ar"))
             {
@@ -88,6 +97,8 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
         {
             Logger.print("FeaturedAsyncTask: Failed to download banners due to no internet");
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     private String getFeatured() throws IOException

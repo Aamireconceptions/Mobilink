@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +42,7 @@ import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
 import com.ooredoo.bizstore.listeners.DrawerChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
@@ -67,7 +69,10 @@ import static com.ooredoo.bizstore.AppData.searchResults;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener, OnFilterChangeListener, TextView.OnEditorActionListener {
+public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
+                                                               OnFilterChangeListener,
+                                                               TextView.OnEditorActionListener,
+                                                               SwipeRefreshLayout.OnRefreshListener {
     public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
@@ -120,6 +125,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public static Dialog loader;
 
     private LinearLayout llTopDeals;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,6 +184,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.tool_bar, R.color.grey);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         setupSearchField();
 
         NavigationMenuUtils navigationMenuUtils = new NavigationMenuUtils(this, expandableListView);
@@ -189,6 +200,17 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setupPager();
 
         initFilter();
+    }
+
+    public void setSwipeRefreshLayoutEnabled(boolean enabled)
+    {
+        swipeRefreshLayout.setEnabled(enabled);
+    }
+
+    @Override
+    public void onRefresh()
+    {
+        ((OnRefreshListener) currentFragment).onRefreshStarted();
     }
 
     private void setupSearchField() {
@@ -375,6 +397,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         viewPager.setCurrentItem(tabPosition, true);
     }
 
+
+
     public class CheckBoxClickListener implements OnClickListener {
         @Override
         public void onClick(View v) {
@@ -545,7 +569,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         return false;
     }
 
-
+    public void onRefreshCompleted()
+    {
+        swipeRefreshLayout.setRefreshing(false);
+    }
 
     @Override
     protected void onDestroy() {

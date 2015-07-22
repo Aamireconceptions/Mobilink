@@ -47,4 +47,9 @@ public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
     {
         return deals.size();
     }
+
+    public void clear()
+    {
+        deals.clear();
+    }
 }

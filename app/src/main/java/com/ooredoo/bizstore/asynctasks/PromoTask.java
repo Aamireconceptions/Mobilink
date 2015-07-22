@@ -7,6 +7,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -22,14 +23,18 @@ import java.util.List;
  */
 public class PromoTask extends BaseAsyncTask<String, Void, String>
 {
+    private HomeActivity activity;
+
     private PromoStatePagerAdapter adapter;
 
     private ViewPager viewPager;
 
     private final static String SERVICE_NAME = "/promotionaldeals?";
 
-    public PromoTask(PromoStatePagerAdapter adapter, ViewPager viewPager)
+    public PromoTask(HomeActivity activity, PromoStatePagerAdapter adapter, ViewPager viewPager)
     {
+        this.activity = activity;
+
         this.adapter = adapter;
 
         this.viewPager = viewPager;
@@ -56,6 +61,10 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
+        activity.onRefreshCompleted();
+
+        adapter.clear();
+
         if(result != null)
         {
             Gson gson = new Gson();
@@ -77,7 +86,6 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
             }
 
             adapter.setData(deals);
-            adapter.notifyDataSetChanged();
 
             if(BizStore.getLanguage().equals("ar"))
             {
@@ -88,6 +96,8 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
         {
             Logger.print("PromoTask: Failed to download banners due to no internet");
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     private String getPromos() throws IOException

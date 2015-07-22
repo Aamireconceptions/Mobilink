@@ -3,11 +3,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
+
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,6 +127,8 @@
             </LinearLayout>
 
 
+
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="wrap_content"
@@ -136,11 +141,19 @@
                 app:tabTextColor="@color/white"
                 app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small" />
 
+
+
             <FrameLayout
                 android:id="@+id/fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"/>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/home_viewpager"
@@ -148,12 +161,18 @@
                 android:layout_height="match_parent"
                 android:layoutDirection="locale"/>
 
+            </android.support.v4.widget.SwipeRefreshLayout>
+
         </LinearLayout>
+
+
 
         <include layout="@layout/layout_navigation"/>
 
         <include layout="@layout/layout_filter"/>
 
     </android.support.v4.widget.DrawerLayout>
+
+
 
 </RelativeLayout>

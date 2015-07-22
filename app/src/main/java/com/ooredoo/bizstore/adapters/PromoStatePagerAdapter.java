@@ -46,4 +46,9 @@ public class PromoStatePagerAdapter extends FragmentStatePagerAdapter
     {
         return deals.size();
     }
+
+    public void clear()
+    {
+        deals.clear();
+    }
 }
