@@ -53,4 +53,9 @@ public class TopMallsStatePagerAdapter extends FragmentStatePagerAdapter
     {
         return PAGE_WIDTH;
     }
+
+    public void clear()
+    {
+        malls.clear();
+    }
 }

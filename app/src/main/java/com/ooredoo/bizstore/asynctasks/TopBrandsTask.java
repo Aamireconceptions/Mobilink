@@ -8,6 +8,7 @@ import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.BrandResponse;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -21,13 +22,17 @@ import java.util.List;
  * @since 25-Jun-15.
  */
 public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
+    private HomeActivity activity;
+
     private TopBrandsStatePagerAdapter adapter;
 
     private ViewPager viewPager;
 
     private final static String SERVICE_NAME = "/topbrand?";
 
-    public TopBrandsTask(TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
+    public TopBrandsTask(HomeActivity activity, TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
+        this.activity = activity;
+
         this.adapter = adapter;
 
         this.viewPager = viewPager;
@@ -48,6 +53,10 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        activity.onRefreshCompleted();
+
+        adapter.clear();
+
         if(result != null) {
             viewPager.setBackground(null);
 
@@ -58,10 +67,12 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
             if(brand.resultCode != - 1)
             {
                 adapter.setData(brand.brands);
-                adapter.notifyDataSetChanged();
+
 
                 if(BizStore.getLanguage().equals("ar"))
                 {
+                    adapter.notifyDataSetChanged();
+
                     viewPager.setCurrentItem(brand.brands.size() - 1);
                 }
             }
@@ -69,6 +80,8 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
         } else {
             Logger.print("TopBrandsAsyncTask: Failed to download Banners due to no internet");
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     private String getTopBrands(String category) throws IOException {

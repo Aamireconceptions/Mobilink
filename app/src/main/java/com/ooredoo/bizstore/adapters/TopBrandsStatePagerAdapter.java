@@ -49,4 +49,9 @@ public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
     {
         return PAGE_WIDTH;
     }
+
+    public void clear()
+    {
+        brands.clear();
+    }
 }

@@ -8,6 +8,7 @@ import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.model.MallResponse;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.util.List;
  * @since 25-Jun-15.
  */
 public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
+    private HomeActivity activity;
 
     private TopMallsStatePagerAdapter adapter;
 
@@ -28,7 +30,9 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
     private final static String SERVICE_NAME = "/topbrand?";
 
-    public TopMallsTask(TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
+    public TopMallsTask(HomeActivity activity, TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
+        this.activity = activity;
+
         this.adapter = adapter;
 
         this.viewPager = viewPager;
@@ -48,6 +52,10 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        activity.onRefreshCompleted();
+
+        adapter.clear();
+
         if(result != null) {
             viewPager.setBackground(null);
 
@@ -60,16 +68,18 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
                 adapter.setData(mallResponse.malls);
             }
 
-            adapter.notifyDataSetChanged();
-
             if(BizStore.getLanguage().equals("ar"))
             {
+                adapter.notifyDataSetChanged();
+
                 viewPager.setCurrentItem(mallResponse.malls.size() - 1);
             }
 
         } else {
             Logger.print("TopMallsAsyncTask: Failed to download Banners due to no internet");
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     private String getTopMalls(String category) throws IOException

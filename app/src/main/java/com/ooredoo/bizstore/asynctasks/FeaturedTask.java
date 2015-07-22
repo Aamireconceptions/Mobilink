@@ -90,6 +90,8 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
             if(BizStore.getLanguage().equals("ar"))
             {
+                adapter.notifyDataSetChanged();
+
                 viewPager.setCurrentItem(deals.size() - 1);
             }
         }

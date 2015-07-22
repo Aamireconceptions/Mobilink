@@ -197,7 +197,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener, On
 
     private void loadTopBrands()
     {
-        TopBrandsTask topBrandsTask = new TopBrandsTask(topBrandsStatePagerAdapter, topBrandsPager);
+        TopBrandsTask topBrandsTask = new TopBrandsTask(activity, topBrandsStatePagerAdapter, topBrandsPager);
         topBrandsTask.execute("malls");
     }
 
@@ -215,7 +215,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener, On
 
     private void loadTopMalls()
     {
-        TopMallsTask topMallsTask = new TopMallsTask(topMallsAdapter, topMallsPager);
+        TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager);
         topMallsTask.execute("malls");
     }
 
