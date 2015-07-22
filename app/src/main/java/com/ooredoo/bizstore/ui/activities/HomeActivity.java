@@ -243,7 +243,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private void setupPager() {
         viewPager.setAdapter(homePagerAdapter);
-        viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
+        viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(this, tabLayout));
     }
 
     private void initFilter() {
