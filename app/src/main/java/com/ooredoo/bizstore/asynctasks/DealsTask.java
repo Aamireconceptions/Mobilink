@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -8,7 +7,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -22,6 +20,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 /**
@@ -130,6 +132,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     private String getDeals(String category) throws IOException {
         String result;
 
+        boolean isFilterEnabled = false;
+
         InputStream inputStream = null;
 
         try {
@@ -141,35 +145,45 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
             Logger.print("Sub Categories: " + subCategories);
 
             if(isNotNullOrEmpty(sortColumn)) {
+                if(sortColumn.equals("views"))
+                    isFilterEnabled = true;
                 params.put("sort", sortColumn);
             }
 
             if(isNotNullOrEmpty(subCategories)) {
+                isFilterEnabled = true;
                 params.put("subcategories", subCategories);
             }
 
             if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
+                isFilterEnabled = true;
                 params.put("rating", homeActivity.ratingFilter);
             }
 
             if(homeActivity.doApplyDiscount) {
+                isFilterEnabled = true;
                 params.put("min_discount", String.valueOf(homeActivity.minDiscount));
                 params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
             }
 
-            String query = createQuery(params);
+            final String KEY = PREFIX_DEALS.concat(category);
 
-            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+            if(isFilterEnabled || checkIfUpdateData(homeActivity, KEY)) {
 
-            Logger.print("getDeals() URL:" + url.toString());
+                String query = createQuery(params);
 
-           /* HttpURLConnection connection = openConnectionAndConnect(url);
+                URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-            inputStream = connection.getInputStream();
+                Logger.print("getDeals() URL:" + url.toString());
 
-            result = readStream(inputStream);*/
+                result = getJson(url);
 
-            result = getJson(url);
+                if(!isFilterEnabled) {
+                    updateVal(homeActivity, KEY, result);
+                }
+            } else {
+                result = getStringVal(homeActivity, KEY);
+            }
 
             Logger.print("getDeals: " + result);
         } finally {
