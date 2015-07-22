@@ -17,11 +17,15 @@ import static java.lang.System.currentTimeMillis;
 
 public class SharedPrefUtils {
 
+    public static final long CACHE_TIME = 10 * 60 * 1000;
+
     public static final String MyPREFERENCES = "OrdBsPrefs";
 
     public static final String LOGIN_STATUS = "OrdBs_LG_STATUS";
 
     public static final String NAME = "OrdBs_LG_NAME";
+
+    public static final String PREFIX_DEALS = "OrdBs_Deals_";
 
     public static final String USERNAME = "OrdBs_LG_UZRNM";
     public static final String PASSWORD = "OrdBs_LG_PSWRD";
@@ -220,6 +224,6 @@ public class SharedPrefUtils {
 
     public static boolean checkIfUpdateData(Activity activity, String KEY) {
         long tmp = getLongVal(activity, KEY);
-        return tmp == 0 || (currentTimeMillis() - tmp) > 10 * 60 * 1000;
+        return tmp == 0 || (currentTimeMillis() - tmp) > CACHE_TIME;
     }
 }
