@@ -5,127 +5,144 @@
             android:scrollbars="none"
             android:scrollbarStyle="insideOverlay">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/rl_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:background="@drawable/bg_detail">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/detail_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/detail_temp"/>
 
             <LinearLayout
                 android:id="@+id/ll_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="0dp"
+                android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="4dp">
+                android:padding="@dimen/_8sdp"
+                android:background="@drawable/gradient_overlay">
+
                 <TextView
                     android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:textColor="#F7F7F7"
                     android:textSize="24sp"
                     android:textStyle="bold"/>
+
                 <TextView
                     android:id="@+id/tv_location"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:textColor="@color/grey"
                     android:textStyle="normal"/>
+
                 <RatingBar
                     android:id="@+id/rating_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:rating="0"
-                    android:layout_marginTop="6dp"
+                    android:rating="3"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:progressDrawable="@drawable/deal_rating_bar"
                     style="?android:attr/ratingBarStyleSmall"/>
             </LinearLayout>
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-                <TableRow>
-                    <ImageView
-                        android:id="@+id/iv_call"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_phone_active"/>
-                    <ImageView
-                        android:id="@+id/iv_views"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_views_white"/>
-                    <ImageView
-                        android:id="@+id/iv_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_star_white"/>
-                    <ImageView
-                        android:id="@+id/iv_share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_share_white"/>
-                </TableRow>
-                <TableRow android:layout_marginBottom="15dp">
-                    <TextView
-                        android:id="@+id/tv_call"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="CALL"
-                        android:textColor="@color/white"/>
-                    <TextView
-                        android:id="@+id/tv_views"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/white"/>
-                    <TextView
-                        android:id="@+id/tv_rate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="RATE"
-                        android:textColor="@color/white"/>
-                    <TextView
-                        android:id="@+id/tv_share"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="SHARE"
-                        android:textColor="@color/white"/>
-                </TableRow>
-            </TableLayout>
+
         </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:background="@drawable/detail_actions_bg">
+            <TableRow>
+                <ImageView
+                    android:id="@+id/iv_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_phone_active"/>
+                <ImageView
+                    android:id="@+id/iv_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_views_white"/>
+                <ImageView
+                    android:id="@+id/iv_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_star_white"/>
+                <ImageView
+                    android:id="@+id/iv_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_share_white"/>
+            </TableRow>
+            <TableRow android:layout_marginBottom="15dp">
+                <TextView
+                    android:id="@+id/tv_call"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/call"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/tv_views"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/tv_rate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/rate"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/tv_share"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/share"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"/>
+            </TableRow>
+        </TableLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -172,5 +189,5 @@
                 android:padding="10dp"
                 android:textColor="@color/black"/>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>
