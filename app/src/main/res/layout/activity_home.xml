@@ -165,8 +165,6 @@
 
         </LinearLayout>
 
-
-
         <include layout="@layout/layout_navigation"/>
 
         <include layout="@layout/layout_filter"/>
