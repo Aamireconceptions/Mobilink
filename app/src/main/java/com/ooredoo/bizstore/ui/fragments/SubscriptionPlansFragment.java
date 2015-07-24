@@ -39,9 +39,9 @@ public class SubscriptionPlansFragment extends BaseFragment {
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.btn_subscribe) {
-            updateVal(mActivity, LOGIN_STATUS, true);
+            /*updateVal(mActivity, LOGIN_STATUS, true);
             SignUpActivity activity = (SignUpActivity) mActivity;
-            activity.startActivity(HomeActivity.class);
+            activity.startActivity(HomeActivity.class);*/
 
             FragmentUtils.replaceFragment(mActivity, R.id.fragment_container,
                                           DemoFragment.newInstance(), "demo_fragment");

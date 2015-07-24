@@ -28,8 +28,9 @@ public class SignUpActivity extends BaseActivity {
         addFragmentWithBackStack(this, R.id.fragment_container, new SignUpFragment(), "SignUp");
     }
 
+    public Toolbar toolbar;
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

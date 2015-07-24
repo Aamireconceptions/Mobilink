@@ -20,8 +20,11 @@ import com.ooredoo.bizstore.utils.SharedPrefUtils;
 /**
  * Created by Babar on 24-Jul-15.
  */
-public class DemoFragment extends Fragment
-{
+public class DemoFragment extends Fragment implements View.OnClickListener {
+    private SignUpActivity signUpActivity;
+
+    private Activity activity;
+
     public static DemoFragment newInstance()
     {
         return new DemoFragment();
@@ -39,6 +42,11 @@ public class DemoFragment extends Fragment
 
     private void init(View v)
     {
+        activity = getActivity();
+
+        signUpActivity = (SignUpActivity) activity;
+        signUpActivity.toolbar.setVisibility(View.GONE);
+
         DemoPagerAdapter adapter = new DemoPagerAdapter(getFragmentManager());
 
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view_pager);
@@ -46,14 +54,18 @@ public class DemoFragment extends Fragment
 
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.pager_indicator);
         circlePageIndicator.setViewPager(viewPager);
+        circlePageIndicator.setFillColor(activity.getResources().getColor(R.color.red));
+
+        TextView tvSkip = (TextView) v.findViewById(R.id.skip);
+        tvSkip.setOnClickListener(this);
     }
 
-    public void skip(View v)
-    {
-        Activity activity = getActivity();
 
+    @Override
+    public void onClick(View v)
+    {
         SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
-            SignUpActivity signUpActivity = (SignUpActivity) activity;
-            signUpActivity.startActivity(HomeActivity.class);
+
+        signUpActivity.startActivity(HomeActivity.class);
     }
 }
