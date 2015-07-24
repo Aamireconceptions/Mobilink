@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_color_selector"
         android:drawablePadding="@dimen/_12sdp"
-        android:layoutDirection="locale"
+
         android:padding="@dimen/_18sdp"
         android:text="Top Deals"
 
