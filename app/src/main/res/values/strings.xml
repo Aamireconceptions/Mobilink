@@ -179,5 +179,15 @@
     <string name="copyrights_text">Copyright 2015 Ooredoo Bizstore\nAll rights reserved.</string>
     <string name="Clear_All">Clear All</string>
     <string name="error_server_down">Server is down at the moment. Please try again later.</string>
+    <string name="skip">Skip</string>
+    <string name="slide_1_text_1">Slide 1 Text 1</string>
+    <string name="slide_1_text_2">Slide 1 Text 2</string>
+    <string name="slide_2_text_1">Slide 2 Text 1</string>
+    <string name="slide_2_text_2">Slide 2 Text 2</string>
+    <string name="slide_3_text_1">Slide 3 Text 1</string>
+    <string name="slide_3_text_2">Slide 3 Text 2</string>
+    <string name="slide_4_text_1">Slide 4 Text 1</string>
+    <string name="slide_4_text_2">Slide 4 Text 2</string>
+
 
 </resources>

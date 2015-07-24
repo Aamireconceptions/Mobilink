@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
@@ -19,7 +20,7 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 
 public class SubscriptionPlansFragment extends BaseFragment {
 
-    Button btnNext;
+    Button btnSubscribe;
 
     public SubscriptionPlansFragment() {
         super();
@@ -30,17 +31,20 @@ public class SubscriptionPlansFragment extends BaseFragment {
         TextView tvPlanDetails = (TextView) parent.findViewById(R.id.tv_plan_details);
         tvPlanDetails.setText(Html.fromHtml(getString(R.string.weekly_plan_details)));
 
-        btnNext = (Button) parent.findViewById(R.id.btn_next);
-        btnNext.setOnClickListener(this);
+        btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
+        btnSubscribe.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.btn_next) {
+        if(id == R.id.btn_subscribe) {
             updateVal(mActivity, LOGIN_STATUS, true);
             SignUpActivity activity = (SignUpActivity) mActivity;
             activity.startActivity(HomeActivity.class);
+
+            FragmentUtils.replaceFragment(mActivity, R.id.fragment_container,
+                                          DemoFragment.newInstance(), "demo_fragment");
         }
     }
 }

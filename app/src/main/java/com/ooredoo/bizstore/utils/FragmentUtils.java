@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.utils;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -16,6 +17,14 @@ public class FragmentUtils {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerId, fragment, tag);
         fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public static void replaceFragment(Activity activity, int containerId, Fragment fragment, String tag) {
+        FragmentManager fragmentManager = activity.getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(containerId, fragment, tag);
         fragmentTransaction.commit();
     }
 

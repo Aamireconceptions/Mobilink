@@ -69,7 +69,7 @@
             android:textColor="@color/white"/>
 
         <Button
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_subscribe"
             android:layout_width="225dp"
             android:layout_height="38dp"
             android:layout_below="@+id/ib_sub__plan"
