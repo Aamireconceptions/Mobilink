@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 
 /**
@@ -13,6 +14,8 @@ import com.ooredoo.bizstore.utils.FragmentUtils;
 
 public class WelcomeFragment extends BaseFragment {
 
+    private AppCompatActivity activity;
+
     public WelcomeFragment() {
         super();
         layoutResId = R.layout.fragment_welcome;
@@ -20,11 +23,17 @@ public class WelcomeFragment extends BaseFragment {
 
     public void init(View parent) {
         parent.findViewById(R.id.btn_next).setOnClickListener(this);
+
+        activity = (AppCompatActivity) mActivity;
+
+        SignUpActivity signUpActivity = (SignUpActivity) activity;
+        signUpActivity.toolbar.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
-        AppCompatActivity activity = (AppCompatActivity) mActivity;
-        FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container, new SubscriptionPlansFragment(), "Welcome");
+
+        FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container,
+                                        DemoFragment.newInstance(), "demo_fragment");
     }
 }

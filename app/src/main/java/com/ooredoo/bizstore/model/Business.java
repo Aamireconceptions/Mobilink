@@ -1,5 +1,7 @@
 package com.ooredoo.bizstore.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author Pehlaj Rai
  * @since 6/29/2015.
@@ -12,6 +14,7 @@ public class Business {
 
     public float rating;
 
+    @SerializedName("images")
     public Image image;
 
     public Business() {

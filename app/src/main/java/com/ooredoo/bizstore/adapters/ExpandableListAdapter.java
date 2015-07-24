@@ -176,7 +176,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
             NavigationItem navigationItem = navigationMenuUtils.subGroupList.get(childPosition);
 
-            CustomExpandableListViewAdapter adapter = new CustomExpandableListViewAdapter(context,
+            final CustomExpandableListViewAdapter adapter = new CustomExpandableListViewAdapter(context,
                     navigationItem,
                     navigationMenuUtils.subChildList);
 
@@ -186,7 +186,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             //setIndicatorBounds(customExpandableListView);
 
             customExpandableListView.setAdapter(adapter);
+            customExpandableListView.setDivider(null);
+            customExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 
+                    adapter.setGroupExpanded();
+
+                    return false;
+                }
+            });
 
             //navigationMenuUtils.setIndicatorBounds(customExpandableListView);
 
@@ -286,12 +295,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         int start = expandableListView.getWidth() - (int) Converter.convertDpToPixels(40);
 
         int end = expandableListView.getWidth();
-
+//start = 400;
+       // end = 450;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             expandableListView.setIndicatorBoundsRelative(start, end);
         } else {
             expandableListView.setIndicatorBounds(start, end);
         }
+
     }
 
     @Override

@@ -44,7 +44,7 @@ public class SubscriptionPlansFragment extends BaseFragment {
             activity.startActivity(HomeActivity.class);*/
 
             FragmentUtils.replaceFragment(mActivity, R.id.fragment_container,
-                                          DemoFragment.newInstance(), "demo_fragment");
+                                          new WelcomeFragment(), "welcome_fragment");
         }
     }
 }

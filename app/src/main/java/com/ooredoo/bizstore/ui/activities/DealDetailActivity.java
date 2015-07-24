@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.ui.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,7 @@ import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
 import static android.widget.Toast.LENGTH_LONG;
@@ -167,14 +169,28 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
             Logger.print("detailImgUrl: "+detailImageUrl);
 
-            if(!detailImageUrl.equals(""))
+            if(detailImageUrl != null && !detailImageUrl.equals(""))
             {
-                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+                String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + detailImageUrl;
 
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
-                bitmapDownloadTask.execute(BaseAsyncTask.IMAGE_BASE_URL + detailImageUrl,
-                        String.valueOf(displayMetrics.widthPixels),
-                        String.valueOf(displayMetrics.heightPixels / 2));
+                MemoryCache memoryCache = MemoryCache.getInstance();
+
+                Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+                if(bitmap != null)
+                {
+                    ivDetail.setImageBitmap(bitmap);
+                }
+                else
+                {
+                    DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+
+                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
+                    bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
+                                               String.valueOf(displayMetrics.heightPixels / 2));
+                }
+
+
             }
 
 

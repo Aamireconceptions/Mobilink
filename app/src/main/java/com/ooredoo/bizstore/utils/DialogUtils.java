@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
+import com.ooredoo.bizstore.ui.fragments.SubscriptionPlansFragment;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
@@ -146,7 +147,7 @@ public class DialogUtils {
                 dialog.dismiss();
                 BaseFragment.hideKeyboard(activity);
                 AppCompatActivity compatActivity = (AppCompatActivity) activity;
-                replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "WELCOME_FRAGMENT");
+                replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new SubscriptionPlansFragment(), "subscription_fragment");
                 //TODO un-comment & remove above 3 lines processVerificationCode();
             }
 

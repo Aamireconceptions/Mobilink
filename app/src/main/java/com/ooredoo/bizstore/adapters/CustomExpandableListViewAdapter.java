@@ -31,6 +31,8 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
 
     private int direction;
 
+    private boolean groupExpanded = false;
+
     public CustomExpandableListViewAdapter(Context context,
                                     NavigationItem navigationItem,
                                     HashMap<String, List<NavigationItem>> subChildList)
@@ -90,23 +92,33 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
         return false;
     }
 
+    public void setGroupExpanded()
+    {
+        groupExpanded = !groupExpanded;
+    }
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
     {
-
-
         if(convertView == null)
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            convertView = inflater.inflate(R.layout.list_navigation_sub_group, parent, false);
-            convertView.setBackgroundResource(R.drawable.sub_group_bg_selector);
+            convertView = inflater.inflate(R.layout.list_navigation_group, parent, false);
         }
 
         /*NavigationItem navigationItem = (NavigationItem) getGroup(groupPosition);
 
         String name = navigationItem.getItemName();
         int resId = navigationItem.getResId();*/
+
+        if(groupExpanded)
+        {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.grey));
+        }
+        else
+        {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
+        }
 
         String name = (String) getGroup(groupPosition);
         int resId = navigationItem.getResId();
@@ -127,7 +139,7 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            convertView = inflater.inflate(R.layout.list_navigation_child, parent, false);
+            convertView = inflater.inflate(R.layout.list_navigation_sub_child, parent, false);
         }
 
         NavigationItem navigationItem = (NavigationItem) getChild(groupPosition, childPosition);

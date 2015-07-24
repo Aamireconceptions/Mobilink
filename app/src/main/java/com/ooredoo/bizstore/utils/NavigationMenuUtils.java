@@ -108,25 +108,30 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_travel, R.drawable.ic_entertainment,
                 R.drawable.ic_jewellery, R.drawable.ic_sports};
 
-        foodSubCategories = new String[] {"Food_sub1", "Food_sub2", "Food_sub3", "food_sub4"};
+        foodSubCategories = new String[] {"Arabic", "Turkish", "Indian", "Chinese", "Cafes",
+                                          "Fast Food", "Italian", "Afghani", "Lebanese",
+                                          "Sweets & Confectionaries", "All"};
 
-        shoppingSubCategories = new String[] {"Shopping_sub1", "Shopping_sub2"};
+        shoppingSubCategories = new String[] {"Apparel", "Home Goods", "Sports & Fitness",
+                                              "Electronics", "Fashion & Beauty Accessories", "All"};
 
-        electronicsSubCategories = new String[] {"Electronics_sub1"};
+        electronicsSubCategories = new String[] {"TV & Home Entertainment", "Computers & Tablets",
+                                                 "Cameras & Photography", "Mobile Phones & Accessories",
+                                                 "All"};
 
-        hotelsSubCategories = new String[] {"hotels_sub1"};
+        hotelsSubCategories = new String[] {"Salons", "Lodging", "Spas", "All"};
 
-        mallsSubCategories = new String[] {"malls_sub1"};
+        mallsSubCategories = new String[] {"Hypermarkets", "Malls", "All"};
 
-        automotiveSubCategories = new String[] {"automotive_sub1"};
+        automotiveSubCategories = new String[] {"Show Rooms", "Accessories", "Services", "All"};
 
         travelSubCategories = new String[] {"travel_sub1"};
 
-        entertainmentSubCategories = new String[] {"entertainment_sub1"};
+        entertainmentSubCategories = new String[] {"Events", "Kids & Activities", "Cinemas", "All"};
 
-        jewellerySubCategories = new String[] {"jewellery_sub1"};
+        jewellerySubCategories = new String[] {"Gold Rate", "Currency", "All"};
 
-        sportsSubCategories = new String[] {"sports_sub1"};
+        sportsSubCategories = new String[] {"Clothing", "Equipment", "All"};
     }
 
     public void setupNavigationMenu() {
