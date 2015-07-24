@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BusinessDetailTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
@@ -134,6 +138,24 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(business.views));
             scrollViewHelper.setAlpha(1f);
             //TODO business --- findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+
+            ImageView ivDetail = (ImageView) findViewById(R.id.detail_img);
+
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+            String detailImageUrl = business.image.detailBannerUrl;
+
+            Logger.print("detailImgUrl: "+detailImageUrl);
+
+            if(!detailImageUrl.equals(""))
+            {
+                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
+                bitmapDownloadTask.execute(BaseAsyncTask.IMAGE_BASE_URL + detailImageUrl,
+                        String.valueOf(displayMetrics.widthPixels),
+                        String.valueOf(displayMetrics.heightPixels / 2));
+            }
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }

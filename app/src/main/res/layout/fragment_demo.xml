@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/_4sdp"
-        android:layout_marginBottom="@dimen/_14sdp"
         android:layout_alignBottom="@+id/view_pager"/>
 
     <TextView

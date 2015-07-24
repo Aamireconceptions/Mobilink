@@ -99,7 +99,8 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            convertView = inflater.inflate(R.layout.list_navigation_group, parent, false);
+            convertView = inflater.inflate(R.layout.list_navigation_sub_group, parent, false);
+            convertView.setBackgroundResource(R.drawable.sub_group_bg_selector);
         }
 
         /*NavigationItem navigationItem = (NavigationItem) getGroup(groupPosition);

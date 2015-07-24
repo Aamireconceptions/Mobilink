@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
@@ -151,10 +154,30 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(deal.views));
             ((TextView) findViewById(R.id.tv_discount)).setText(valueOf(deal.discount)
-                                                                + getString(R.string.percentage_off));
+                    + getString(R.string.percentage_off));
             scrollViewHelper.setAlpha(1f);
             src.isFavorite = Deal.isFavorite(id);
             findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+
+            ImageView ivDetail = (ImageView) findViewById(R.id.detail_img);
+
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+            String detailImageUrl = deal.image.detailBannerUrl;
+
+            Logger.print("detailImgUrl: "+detailImageUrl);
+
+            if(!detailImageUrl.equals(""))
+            {
+                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+
+                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
+                bitmapDownloadTask.execute(BaseAsyncTask.IMAGE_BASE_URL + detailImageUrl,
+                        String.valueOf(displayMetrics.widthPixels),
+                        String.valueOf(displayMetrics.heightPixels / 2));
+            }
+
+
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }

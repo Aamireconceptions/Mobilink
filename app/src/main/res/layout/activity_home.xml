@@ -20,10 +20,9 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:background="?attr/colorPrimary"
-
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <AutoCompleteTextView
@@ -127,19 +126,30 @@
             </LinearLayout>
 
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:background="@color/red"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/white"
+                    app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:src="@drawable/tabs_overlay" />
+
+            </FrameLayout>
 
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:background="@color/red"
-                app:tabIndicatorColor="@color/white"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/white"
-                app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small" />
 
 
 

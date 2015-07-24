@@ -12,6 +12,8 @@ public class Business {
 
     public float rating;
 
+    public Image image;
+
     public Business() {
     }
 
