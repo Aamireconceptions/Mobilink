@@ -70,10 +70,10 @@ public class DemoFragment extends Fragment implements View.OnClickListener {
 
        // signUpActivity.startActivity(HomeActivity.class);
 
-        FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
-                                                   R.id.fragment_container,
-                                                   new SubscriptionPlansFragment(),
-                                                   "subscription_fragment");
+        FragmentUtils.replaceFragment(activity,
+                                      R.id.fragment_container,
+                                      new SubscriptionPlansFragment(),
+                                      "subscription_fragment");
 
     }
 }
