@@ -91,7 +91,7 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener, 
 
     private void fetchAndDisplayTravel()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
         dealsTask.execute("travel");
     }
 

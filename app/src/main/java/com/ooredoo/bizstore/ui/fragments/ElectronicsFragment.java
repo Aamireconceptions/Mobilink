@@ -35,6 +35,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     private ProgressBar progressBar;
 
+    private ImageView ivBanner;
+
     public static ElectronicsFragment newInstance()
     {
         ElectronicsFragment fragment = new ElectronicsFragment();
@@ -89,7 +91,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     private void fetchAndDisplayElectronics()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
         dealsTask.execute("electronics");
     }
 

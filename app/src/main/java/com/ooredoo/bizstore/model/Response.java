@@ -14,4 +14,7 @@ public class Response
 
     @SerializedName("results")
     public List<GenericDeal> deals;
+
+    @SerializedName("top_banner")
+    public String topBannerUrl;
 }

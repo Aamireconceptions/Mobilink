@@ -132,7 +132,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private void loadTopDeals()
     {
-        DealsTask dealsTask = new DealsTask(mActivity, listAdapter, null);
+        DealsTask dealsTask = new DealsTask(mActivity, listAdapter, null, ivBanner);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;

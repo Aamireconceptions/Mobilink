@@ -91,7 +91,7 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
     private void fetchAndDisplayJewelry()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
         dealsTask.execute("jewelry");
     }
 

@@ -19,6 +19,7 @@ import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -35,6 +36,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private ListViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
+
+    private ImageView ivBanner;
 
     public static FoodAndDiningFragment newInstance() {
         FoodAndDiningFragment fragment = new FoodAndDiningFragment();
@@ -56,6 +59,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
 
@@ -87,7 +92,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     }
 
     private void fetchAndDisplayFoodAndDining() {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter,
+                                            progressBar, ivBanner);
         dealsTask.execute("food");
     }
 

@@ -89,7 +89,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
     private void fetchAndDisplayAutomotive()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
         dealsTask.execute("automotive");
     }
 

@@ -220,7 +220,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener, On
     }
 
     private void initAndLoadDealsOfTheDay() {
-        DealsTask dealsTask = new DealsTask(activity, listAdapter, null);
+        DealsTask dealsTask = new DealsTask(activity, listAdapter, null, ivBanner);
         dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
         dealsTask.execute("dealofday");
     }

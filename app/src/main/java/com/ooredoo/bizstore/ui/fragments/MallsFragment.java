@@ -89,7 +89,7 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener, O
 
     private void fetchAndDisplayMalls()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
         dealsTask.execute("malls");
     }
 

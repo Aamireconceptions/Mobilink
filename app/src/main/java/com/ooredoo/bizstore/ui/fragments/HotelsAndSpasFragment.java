@@ -89,7 +89,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
     private void fetchAndDisplayHotelsAndSpas()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
         dealsTask.execute("hotels_spas");
     }
 

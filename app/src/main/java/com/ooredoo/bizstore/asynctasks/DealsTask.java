@@ -1,18 +1,25 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +45,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     private ProgressBar progressBar;
 
+    private ImageView ivBanner;
+
     private TextView tvDealsOfTheDay;
 
     private final static String SERVICE_NAME = "/deals?";
@@ -47,12 +56,30 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     public String category;
 
-    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar) {
+    private MemoryCache memoryCache;
+
+    private int reqWidth, reqHeight;
+
+    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter,
+                     ProgressBar progressBar, ImageView ivBanner) {
         this.homeActivity = homeActivity;
 
         this.adapter = adapter;
 
         this.progressBar = progressBar;
+
+        this.ivBanner = ivBanner;
+
+        memoryCache = MemoryCache.getInstance();
+
+        Resources res = homeActivity.getResources();
+
+        DisplayMetrics displayMetrics = res.getDisplayMetrics();
+
+        reqWidth = displayMetrics.widthPixels;
+
+        reqHeight = (int) Converter.convertDpToPixels(res.getDimension(R.dimen._160sdp)
+                                                      / displayMetrics.density);
     }
 
     public void setTvDealsOfTheDay(TextView tvDealsOfTheDay) {
@@ -118,9 +145,28 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                     showTvDealsOfTheDay();
 
                     adapter.setData(deals);
+
+                    String bannerUrl = response.topBannerUrl;
+
+                    if(bannerUrl != null)
+                    {
+                        String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
+
+                        Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+                        if(bitmap != null)
+                        {
+                            ivBanner.setImageBitmap(bitmap);
+                        }
+                        else
+                        {
+                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner,
+                                                                                           null);
+                            bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth),
+                                                       String.valueOf(reqHeight));
+                        }
+                    }
                 }
-
-
 
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();

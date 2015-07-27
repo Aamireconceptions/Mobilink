@@ -95,7 +95,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
     private void fetchAndDisplayEntertainment()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
