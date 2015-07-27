@@ -61,6 +61,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
+        ivBanner.setImageResource(R.drawable.hotels_spa_banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_HOTELS);
 

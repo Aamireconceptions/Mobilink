@@ -61,6 +61,7 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener, 
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
+        ivBanner.setImageResource(R.drawable.travel_tour_banner);
 
         CategoryUtils.showSubCategories(activity, CategoryUtils.CT_TRAVEL);
 

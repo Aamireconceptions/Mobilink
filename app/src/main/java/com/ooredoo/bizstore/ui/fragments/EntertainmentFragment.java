@@ -65,6 +65,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
+        ivBanner.setImageResource(R.drawable.entertainment_banner);
 
         CategoryUtils.showSubCategories(activity, CategoryUtils.CT_ENTERTAINMENT);
 

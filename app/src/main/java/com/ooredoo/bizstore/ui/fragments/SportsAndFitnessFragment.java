@@ -65,6 +65,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
+        ivBanner.setImageResource(R.drawable.sports_fitness_banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_SPORTS);
 

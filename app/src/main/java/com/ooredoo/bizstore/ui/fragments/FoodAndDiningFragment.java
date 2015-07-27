@@ -61,6 +61,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
+        ivBanner.setImageResource(R.drawable.food_dinning_banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
 

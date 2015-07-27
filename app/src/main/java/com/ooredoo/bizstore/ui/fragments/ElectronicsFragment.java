@@ -60,6 +60,9 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     {
         activity = (HomeActivity) getActivity();
 
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
+        ivBanner.setImageResource(R.drawable.electronics_banner);
+
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_ELECTRONICS);
 
         Button btNewDeals = (Button) v.findViewById(R.id.new_deals);

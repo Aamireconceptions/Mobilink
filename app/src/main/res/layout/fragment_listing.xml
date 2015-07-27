@@ -6,7 +6,8 @@
     <ImageView
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"/>
 
    <include
        layout="@layout/layout_filter_header"

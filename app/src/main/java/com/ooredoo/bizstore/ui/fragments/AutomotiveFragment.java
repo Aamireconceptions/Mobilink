@@ -61,6 +61,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
+        ivBanner.setImageResource(R.drawable.automotive_banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_AUTOMOTIVE);
 

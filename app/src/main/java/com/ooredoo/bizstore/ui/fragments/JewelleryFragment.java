@@ -63,6 +63,7 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
+        ivBanner.setImageResource(R.drawable.jewellery_exchange_banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_JEWELLERY);
 
