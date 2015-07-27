@@ -25,6 +25,7 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import static java.lang.System.currentTimeMillis;
 
 /**
  * @author Babar
@@ -173,8 +174,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
             }
 
             final String KEY = PREFIX_DEALS.concat(category);
+            final String UPDATE_KEY = KEY.concat("_UPDATE");
 
-            if(isFilterEnabled || checkIfUpdateData(homeActivity, KEY)) {
+            if(isFilterEnabled || checkIfUpdateData(homeActivity, UPDATE_KEY)) {
 
                 String query = createQuery(params);
 
@@ -186,6 +188,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
                 if(!isFilterEnabled) {
                     updateVal(homeActivity, KEY, result);
+                    updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
                 }
             } else {
                 result = getStringVal(homeActivity, KEY);
