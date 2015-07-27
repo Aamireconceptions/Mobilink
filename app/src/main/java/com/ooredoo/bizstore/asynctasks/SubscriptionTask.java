@@ -45,7 +45,9 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
         if(result != null) {
             try {
                 Subscription subscription = new Gson().fromJson(result, Subscription.class);
+
                 signUpFragment.processSubscription(subscription);
+
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }

@@ -39,6 +39,8 @@ public class SignUpFragment extends BaseFragment {
     public void onClick(View v) {
         showVerificationCodeDialog(mActivity);
         //TODO uncomment & remove above line subscribe();
+
+        //subscribe();
     }
 
     private void subscribe() {
@@ -64,7 +66,7 @@ public class SignUpFragment extends BaseFragment {
     public void processSubscription(Subscription subscription) {
         String errMsg = "Error";
         if(subscription != null) {
-            if(subscription.resultCode == 200 || subscription.resultCode == 0) {
+            if(subscription.resultCode != -1) {
                 BizStore.password = subscription.password;
                 showVerificationCodeDialog(mActivity);
             } else {
@@ -77,5 +79,7 @@ public class SignUpFragment extends BaseFragment {
         if(!errMsg.equals("Error")) {
             Snackbar.make(etMsisdn, errMsg, Snackbar.LENGTH_LONG).show();
         }
+
+
     }
 }

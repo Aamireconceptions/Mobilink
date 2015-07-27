@@ -34,7 +34,6 @@
                 android:gravity="center"
                 android:hapticFeedbackEnabled="true"
                 android:hint="@string/ENTER_CODE"
-                android:inputType="number"
                 android:text=""
                 android:textSize="16sp"
                 android:textStyle="bold"

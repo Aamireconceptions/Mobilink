@@ -149,6 +149,8 @@ public class DialogUtils {
                 AppCompatActivity compatActivity = (AppCompatActivity) activity;
                 replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
                 //TODO un-comment & remove above 3 lines processVerificationCode();
+
+               // processVerificationCode();
             }
 
             private void processVerificationCode() {
@@ -159,7 +161,7 @@ public class DialogUtils {
                     BaseFragment.hideKeyboard(activity);
                     activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     AppCompatActivity compatActivity = (AppCompatActivity) activity;
-                    replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "WELCOME_FRAGMENT");
+                    replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
                 } else {
                     Snackbar.make(etCode, activity.getString(R.string.error_invalid_verification_code), Snackbar.LENGTH_SHORT).show();
                 }

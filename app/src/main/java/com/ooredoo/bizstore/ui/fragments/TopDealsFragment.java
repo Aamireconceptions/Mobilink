@@ -49,8 +49,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private View mView;
 
-    private ImageView ivBanner;
-
     public static TopDealsFragment newInstance() {
         TopDealsFragment fragment = new TopDealsFragment();
 
@@ -72,8 +70,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     private void init(View v, LayoutInflater inflater)
     {
         mActivity = (HomeActivity) getActivity();
-
-        ivBanner = (ImageView) v.findViewById(R.id.banner);
 
         showSubCategories(mActivity, CT_TOP);
 
@@ -137,7 +133,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private void loadTopDeals()
     {
-        DealsTask dealsTask = new DealsTask(mActivity, listAdapter, null, ivBanner);
+        DealsTask dealsTask = new DealsTask(mActivity, listAdapter, null, null);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
