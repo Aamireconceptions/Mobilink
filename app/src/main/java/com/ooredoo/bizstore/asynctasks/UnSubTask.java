@@ -1,7 +1,9 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Activity;
+import android.app.Dialog;
 
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -18,6 +20,8 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
 
     private Activity activity;
 
+    private Dialog dialog;
+
     public UnSubTask(Activity activity) {
         this.activity = activity;
     }
@@ -25,6 +29,7 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        dialog = DialogUtils.createCustomLoader(activity, "Un-Subscribing...");
     }
 
     @Override
@@ -42,6 +47,8 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+
+        closeDialog(dialog);
 
         if(result != null) {
             updateVal(activity, LOGIN_STATUS, false);

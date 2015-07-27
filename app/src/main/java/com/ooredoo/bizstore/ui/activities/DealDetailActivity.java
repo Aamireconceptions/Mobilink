@@ -34,6 +34,7 @@ import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.DIALER_PREFIX;
+import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryIcon;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
@@ -161,13 +162,17 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             src.isFavorite = Deal.isFavorite(id);
             findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
+            int categoryIcon = getCategoryIcon(deal.category);
+
+            ((ImageView) findViewById(R.id.iv_deal_category)).setImageResource(categoryIcon);
+
             ImageView ivDetail = (ImageView) findViewById(R.id.detail_img);
 
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
             String detailImageUrl = deal.image.detailBannerUrl;
 
-            Logger.print("detailImgUrl: "+detailImageUrl);
+            Logger.print("detailImgUrl: " + detailImageUrl);
 
             if(detailImageUrl != null && !detailImageUrl.equals(""))
             {

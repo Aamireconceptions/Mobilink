@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_white_rad10_corn10"
+        android:background="@drawable/bg_white_rounded"
         android:padding="25dp">
 
         <LinearLayout
@@ -27,7 +27,7 @@
             <EditText
                 android:id="@+id/et_code"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.90"
                 android:background="@android:color/transparent"

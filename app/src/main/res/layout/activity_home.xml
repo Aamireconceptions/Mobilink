@@ -134,6 +134,8 @@
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
                     android:scrollbars="none"
                     android:background="@color/red"
                     app:tabIndicatorColor="@color/white"

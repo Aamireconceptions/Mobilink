@@ -16,10 +16,11 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.UnSubTask;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
-import com.ooredoo.bizstore.ui.fragments.SubscriptionPlansFragment;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
@@ -119,7 +120,7 @@ public class DialogUtils {
         view.findViewById(R.id.btn_unsub).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO unsubscribe
+                new UnSubTask(activity).execute(BizStore.username);
                 dialog.dismiss();
             }
         });

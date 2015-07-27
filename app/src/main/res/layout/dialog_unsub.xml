@@ -11,13 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_white_rad10_corn10"
+        android:background="@drawable/bg_white_rounded"
         android:padding="25dp">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:layout_weight="0.95"
@@ -38,8 +38,8 @@
             android:orientation="horizontal">
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="125dp"
-            android:layout_height="40dp"
+            android:layout_width="115dp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_below="@+id/tv_title"
             android:background="@drawable/btn_dark_red"
             android:gravity="center"
@@ -52,8 +52,8 @@
 
         <Button
             android:id="@+id/btn_unsub"
-            android:layout_width="125dp"
-            android:layout_height="40dp"
+            android:layout_width="115dp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_below="@+id/tv_title"
             android:layout_marginStart="0dp"
             android:layout_toRightOf="@+id/btn_cancel"

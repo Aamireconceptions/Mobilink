@@ -9,6 +9,8 @@ import com.ooredoo.bizstore.model.SubCategory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+
 /**
  * @author Pehlaj Rai
  * @since 1/2/2015.
@@ -106,6 +108,19 @@ public class CategoryUtils {
             }
         }
         return null;
+    }
+
+    public static int getCategoryIcon(String categoryName) {
+        int icon = R.drawable.ic_categories;
+
+        if(isNotNullOrEmpty(categoryName)) {
+            for(SubCategory subCategory : subCategories) {
+                if(subCategory.title.equalsIgnoreCase(categoryName)) {
+                    icon = subCategory.icon;
+                }
+            }
+        }
+        return icon;
     }
 
     public static void updateSubCategorySelection(int checkBoxId, boolean selected) {
