@@ -4,8 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FragmentUtils;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 /**
  * @author Pehlaj Rai
@@ -34,7 +36,12 @@ public class WelcomeFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
 
-        FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container,
-                                        DemoFragment.newInstance(), "demo_fragment");
+        /*FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container,
+                                        DemoFragment.newInstance(), "demo_fragment");*/
+
+         SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
+
+        SignUpActivity activity = (SignUpActivity) mActivity;
+        activity.startActivity(HomeActivity.class);
     }
 }

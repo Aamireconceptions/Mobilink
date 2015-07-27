@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.ui.activities;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import static com.ooredoo.bizstore.BizStore.setLanguage;

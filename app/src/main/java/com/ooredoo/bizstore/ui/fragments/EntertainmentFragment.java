@@ -39,6 +39,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
     public static String subCategory;
 
+    private ImageView ivBanner;
+
     public static EntertainmentFragment newInstance()
     {
         EntertainmentFragment fragment = new EntertainmentFragment();
@@ -61,6 +63,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
 
         CategoryUtils.showSubCategories(activity, CategoryUtils.CT_ENTERTAINMENT);
 

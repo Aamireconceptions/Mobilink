@@ -147,7 +147,7 @@ public class DialogUtils {
                 dialog.dismiss();
                 BaseFragment.hideKeyboard(activity);
                 AppCompatActivity compatActivity = (AppCompatActivity) activity;
-                replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new SubscriptionPlansFragment(), "subscription_fragment");
+                replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
                 //TODO un-comment & remove above 3 lines processVerificationCode();
             }
 

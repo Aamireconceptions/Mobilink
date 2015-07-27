@@ -35,6 +35,8 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener, 
 
     private ProgressBar progressBar;
 
+    private ImageView ivBanner;
+
     public static TravelFragment newInstance()
     {
         TravelFragment fragment = new TravelFragment();
@@ -57,6 +59,8 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener, 
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
 
         CategoryUtils.showSubCategories(activity, CategoryUtils.CT_TRAVEL);
 

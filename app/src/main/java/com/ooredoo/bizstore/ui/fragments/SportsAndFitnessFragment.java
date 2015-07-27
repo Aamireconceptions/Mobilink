@@ -39,6 +39,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     public static String subCategory;
 
+    private ImageView ivBanner;
+
     public static SportsAndFitnessFragment newInstance()
     {
         SportsAndFitnessFragment fragment = new SportsAndFitnessFragment();
@@ -61,6 +63,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_SPORTS);
 

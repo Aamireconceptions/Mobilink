@@ -35,6 +35,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
     private ProgressBar progressBar;
 
+    private ImageView ivBanner;
+
     public static JewelleryFragment newInstance()
     {
         JewelleryFragment fragment = new JewelleryFragment();
@@ -59,6 +61,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_JEWELLERY);
 

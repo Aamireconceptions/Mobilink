@@ -35,6 +35,8 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
     private ProgressBar progressBar;
 
+    private ImageView ivBanner;
+
     public static AutomotiveFragment newInstance()
     {
         AutomotiveFragment fragment = new AutomotiveFragment();
@@ -57,6 +59,8 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_AUTOMOTIVE);
 

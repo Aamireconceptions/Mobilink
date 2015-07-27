@@ -40,7 +40,8 @@ public class SubscriptionPlansFragment extends BaseFragment {
             activity.startActivity(HomeActivity.class);*/
 
             AppCompatActivity compatActivity = (AppCompatActivity) mActivity;
-            FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
+            FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container,
+                                                       new SignUpFragment(), "SignUp");
         }
     }
 }

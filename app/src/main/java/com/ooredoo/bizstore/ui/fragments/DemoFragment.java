@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.ooredoo.bizstore.adapters.DemoPagerAdapter;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 /**
@@ -64,8 +66,14 @@ public class DemoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v)
     {
-        SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
+       // SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
 
-        signUpActivity.startActivity(HomeActivity.class);
+       // signUpActivity.startActivity(HomeActivity.class);
+
+        FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
+                                                   R.id.fragment_container,
+                                                   new SubscriptionPlansFragment(),
+                                                   "subscription_fragment");
+
     }
 }

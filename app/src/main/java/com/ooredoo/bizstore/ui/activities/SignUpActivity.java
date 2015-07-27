@@ -8,7 +8,9 @@ import android.view.Menu;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.fragments.DemoFragment;
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
+import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static com.ooredoo.bizstore.utils.FragmentUtils.addFragmentWithBackStack;
 
@@ -28,7 +30,7 @@ public class SignUpActivity extends BaseActivity {
         //BASE_URL = getAppUrl(this);
         setupToolbar();
         mFragmentManager = getFragmentManager();
-        addFragmentWithBackStack(this, R.id.fragment_container, new SignUpFragment(), "SignUp");
+        addFragmentWithBackStack(this, R.id.fragment_container, new DemoFragment(), "demo_fragment");
     }
 
     public Toolbar toolbar;

@@ -35,6 +35,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
     private ProgressBar progressBar;
 
+    private ImageView ivBanner;
+
     public static HotelsAndSpasFragment newInstance()
     {
         HotelsAndSpasFragment fragment = new HotelsAndSpasFragment();
@@ -57,6 +59,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_HOTELS);
 

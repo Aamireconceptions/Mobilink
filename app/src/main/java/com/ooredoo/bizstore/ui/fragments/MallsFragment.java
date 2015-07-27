@@ -35,6 +35,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener, O
 
     private ProgressBar progressBar;
 
+    private ImageView ivBanner;
+
     public static MallsFragment newInstance()
     {
         MallsFragment fragment = new MallsFragment();
@@ -58,6 +60,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener, O
     {
         activity = (HomeActivity) getActivity();
 
+        ivBanner = (ImageView) v.findViewById(R.id.banner);
+        
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_MALLS);
 
         Button btNewDeals = (Button) v.findViewById(R.id.new_deals);
