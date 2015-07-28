@@ -54,6 +54,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private RelativeLayout rlHeader;
 
+    private TextView tvEmptyView;
+
+    private GridView gridView;
+
     private boolean isCreated = false;
 
     @Override
@@ -83,10 +87,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
 
-        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+        tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        GridView gridView = (GridView) v.findViewById(R.id.shopping_gridview);
-        gridView.setEmptyView(tvEmptyView);
+        gridView = (GridView) v.findViewById(R.id.shopping_gridview);
         gridView.setOnScrollListener(new ScrollListener(activity));
         gridView.setOnItemClickListener(new DealGridOnItemClickListener(activity, adapter));
         gridView.setAdapter(adapter);
@@ -148,6 +151,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onNoDeals() {
         rlHeader.setVisibility(View.GONE);
+
+        gridView.setEmptyView(tvEmptyView);
     }
 
     @Override

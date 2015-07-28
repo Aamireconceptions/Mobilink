@@ -52,6 +52,10 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     private boolean isCreated = false;
 
+    private TextView tvEmptyView;
+
+    private ListView listView;
+
     public static SportsAndFitnessFragment newInstance()
     {
         SportsAndFitnessFragment fragment = new SportsAndFitnessFragment();
@@ -102,10 +106,9 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
         adapter.setCategory(ResourceUtils.SPORTS_AND_FITNESS);
 
-        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+        tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        ListView listView = (ListView) v.findViewById(R.id.list_view);
-        listView.setEmptyView(tvEmptyView);
+        listView = (ListView) v.findViewById(R.id.list_view);
         listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -148,6 +151,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         ivBanner.setImageDrawable(null);
 
         rlHeader.setVisibility(View.GONE);
+
+        listView.setEmptyView(tvEmptyView);
     }
 
     @Override

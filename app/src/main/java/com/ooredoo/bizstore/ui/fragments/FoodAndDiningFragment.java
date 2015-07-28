@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -46,6 +47,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private ImageView ivBanner;
 
     private RelativeLayout rlHeader;
+
+    private TextView tvEmptyView;
+
+    private ListView listView;
 
     private boolean isCreated = false;
 
@@ -97,10 +102,9 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
 
-        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+        tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        ListView listView = (ListView) v.findViewById(R.id.list_view);
-        listView.setEmptyView(tvEmptyView);
+        listView = (ListView) v.findViewById(R.id.list_view);
         listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -142,6 +146,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         ivBanner.setImageDrawable(null);
 
         rlHeader.setVisibility(View.GONE);
+
+        listView.setEmptyView(tvEmptyView);
     }
 
     @Override

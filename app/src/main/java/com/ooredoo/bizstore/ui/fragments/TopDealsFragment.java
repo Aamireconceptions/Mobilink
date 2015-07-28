@@ -54,6 +54,10 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private View mView;
 
+    private TextView tvEmptyView;
+
+    private ListView listView;
+
     public static TopDealsFragment newInstance() {
         TopDealsFragment fragment = new TopDealsFragment();
 
@@ -102,15 +106,14 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         listAdapter = new ListViewBaseAdapter(mActivity, R.layout.list_deal, deals);
         listAdapter.setCategory(ResourceUtils.AUTOMOTIVE);
 
-        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+        tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        ListView listView = (ListView) v.findViewById(R.id.list_view);
+        listView = (ListView) v.findViewById(R.id.list_view);
 
         listView.setOnScrollListener(new ScrollListener(mActivity));
 
         listView.addHeaderView(headerViewPager);
         listView.addHeaderView(headerFilter);
-        listView.setEmptyView(tvEmptyView);
         listView.setAdapter(listAdapter);
 
         initAndLoadTopDealsBanner();
@@ -181,5 +184,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         headerFilter.setVisibility(View.GONE);
 
+        listView.setEmptyView(tvEmptyView);
     }
 }

@@ -46,6 +46,10 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
     private RelativeLayout rlHeader;
 
+    private TextView tvEmptyView;
+
+    private ListView listView;
+
     private boolean isCreated = false;
 
     public static HotelsAndSpasFragment newInstance()
@@ -98,10 +102,9 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
         adapter.setCategory(ResourceUtils.HOTELS_AND_SPA);
 
-        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+        tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        ListView listView = (ListView) v.findViewById(R.id.list_view);
-        listView.setEmptyView(tvEmptyView);
+        listView = (ListView) v.findViewById(R.id.list_view);
         listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -138,6 +141,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         ivBanner.setImageDrawable(null);
 
         rlHeader.setVisibility(View.GONE);
+
+        listView.setEmptyView(tvEmptyView);
     }
 
     @Override
