@@ -43,6 +43,7 @@ import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
+import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
 import com.ooredoo.bizstore.listeners.DrawerChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
@@ -72,7 +73,8 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
                                                                OnFilterChangeListener,
                                                                TextView.OnEditorActionListener,
-                                                               SwipeRefreshLayout.OnRefreshListener {
+                                                               SwipeRefreshLayout.OnRefreshListener,
+                                                               OnSubCategorySelectedListener{
     public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
@@ -397,6 +399,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         viewPager.setCurrentItem(tabPosition, true);
     }
 
+    @Override
+    public void onSubCategorySelected()
+    {
+        ((OnSubCategorySelectedListener) currentFragment).onSubCategorySelected();
+    }
 
 
     public class CheckBoxClickListener implements OnClickListener {

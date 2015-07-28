@@ -117,6 +117,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        subCategories = "";
+        sortColumn = "createdate";
+
         homeActivity.onRefreshCompleted();
 
         adapter.clearData();

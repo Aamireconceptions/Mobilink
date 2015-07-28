@@ -42,7 +42,6 @@ public class FilterOnClickListener implements View.OnClickListener
     {
         switch (v.getId())
         {
-
             case R.id.new_deals:
 
                 setButtonSelected(v);

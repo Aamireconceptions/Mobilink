@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
+import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
@@ -33,7 +34,8 @@ import java.util.List;
 
 public class FoodAndDiningFragment extends Fragment implements OnFilterChangeListener,
                                                                OnRefreshListener,
-                                                               OnDealsTaskFinishedListener
+                                                               OnDealsTaskFinishedListener,
+                                                               OnSubCategorySelectedListener
 {
     private HomeActivity activity;
 
@@ -44,6 +46,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private ImageView ivBanner;
 
     private RelativeLayout rlHeader;
+
+    private boolean isRecreated = false;
 
     public static FoodAndDiningFragment newInstance() {
         FoodAndDiningFragment fragment = new FoodAndDiningFragment();
@@ -58,6 +62,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         init(v);
 
         fetchAndDisplayFoodAndDining();
+
+        isRecreated = true;
 
         return v;
     }
@@ -136,5 +142,14 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         ivBanner.setImageDrawable(null);
 
         rlHeader.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSubCategorySelected()
+    {
+        if(isRecreated)
+        {
+            onFilterChange();
+        }
     }
 }

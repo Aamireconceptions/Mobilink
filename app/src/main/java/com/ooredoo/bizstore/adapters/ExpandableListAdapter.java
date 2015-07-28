@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.listeners.SubNavigationMenuOnChildClickListener;
+import com.ooredoo.bizstore.listeners.CustomExpandableListViewOnChildClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
@@ -180,8 +180,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
                     navigationItem,
                     navigationMenuUtils.subChildList);
 
-            final SubNavigationMenuOnChildClickListener onChildClickListener =
-                                                  new SubNavigationMenuOnChildClickListener(context);
+            final CustomExpandableListViewOnChildClickListener onChildClickListener =
+                                                  new CustomExpandableListViewOnChildClickListener(context,
+                                                                                            adapter);
 
             CustomExpandableListView customExpandableListView = new CustomExpandableListView(context);
 
@@ -190,6 +191,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
             customExpandableListView.setAdapter(adapter);
             customExpandableListView.setDivider(null);
+            customExpandableListView.setOnChildClickListener(onChildClickListener);
             customExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                 @Override
                 public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {

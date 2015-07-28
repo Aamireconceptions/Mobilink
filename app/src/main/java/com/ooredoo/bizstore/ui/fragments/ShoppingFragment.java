@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
+import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
@@ -38,7 +39,9 @@ import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
  */
 public class ShoppingFragment extends Fragment implements OnFilterChangeListener,
                                                           OnRefreshListener,
-                                                          OnDealsTaskFinishedListener{
+                                                          OnDealsTaskFinishedListener,
+                                                          OnSubCategorySelectedListener
+{
     private HomeActivity activity;
 
     private List<GenericDeal> deals;
@@ -51,11 +54,15 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private RelativeLayout rlHeader;
 
+    private boolean isRecreated = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
 
         init(v);
+
+        isRecreated = true;
 
         return v;
     }
@@ -141,5 +148,14 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onNoDeals() {
         rlHeader.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSubCategorySelected()
+    {
+        if(isRecreated)    
+        {
+            onFilterChange();
+        }
     }
 }

@@ -1,34 +1,70 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.content.Context;
+import android.support.v4.view.GravityCompat;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.adapters.CustomExpandableListViewAdapter;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
+import com.ooredoo.bizstore.asynctasks.ShoppingTask;
+import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
+import com.ooredoo.bizstore.model.NavigationItem;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 /**
  * Created by Babar on 28-Jul-15.
  */
-public class SubNavigationMenuOnChildClickListener implements ExpandableListView
+public class CustomExpandableListViewOnChildClickListener implements ExpandableListView
                                                                      .OnChildClickListener
 {
     private Context context;
 
+    private CustomExpandableListViewAdapter adapter;
+
     public String groupName;
 
-    public SubNavigationMenuOnChildClickListener(Context context)
+    private HomeActivity homeActivity;
+
+    private OnSubCategorySelectedListener subCategorySelectedListener;
+
+    public CustomExpandableListViewOnChildClickListener(Context context, CustomExpandableListViewAdapter adapter)
     {
         this.context = context;
+
+        this.adapter = adapter;
+
+        homeActivity = (HomeActivity) context;
+
+        subCategorySelectedListener = homeActivity;
     }
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
                                 int childPosition, long id)
     {
+        NavigationItem navigationItem = (NavigationItem) adapter.getChild(groupPosition, childPosition);
 
-        return false;
+        String subCategory = navigationItem.getItemName();
+
+        int tabPos = getTabPosition();
+
+        homeActivity.selectTab(tabPos);
+        homeActivity.drawerLayout.closeDrawer(GravityCompat.START);
+
+        if(getTabPosition() != 3)
+        {
+            DealsTask.subCategories = subCategory;
+        }
+        else
+        {
+            ShoppingTask.subCategories = subCategory;
+        }
+
+        subCategorySelectedListener.onSubCategorySelected();
+
+        return true;
     }
 
     private int getTabPosition()
