@@ -95,11 +95,6 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
                     viewPager.setCurrentItem(deals.size() - 1);
                 }
             }
-            else
-            {
-                viewPager.setVisibility(View.GONE);
-            }
-
         }
         else
         {

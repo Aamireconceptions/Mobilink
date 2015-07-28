@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -18,10 +19,9 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
-import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -91,7 +91,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
 
+        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+
         ListView listView = (ListView) v.findViewById(R.id.list_view);
+        listView.setEmptyView(tvEmptyView);
         listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -126,5 +129,12 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         ivBanner.setImageResource(R.drawable.food_dinning_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNoDeals() {
+        ivBanner.setImageDrawable(null);
+
+        rlHeader.setVisibility(View.GONE);
     }
 }

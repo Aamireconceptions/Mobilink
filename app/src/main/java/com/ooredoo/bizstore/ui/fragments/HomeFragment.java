@@ -25,7 +25,7 @@ import com.ooredoo.bizstore.asynctasks.TopMallsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
-import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -321,5 +321,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     public void onHaveDeals()
     {
         tvDealsOfTheDay.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNoDeals() {
+
     }
 }

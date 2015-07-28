@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -20,7 +20,7 @@ import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
-import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -76,7 +76,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
 
+        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+
         GridView gridView = (GridView) v.findViewById(R.id.shopping_gridview);
+        gridView.setEmptyView(tvEmptyView);
         gridView.setOnScrollListener(new ScrollListener(activity));
         gridView.setOnItemClickListener(new DealGridOnItemClickListener(activity, adapter));
         gridView.setAdapter(adapter);
@@ -108,7 +111,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private void loadDeals()
     {
-        ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, null, snackBarUtils, this);
+        ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
         shoppingTask.execute("shopping");
     }
 
@@ -133,5 +136,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onHaveDeals()
     {
         rlHeader.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNoDeals() {
+        rlHeader.setVisibility(View.GONE);
     }
 }

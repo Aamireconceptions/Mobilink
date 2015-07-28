@@ -1,4 +1,4 @@
-package com.ooredoo.bizstore.listeners;
+package com.ooredoo.bizstore.interfaces;
 
 /**
  * Created by Babar on 28-Jul-15.
@@ -6,4 +6,6 @@ package com.ooredoo.bizstore.listeners;
 public interface OnDealsTaskFinishedListener
 {
     void onHaveDeals();
+
+    void onNoDeals();
 }

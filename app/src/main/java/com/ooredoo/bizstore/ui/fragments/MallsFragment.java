@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -18,7 +19,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
-import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -91,7 +92,10 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
         adapter.setCategory(ResourceUtils.MALLS);
 
+        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+
         ListView listView = (ListView) v.findViewById(R.id.list_view);
+        listView.setEmptyView(tvEmptyView);
         listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -121,5 +125,12 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         ivBanner.setImageResource(R.drawable.market_malls_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNoDeals() {
+        ivBanner.setImageDrawable(null);
+
+        rlHeader.setVisibility(View.GONE);
     }
 }

@@ -20,7 +20,7 @@ import com.ooredoo.bizstore.asynctasks.TopDealsBannersTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
-import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
@@ -107,9 +107,10 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         ListView listView = (ListView) v.findViewById(R.id.list_view);
 
         listView.setOnScrollListener(new ScrollListener(mActivity));
-        listView.setEmptyView(tvEmptyView);
+
         listView.addHeaderView(headerViewPager);
         listView.addHeaderView(headerFilter);
+        listView.setEmptyView(tvEmptyView);
         listView.setAdapter(listAdapter);
 
         initAndLoadTopDealsBanner();
@@ -136,7 +137,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private void loadTopDealBanners()
     {
-        TopDealsBannersTask topDealsBannersTask = new TopDealsBannersTask(mActivity, topDealsadapter, viewPager);
+        TopDealsBannersTask topDealsBannersTask = new TopDealsBannersTask(mActivity, topDealsadapter,
+                                                                          viewPager);
         topDealsBannersTask.execute();
     }
 
@@ -171,8 +173,13 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onHaveDeals()
     {
-        headerViewPager.setVisibility(View.VISIBLE);
         headerFilter.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNoDeals() {
+
+        headerFilter.setVisibility(View.GONE);
 
     }
 }

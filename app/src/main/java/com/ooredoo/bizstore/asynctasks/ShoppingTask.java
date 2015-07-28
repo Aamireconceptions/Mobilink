@@ -9,11 +9,10 @@ import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
-import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
@@ -120,6 +119,10 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
                 adapter.setData(deals);
 
+            }
+            else
+            {
+                dealsTaskFinishedListener.onNoDeals();
             }
 
             adapter.notifyDataSetChanged();

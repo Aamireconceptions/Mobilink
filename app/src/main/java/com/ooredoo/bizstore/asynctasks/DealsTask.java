@@ -14,11 +14,10 @@ import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
-import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -175,6 +174,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                                                        String.valueOf(reqHeight));
                         }
                     }
+                }
+                else
+                {
+                    dealsTaskFinishedListener.onNoDeals();
                 }
 
             } catch(JsonSyntaxException e) {
