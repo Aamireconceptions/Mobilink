@@ -32,11 +32,13 @@ public class CustomExpandableListView extends ExpandableListView
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
+        int extraBuffer = 400;
+
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
 
         widthMeasureSpec = MeasureSpec.makeMeasureSpec(displayMetrics.widthPixels, MeasureSpec.EXACTLY);
 
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(displayMetrics.heightPixels, MeasureSpec.AT_MOST);
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(displayMetrics.heightPixels + extraBuffer, MeasureSpec.AT_MOST);
 
         /*widthMeasureSpec = MeasureSpec.makeMeasureSpec(960, MeasureSpec.AT_MOST);
 

@@ -108,25 +108,25 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_travel, R.drawable.ic_entertainment,
                 R.drawable.ic_jewellery, R.drawable.ic_sports};
 
-        foodSubCategories = new String[] { activity.getString(R.string.Arabic), activity.getString(R.string.Turkish), activity.getString(R.string.Indian), activity.getString(R.string.Chinese), activity.getString(R.string.Cafes), activity.getString(R.string.Fast_Food), activity.getString(R.string.Italian), activity.getString(R.string.Afghani), activity.getString(R.string.Lebanese), activity.getString(R.string.Sweets_Confectionaries), activity.getString(R.string.All) };
+        foodSubCategories = new String[] { activity.getString(R.string.Arabic), activity.getString(R.string.Turkish), activity.getString(R.string.Indian), activity.getString(R.string.Chinese), activity.getString(R.string.Cafes), activity.getString(R.string.Fast_Food), activity.getString(R.string.Italian), activity.getString(R.string.Afghani), activity.getString(R.string.Lebanese), activity.getString(R.string.Sweets_Confectionaries) };
 
-        shoppingSubCategories = new String[] { activity.getString(R.string.Apparel), activity.getString(R.string.Home_Goods), activity.getString(R.string.Sports_Fitness), activity.getString(R.string.Electronics), activity.getString(R.string.Fashion_Beauty_Accessories), activity.getString(R.string.All) };
+        shoppingSubCategories = new String[] { activity.getString(R.string.Apparel), activity.getString(R.string.Home_Goods), activity.getString(R.string.Sports_Fitness), activity.getString(R.string.Electronics), activity.getString(R.string.Fashion_Beauty_Accessories)};
 
-        electronicsSubCategories = new String[] { activity.getString(R.string.TV_Home_Entertainment), activity.getString(R.string.Computers_Tablets), activity.getString(R.string.Cameras_Photography), activity.getString(R.string.Mobile_Phones_Accessories), activity.getString(R.string.All) };
+        electronicsSubCategories = new String[] { activity.getString(R.string.TV_Home_Entertainment), activity.getString(R.string.Computers_Tablets), activity.getString(R.string.Cameras_Photography), activity.getString(R.string.Mobile_Phones_Accessories) };
 
-        hotelsSubCategories = new String[] { activity.getString(R.string.Salons), activity.getString(R.string.Lodging), activity.getString(R.string.Spas), activity.getString(R.string.All) };
+        hotelsSubCategories = new String[] { activity.getString(R.string.Salons), activity.getString(R.string.Lodging), activity.getString(R.string.Spas)};
 
-        mallsSubCategories = new String[] { activity.getString(R.string.Hypermarkets), activity.getString(R.string.Malls), activity.getString(R.string.All) };
+        mallsSubCategories = new String[] { activity.getString(R.string.Hypermarkets), activity.getString(R.string.Malls) };
 
-        automotiveSubCategories = new String[] { activity.getString(R.string.Show_Rooms), activity.getString(R.string.Accessories), activity.getString(R.string.Services), activity.getString(R.string.All) };
+        automotiveSubCategories = new String[] { activity.getString(R.string.Show_Rooms), activity.getString(R.string.Accessories), activity.getString(R.string.Services) };
 
         travelSubCategories = new String[] {"travel_sub1"};
 
-        entertainmentSubCategories = new String[] { activity.getString(R.string.Events), activity.getString(R.string.Kids_Activities), activity.getString(R.string.Cinemas), activity.getString(R.string.All) };
+        entertainmentSubCategories = new String[] { activity.getString(R.string.Events), activity.getString(R.string.Kids_Activities), activity.getString(R.string.Cinemas)};
 
-        jewellerySubCategories = new String[] { activity.getString(R.string.Gold_Rate), activity.getString(R.string.Currency), activity.getString(R.string.All) };
+        jewellerySubCategories = new String[] { activity.getString(R.string.Gold_Rate), activity.getString(R.string.Currency) };
 
-        sportsSubCategories = new String[] { activity.getString(R.string.Clothing), activity.getString(R.string.Equipment), activity.getString(R.string.All) };
+        sportsSubCategories = new String[] { activity.getString(R.string.Clothing), activity.getString(R.string.Equipment) };
     }
 
     public void setupNavigationMenu() {
