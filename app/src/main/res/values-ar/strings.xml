@@ -2,23 +2,23 @@
     <string name="app_name">Bizstore</string>
     <string name="action_settings">تطبيق</string>
     <string name="plus_sign">+</string>
-    <string name="phone_number">phone number</string>
-    <string name="search">Search</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="search">بحث</string>
     <string name="home">الرئيسية</string>
     <string name="top_deals">أفضل العروض</string>
     <string name="food_dining">عروض المطاعم</string>
     <string name="shopping">التسوق</string>
-    <string name="CONGRATULATIONS">CONGRATULATIONS</string>
-    <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on BIZSTORE.\nFind popular venues, great local businesses,\nDiscover deals, products & services closest to you, whereever you are!]]></string>
-    <string name="LETS_START">LET\'S START</string>
-    <string name="weekly_plan_details"><![CDATA[QAR <b>9</b>\nPER WEEK]]></string>
+    <string name="CONGRATULATIONS">تهانينا</string>
+    <string name="TXT_DETAILS"><![CDATA[تم الاشتراك في خدمة بيزستور بنجاحاكتشف أماكن شعبية و أفضل عروض و خدمات محلية قريبة منك في أي مكان!]]></string>
+    <string name="LETS_START">لنبدأ</string>
+    <string name="weekly_plan_details"><![CDATA[ريال قطري <b>9</b>\nأسبوعيا]]></string>
     <string name="WEEKLY_PLAN">اسبوعي</string>
     <string name="SUBSCRIPTION_PLANS">خيارات الاشتراك</string>
-    <string name="sms_charges">Bizstore app will send a one time sms message to verify your phone number. Carrier SMS charges may apply.</string>
-    <string name="num_confirm_text">Please confirm your country code and enter your phone number.</string>
-    <string name="NEXT">NEXT</string>
-    <string name="SIGNUP">SIGNUP</string>
-    <string name="SUBSCRIBE">SUBSCRIBE</string>
+    <string name="sms_charges">سيقوم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
+    <string name="num_confirm_text">سيقوم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
+    <string name="NEXT">التالي</string>
+    <string name="SIGNUP">التسجيل</string>
+    <string name="SUBSCRIBE">الإشتراك</string>
     <string name="top_brands">أفضل الماركات</string>
     <string name="health_fitness">الصحة واللياقة</string>
     <string name="top_malls">أفضل المجمعات التجارية</string>
@@ -44,8 +44,8 @@
     <string name="un_subscribe">الغاء الاشتراك</string>
     <string name="shopping_speciality">التسوق</string>
     <string name="type">Type</string>
-    <string name="deals_discount">Deals and Discounts</string>
-    <string name="business_directory">Business and Directory</string>
+    <string name="deals_discount">عروض و خصومات</string>
+    <string name="business_directory">عروض و خصومات</string>
     <string name="sort_by">التصنيف حسب</string>
     <string name="distance">Distance</string>
     <string name="mi">(mi)</string>
@@ -61,9 +61,9 @@
     <string name="rating">تقييم</string>
     <string name="discount_offer">عروض الخصم</string>
     <string name="category_selection">اختيار الفئة</string>
-    <string name="search_hint">Type here</string>
-    <string name="Search_for_Deals">Search for Deals</string>
-    <string name="Search_for_Business">Search for Business</string>
+    <string name="search_hint">أكتب هنا</string>
+    <string name="Search_for_Deals">البحث عن العروض</string>
+    <string name="Search_for_Business">البحث عن الأعمال</string>
     <string name="restaurants">مطاعم</string>
     <string name="fashion">موضة</string>
     <string name="weight_loss">فقدان الوزن</string>
@@ -74,86 +74,102 @@
     <string name="jokes">نكت</string>
     <string name="new_deals">العروض الجديدة</string>
     <string name="popular_deals">العروض الرائجة</string>
-    <string name="error_no_internet">No Internet Connection</string>
+    <string name="error_no_internet">لايوجد اتصال مع الإنترنت</string>
     <string name="rate_us">قيمنا على بلايستور</string>
     <string name="English">English</string>
     <string name="arabic">العربية</string>
     <string name="is_arabic">true</string>
-    <string name="share_app_note">Bizstore app will send a sms message to given phone number. Carrier SMS charges may apply.</string>
-    <string name="enter_number">Please Enter Mobile Number</string>
-    <string name="sharing_msg">Sharing Message</string>
-    <string name="share_with_friends_txt">"Hi,\n\n I just found this great app for you called Ooredoo biz store. You can find businesses and enjoy the best deals &amp; discounts in your town.\n\nSend SUB to 92806 to download the application"</string>
-    <string name="share_now">Share Now</string>
+    <string name="share_app_note">سيقوم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
+    <string name="enter_number">أدخل رقم جوالك</string>
+    <string name="sharing_msg">رسالة المشاركة</string>
+    <string name="share_with_friends_txt">"مرحبا، وجت هذا التطبيق الرهيب لأفضل العروض في المدينة. أرسل رسالة نصية الى 92806 و حمل التطبيق"</string>
+    <string name="share_now">شارك الآن</string>
     <string name="Preview">عرض</string>
-    <string name="Deal_Description">Deal Description</string>
+    <string name="Deal_Description">تفاصيل العرض</string>
     <string name="Address">العنوان</string>
-    <string name="Contact_Information">Contact Information</string>
+    <string name="Contact_Information">بيانات الاتصال</string>
     <string name="Category">فئة</string>
     <string name="Unsubscribe_Bizstore">الغاء الاشتراك في بيزستور</string>
     <string name="No">لا</string>
     <string name="Yes">نعم</string>
-    <string name="ENTER_CODE">ENTER CODE</string>
-    <string name="verification_code_details">You will receive a short code from your carrier\nplease check your inbox.</string>
+    <string name="ENTER_CODE">أدخل الرمز</string>
+    <string name="verification_code_details">سيتم ارسال الرقم القصير الرجاء تفقد الرائل الواردة </string>
     <string name="unsub_details">الغاء الاشتراك في بيزستور يستنج عنه ايقاف كل التنبيهات لجميع العروض الجديدة من التطبيق</string>
-    <string name="share_app_with_friends">Share App with Friends</string>
+    <string name="share_app_with_friends">شارك التطبيق مع الأصدقاء</string>
     <string name="About_Us">عن التطبيق</string>
     <string name="select_all">اخيتار كل</string>
-    <string name="name_hint">Enter Your Name</string>
+    <string name="name_hint">أدخل إسمك</string>
     <string name="no_recent_searches">لا يوجد أي نتائج</string>
-    <string name="my_businesses">My Businesses</string>
+    <string name="my_businesses">أعمالي</string>
     <string name="share">شارك</string>
     <string name="rate">قيم</string>
     <string name="call">اتصال</string>
-    <string name="cancel">Cancel</string>
-    <string name="plan_details">QAR <b>9</b>\nPER WEEK</string>
+    <string name="cancel">إلغاء</string>
+    <string name="plan_details">ريال قطري <b>9</b>\nأسبوعياً</string>
     <string name="filter_results">نتائج مصنفة</string>
     <string name="percentage_off">% خصم</string>
-    <string name="error_provide_num">Please provide the phone number</string>
-    <string name="please_wait">Please wait</string>
-    <string name="success_shared">Successfully shared</string>
-    <string name="help_question1">What is Ooredoo Biz Store?</string>
-    <string name="help_answer1"><![CDATA[Ooredoo Biz Store is an SMS/Mobile Application based service which provides a platform to view best Deals & Discounts in Qatar. With major brands on-board ranging from fashion & lifestyle to health & fitness, shopping, restaurants, travelling and much more, Biz Store has it All! Biz Store also offers a variety of Exclusive Deals to the users who can later avail them from the respective stores/outlets.]]></string>
-    <string name="help_question2">What do I get from Ooredoo Biz Store?</string>
-    <string name="help_answer2"><![CDATA[Ooredoo Biz Store users can search address and contact details of businesses of their liking. The user also has multiple options to choose from based on which user will get latest deals, discounts & updates. The categories are:\n\t\t\t1.\tTop Deals\n\t\t\t2.\tTop Malls\n\t\t\t3.\tRestaurants and Deals\n\t\t\t4.\tShopping and specialty stores\n\t\t\t5.\tEducation\n\t\t\t6.\tLifestyle & Fashion\n\t\t\t7.\tEntertainment and Recreation]]></string>
-    <string name="help_question3">How can I subscribe in Ooredoo Biz Store?</string>
-    <string name="help_answer3">User can subscribe to Ooredoo Biz Store via following two mechanisms:</string>
-    <string name="help_answer3a">1. User can send SUB to 92806 for SMS Service</string>
-    <string name="help_answer3b">2. Once the user is subscribed through the SMS medium and logs in to the Application, he will be charged at 9QAR/Week</string>
-    <string name="help_question4">How will I know that I am subscribed to Ooredoo Biz Store?</string>
-    <string name="help_answer4">User will get regular notifications regarding service subscription and their renewal status.</string>
-    <string name="help_question5">How can I unsubscribe from Ooredoo Biz Store?</string>
-    <string name="help_answer5">For unsubscribing from Ooredoo Biz Store, the user sends UNSUB to 92806. User will be presented with two options:</string>
-    <string name="help_answer5a">1. To stop category notifications</string>
-    <string name="help_answer5b">2. To unsubscribe from the complete service</string>
-    <string name="help_question6">What are the complete Service charges?</string>
-    <string name="help_answer6">There are two charging models which a user can opt for at time of subscription.</string>
-    <string name="help_answer6a">1. Application will be charged at 9 QAR/Week with fallback charging</string>
-    <string name="help_answer6_a">a. User will be subscribed, and if unsuccessful, system will attempt to deduct QAR 1.3/Day.</string>
-    <string name="help_answer6b">2. On SMS the service will be charged at 2 QAR/Week</string>
+    <string name="error_provide_num">الرجاء إدخال رقم الهاتفك</string>
+    <string name="please_wait">الرجاء الانتظار</string>
+    <string name="success_shared">تمت المشاركة بنجاح</string>
+    <string name="help_question1">ما هو Ooredoo بيزستور</string>
+    <string name="help_answer1"> بيزستور هي رسائل نصية و تطبيق للهاتف الجوال توفر للعميل منصة لمتابعة أفضل العروض و الخصومات في قطر. من أشهر الماركات لها علاقة بالموضة و الصحة و حتى اللياقة بالإضافة إلى التسوق، المطاعم و السفر والسياحة و الأكثر من ذلك كلٌ في مكان واحد!! كما يقد بيزستور مجموعة متنوعة من العروض و الخدمات لمستخدميه حيث يمكن الإستفادة منها في أي وقت و مكان.</string>
+    <string name="help_question2">ماذا أحصل من إشتراكي في خدمة Ooredoo بيزستور؟</string>
+    <string name="help_answer2"><![CDATA[يمكن لعملاء خدمة Ooredoo بيزستور البحث على عناوين و بيانات الإتصال للمتاجر والخدمات التي يفضلوها. للعميل عدة خيارات للحصول على أحدث العروض، الخصومات، و آخر الأخبار. الفئات هي:
+أفضل العروض
+أفضل مجمعات تجارية في قطر
+مطاعم
+تسوق
+تعليم
+نمط حياة و موضة
+ترفيه و إستجمام]]></string>
+
+    <string name="help_question3">كيف يمكنني الإشتراك في خدمة Ooredoo بيزستور؟</string>
+
+    <string name="help_answer3">يمكن للمستخدم الإشتراك في خدمة Ooredoo بيزستور من خلال الآليتين التالية:</string>
+
+    <string name="help_answer3a">1. يمكن للعميل إرسال "ك" إلى 92806 للحصول على خدمة الرسائل النصية</string>
+
+    <string name="help_answer3b">2. في حال تمت عملية الإشتراك في التطبيق من خلال وسيلة الرسائل النصية و سجل الدخول إلى التطبيق، سيتم إحتساب 9 ريال قطري أسبوعياً.</string>
+
+    <string name="help_question4">كيف يمكنني أن أعرف إذا تم عملية الإشتراك في خدمة Ooredoo بيزستور؟</string>
+
+    <string name="help_answer4">سيحصل العميل على تنبيهات منتظمة لها علاقة في الخدمات التي سجل فيها بالإضافة إلى بيانات إشتراكه و صلاحيتها</string>
+
+    <string name="help_question5">كيف يمكنني إلغاء إشتراكي في خدمة Ooredoo بيزستور؟</string>
+
+    <string name="help_answer5">لإلغاء الإشتراك من خدمة Ooredoo بيزستور، يجب على العميل إرسال "غ" إلى 92806. سيتم عرض خيارين على العميل.:</string>
+
+    <string name="help_answer5a">1. لإيقاف التنبيهات</string>
+    <string name="help_answer5b">2. لإلغاء الإشتراك من الخدمة تماما</string>
+    <string name="help_question6">ما هي رسوم الإشتراك؟</string>
+    <string name="help_answer6">هناك نوعان من نماذج الشحن التي يمكن للمستخدم أن يختار عن الإشتراك</string>
+    <string name="help_answer6a">1. سيتم إحتساب 9 ريال قطري أسبوعياً مع تراجع الشحن</string>
+    <string name="help_answer6_a">a. سيحتسب أن العميل مشترك في الخدمة، في حال فشل النظام سيتم محاولة إحتساب 1.3 ريال قطري في اليوم الواحد</string>
+    <string name="help_answer6b">2. سيتم إحتساب 2 ريال قطري أسبوعياً للرسائل النصية</string>
 
     <!-- Sub categories -->
 
     <string name="Arabic">العربية</string>
-    <string name="Turkish">Turkish</string>
-    <string name="Indian">Indian</string>
-    <string name="Chinese">Chinese</string>
-    <string name="Cafes">Cafes</string>
-    <string name="Fast_Food">Fast Food</string>
-    <string name="Italian">Italian</string>
-    <string name="Afghani">Afghani</string>
-    <string name="Lebanese">Lebanese</string>
-    <string name="Sweets_Confectionaries"><![CDATA[Sweets & Confectionaries]]></string>
-    <string name="Apparel">Apparel</string>
-    <string name="Home_Goods">Home Goods</string>
-    <string name="Sports_Fitness"><![CDATA[Sports & Fitness]]></string>
-    <string name="Electronics">Electronics</string>
-    <string name="Fashion_Beauty_Accessories"><![CDATA[Fashion & Beauty Accessories]]></string>
-    <string name="TV_Home_Entertainment"><![CDATA[TV & Home Entertainment]]></string>
-    <string name="Computers_Tablets"><![CDATA[Computers & Tablets]]></string>
-    <string name="Cameras_Photography"><![CDATA[Cameras & Photography]]></string>
-    <string name="Mobile_Phones_Accessories"><![CDATA[Mobile Phones & Accessories]]></string>
-    <string name="Salons">Salons</string>
-    <string name="Lodging">Lodging</string>
+    <string name="Turkish">تركي</string>
+    <string name="Indian">هندي</string>
+    <string name="Chinese">صيني</string>
+    <string name="Cafes">مقهى</string>
+    <string name="Fast_Food">الوجبات السريعة</string>
+    <string name="Italian">ايطالي</string>
+    <string name="Afghani">أفغاني</string>
+    <string name="Lebanese">لبناني</string>
+    <string name="Sweets_Confectionaries"><![CDATA[حلويات]]></string>
+    <string name="Apparel">ملابس</string>
+    <string name="Home_Goods">أثاث</string>
+    <string name="Sports_Fitness"><![CDATA[الرياضة و اللياقة]]></string>
+    <string name="Electronics">إلكتونيات</string>
+    <string name="Fashion_Beauty_Accessories"><![CDATA[موضة و إكسسوارات تجميل]]></string>
+    <string name="TV_Home_Entertainment"><![CDATA[التلفاز و الترفيه المنزلي]]></string>
+    <string name="Computers_Tablets"><![CDATA[كمبيوتر و أجهزة الكمبيوتر اللوحي]]></string>
+    <string name="Cameras_Photography"><![CDATA[كاميرات و تصوير]]></string>
+    <string name="Mobile_Phones_Accessories"><![CDATA[هواتف و إكسسوارات]]></string>
+    <string name="Salons">صالونات</string>
+    <string name="Lodging">إقامة و سكن</string>
     <string name="Spas">Spas</string>
     <string name="Hypermarkets">Hypermarkets</string>
     <string name="Malls">Malls</string>
@@ -169,9 +185,10 @@
     <string name="Equipment">Equipment</string>
     <string name="error_invalid_num">Please provide valid phone number</string>
     <string name="error_invalid_verification_code">Please provide valid verification code</string>
-    <string name="copyrights_text">Copyright 2015 Ooredoo Bizstore\nAll rights reserved.</string>
+    <string name="copyrights_text">Copyright 2015 Ooredoo Bizstore\nجميع حقوق النشر محفوظة</string>
     <string name="Clear_All">Clear All</string>
     <string name="error_server_down">Server is down at the moment. Please try again later.</string>
     <string name="skip">Skip</string>
+    <string name="All">كل</string>
 
 </resources>
