@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -17,6 +18,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -27,7 +29,9 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ElectronicsFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
+public class ElectronicsFragment extends Fragment implements OnFilterChangeListener,
+                                                             OnRefreshListener,
+                                                             OnDealsTaskFinishedListener
 {
     private HomeActivity activity;
 
@@ -36,6 +40,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     private ProgressBar progressBar;
 
     private ImageView ivBanner;
+
+    private RelativeLayout rlHeader;
 
     public static ElectronicsFragment newInstance()
     {
@@ -61,7 +67,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
-        ivBanner.setImageResource(R.drawable.electronics_banner);
+
+        rlHeader = (RelativeLayout) v.findViewById(R.id.header);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_ELECTRONICS);
 
@@ -94,7 +101,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     private void fetchAndDisplayElectronics()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
         dealsTask.execute("electronics");
     }
 
@@ -108,5 +115,12 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     public void onRefreshStarted()
     {
         fetchAndDisplayElectronics();
+    }
+
+    @Override
+    public void onHaveDeals() {
+        ivBanner.setImageResource(R.drawable.electronics_banner);
+
+        rlHeader.setVisibility(View.VISIBLE);
     }
 }

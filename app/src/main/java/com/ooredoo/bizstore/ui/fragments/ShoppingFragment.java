@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -19,6 +20,7 @@ import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -34,7 +36,9 @@ import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
 /**
  * @author Babar
  */
-public class ShoppingFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener {
+public class ShoppingFragment extends Fragment implements OnFilterChangeListener,
+                                                          OnRefreshListener,
+                                                          OnDealsTaskFinishedListener{
     private HomeActivity activity;
 
     private List<GenericDeal> deals;
@@ -44,6 +48,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     private ProgressBar progressBar;
 
     private SnackBarUtils snackBarUtils;
+
+    private RelativeLayout rlHeader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +71,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         snackBarUtils = new SnackBarUtils(activity, v);
 
         deals = new ArrayList<>();
+
+        rlHeader = (RelativeLayout) v.findViewById(R.id.header);
 
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
 
@@ -100,7 +108,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private void loadDeals()
     {
-        ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils);
+        ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, null, snackBarUtils, this);
         shoppingTask.execute("shopping");
     }
 
@@ -119,5 +127,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onRefreshStarted()
     {
         loadDeals();
+    }
+
+    @Override
+    public void onHaveDeals()
+    {
+        rlHeader.setVisibility(View.VISIBLE);
     }
 }

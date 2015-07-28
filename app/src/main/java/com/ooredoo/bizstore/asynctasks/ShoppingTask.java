@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -8,9 +9,11 @@ import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
@@ -42,6 +45,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
     private SnackBarUtils snackBarUtils;
 
+    private OnDealsTaskFinishedListener dealsTaskFinishedListener;
+
     public static String sortColumn = "createdate";
 
     public static String subCategories;
@@ -49,7 +54,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
     private final static String SERVICE_NAME = "/deals?";
 
     public ShoppingTask(HomeActivity homeActivity, GridViewBaseAdapter adapter,
-                        ProgressBar progressBar, SnackBarUtils snackBarUtils)
+                        ProgressBar progressBar, SnackBarUtils snackBarUtils,
+                        Fragment fragment)
     {
         this.homeActivity = homeActivity;
 
@@ -58,6 +64,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         this.progressBar = progressBar;
 
         this.snackBarUtils = snackBarUtils;
+
+        dealsTaskFinishedListener = (OnDealsTaskFinishedListener) fragment;
     }
 
 
@@ -103,6 +111,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
             if(response.resultCode != -1)
             {
+                dealsTaskFinishedListener.onHaveDeals();
+
                 List<GenericDeal> deals = new ArrayList<>();
 
                 if(response.deals != null)

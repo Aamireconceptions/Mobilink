@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -17,6 +18,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
@@ -29,7 +31,9 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodAndDiningFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
+public class FoodAndDiningFragment extends Fragment implements OnFilterChangeListener,
+                                                               OnRefreshListener,
+                                                               OnDealsTaskFinishedListener
 {
     private HomeActivity activity;
 
@@ -38,6 +42,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private ProgressBar progressBar;
 
     private ImageView ivBanner;
+
+    private RelativeLayout rlHeader;
 
     public static FoodAndDiningFragment newInstance() {
         FoodAndDiningFragment fragment = new FoodAndDiningFragment();
@@ -61,7 +67,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
-        ivBanner.setImageResource(R.drawable.food_dinning_banner);
+
+        rlHeader = (RelativeLayout) v.findViewById(R.id.header);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
 
@@ -94,7 +101,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     private void fetchAndDisplayFoodAndDining() {
         DealsTask dealsTask = new DealsTask(activity, adapter,
-                                            progressBar, ivBanner);
+                                            progressBar, ivBanner,
+                                            this);
         dealsTask.execute("food");
     }
 
@@ -110,5 +118,13 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     public void onRefreshStarted()
     {
         fetchAndDisplayFoodAndDining();
+    }
+
+    @Override
+    public void onHaveDeals()
+    {
+        ivBanner.setImageResource(R.drawable.food_dinning_banner);
+
+        rlHeader.setVisibility(View.VISIBLE);
     }
 }

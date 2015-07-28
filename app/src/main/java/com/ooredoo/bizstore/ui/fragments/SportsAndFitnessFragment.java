@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -17,6 +18,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -29,7 +31,9 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class SportsAndFitnessFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
+public class SportsAndFitnessFragment extends Fragment implements OnFilterChangeListener,
+                                                                  OnRefreshListener,
+                                                                  OnDealsTaskFinishedListener
 {
     private HomeActivity activity;
 
@@ -40,6 +44,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     public static String subCategory;
 
     private ImageView ivBanner;
+
+    private RelativeLayout rlHeader;
 
     public static SportsAndFitnessFragment newInstance()
     {
@@ -65,7 +71,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
-        ivBanner.setImageResource(R.drawable.sports_fitness_banner);
+
+        rlHeader = (RelativeLayout) v.findViewById(R.id.header);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_SPORTS);
 
@@ -98,7 +105,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     private void fetchAndDisplaySportsAndFitness()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
@@ -117,5 +124,12 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     @Override
     public void onRefreshStarted() {
         fetchAndDisplaySportsAndFitness();
+    }
+
+    @Override
+    public void onHaveDeals() {
+        ivBanner.setImageResource(R.drawable.sports_fitness_banner);
+
+        rlHeader.setVisibility(View.VISIBLE);
     }
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -17,6 +18,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -27,7 +29,9 @@ import com.ooredoo.bizstore.utils.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JewelleryFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
+public class JewelleryFragment extends Fragment implements OnFilterChangeListener,
+                                                           OnRefreshListener,
+                                                           OnDealsTaskFinishedListener
 {
     private HomeActivity activity;
 
@@ -36,6 +40,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     private ProgressBar progressBar;
 
     private ImageView ivBanner;
+
+    private RelativeLayout rlHeader;
 
     public static JewelleryFragment newInstance()
     {
@@ -63,7 +69,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         activity = (HomeActivity) getActivity();
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
-        ivBanner.setImageResource(R.drawable.jewellery_exchange_banner);
+
+        rlHeader = (RelativeLayout) v.findViewById(R.id.header);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_JEWELLERY);
 
@@ -96,7 +103,7 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
     private void fetchAndDisplayJewelry()
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
         dealsTask.execute("jewelry");
     }
 
@@ -109,5 +116,12 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     @Override
     public void onRefreshStarted() {
         fetchAndDisplayJewelry();
+    }
+
+    @Override
+    public void onHaveDeals() {
+        ivBanner.setImageResource(R.drawable.jewellery_exchange_banner);
+
+        rlHeader.setVisibility(View.VISIBLE);
     }
 }

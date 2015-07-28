@@ -25,6 +25,7 @@ import com.ooredoo.bizstore.asynctasks.TopMallsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -43,7 +44,10 @@ import java.util.TimerTask;
 /**
  * @author Babar
  */
-public class HomeFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener {
+public class HomeFragment extends Fragment implements OnFilterChangeListener,
+                                                      OnRefreshListener,
+                                                      OnDealsTaskFinishedListener
+{
     private HomeActivity activity;
 
     private TextView tvDealsOfTheDay;
@@ -220,8 +224,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener, On
     }
 
     private void initAndLoadDealsOfTheDay() {
-        DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null);
-        dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
+        DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null, this);
+        //dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
         dealsTask.execute("dealofday");
     }
 
@@ -313,4 +317,9 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener, On
     }
 
 
+    @Override
+    public void onHaveDeals()
+    {
+        tvDealsOfTheDay.setVisibility(View.VISIBLE);
+    }
 }

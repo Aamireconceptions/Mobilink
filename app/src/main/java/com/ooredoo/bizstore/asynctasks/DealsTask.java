@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
@@ -13,9 +14,11 @@ import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -56,12 +59,14 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     public String category;
 
+    private OnDealsTaskFinishedListener dealsTaskFinishedListener;
     private MemoryCache memoryCache;
 
     private int reqWidth, reqHeight;
 
     public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter,
-                     ProgressBar progressBar, ImageView ivBanner) {
+                     ProgressBar progressBar, ImageView ivBanner, Fragment fragment)
+    {
         this.homeActivity = homeActivity;
 
         this.adapter = adapter;
@@ -69,6 +74,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         this.progressBar = progressBar;
 
         this.ivBanner = ivBanner;
+
+        dealsTaskFinishedListener = (OnDealsTaskFinishedListener) fragment;
 
         memoryCache = MemoryCache.getInstance();
 
@@ -82,9 +89,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                                                       / displayMetrics.density);
     }
 
-    public void setTvDealsOfTheDay(TextView tvDealsOfTheDay) {
+    /*public void setTvDealsOfTheDay(TextView tvDealsOfTheDay) {
         this.tvDealsOfTheDay = tvDealsOfTheDay;
-    }
+    }*/
 
     @Override
     protected void onPreExecute() {
@@ -136,13 +143,15 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
                 if(response.resultCode != -1)
                 {
+                    dealsTaskFinishedListener.onHaveDeals();
+
                     List<GenericDeal> deals = response.deals;
 
                     for(GenericDeal genericDeal : deals) {
                         Logger.print("title:"+genericDeal.title);
                     }
 
-                    showTvDealsOfTheDay();
+                    //showTvDealsOfTheDay();
 
                     adapter.setData(deals);
 

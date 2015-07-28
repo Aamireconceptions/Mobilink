@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
@@ -71,26 +72,34 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            List<GenericDeal> deals = new ArrayList<>();
-
-            if(response.deals != null) {
-                deals = response.deals;
-            }
-
-            for(GenericDeal genericDeal : deals)
+            if(response.resultCode != -1)
             {
-                Logger.print("onPost:"+genericDeal.image.bannerUrl);
+                List<GenericDeal> deals = new ArrayList<>();
+
+                if(response.deals != null) {
+                    deals = response.deals;
+                }
+
+                for(GenericDeal genericDeal : deals)
+                {
+                    Logger.print("onPost:"+genericDeal.image.bannerUrl);
+                }
+
+                adapter.setData(deals);
+
+
+                if(BizStore.getLanguage().equals("ar"))
+                {
+                    adapter.notifyDataSetChanged();
+
+                    viewPager.setCurrentItem(deals.size() - 1);
+                }
             }
-
-            adapter.setData(deals);
-
-
-            if(BizStore.getLanguage().equals("ar"))
+            else
             {
-                adapter.notifyDataSetChanged();
-
-                viewPager.setCurrentItem(deals.size() - 1);
+                viewPager.setVisibility(View.GONE);
             }
+
         }
         else
         {

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -19,6 +20,7 @@ import com.ooredoo.bizstore.asynctasks.TopDealsBannersTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.listeners.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
@@ -35,7 +37,10 @@ import static com.ooredoo.bizstore.utils.CategoryUtils.CT_TOP;
 import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class TopDealsFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener
+public class TopDealsFragment extends Fragment implements OnFilterChangeListener,
+                                                          OnRefreshListener,
+                                                          OnDealsTaskFinishedListener
+
 {
     private HomeActivity mActivity;
 
@@ -97,8 +102,12 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         listAdapter = new ListViewBaseAdapter(mActivity, R.layout.list_deal, deals);
         listAdapter.setCategory(ResourceUtils.AUTOMOTIVE);
 
+        TextView tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+
         ListView listView = (ListView) v.findViewById(R.id.list_view);
+
         listView.setOnScrollListener(new ScrollListener(mActivity));
+        listView.setEmptyView(tvEmptyView);
         listView.addHeaderView(headerViewPager);
         listView.addHeaderView(headerFilter);
         listView.setAdapter(listAdapter);
@@ -133,7 +142,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private void loadTopDeals()
     {
-        DealsTask dealsTask = new DealsTask(mActivity, listAdapter, null, null);
+        DealsTask dealsTask = new DealsTask(mActivity, listAdapter, null, null, this);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
@@ -157,5 +166,13 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         loadTopDealBanners();
 
         loadTopDeals();
+    }
+
+    @Override
+    public void onHaveDeals()
+    {
+        headerViewPager.setVisibility(View.VISIBLE);
+        headerFilter.setVisibility(View.VISIBLE);
+
     }
 }

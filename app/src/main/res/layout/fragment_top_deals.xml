@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,4 +13,14 @@
         android:divider="@null"
         android:dividerHeight="@dimen/_8sdp" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:text="Opps nothing found :("
+        android:textSize="30sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>
