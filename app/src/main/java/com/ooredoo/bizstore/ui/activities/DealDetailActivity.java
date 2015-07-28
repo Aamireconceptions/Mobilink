@@ -226,6 +226,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 makeText(getApplicationContext(), "No contact number found", LENGTH_LONG).show();
             }
         } else if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
+
+            if(src != null) // TODO remove this and make sure src never get null
             shareDeal(this, src.id);
         }
     }

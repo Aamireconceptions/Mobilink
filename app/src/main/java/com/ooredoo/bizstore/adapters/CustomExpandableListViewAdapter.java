@@ -96,6 +96,8 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
     {
         groupExpanded = !groupExpanded;
     }
+
+    public String groupName;
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
     {
@@ -120,13 +122,13 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
             convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
         }
 
-        String name = (String) getGroup(groupPosition);
+        groupName = (String) getGroup(groupPosition);
         int resId = navigationItem.getResId();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         tvName.setLayoutDirection(direction);
         tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
-        tvName.setText(name);
+        tvName.setText(groupName);
 
         return convertView;
     }

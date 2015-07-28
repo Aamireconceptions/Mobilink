@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
-        android:text="Opps nothing found :("
+        android:text="Oops nothing found :("
         android:textSize="30sp"
         android:visibility="gone"/>
 
