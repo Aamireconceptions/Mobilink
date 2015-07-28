@@ -40,7 +40,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
     public final String[] subCategories;
     public final String[] foodSubCategories, shoppingSubCategories, electronicsSubCategories,
                           hotelsSubCategories, mallsSubCategories, automotiveSubCategories,
-                          travelSubCategories, entertainmentSubCategories, jewellerySubCategories,
+                          entertainmentSubCategories, jewellerySubCategories,
                           sportsSubCategories;
     public final int[] subGroupResIds;
     private AppCompatActivity activity;
@@ -66,8 +66,9 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.shopping_speciality),
                 activity.getString(R.string.electronics), activity.getString(R.string.hotels_spa),
                 activity.getString(R.string.markets_malls), activity.getString(R.string.automotive),
-                activity.getString(R.string.travel_tours), activity.getString(R.string.entertainment),
-                activity.getString(R.string.jewelry_exchange), activity.getString(R.string.sports_fitness)};
+                activity.getString(R.string.travel_tours),
+                activity.getString(R.string.entertainment), activity.getString(R.string.jewelry_exchange),
+                activity.getString(R.string.sports_fitness)};
 
         categoriesResIds = new int[]{ R.drawable.ic_top_deals,
                 R.drawable.ic_top_deals, R.drawable.ic_food_dining,
@@ -97,8 +98,9 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.shopping_speciality),
                 activity.getString(R.string.electronics), activity.getString(R.string.hotels_spa),
                 activity.getString(R.string.markets_malls), activity.getString(R.string.automotive),
-                activity.getString(R.string.travel_tours), activity.getString(R.string.entertainment),
-                activity.getString(R.string.jewelry_exchange), activity.getString(R.string.sports_fitness)};
+                activity.getString(R.string.travel_tours),
+                activity.getString(R.string.entertainment), activity.getString(R.string.jewelry_exchange),
+                activity.getString(R.string.sports_fitness)};
 
         subGroupResIds = new int[]{ R.drawable.ic_top_deals,
                 R.drawable.ic_food_dining,
@@ -120,7 +122,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         automotiveSubCategories = new String[] { activity.getString(R.string.Show_Rooms), activity.getString(R.string.Accessories), activity.getString(R.string.Services) };
 
-        travelSubCategories = new String[] {"travel_sub1"};
+        //travelSubCategories = new String[] {"travel_sub1"};
 
         entertainmentSubCategories = new String[] { activity.getString(R.string.Events), activity.getString(R.string.Kids_Activities), activity.getString(R.string.Cinemas)};
 
@@ -377,7 +379,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             automotiveSubList.add(navigationItem);
         }
 
-        List<NavigationItem> travelSubList = new ArrayList<>();
+       /* List<NavigationItem> travelSubList = new ArrayList<>();
 
         for(int i = 0; i < travelSubCategories.length; i++)
         {
@@ -386,7 +388,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             navigationItem.setResId(R.drawable.ic_action_back);
 
             travelSubList.add(navigationItem);
-        }
+        }*/
 
         List<NavigationItem> entertainmentSubList = new ArrayList<>();
 
@@ -428,10 +430,11 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         subChildList.put(subGroupList.get(4).getItemName(), hotelsSubList);
         subChildList.put(subGroupList.get(5).getItemName(), mallsSubList);
         subChildList.put(subGroupList.get(6).getItemName(), automotiveSubList);
-        subChildList.put(subGroupList.get(7).getItemName(), travelSubList);
+
         subChildList.put(subGroupList.get(8).getItemName(), entertainmentSubList);
         subChildList.put(subGroupList.get(9).getItemName(), jewellerySubList);
         subChildList.put(subGroupList.get(10).getItemName(), sportsSubList);
+        //subChildList.put(subGroupList.get(10).getItemName(), sportsSubList);
     }
 
     @Override

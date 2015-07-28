@@ -144,8 +144,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
     {
+        NavigationItem navigationItem1 = (NavigationItem) getChild(groupPosition, childPosition);
 
-        Logger.print("getChildView: groupPos: "+groupPosition+ ", childPos: "+childPosition);
+        String name1 = navigationItem1.getItemName();
+
+        Logger.print("getChildView: groupPos: "+groupPosition+ ", childPos: "+childPosition+" "+name1);
+
+
         /*if(convertView == null)
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -155,8 +160,36 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
        // ExpandableListView expandableListView = new ExpandableListView(context);
 
-        if(groupPosition == 0 && childPosition != 0)
+        if((groupPosition == 0 && childPosition == 0 || childPosition == 7))
         {
+             /*if(convertView == null)
+            {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                convertView = inflater.inflate(R.layout.list_navigation_child, parent, false);
+            }*/
+
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            convertView = inflater.inflate(R.layout.list_navigation_child, parent, false);
+
+            NavigationItem navigationItem = (NavigationItem) getChild(groupPosition, childPosition);
+
+            String name = navigationItem.getItemName();
+            int resId = navigationItem.getResId();
+
+            TextView tvName = (TextView) convertView.findViewById(R.id.name);
+
+            tvName.setLayoutDirection(direction);
+            tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
+
+            tvName.setText(name);
+
+            return convertView;
+        }
+        else
+        {
+
             /*CustomExpandableListView expandableListView = (CustomExpandableListView) convertView;
 
             if(expandableListView == null)
@@ -172,7 +205,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
                     navigationMenuUtils.subGroupList.get(childPosition).getItemName(),
                     navigationMenuUtils.subChildList);*/
 
-           // expandableListView.setAdapter(adapter);
+            // expandableListView.setAdapter(adapter);
 
             NavigationItem navigationItem = navigationMenuUtils.subGroupList.get(childPosition);
 
@@ -181,8 +214,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
                     navigationMenuUtils.subChildList);
 
             final CustomExpandableListViewOnChildClickListener onChildClickListener =
-                                                  new CustomExpandableListViewOnChildClickListener(context,
-                                                                                            adapter);
+                    new CustomExpandableListViewOnChildClickListener(context,
+                            adapter);
 
             CustomExpandableListView customExpandableListView = new CustomExpandableListView(context);
 
@@ -210,33 +243,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             expandableListView.setAdapter(adapter);*/
 
             return customExpandableListView;
-        }
-        else
-        {
-            /*if(convertView == null)
-            {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                convertView = inflater.inflate(R.layout.list_navigation_child, parent, false);
-            }*/
-
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            convertView = inflater.inflate(R.layout.list_navigation_child, parent, false);
-
-            NavigationItem navigationItem = (NavigationItem) getChild(groupPosition, childPosition);
-
-            String name = navigationItem.getItemName();
-            int resId = navigationItem.getResId();
-
-            TextView tvName = (TextView) convertView.findViewById(R.id.name);
-
-            tvName.setLayoutDirection(direction);
-            tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
-
-            tvName.setText(name);
-
-            return convertView;
         }
 
 
