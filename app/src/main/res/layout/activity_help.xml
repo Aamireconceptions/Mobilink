@@ -42,12 +42,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_answer1"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <View
@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_question2"
@@ -72,12 +72,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_answer2"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <View
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_question3"
@@ -102,12 +102,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_answer3"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <TextView
@@ -120,7 +120,7 @@
                     android:paddingRight="12dp"
                     android:text="@string/help_answer3a"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <TextView
@@ -133,7 +133,7 @@
                     android:paddingRight="12dp"
                     android:text="@string/help_answer3b"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <View
@@ -146,7 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_question4"
@@ -163,7 +163,7 @@
                     android:paddingRight="12dp"
                     android:text="@string/help_answer4"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <View
@@ -176,7 +176,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_question5"
@@ -188,12 +188,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_answer5"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <TextView
@@ -206,7 +206,7 @@
                     android:paddingRight="12dp"
                     android:text="@string/help_answer5a"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <TextView
@@ -219,7 +219,7 @@
                     android:paddingRight="12dp"
                     android:text="@string/help_answer5b"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <View
@@ -232,7 +232,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_question6"
@@ -244,12 +244,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:text="@string/help_answer6"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <TextView
@@ -262,7 +262,7 @@
                     android:paddingRight="12dp"
                     android:text="@string/help_answer6a"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <TextView
@@ -275,7 +275,7 @@
                     android:paddingRight="12dp"
                     android:text="@string/help_answer6_a"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <TextView
@@ -288,7 +288,7 @@
                     android:paddingRight="12dp"
                     android:text="@string/help_answer6b"
                     android:textColor="@color/material_blue_grey_900"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal"/>
 
                 <View

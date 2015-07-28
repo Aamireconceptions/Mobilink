@@ -219,6 +219,12 @@ public class ListViewBaseAdapter extends BaseAdapter {
             {
                 holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                 holder.progressBar.setVisibility(View.GONE);
+                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDetail(deal);
+                    }
+                });
             }
         }
 
