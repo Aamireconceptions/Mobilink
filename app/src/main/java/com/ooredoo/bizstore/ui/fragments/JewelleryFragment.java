@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
+import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
@@ -32,7 +33,8 @@ import java.util.List;
 
 public class JewelleryFragment extends Fragment implements OnFilterChangeListener,
                                                            OnRefreshListener,
-                                                           OnDealsTaskFinishedListener
+                                                           OnDealsTaskFinishedListener,
+                                                           OnSubCategorySelectedListener
 {
     private HomeActivity activity;
 
@@ -43,6 +45,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     private ImageView ivBanner;
 
     private RelativeLayout rlHeader;
+
+    private boolean isCreated = false;
 
     public static JewelleryFragment newInstance()
     {
@@ -61,6 +65,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         init(v);
 
         fetchAndDisplayJewelry();
+
+        isCreated = true;
 
         return v;
     }
@@ -135,4 +141,19 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
         rlHeader.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onSubCategorySelected()
+    {
+        if(!isCreated)
+        {
+            onFilterChange();
+        }
+        else
+        {
+            isCreated = false;
+        }
+    }
+
+
 }

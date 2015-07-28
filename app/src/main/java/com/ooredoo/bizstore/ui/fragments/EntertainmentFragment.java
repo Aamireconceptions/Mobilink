@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
+import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
@@ -34,7 +35,8 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 public class EntertainmentFragment extends Fragment implements OnFilterChangeListener,
                                                                OnRefreshListener,
-                                                               OnDealsTaskFinishedListener
+                                                               OnDealsTaskFinishedListener,
+                                                               OnSubCategorySelectedListener
 {
     private HomeActivity activity;
 
@@ -47,6 +49,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     private ImageView ivBanner;
 
     private RelativeLayout rlHeader;
+
+    private boolean isCreated = false;
 
     public static EntertainmentFragment newInstance()
     {
@@ -63,6 +67,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         init(v);
 
         fetchAndDisplayEntertainment();
+
+        isCreated = true;
 
         return v;
     }
@@ -144,5 +150,18 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         ivBanner.setImageDrawable(null);
 
         rlHeader.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSubCategorySelected()
+    {
+        if(!isCreated)
+        {
+            onFilterChange();
+        }
+        else
+        {
+            isCreated = false;
+        }
     }
 }

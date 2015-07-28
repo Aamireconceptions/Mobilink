@@ -47,7 +47,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     private RelativeLayout rlHeader;
 
-    private boolean isRecreated = false;
+    private boolean isCreated = false;
 
     public static FoodAndDiningFragment newInstance() {
         FoodAndDiningFragment fragment = new FoodAndDiningFragment();
@@ -63,7 +63,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         fetchAndDisplayFoodAndDining();
 
-        isRecreated = true;
+        isCreated = true;
 
         return v;
     }
@@ -147,9 +147,15 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onSubCategorySelected()
     {
-        if(isRecreated)
+        Logger.print("IsCreated:"+isCreated);
+
+        if(!isCreated)
         {
             onFilterChange();
+        }
+        else
+        {
+            isCreated = false;
         }
     }
 }

@@ -54,7 +54,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private RelativeLayout rlHeader;
 
-    private boolean isRecreated = false;
+    private boolean isCreated = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         init(v);
 
-        isRecreated = true;
+        isCreated = true;
 
         return v;
     }
@@ -153,9 +153,13 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onSubCategorySelected()
     {
-        if(isRecreated)    
+        if(!isCreated)
         {
             onFilterChange();
+        }
+        else
+        {
+            isCreated = false;
         }
     }
 }
