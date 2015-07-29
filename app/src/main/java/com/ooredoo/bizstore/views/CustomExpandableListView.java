@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.ExpandableListView;
+
+import com.ooredoo.bizstore.utils.Logger;
 
 /**
  * @author Babar
@@ -12,15 +15,19 @@ import android.widget.ExpandableListView;
  */
 public class CustomExpandableListView extends ExpandableListView
 {
-    public CustomExpandableListView(Context context)
+    private View navigationHeader;
+
+    public CustomExpandableListView(Context context, View navigationHeader)
     {
         super(context);
+
+        this.navigationHeader = navigationHeader;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int extraBuffer = 400;
+        /*int extraBuffer = 400;
 
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
 
@@ -29,9 +36,13 @@ public class CustomExpandableListView extends ExpandableListView
 
         navWidth = Math.min(navWidth, 320);
 
-        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, navWidth, displayMetrics);
+        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, navWidth, displayMetrics);*/
 
-        widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
+        int extraBuffer = 400;
+
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(navigationHeader.getWidth(), MeasureSpec.EXACTLY);
 
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(displayMetrics.heightPixels + extraBuffer, MeasureSpec.AT_MOST);
 

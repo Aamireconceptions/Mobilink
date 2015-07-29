@@ -36,6 +36,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
     private HashMap<String, List<NavigationItem>> childList;
 
+    private View navigationHeader;
+
     private CustomExpandableListViewAdapter adapter;
 
     private CustomExpandableListView customExpandableListView;
@@ -44,7 +46,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
     public ExpandableListAdapter(NavigationMenuUtils navigationMenuUtils, Context context,
                                  List<NavigationItem> groupList,
-                                 HashMap<String, List<NavigationItem>> childList)
+                                 HashMap<String, List<NavigationItem>> childList, View navigationHeader)
     {
         this.navigationMenuUtils = navigationMenuUtils;
 
@@ -54,9 +56,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
         this.childList = childList;
 
+        this.navigationHeader = navigationHeader;
+
         adapter = new CustomExpandableListViewAdapter(context, null, navigationMenuUtils.subChildList);
 
-        customExpandableListView = new CustomExpandableListView(context);
+        customExpandableListView = new CustomExpandableListView(context, navigationHeader);
         //customExpandableListView.setAdapter(adapter);
 
         direction = BizStore.getLanguage().equals("en") ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL;
@@ -217,7 +221,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
                     new CustomExpandableListViewOnChildClickListener(context,
                             adapter);
 
-            CustomExpandableListView customExpandableListView = new CustomExpandableListView(context);
+            CustomExpandableListView customExpandableListView = new CustomExpandableListView(context,
+                                                                                             navigationHeader);
 
             customExpandableListView.setGroupIndicator(null);
             //setIndicatorBounds(customExpandableListView);
