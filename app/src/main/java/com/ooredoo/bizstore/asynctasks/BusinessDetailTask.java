@@ -9,6 +9,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.BusinessDetail;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class BusinessDetailTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
+        dialog = DialogUtils.createCustomLoader(detailActivity, "Loading...");
+
         if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
 
@@ -54,6 +57,8 @@ public class BusinessDetailTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+
+        closeDialog(dialog);
 
         if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 

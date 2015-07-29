@@ -107,10 +107,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
         if(id > 0) {
-            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-            BusinessDetailTask detailTask = new BusinessDetailTask(this, progressBar);
+
+            BusinessDetailTask detailTask = new BusinessDetailTask(this, null);
             detailTask.execute(String.valueOf(id));
-            scrollViewHelper.setAlpha(0.1f);
         }
 
         findViewById(R.id.tv_call).setOnClickListener(this);
@@ -138,7 +137,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             ((TextView) findViewById(R.id.tv_location)).setText(business.address);
             ((RatingBar) findViewById(R.id.rating_bar)).setRating(business.rating);
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(business.views));
-            scrollViewHelper.setAlpha(1f);
             //TODO business --- findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
             ImageView ivDetail = (ImageView) findViewById(R.id.detail_img);

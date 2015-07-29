@@ -112,9 +112,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
         if(id > 0) {
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-            DealDetailTask dealDetailTask = new DealDetailTask(this, progressBar);
+            DealDetailTask dealDetailTask = new DealDetailTask(this, null);
             dealDetailTask.execute(String.valueOf(id));
-            scrollViewHelper.setAlpha(0.1f);
         }
         ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
@@ -158,7 +157,6 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(deal.views));
             ((TextView) findViewById(R.id.tv_discount)).setText(valueOf(deal.discount)
                     + getString(R.string.percentage_off));
-            scrollViewHelper.setAlpha(1f);
             src.isFavorite = Deal.isFavorite(id);
             findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 

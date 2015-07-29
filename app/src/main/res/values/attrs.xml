@@ -6,4 +6,5 @@
         <attr name="singleThumb" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="RoundedImageView"/>
+    <declare-styleable name="CustomExpandableListView"/>
 </resources>
