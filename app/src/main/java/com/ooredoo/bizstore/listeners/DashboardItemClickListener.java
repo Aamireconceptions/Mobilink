@@ -32,12 +32,39 @@ public class DashboardItemClickListener implements View.OnClickListener {
         if(id == R.id.entertainment || id == R.id.shopping ||
            id == R.id.fashion || id == R.id.restaurants)
         {
-            String subCategory = id == R.id.entertainment ? "entertainment" :
+            /*String subCategory = id == R.id.entertainment ? "entertainment" :
                                  id == R.id.shopping ? "shopping" :
                                  id == R.id.fashion ? "fashion" :
-                                                      "restaurants";
-            TopDealsFragment.subCategory = "top_deals_" + subCategory;
-            mActivity.selectTab(1);
+                                                      "restaurants";*/
+            switch (id)
+            {
+                case R.id.entertainment:
+
+                    mActivity.selectTab(9);
+
+                    break;
+
+                case R.id.shopping:
+
+                    mActivity.selectTab(3);
+
+                    break;
+
+                case R.id.fashion:
+
+                    mActivity.selectTab(6);
+
+                    break;
+
+                case R.id.restaurants:
+
+                    mActivity.selectTab(2);
+
+                    break;
+            }
+
+            /*TopDealsFragment.subCategory = "top_deals_" + subCategory;
+            mActivity.selectTab(1);*/
         }
 
         if(id == R.id.weight_loss || id == R.id.fitness || id == R.id.beauty_tips )
