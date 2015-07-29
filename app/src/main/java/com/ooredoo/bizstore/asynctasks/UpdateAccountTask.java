@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.util.Base64;
 import android.view.View;
 
+import com.ooredoo.bizstore.AppData;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
@@ -26,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
@@ -34,30 +36,31 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
  * @author Pehlaj Rai
  * @since 03-Jul-15
  */
-public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
+public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
 
-    private static final String LOG_TAG = "PictureUploadTask";
+    private static final String LOG_TAG = "UpdateAccountTask";
 
     private MyAccountActivity myAccountActivity;
 
-    public static final String IMAGE_UPLOAD_URL = "http://203.215.183.98:10009/ooredoo/index.php/api/en/uploadpic?os=android";
+    private String name, pathProfilePic;
 
-    private String pathProfilePic;
-
-    public PictureUploadTask(MyAccountActivity accountActivity, String pathProfilePic) {
+    public UpdateAccountTask(MyAccountActivity accountActivity, String name, String pathProfilePic) {
+        this.name = name;
         this.pathProfilePic = pathProfilePic;
         this.myAccountActivity = accountActivity;
+        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
     }
 
     @Override
     protected void onPreExecute() {
+        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
         super.onPreExecute();
     }
 
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return uploadPictureToServer(pathProfilePic);
+            return updateSettings(name, pathProfilePic);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -75,9 +78,15 @@ public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
             try {
                 Logger.print("RESULT: " + result);
                 JSONObject response = new JSONObject(result);
+                int resultCode = response.has("result") ? response.getInt("result") : -1;
+                if(resultCode == 0) {
+                    AppData.userAccount.name = name;
+                }
                 String path = response.has("image") ? response.getString("image") : "";
                 Logger.logI("UPLOADED_IMG_PATH", path);
-                //TODO un-comment myAccountActivity.updateProfilePicture(path);
+                if(pathProfilePic != null) {
+                    myAccountActivity.updateProfilePicture();
+                }
             } catch(JSONException jse) {
                 jse.printStackTrace();
             }
@@ -86,29 +95,47 @@ public class PictureUploadTask extends BaseAsyncTask<Void, Void, String> {
         }
     }
 
-    private String uploadPictureToServer(String path) throws IOException {
+    /**
+     * @param name
+     * @param imagePath
+     * @return json string
+     * @throws IOException
+     */
+    private String updateSettings(String name, String imagePath) throws IOException {
 
         String result = null;
 
-        Logger.print("Image Path: " + path);
+        ArrayList<NameValuePair> params = new ArrayList<>();
 
-        byte[] bytes = getImageBytes(path);
+        String encoded_image = null;
 
-        String encoded_image = Base64.encodeToString(bytes, Base64.DEFAULT);
+        if(isNotNullOrEmpty(imagePath)) {
+            Logger.print("Image Path: " + imagePath);
 
-        Logger.print("Base64 Image: " + encoded_image);
+            byte[] bytes = getImageBytes(imagePath);
 
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<>();
+            encoded_image = Base64.encodeToString(bytes, Base64.DEFAULT);
+            Logger.print("Base64 Image: " + encoded_image);
+            params.add(new BasicNameValuePair("image", encoded_image));
+        }
 
-        nameValuePairs.add(new BasicNameValuePair("image", encoded_image));
+        Logger.print("PARAMS_LEN: " + params.size());
 
         HttpClient httpclient = new DefaultHttpClient();
 
-        HttpPost httppost = new HttpPost(IMAGE_UPLOAD_URL);
+        String url = BASE_URL + BizStore.getLanguage() + "/changesettings?os=android";
+
+        if(isNotNullOrEmpty(name)) {
+            name = URLEncoder.encode(name, ENCODING);
+            Logger.print("Name: " + name);
+            url = url + "&name=" + name;
+        }
+
+        HttpPost httppost = new HttpPost(url);
         httppost.setHeader(HTTP_X_USERNAME, BizStore.username);
         httppost.setHeader(HTTP_X_PASSWORD, BizStore.password);
 
-        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        httppost.setEntity(new UrlEncodedFormEntity(params));
 
         HttpResponse response = httpclient.execute(httppost);
 

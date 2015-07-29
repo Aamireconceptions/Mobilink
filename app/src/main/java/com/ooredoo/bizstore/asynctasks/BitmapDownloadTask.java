@@ -84,6 +84,8 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));
 
             return bitmapProcessor.decodeSampledBitmapFromStream(inputStream, width, height);
+        } catch(OutOfMemoryError outOfMemoryError) {
+            MemoryCache.getInstance().tearDown();
         }
         catch (MalformedURLException e)
         {

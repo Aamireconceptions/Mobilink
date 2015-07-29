@@ -4,7 +4,6 @@ import com.activeandroid.ActiveAndroid;
 import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import java.util.HashMap;
 
@@ -23,7 +22,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static String username = "3008351882";
 
-    public static String password = "1111";
+    public static String password = "FgVgsEOI";
 
     private final static String DEFAULT = "DEFAULT";
     private final static String MONOSPACE = "MONOSPACE";

@@ -39,6 +39,7 @@ import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.PredefinedSearchesAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
+import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -53,7 +54,6 @@ import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
@@ -143,6 +143,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         init();
 
         new SearchKeywordsTask(this).execute();
+
+        new AccountDetailsTask().execute(BizStore.username);
+
     }
 
     private void overrideFonts()
@@ -588,7 +591,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         //TODO exception
         searchPopup.dismiss();
 
-        MemoryCache.getInstance().tearDown();
+        //MemoryCache.getInstance().tearDown();
 
         Logger.print("HomeActivity onDestroy");
     }

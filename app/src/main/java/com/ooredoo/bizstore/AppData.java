@@ -2,6 +2,7 @@ package com.ooredoo.bizstore;
 
 import com.ooredoo.bizstore.model.PredefinedSearches;
 import com.ooredoo.bizstore.model.Results;
+import com.ooredoo.bizstore.model.UserAccount;
 
 /**
  * @author Pehlaj Rai
@@ -9,6 +10,8 @@ import com.ooredoo.bizstore.model.Results;
  */
 
 public final class AppData {
+
+    public static final UserAccount userAccount = new UserAccount();
 
     public static Results searchResults;
 

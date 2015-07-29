@@ -10,25 +10,28 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
-import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
-import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.profilePicture;
+import static java.lang.String.valueOf;
 
 /**
  * @author Babar
@@ -171,72 +174,20 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         profilePicture = (ImageView) navigationHeader.findViewById(R.id.dp);
 
-        //profilePicture.setMaxHeight((int) Converter.convertDpToPixels(100));
         profilePicture.setOnClickListener(this);
 
-       /* Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
+        Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
         if(bitmap != null) {
             profilePicture.setImageBitmap(bitmap);
         } else {
-            int width = (int) convertDpToPixels(160);
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            int width = (int) Converter.convertDpToPixels(100);
             int height = width;
             ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
             BitmapDownloadTask bitmapTask = new BitmapDownloadTask(profilePicture, progressBar);
-            bitmapTask.execute(PROFILE_PIC_URL, valueOf(width), valueOf(height));
-        }*/
-
-        if(User.dp != null)
-        {
-            profilePicture.setImageBitmap(User.dp);
+            bitmapTask.executeOnExecutor(executorService, PROFILE_PIC_URL, valueOf(width), valueOf(height));
         }
-        else
-        {
-            int reqWidth = (int) (Converter.convertDpToPixels(activity.getResources().getDimension(R.dimen._75sdp))
-                            / activity.getResources().getDisplayMetrics().density);
-
-            int reqHeight = (int) (Converter.convertDpToPixels(activity.getResources().getDimension(R.dimen._75sdp))
-                    / activity.getResources().getDisplayMetrics().density);
-
-            Bitmap bitmap = null;
-            try
-            {
-                bitmap = new BitmapProcessor(null).decodeSampledBitmapFromFile(AppConstant.PROFILE_PIC_URL,
-                                                                            reqWidth, reqHeight);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if(bitmap != null)
-            profilePicture.setImageBitmap(bitmap);
-
-            User.dp = bitmap;
-        }
-
-        /*
-        ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.progress_bar);
-
-        MemoryCache memoryCache = MemoryCache.getInstance();
-
-        String url = MyAccountActivity.PROFILE_PIC_URL;
-
-        Bitmap bitmap = memoryCache.getBitmapFromCache(url);
-
-        if(bitmap != null) {
-            profilePicture.setImageBitmap(bitmap);
-        } else {
-
-            Resources resources = activity.getResources();
-
-            int reqWidth = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._100sdp) / resources.getDisplayMetrics().density);
-            int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._100sdp) / resources.getDisplayMetrics().density);
-
-            Logger.print("req Width Pixels:" + reqWidth);
-            Logger.print("req Height Pixels:" + reqHeight);
-
-            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(profilePicture, progressBar);
-            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
-        }*/
     }
 
     public void setIndicatorBounds(final ExpandableListView expandableListView) {

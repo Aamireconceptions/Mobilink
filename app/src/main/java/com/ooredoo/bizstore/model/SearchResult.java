@@ -9,7 +9,7 @@ public class SearchResult {
 
     public int id, discount, views, businessId;
 
-    public String type, title, description, startDate, endDate, contact, address;
+    public String type, title, description, startDate, endDate, contact, address, location;
 
     public float rating;
 }

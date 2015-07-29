@@ -10,7 +10,7 @@ public class Business {
 
     public int id, views;
 
-    public String title, description, contact, address;
+    public String title, description, location, contact, address;
 
     public float rating;
 
@@ -27,6 +27,7 @@ public class Business {
         this.rating = result.rating;
         this.contact = result.contact;
         this.address = result.address;
+        this.location = result.location;
         this.description = result.description;
     }
 }

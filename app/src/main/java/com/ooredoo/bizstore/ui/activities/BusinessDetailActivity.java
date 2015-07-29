@@ -134,7 +134,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             ((TextView) findViewById(R.id.tv_title)).setText(business.title);
             ((TextView) findViewById(R.id.tv_contact)).setText(business.contact);
             ((TextView) findViewById(R.id.tv_address)).setText(business.address);
-            ((TextView) findViewById(R.id.tv_location)).setText(business.address);
+            ((TextView) findViewById(R.id.tv_location)).setText(business.location);
             ((RatingBar) findViewById(R.id.rating_bar)).setRating(business.rating);
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(business.views));
             //TODO business --- findViewById(R.id.iv_favorite).setSelected(src.isFavorite);

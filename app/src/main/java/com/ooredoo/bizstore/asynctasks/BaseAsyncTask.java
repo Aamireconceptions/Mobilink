@@ -23,13 +23,15 @@ import java.util.Map;
  */
 public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result>
 {
-    private final static String ENCODING = "UTF-8";
+    protected final static String ENCODING = "UTF-8";
 
-    private final static String AMPERSAND = "&";
+    protected final static String AMPERSAND = "&";
 
-    private final static String EQUAL = "=";
-    private final static String SLASH = "/";
-    private final static String QUESTION_MARK = "?";
+    protected final static String EQUAL = "=";
+    protected final static String SLASH = "/";
+    protected final static String QUESTION_MARK = "?";
+
+    public static String SERVER_URL = "http://203.215.183.98:10009/";
 
     public static String BASE_URL = "http://203.215.183.98:10009/ooredoo/index.php/api/";
 

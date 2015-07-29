@@ -50,7 +50,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/tv_location"
+                    android:id="@+id/tv_deal_discount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"

@@ -2,10 +2,10 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
@@ -14,25 +14,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
-import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.UpdateAccountTask;
 import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
-import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.StringUtils;
+import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
+import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
+import static com.ooredoo.bizstore.AppData.userAccount;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.profilePicture;
+import static com.ooredoo.bizstore.utils.Converter.convertDpToPixels;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.NAME;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import static java.lang.String.valueOf;
 
 /**
  * @author Pehlaj Rai
@@ -40,12 +48,11 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
  */
 public class MyAccountActivity extends BaseActivity implements View.OnClickListener {
 
-    public boolean hasUserSelectedPic = false;
+    boolean hasUserSelectedPic, canEditDp, canEditName;
+
     EditText etName, etNumber;
-    boolean canEditDp = false;
-    boolean canEditName = false;
+
     ImageView ivProfilePic;
-    //TODO change image path
 
     int reqWidth, reqHeight;
 
@@ -65,9 +72,8 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.iv_edit_dp).setOnClickListener(this);
         findViewById(R.id.iv_edit_name).setOnClickListener(this);
 
-        String name = getStringVal(this, NAME);
-        if(StringUtils.isNotNullOrEmpty(name)) {
-            etName.setText(name);
+        if(userAccount != null && isNotNullOrEmpty(userAccount.name)) {
+            etName.setText(userAccount.name);
         }
 
         etNumber.setText(BizStore.username);
@@ -78,28 +84,17 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void loadPicture() {
-        /*BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
-        Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        ivProfilePic.setImageBitmap(bitmap);
-        ivProfilePic.setBackground(null);*/
+        Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
-        reqWidth = getResources().getDisplayMetrics().widthPixels;
-
-        reqHeight = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._225sdp))
-                / getResources().getDisplayMetrics().density);
-
-
-        try
-        {
-            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromFile(AppConstant.PROFILE_PIC_URL,
-                                                                        reqWidth, reqHeight);
-
+        if(bitmap != null) {
             ivProfilePic.setImageBitmap(bitmap);
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
+        } else {
+            int width = (int) convertDpToPixels(225);
+            int height = width;
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            BitmapDownloadTask bitmapTask = new BitmapDownloadTask(ivProfilePic, progressBar);
+            bitmapTask.executeOnExecutor(executorService, PROFILE_PIC_URL, valueOf(width), valueOf(height));
         }
     }
 
@@ -112,16 +107,16 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             Log.i("NAME", etName.getText().toString());
             ImageView ivEdit = (ImageView) v;
             if(canEditName) {
-                etName.clearFocus();
+                etName.requestFocus();
             } else {
+                etName.clearFocus();
                 String name = etName.getText().toString();
-                if(StringUtils.isNotNullOrEmpty(name)) {
+                if(isNotNullOrEmpty(name)) {
                     isValidName = true;
                     updateVal(this, NAME, name);
-                } else {
-
+                    UpdateAccountTask uploadTask = new UpdateAccountTask(this, name, null);
+                    uploadTask.execute();
                 }
-                etName.requestFocus();
             }
 
             if(canEditName || isValidName) {
@@ -138,7 +133,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 takePicture();
             } else {
                 if(hasUserSelectedPic) {
-                    //TODO upload picture to server
+                    uploadImageToServer(path);
                 } else {
                     makeText(getApplicationContext(), "Please select picture", LENGTH_SHORT).show();
                 }
@@ -146,83 +141,47 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    String path = "/storage/emulated/0/obs_user_dp.png";
+
     public void takePicture() {
         Log.i("camera", "startCameraActivity()");
-        File file = new File(AppConstant.PROFILE_PIC_URL);
+        File file = new File(path);
         Uri outputFileUri = Uri.fromFile(file);
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        intent.putExtra("return-data", true);
         startActivityForResult(intent, 1);
     }
 
-    public void selectPicture() {
-        File file = new File(AppConstant.PROFILE_PIC_URL);
-        Uri outputFileUri = Uri.fromFile(file);
-        final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.setType("image/*");
-        intent.setAction(Intent.EXTRA_INITIAL_INTENTS);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        startActivityForResult(intent, 2);
-    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, intent);
 
-        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("RequestCode: " + requestCode, "resultCode: " + resultCode);
 
-        if(requestCode == 2 && resultCode == RESULT_OK && null != data) {
+        hasUserSelectedPic = true;
 
-            hasUserSelectedPic = true;
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        if(resultCode == RESULT_OK && null != intent) {
 
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
+            Uri selectedImage = intent.getData();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            path = selectedImage.getPath();
 
-            String path = cursor.getString(columnIndex);
+            Log.i("PIC", path);
 
-            cursor.close();
-
-            Logger.print("PIC" + path);
-
-            try
-            {
-                reqWidth = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
-                        / getResources().getDisplayMetrics().density);
-
-                reqHeight = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
-                        / getResources().getDisplayMetrics().density);
-
-                Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromFile(path, reqWidth, reqHeight);
-                ivProfilePic.setImageBitmap(bitmap);
-
-                User.dp = bitmap;
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-
-            /*Bitmap bitmap = BitmapFactory.decodeFile(path);
-            ivProfilePic.setBackground(null);
-            ivProfilePic.setImageBitmap(bitmap);
-            profilePicture.setImageBitmap(bitmap);
-            profilePicture.setBackground(null);
-
-            User.dp = bitmap;*/
         } else {
 
-            Logger.print("SonaSys: resultCode: " + resultCode);
             switch(resultCode) {
                 case 0:
-                    Logger.print("SonaSys: User cancelled");
+                    hasUserSelectedPic = false;
+                    Log.i("SonaSys", "User cancelled");
                     break;
                 case -1:
-                    onPhotoTaken(AppConstant.PROFILE_PIC_URL);
+                    //isCropEnabled = true;
+                    Bitmap bitmap = decodeFile(path);
+                    ivProfilePic.setImageBitmap(bitmap);
+                    profilePicture.setImageBitmap(bitmap);
                     break;
             }
         }
@@ -244,10 +203,10 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
         try
         {
-            reqWidth = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
+            reqWidth = (int) (convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
                     / getResources().getDisplayMetrics().density);
 
-            reqHeight = (int) (Converter.convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
+            reqHeight = (int) (convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
                     / getResources().getDisplayMetrics().density);
 
             Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromFile(path, reqWidth, reqHeight);
@@ -262,10 +221,96 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    public void uploadImageToServer(String path) {
+        Logger.print("IMG_PATH: " + path);
+        findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+        String name = getStringVal(this, NAME);
+        UpdateAccountTask uploadTask = new UpdateAccountTask(this, name, path);
+        uploadTask.execute();
+    }
+
     private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void updateProfilePicture() {
+
+        MemoryCache memoryCache = MemoryCache.getInstance();
+        memoryCache.tearDown();
+
+        loadPicture();
+
+        Bitmap dpBitmap = memoryCache.getBitmapFromCache(PROFILE_PIC_URL);
+
+        if(dpBitmap != null) {
+            profilePicture.setImageBitmap(dpBitmap);
+        } else {
+            int reqWidth = (int) convertDpToPixels(225);
+            int reqHeight = reqWidth;
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(profilePicture, null);
+            bitmapDownloadTask.executeOnExecutor(executorService, PROFILE_PIC_URL, valueOf(reqWidth), valueOf(reqHeight));
+        }
+    }
+
+    public static Bitmap decodeFile(String path) {
+        int orientation;
+        try {
+            if(path == null) {
+                return null;
+            }
+            // decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            // Find the correct scale value. It should be the power of 2.
+            final int REQUIRED_SIZE = 70;
+            int width_tmp = o.outWidth, height_tmp = o.outHeight;
+            int scale = 1;
+
+            // decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            Bitmap bm = BitmapFactory.decodeFile(path, o2);
+            Bitmap bitmap = bm;
+
+            ExifInterface exif = new ExifInterface(path);
+
+            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            Log.e("ExifInteface .........", "rotation =" + orientation);
+
+            // exif.setAttribute(ExifInterface.ORIENTATION_ROTATE_90, 90);
+
+            Log.e("orientation", "" + orientation);
+            Matrix m = new Matrix();
+
+            if((orientation == ExifInterface.ORIENTATION_ROTATE_180)) {
+                m.postRotate(180);
+                // m.postScale((float) bm.getWidth(), (float) bm.getHeight());
+                // if(m.preRotate(90)){
+                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
+                return bitmap;
+            } else if(orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+                m.postRotate(90);
+                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
+                return bitmap;
+            } else if(orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+                m.postRotate(270);
+                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
+                return bitmap;
+            }
+            return bitmap;
+        } catch(OutOfMemoryError e) {
+            MemoryCache.getInstance().tearDown();
+            return null;
+        } catch(IOException ioe) {
+            return null;
+        }
     }
 }

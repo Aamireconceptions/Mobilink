@@ -151,12 +151,14 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ((TextView) findViewById(R.id.tv_contact)).setText(deal.contact);
             ((TextView) findViewById(R.id.tv_deal_desc)).setText(deal.description);
             ((TextView) findViewById(R.id.tv_address)).setText(deal.address);
-            ((TextView) findViewById(R.id.tv_location)).setText(deal.address);
             ((TextView) findViewById(R.id.tv_category)).setText(deal.category);
             ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(deal.views));
-            ((TextView) findViewById(R.id.tv_discount)).setText(valueOf(deal.discount)
-                    + getString(R.string.percentage_off));
+
+            String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
+            ((TextView) findViewById(R.id.tv_discount)).setText(discount);
+            ((TextView) findViewById(R.id.tv_deal_discount)).setText(discount);
+
             src.isFavorite = Deal.isFavorite(id);
             findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
