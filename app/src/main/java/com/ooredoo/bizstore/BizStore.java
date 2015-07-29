@@ -43,7 +43,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
         ActiveAndroid.initialize(this);
 
-        overrideDefaultFonts();
+       // overrideDefaultFonts();
 
        /* setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler()
         {
@@ -59,9 +59,12 @@ public class BizStore extends com.activeandroid.app.Application {
     {
         FontUtils.setDefaultFont(this,
                                  DEFAULT, language.equals("en") ? DEFAULT_FONT : ARABIC_DEFAULT_FONT);
-        FontUtils.setDefaultFont(this, MONOSPACE, MONOSPACE_FONT);
-        FontUtils.setDefaultFont(this, SERIF, SERIF_FONT);
-        FontUtils.setDefaultFont(this, SANS_SERIF, SANS_SERIF_FONT);
+        FontUtils.setDefaultFont(this,
+                                 MONOSPACE, language.equals("en") ? MONOSPACE_FONT : ARABIC_DEFAULT_FONT);
+        FontUtils.setDefaultFont(this,
+                                 SERIF, language.equals("en") ? SERIF_FONT : ARABIC_DEFAULT_FONT);
+        FontUtils.setDefaultFont(this,
+                                 SANS_SERIF, language.equals("en") ? SANS_SERIF_FONT : ARABIC_DEFAULT_FONT);
     }
 
 

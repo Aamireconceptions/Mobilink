@@ -135,9 +135,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         super.onCreate(savedInstanceState);
 
         Logger.print("HomeActivity onCreate");
+        overrideFonts();
         setContentView(R.layout.activity_home);
 
-        overrideFonts();
+
 
         init();
 
