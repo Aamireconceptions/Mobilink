@@ -54,15 +54,15 @@
             android:src="@drawable/horizontal_separator"/>
 
         <TextView
-            android:id="@+id/jokes"
+            android:id="@+id/kids_activities"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingTop="@dimen/_10sdp"
-            android:drawableTop="@drawable/jokes"
+            android:drawableTop="@drawable/kids_activities"
             android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/jokes"
+            android:text="@string/Kids_Activities"
             android:textColor="@color/home_category_item"/>
 
     </LinearLayout>

@@ -190,5 +190,6 @@
     <string name="error_server_down">Server is down at the moment. Please try again later.</string>
     <string name="skip">Skip</string>
     <string name="All">كل</string>
+    <string name="hot_deals">عروض خاصة</string>
 
 </resources>

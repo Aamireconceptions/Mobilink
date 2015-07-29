@@ -16,15 +16,15 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/weight_loss"
+            android:id="@+id/salons"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingTop="@dimen/_10sdp"
-            android:drawableTop="@drawable/weight"
+            android:drawableTop="@drawable/saloons"
             android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/weight_loss"
+            android:text="@string/Salons"
             android:textColor="@color/home_category_item"/>
 
         <ImageView
@@ -36,15 +36,15 @@
             android:src="@drawable/horizontal_separator"/>
 
         <TextView
-            android:id="@+id/fitness"
+            android:id="@+id/lodging"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingTop="@dimen/_10sdp"
-            android:drawableTop="@drawable/fitness"
+            android:drawableTop="@drawable/lodging"
             android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/fitness"
+            android:text="@string/Lodging"
             android:textColor="@color/home_category_item"/>
 
         <ImageView
@@ -56,15 +56,15 @@
             android:src="@drawable/horizontal_separator"/>
 
         <TextView
-            android:id="@+id/beauty_tips"
+            android:id="@+id/spas"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingTop="@dimen/_10sdp"
-            android:drawableTop="@drawable/hairstyle"
+            android:drawableTop="@drawable/spas"
             android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/beauty_tips"
+            android:text="@string/Spas"
             android:textColor="@color/home_category_item"/>
 
     </LinearLayout>

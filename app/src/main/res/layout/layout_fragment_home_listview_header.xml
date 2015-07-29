@@ -25,14 +25,14 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/top_deals"
+        android:id="@+id/hot_deals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_12sdp"
         android:paddingBottom="@dimen/_12sdp"
         android:paddingLeft="@dimen/_18sdp"
         android:paddingRight="@dimen/_18sdp"
-        android:text="@string/top_deals"
+        android:text="@string/hot_deals"
         android:textSize="16sp"
         android:textAllCaps="true"
         android:typeface="serif"
@@ -84,21 +84,21 @@
         android:background="@color/home_pager_bg"/>
 
     <TextView
-        android:id="@+id/health_fitness"
+        android:id="@+id/hotels_spas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_12sdp"
         android:paddingBottom="@dimen/_12sdp"
         android:paddingLeft="@dimen/_18sdp"
         android:paddingRight="@dimen/_18sdp"
-        android:text="@string/health_fitness"
+        android:text="@string/hotels_spa"
         android:textSize="16sp"
         android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
         android:background="@color/home_heading_bg"/>
 
-    <include layout="@layout/layout_horizontal_health_fitness"/>
+    <include layout="@layout/layout_horizontal_hotels_spas"/>
 
     <TextView
         android:id="@+id/top_malls"

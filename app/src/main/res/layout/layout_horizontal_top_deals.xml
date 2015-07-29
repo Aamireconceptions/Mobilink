@@ -55,16 +55,16 @@
             android:src="@drawable/horizontal_separator"/>
 
         <TextView
-            android:id="@+id/fashion"
+            android:id="@+id/electronics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
             android:layout_marginLeft="@dimen/_1sdp"
-            android:drawableTop="@drawable/fashion"
+            android:drawableTop="@drawable/electronics"
             android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/fashion"
+            android:text="@string/electronics"
             android:textColor="@color/home_category_item"/>
 
         <ImageView

@@ -31,6 +31,8 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+
 public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeListener,
                                                                OnRefreshListener,
                                                                OnDealsTaskFinishedListener,
@@ -51,6 +53,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     private ListView listView;
 
     private boolean isCreated = false;
+
+    public static String subCategory;
 
     public static HotelsAndSpasFragment newInstance()
     {
@@ -115,6 +119,12 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     private void fetchAndDisplayHotelsAndSpas()
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+
+        if(isNotNullOrEmpty(subCategory)) {
+            DealsTask.subCategories = subCategory;
+            subCategory = ""; //Reset sub category filter.
+        }
+
         dealsTask.execute("hotels_spas");
     }
 

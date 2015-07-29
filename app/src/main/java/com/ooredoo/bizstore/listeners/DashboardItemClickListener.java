@@ -6,6 +6,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
+import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 import com.ooredoo.bizstore.ui.fragments.SportsAndFitnessFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 
@@ -30,11 +31,11 @@ public class DashboardItemClickListener implements View.OnClickListener {
         int id = v.getId();
 
         if(id == R.id.entertainment || id == R.id.shopping ||
-           id == R.id.fashion || id == R.id.restaurants)
+           id == R.id.electronics || id == R.id.restaurants)
         {
             /*String subCategory = id == R.id.entertainment ? "entertainment" :
-                                 id == R.id.shopping ? "shopping" :
-                                 id == R.id.fashion ? "fashion" :
+                                   id == R.id.shopping ? "shopping" :
+                                   id == R.id.fashion ? "fashion" :
                                                       "restaurants";*/
             switch (id)
             {
@@ -50,9 +51,9 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
                     break;
 
-                case R.id.fashion:
+                case R.id.electronics:
 
-                    mActivity.selectTab(6);
+                    mActivity.selectTab(4);
 
                     break;
 
@@ -67,17 +68,17 @@ public class DashboardItemClickListener implements View.OnClickListener {
             mActivity.selectTab(1);*/
         }
 
-        if(id == R.id.weight_loss || id == R.id.fitness || id == R.id.beauty_tips )
+        if(id == R.id.salons || id == R.id.lodging || id == R.id.spas )
         {
-            String subCategory = id == R.id.weight_loss ? "weight_loss" :
-                    id == R.id.fitness ? "fitness" :
-                                         "beauty_tips";
+            String subCategory = id == R.id.salons ? "salons" :
+                                 id == R.id.lodging ? "lodging" :
+                                         "spas";
 
-            SportsAndFitnessFragment.subCategory = "health_fitness_" + subCategory;
-            mActivity.selectTab(11);
+            HotelsAndSpasFragment.subCategory = "hotels_spas" + subCategory;
+            mActivity.selectTab(5);
         }
 
-        if(id == R.id.events || id == R.id.movie_tickets || id == R.id.jokes)
+        if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities)
         {
             String subCategory = id == R.id.events ? "events" : id == R.id.movie_tickets ? "cinemas" : "kids_activities";
             EntertainmentFragment.subCategory = "entertainment_" + subCategory;

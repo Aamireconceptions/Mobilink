@@ -89,14 +89,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         setDashboardItemsClickListener(header);
 
-        TextView tvTopDeals = (TextView) header.findViewById(R.id.top_deals);
-        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvTopDeals);
+        TextView tvHotDeals = (TextView) header.findViewById(R.id.hot_deals);
+        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvHotDeals);
 
         TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
         FontUtils.setFont(activity, BizStore.SERIF_FONT, tvTopBrands);
 
-        TextView tvHealthFitness = (TextView) header.findViewById(R.id.health_fitness);
-        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvHealthFitness);
+        TextView tvHotelsAndSpas = (TextView) header.findViewById(R.id.hotels_spas);
+        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvHotelsAndSpas);
 
         TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
         FontUtils.setFont(activity, BizStore.SERIF_FONT, tvTopMalls);
@@ -130,14 +130,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         parent.findViewById(R.id.entertainment).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.shopping).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.fashion).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.electronics).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.restaurants).setOnClickListener(dashboardItemClickListener);
 
-        parent.findViewById(R.id.weight_loss).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.fitness).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.beauty_tips).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.salons).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.lodging).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.spas).setOnClickListener(dashboardItemClickListener);
 
-        parent.findViewById(R.id.jokes).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.kids_activities).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.events).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.movie_tickets).setOnClickListener(dashboardItemClickListener);
     }
