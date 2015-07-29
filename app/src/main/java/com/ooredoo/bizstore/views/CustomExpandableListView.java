@@ -2,28 +2,16 @@ package com.ooredoo.bizstore.views;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
-import android.view.View;
+import android.util.TypedValue;
 import android.widget.ExpandableListView;
 
-import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.model.NavigationItem;
-import com.ooredoo.bizstore.utils.NavigationMenuUtils;
-
-import java.util.HashMap;
-import java.util.List;
-
 /**
- * Created by Babar on 23-Jul-15.
+ * @author Babar
+ * @since 23-Jul-15.
  */
 public class CustomExpandableListView extends ExpandableListView
 {
-    int groupPos, childPos, groupId;
-
-
-
-
     public CustomExpandableListView(Context context)
     {
         super(context);
@@ -36,7 +24,14 @@ public class CustomExpandableListView extends ExpandableListView
 
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
 
-        widthMeasureSpec = MeasureSpec.makeMeasureSpec(displayMetrics.widthPixels, MeasureSpec.EXACTLY);
+        float screenWidth = displayMetrics.widthPixels / Resources.getSystem().getDisplayMetrics().density;
+        float navWidth = screenWidth - 56;
+
+        navWidth = Math.min(navWidth, 320);
+
+        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, navWidth, displayMetrics);
+
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
 
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(displayMetrics.heightPixels + extraBuffer, MeasureSpec.AT_MOST);
 
