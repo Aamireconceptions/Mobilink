@@ -174,11 +174,11 @@
     <string name="Hypermarkets">Hypermarkets</string>
     <string name="Malls">Malls</string>
     <string name="Show_Rooms">Show Rooms</string>
-    <string name="Accessories">Accessories</string>
-    <string name="Services">Services</string>
-    <string name="Events">Events</string>
+    <string name="Accessories">إكسسوارات</string>
+    <string name="Services">الخدمات</string>
+    <string name="Events">أحداث</string>
     <string name="Kids_Activities"><![CDATA[Kids & Activities]]></string>
-    <string name="Cinemas">Cinemas</string>
+    <string name="Cinemas">دور السينما</string>
     <string name="Gold_Rate">Gold Rate</string>
     <string name="Currency">Currency</string>
     <string name="Clothing">Clothing</string>
