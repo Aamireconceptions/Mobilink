@@ -32,5 +32,18 @@ public class ScrollListener implements AbsListView.OnScrollListener
                                       : view.getChildAt(0).getTop();
 
         homeActivity.setSwipeRefreshLayoutEnabled(topRowVerticalPosition >= 0);
+/*Logger.print("onScroll");
+        boolean enabled = false;
+
+        if(view != null && view.getChildCount() > 0)
+        {
+            boolean firstItemVisible = view.getFirstVisiblePosition() == 0;
+
+            boolean topOfFistItemVisible = view.getChildAt(0).getTop() == 0;
+
+            enabled = firstItemVisible && topOfFistItemVisible;
+        }
+
+        homeActivity.setSwipeRefreshLayoutEnabled(enabled);*/
     }
 }

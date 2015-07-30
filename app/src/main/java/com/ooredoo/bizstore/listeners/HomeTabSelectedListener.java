@@ -55,6 +55,8 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
     public void onTabUnselected(TabLayout.Tab tab) {
         //DealsTask.sortColumn = "createdate";
         //DealsTask.subCategories = "";
+
+
     }
 
     @Override

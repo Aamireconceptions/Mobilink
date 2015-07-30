@@ -26,4 +26,6 @@ public class HomeTabLayoutOnPageChangeListener extends TabLayout.TabLayoutOnPage
 
         homeActivity.setSwipeRefreshLayoutEnabled(state == ViewPager.SCROLL_STATE_IDLE);
     }
+
+
 }

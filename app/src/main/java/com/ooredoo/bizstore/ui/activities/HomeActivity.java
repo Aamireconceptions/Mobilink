@@ -136,16 +136,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         Logger.print("HomeActivity onCreate");
         overrideFonts();
+
         setContentView(R.layout.activity_home);
-
-
 
         init();
 
         new SearchKeywordsTask(this).execute();
 
         new AccountDetailsTask().execute(BizStore.username);
-
     }
 
     private void overrideFonts()
