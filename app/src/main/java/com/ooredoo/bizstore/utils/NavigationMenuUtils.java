@@ -145,10 +145,6 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         HomeActivity homeActivity = (HomeActivity) activity;
 
-        //TODO remove following comment to enable arabic/english version
-        /*LanguageChangeListener languageChangeListener = new LanguageChangeListener(homeActivity, navigationHeader);
-        languageChangeListener.expandableListView = expandableListView;*/
-
         NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
 
         Button btEnglish = (Button) navigationHeader.findViewById(R.id.btn_lang_english);

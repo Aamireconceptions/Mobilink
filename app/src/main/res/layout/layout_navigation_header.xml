@@ -20,7 +20,7 @@
                 android:id="@+id/dp"
                 android:layout_width="@dimen/_75sdp"
                 android:layout_height="@dimen/_75sdp"
-                android:src="@drawable/tmp_profile"/>
+                android:src="@drawable/bg_profile"/>
 
             <ProgressBar
                 android:id="@+id/pbProfilePic"
