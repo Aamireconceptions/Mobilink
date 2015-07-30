@@ -47,7 +47,8 @@ public class MyDealsActivity extends AppCompatActivity {
         boolean isEmpty = count == 0;
         findViewById(R.id.list_view).setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         findViewById(R.id.no_data_view).setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-        ((TextView) findViewById(R.id.tv_no_data)).setText("No favorite item found.");
+        String msg = getString(R.string.no_fav_item);
+        ((TextView) findViewById(R.id.tv_no_data)).setText(msg);
         ((ImageView) findViewById(R.id.ic_no_data)).setImageResource(R.drawable.ic_fav_deals);
     }
 

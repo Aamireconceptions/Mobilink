@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -107,35 +108,39 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             Log.i("NAME", etName.getText().toString());
             ImageView ivEdit = (ImageView) v;
             if(canEditName) {
-                etName.requestFocus();
+                etName.performClick();
             } else {
-                etName.clearFocus();
+                //etName.clearFocus();
                 String name = etName.getText().toString();
                 if(isNotNullOrEmpty(name)) {
                     isValidName = true;
                     updateVal(this, NAME, name);
                     UpdateAccountTask uploadTask = new UpdateAccountTask(this, name, null);
                     uploadTask.execute();
+                } else {
+                    String msg = getString(R.string.provide_name);
+                    Snackbar.make(etName, msg, Snackbar.LENGTH_SHORT).show();
                 }
             }
 
             if(canEditName || isValidName) {
                 etName.setFocusable(canEditName);
                 etName.setFocusableInTouchMode(canEditName);
-                ivEdit.setImageResource(canEditName ? R.drawable.ic_done_white : R.drawable.ic_edit_grey);
+                ivEdit.setImageResource(canEditName ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
             }
 
         } else if(viewId == R.id.iv_edit_dp) {
             canEditDp = !canEditDp;
             ImageView ivEdit = (ImageView) v;
-            ivEdit.setImageResource(canEditDp ? R.drawable.ic_done_white : R.drawable.ic_edit_grey);
+            ivEdit.setImageResource(canEditDp ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
             if(canEditDp) {
                 takePicture();
             } else {
                 if(hasUserSelectedPic) {
                     uploadImageToServer(path);
                 } else {
-                    makeText(getApplicationContext(), "Please select picture", LENGTH_SHORT).show();
+                    String msg = getString(R.string.select_pic);
+                    makeText(getApplicationContext(), msg, LENGTH_SHORT).show();
                 }
             }
         }

@@ -17,7 +17,7 @@
         android:layout_below="@+id/toolbar"
         android:background="@color/white"
         android:padding="16dp"
-        android:text="@string/sms_charges"/>
+        android:text="@string/notification_text"/>
 
     <RelativeLayout
         android:id="@+id/rl_select_all"

@@ -32,5 +32,6 @@ public class HelpActivity extends BaseActivity {
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setShowHideAnimationEnabled(false);
+        mActionBar.setTitle(getString(R.string.help));
     }
 }

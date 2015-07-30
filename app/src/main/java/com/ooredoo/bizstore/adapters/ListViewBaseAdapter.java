@@ -159,6 +159,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         holder.tvDetail.setText(deal.description);
 
+        if(deal.discount == 0) {
+            holder.tvDiscount.setVisibility(View.GONE);
+        }
         holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {

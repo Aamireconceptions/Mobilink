@@ -111,9 +111,12 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
         if(id > 0) {
-            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
             DealDetailTask dealDetailTask = new DealDetailTask(this, null);
             dealDetailTask.execute(String.valueOf(id));
+        }
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        if(progressBar != null) {
+            progressBar.setVisibility(View.GONE);
         }
         ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
@@ -147,6 +150,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             incrementViewsTask.execute();
             mActionBar.setTitle(deal.title);
             scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+
+            if(isNotNullOrEmpty(deal.category) && category.contains(".")) {
+                category = category.replace(".", ",");
+            }
             ((TextView) findViewById(R.id.tv_title)).setText(deal.title);
             ((TextView) findViewById(R.id.tv_contact)).setText(deal.contact);
             ((TextView) findViewById(R.id.tv_deal_desc)).setText(deal.description);
@@ -219,8 +226,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ratingDialog = showRatingDialog(this, "deals", id);
         } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {
             if(src != null && isNotNullOrEmpty(src.contact)) {
+                String phoneNumber = src.contact.trim();
+                if(phoneNumber.contains(","))
+                    phoneNumber = phoneNumber.split(",")[0].trim();
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse(DIALER_PREFIX.concat(src.contact)));
+                intent.setData(Uri.parse(DIALER_PREFIX.concat(phoneNumber)));
                 startActivity(intent);
             } else {
                 makeText(getApplicationContext(), "No contact number found", LENGTH_LONG).show();

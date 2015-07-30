@@ -137,6 +137,10 @@ public class GridViewBaseAdapter extends BaseAdapter
             }
         }
 
+        if(deal.discount == 0) {
+            holder.tvDiscount.setVisibility(View.GONE);
+        }
+
         holder.tvTitle.setText(deal.title);
         holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 

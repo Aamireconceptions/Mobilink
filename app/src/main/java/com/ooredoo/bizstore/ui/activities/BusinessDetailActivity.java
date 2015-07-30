@@ -111,7 +111,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             BusinessDetailTask detailTask = new BusinessDetailTask(this, null);
             detailTask.execute(String.valueOf(id));
         }
-
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        if(progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
         findViewById(R.id.tv_call).setOnClickListener(this);
         findViewById(R.id.iv_call).setOnClickListener(this);
         findViewById(R.id.tv_rate).setOnClickListener(this);
@@ -182,8 +185,11 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             ratingDialog = showRatingDialog(this, "business", id);
         } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {
             if(src != null && isNotNullOrEmpty(src.contact)) {
+                String phoneNumber = src.contact.trim();
+                if(phoneNumber.contains(","))
+                    phoneNumber = phoneNumber.split(",")[0].trim();
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse(DIALER_PREFIX.concat(src.contact)));
+                intent.setData(Uri.parse(DIALER_PREFIX.concat(phoneNumber)));
                 startActivity(intent);
             } else {
                 makeText(getApplicationContext(), "No contact number found", LENGTH_LONG).show();

@@ -71,7 +71,8 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         boolean noSearchItemFound = count == 0;
         findViewById(R.id.list_view).setVisibility(noSearchItemFound ? View.GONE : View.VISIBLE);
         findViewById(R.id.no_data_view).setVisibility(noSearchItemFound ? View.VISIBLE : View.GONE);
-        ((TextView) findViewById(R.id.tv_no_data)).setText("No recent viewed item found.");
+        String msg = getString(R.string.no_recent_item);
+        ((TextView) findViewById(R.id.tv_no_data)).setText(msg);
         ((ImageView) findViewById(R.id.ic_no_data)).setImageResource(R.drawable.recent_viewed);
     }
 
