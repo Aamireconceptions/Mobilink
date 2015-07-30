@@ -53,6 +53,7 @@ import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
+import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
@@ -75,7 +76,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                                                                TextView.OnEditorActionListener,
                                                                SwipeRefreshLayout.OnRefreshListener,
                                                                OnSubCategorySelectedListener{
-    public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
     private DrawerChangeListener mDrawerListener = new DrawerChangeListener(this);
@@ -138,7 +138,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         overrideFonts();
         setContentView(R.layout.activity_home);
 
-
+        CategoryUtils.setUpSubCategories(this);
 
         init();
 
