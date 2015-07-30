@@ -164,7 +164,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
        // ExpandableListView expandableListView = new ExpandableListView(context);
 
-        if((groupPosition == 0 && childPosition == 0 || childPosition == 7))
+        if((groupPosition == 0 && childPosition == 0 || childPosition == 7) || groupPosition == 1)
         {
              /*if(convertView == null)
             {
