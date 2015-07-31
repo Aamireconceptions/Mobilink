@@ -53,6 +53,7 @@ import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
+import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
@@ -138,14 +139,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         overrideFonts();
         setContentView(R.layout.activity_home);
 
-
+        CategoryUtils.setUpSubCategories(this);
 
         init();
+
+        registeredWithGcmIfRequired();
 
         new SearchKeywordsTask(this).execute();
 
         new AccountDetailsTask().execute(BizStore.username);
-
     }
 
     private void overrideFonts()
@@ -293,6 +295,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
 
         subCategoryChangeListener = new SubCategoryChangeListener(this);
+    }
+
+    private void registeredWithGcmIfRequired()
+    {
+
     }
 
     public void setRatingEnabled(boolean enabled) {

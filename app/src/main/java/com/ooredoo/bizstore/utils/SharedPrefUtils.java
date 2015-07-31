@@ -34,7 +34,20 @@ public class SharedPrefUtils {
     public static final String SPRTR = ":::";
     public static final String DOUBLE_SPRTR = "::::::";
 
+
+
+    private final static String IS_GCM_REGISTERED = "is_gcm_registered";
+
     public static SharedPreferences sharedPreferences;
+
+    private SharedPreferences.Editor editor;
+
+    public SharedPrefUtils(Context context)
+    {
+        sharedPreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        editor = sharedPreferences.edit();
+    }
 
     public static boolean getBooleanVal(Activity activity, final String KEY) {
         try {
@@ -225,5 +238,16 @@ public class SharedPrefUtils {
     public static boolean checkIfUpdateData(Activity activity, String KEY) {
         long tmp = getLongVal(activity, KEY);
         return tmp == 0 || (currentTimeMillis() - tmp) > CACHE_TIME;
+    }
+
+    public void setGCMRegistered(boolean state)
+    {
+        editor.putBoolean(IS_GCM_REGISTERED, state);
+        editor.commit();
+    }
+
+    public static boolean isGCMRegistered()
+    {
+        return sharedPreferences.getBoolean(IS_GCM_REGISTERED, false);
     }
 }
