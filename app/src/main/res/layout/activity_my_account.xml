@@ -107,6 +107,7 @@
             android:layout_below="@+id/et_number"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:gravity="center"
             android:text="@string/share_app_with_friends"
             android:textSize="12sp"/>
