@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
@@ -30,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
@@ -54,6 +57,7 @@ import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
@@ -91,6 +95,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public ActionBar mActionBar;
 
     Menu mMenu;
+    MenuItem loaderItem;
 
     public AutoCompleteTextView acSearch;
 
@@ -315,6 +320,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
         mMenu = menu;
+        loaderItem = mMenu.findItem(R.id.action_loading);
+        loaderItem.setActionView(R.layout.loader);
+        loaderItem.setVisible(false);
         return true;
     }
 
@@ -595,11 +603,36 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //TODO exception
-        searchPopup.dismiss();
+
+        if(searchPopup != null && searchPopup.isShowing())
+            searchPopup.dismiss();
 
         //MemoryCache.getInstance().tearDown();
 
         Logger.print("HomeActivity onDestroy");
+    }
+
+    public void showLoader() {
+        if(loaderItem != null) {
+            loaderItem.setVisible(true);
+            ProgressBar pb = (ProgressBar) loaderItem.getActionView().findViewById(R.id.progressBar);
+            pb.setVisibility(View.VISIBLE);
+            Animation rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+            pb.startAnimation(rotateAnimation);
+            ViewGroup.LayoutParams params = pb.getLayoutParams();
+            int bounds = (int) Converter.convertDpToPixels(24);
+            params.width = bounds;
+            params.height = bounds;
+            pb.setLayoutParams(params);
+        }
+    }
+
+    public void hideLoader() {
+        if(loaderItem != null) {
+            ProgressBar pb = (ProgressBar) loaderItem.getActionView().findViewById(R.id.progressBar);
+            pb.setVisibility(View.GONE);
+            pb.clearAnimation();
+            loaderItem.setVisible(false);
+        }
     }
 }

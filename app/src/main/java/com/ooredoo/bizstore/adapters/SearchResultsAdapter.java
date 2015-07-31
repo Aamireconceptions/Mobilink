@@ -84,6 +84,9 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
         holder.tvViews.setText(valueOf(result.views));
         holder.tvDiscount.setText(String.valueOf(result.discount)
                                   + mActivity.getString(R.string.percentage_off));
+        if(result.discount == 0) {
+            holder.tvDiscount.setVisibility(View.GONE);
+        }
 
         holder.ratingBar.setRating(result.rating);
 

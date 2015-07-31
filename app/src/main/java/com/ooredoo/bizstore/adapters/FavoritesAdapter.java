@@ -75,7 +75,7 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
         String category = deal.category;
         holder.tvCategory.setText(category);
 
-        int categoryIcon = ResourceUtils.getDrawableResId(mActivity, deal.category);
+        int categoryIcon = ResourceUtils.getDrawableResId(deal.category);
         if(categoryIcon > 0) {
             holder.ivCategory.setImageResource(categoryIcon);
         }
@@ -83,6 +83,11 @@ public class FavoritesAdapter extends ArrayAdapter<Deal> {
         holder.tvDesc.setText(deal.description);
         holder.tvTitle.setText(deal.title);
         holder.tvViews.setText(valueOf(deal.views));
+
+        if(deal.discount == 0) {
+            holder.tvDiscount.setVisibility(View.GONE);
+        }
+
         holder.tvDiscount.setText(String.valueOf(deal.discount) +
                                   getContext().getString(R.string.percentage_off));
 

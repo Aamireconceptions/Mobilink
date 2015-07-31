@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,21 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.DemoPagerAdapter;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
-import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FragmentUtils;
-import com.ooredoo.bizstore.utils.SharedPrefUtils;
+
+import static com.ooredoo.bizstore.adapters.DemoPagerAdapter.SLIDE_COUNT;
 
 /**
- * Created by Babar on 24-Jul-15.
+ * @author Babar
+ * @since 24-Jul-15.
  */
-public class DemoFragment extends Fragment implements View.OnClickListener {
+public class DemoFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private SignUpActivity signUpActivity;
 
     private Activity activity;
+
+    private TextView tvSkip;
 
     public static DemoFragment newInstance()
     {
@@ -54,11 +56,13 @@ public class DemoFragment extends Fragment implements View.OnClickListener {
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
 
+        viewPager.addOnPageChangeListener(this);
+
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.pager_indicator);
         circlePageIndicator.setViewPager(viewPager);
         circlePageIndicator.setFillColor(activity.getResources().getColor(R.color.black));
 
-        TextView tvSkip = (TextView) v.findViewById(R.id.skip);
+        tvSkip = (TextView) v.findViewById(R.id.skip);
         tvSkip.setOnClickListener(this);
     }
 
@@ -69,11 +73,27 @@ public class DemoFragment extends Fragment implements View.OnClickListener {
        // SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
 
        // signUpActivity.startActivity(HomeActivity.class);
-
+        signUpActivity.toolbar.setVisibility(View.VISIBLE);
         FragmentUtils.replaceFragment(activity,
                                       R.id.fragment_container,
                                       new SubscriptionPlansFragment(),
                                       "subscription_fragment");
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        boolean isLastSlide = position == SLIDE_COUNT - 1;
+        tvSkip.setText(isLastSlide ? R.string.NEXT : R.string.skip);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 }

@@ -55,6 +55,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
     private HashMap<String, List<NavigationItem>> childList;
     public HashMap<String, List<NavigationItem>> subChildList;
 
+    private int lastExpandedGroup = -1;
     public NavigationMenuUtils(AppCompatActivity activity, ExpandableListView expandableListView) {
         this.activity = activity;
 
@@ -392,6 +393,10 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
     @Override
     public void onGroupExpand(int groupPosition) {
+        if(lastExpandedGroup != -1 && lastExpandedGroup != groupPosition) {
+            expandableListView.collapseGroup(lastExpandedGroup);
+        }
+        lastExpandedGroup = groupPosition;
         Logger.print(groupPosition + " Expanded");
     }
 

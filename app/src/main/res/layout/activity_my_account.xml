@@ -47,7 +47,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:padding="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:src="@drawable/ic_edit_white"/>
 
         </RelativeLayout>

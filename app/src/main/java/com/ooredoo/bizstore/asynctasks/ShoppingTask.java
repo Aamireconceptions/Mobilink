@@ -88,7 +88,9 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPreExecute();
 
-        this.progressBar.setVisibility(View.VISIBLE);
+        if(progressBar != null) {
+            this.progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -98,7 +100,9 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
         homeActivity.onRefreshCompleted();
 
-        this.progressBar.setVisibility(View.GONE);
+        if(progressBar != null) {
+            this.progressBar.setVisibility(View.GONE);
+        }
 
         if(result != null)
         {

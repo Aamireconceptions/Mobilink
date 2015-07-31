@@ -144,7 +144,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             String category = deal.category;
             holder.tvCategory.setText(category);
 
-            int categoryDrawable = ResourceUtils.getDrawableResId(context, this.category);
+            int categoryDrawable = ResourceUtils.getDrawableResId(this.category);
             if(categoryDrawable > 0) {
                 holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
             }

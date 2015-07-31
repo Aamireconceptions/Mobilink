@@ -1,7 +1,5 @@
 package com.ooredoo.bizstore.utils;
 
-import android.content.Context;
-
 import com.ooredoo.bizstore.R;
 
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
@@ -11,6 +9,9 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
  * @since 26-Jun-15.
  */
 public class ResourceUtils {
+
+    public final static String TOP_DEALS = "Top Deals";
+
     public final static String FOOD_AND_DINING = "Food & Dining";
 
     public final static String SHOPPING = "Shopping";
@@ -31,10 +32,12 @@ public class ResourceUtils {
 
     public final static String SPORTS_AND_FITNESS = "Sports & Fitness";
 
-    public static int getDrawableResId(Context context, String category) {
+    public static int getDrawableResId(String category) {
 
         if(isNotNullOrEmpty(category)) {
             switch(category) {
+                case TOP_DEALS:
+                    return R.drawable.ic_top_deals;
                 case FOOD_AND_DINING:
                     return R.drawable.ic_food_dining;
                 case SHOPPING:

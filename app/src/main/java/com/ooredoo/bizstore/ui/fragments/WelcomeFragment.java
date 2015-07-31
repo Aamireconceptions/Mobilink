@@ -6,7 +6,6 @@ import android.view.View;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
-import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 /**
@@ -39,7 +38,7 @@ public class WelcomeFragment extends BaseFragment {
         /*FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container,
                                         DemoFragment.newInstance(), "demo_fragment");*/
 
-         SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
+        SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
 
         SignUpActivity activity = (SignUpActivity) mActivity;
         activity.startActivity(HomeActivity.class);

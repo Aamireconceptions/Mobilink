@@ -1,12 +1,14 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -31,6 +33,8 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
     private final static String SERVICE_NAME = "/promotionaldeals?";
 
+    CirclePageIndicator circlePageIndicator;
+
     public PromoTask(HomeActivity activity, PromoStatePagerAdapter adapter, ViewPager viewPager)
     {
         this.activity = activity;
@@ -38,6 +42,10 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
         this.adapter = adapter;
 
         this.viewPager = viewPager;
+    }
+
+    public void setIndicator(CirclePageIndicator circlePageIndicator) {
+        this.circlePageIndicator = circlePageIndicator;
     }
 
     @Override
@@ -78,6 +86,12 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
                 viewPager.setBackground(null);
 
                 deals = response.deals;
+            }
+
+            if(deals.size() > 1) {
+                circlePageIndicator.setVisibility(View.VISIBLE);
+            } else {
+                circlePageIndicator.setVisibility(View.GONE);
             }
 
             for(GenericDeal genericDeal : deals)

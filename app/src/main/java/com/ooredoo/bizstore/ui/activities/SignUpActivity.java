@@ -9,8 +9,6 @@ import android.view.View;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.DemoFragment;
-import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
-import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static com.ooredoo.bizstore.utils.FragmentUtils.addFragmentWithBackStack;
 
@@ -60,14 +58,18 @@ public class SignUpActivity extends BaseActivity {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
             if(mFragmentManager.getBackStackEntryCount() > 1) {
                 mFragmentManager.popBackStack();
-                if(isWelcomeScreen)
-                    isWelcomeScreen = false;
-                toolbar.setVisibility(isWelcomeScreen ? View.GONE : View.VISIBLE);
+                toggleToolbar();
                 return true;
             } else {
                 startActivity(MainActivity.class);
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void toggleToolbar() {
+        if(isWelcomeScreen)
+            isWelcomeScreen = false;
+        toolbar.setVisibility(isWelcomeScreen ? View.GONE : View.VISIBLE);
     }
 }

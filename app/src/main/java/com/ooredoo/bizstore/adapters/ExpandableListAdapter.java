@@ -5,7 +5,6 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -38,11 +37,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
     private View navigationHeader;
 
-    private CustomExpandableListViewAdapter adapter;
-
-    private CustomExpandableListView customExpandableListView;
-
     private int direction;
+
+    private boolean isLastChildExpanded = false;
+    private int expandedChildPosition = -1;
+    private ExpandableListView expandedCategory = null;
 
     public ExpandableListAdapter(NavigationMenuUtils navigationMenuUtils, Context context,
                                  List<NavigationItem> groupList,
@@ -57,11 +56,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         this.childList = childList;
 
         this.navigationHeader = navigationHeader;
-
-        adapter = new CustomExpandableListViewAdapter(context, null, navigationMenuUtils.subChildList);
-
-        customExpandableListView = new CustomExpandableListView(context, navigationHeader);
-        //customExpandableListView.setAdapter(adapter);
 
         direction = BizStore.getLanguage().equals("en") ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL;
     }
@@ -134,44 +128,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
         tvName.setText(name);
 
-        /*if(HomeActivity.rtl) {
-            tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
-        } else {
-            tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
-        }
-        tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
-        tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);*/
         return convertView;
     }
 
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
-    {
+    public View getChildView(int groupPosition, final int childPosition, final boolean isLastChild, View convertView, final ViewGroup parent) {
+
         NavigationItem navigationItem1 = (NavigationItem) getChild(groupPosition, childPosition);
 
         String name1 = navigationItem1.getItemName();
 
-        Logger.print("getChildView: groupPos: "+groupPosition+ ", childPos: "+childPosition+" "+name1);
+        Logger.print("getChildView: groupPos: " + groupPosition + ", childPos: " + childPosition + " " + name1);
 
-
-        /*if(convertView == null)
-        {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            convertView = inflater.inflate(R.layout.list_navigation_child, parent, false);
-        }*/
-
-       // ExpandableListView expandableListView = new ExpandableListView(context);
-
-        if((groupPosition == 0 && childPosition == 0 || childPosition == 7) || groupPosition == 1)
-        {
-             /*if(convertView == null)
-            {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                convertView = inflater.inflate(R.layout.list_navigation_child, parent, false);
-            }*/
+        if((groupPosition == 0 && childPosition == 0 || childPosition == 7) || groupPosition == 1) {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -190,26 +160,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             tvName.setText(name);
 
             return convertView;
-        }
-        else
-        {
-
-            /*CustomExpandableListView expandableListView = (CustomExpandableListView) convertView;
-
-            if(expandableListView == null)
-            {
-                expandableListView = new CustomExpandableListView(context);
-            }*/
-
-       /* ExpandableListAdapter adapter = new ExpandableListAdapter(navigationMenuUtils, context,
-                                                                      navigationMenuUtils.subGroupList,
-                                                                      navigationMenuUtils.subChildList);
-
-            CustomExpandableListViewAdapter adapter = new CustomExpandableListViewAdapter(context,
-                    navigationMenuUtils.subGroupList.get(childPosition).getItemName(),
-                    navigationMenuUtils.subChildList);*/
-
-            // expandableListView.setAdapter(adapter);
+        } else {
 
             NavigationItem navigationItem = navigationMenuUtils.subGroupList.get(childPosition);
 
@@ -221,100 +172,46 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
                     new CustomExpandableListViewOnChildClickListener(context,
                             adapter);
 
-            CustomExpandableListView customExpandableListView = new CustomExpandableListView(context,
+            final CustomExpandableListView customExpandableListView = new CustomExpandableListView(context,
                                                                                              navigationHeader);
 
             customExpandableListView.setGroupIndicator(null);
-            //setIndicatorBounds(customExpandableListView);
 
             customExpandableListView.setAdapter(adapter);
             customExpandableListView.setDivider(null);
             customExpandableListView.setOnChildClickListener(onChildClickListener);
             customExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                 @Override
-                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                public boolean onGroupClick(ExpandableListView listView, View v, int groupPosition, long id) {
 
                     adapter.setGroupExpanded();
 
                     onChildClickListener.groupName = adapter.groupName;
 
+                    if(expandedCategory != null) {
+                        if(expandedCategory != listView) {
+                            expandedCategory.collapseGroup(0);
+                            getChildView(0, expandedChildPosition, isLastChildExpanded, null, null).invalidate();
+                        }
+                    }
+
+                    isLastChildExpanded = isLastChild;
+                    expandedChildPosition = childPosition;
+                    expandedCategory = listView;
+
                     return false;
                 }
             });
 
-            //navigationMenuUtils.setIndicatorBounds(customExpandableListView);
-
-            /*adapter.setSubGroupItemName(navigationItem.getItemName());
-            expandableListView.setAdapter(adapter);*/
-
             return customExpandableListView;
         }
 
-
-        /*if((groupPosition == 0 && childPosition == 0) || groupPosition == 1)
-        {
-            NavigationItem navigationItem = (NavigationItem) getChild(groupPosition, childPosition);
-
-            String name = navigationItem.getItemName();
-            int resId = navigationItem.getResId();
-
-            TextView tvName = (TextView) convertView.findViewById(R.id.name);
-
-            tvName.setLayoutDirection(direction);
-            tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
-
-            tvName.setText(name);
-
-//        if(HomeActivity.rtl) {
-//            tvName.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
-//        } else {
-//            tvName.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
-//        }
-//
-//        tvName.setTextDirection(HomeActivity.rtl ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
-//        tvName.setLayoutDirection(HomeActivity.rtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
-        }
-        else
-        {
-            ExpandableListView expandableListView = new ExpandableListView(context);
-
-            *//*ExpandableListAdapter adapter = new ExpandableListAdapter(navigationMenuUtils, context,
-                                                                      navigationMenuUtils.subGroupList,
-                                                                      navigationMenuUtils.subChildList);*//*
-
-            CustomExpandableListViewAdapter adapter = new CustomExpandableListViewAdapter(context,
-                                                          navigationMenuUtils.subGroupList,
-                                                          navigationMenuUtils.subChildList);
-
-            expandableListView.setAdapter(adapter);
-
-            return expandableListView;
-        }
-
-        return convertView;*/
-    }
-
-    public void setIndicatorBounds(final CustomExpandableListView expandableListView) {
-        expandableListView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    expandableListView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                } else {
-                    expandableListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                }
-
-                applyIndicatorBounds(expandableListView);
-            }
-        });
     }
 
     private void applyIndicatorBounds(CustomExpandableListView expandableListView) {
         int start = expandableListView.getWidth() - (int) Converter.convertDpToPixels(40);
 
         int end = expandableListView.getWidth();
-//start = 400;
-       // end = 450;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             expandableListView.setIndicatorBoundsRelative(start, end);
         } else {

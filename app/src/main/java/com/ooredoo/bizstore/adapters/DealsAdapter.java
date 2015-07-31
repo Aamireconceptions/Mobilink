@@ -59,12 +59,6 @@ public class DealsAdapter extends ArrayAdapter<Deal> {
             view.setTag(holder);
         }
 
-        //TODO un-comment after implementing web services
-        /*holder.tvDesc.setText(deal.desc);
-        holder.tvTitle.setText(deal.title);
-        holder.tvViews.setText(deal.views);
-        holder.tvDiscount.setText(deal.discount);*/
-
         holder.tvDesc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

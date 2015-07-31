@@ -19,7 +19,6 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
-import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -96,7 +95,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        dialog = DialogUtils.createCustomLoader(homeActivity, "Loading...");
+        homeActivity.showLoader();
+        //dialog = DialogUtils.createCustomLoader(homeActivity, "Loading...");
 
         /*if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }*/
     }
@@ -116,6 +116,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+
+        homeActivity.hideLoader();
 
         subCategories = "";
         sortColumn = "createdate";
@@ -246,6 +248,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                 Logger.print("getDeals() URL:" + url.toString());
 
                 result = getJson(url);
+
+                Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
 
                 if(!isFilterEnabled) {
                     updateVal(homeActivity, KEY, result);

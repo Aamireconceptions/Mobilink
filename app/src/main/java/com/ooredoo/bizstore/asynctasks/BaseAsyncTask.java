@@ -187,8 +187,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
         try {
             String query = createQuery(serviceParams);
-            serviceUrl = baseUrl.concat(query); //TODO remove comment
-            //serviceUrl = baseUrl + SLASH + "26";//TODO
+            serviceUrl = baseUrl.concat(query);
         } catch(UnsupportedEncodingException e) {
             e.printStackTrace();
         }

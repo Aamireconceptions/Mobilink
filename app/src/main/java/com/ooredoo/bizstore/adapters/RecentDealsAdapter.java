@@ -84,7 +84,11 @@ public class RecentDealsAdapter extends ArrayAdapter<RecentDeal> {
         holder.tvViews.setText(valueOf(deal.views));
         holder.tvDiscount.setText(String.valueOf(deal.discount) + mActivity.getString(R.string.percentage_off));
 
-        int categoryIcon = ResourceUtils.getDrawableResId(mActivity, deal.category);
+        if(deal.discount == 0) {
+            holder.tvDiscount.setVisibility(View.GONE);
+        }
+
+        int categoryIcon = ResourceUtils.getDrawableResId(deal.category);
         if(categoryIcon > 0) {
             holder.ivCategory.setImageResource(categoryIcon);
         }

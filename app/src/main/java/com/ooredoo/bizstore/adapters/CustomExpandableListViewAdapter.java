@@ -11,13 +11,13 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Babar on 23-Jul-15.
+ * @author Babar
+ * @since 23-Jul-15.
  */
 public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
 {
@@ -31,7 +31,7 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
 
     private int direction;
 
-    private boolean groupExpanded = false;
+    public boolean groupExpanded = false;
 
     public CustomExpandableListViewAdapter(Context context,
                                     NavigationItem navigationItem,

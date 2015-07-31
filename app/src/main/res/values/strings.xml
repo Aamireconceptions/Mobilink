@@ -181,13 +181,17 @@
     <string name="no_recent_item">No recent viewed item found.</string>
 
     <string name="notification_text">You can select your favorite categories and receive notifications on the go!</string>
-    <string name="slide_1_text_1">Slide 1 Text 1</string>
-    <string name="slide_1_text_2">Slide 1 Text 2</string>
-    <string name="slide_2_text_1">Slide 2 Text 1</string>
-    <string name="slide_2_text_2">Slide 2 Text 2</string>
-    <string name="slide_3_text_1">Slide 3 Text 1</string>
-    <string name="slide_3_text_2">Slide 3 Text 2</string>
-    <string name="slide_4_text_1">Slide 4 Text 1</string>
-    <string name="slide_4_text_2">Slide 4 Text 2</string>
+    <string name="slide_1_text_1">LATEST DEALS &amp; DISCOUNTS</string>
+    <string name="slide_1_text_2">ON YOUR FAVORITE</string>
+    <string name="slide_1_text_3">BRANDS &amp; RESTAURANTS</string>
+    <string name="slide_2_text_1">MOVIES, CINEMAS, EVENTS</string>
+    <string name="slide_2_text_2">&amp; ENTERTAINMENT</string>
+    <string name="slide_2_text_3">ON YOUR FINGER TIPS</string>
+    <string name="slide_3_text_1">TRAVELS &amp; TOURS, HOTELS &amp;</string>
+    <string name="slide_3_text_2">SPAS, SPORTS &amp; FITNESS</string>
+    <string name="slide_3_text_3">&amp; MUCH MORE</string>
+    <string name="slide_4_text_1">CONNECTING</string>
+    <string name="slide_4_text_2">PEOPLE &amp; BUSINESS</string>
+    <string name="slide_4_text_3">ACROSS QATAR</string>
 
 </resources>

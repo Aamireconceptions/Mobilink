@@ -1,7 +1,6 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -23,10 +22,10 @@ import com.ooredoo.bizstore.asynctasks.FeaturedTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
 import com.ooredoo.bizstore.asynctasks.TopMallsTask;
+import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
-import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -35,6 +34,7 @@ import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.MyScroller;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -60,6 +60,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     public static ViewPager featuredPager, promoPager, topBrandsPager, topMallsPager;
 
     boolean sliderOn = true;
+
+    CirclePageIndicator promoIndicator, featuredIndicator;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -110,6 +112,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         List<GenericDeal> deals = new ArrayList<>();
 
         listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        listAdapter.setCategory(ResourceUtils.TOP_DEALS);
 
         listView.addHeaderView(header);
         listView.setAdapter(listAdapter);
@@ -153,8 +156,9 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         setupScroller(promoPager);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.promo_indicator);
-        circlePageIndicator.setViewPager(promoPager);
+        promoIndicator = (CirclePageIndicator) v.findViewById(R.id.promo_indicator);
+        promoIndicator.setViewPager(promoPager);
+        promoIndicator.setVisibility(View.GONE);
 
         loadPromos();
     }
@@ -162,6 +166,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void loadPromos()
     {
         PromoTask promoTask = new PromoTask(activity, promoAdapter, promoPager);
+        promoTask.setIndicator(promoIndicator);
         promoTask.execute();
     }
 
@@ -176,8 +181,9 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         setupScroller(featuredPager);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.featured_indicator);
-        circlePageIndicator.setViewPager(featuredPager);
+        featuredIndicator = (CirclePageIndicator) v.findViewById(R.id.featured_indicator);
+        featuredIndicator.setViewPager(featuredPager);
+        featuredIndicator.setVisibility(View.GONE);
 
         loadFeatured();
     }
@@ -185,6 +191,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void loadFeatured()
     {
         FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager);
+        featuredTask.setIndicator(featuredIndicator);
         featuredTask.execute();
     }
 

@@ -4,8 +4,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.listeners.ScrollViewListener;
-import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
 /**
  * @author Pehlaj Rai
@@ -22,8 +20,6 @@ public class HelpActivity extends BaseActivity {
     @Override
     public void init() {
         setupToolbar();
-        ScrollViewHelper scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
-        scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
     }
 
     private void setupToolbar() {

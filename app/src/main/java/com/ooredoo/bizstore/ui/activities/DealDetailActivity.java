@@ -162,6 +162,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(deal.views));
 
+            if(deal.discount == 0) {
+                findViewById(R.id.tv_discount).setVisibility(View.GONE);
+                findViewById(R.id.tv_deal_discount).setVisibility(View.GONE);
+            }
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
             ((TextView) findViewById(R.id.tv_discount)).setText(discount);
             ((TextView) findViewById(R.id.tv_deal_discount)).setText(discount);
@@ -237,8 +241,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             }
         } else if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
 
-            if(src != null) // TODO remove this and make sure src never get null
-            shareDeal(this, src.id);
+            shareDeal(this, id);
         }
     }
 
