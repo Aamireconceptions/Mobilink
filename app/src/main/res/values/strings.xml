@@ -193,5 +193,6 @@
     <string name="slide_4_text_1">CONNECTING</string>
     <string name="slide_4_text_2">PEOPLE &amp; BUSINESS</string>
     <string name="slide_4_text_3">ACROSS QATAR</string>
+    <string name="gcm_sender_id">999481636845</string>
 
 </resources>
