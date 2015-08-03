@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.adapters;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,13 +129,29 @@ public class GridViewBaseAdapter extends BaseAdapter
 
             Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
-            if(bitmap != null) {
+            Logger.print("imgUrl: "+imgUrl+ ", bitmap: "+bitmap);
+            if(bitmap != null)
+            {
                 holder.ivThumbnail.setImageBitmap(bitmap);
-            } else {
+
+                holder.progressBar.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+
                 BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail,
                                                                                holder.progressBar);
+                /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
+                        String.valueOf(reqWidth), String.valueOf(reqHeight));*/
                 bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
+        }
+        else
+        {
+            holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+
+            holder.progressBar.setVisibility(View.GONE);
         }
 
         if(deal.discount == 0) {
