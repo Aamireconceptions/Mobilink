@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -30,7 +29,7 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
     @Override
     public void onTabSelected(TabLayout.Tab tab)
     {
-       System.out.println("Tab Selected:" + tab.getPosition());
+       Logger.print("Tab Selected:" + tab.getPosition());
 
         viewPager.setCurrentItem(tab.getPosition(), true);
 
