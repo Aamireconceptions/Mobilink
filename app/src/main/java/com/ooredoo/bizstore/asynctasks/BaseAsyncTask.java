@@ -53,9 +53,13 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String MESSAGE = "message";
 
+    public final static String MSISDN = "msisdn";
+
     public final static String MSISDN_FROM = "msisdn_from";
 
     public final static String MSISDN_TO = "msisdn_to";
+
+    public final static String GCM_TOKEN = "gcm_token";
 
     public final static String HTTP_X_USERNAME = "HTTP_X_USERNAME";
 
