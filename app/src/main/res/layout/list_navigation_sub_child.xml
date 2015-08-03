@@ -8,10 +8,10 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:background="@drawable/bg_color_selector"
         android:drawablePadding="@dimen/_12sdp"
-
-        android:padding="@dimen/_18sdp"
+        android:paddingLeft="@dimen/_18sdp"
         android:text="Top Deals"
 
         android:textColor="@color/text_color_selector"/>

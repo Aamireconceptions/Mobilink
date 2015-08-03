@@ -39,9 +39,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
     private int direction;
 
-    private boolean isLastChildExpanded = false;
-    private int expandedChildPosition = -1;
-    private ExpandableListView expandedCategory = null;
+    private ExpandableListView lastExpandableListView;
+
+    private CustomExpandableListViewAdapter lastAdapter;
 
     public ExpandableListAdapter(NavigationMenuUtils navigationMenuUtils, Context context,
                                  List<NavigationItem> groupList,
@@ -188,16 +188,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
                     onChildClickListener.groupName = adapter.groupName;
 
-                    if(expandedCategory != null) {
-                        if(expandedCategory != listView) {
-                            expandedCategory.collapseGroup(0);
-                            getChildView(0, expandedChildPosition, isLastChildExpanded, null, null).invalidate();
-                        }
+                    if (lastExpandableListView != null && lastExpandableListView != listView)
+                    {
+                        lastExpandableListView.collapseGroup(0);
+
+                        lastAdapter.setGroupExpanded();
                     }
 
-                    isLastChildExpanded = isLastChild;
-                    expandedChildPosition = childPosition;
-                    expandedCategory = listView;
+                    lastExpandableListView = listView;
+
+                    lastAdapter = adapter;
 
                     return false;
                 }

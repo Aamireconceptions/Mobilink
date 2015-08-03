@@ -56,6 +56,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
     public HashMap<String, List<NavigationItem>> subChildList;
 
     private int lastExpandedGroup = -1;
+
     public NavigationMenuUtils(AppCompatActivity activity, ExpandableListView expandableListView) {
         this.activity = activity;
 
@@ -267,7 +268,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(foodSubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(i != foodSubCategories.length - 1
+                    ? R.drawable.node_start : R.drawable.node_end);
 
             foodSubList.add(navigationItem);
         }
@@ -278,7 +280,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(shoppingSubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(i != shoppingSubCategories.length - 1
+                    ? R.drawable.node_start : R.drawable.node_end);
 
             shoppingSubList.add(navigationItem);
         }
@@ -289,7 +292,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(electronicsSubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(i != electronicsSubCategories.length - 1
+                    ? R.drawable.node_start : R.drawable.node_end);
 
             electronicsSubList.add(navigationItem);
         }
@@ -300,7 +304,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(hotelsSubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(i != hotelsSubCategories.length - 1
+                    ? R.drawable.node_start : R.drawable.node_end);
 
             hotelsSubList.add(navigationItem);
         }
@@ -311,7 +316,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(mallsSubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(i != mallsSubCategories.length - 1
+                    ? R.drawable.node_start : R.drawable.node_end);
 
             mallsSubList.add(navigationItem);
         }
@@ -322,7 +328,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(automotiveSubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(i != automotiveSubCategories.length - 1
+                    ? R.drawable.node_start : R.drawable.node_end);
 
             automotiveSubList.add(navigationItem);
         }
@@ -344,7 +351,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(entertainmentSubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(i != entertainmentSubCategories.length - 1
+                    ? R.drawable.node_start : R.drawable.node_end);
 
             entertainmentSubList.add(navigationItem);
         }
@@ -355,7 +363,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(jewellerySubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(i != jewellerySubCategories.length - 1
+                    ? R.drawable.node_start : R.drawable.node_end);
 
             jewellerySubList.add(navigationItem);
         }
@@ -366,7 +375,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(sportsSubCategories[i]);
-            navigationItem.setResId(R.drawable.ic_action_back);
+            navigationItem.setResId(R.drawable.node_start);
 
             sportsSubList.add(navigationItem);
         }
@@ -392,7 +401,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
     }
 
     @Override
-    public void onGroupExpand(int groupPosition) {
+    public void onGroupExpand(int groupPosition)
+    {
         if(lastExpandedGroup != -1 && lastExpandedGroup != groupPosition) {
             expandableListView.collapseGroup(lastExpandedGroup);
         }
