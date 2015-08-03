@@ -5,12 +5,10 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.ui.fragments.PromoFragment;
+import com.ooredoo.bizstore.utils.SliderUtils;
 
 import java.util.List;
-
-import static com.ooredoo.bizstore.ui.fragments.HomeFragment.startSlider;
 
 /**
  * @author by Babar
@@ -18,26 +16,35 @@ import static com.ooredoo.bizstore.ui.fragments.HomeFragment.startSlider;
  */
 public class PromoStatePagerAdapter extends FragmentStatePagerAdapter
 {
-    public static List<GenericDeal> deals;
+    private List<GenericDeal> deals;
 
-    public PromoStatePagerAdapter(FragmentManager fm, List<GenericDeal> deals)
+    private SliderUtils promoSlider;
+
+    public PromoStatePagerAdapter(FragmentManager fm, List<GenericDeal> deals,
+                                  SliderUtils promoSlider)
     {
         super(fm);
 
-        PromoStatePagerAdapter.deals = deals;
-        startSlider(deals, HomeFragment.promoPager);
+        this.deals = deals;
+
+        this.promoSlider = promoSlider;
+
+        //startSlider(deals, HomeFragment.promoPager);
     }
 
     public void setData(List<GenericDeal> deals)
     {
-        PromoStatePagerAdapter.deals = deals;
-        startSlider(deals, HomeFragment.promoPager);
+        this.deals = deals;
+       // startSlider(deals, HomeFragment.promoPager);
+
+        promoSlider.start(getCount());
     }
 
     @Override
     public Fragment getItem(int position)
     {
         String url = deals.get(position).image.promotionalUrl;
+
         return PromoFragment.newInstance(url, deals.get(position).id);
     }
 

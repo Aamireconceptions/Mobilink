@@ -35,6 +35,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.MyScroller;
 import com.ooredoo.bizstore.utils.ResourceUtils;
+import com.ooredoo.bizstore.utils.SliderUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -62,6 +63,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     boolean sliderOn = true;
 
     CirclePageIndicator promoIndicator, featuredIndicator;
+
+    private SliderUtils promoSlider, featuredSlider;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -149,9 +152,12 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void initAndLoadPromotions(View v) {
         List<GenericDeal> deals = new ArrayList<>();
 
-        promoAdapter = new PromoStatePagerAdapter(getFragmentManager(), deals);
-
         promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
+
+        promoSlider = new SliderUtils(promoPager);
+
+        promoAdapter = new PromoStatePagerAdapter(getFragmentManager(), deals, promoSlider);
+
         promoPager.setAdapter(promoAdapter);
 
         setupScroller(promoPager);
@@ -174,9 +180,13 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void initAndLoadFeaturedDeals(View v) {
         List<GenericDeal> deals = new ArrayList<>();
 
-        featuredAdapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals);
-
         featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
+
+        featuredSlider = new SliderUtils(featuredPager);
+
+        featuredAdapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals, featuredSlider);
+
+
         featuredPager.setAdapter(featuredAdapter);
 
         setupScroller(featuredPager);
@@ -264,7 +274,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         initAndLoadDealsOfTheDay();
     }
 
-    public static void startSlider(final List list, final ViewPager viewPager) {
+    /*public static void startSlider(final List list, final ViewPager viewPager) {
 
         Timer timer;
 
@@ -308,20 +318,38 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
                 handler.post(runnable);
             }
         }, 3000, 3000);
-    }
+    }*/
 
     @Override
     public void onResume() {
         super.onResume();
         sliderOn = true;
-        startSlider(PromoStatePagerAdapter.deals, promoPager);
-        startSlider(FeaturedStatePagerAdapter.deals, featuredPager);
+
+        int promosCount = promoAdapter.getCount();
+
+        if(promosCount > 0)
+        {
+            promoSlider.start(promosCount);
+        }
+
+        int featuredCount = featuredAdapter.getCount();
+
+        if(featuredCount > 0)
+        {
+            featuredSlider.start(featuredCount);
+        }
+
+       // startSlider(PromoStatePagerAdapter.deals, promoPager);
+       // startSlider(FeaturedStatePagerAdapter.deals, featuredPager);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         sliderOn = false;
+
+        promoSlider.stop();
+        featuredSlider.stop();
     }
 
 

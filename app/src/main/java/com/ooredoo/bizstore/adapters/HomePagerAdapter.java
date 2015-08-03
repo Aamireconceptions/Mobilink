@@ -19,6 +19,7 @@ import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.SportsAndFitnessFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 import com.ooredoo.bizstore.ui.fragments.TravelFragment;
+import com.ooredoo.bizstore.utils.Logger;
 
 /**
  * @author Babar
@@ -39,7 +40,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
     @Override
     public Fragment getItem(int position) {
-        System.out.println("Creating " + position);
+        Logger.print("Creating " + position);
 
         switch(position) {
             case 0:
