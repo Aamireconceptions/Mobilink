@@ -151,8 +151,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             mActionBar.setTitle(deal.title);
             scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
-            if(isNotNullOrEmpty(deal.category) && category.contains(".")) {
-                category = category.replace(".", ",");
+            if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
+                deal.category = deal.category.replace(".", ",");
             }
             ((TextView) findViewById(R.id.tv_title)).setText(deal.title);
             ((TextView) findViewById(R.id.tv_contact)).setText(deal.contact);
