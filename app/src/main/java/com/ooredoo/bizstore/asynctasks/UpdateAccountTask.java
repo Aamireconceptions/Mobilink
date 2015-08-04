@@ -103,6 +103,8 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
      */
     private String updateSettings(String name, String imagePath) throws IOException {
 
+        String url = BASE_URL + BizStore.getLanguage() + "/changesettings?os=android";
+
         String result = null;
 
         ArrayList<NameValuePair> params = new ArrayList<>();
@@ -115,15 +117,8 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
             byte[] bytes = getImageBytes(imagePath);
 
             encoded_image = Base64.encodeToString(bytes, Base64.DEFAULT);
-            Logger.print("Base64 Image: " + encoded_image);
-            params.add(new BasicNameValuePair("image", encoded_image));
+            Logger.logI("Base64 Image", encoded_image);
         }
-
-        Logger.print("PARAMS_LEN: " + params.size());
-
-        HttpClient httpclient = new DefaultHttpClient();
-
-        String url = BASE_URL + BizStore.getLanguage() + "/changesettings?os=android";
 
         if(isNotNullOrEmpty(name)) {
             name = URLEncoder.encode(name, ENCODING);
@@ -131,13 +126,20 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
             url = url + "&name=" + name;
         }
 
-        HttpPost httppost = new HttpPost(url);
-        httppost.setHeader(HTTP_X_USERNAME, BizStore.username);
-        httppost.setHeader(HTTP_X_PASSWORD, BizStore.password);
+        HttpClient httpclient = new DefaultHttpClient();
 
-        httppost.setEntity(new UrlEncodedFormEntity(params));
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setHeader(HTTP_X_USERNAME, BizStore.username);
+        httpPost.setHeader(HTTP_X_PASSWORD, BizStore.password);
 
-        HttpResponse response = httpclient.execute(httppost);
+        if(isNotNullOrEmpty(encoded_image)) {
+            NameValuePair nameValuePair = new BasicNameValuePair("image", encoded_image);
+            params.add(nameValuePair);
+            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(params);
+            httpPost.setEntity(formEntity);
+        }
+
+        HttpResponse response = httpclient.execute(httpPost);
 
         StatusLine statusLine = response.getStatusLine();
 
@@ -156,7 +158,7 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
         File fileName = new File(path);
         InputStream inputStream = new FileInputStream(fileName);
         byte[] bytes;
-        byte[] buffer = new byte[8192];
+        byte[] buffer = new byte[512];
         int bytesRead;
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         try {
