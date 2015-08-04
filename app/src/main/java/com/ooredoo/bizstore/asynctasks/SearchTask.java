@@ -77,7 +77,7 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
                     }
                 }
 
-                mActivity.setupSearchResults(keyword, results);
+                mActivity.setupSearchResults(keyword, results, false);
 
                 BaseFragment.hideKeyboard(mActivity);
             } catch(JsonSyntaxException e) {

@@ -7,23 +7,27 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.KeywordSearch;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
 
-public class PredefinedSearchesAdapter extends ArrayAdapter<String> {
+import java.util.List;
+
+public class PredefinedSearchesAdapter extends ArrayAdapter<KeywordSearch> {
 
     HomeActivity mActivity;
     int layoutResID;
-    String[] predefinedSearches;
 
-    public PredefinedSearchesAdapter(HomeActivity activity, int layoutResourceID, String[] predefinedSearches) {
+    List<KeywordSearch> predefinedSearches;
+
+    public PredefinedSearchesAdapter(HomeActivity activity, int layoutResourceID, List<KeywordSearch> predefinedSearches) {
         super(activity, layoutResourceID, predefinedSearches);
         this.mActivity = activity;
         this.predefinedSearches = predefinedSearches;
         this.layoutResID = layoutResourceID;
     }
 
-    public void setData(String[] predefinedSearches) {
+    public void setData(List<KeywordSearch> predefinedSearches) {
         this.predefinedSearches = predefinedSearches;
     }
 
@@ -42,22 +46,23 @@ public class PredefinedSearchesAdapter extends ArrayAdapter<String> {
         final LayoutInflater inflater = mActivity.getLayoutInflater();
         convertView = inflater.inflate(layoutResID, null);
 
-        final String item = this.predefinedSearches[position];
+        final KeywordSearch keywordSearch = this.predefinedSearches.get(position);
         final TextView textView = (TextView) convertView.findViewById(R.id.tv_title);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setClickListener(item);
+                setClickListener(keywordSearch);
             }
         });
-        textView.setText(item);
+        textView.setText(keywordSearch.title);
 
         AnimUtils.slideView(mActivity, convertView, true);
 
         return convertView;
     }
 
-    protected void setClickListener(String keyword) {
-        mActivity.executeSearchTask(keyword);
+    protected void setClickListener(KeywordSearch keywordSearch) {
+        //TODO implement keyword search
+        mActivity.setupSearchResults(keywordSearch.title, keywordSearch.results, true);
     }
 }
