@@ -125,11 +125,13 @@ public class BitmapProcessor
         return inSampleSize;
     }
 
-    public Bitmap rotateBitmapIfNeeded(String pathName, Bitmap bitmap) throws IOException {
+    public static Bitmap rotateBitmapIfNeeded(String pathName, Bitmap bitmap) throws IOException {
         ExifInterface exifInterface = new ExifInterface(pathName);
 
         int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                                                         ExifInterface.ORIENTATION_NORMAL);
+
+        Logger.logI("BITMAP_ORIENTATION: " + orientation, pathName);
 
         switch (orientation)
         {
