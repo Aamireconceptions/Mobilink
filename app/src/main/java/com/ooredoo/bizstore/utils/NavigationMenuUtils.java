@@ -75,7 +75,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.entertainment), activity.getString(R.string.jewelry_exchange),
                 activity.getString(R.string.sports_fitness)};
 
-        categoriesResIds = new int[]{ R.drawable.ic_top_deals,
+        categoriesResIds = new int[]{
                 R.drawable.ic_top_deals, R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
                 R.drawable.ic_electronics, R.drawable.ic_hotels,

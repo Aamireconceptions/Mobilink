@@ -103,7 +103,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory(ResourceUtils.HOTELS_AND_SPA);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);

@@ -99,7 +99,7 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory(ResourceUtils.MALLS);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);

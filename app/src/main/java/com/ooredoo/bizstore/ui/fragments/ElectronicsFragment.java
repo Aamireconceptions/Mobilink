@@ -99,7 +99,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory(ResourceUtils.ELECTRONICS);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);

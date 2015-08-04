@@ -99,7 +99,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory(ResourceUtils.AUTOMOTIVE);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
