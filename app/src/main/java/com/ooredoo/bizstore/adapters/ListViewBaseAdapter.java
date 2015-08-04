@@ -14,6 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Deal;
@@ -195,15 +196,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
             if(bitmap != null)
             {
                 holder.ivPromotional.setImageBitmap(bitmap);
-
                 holder.progressBar.setVisibility(View.GONE);
             }
             else
             {
                 holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                holder.progressBar.setVisibility(View.VISIBLE);
 
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivPromotional,
-                                                        holder.progressBar);
+                BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                        new BaseAdapterBitmapDownloadTask(this);
+
                 bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
 

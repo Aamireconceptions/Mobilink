@@ -35,6 +35,9 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -43,6 +46,7 @@ import com.ooredoo.bizstore.adapters.PredefinedSearchesAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
+import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -59,7 +63,9 @@ import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
 import java.util.ArrayList;
@@ -136,6 +142,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private SharedPrefUtils sharedPrefUtils;
+
+    private MemoryCache memoryCache = MemoryCache.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +158,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         init();
 
-        registeredWithGcmIfRequired();
+       // registeredWithGcmIfRequired();
 
         new SearchKeywordsTask(this).execute();
 
@@ -163,6 +173,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private void init()
     {
+        sharedPrefUtils = new SharedPrefUtils(this);
+
         RecentSearchesAdapter.homeActivity = this;
 
         searchView = getLayoutInflater().inflate(R.layout.search_popup, null);
@@ -304,7 +316,30 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private void registeredWithGcmIfRequired()
     {
+        if(isGPlayServicesAvailable())
+        {
+            Logger.print("GPlayServicesAvailable");
 
+            String deviceGcmToken = sharedPrefUtils.getDeviceGCMToken();
+
+            Logger.print("deviceGcmToken: "+deviceGcmToken);
+
+            String userGcmId = sharedPrefUtils.getUserGCMToken(BizStore.username + "_" + deviceGcmToken);
+
+            Logger.print("userGcmId: "+userGcmId);
+
+            if(userGcmId != null)
+            {
+                return;
+            }
+
+            Logger.print("Performing GCM registration");
+
+            GCMRegisterTask gcmRegisterTask = new GCMRegisterTask(this, sharedPrefUtils);
+            gcmRegisterTask.execute();
+        }
+        else
+            Logger.print("GPlayServices not available");
     }
 
     public void setRatingEnabled(boolean enabled) {
@@ -607,9 +642,23 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(searchPopup != null && searchPopup.isShowing())
             searchPopup.dismiss();
 
-        //MemoryCache.getInstance().tearDown();
+        memoryCache.tearDown();
 
         Logger.print("HomeActivity onDestroy");
+    }
+
+    private boolean isGPlayServicesAvailable()
+    {
+        int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+
+        if(code != ConnectionResult.SUCCESS)
+        {
+            GoogleApiAvailability.getInstance().getErrorDialog(this, code, 0).show();
+
+            return false;
+        }
+
+        return true;
     }
 
     public void showLoader() {
