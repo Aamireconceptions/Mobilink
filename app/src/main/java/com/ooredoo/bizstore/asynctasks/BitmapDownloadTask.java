@@ -54,7 +54,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     {
         imgUrl = params[0];
 
-        Logger.print("doInBg: ->imgUrl: " +imgUrl);
+        Logger.print("doInBg: ->imgUrl: " + imgUrl);
 
         return downloadBitmap(imgUrl, params[1], params[2]);
     }
@@ -68,6 +68,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         if(bitmap != null)
         {
+            Logger.print("Downloaded: "+imgUrl);
             memoryCache.addBitmapToCache(imgUrl, bitmap);
 
             if(imageView != null)
@@ -93,6 +94,13 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 Logger.print("Already downloaded. Cancelling task");
 
                 cancel(true);
+            }
+
+            if(isCancelled())
+            {
+                Logger.print("isCancelled: true");
+
+                return null;
             }
 
             Logger.print("Bitmap Url: " + imgUrl);

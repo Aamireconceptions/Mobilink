@@ -207,10 +207,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                         new BaseAdapterBitmapDownloadTask(this);
 
-                bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                        String.valueOf(reqWidth), String.valueOf(reqHeight));
+                /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                                        String.valueOf(reqWidth), String.valueOf(reqHeight));*/
 
-                //bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
 
             holder.ivPromotional.setOnClickListener(new View.OnClickListener()
