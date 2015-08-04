@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 21
@@ -29,4 +30,5 @@ dependencies {
     compile 'com.intuit.sdp:sdp-android:1.0.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile files('libs/activeandroid-3.0.jar')
+    compile 'com.google.android.gms:play-services:7.5.+'
 }

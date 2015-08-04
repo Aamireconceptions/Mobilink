@@ -54,6 +54,8 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     {
         imgUrl = params[0];
 
+        Logger.print("doInBg: ->imgUrl: " +imgUrl);
+
         return downloadBitmap(imgUrl, params[1], params[2]);
     }
 

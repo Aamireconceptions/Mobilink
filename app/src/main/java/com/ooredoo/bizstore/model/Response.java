@@ -17,4 +17,6 @@ public class Response
 
     @SerializedName("top_banner")
     public String topBannerUrl;
+
+    public String desc;
 }
