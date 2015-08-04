@@ -8,6 +8,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -47,9 +48,9 @@ public class SearchKeywordsTask extends BaseAsyncTask<Void, Void, String> {
                 AppData.predefinedSearches = new Gson().fromJson(result, PredefinedSearches.class);
 
                 if(AppData.predefinedSearches.list == null)
-                    AppData.predefinedSearches.list = new String[] {};
+                    AppData.predefinedSearches.list = new ArrayList<>();
 
-                Logger.logI("SUGGESTIONS_COUNT", String.valueOf(AppData.predefinedSearches.list.length));
+                Logger.logI("SUGGESTIONS_COUNT", String.valueOf(AppData.predefinedSearches.list.size()));
 
                 mActivity.setPredefinedSearches();
             } catch(JsonSyntaxException e) {

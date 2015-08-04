@@ -1,5 +1,7 @@
 package com.ooredoo.bizstore.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author Pehlaj Rai
  * @since 06-Jul-2015.
@@ -12,4 +14,7 @@ public class SearchResult {
     public String type, title, description, startDate, endDate, contact, address, location;
 
     public float rating;
+
+    @SerializedName("images")
+    public Image image;
 }

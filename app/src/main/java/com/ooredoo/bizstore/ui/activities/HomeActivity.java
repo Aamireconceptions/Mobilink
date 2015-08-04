@@ -37,7 +37,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -205,7 +204,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
         mPredefinedSearchesListView = (ListView) searchView.findViewById(R.id.lv_predefined_searches);
 
-        mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, new String[] {});
+        mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, null);
 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
 
@@ -431,14 +430,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void setPredefinedSearches() {
-        String[] searches = new String[] {};
-        if(predefinedSearches.list != null) {
-            searches = predefinedSearches.list;
+        if(predefinedSearches != null && predefinedSearches.list != null) {
+            mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, predefinedSearches.list);
+            mPredefinedSearchesListView.setAdapter(mPredefinedSearchesAdapter);
+            mPredefinedSearchesAdapter.notifyDataSetChanged();
+            mPredefinedSearchesListView.setVisibility(View.VISIBLE);
         }
-        mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, searches);
-        mPredefinedSearchesListView.setAdapter(mPredefinedSearchesAdapter);
-        mPredefinedSearchesAdapter.notifyDataSetChanged();
-        mPredefinedSearchesListView.setVisibility(View.VISIBLE);
     }
 
     public void hideSearchPopup() {
@@ -559,12 +556,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mSearchResultsAdapter.notifyDataSetChanged();
     }
 
-    public void setupSearchResults(String keyword, List<SearchResult> results) {
+    public void setupSearchResults(String keyword, List<SearchResult> results, boolean isKeywordSearch) {
 
         if(results == null)
             results = new ArrayList<>();
 
-        if(results.size() > 0) {
+        if(!isKeywordSearch && results.size() > 0) {
             SearchItem searchItem = new SearchItem(0, keyword, results.size());
             SearchItem.addToRecentSearches(searchItem);
         }
