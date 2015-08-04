@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
@@ -25,7 +26,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     private ProgressBar progressBar;
 
-    private String imgUrl;
+    public String imgUrl;
 
     private BitmapProcessor bitmapProcessor = new BitmapProcessor(this);
 
@@ -67,14 +68,31 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         {
             memoryCache.addBitmapToCache(imgUrl, bitmap);
 
-            imageView.setImageBitmap(bitmap);
+            if(imageView != null)
+            {
+                imageView.setImageBitmap(bitmap);
+            }
         }
     }
 
-    private Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
+
+        Logger.print("onCacelled");
+    }
+
+    public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
     {
         try
         {
+            if(memoryCache.getBitmapFromCache(imgUrl) != null)
+            {
+                Logger.print("Already downloaded. Cancelling task");
+
+                cancel(true);
+            }
+
             Logger.print("Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);
 
@@ -84,8 +102,6 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));
 
             return bitmapProcessor.decodeSampledBitmapFromStream(inputStream, width, height);
-        } catch(OutOfMemoryError outOfMemoryError) {
-            MemoryCache.getInstance().tearDown();
         }
         catch (MalformedURLException e)
         {

@@ -122,7 +122,6 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
                     deals = response.deals;
 
                 adapter.setData(deals);
-
             }
             else
             {

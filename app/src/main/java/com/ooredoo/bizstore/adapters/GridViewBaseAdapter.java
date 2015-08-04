@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Deal;
@@ -124,25 +125,29 @@ public class GridViewBaseAdapter extends BaseAdapter
         holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
         Image image = deal.image;
-        if(image != null && image.gridBannerUrl != null) {
-            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + deal.image.gridBannerUrl;
+        if(image != null && image.gridBannerUrl != null)
+        {
+            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + image.gridBannerUrl;
 
             Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
-            Logger.print("imgUrl: "+imgUrl+ ", bitmap: "+bitmap);
+            Logger.print("Pos: " + position + "imgUrl: "+imgUrl+ ", bitmap: "+bitmap);
             if(bitmap != null)
             {
                 holder.ivThumbnail.setImageBitmap(bitmap);
-
                 holder.progressBar.setVisibility(View.GONE);
             }
             else
             {
                 holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                holder.progressBar.setVisibility(View.VISIBLE);
 
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(holder.ivThumbnail,
-                                                                               holder.progressBar);
-                /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
+                Logger.print("Download started for position: " + position);
+
+                BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                        new BaseAdapterBitmapDownloadTask(this);
+
+                    /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
                         String.valueOf(reqWidth), String.valueOf(reqHeight));*/
                 bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
@@ -150,7 +155,6 @@ public class GridViewBaseAdapter extends BaseAdapter
         else
         {
             holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
-
             holder.progressBar.setVisibility(View.GONE);
         }
 

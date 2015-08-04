@@ -58,7 +58,6 @@ public class PromoFragment extends Fragment implements View.OnClickListener
     private void initAndLoadBanner(View v)
     {
 
-
         activity = (HomeActivity) getActivity();
 
         Bundle bundle = getArguments();
