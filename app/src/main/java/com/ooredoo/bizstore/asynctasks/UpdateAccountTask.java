@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.util.Base64;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.AppData;
 import com.ooredoo.bizstore.BizStore;
@@ -44,17 +45,23 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
 
     private String name, pathProfilePic;
 
+    ProgressBar progressBar;
+
     public UpdateAccountTask(MyAccountActivity accountActivity, String name, String pathProfilePic) {
         this.name = name;
         this.pathProfilePic = pathProfilePic;
         this.myAccountActivity = accountActivity;
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+        progressBar = (ProgressBar) myAccountActivity.findViewById(R.id.progress_bar);
     }
 
     @Override
     protected void onPreExecute() {
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
         super.onPreExecute();
+        if(progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -72,7 +79,9 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        myAccountActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+        if(progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
 
         if(isNotNullOrEmpty(result)) {
             try {
