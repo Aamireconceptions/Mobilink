@@ -2,13 +2,17 @@ package com.ooredoo.bizstore.listeners;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import java.util.Locale;
+
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 
 /**
  * Created by Babar on 01-Jul-15.
@@ -50,6 +54,9 @@ public class NavigationMenuOnClickListener implements View.OnClickListener
 
                 break;
         }
+
+        SharedPrefUtils.updateVal(activity, APP_LANGUAGE, lang);
+
         BizStore.setLanguage(lang);
 
         setSelected(v);
@@ -72,15 +79,19 @@ public class NavigationMenuOnClickListener implements View.OnClickListener
 
     private void changeLocale()
     {
-        Locale locale = new Locale(lang);
+        updateConfiguration(activity, lang);
+
+        activity.recreate();
+    }
+
+    public static void updateConfiguration(Activity activity, String language) {
+        Locale locale = new Locale(language);
         Locale.setDefault(locale);
 
         Configuration configuration = new Configuration();
         configuration.locale = locale;
 
-        activity.getBaseContext().getResources().updateConfiguration(configuration, activity
-                .getBaseContext().getResources().getDisplayMetrics());
-
-        activity.recreate();
+        Resources resources = activity.getBaseContext().getResources();
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 }

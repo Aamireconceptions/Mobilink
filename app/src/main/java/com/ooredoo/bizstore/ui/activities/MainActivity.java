@@ -2,10 +2,12 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.view.View;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
-import static com.ooredoo.bizstore.BizStore.setLanguage;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 public class MainActivity extends BaseActivity {
@@ -25,7 +27,10 @@ public class MainActivity extends BaseActivity {
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.btn_lang_arabic || viewId == R.id.btn_lang_english) {
-            setLanguage(viewId == R.id.btn_lang_arabic ? "ar" : "en");
+            String language = viewId == R.id.btn_lang_arabic ? "ar" : "en";
+            SharedPrefUtils.updateVal(this, APP_LANGUAGE, language);
+            BizStore.setLanguage(language);
+            NavigationMenuOnClickListener.updateConfiguration(this, language);
             startActivity(SignUpActivity.class);
         }
     }

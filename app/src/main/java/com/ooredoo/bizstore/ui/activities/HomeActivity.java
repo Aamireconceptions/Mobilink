@@ -56,6 +56,7 @@ import com.ooredoo.bizstore.listeners.DrawerChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
+import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
@@ -65,6 +66,7 @@ import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
+import com.ooredoo.bizstore.utils.StringUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
 import java.util.ArrayList;
@@ -78,6 +80,7 @@ import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
 import static com.ooredoo.bizstore.AppData.predefinedSearches;
 import static com.ooredoo.bizstore.AppData.searchResults;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
@@ -148,6 +151,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String language = SharedPrefUtils.getStringVal(this, APP_LANGUAGE);
+
+        if(StringUtils.isNotNullOrEmpty(language)) {
+            BizStore.setLanguage(language);
+            NavigationMenuOnClickListener.updateConfiguration(this, language);
+        }
 
         Logger.print("HomeActivity onCreate");
         overrideFonts();

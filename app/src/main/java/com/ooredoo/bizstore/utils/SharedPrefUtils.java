@@ -23,6 +23,8 @@ public class SharedPrefUtils {
 
     public static final String LOGIN_STATUS = "OrdBs_LG_STATUS";
 
+    public static final String APP_LANGUAGE = "OrdBs_Lang";
+
     public static final String NAME = "OrdBs_LG_NAME";
 
     public static final String PREFIX_DEALS = "OrdBs_Deals_";
