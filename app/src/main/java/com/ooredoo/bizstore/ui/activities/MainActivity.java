@@ -14,6 +14,7 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 public class MainActivity extends BaseActivity {
 
+    Button btnArabicLang, btnEnglishLang;
     public MainActivity() {
         super();
         layoutResId = R.layout.activity_main;
@@ -21,8 +22,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-        Button btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
-        Button btnEnglishLang = (Button) findViewById(R.id.btn_lang_english);
+        btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
+        btnEnglishLang = (Button) findViewById(R.id.btn_lang_english);
         btnArabicLang.setOnClickListener(this);
         btnEnglishLang.setOnClickListener(this);
         String lang = BizStore.getLanguage();
@@ -37,10 +38,12 @@ public class MainActivity extends BaseActivity {
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.btn_lang_arabic || viewId == R.id.btn_lang_english) {
+            boolean isArabic = viewId == R.id.btn_lang_arabic;
             String language = viewId == R.id.btn_lang_arabic ? "ar" : "en";
             SharedPrefUtils.updateVal(this, APP_LANGUAGE, language);
             BizStore.setLanguage(language);
-            v.setSelected(true);
+            btnArabicLang.setSelected(isArabic);
+            btnEnglishLang.setSelected(!isArabic);
             NavigationMenuOnClickListener.updateConfiguration(this, language);
             startActivity(SignUpActivity.class);
         }
