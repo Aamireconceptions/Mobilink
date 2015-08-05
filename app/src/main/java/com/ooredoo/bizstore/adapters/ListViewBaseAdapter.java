@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
@@ -137,6 +138,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
+            holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
 
             row.setTag(holder);
         } else {
@@ -192,12 +194,15 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         if(promotionalBanner != null && holder.ivPromotional != null)
         {
+            holder.rlPromotionalLayout.setVisibility(View.VISIBLE);
+
             String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
 
             Bitmap bitmap = memoryCache.getBitmapFromCache(url);
 
             if(bitmap != null)
             {
+
                 holder.ivPromotional.setImageBitmap(bitmap);
                 holder.progressBar.setVisibility(View.GONE);
             }
@@ -228,14 +233,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
         {
             if(holder.ivPromotional != null)
             {
-                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                holder.rlPromotionalLayout.setVisibility(View.GONE);
+
+               /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                 holder.progressBar.setVisibility(View.GONE);
                 holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showDetail(deal);
                     }
-                });
+                });*/
             }
         }
 
@@ -295,5 +302,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         RatingBar rbRatings;
 
         ProgressBar progressBar;
+
+        RelativeLayout rlPromotionalLayout;
     }
 }
