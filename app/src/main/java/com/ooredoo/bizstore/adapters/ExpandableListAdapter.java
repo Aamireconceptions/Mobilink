@@ -174,9 +174,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
             final CustomExpandableListView customExpandableListView = new CustomExpandableListView(context,
                                                                                              navigationHeader);
-
             customExpandableListView.setGroupIndicator(null);
-
             customExpandableListView.setAdapter(adapter);
             customExpandableListView.setDivider(null);
             customExpandableListView.setOnChildClickListener(onChildClickListener);
@@ -204,18 +202,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             });
 
             return customExpandableListView;
-        }
-
-    }
-
-    private void applyIndicatorBounds(CustomExpandableListView expandableListView) {
-        int start = expandableListView.getWidth() - (int) Converter.convertDpToPixels(40);
-
-        int end = expandableListView.getWidth();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            expandableListView.setIndicatorBoundsRelative(start, end);
-        } else {
-            expandableListView.setIndicatorBounds(start, end);
         }
 
     }

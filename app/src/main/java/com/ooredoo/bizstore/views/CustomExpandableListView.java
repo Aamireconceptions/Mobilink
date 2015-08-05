@@ -2,7 +2,9 @@ package com.ooredoo.bizstore.views;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -49,6 +51,8 @@ public class CustomExpandableListView extends ExpandableListView
         /*widthMeasureSpec = MeasureSpec.makeMeasureSpec(960, MeasureSpec.AT_MOST);
 
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(600, MeasureSpec.AT_MOST);*/
+
+        Logger.print("widthMesaureSpec: "+widthMeasureSpec+", heightMeasureSpec: "+heightMeasureSpec);
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

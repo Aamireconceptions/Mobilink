@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
@@ -113,16 +114,23 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
         String name = navigationItem.getItemName();
         int resId = navigationItem.getResId();*/
 
+        ImageView ivIndicator = (ImageView) convertView.findViewById(R.id.indicator);
+
         if(groupExpanded)
         {
             convertView.setBackgroundColor(context.getResources().getColor(R.color.grey));
+
+            ivIndicator.setImageResource(R.drawable.ic_group_collapse);
         }
         else
         {
             convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
+
+            ivIndicator.setImageResource(R.drawable.ic_group_expand);
         }
 
         groupName = (String) getGroup(groupPosition);
+
         int resId = navigationItem.getResId();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);

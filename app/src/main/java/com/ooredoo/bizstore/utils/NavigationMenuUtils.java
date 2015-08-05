@@ -209,7 +209,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         int end = expandableListView.getWidth();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            expandableListView.setIndicatorBoundsRelative(start, end);
+            //expandableListView.setIndicatorBoundsRelative(start, end);
+            expandableListView.setIndicatorBounds(start, end);
         } else {
             expandableListView.setIndicatorBounds(start, end);
         }
