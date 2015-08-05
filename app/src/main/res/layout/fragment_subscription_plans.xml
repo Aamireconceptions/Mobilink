@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layoutDirection="ltr"
         android:layout_centerInParent="true">
 
         <TextView
@@ -45,9 +46,9 @@
                 android:id="@+id/tv_weekly_plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_plan_details"
+                android:layout_alignStart="@+id/tv_plan_details"
                 android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/tv_plan_details"
+                android:layout_alignEnd="@+id/tv_plan_details"
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="@string/WEEKLY_PLAN"
@@ -59,9 +60,9 @@
             android:id="@+id/ib_sub__plan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/rl_sub_plans"
+            android:layout_alignStart="@+id/rl_sub_plans"
             android:layout_below="@+id/rl_sub_plans"
-            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="-15dp"
             android:background="@android:color/transparent"
             android:gravity="center"
