@@ -87,11 +87,11 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
             {
                 viewPager.setBackground(null);
 
+                deals = response.deals;
+
                 if(deals.size() > 1) {
                     circlePageIndicator.setVisibility(View.VISIBLE);
                 }
-
-                deals = response.deals;
             }
 
             for(GenericDeal genericDeal : deals)
