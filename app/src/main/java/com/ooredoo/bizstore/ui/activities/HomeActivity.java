@@ -465,6 +465,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         }
     }
 
+    public void selectDealsAndBusiness() {
+        searchType = "all";
+        cbSearchDeals.setChecked(true);
+        cbSearchBusinesses.setChecked(true);
+        ((CheckBox) findViewById(R.id.cb_search_deals)).setChecked(true);
+        ((CheckBox) findViewById(R.id.cb_search_business)).setChecked(true);
+    }
+
     public void setSearchCheckboxSelection(CheckBox cbSearchDeals, CheckBox cbSearchBusinesses) {
         if(cbSearchDeals.isChecked() && cbSearchBusinesses.isChecked()) {
             searchType = "all";

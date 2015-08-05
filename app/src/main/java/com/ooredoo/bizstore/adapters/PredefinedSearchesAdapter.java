@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.AppData;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.KeywordSearch;
+import com.ooredoo.bizstore.model.Results;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
 
@@ -62,7 +64,10 @@ public class PredefinedSearchesAdapter extends ArrayAdapter<KeywordSearch> {
     }
 
     protected void setClickListener(KeywordSearch keywordSearch) {
-        //TODO implement keyword search
+        Results results = new Results();
+        results.list = keywordSearch.results;
+        AppData.searchResults = results;
+        mActivity.selectDealsAndBusiness();
         mActivity.setupSearchResults(keywordSearch.title, keywordSearch.results, true);
     }
 }
