@@ -53,7 +53,7 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        activity.onRefreshCompleted();
+        //activity.onRefreshCompleted();
 
         adapter.clear();
 

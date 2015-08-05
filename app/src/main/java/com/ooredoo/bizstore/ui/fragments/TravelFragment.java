@@ -126,6 +126,11 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.travel_tour_banner);
 

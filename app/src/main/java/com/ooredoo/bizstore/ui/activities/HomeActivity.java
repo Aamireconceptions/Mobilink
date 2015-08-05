@@ -86,7 +86,7 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
                                                                OnFilterChangeListener,
                                                                TextView.OnEditorActionListener,
-                                                               SwipeRefreshLayout.OnRefreshListener,
+                                                              // SwipeRefreshLayout.OnRefreshListener,
                                                                OnSubCategorySelectedListener{
     public static boolean rtl = false;
 
@@ -167,7 +167,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         init();
 
-        //registeredWithGcmIfRequired();
+        registeredWithGcmIfRequired();
 
         new SearchKeywordsTask(this).execute();
 
@@ -218,9 +218,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+       /* swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);*/
 
         setupSearchField();
 
@@ -238,14 +238,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void setSwipeRefreshLayoutEnabled(boolean enabled)
     {
-        swipeRefreshLayout.setEnabled(enabled);
+        //swipeRefreshLayout.setEnabled(enabled);
     }
 
-    @Override
+   /* @Override
     public void onRefresh()
     {
         ((OnRefreshListener) currentFragment).onRefreshStarted();
-    }
+    }*/
 
     private void setupSearchField() {
         acSearch.setThreshold(1);
@@ -331,7 +331,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
             String deviceGcmToken = sharedPrefUtils.getDeviceGCMToken();
 
-            Logger.print("deviceGcmToken: "+deviceGcmToken);
+            Logger.print("deviceGcmToken: " + deviceGcmToken);
 
             String userGcmId = sharedPrefUtils.getUserGCMToken(BizStore.username + "_" + deviceGcmToken);
 
@@ -645,10 +645,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         return false;
     }
 
-    public void onRefreshCompleted()
+    /*public void onRefreshCompleted()
     {
         swipeRefreshLayout.setRefreshing(false);
-    }
+    }*/
 
     @Override
     protected void onDestroy() {

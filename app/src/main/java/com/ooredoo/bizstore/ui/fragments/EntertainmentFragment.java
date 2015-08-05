@@ -142,6 +142,11 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.entertainment_banner);
 

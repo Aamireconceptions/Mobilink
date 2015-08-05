@@ -122,7 +122,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         subCategories = "";
         sortColumn = "createdate";
 
-        homeActivity.onRefreshCompleted();
+        dealsTaskFinishedListener.onRefreshCompleted();
+
+        //homeActivity.onRefreshCompleted();
 
         adapter.clearData();
 
@@ -157,7 +159,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
                     //showTvDealsOfTheDay();
 
-                    adapter.setData(deals);
+                    //adapter.setData(deals);
+                    dealsTaskFinishedListener.onNoDeals();
 
                     String bannerUrl = response.topBannerUrl;
 

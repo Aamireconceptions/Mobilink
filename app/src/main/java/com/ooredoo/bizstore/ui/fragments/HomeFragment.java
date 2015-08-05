@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +48,8 @@ import java.util.TimerTask;
  * @author Babar
  */
 public class HomeFragment extends Fragment implements OnFilterChangeListener,
-                                                      OnRefreshListener,
-                                                      OnDealsTaskFinishedListener
-{
+                                                      //OnRefreshListener,
+                                                      OnDealsTaskFinishedListener, SwipeRefreshLayout.OnRefreshListener {
     private HomeActivity activity;
 
     private TextView tvDealsOfTheDay;
@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private SliderUtils promoSlider, featuredSlider;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
 
@@ -85,8 +86,12 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         activity = (HomeActivity) getActivity();
         activity.setCurrentFragment(this);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeColors(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         ListView listView = (ListView) v.findViewById(R.id.home_list_view);
-        listView.setOnScrollListener(new ScrollListener(activity));
+        //listView.setOnScrollListener(new ScrollListener(activity));
 
         LayoutInflater inflater = activity.getLayoutInflater();
 
@@ -264,7 +269,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         initAndLoadDealsOfTheDay();
     }
 
-    @Override
+   /* @Override
     public void onRefreshStarted()
     {
         loadPromos();
@@ -272,7 +277,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         loadTopBrands();
         loadTopMalls();
         initAndLoadDealsOfTheDay();
-    }
+    }*/
 
     /*public static void startSlider(final List list, final ViewPager viewPager) {
 
@@ -354,6 +359,11 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
 
     @Override
+    public void onRefreshCompleted() {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void onHaveDeals()
     {
         tvDealsOfTheDay.setVisibility(View.VISIBLE);
@@ -362,5 +372,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onNoDeals() {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        loadPromos();
+        loadFeatured();
+        loadTopBrands();
+        loadTopMalls();
+        initAndLoadDealsOfTheDay();
     }
 }

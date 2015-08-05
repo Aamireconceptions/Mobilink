@@ -130,6 +130,11 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.market_malls_banner);
 

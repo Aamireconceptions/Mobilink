@@ -5,6 +5,8 @@ package com.ooredoo.bizstore.interfaces;
  */
 public interface OnDealsTaskFinishedListener
 {
+    void onRefreshCompleted();
+
     void onHaveDeals();
 
     void onNoDeals();

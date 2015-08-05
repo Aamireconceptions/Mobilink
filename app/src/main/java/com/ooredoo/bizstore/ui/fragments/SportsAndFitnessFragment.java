@@ -140,6 +140,11 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.sports_fitness_banner);
 

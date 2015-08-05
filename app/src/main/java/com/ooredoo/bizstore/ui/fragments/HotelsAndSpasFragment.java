@@ -140,6 +140,11 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.hotels_spa_banner);
 

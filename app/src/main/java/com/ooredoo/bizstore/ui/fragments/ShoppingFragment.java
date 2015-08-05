@@ -143,6 +143,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals()
     {
         rlHeader.setVisibility(View.VISIBLE);

@@ -105,7 +105,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         listView = (ListView) v.findViewById(R.id.list_view);
-        listView.setOnScrollListener(new ScrollListener(activity));
+        //listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
@@ -131,6 +131,11 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     public void onRefreshStarted()
     {
         fetchAndDisplayFoodAndDining();
+    }
+
+    @Override
+    public void onRefreshCompleted() {
+
     }
 
     @Override

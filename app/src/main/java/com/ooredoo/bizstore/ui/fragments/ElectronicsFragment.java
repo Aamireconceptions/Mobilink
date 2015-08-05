@@ -131,6 +131,11 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.electronics_banner);
 

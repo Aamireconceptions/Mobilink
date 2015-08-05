@@ -132,6 +132,11 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.jewellery_exchange_banner);
 

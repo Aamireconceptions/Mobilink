@@ -130,6 +130,11 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
     }
 
     @Override
+    public void onRefreshCompleted() {
+
+    }
+
+    @Override
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.automotive_banner);
 

@@ -68,7 +68,7 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
-        activity.onRefreshCompleted();
+        //activity.onRefreshCompleted();
 
         adapter.clear();
 

@@ -60,7 +60,7 @@ public class TopDealsBannersTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
-        mActivity.onRefreshCompleted();
+       // mActivity.onRefreshCompleted();
 
         adapter.clear();
 

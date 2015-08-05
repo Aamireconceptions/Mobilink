@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,7 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopDealsFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener, OnDealsTaskFinishedListener, OnSubCategorySelectedListener
-{
+public class TopDealsFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener, OnDealsTaskFinishedListener, OnSubCategorySelectedListener, SwipeRefreshLayout.OnRefreshListener {
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -48,6 +48,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     private ListView listView;
 
     private boolean isCreated = false;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public static TopDealsFragment newInstance() {
         TopDealsFragment fragment = new TopDealsFragment();
@@ -72,6 +74,10 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeColors(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
 
@@ -101,7 +107,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         listView = (ListView) v.findViewById(R.id.list_view);
-        listView.setOnScrollListener(new ScrollListener(activity));
+        //listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
@@ -123,6 +129,11 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     public void onRefreshStarted()
     {
         loadTopDeals();
+    }
+
+    @Override
+    public void onRefreshCompleted() {
+
     }
 
     @Override
@@ -148,5 +159,10 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         } else {
             isCreated = false;
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(false);
     }
 }
