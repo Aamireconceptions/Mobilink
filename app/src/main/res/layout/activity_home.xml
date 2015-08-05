@@ -139,7 +139,7 @@
                     android:scrollbars="none"
                     android:background="@color/red"
                     app:tabTextColor="@color/tab_text_color"
-                    app:tabIndicatorColor="@color/tab_text_color"
+                    app:tabIndicatorColor="@color/white"
                     app:tabMode="scrollable"
                     app:tabSelectedTextColor="@color/white"
                     app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small" />
