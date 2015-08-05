@@ -157,7 +157,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         init();
 
-       // registeredWithGcmIfRequired();
+        registeredWithGcmIfRequired();
 
         new SearchKeywordsTask(this).execute();
 

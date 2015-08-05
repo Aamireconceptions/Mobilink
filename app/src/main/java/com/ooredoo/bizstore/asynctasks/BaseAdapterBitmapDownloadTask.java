@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.graphics.Bitmap;
 import android.widget.BaseAdapter;
 
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
 /**
@@ -26,6 +27,11 @@ public class BaseAdapterBitmapDownloadTask extends BitmapDownloadTask
 
         if(bitmap != null)
         {
+            if(adapter instanceof ListViewBaseAdapter)
+            {
+                ((ListViewBaseAdapter) adapter).doAnimate = false;
+            }
+
             adapter.notifyDataSetChanged();
         }
     }

@@ -4,6 +4,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -77,35 +78,42 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
         {
             Gson gson = new Gson();
 
-            Response response = gson.fromJson(result, Response.class);
-
-            List<GenericDeal> deals = new ArrayList<>();
-
-            if(response.deals != null)
+            try
             {
-                viewPager.setBackground(null);
+                Response response = gson.fromJson(result, Response.class);
 
-                deals = response.deals;
+                List<GenericDeal> deals = new ArrayList<>();
+
+                if(response.deals != null)
+                {
+                    viewPager.setBackground(null);
+
+                    deals = response.deals;
+                }
+
+                if(deals.size() > 1) {
+                    circlePageIndicator.setVisibility(View.VISIBLE);
+                } else {
+                    circlePageIndicator.setVisibility(View.GONE);
+                }
+
+                for(GenericDeal genericDeal : deals)
+                {
+                    Logger.print("PromoTask :"+genericDeal.image.promotionalUrl);
+                }
+
+                adapter.setData(deals);
+
+                if(BizStore.getLanguage().equals("ar"))
+                {
+                    adapter.notifyDataSetChanged();
+
+                    viewPager.setCurrentItem(deals.size() - 1);
+                }
             }
-
-            if(deals.size() > 1) {
-                circlePageIndicator.setVisibility(View.VISIBLE);
-            } else {
-                circlePageIndicator.setVisibility(View.GONE);
-            }
-
-            for(GenericDeal genericDeal : deals)
+            catch (JsonSyntaxException e)
             {
-                Logger.print("PromoTask :"+genericDeal.image.promotionalUrl);
-            }
-
-            adapter.setData(deals);
-
-            if(BizStore.getLanguage().equals("ar"))
-            {
-                adapter.notifyDataSetChanged();
-
-                viewPager.setCurrentItem(deals.size() - 1);
+                e.printStackTrace();
             }
         }
         else

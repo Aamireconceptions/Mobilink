@@ -25,7 +25,7 @@ public class GCMRegisterTask extends BaseAsyncTask<Void, Void, String>
 
     private SharedPrefUtils sharedPrefUtils;
 
-    private String serviceName = "";
+    private String serviceName = "/setgcmtoken?";
 
     private String token;
 
@@ -101,7 +101,6 @@ public class GCMRegisterTask extends BaseAsyncTask<Void, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(MSISDN, BizStore.username);
         params.put(GCM_TOKEN, token);
 
         String query = createQuery(params);

@@ -60,6 +60,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     private int prevItem = -1;
 
+    public boolean doAnimate = true;
+
     public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals) {
         this.context = context;
 
@@ -237,7 +239,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
         }
 
-        AnimUtils.slideView(activity, row, prevItem < position);
+        if(doAnimate)
+        {
+            AnimUtils.slideView(activity, row, prevItem < position);
+        }
+        else
+        {
+            doAnimate = true;
+        }
 
         prevItem = position;
 
