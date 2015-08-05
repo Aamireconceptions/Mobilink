@@ -138,10 +138,10 @@
                     android:paddingEnd="@dimen/_12sdp"
                     android:scrollbars="none"
                     android:background="@color/red"
-                    app:tabIndicatorColor="@color/white"
+                    app:tabTextColor="@color/tab_text_color"
+                    app:tabIndicatorColor="@color/tab_text_color"
                     app:tabMode="scrollable"
                     app:tabSelectedTextColor="@color/white"
-                    app:tabTextColor="@color/white"
                     app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small" />
 
                 <ImageView
