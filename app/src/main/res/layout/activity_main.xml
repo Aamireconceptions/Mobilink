@@ -30,6 +30,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_30sdp"
@@ -43,10 +44,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="0dp"
             android:layout_marginTop="0.4dp"
-            android:background="@drawable/btn_dark_red"
+            android:background="@drawable/lang_left_selector"
             android:text="@string/English"
             android:textAllCaps="false"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black_white_selector"/>
 
         <Button
             android:id="@+id/btn_lang_arabic"
@@ -56,9 +57,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="0dp"
             android:layout_toEndOf="@+id/btn_lang_english"
-            android:background="@drawable/btn_lt_grey"
+            android:background="@drawable/lang_right_selector"
             android:text="@string/arabic"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"/>
 
     </LinearLayout>
 </RelativeLayout>
