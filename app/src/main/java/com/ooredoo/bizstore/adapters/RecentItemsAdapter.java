@@ -13,34 +13,33 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.model.RecentItem;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
-import com.ooredoo.bizstore.ui.activities.MyFavoritesActivity;
-import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
 
 import java.util.List;
 
 import static java.lang.String.valueOf;
 
-public class FavoritesAdapter extends ArrayAdapter<Favorite> {
+public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
 
     Activity mActivity;
     int layoutResID;
-    List<Favorite> favorites;
+    List<RecentItem> recentItems;
     private int prevItem = -1;
 
-    public FavoritesAdapter(Activity activity, int layoutResourceID, List<Favorite> items) {
+    public RecentItemsAdapter(Activity activity, int layoutResourceID, List<RecentItem> items) {
         super(activity, layoutResourceID, items);
         this.mActivity = activity;
-        this.favorites = items;
+        this.recentItems = items;
         this.layoutResID = layoutResourceID;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        final Favorite favorite = this.favorites.get(position);
+        final RecentItem recentItem = this.recentItems.get(position);
 
         final Holder holder;
         View view = convertView;
@@ -71,60 +70,52 @@ public class FavoritesAdapter extends ArrayAdapter<Favorite> {
             view.setTag(holder);
         }
 
-        /*String category = favorite.category;
-        holder.tvCategory.setText(category);
-        int categoryIcon = ResourceUtils.getDrawableResId(favorite.category);
-        if(categoryIcon > 0) {
-            holder.ivCategory.setImageResource(categoryIcon);
-        }*/
+        holder.tvDesc.setText(recentItem.description);
+        holder.tvTitle.setText(recentItem.title);
+        holder.tvViews.setText(valueOf(recentItem.views));
 
-        holder.tvDesc.setText(favorite.description);
-        holder.tvTitle.setText(favorite.title);
-        holder.tvViews.setText(valueOf(favorite.views));
+        holder.tvDiscount.setVisibility(recentItem.isBusiness ? View.GONE : View.VISIBLE);
+        holder.ivTypeIcon.setImageResource(recentItem.isBusiness ? R.drawable.ic_business : R.drawable.ic_deal_tag);
 
-        holder.tvDiscount.setVisibility(favorite.isBusiness ? View.GONE : View.VISIBLE);
-        holder.ivTypeIcon.setImageResource(favorite.isBusiness ? R.drawable.ic_business : R.drawable.ic_deal_tag);
-
-        if(favorite.discount == 0) {
+        if(recentItem.discount == 0) {
             holder.tvDiscount.setVisibility(View.GONE);
         }
 
-        holder.tvDiscount.setText(String.valueOf(favorite.discount) + getContext().getString(R.string.percentage_off));
+        holder.tvDiscount.setText(String.valueOf(recentItem.discount) + getContext().getString(R.string.percentage_off));
 
-        holder.ratingBar.setRating(favorite.rating);
+        holder.ratingBar.setRating(recentItem.rating);
 
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DealDetailActivity.selectedDeal = null;
                 BusinessDetailActivity.selectedBusiness = null;
-                showDetailActivity(favorite);
+                showDetailActivity(recentItem);
             }
         });
 
         holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(favorite.isBusiness) {
-                    BusinessDetailActivity.shareBusiness(mActivity, favorite.id);
+                if(recentItem.isBusiness) {
+                    BusinessDetailActivity.shareBusiness(mActivity, recentItem.id);
                 } else {
-                    DealDetailActivity.shareDeal(mActivity, favorite.id);
+                    DealDetailActivity.shareDeal(mActivity, recentItem.id);
                 }
             }
         });
 
-        favorite.isFavorite = true; //Deal.isFavorite(favorite.id);
+        recentItem.isFavorite = Favorite.isFavorite(recentItem.id);
 
-        holder.ivFav.setSelected(favorite.isFavorite);
+        holder.ivFav.setSelected(recentItem.isFavorite);
 
         holder.ivFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favorite.isFavorite = false;
-                favorite.save();
-                favorites.remove(favorite);
-                notifyDataSetChanged();
-                ((MyFavoritesActivity) mActivity).toggleEmptyView(getCount());
+                recentItem.isFavorite = !recentItem.isFavorite;
+                v.setSelected(recentItem.isFavorite);
+                Favorite favorite = new Favorite(recentItem);
+                Favorite.updateFavorite(favorite);
             }
         });
 
@@ -135,16 +126,15 @@ public class FavoritesAdapter extends ArrayAdapter<Favorite> {
         return view;
     }
 
-    public void showDetailActivity(Favorite favorite) {
+    public void showDetailActivity(RecentItem recentItem) {
         Intent intent = new Intent();
-        if(favorite.isBusiness) {
+        if(recentItem.isBusiness) {
             intent.setClass(mActivity, BusinessDetailActivity.class);
         } else {
             intent.setClass(mActivity, DealDetailActivity.class);
         }
-        intent.putExtra(AppConstant.ID, favorite.id);
+        intent.putExtra(AppConstant.ID, recentItem.id);
         mActivity.startActivity(intent);
-        RecentViewedActivity.addToRecentViewed(favorite);
     }
 
     private static class Holder {

@@ -16,8 +16,8 @@ import java.util.List;
  * @since 2/3/2015.
  */
 
-@Table(name = "obs_favorites")
-public class Favorite extends Model {
+@Table(name = "obs_recent_items")
+public class RecentItem extends Model {
 
     @SerializedName("id")
     @Column(name = "itemId", notNull = true)
@@ -65,10 +65,10 @@ public class Favorite extends Model {
     @Column(name = "isBusiness")
     public boolean isBusiness;
 
-    public Favorite() {
+    public RecentItem() {
     }
 
-    public Favorite(int id, int type, String title, int discount, String desc, String city) {
+    public RecentItem(int id, int type, String title, int discount, String desc, String city) {
         this.id = id;
         this.type = type;
         this.description = desc;
@@ -77,7 +77,7 @@ public class Favorite extends Model {
         this.discount = discount;
     }
 
-    public Favorite(GenericDeal deal) {
+    public RecentItem(GenericDeal deal) {
         this.id = deal.id;
         this.title = deal.title;
         this.views = deal.views;
@@ -91,7 +91,7 @@ public class Favorite extends Model {
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }
 
-    public Favorite(RecentDeal deal) {
+    public RecentItem(RecentDeal deal) {
         this.id = deal.id;
         this.title = deal.title;
         this.views = deal.views;
@@ -105,7 +105,7 @@ public class Favorite extends Model {
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
 
-    public Favorite(Business business) {
+    public RecentItem(Business business) {
         this.id = business.id;
         this.title = business.title;
         this.views = business.views;
@@ -116,25 +116,11 @@ public class Favorite extends Model {
         this.category = "";
         this.isFavorite = business.isFavorite;
         this.description = business.description;
-        Logger.logI("FAV_BUSINESS: " + business.id, String.valueOf(business.isFavorite));
+        Logger.logI("DEAL: " + business.id, String.valueOf(business.isFavorite));
     }
 
-    public Favorite(RecentItem recentItem) {
-        this.id = recentItem.id;
-        this.title = recentItem.title;
-        this.views = recentItem.views;
-        this.rating = recentItem.rating;
-        this.address = recentItem.address;
-        this.contact = recentItem.contact;
-        this.discount = recentItem.discount;
-        this.category = recentItem.category;
-        this.isFavorite = recentItem.isFavorite;
-        this.description = recentItem.description;
-        Logger.logI("FAV: " + recentItem.id, String.valueOf(recentItem.isFavorite));
-    }
-
-    public static boolean isFavorite(long favoriteId) {
-        List<Favorite> favorites = new Select().all().from(Favorite.class).where("itemId = " + favoriteId + " AND isFavorite = 1").execute();
+    public static boolean isFavorite(long dealId) {
+        List<RecentItem> favorites = new Select().all().from(RecentItem.class).where("itemId = " + dealId + " AND isFavorite = 1").execute();
 
         if(favorites != null && favorites.size() > 0) {
             return favorites.get(0).isFavorite;
@@ -142,10 +128,10 @@ public class Favorite extends Model {
         return false;
     }
 
-    public static void updateFavorite(Favorite favorite) {
+    public static void updateFavorite(RecentItem favorite) {
         if(favorite != null && favorite.id > 0) {
-            Favorite favDeal = new Favorite();
-            List<Favorite> favorites = new Select().all().from(Favorite.class).where("itemId=" + favorite.id).execute();
+            RecentItem favDeal = new RecentItem();
+            List<RecentItem> favorites = new Select().all().from(RecentItem.class).where("itemId=" + favorite.id).execute();
             if(favorites != null && favorites.size() > 0) {
                 favDeal = favorites.get(0);
             }

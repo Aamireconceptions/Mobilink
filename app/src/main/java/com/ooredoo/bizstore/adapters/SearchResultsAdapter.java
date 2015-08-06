@@ -14,6 +14,7 @@ import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
@@ -93,6 +94,7 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RecentViewedActivity.addToRecentViewed(result);
                 Log.i("ITEM", String.valueOf(result.type));
                 if(isBusiness) {
                     BusinessDetailActivity.selectedBusiness = new Business(result);
