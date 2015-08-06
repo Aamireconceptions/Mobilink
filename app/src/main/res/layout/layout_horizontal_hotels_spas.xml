@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_25sdp"
         android:paddingBottom="@dimen/_25sdp"
-        android:paddingLeft="@dimen/_12sdp"
-        android:paddingRight="@dimen/_12sdp"
+        android:paddingStart="@dimen/_12sdp"
+        android:paddingEnd="@dimen/_12sdp"
         android:orientation="horizontal"
         android:background="@color/white">
 

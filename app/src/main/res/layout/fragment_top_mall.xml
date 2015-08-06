@@ -4,8 +4,8 @@
     android:gravity="center"
     android:paddingTop="@dimen/_6sdp"
     android:paddingBottom="@dimen/_6sdp"
-    android:paddingLeft="@dimen/_6sdp"
-    android:paddingRight="@dimen/_6sdp"
+              android:paddingStart="@dimen/_6sdp"
+              android:paddingEnd="@dimen/_6sdp"
     android:orientation="vertical">
 
     <ImageView

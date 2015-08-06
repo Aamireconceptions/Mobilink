@@ -3,8 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/_8sdp"
-    android:paddingRight="@dimen/_8sdp">
+              android:paddingStart="@dimen/_8sdp"
+              android:paddingEnd="@dimen/_8sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
