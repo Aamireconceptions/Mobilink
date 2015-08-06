@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="@dimen/_140sdp"
-    android:layout_height="@dimen/_170sdp"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/_175sdp"
     android:background="@drawable/grid_white_bg">
 
     <RelativeLayout
@@ -47,6 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wedding Formal Dess"
+            android:textSize="13sp"
+            android:lines="2"
             android:maxLines="2"
             android:ellipsize="end"/>
 

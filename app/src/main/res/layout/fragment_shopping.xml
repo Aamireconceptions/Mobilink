@@ -24,8 +24,8 @@
                 android:scrollbars="none"
                 android:verticalSpacing="@dimen/_6sdp"
                 android:horizontalSpacing="@dimen/_6sdp"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
                 android:numColumns="2" />
 
             <TextView
