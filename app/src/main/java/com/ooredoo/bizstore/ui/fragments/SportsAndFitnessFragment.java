@@ -159,11 +159,12 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     }
 
     @Override
-    public void onNoDeals() {
+    public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
         rlHeader.setVisibility(View.GONE);
 
+        tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
     }
 

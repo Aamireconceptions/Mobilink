@@ -151,11 +151,12 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     }
 
     @Override
-    public void onNoDeals() {
+    public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
         rlHeader.setVisibility(View.GONE);
 
+        tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
     }
 

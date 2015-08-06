@@ -26,26 +26,21 @@ import java.util.List;
  */
 public class PromoTask extends BaseAsyncTask<String, Void, String>
 {
-    private HomeActivity activity;
-
     private PromoStatePagerAdapter adapter;
 
     private ViewPager viewPager;
 
+    private CirclePageIndicator circlePageIndicator;
+
     private final static String SERVICE_NAME = "/promotionaldeals?";
 
-    CirclePageIndicator circlePageIndicator;
-
-    public PromoTask(HomeActivity activity, PromoStatePagerAdapter adapter, ViewPager viewPager)
+    public PromoTask(PromoStatePagerAdapter adapter,
+                     ViewPager viewPager, CirclePageIndicator circlePageIndicator)
     {
-        this.activity = activity;
-
         this.adapter = adapter;
 
         this.viewPager = viewPager;
-    }
 
-    public void setIndicator(CirclePageIndicator circlePageIndicator) {
         this.circlePageIndicator = circlePageIndicator;
     }
 
@@ -54,7 +49,6 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
     {
         try
         {
-            Logger.print("doInBackground: PromoTask");
             return getPromos();
         }
         catch (IOException e)
@@ -70,8 +64,6 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
-        //activity.onRefreshCompleted();
-
         adapter.clear();
 
         if(result != null)
@@ -82,33 +74,24 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
             {
                 Response response = gson.fromJson(result, Response.class);
 
-                List<GenericDeal> deals = new ArrayList<>();
-
-                if(response.deals != null)
+                if(response.resultCode != -1)
                 {
+                    List<GenericDeal> deals;
+
                     viewPager.setBackground(null);
 
                     deals = response.deals;
-                }
 
-                if(deals.size() > 1) {
-                    circlePageIndicator.setVisibility(View.VISIBLE);
-                } else {
-                    circlePageIndicator.setVisibility(View.GONE);
-                }
+                    handleIndicatorVisibility(deals.size(), circlePageIndicator);
 
-                for(GenericDeal genericDeal : deals)
-                {
-                    Logger.print("PromoTask :"+genericDeal.image.promotionalUrl);
-                }
+                    adapter.setData(deals);
 
-                adapter.setData(deals);
+                    if(BizStore.getLanguage().equals("ar"))
+                    {
+                        adapter.notifyDataSetChanged();
 
-                if(BizStore.getLanguage().equals("ar"))
-                {
-                    adapter.notifyDataSetChanged();
-
-                    viewPager.setCurrentItem(deals.size() - 1);
+                        viewPager.setCurrentItem(deals.size() - 1);
+                    }
                 }
             }
             catch (JsonSyntaxException e)
@@ -126,7 +109,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
     private String getPromos() throws IOException
     {
-        String result = null;
+        String result;
 
         InputStream inputStream = null;
 

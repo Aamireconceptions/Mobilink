@@ -67,6 +67,15 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         dealsTaskFinishedListener = (OnDealsTaskFinishedListener) fragment;
     }
 
+    @Override
+    protected void onPreExecute()
+    {
+        super.onPreExecute();
+
+        if(progressBar != null) {
+            this.progressBar.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     protected String doInBackground(String... params)
@@ -83,15 +92,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         return null;
     }
 
-    @Override
-    protected void onPreExecute()
-    {
-        super.onPreExecute();
 
-        if(progressBar != null) {
-            this.progressBar.setVisibility(View.VISIBLE);
-        }
-    }
 
     @Override
     protected void onPostExecute(String result)
@@ -125,13 +126,15 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
             }
             else
             {
-                dealsTaskFinishedListener.onNoDeals();
+                dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
             }
 
             adapter.notifyDataSetChanged();
         }
         else
         {
+            dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
+
             snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
     }

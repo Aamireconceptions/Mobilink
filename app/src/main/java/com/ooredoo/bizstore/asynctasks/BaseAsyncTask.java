@@ -2,8 +2,10 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Dialog;
 import android.os.AsyncTask;
+import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.BufferedReader;
@@ -201,5 +203,14 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     protected void closeDialog(Dialog dialog) {
         if(dialog != null && dialog.isShowing())
             dialog.dismiss();
+    }
+
+    public void handleIndicatorVisibility(int count, CirclePageIndicator circlePageIndicator)
+    {
+        if(count > 1) {
+            circlePageIndicator.setVisibility(View.VISIBLE);
+        } else {
+            circlePageIndicator.setVisibility(View.GONE);
+        }
     }
 }

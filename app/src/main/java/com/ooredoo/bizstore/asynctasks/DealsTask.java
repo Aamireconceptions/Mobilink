@@ -89,10 +89,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        homeActivity.showLoader();
-        //dialog = DialogUtils.createCustomLoader(homeActivity, "Loading...");
+       // homeActivity.showLoader();
 
-        /*if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }*/
+        if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
 
     @Override
@@ -111,7 +110,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        homeActivity.hideLoader();
+       // homeActivity.hideLoader();
 
         subCategories = "";
         sortColumn = "createdate";
@@ -120,13 +119,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
         adapter.clearData();
 
-        closeDialog(dialog);
-
-        /*if(progressBar != null) { progressBar.setVisibility(View.GONE); }*/
+        if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         if(result != null) {
-            //List<GenericDeal> deals = null;
-
             Logger.logI("DEALS: " + category, result);
 
             Gson gson = new Gson();
@@ -165,12 +160,16 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                 }
                 else
                 {
-                    dealsTaskFinishedListener.onNoDeals();
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                 }
 
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }
+        }
+        else
+        {
+            dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
         }
 
         adapter.notifyDataSetChanged();

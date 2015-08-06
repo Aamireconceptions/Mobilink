@@ -22,7 +22,6 @@ import java.util.List;
  * @since 25-Jun-15.
  */
 public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
-    private HomeActivity activity;
 
     private TopMallsStatePagerAdapter adapter;
 
@@ -30,9 +29,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
     private final static String SERVICE_NAME = "/topbrand?";
 
-    public TopMallsTask(HomeActivity activity, TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
-        this.activity = activity;
-
+    public TopMallsTask(TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
         this.adapter = adapter;
 
         this.viewPager = viewPager;
@@ -64,13 +61,12 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
             if(mallResponse.resultCode != - 1)
             {
                 adapter.setData(mallResponse.malls);
-            }
 
-            if(BizStore.getLanguage().equals("ar"))
-            {
-                adapter.notifyDataSetChanged();
+                if (BizStore.getLanguage().equals("ar")) {
+                    adapter.notifyDataSetChanged();
 
-                viewPager.setCurrentItem(mallResponse.malls.size() - 1);
+                    viewPager.setCurrentItem(mallResponse.malls.size() - 1);
+                }
             }
 
         } else {

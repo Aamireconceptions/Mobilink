@@ -60,9 +60,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     public static ViewPager featuredPager, promoPager, topBrandsPager, topMallsPager;
 
-    boolean sliderOn = true;
-
-    CirclePageIndicator promoIndicator, featuredIndicator;
+    private CirclePageIndicator promoIndicator, featuredIndicator;
 
     private SliderUtils promoSlider, featuredSlider;
 
@@ -175,12 +173,13 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadPromos()
     {
-        PromoTask promoTask = new PromoTask(activity, promoAdapter, promoPager);
-        promoTask.setIndicator(promoIndicator);
+        PromoTask promoTask = new PromoTask(promoAdapter,
+                                            promoPager, promoIndicator);
         promoTask.execute();
     }
 
-    FeaturedStatePagerAdapter featuredAdapter;
+    private FeaturedStatePagerAdapter featuredAdapter;
+
     private void initAndLoadFeaturedDeals(View v) {
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -189,7 +188,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         featuredSlider = new SliderUtils(featuredPager);
 
         featuredAdapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals, featuredSlider);
-
 
         featuredPager.setAdapter(featuredAdapter);
 
@@ -204,12 +202,13 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadFeatured()
     {
-        FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager);
-        featuredTask.setIndicator(featuredIndicator);
+        FeaturedTask featuredTask = new FeaturedTask(featuredAdapter, featuredPager,
+                                                     featuredIndicator);
         featuredTask.execute();
     }
 
-    TopBrandsStatePagerAdapter topBrandsStatePagerAdapter;
+    private TopBrandsStatePagerAdapter topBrandsStatePagerAdapter;
+
     private void initAndLoadTopBrands(View v) {
         List<Brand> brands = new ArrayList<>();
 
@@ -223,11 +222,12 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadTopBrands()
     {
-        TopBrandsTask topBrandsTask = new TopBrandsTask(activity, topBrandsStatePagerAdapter, topBrandsPager);
+        TopBrandsTask topBrandsTask = new TopBrandsTask(topBrandsStatePagerAdapter, topBrandsPager);
         topBrandsTask.execute("malls");
     }
 
-    TopMallsStatePagerAdapter topMallsAdapter;
+    private TopMallsStatePagerAdapter topMallsAdapter;
+
     private void initAndLoadTopMalls(View v) {
         List<Mall> malls = new ArrayList<>();
 
@@ -241,13 +241,12 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadTopMalls()
     {
-        TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager);
+        TopMallsTask topMallsTask = new TopMallsTask(topMallsAdapter, topMallsPager);
         topMallsTask.execute("malls");
     }
 
     private void initAndLoadDealsOfTheDay() {
         DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null, this);
-        //dealsTask.setTvDealsOfTheDay(tvDealsOfTheDay);
         dealsTask.execute("dealofday");
     }
 
@@ -268,23 +267,17 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         initAndLoadDealsOfTheDay();
     }
 
-   /* @Override
-    public void onRefreshStarted()
-    {
-        loadPromos();
-        loadFeatured();
-        loadTopBrands();
-        loadTopMalls();
-        initAndLoadDealsOfTheDay();
-    }*/
-
-
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
-        sliderOn = true;
 
+        resumeSliders();
+    }
+
+    private void resumeSliders()
+    {
         int promosCount = promoAdapter.getCount();
 
         if(promosCount > 0)
@@ -298,16 +291,11 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         {
             featuredSlider.start(featuredCount);
         }
-
-       // startSlider(PromoStatePagerAdapter.deals, promoPager);
-       // startSlider(FeaturedStatePagerAdapter.deals, featuredPager);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        sliderOn = false;
-
         promoSlider.stop();
         featuredSlider.stop();
     }
@@ -332,7 +320,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     }
 
     @Override
-    public void onNoDeals() {
+    public void onNoDeals(int stringResId) {
         tvDealsOfTheDay.setVisibility(View.GONE);
     }
 }

@@ -25,27 +25,22 @@ import java.util.List;
  */
 public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 {
-    private HomeActivity activity;
-
     private FeaturedStatePagerAdapter adapter;
 
     private ViewPager viewPager;
 
+    private CirclePageIndicator featuredIndicator;
+
     private final static String SERVICE_NAME = "/featureddeals?";
 
-    CirclePageIndicator circlePageIndicator;
-
-    public FeaturedTask(HomeActivity activity, FeaturedStatePagerAdapter adapter, ViewPager viewPager)
+    public FeaturedTask(FeaturedStatePagerAdapter adapter,
+                        ViewPager viewPager, CirclePageIndicator featuredIndicator)
     {
-        this.activity = activity;
-
         this.adapter = adapter;
 
         this.viewPager = viewPager;
-    }
 
-    public void setIndicator(CirclePageIndicator circlePageIndicator) {
-        this.circlePageIndicator = circlePageIndicator;
+        this.featuredIndicator = featuredIndicator;
     }
 
     @Override
@@ -68,8 +63,6 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
-        //activity.onRefreshCompleted();
-
         adapter.clear();
 
         if(result != null)
@@ -78,38 +71,27 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
             Gson gson = new Gson();
 
-            try
-            {
+            try {
                 Response response = gson.fromJson(result, Response.class);
 
-                List<GenericDeal> deals = new ArrayList<>();
-
-                circlePageIndicator.setVisibility(View.GONE);
-
-                if(response.deals != null)
+                if (response.resultCode != -1)
                 {
+                    List<GenericDeal> deals;
+
                     viewPager.setBackground(null);
 
                     deals = response.deals;
 
-                    if(deals.size() > 1) {
-                        circlePageIndicator.setVisibility(View.VISIBLE);
+                    handleIndicatorVisibility(deals.size(), featuredIndicator);
+
+                    adapter.setData(deals);
+
+                    if(BizStore.getLanguage().equals("ar"))
+                    {
+                        adapter.notifyDataSetChanged();
+
+                        viewPager.setCurrentItem(deals.size() - 1);
                     }
-                }
-
-                for(GenericDeal genericDeal : deals)
-                {
-                    Logger.print("onPost:"+genericDeal.image.bannerUrl);
-                }
-
-                adapter.setData(deals);
-
-
-                if(BizStore.getLanguage().equals("ar"))
-                {
-                    adapter.notifyDataSetChanged();
-
-                    viewPager.setCurrentItem(deals.size() - 1);
                 }
             }
             catch (JsonSyntaxException e)

@@ -9,5 +9,5 @@ public interface OnDealsTaskFinishedListener
 
     void onHaveDeals();
 
-    void onNoDeals();
+    void onNoDeals(int stringResId);
 }

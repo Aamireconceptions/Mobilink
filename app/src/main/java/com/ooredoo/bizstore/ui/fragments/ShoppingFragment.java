@@ -128,7 +128,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private void loadDeals()
     {
-        ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, null, snackBarUtils, this);
+        ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
         shoppingTask.execute("shopping");
     }
 
@@ -160,9 +160,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     }
 
     @Override
-    public void onNoDeals() {
+    public void onNoDeals(int stringResId) {
         rlHeader.setVisibility(View.GONE);
 
+        tvEmptyView.setText(stringResId);
         gridView.setEmptyView(tvEmptyView);
     }
 

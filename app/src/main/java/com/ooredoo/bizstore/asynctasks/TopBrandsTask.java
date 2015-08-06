@@ -22,7 +22,6 @@ import java.util.List;
  * @since 25-Jun-15.
  */
 public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
-    private HomeActivity activity;
 
     private TopBrandsStatePagerAdapter adapter;
 
@@ -30,9 +29,7 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
     private final static String SERVICE_NAME = "/topbrand?";
 
-    public TopBrandsTask(HomeActivity activity, TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
-        this.activity = activity;
-
+    public TopBrandsTask(TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
         this.adapter = adapter;
 
         this.viewPager = viewPager;
@@ -53,8 +50,6 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        //activity.onRefreshCompleted();
-
         adapter.clear();
 
         if(result != null) {
@@ -67,7 +62,6 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
             if(brand.resultCode != - 1)
             {
                 adapter.setData(brand.brands);
-
 
                 if(BizStore.getLanguage().equals("ar"))
                 {
