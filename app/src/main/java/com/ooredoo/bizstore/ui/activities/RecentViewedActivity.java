@@ -13,11 +13,12 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.RecentDealsAdapter;
+import com.ooredoo.bizstore.adapters.RecentItemsAdapter;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.RecentDeal;
+import com.ooredoo.bizstore.model.RecentItem;
+import com.ooredoo.bizstore.model.SearchResult;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
 
     private ListView mListView;
 
-    private RecentDealsAdapter mAdapter;
+    private RecentItemsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,30 +43,21 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
     private void init() {
         setupToolbar();
 
-        /*Button btnNewDeals = (Button) findViewById(R.id.new_deals);
-        Button btnPopularDeals = (Button) findViewById(R.id.popular_deals);
-
-        btnNewDeals.setSelected(true);
-        btnNewDeals.setOnClickListener(this);
-        btnPopularDeals.setOnClickListener(this);
-
-        lastSelected = btnNewDeals;*/
-
-        List<RecentDeal> deals = new Select().all().from(RecentDeal.class).execute();
+        List<RecentItem> recentItems = new Select().all().from(RecentItem.class).execute();
 
         mListView = (ListView) findViewById(R.id.list_view);
 
-        mAdapter = new RecentDealsAdapter(this, R.layout.list_item_deal, deals);
+        mAdapter = new RecentItemsAdapter(this, R.layout.recent_item, recentItems);
 
         mListView.setAdapter(mAdapter);
 
-        int dealsCount = deals.size();
+        int count = recentItems.size();
 
-        toggleEmptyView(dealsCount);
+        toggleEmptyView(count);
 
         btnClearAll = (Button) findViewById(R.id.btn_clear);
         btnClearAll.setOnClickListener(this);
-        btnClearAll.setVisibility(dealsCount == 0 ? View.GONE : View.VISIBLE);
+        btnClearAll.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
     }
 
     private void toggleEmptyView(int count) {
@@ -105,9 +97,9 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void clearRecentDeals() {
-        List<RecentDeal> deals = new Select().all().from(RecentDeal.class).execute();
-        for(RecentDeal deal : deals) {
-            deal.delete();
+        List<RecentItem> recentItems = new Select().all().from(RecentItem.class).execute();
+        for(RecentItem recentItem : recentItems) {
+            recentItem.delete();
         }
         mAdapter.clear();
         toggleEmptyView(0); //0 => NO_RECENT_VIEWED
@@ -126,10 +118,10 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
 
     public static void addToRecentViewed(Favorite favorite) {
         if(favorite != null && favorite.id > 0) {
-            RecentDeal rd = new RecentDeal();
-            List<RecentDeal> deals = new Select().all().from(RecentDeal.class).where("dealId=" + favorite.id).execute();
-            if(deals != null && deals.size() > 0) {
-                rd = deals.get(0);
+            RecentItem rd = new RecentItem();
+            List<RecentItem> recentItems = new Select().all().from(RecentItem.class).where("itemId=" + favorite.id).execute();
+            if(recentItems != null && recentItems.size() > 0) {
+                rd = recentItems.get(0);
             }
             rd.id = favorite.id;
             rd.type = favorite.type;
@@ -140,17 +132,38 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.rating = favorite.rating;
             rd.category = favorite.category;
             rd.discount = favorite.discount;
-            Log.i("UPDATE", "EXISTING---" + rd.title);
+            Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
+            rd.save();
+        }
+    }
+
+    public static void addToRecentViewed(SearchResult result) {
+        if(result != null && result.id > 0) {
+            RecentItem rd = new RecentItem();
+            List<RecentItem> recentItems = new Select().all().from(RecentItem.class).where("itemId=" + result.id).execute();
+            if(recentItems != null && recentItems.size() > 0) {
+                rd = recentItems.get(0);
+            }
+            rd.id = result.id;
+            rd.type = 0;
+            rd.description = result.description;
+            rd.city = result.location;
+            rd.title = result.title;
+            rd.views = result.views;
+            rd.rating = result.rating;
+            rd.category = "";
+            rd.discount = result.discount;
+            Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();
         }
     }
 
     public static void addToRecentViewed(Deal deal) {
         if(deal != null && deal.id > 0) {
-            RecentDeal rd = new RecentDeal();
-            List<RecentDeal> deals = new Select().all().from(RecentDeal.class).where("dealId=" + deal.id).execute();
-            if(deals != null && deals.size() > 0) {
-                rd = deals.get(0);
+            RecentItem rd = new RecentItem();
+            List<RecentItem> recentItems = new Select().all().from(RecentItem.class).where("itemId=" + deal.id).execute();
+            if(recentItems != null && recentItems.size() > 0) {
+                rd = recentItems.get(0);
             }
             rd.id = deal.id;
             rd.type = deal.type;
@@ -161,27 +174,27 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.rating = deal.rating;
             rd.category = deal.category;
             rd.discount = deal.discount;
-            Log.i("UPDATE", "EXISTING---" + rd.title);
+            Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();
         }
     }
 
     public static void addToRecentViewed(GenericDeal deal) {
         if(deal != null && deal.id > 0) {
-            RecentDeal rd = new RecentDeal();
-            List<RecentDeal> deals = new Select().all().from(RecentDeal.class).where("dealId=" + deal.id).execute();
-            if(deals != null && deals.size() > 0) {
-                rd = deals.get(0);
+            RecentItem recentItem = new RecentItem();
+            List<RecentItem> recentItems = new Select().all().from(RecentItem.class).where("itemId=" + deal.id).execute();
+            if(recentItems != null && recentItems.size() > 0) {
+                recentItem = recentItems.get(0);
             }
-            rd.id = deal.id;
-            rd.title = deal.title;
-            rd.views = deal.views;
-            rd.rating = deal.rating;
-            rd.discount = deal.discount;
-            rd.category = deal.category;
-            rd.description = deal.description;
-            Log.i("UPDATE", "EXISTING---" + rd.title);
-            rd.save();
+            recentItem.id = deal.id;
+            recentItem.title = deal.title;
+            recentItem.views = deal.views;
+            recentItem.rating = deal.rating;
+            recentItem.discount = deal.discount;
+            recentItem.category = deal.category;
+            recentItem.description = deal.description;
+            Log.i("UPDATE", "EXISTING---" + recentItem.title == null ? "NULL" : recentItem.title);
+            recentItem.save();
         }
     }
 }

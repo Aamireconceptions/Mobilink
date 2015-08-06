@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:background="@drawable/bg_white_rad5"
+                android:gravity="start|center_vertical"
+                android:padding="@dimen/_10sdp">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_deal_tag"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_search_result"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/iv_fav"
+            android:gravity="start|center_vertical"
+            android:padding="5dp"
+            android:layout_marginTop="2dp"
+            android:singleLine="true"
+            android:text="@string/top_deals"
+            android:textColor="@color/red"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="4dp"
+            android:src="@drawable/fav_selector"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginTop="8dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/sms_charges"
+            android:textColor="@color/hex808080"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_discount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_desc"
+            android:layout_marginTop="8dp"
+            android:gravity="start|center_vertical"
+            android:text="30% OFF"
+            android:textColor="@color/red"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_search_result"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/iv"
+        android:progressDrawable="@drawable/deal_rating_bar"
+        android:rating="0"/>
+
+    <TextView
+        android:id="@+id/tv_views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/iv_share"
+        android:layout_below="@+id/rl_search_result"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="@dimen/_4sdp"
+        android:drawableStart="@drawable/ic_views"
+        android:gravity="center"
+        android:text="0"/>
+
+    <ImageView
+        android:id="@+id/iv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_search_result"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_share"/>
+
+</RelativeLayout>
