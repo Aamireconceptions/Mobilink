@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_toStartOf="@+id/iv_filter_results"
-                        android:paddingLeft="15dp"
+                        android:paddingStart="15dp"
                         android:text="Showing 10 Results"
                         android:textAllCaps="false"
                         android:textColor="@color/white"

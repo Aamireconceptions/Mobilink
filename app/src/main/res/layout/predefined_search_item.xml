@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:layout_gravity="left|center_vertical"
+              android:layout_gravity="start|center_vertical"
               android:layout_marginRight="10dp"
               android:background="@color/white"
-              android:gravity="left|center_vertical"
+              android:gravity="start|center_vertical"
               android:padding="@dimen/_6sdp">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="fill_parent"
         android:layout_height="32dp"
-        android:gravity="left|center_vertical"
+        android:gravity="start|center_vertical"
         android:text="@string/search"
         android:textColor="@color/hex808080"
         android:textSize="14sp"/>

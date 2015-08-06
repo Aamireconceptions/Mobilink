@@ -12,8 +12,8 @@
         android:layout_margin="0dp"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/_6sdp"
-        android:paddingRight="@dimen/_6sdp">
+        android:paddingStart="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_6sdp">
 
         <CheckBox
             android:id="@+id/cb_search_deals"

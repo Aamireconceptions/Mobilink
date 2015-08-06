@@ -43,7 +43,7 @@
                 android:id="@+id/btn_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
+                android:layout_gravity="end|center_vertical"
                 android:padding="10dp"
                 android:layout_weight="0.1"
                 android:background="@android:color/transparent"

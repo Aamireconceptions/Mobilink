@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:layout_gravity="left|center_vertical"
-              android:gravity="left|center_vertical"
+              android:layout_gravity="start|center_vertical"
+              android:gravity="start|center_vertical"
               android:orientation="vertical"
               android:padding="10dp">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|center_vertical"
+        android:layout_gravity="start|center_vertical"
         android:background="@drawable/deal_header_bg"
-        android:gravity="top|left|center_vertical"
+        android:gravity="top|start|center_vertical"
         android:padding="10dp">
 
         <ImageView
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
         android:background="@drawable/border_grey"
-        android:gravity="top|left|center_vertical"
+        android:gravity="top|start|center_vertical"
         android:padding="@dimen/_10sdp">
 
         <TextView
@@ -97,9 +97,9 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|center_vertical"
+        android:layout_gravity="start|center_vertical"
         android:background="@drawable/deal_footer_bg"
-        android:gravity="top|left|center_vertical"
+        android:gravity="top|start|center_vertical"
         android:padding="@dimen/_8sdp">
 
         <RatingBar

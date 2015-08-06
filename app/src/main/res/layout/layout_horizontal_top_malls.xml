@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_30sdp"
         android:paddingBottom="@dimen/_30sdp"
-        android:paddingLeft="@dimen/_12sdp"
-        android:paddingRight="@dimen/_12sdp"
+        android:paddingStart="@dimen/_12sdp"
+        android:paddingEnd="@dimen/_12sdp"
         android:orientation="horizontal"
         android:background="@color/white">
 
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_30sdp"
             android:drawableTop="@drawable/tmp_brand"
             android:drawablePadding="@dimen/_4sdp"
             android:text="Abc Mall"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_30sdp"
             android:drawableTop="@drawable/tmp_brand"
             android:drawablePadding="@dimen/_4sdp"
             android:text="Some Mall"
