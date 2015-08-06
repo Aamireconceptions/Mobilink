@@ -5,27 +5,42 @@
 
     <include layout="@layout/layout_filter_header"/>
 
-    <GridView
-        android:id="@+id/shopping_gridview"
+    <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"
-        android:scrollbars="none"
-        android:verticalSpacing="@dimen/_6sdp"
-        android:horizontalSpacing="@dimen/_6sdp"
-        android:layout_marginLeft="@dimen/_6sdp"
-        android:layout_marginRight="@dimen/_6sdp"
-        android:numColumns="2" />
+        android:layout_below="@+id/header">
 
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:text="Oops nothing found :("
-        android:textSize="30sp"
-        android:visibility="gone"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true">
+
+            <GridView
+                android:id="@+id/shopping_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/header"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/_6sdp"
+                android:horizontalSpacing="@dimen/_6sdp"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                android:numColumns="2" />
+
+            <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:text="Oops nothing found :("
+                android:textSize="30sp"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+    </com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

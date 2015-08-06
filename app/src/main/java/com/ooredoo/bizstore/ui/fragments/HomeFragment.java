@@ -48,8 +48,8 @@ import java.util.TimerTask;
  * @author Babar
  */
 public class HomeFragment extends Fragment implements OnFilterChangeListener,
-                                                      //OnRefreshListener,
-                                                      OnDealsTaskFinishedListener, SwipeRefreshLayout.OnRefreshListener {
+                                                      OnDealsTaskFinishedListener,
+                                                      SwipeRefreshLayout.OnRefreshListener {
     private HomeActivity activity;
 
     private TextView tvDealsOfTheDay;
@@ -87,11 +87,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         activity.setCurrentFragment(this);
 
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeColors(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         ListView listView = (ListView) v.findViewById(R.id.home_list_view);
-        //listView.setOnScrollListener(new ScrollListener(activity));
 
         LayoutInflater inflater = activity.getLayoutInflater();
 
@@ -279,51 +278,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         initAndLoadDealsOfTheDay();
     }*/
 
-    /*public static void startSlider(final List list, final ViewPager viewPager) {
 
-        Timer timer;
-
-        final Handler handler = new Handler();
-
-        final Runnable runnable = new Runnable() {
-
-            int position = 0;
-
-            boolean fwd = true;
-
-            @Override
-            public void run() {
-                if(list != null && list.size() > 0) {
-                    if(position < list.size() - 1 || !fwd) {
-                        if(position == 0) {
-                            fwd = true;
-                        }
-                    } else {
-                        fwd = false;
-                    }
-
-                    if(fwd)
-                        position++;
-                    else
-                        position--;
-
-                    viewPager.setCurrentItem(position, true);
-                    synchronized(viewPager) {
-                        viewPager.notifyAll();
-                    }
-                }
-            }
-        };
-
-        timer = new Timer();
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(runnable);
-            }
-        }, 3000, 3000);
-    }*/
 
     @Override
     public void onResume() {
@@ -357,23 +312,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         featuredSlider.stop();
     }
 
-
-    @Override
-    public void onRefreshCompleted() {
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void onHaveDeals()
-    {
-        tvDealsOfTheDay.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onNoDeals() {
-
-    }
-
     @Override
     public void onRefresh() {
         loadPromos();
@@ -381,5 +319,20 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         loadTopBrands();
         loadTopMalls();
         initAndLoadDealsOfTheDay();
+    }
+
+    @Override
+    public void onRefreshCompleted() {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onHaveDeals() {
+        tvDealsOfTheDay.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNoDeals() {
+        tvDealsOfTheDay.setVisibility(View.GONE);
     }
 }

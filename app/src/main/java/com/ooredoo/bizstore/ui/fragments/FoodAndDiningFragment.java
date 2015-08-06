@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +30,15 @@ import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.ResourceUtils;
+import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FoodAndDiningFragment extends Fragment implements OnFilterChangeListener,
-                                                               OnRefreshListener,
                                                                OnDealsTaskFinishedListener,
-                                                               OnSubCategorySelectedListener
-{
+                                                               OnSubCategorySelectedListener,
+                                                               SwipeRefreshLayout.OnRefreshListener {
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -53,6 +54,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private ListView listView;
 
     private boolean isCreated = false;
+
+    private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     public static FoodAndDiningFragment newInstance() {
         FoodAndDiningFragment fragment = new FoodAndDiningFragment();
@@ -76,6 +79,11 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
 
@@ -105,7 +113,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         listView = (ListView) v.findViewById(R.id.list_view);
-        //listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
@@ -128,14 +135,14 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     }
 
     @Override
-    public void onRefreshStarted()
+    public void onRefresh()
     {
         fetchAndDisplayFoodAndDining();
     }
 
     @Override
     public void onRefreshCompleted() {
-
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -158,7 +165,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onSubCategorySelected()
     {
-        Logger.print("IsCreated:"+isCreated);
+        Logger.print("IsCreated:" + isCreated);
 
         if(!isCreated)
         {

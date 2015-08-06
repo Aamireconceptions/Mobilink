@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.ResourceUtils;
+import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +36,9 @@ import java.util.List;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 public class EntertainmentFragment extends Fragment implements OnFilterChangeListener,
-                                                               OnRefreshListener,
                                                                OnDealsTaskFinishedListener,
-                                                               OnSubCategorySelectedListener
-{
+                                                               OnSubCategorySelectedListener,
+                                                               SwipeRefreshLayout.OnRefreshListener {
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -55,6 +56,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     private ListView listView;
 
     private boolean isCreated = false;
+
+    private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     public static EntertainmentFragment newInstance()
     {
@@ -80,6 +83,11 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     private void init(View v)
     {
         activity = (HomeActivity) getActivity();
+
+        swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
 
@@ -111,7 +119,6 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         listView = (ListView) v.findViewById(R.id.list_view);
-        listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
@@ -137,13 +144,13 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     }
 
     @Override
-    public void onRefreshStarted() {
+    public void onRefresh() {
         fetchAndDisplayEntertainment();
     }
 
     @Override
     public void onRefreshCompleted() {
-
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

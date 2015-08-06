@@ -27,12 +27,17 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.ResourceUtils;
+import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopDealsFragment extends Fragment implements OnFilterChangeListener, OnRefreshListener, OnDealsTaskFinishedListener, OnSubCategorySelectedListener, SwipeRefreshLayout.OnRefreshListener {
+public class TopDealsFragment extends Fragment implements OnFilterChangeListener,
+                                                          OnDealsTaskFinishedListener,
+                                                          OnSubCategorySelectedListener,
+                                                          SwipeRefreshLayout.OnRefreshListener {
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -49,7 +54,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private boolean isCreated = false;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     public static TopDealsFragment newInstance() {
         TopDealsFragment fragment = new TopDealsFragment();
@@ -75,8 +80,9 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     {
         activity = (HomeActivity) getActivity();
 
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeColors(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
@@ -107,7 +113,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         listView = (ListView) v.findViewById(R.id.list_view);
-        //listView.setOnScrollListener(new ScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
@@ -126,14 +131,13 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     }
 
     @Override
-    public void onRefreshStarted()
-    {
+    public void onRefresh() {
         loadTopDeals();
     }
 
     @Override
     public void onRefreshCompleted() {
-
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -159,10 +163,5 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         } else {
             isCreated = false;
         }
-    }
-
-    @Override
-    public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(false);
     }
 }

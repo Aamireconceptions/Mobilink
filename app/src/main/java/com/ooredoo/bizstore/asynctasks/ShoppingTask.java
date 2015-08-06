@@ -98,7 +98,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
-        //homeActivity.onRefreshCompleted();
+        dealsTaskFinishedListener.onRefreshCompleted();
 
         if(progressBar != null) {
             this.progressBar.setVisibility(View.GONE);
@@ -138,78 +138,61 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
     private String getDeals(String category) throws IOException
     {
-        String result = null;
+        String result;
 
         boolean isFilterEnabled = false;
 
-        InputStream inputStream = null;
+        HashMap<String, String> params = new HashMap<>();
+        params.put(OS, ANDROID);
+        params.put(CATEGORY, category);
 
-        try
-        {
-            HashMap<String, String> params = new HashMap<>();
-            params.put(OS, ANDROID);
-            params.put(CATEGORY, category);
+        Logger.print("Sort by: " + sortColumn);
+        Logger.print("Sub Categories: " + subCategories);
 
-            Logger.print("Sort by: " + sortColumn);
-            Logger.print("Sub Categories: " + subCategories);
-
-            if(isNotNullOrEmpty(sortColumn)) {
-                if(sortColumn.equals("views"))
-                    isFilterEnabled = true;
-                params.put("sort", sortColumn);
-            }
-
-            if(isNotNullOrEmpty(subCategories)) {
+        if(isNotNullOrEmpty(sortColumn)) {
+            if(sortColumn.equals("views"))
                 isFilterEnabled = true;
-                params.put("subcategories", subCategories);
-            }
-
-            if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
-                isFilterEnabled = true;
-                params.put("rating", homeActivity.ratingFilter);
-            }
-
-            if(homeActivity.doApplyDiscount) {
-                isFilterEnabled = true;
-                params.put("min_discount", String.valueOf(homeActivity.minDiscount));
-                params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
-            }
-
-            final String KEY = PREFIX_DEALS.concat(category);
-            final String UPDATE_KEY = KEY.concat("_UPDATE");
-
-            if(isFilterEnabled || checkIfUpdateData(homeActivity, UPDATE_KEY)) {
-
-                String query = createQuery(params);
-
-                URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
-
-                Logger.print("Shopping url: " + url.toString());
-
-                result = getJson(url);
-                if(!isFilterEnabled) {
-                    updateVal(homeActivity, KEY, result);
-                    updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
-                }
-            } else {
-                result = getStringVal(homeActivity, KEY);
-            }
-
-            Logger.print("Shopping getDeals: "+result);
-
-            return result;
+            params.put("sort", sortColumn);
         }
-        finally
-        {
-            Logger.print("Entered Finally");
 
-            if(inputStream != null)
-            {
-                Logger.print("Closing Stream");
-
-                inputStream.close();
-            }
-
+        if(isNotNullOrEmpty(subCategories)) {
+            isFilterEnabled = true;
+            params.put("subcategories", subCategories);
         }
+
+        if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
+            isFilterEnabled = true;
+            params.put("rating", homeActivity.ratingFilter);
+        }
+
+        if(homeActivity.doApplyDiscount) {
+            isFilterEnabled = true;
+            params.put("min_discount", String.valueOf(homeActivity.minDiscount));
+            params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
+        }
+
+        final String KEY = PREFIX_DEALS.concat(category);
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+        if(isFilterEnabled || checkIfUpdateData(homeActivity, UPDATE_KEY)) {
+
+            String query = createQuery(params);
+
+            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+            Logger.print("Shopping url: " + url.toString());
+
+            result = getJson(url);
+            if(!isFilterEnabled) {
+                updateVal(homeActivity, KEY, result);
+                updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
+            }
+        } else {
+            result = getStringVal(homeActivity, KEY);
+        }
+
+        Logger.print("Shopping getDeals: "+result);
+
+        return result;
     }
 }

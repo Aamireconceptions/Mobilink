@@ -48,8 +48,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     private ImageView ivBanner;
 
-    private TextView tvDealsOfTheDay;
-
     private final static String SERVICE_NAME = "/deals?";
 
     public static String sortColumn = "createdate"; //Default new deals
@@ -84,12 +82,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         reqWidth = displayMetrics.widthPixels;
 
         reqHeight = (int) Converter.convertDpToPixels(res.getDimension(R.dimen._160sdp)
-                                                      / displayMetrics.density);
+                / displayMetrics.density);
     }
-
-    /*public void setTvDealsOfTheDay(TextView tvDealsOfTheDay) {
-        this.tvDealsOfTheDay = tvDealsOfTheDay;
-    }*/
 
     @Override
     protected void onPreExecute() {
@@ -124,8 +118,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
         dealsTaskFinishedListener.onRefreshCompleted();
 
-        //homeActivity.onRefreshCompleted();
-
         adapter.clearData();
 
         closeDialog(dialog);
@@ -142,25 +134,13 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
             try {
                 Response response = gson.fromJson(result, Response.class);
 
-                /*if(response.deals != null)
-                    deals = response.deals;*/
-
-               // adapter.clearData();
-
                 if(response.resultCode != -1)
                 {
                     dealsTaskFinishedListener.onHaveDeals();
 
                     List<GenericDeal> deals = response.deals;
 
-                    for(GenericDeal genericDeal : deals) {
-                        Logger.print("title:"+genericDeal.title);
-                    }
-
-                    //showTvDealsOfTheDay();
-
                     adapter.setData(deals);
-                    dealsTaskFinishedListener.onHaveDeals();
 
                     String bannerUrl = response.topBannerUrl;
 
@@ -177,9 +157,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
                         else
                         {
                             BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner,
-                                                                                           null);
+                                    null);
                             bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth),
-                                                       String.valueOf(reqHeight));
+                                    String.valueOf(reqHeight));
                         }
                     }
                 }
@@ -196,78 +176,64 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         adapter.notifyDataSetChanged();
     }
 
-    private void showTvDealsOfTheDay() {
-        if(tvDealsOfTheDay != null) {
-            tvDealsOfTheDay.setVisibility(View.VISIBLE);
-        }
-    }
-
     private String getDeals(String category) throws IOException {
         String result;
 
         boolean isFilterEnabled = false;
 
-        InputStream inputStream = null;
+        HashMap<String, String> params = new HashMap<>();
+        params.put(OS, ANDROID);
+        params.put(CATEGORY, category);
 
-        try {
-            HashMap<String, String> params = new HashMap<>();
-            params.put(OS, ANDROID);
-            params.put(CATEGORY, category);
+        Logger.print("Sort by: " + sortColumn);
+        Logger.print("Sub Categories: " + subCategories);
 
-            Logger.print("Sort by: " + sortColumn);
-            Logger.print("Sub Categories: " + subCategories);
-
-            if(isNotNullOrEmpty(sortColumn)) {
-                if(sortColumn.equals("views"))
-                    isFilterEnabled = true;
-                params.put("sort", sortColumn);
-            }
-
-            if(isNotNullOrEmpty(subCategories)) {
+        if(isNotNullOrEmpty(sortColumn)) {
+            if(sortColumn.equals("views"))
                 isFilterEnabled = true;
-                params.put("subcategories", subCategories);
-            }
-
-            if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
-                isFilterEnabled = true;
-                params.put("rating", homeActivity.ratingFilter);
-            }
-
-            if(homeActivity.doApplyDiscount) {
-                isFilterEnabled = true;
-                params.put("min_discount", String.valueOf(homeActivity.minDiscount));
-                params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
-            }
-
-            final String KEY = PREFIX_DEALS.concat(category);
-            final String UPDATE_KEY = KEY.concat("_UPDATE");
-
-            if(isFilterEnabled || checkIfUpdateData(homeActivity, UPDATE_KEY)) {
-
-                String query = createQuery(params);
-
-                URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
-
-                Logger.print("getDeals() URL:" + url.toString());
-
-                result = getJson(url);
-
-                Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
-
-                if(!isFilterEnabled) {
-                    updateVal(homeActivity, KEY, result);
-                    updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
-                }
-            } else {
-                result = getStringVal(homeActivity, KEY);
-            }
-
-            Logger.print("getDeals: " + result);
-        } finally {
-            if(inputStream != null) {
-                inputStream.close();
-            }
+            params.put("sort", sortColumn);
         }
+
+        if(isNotNullOrEmpty(subCategories)) {
+            isFilterEnabled = true;
+            params.put("subcategories", subCategories);
+        }
+
+        if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
+            isFilterEnabled = true;
+            params.put("rating", homeActivity.ratingFilter);
+        }
+
+        if(homeActivity.doApplyDiscount) {
+            isFilterEnabled = true;
+            params.put("min_discount", String.valueOf(homeActivity.minDiscount));
+            params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
+        }
+
+        final String KEY = PREFIX_DEALS.concat(category);
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+        if(isFilterEnabled || checkIfUpdateData(homeActivity, UPDATE_KEY)) {
+
+            String query = createQuery(params);
+
+            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+            Logger.print("getDeals() URL:" + url.toString());
+
+            result = getJson(url);
+
+            Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
+
+            if(!isFilterEnabled) {
+                updateVal(homeActivity, KEY, result);
+                updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
+            }
+        } else {
+            result = getStringVal(homeActivity, KEY);
+        }
+
+        Logger.print("getDeals: " + result);
 
         return result;
     }

@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
+import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +40,9 @@ import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
  * @author Babar
  */
 public class ShoppingFragment extends Fragment implements OnFilterChangeListener,
-                                                          OnRefreshListener,
                                                           OnDealsTaskFinishedListener,
-                                                          OnSubCategorySelectedListener
-{
+                                                          OnSubCategorySelectedListener,
+                                                          SwipeRefreshLayout.OnRefreshListener {
     private HomeActivity activity;
 
     private List<GenericDeal> deals;
@@ -59,6 +60,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     private GridView gridView;
 
     private boolean isCreated = false;
+
+    private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +86,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         deals = new ArrayList<>();
 
+        swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.shopping_gridview, R.id.empty_view);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         rlHeader = (RelativeLayout) v.findViewById(R.id.header);
 
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
@@ -90,7 +98,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         gridView = (GridView) v.findViewById(R.id.shopping_gridview);
-        gridView.setOnScrollListener(new ScrollListener(activity));
         gridView.setOnItemClickListener(new DealGridOnItemClickListener(activity, adapter));
         gridView.setAdapter(adapter);
 
@@ -137,14 +144,13 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     }
 
     @Override
-    public void onRefreshStarted()
-    {
+    public void onRefresh() {
         loadDeals();
     }
 
     @Override
     public void onRefreshCompleted() {
-
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
