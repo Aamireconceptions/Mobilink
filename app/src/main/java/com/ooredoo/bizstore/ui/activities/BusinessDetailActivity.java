@@ -23,6 +23,7 @@ import com.ooredoo.bizstore.asynctasks.BusinessDetailTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Business;
+import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -128,6 +129,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         if(business != null) {
             src = business;
             src.id = id;
+
+            src.isFavorite = Favorite.isFavorite(src.id);
+
+            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
             if(isNotNullOrEmpty(business.title)) {
@@ -140,7 +145,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             ((TextView) findViewById(R.id.tv_location)).setText(business.location);
             ((RatingBar) findViewById(R.id.rating_bar)).setRating(business.rating);
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(business.views));
-            //TODO business --- findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
             ImageView ivDetail = (ImageView) findViewById(R.id.detail_img);
 
@@ -181,6 +186,15 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         int viewId = v.getId();
         if(viewId == R.id.iv_favorite) {
             //TODO impl favorite business.
+            if(src != null) {
+                boolean isFavorite = !v.isSelected();
+                v.setSelected(isFavorite);
+                src.isFavorite = isFavorite;
+                Favorite favorite = new Favorite(src);
+                favorite.isBusiness = true;
+                Favorite.updateFavorite(favorite);
+                favorite.save();
+            }
         } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
             ratingDialog = showRatingDialog(this, "business", id);
         } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {

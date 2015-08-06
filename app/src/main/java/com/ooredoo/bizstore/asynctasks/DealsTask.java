@@ -159,8 +159,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
                     //showTvDealsOfTheDay();
 
-                    //adapter.setData(deals);
-                    dealsTaskFinishedListener.onNoDeals();
+                    adapter.setData(deals);
+                    dealsTaskFinishedListener.onHaveDeals();
 
                     String bannerUrl = response.topBannerUrl;
 

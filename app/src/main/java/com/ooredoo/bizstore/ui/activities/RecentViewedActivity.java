@@ -15,6 +15,7 @@ import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.RecentDealsAdapter;
 import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.RecentDeal;
 
@@ -121,6 +122,27 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         v.setSelected(true);
 
         lastSelected = v;
+    }
+
+    public static void addToRecentViewed(Favorite favorite) {
+        if(favorite != null && favorite.id > 0) {
+            RecentDeal rd = new RecentDeal();
+            List<RecentDeal> deals = new Select().all().from(RecentDeal.class).where("dealId=" + favorite.id).execute();
+            if(deals != null && deals.size() > 0) {
+                rd = deals.get(0);
+            }
+            rd.id = favorite.id;
+            rd.type = favorite.type;
+            rd.description = favorite.description;
+            rd.city = favorite.city;
+            rd.title = favorite.title;
+            rd.views = favorite.views;
+            rd.rating = favorite.rating;
+            rd.category = favorite.category;
+            rd.discount = favorite.discount;
+            Log.i("UPDATE", "EXISTING---" + rd.title);
+            rd.save();
+        }
     }
 
     public static void addToRecentViewed(Deal deal) {

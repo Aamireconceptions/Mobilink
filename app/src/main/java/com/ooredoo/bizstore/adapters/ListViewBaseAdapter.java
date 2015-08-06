@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,8 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -286,8 +285,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             v.setSelected(!isSelected);
 
-            Deal favDeal = new Deal(genericDeal);
-            Deal.updateDealAsFavorite(favDeal);
+            Favorite favDeal = new Favorite(genericDeal);
+            Favorite.updateFavorite(favDeal);
         }
     }
 

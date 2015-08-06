@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.MyDealsActivity;
+import com.ooredoo.bizstore.ui.activities.MyFavoritesActivity;
 import com.ooredoo.bizstore.ui.activities.RecentSearchesActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.ui.activities.ShareAppActivity;
@@ -40,7 +40,7 @@ public class HeaderNavigationListener implements View.OnClickListener {
                 mActivity.selectTab(0);
                 break;
             case R.id.my_deals:
-                mActivity.startActivity(new Intent(mActivity, MyDealsActivity.class));
+                mActivity.startActivity(new Intent(mActivity, MyFavoritesActivity.class));
                 break;
             case R.id.recommended:
                 mActivity.startActivity(new Intent(mActivity, ShareAppActivity.class));

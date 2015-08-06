@@ -14,6 +14,8 @@ public class Business {
 
     public float rating;
 
+    public boolean isFavorite;
+
     @SerializedName("images")
     public Image image;
 

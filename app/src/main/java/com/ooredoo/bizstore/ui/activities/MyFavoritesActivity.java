@@ -16,7 +16,7 @@ import com.ooredoo.bizstore.model.Favorite;
 
 import java.util.List;
 
-public class MyDealsActivity extends AppCompatActivity {
+public class MyFavoritesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MyDealsActivity extends AppCompatActivity {
 
         List<Favorite> favorites = select.all().from(Favorite.class).where("isFavorite = 1").execute();
 
-        FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.list_item_deal, favorites);
+        FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.favorite_item, favorites);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);

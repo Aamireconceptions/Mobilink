@@ -62,6 +62,10 @@
             android:label="@string/my_deals"
             android:parentActivityName=".ui.activities.HomeActivity"/>
         <activity
+            android:name=".ui.activities.MyFavoritesActivity"
+            android:label="@string/my_favorites"
+            android:parentActivityName=".ui.activities.HomeActivity"/>
+        <activity
             android:name=".ui.activities.DealDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/app_name"

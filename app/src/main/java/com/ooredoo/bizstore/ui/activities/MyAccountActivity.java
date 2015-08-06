@@ -1,7 +1,8 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -11,8 +12,11 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -21,8 +25,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.UpdateAccountTask;
-import com.ooredoo.bizstore.model.User;
-import com.ooredoo.bizstore.utils.BitmapProcessor;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -36,9 +39,9 @@ import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.AppData.userAccount;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.profilePicture;
+import static com.ooredoo.bizstore.utils.BitmapProcessor.rotateBitmapIfNeeded;
 import static com.ooredoo.bizstore.utils.Converter.convertDpToPixels;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.NAME;
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
@@ -54,10 +57,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     EditText etName, etNumber;
 
     ImageView ivProfilePic;
-
-    int reqWidth, reqHeight;
-
-    private BitmapProcessor bitmapProcessor;
 
     public MyAccountActivity() {
         super();
@@ -79,8 +78,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
         etNumber.setText(BizStore.username);
 
-        bitmapProcessor = new BitmapProcessor(null);
-
         loadPicture();
     }
 
@@ -88,7 +85,13 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
         if(bitmap != null) {
-            ivProfilePic.setImageBitmap(bitmap);
+            Bitmap rotatedBitmap = bitmap;
+            try {
+                rotatedBitmap = rotateBitmapIfNeeded(PROFILE_PIC_URL, bitmap);
+            } catch(IOException ioe) {
+                ioe.printStackTrace();
+            }
+            ivProfilePic.setImageBitmap(rotatedBitmap);
         } else {
             int width = (int) convertDpToPixels(225);
             int height = width;
@@ -146,15 +149,16 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    int rotation = 0;
     String path = "/storage/emulated/0/obs_user_dp.png";
 
     public void takePicture() {
+        rotation = 0;
         Log.i("camera", "startCameraActivity()");
         File file = new File(path);
         Uri outputFileUri = Uri.fromFile(file);
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, 1);
     }
@@ -171,8 +175,37 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
             Uri selectedImage = intent.getData();
 
+            String[] orientationColumn = { MediaStore.Images.Media.ORIENTATION };
+            Cursor cur = managedQuery(selectedImage, orientationColumn, null, null, null);
+            if(cur != null && cur.moveToFirst()) {
+                rotation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotation);
+            }
+
             path = selectedImage.getPath();
 
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+
+            BitmapFactory.decodeFile(path, bmOptions);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            Logger.logI("PIC_WIDTH", String.valueOf(photoW));
+            Logger.logI("PIC_HEIGHT", String.valueOf(photoH));
+
+            int targetHeight = (int) Converter.convertDpToPixels(225);
+            int scaleFactor = Math.min(photoW, photoH / targetHeight);
+
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
+
+            int height = (int) Converter.convertDpToPixels(225);
+            // decode with inSampleSize
+            Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), height, true);
             Log.i("PIC", path);
 
         } else {
@@ -183,54 +216,56 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                     Log.i("SonaSys", "User cancelled");
                     break;
                 case -1:
-                    //isCropEnabled = true;
-                    Bitmap bitmap = decodeFile(path);
-                    ivProfilePic.setImageBitmap(bitmap);
-                    profilePicture.setImageBitmap(bitmap);
+                    processImage();
                     break;
             }
         }
     }
 
-    protected void onPhotoTaken(String path) {
-        Logger.print("onPhotoTaken");
-        /*BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
-        Bitmap bitmap = BitmapFactory.decodeFile(AppConstant.PROFILE_PIC_URL, options);
-        ivProfilePic.setBackground(null);
-        ivProfilePic.setImageBitmap(bitmap);
-        if(profilePicture != null) {
-            profilePicture.setImageBitmap(bitmap);
-            profilePicture.setBackground(null);
+    private void processImage() {
+        Bitmap bitmap = decodeFile(path);
+
+        int height = (int) Converter.convertDpToPixels(225);
+
+        Bitmap rotatedBitmap = bitmap;
+        try {
+            rotatedBitmap = rotateBitmapIfNeeded(path, bitmap);
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
         }
 
-        User.dp = bitmap;*/
+        // decode with inSampleSize
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap, rotatedBitmap.getWidth(), height, true);
 
-        try
-        {
-            reqWidth = (int) (convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
-                    / getResources().getDisplayMetrics().density);
+        ivProfilePic.setImageBitmap(scaledBitmap);
+        profilePicture.setImageBitmap(scaledBitmap);
 
-            reqHeight = (int) (convertDpToPixels(getResources().getDimension(R.dimen._75sdp))
-                    / getResources().getDisplayMetrics().density);
+        //cropImage();
+    }
 
-            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromFile(path, reqWidth, reqHeight);
-            profilePicture.setImageBitmap(bitmap);
-            ivProfilePic.setImageBitmap(bitmap);
+    boolean isCropEnabled = false;
 
-            User.dp = bitmap;
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+    private void cropImage() {
+
+        Intent cropIntent = new Intent("com.android.camera.action.CROP");
+        File file = new File(path);
+        Uri uri = Uri.fromFile(file);
+        cropIntent.setType("image/*");
+        cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        cropIntent.setDataAndType(uri, "image/*");
+        cropIntent.putExtra("outputX", 1440);
+        cropIntent.putExtra("outputY", 1440);
+        cropIntent.putExtra("aspectX", 1);
+        cropIntent.putExtra("aspectY", 1);
+        cropIntent.putExtra("scale", "true");
+        cropIntent.putExtra("return-data", true);
+        startActivityForResult(cropIntent, 1);
+        isCropEnabled = true;
     }
 
     public void uploadImageToServer(String path) {
         Logger.print("IMG_PATH: " + path);
-        findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
-        String name = getStringVal(this, NAME);
-        UpdateAccountTask uploadTask = new UpdateAccountTask(this, name, path);
+        UpdateAccountTask uploadTask = new UpdateAccountTask(this, null, path);
         uploadTask.execute();
     }
 
@@ -261,46 +296,61 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    public static Bitmap decodeFile(String path) {
+    public Bitmap decodeFile(String path) {
         int orientation;
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        display.getRealMetrics(displayMetrics);
+
+        if(path == null) {
+            return null;
+        }
+
         try {
-            if(path == null) {
-                return null;
-            }
-            // decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            // Find the correct scale value. It should be the power of 2.
-            final int REQUIRED_SIZE = 70;
-            int width_tmp = o.outWidth, height_tmp = o.outHeight;
-            int scale = 1;
+
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(path, bmOptions);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            Logger.logI("PIC_WIDTH", String.valueOf(photoW));
+            Logger.logI("PIC_HEIGHT", String.valueOf(photoH));
+
+            int targetHeight = (int) Converter.convertDpToPixels(225);
+            int scaleFactor = Math.min(photoW, photoH / targetHeight);
+
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
 
             // decode with inSampleSize
-            BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize = scale;
-            Bitmap bm = BitmapFactory.decodeFile(path, o2);
+            Bitmap bm = BitmapFactory.decodeFile(path, bmOptions);
             Bitmap bitmap = bm;
 
             ExifInterface exif = new ExifInterface(path);
 
-            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
-            Log.e("ExifInteface .........", "rotation =" + orientation);
+            int width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0);
 
-            // exif.setAttribute(ExifInterface.ORIENTATION_ROTATE_90, 90);
+            Log.e("ExifInteface ........." + width, "orientation =" + orientation);
 
-            Log.e("orientation", "" + orientation);
             Matrix m = new Matrix();
 
-            if((orientation == ExifInterface.ORIENTATION_ROTATE_180)) {
-                m.postRotate(180);
-                // m.postScale((float) bm.getWidth(), (float) bm.getHeight());
-                // if(m.preRotate(90)){
+            m.postRotate(rotation);
+
+            if(orientation == ExifInterface.ORIENTATION_NORMAL) {
+                Log.e("ORIENTATION", "NORMAL");
+                m.postRotate(0);
+            } else if((orientation == ExifInterface.ORIENTATION_ROTATE_180)) {
+                m.preRotate(180);
                 Log.e("in orientation", "" + orientation);
                 bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
                 return bitmap;
             } else if(orientation == ExifInterface.ORIENTATION_ROTATE_90) {
-                m.postRotate(90);
+                m.postRotate(0);
                 Log.e("in orientation", "" + orientation);
                 bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
                 return bitmap;

@@ -101,9 +101,8 @@
         android:drawablePadding="@dimen/_12sdp"
         android:drawableStart="@drawable/ic_favourite"
         android:gravity="start|center_vertical"
-
         android:padding="@dimen/_16sdp"
-        android:text="@string/my_deals"
+        android:text="@string/my_favorites"
         android:textColor="@android:color/primary_text_light" />
 
     <TextView
