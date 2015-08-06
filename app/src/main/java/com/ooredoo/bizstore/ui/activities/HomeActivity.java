@@ -62,6 +62,7 @@ import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
@@ -146,6 +147,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private SharedPrefUtils sharedPrefUtils;
 
+    private GcmPreferences gcmPreferences;
+
     private MemoryCache memoryCache = MemoryCache.getInstance();
 
     @Override
@@ -183,6 +186,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private void init()
     {
         sharedPrefUtils = new SharedPrefUtils(this);
+
+        gcmPreferences = new GcmPreferences(this);
 
         RecentSearchesAdapter.homeActivity = this;
 
@@ -329,22 +334,23 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         {
             Logger.print("GPlayServicesAvailable");
 
-            String deviceGcmToken = sharedPrefUtils.getDeviceGCMToken();
+            String deviceGcmToken = gcmPreferences.getDeviceGCMToken();
 
             Logger.print("deviceGcmToken: " + deviceGcmToken);
 
-            String userGcmId = sharedPrefUtils.getUserGCMToken(BizStore.username + "_" + deviceGcmToken);
+            String userGcmId = gcmPreferences.getUserGCMToken(BizStore.username + "_" + deviceGcmToken);
 
             Logger.print("userGcmId: "+userGcmId);
 
             if(userGcmId != null)
             {
+                Logger.print("Skipping gcmRegistering. User already registered");
                 return;
             }
 
             Logger.print("Performing GCM registration");
 
-            GCMRegisterTask gcmRegisterTask = new GCMRegisterTask(this, sharedPrefUtils);
+            GCMRegisterTask gcmRegisterTask = new GCMRegisterTask(this, gcmPreferences);
             gcmRegisterTask.execute();
         }
         else

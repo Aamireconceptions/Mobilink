@@ -36,8 +36,6 @@ public class SharedPrefUtils {
     public static final String SPRTR = ":::";
     public static final String DOUBLE_SPRTR = "::::::";
 
-    private final static String GCM_TOKEN = "gcm_id";
-
     public static SharedPreferences sharedPreferences;
 
     private SharedPreferences.Editor editor;
@@ -239,37 +237,4 @@ public class SharedPrefUtils {
         long tmp = getLongVal(activity, KEY);
         return tmp == 0 || (currentTimeMillis() - tmp) > CACHE_TIME;
     }
-
-    public void setDeviceGCMToken(String token)
-    {
-        editor.putString(GCM_TOKEN, token);
-        editor.commit();
-    }
-
-    public String getDeviceGCMToken()
-    {
-        return sharedPreferences.getString(GCM_TOKEN, null);
-    }
-
-    public void saveUserGCMToken(String key, String value)
-    {
-        editor.putString(key, value);
-        editor.commit();
-    }
-
-    public String getUserGCMToken(String key)
-    {
-        return sharedPreferences.getString(key, null);
-    }
-
-   /* public void setGCMRegistered(boolean state)
-    {
-        editor.putBoolean(IS_GCM_REGISTERED, state);
-        editor.commit();
-    }
-
-    public boolean isGCMRegistered(String key)
-    {
-        return sharedPreferences.getBoolean(IS_GCM_REGISTERED, false);
-    }*/
 }

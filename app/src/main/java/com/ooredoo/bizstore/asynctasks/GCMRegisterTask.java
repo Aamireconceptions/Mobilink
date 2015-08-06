@@ -9,6 +9,7 @@ import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
@@ -23,17 +24,17 @@ public class GCMRegisterTask extends BaseAsyncTask<Void, Void, String>
 {
     private Context context;
 
-    private SharedPrefUtils sharedPrefUtils;
+    private GcmPreferences gcmPreferences;
 
     private String serviceName = "/setgcmtoken?";
 
     private String token;
 
-    public GCMRegisterTask(Context context, SharedPrefUtils sharedPrefUtils)
+    public GCMRegisterTask(Context context, GcmPreferences gcmPreferences)
     {
         this.context = context;
 
-        this.sharedPrefUtils = sharedPrefUtils;
+        this.gcmPreferences = gcmPreferences;
     }
     @Override
     protected String doInBackground(Void... params)
@@ -73,7 +74,7 @@ public class GCMRegisterTask extends BaseAsyncTask<Void, Void, String>
 
                     Logger.print("userToken " + userToken);
 
-                    sharedPrefUtils.saveUserGCMToken(userToken, userToken);
+                    gcmPreferences.saveUserGCMToken(userToken, userToken);
                 }
             }
             catch (JsonSyntaxException e)
@@ -85,7 +86,7 @@ public class GCMRegisterTask extends BaseAsyncTask<Void, Void, String>
 
     private String registerWithGCM() throws IOException
     {
-        token = sharedPrefUtils.getDeviceGCMToken();
+        token = gcmPreferences.getDeviceGCMToken();
 
         if(token == null)
         {
@@ -96,7 +97,7 @@ public class GCMRegisterTask extends BaseAsyncTask<Void, Void, String>
 
             Logger.print("GCM Token:" + token);
 
-            sharedPrefUtils.setDeviceGCMToken(token);
+            gcmPreferences.setDeviceGCMToken(token);
         }
 
         HashMap<String, String> params = new HashMap<>();
