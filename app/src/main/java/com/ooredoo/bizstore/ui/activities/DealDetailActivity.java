@@ -245,7 +245,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         }
     }
 
-    public static void shareDeal(Activity activity, long dealId) {
+    public static void shareDeal(Activity activity, int dealId) {
         Intent intent = new Intent();
         intent.setAction(ACTION_DEAL_DETAIL);
 
@@ -258,7 +258,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         startShareIntent(activity, uri, dealId);
     }
 
-    public static void startShareIntent(Activity activity, String uri, long id) {
+    public static void startShareIntent(Activity activity, String uri, int id) {
         Intent intent = new Intent(Intent.ACTION_SEND);
 
         intent.setType("text/plain");

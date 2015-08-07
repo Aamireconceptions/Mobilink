@@ -213,7 +213,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
     }
 
-    public static void shareBusiness(Activity activity, long businessId) {
+    public static void shareBusiness(Activity activity, int businessId) {
         Intent intent = new Intent();
         intent.setAction(ACTION_BUSINESS_DETAIL);
 
