@@ -126,6 +126,19 @@ public class CategoryUtils {
         return icon;
     }
 
+    public static String getCategoryFilter(String categoryName) {
+        String filter = "";
+
+        if(isNotNullOrEmpty(categoryName)) {
+            for(SubCategory subCategory : subCategories) {
+                if(subCategory.title.equalsIgnoreCase(categoryName)) {
+                    filter = subCategory.code;
+                }
+            }
+        }
+        return filter;
+    }
+
     public static void updateSubCategorySelection(int checkBoxId, boolean selected) {
         Logger.logI("updateSubCategorySelection", checkBoxId + "-" + selected);
         for(SubCategory s : subCategories) {

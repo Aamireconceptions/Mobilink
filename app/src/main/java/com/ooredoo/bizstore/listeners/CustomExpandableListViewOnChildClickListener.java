@@ -12,6 +12,8 @@ import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.Logger;
 
 /**
  * Created by Babar on 28-Jul-15.
@@ -48,18 +50,22 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
         String subCategory = navigationItem.getItemName();
 
+        String filter = CategoryUtils.getCategoryFilter(subCategory);
+
         int tabPos = getTabPosition();
+
+        Logger.logI("Sub-Category: " + tabPos, subCategory);
 
         homeActivity.selectTab(tabPos);
         homeActivity.drawerLayout.closeDrawer(GravityCompat.START);
 
         if(getTabPosition() != 3)
         {
-            DealsTask.subCategories = subCategory;
+            DealsTask.subCategories = filter;
         }
         else
         {
-            ShoppingTask.subCategories = subCategory;
+            ShoppingTask.subCategories = filter;
         }
 
         subCategorySelectedListener.onSubCategorySelected();
