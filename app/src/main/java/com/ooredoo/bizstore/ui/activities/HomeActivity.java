@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
@@ -49,7 +51,6 @@ import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
-import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
 import com.ooredoo.bizstore.listeners.DrawerChangeListener;
@@ -460,6 +461,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         viewPager.setAlpha(MAX_ALPHA);
         searchPopup.dismiss();
         acSearch.setText(null);
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(acSearch.getWindowToken(), 0);
     }
 
     public void selectTab(int tabPosition) {
