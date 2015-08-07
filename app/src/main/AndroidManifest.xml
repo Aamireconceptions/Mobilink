@@ -168,6 +168,13 @@
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".ui.activities.RedeemedDealsActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/redeemed_deals"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"

@@ -11,7 +11,7 @@ public class GenericDeal {
 
     public int id, views, discount;
 
-    public String description;
+    public String description, endDate, code, redeemedOn;
 
     public String title, category, contact, address;
 

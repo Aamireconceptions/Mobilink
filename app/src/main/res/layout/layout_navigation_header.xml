@@ -106,6 +106,17 @@
         android:textColor="@android:color/primary_text_light" />
 
     <TextView
+        android:id="@+id/redeem_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_deal_tag"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/_16sdp"
+        android:text="@string/redeemed_deals"
+        android:textColor="@android:color/primary_text_light" />
+
+    <TextView
         android:id="@+id/recommended"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -140,5 +151,6 @@
         android:padding="@dimen/_16sdp"
         android:text="@string/recent_viewed"
         android:textColor="@android:color/primary_text_light" />
+
 
 </LinearLayout>

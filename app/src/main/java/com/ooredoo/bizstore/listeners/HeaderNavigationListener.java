@@ -9,6 +9,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyFavoritesActivity;
 import com.ooredoo.bizstore.ui.activities.RecentSearchesActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
+import com.ooredoo.bizstore.ui.activities.RedeemedDealsActivity;
 import com.ooredoo.bizstore.ui.activities.ShareAppActivity;
 
 /**
@@ -28,6 +29,7 @@ public class HeaderNavigationListener implements View.OnClickListener {
         navHeaderView.findViewById(R.id.recommended).setOnClickListener(this);
         navHeaderView.findViewById(R.id.recent_viewed).setOnClickListener(this);
         navHeaderView.findViewById(R.id.recent_searches).setOnClickListener(this);
+        navHeaderView.findViewById(R.id.redeem_deals).setOnClickListener(this);
     }
 
     @Override
@@ -50,6 +52,9 @@ public class HeaderNavigationListener implements View.OnClickListener {
                 break;
             case R.id.recent_viewed:
                 mActivity.startActivity(new Intent(mActivity, RecentViewedActivity.class));
+                break;
+            case R.id.redeem_deals:
+                mActivity.startActivity(new Intent(mActivity, RedeemedDealsActivity.class));
                 break;
         }
     }

@@ -63,6 +63,8 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String GCM_TOKEN = "gcm_token";
 
+    public final static String TYPE = "type";
+
     public final static String HTTP_X_USERNAME = "HTTP_X_USERNAME";
 
     public final static String HTTP_X_PASSWORD = "HTTP_X_PASSWORD";

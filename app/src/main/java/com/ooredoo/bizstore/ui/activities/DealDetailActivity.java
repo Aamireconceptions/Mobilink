@@ -10,23 +10,29 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
+import com.ooredoo.bizstore.asynctasks.GetCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
+import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -53,6 +59,14 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     ScrollViewHelper scrollViewHelper;
 
+    private Button btGetCode;
+
+    private ImageView ivLine;
+
+    private LinearLayout llVoucherCode;
+
+    private TextView tvDiscount, tvValidity, tvCode;
+
     private int id;
 
     public Deal src;
@@ -61,6 +75,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     private Dialog ratingDialog;
 
+    private SnackBarUtils snackBarUtils;
     public DealDetailActivity() {
         super();
         layoutResId = R.layout.activity_deal_details;
@@ -140,6 +155,21 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 findViewById(R.id.ll_banner_preview).setVisibility(View.VISIBLE);
             }
         }
+
+        btGetCode = (Button) findViewById(R.id.get_code);
+        btGetCode.setOnClickListener(this);
+
+        ivLine = (ImageView) findViewById(R.id.horizontal_line);
+
+        llVoucherCode = (LinearLayout) findViewById(R.id.voucher_code_layout);
+
+        tvDiscount = (TextView) findViewById(R.id.discount);
+
+        tvValidity = (TextView) findViewById(R.id.validity);
+
+        tvCode = (TextView) findViewById(R.id.voucher_code);
+
+        snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
     }
 
     public void populateData(GenericDeal deal) {
@@ -203,11 +233,15 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
                     BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
                     bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
-                                               String.valueOf(displayMetrics.heightPixels / 2));
+                            String.valueOf(displayMetrics.heightPixels / 2));
                 }
 
 
             }
+
+            tvDiscount.setText(discount);
+
+            tvValidity.setText("Redeem Discount Until " + deal.endDate);
 
 
         } else {
@@ -243,9 +277,26 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
             shareDeal(this, id);
         }
+        else
+        if(viewId == R.id.get_code)
+        {
+            GetCodeTask getCodeTask = new GetCodeTask(this, snackBarUtils);
+            getCodeTask.execute(String.valueOf(id));
+        }
     }
 
-    public static void shareDeal(Activity activity, int dealId) {
+    public void showCode(String code)
+    {
+        btGetCode.setVisibility(View.GONE);
+
+        ivLine.setVisibility(View.VISIBLE);
+
+        llVoucherCode.setVisibility(View.VISIBLE);
+
+        tvCode.setText(code);
+    }
+
+    public static void shareDeal(Activity activity, long dealId) {
         Intent intent = new Intent();
         intent.setAction(ACTION_DEAL_DETAIL);
 
@@ -258,7 +309,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         startShareIntent(activity, uri, dealId);
     }
 
-    public static void startShareIntent(Activity activity, String uri, int id) {
+    public static void startShareIntent(Activity activity, String uri, long id) {
         Intent intent = new Intent(Intent.ACTION_SEND);
 
         intent.setType("text/plain");

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:theme="@style/toolBarTheme"/>
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/white"
+        android:padding="@dimen/_8sdp"
+        android:layoutDirection="ltr"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/available"
+            android:layout_width="@dimen/_115sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:text="Available"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"
+            android:background="@drawable/bt_tab_style_left_selector"/>
+
+        <Button
+            android:id="@+id/redeemed"
+            android:layout_width="@dimen/_115sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:text="Redeemed"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"
+            android:background="@drawable/bt_tab_style_right_selector"/>
+
+    </LinearLayout>
+
+    <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:divider="@null"
+            android:dividerHeight="@dimen/_8sdp"/>
+
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:text="@string/error_no_data"
+            android:textSize="24sp"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:indeterminateDrawable="@drawable/custom_progress"
+            style="?android:attr/progressBarStyleLarge" />
+
+    </RelativeLayout>
+
+    </com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>
+
+
+</LinearLayout>
