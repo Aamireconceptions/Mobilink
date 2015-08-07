@@ -65,7 +65,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     private LinearLayout llVoucherCode;
 
-    private TextView tvDiscount, tvValidity, tvCode;
+    private TextView tvDiscount, tvValidity, tvCode, tvNote;
 
     private int id;
 
@@ -169,6 +169,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
         tvCode = (TextView) findViewById(R.id.voucher_code);
 
+        tvNote = (TextView) findViewById(R.id.note);
+
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
     }
 
@@ -235,14 +237,24 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                     bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                             String.valueOf(displayMetrics.heightPixels / 2));
                 }
-
-
             }
 
             tvDiscount.setText(discount);
 
             tvValidity.setText("Redeem Discount Until " + deal.endDate);
 
+            if(deal.voucher != null && !deal.voucher.isEmpty())
+            {
+                llVoucherCode.setVisibility(View.VISIBLE);
+
+                tvCode.setText(deal.voucher);
+
+                btGetCode.setVisibility(View.GONE);
+
+                tvNote.setVisibility(View.VISIBLE);
+
+                ivLine.setVisibility(View.VISIBLE);
+            }
 
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
@@ -294,6 +306,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         llVoucherCode.setVisibility(View.VISIBLE);
 
         tvCode.setText(code);
+
+        tvNote.setVisibility(View.VISIBLE);
     }
 
     public static void shareDeal(Activity activity, long dealId) {

@@ -236,7 +236,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="code : "
+
+                            android:text="Discount Voucher : "
                             android:textColor="@android:color/secondary_text_light"
                             android:textAllCaps="true"/>
 
@@ -247,9 +248,19 @@
                             android:textAllCaps="true"
                             android:text="S1df43"
                             android:textColor="@color/red" />
+
+
                     </LinearLayout>
 
-
+                    <TextView
+                        android:id="@+id/note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Dear user, you can redeem this discount voucher at the respective outlet."
+                        android:textSize="12sp"
+                        android:textColor="@color/red"
+                        android:visibility="gone"/>
 
 
                 </LinearLayout>
