@@ -87,10 +87,10 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
 
         listView.setAdapter(adapter);
 
-        swipeRefreshLayout = (MultiSwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        /*swipeRefreshLayout = (MultiSwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view, R.id.progressBar);
+        swipeRefreshLayout.setOnRefreshListener(this);*/
 
         getRedeemedDeals();
     }
@@ -114,7 +114,7 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
 
     @Override
     public void onRefreshCompleted() {
-        swipeRefreshLayout.setRefreshing(false);
+        //swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

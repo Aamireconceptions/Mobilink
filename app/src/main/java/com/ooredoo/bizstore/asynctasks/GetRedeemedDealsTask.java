@@ -34,7 +34,7 @@ public class GetRedeemedDealsTask extends BaseAsyncTask<String, Void, String>
 
     private OnDealsTaskFinishedListener onDealsTaskFinishedListener;
 
-    private final static String SERVICE_NAME = "/redeemedDeals?";
+    private final static String SERVICE_NAME = "/redeemedvouchers?";
 
 
     public GetRedeemedDealsTask(Context context, RedeemedDealsBaseAdapter adapter,
@@ -90,7 +90,9 @@ public class GetRedeemedDealsTask extends BaseAsyncTask<String, Void, String>
                 {
                     onDealsTaskFinishedListener.onHaveDeals();
 
-                    deals = response.deals;
+                   // deals = response.deals;
+
+                    deals.addAll(response.deals);
                 }
                 else
                 {
@@ -114,7 +116,7 @@ public class GetRedeemedDealsTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(TYPE, type);
+        //params.put(TYPE, type);
 
         String query = createQuery(params);
 

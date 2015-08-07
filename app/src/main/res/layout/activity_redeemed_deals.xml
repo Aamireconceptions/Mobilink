@@ -41,14 +41,15 @@
 
     </LinearLayout>
 
-    <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
+    <!--<com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">-->
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="true">
 
         <ListView
             android:id="@+id/list_view"
@@ -79,7 +80,7 @@
 
     </RelativeLayout>
 
-    </com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>
+    <!--</com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>-->
 
 
 </LinearLayout>
