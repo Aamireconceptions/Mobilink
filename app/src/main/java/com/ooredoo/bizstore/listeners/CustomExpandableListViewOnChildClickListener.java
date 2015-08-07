@@ -12,8 +12,13 @@ import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
+
+import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryCheckboxId;
+import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryFilter;
+import static com.ooredoo.bizstore.utils.CategoryUtils.getParentCategory;
+import static com.ooredoo.bizstore.utils.CategoryUtils.resetSubCategories;
+import static com.ooredoo.bizstore.utils.CategoryUtils.updateSubCategorySelection;
 
 /**
  * Created by Babar on 28-Jul-15.
@@ -50,7 +55,15 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
         String subCategory = navigationItem.getItemName();
 
-        String filter = CategoryUtils.getCategoryFilter(subCategory);
+        String filter = getCategoryFilter(subCategory);
+
+        int category = getParentCategory(subCategory);
+
+        resetSubCategories(category);
+
+        int subCategoryCheckboxId = getCategoryCheckboxId(subCategory);
+
+        updateSubCategorySelection(subCategoryCheckboxId, true);
 
         int tabPos = getTabPosition();
 
