@@ -2,13 +2,17 @@ package com.ooredoo.bizstore.listeners;
 
 import android.support.v4.view.GravityCompat;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 /**
@@ -28,6 +32,8 @@ public class FilterOnClickListener implements View.OnClickListener
 
     private int category;
 
+    private View layout;
+
     public FilterOnClickListener(HomeActivity activity, int category)
     {
         this.activity = activity;
@@ -35,6 +41,24 @@ public class FilterOnClickListener implements View.OnClickListener
         this.category = category;
 
         onFilterChangeListener = activity;
+    }
+
+    public void setLayout(View layout) {
+        this.layout = layout;
+
+        Button btNewDeals = (Button) layout.findViewById(R.id.new_deals);
+        btNewDeals.setOnClickListener(this);
+        setButtonSelected(btNewDeals);
+
+        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btNewDeals);
+
+        Button btPopularDeals = (Button) layout.findViewById(R.id.popular_deals);
+        btPopularDeals.setOnClickListener(this);
+
+        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btPopularDeals);
+
+        ImageView ivFilter = (ImageView) layout.findViewById(R.id.filter);
+        ivFilter.setOnClickListener(this);
     }
 
     @Override

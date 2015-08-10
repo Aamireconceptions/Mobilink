@@ -6,27 +6,21 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
-import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
-import com.ooredoo.bizstore.listeners.ScrollListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
@@ -104,20 +98,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CT_SHOPPING);
-
-        ImageView ivFilter = (ImageView) v.findViewById(R.id.filter);
-        ivFilter.setOnClickListener(clickListener);
-
-        Button btNewDeals = (Button) v.findViewById(R.id.new_deals);
-        btNewDeals.setOnClickListener(clickListener);
-        clickListener.setButtonSelected(btNewDeals);
-
-        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btNewDeals);
-
-        Button btPopularDeals = (Button) v.findViewById(R.id.popular_deals);
-        btPopularDeals.setOnClickListener(clickListener);
-
-        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btPopularDeals);
+        clickListener.setLayout(v);
 
         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
 
