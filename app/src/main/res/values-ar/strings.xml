@@ -59,6 +59,9 @@
     <string name="_15">15</string>
     <string name="_20">20</string>
     <string name="rating">تقييم</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="sort_discount">Highest to Lowest Discount</string>
+    <string name="sub_categories">Sub Categories</string>
     <string name="discount_offer">عروض الخصم</string>
     <string name="category_selection">اختيار الفئة</string>
     <string name="search_hint">أكتب هنا</string>

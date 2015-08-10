@@ -59,6 +59,9 @@
     <string name="_15">15</string>
     <string name="_20">20</string>
     <string name="rating">Rating</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="sort_discount">Highest to Lowest Discount</string>
+    <string name="sub_categories">Sub Categories</string>
     <string name="discount_offer">Discount Offer</string>
     <string name="category_selection">Category Selection</string>
     <string name="search_hint">Type here</string>
