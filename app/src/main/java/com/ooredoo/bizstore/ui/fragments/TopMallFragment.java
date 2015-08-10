@@ -93,7 +93,7 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
                 int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
 
-                int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._160sdp)
+                int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._90sdp)
                         /
                         resources.getDisplayMetrics().density);
 
