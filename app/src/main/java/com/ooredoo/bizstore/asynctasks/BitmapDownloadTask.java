@@ -74,6 +74,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             if(imageView != null)
             {
                 imageView.setImageBitmap(bitmap);
+                imageView.setTag("loaded");
             }
         }
     }

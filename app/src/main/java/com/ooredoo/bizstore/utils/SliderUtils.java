@@ -1,6 +1,10 @@
 package com.ooredoo.bizstore.utils;
 
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.ooredoo.bizstore.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,7 +49,24 @@ public class SliderUtils
                         viewPager.post(new Runnable() {
                             @Override
                             public void run() {
-                                viewPager.setCurrentItem(pos, true);
+                                View child = viewPager.getChildAt(pos);
+                                if(child != null)
+                                {
+                                    View imageView = child.findViewById(R.id.image_view);
+
+                                    Logger.print("SliderImageView: "+imageView);
+
+                                    String tag = (String) imageView.getTag();
+
+                                    if(imageView != null && tag != null &&  tag.equals("loaded"))
+                                    {
+                                        viewPager.setCurrentItem(pos, true);
+                                    }
+                                    else
+                                    {
+                                        pos++;
+                                    }
+                                }
                             }
                         });
 
@@ -64,7 +85,24 @@ public class SliderUtils
                         viewPager.post(new Runnable() {
                             @Override
                             public void run() {
-                                viewPager.setCurrentItem(pos, true);
+                                View child = viewPager.getChildAt(pos);
+                                if(child != null)
+                                {
+                                    View imageView = child.findViewById(R.id.image_view);
+
+                                    Logger.print("SliderImageView: "+imageView);
+
+                                    String tag = (String) imageView.getTag();
+
+                                    if(imageView != null && tag != null &&  tag.equals("loaded"))
+                                    {
+                                        viewPager.setCurrentItem(pos, true);
+                                    }
+                                    else
+                                    {
+                                        pos--;
+                                    }
+                                }
                             }
                         });
 

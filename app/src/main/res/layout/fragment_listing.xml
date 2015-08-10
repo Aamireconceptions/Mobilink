@@ -10,11 +10,16 @@
         android:layout_height="wrap_content"
         android:scaleType="fitXY"/>
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/banner">
+
    <include
        layout="@layout/layout_filter_header"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_below="@+id/banner" />
+        />
 
     <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -48,6 +53,8 @@
         </FrameLayout>
 
     </com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
