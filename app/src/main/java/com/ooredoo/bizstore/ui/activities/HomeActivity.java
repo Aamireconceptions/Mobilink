@@ -118,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public boolean doApplyDiscount = false;
 
-    public boolean doApplyRating = false;
+    public boolean doApplyRating = true;
 
     public String ratingFilter;
 

@@ -124,31 +124,12 @@ public class FilterOnClickListener implements View.OnClickListener
                 onFilterChangeListener.onFilterChange();
 
                 break;
-            /*case R.id.deals_discount_checkbox:
-
-                if(v.isSelected())
-                {
-
-                }
-                else
-                {
-
-                }
-
-
-                break;
-
-            case R.id.business_directory_checkbox:
-
-
-                break;*/
 
             case R.id.rating_checkbox:
 
                 setCheckboxSelected(v);
 
-                activity.doApplyRating = v.isSelected();
-
+                activity.doApplyRating = true;//v.isSelected();
 
                 activity.setRatingEnabled(v.isSelected());
 
@@ -158,42 +139,42 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.rating_1:
 
-                setRatingSelected(v);
-
                 activity.ratingFilter = "1";
+
+                setRatingSelected(v);
 
                 break;
 
             case R.id.rating_2:
 
-                setRatingSelected(v);
-
                 activity.ratingFilter = "2";
+
+                setRatingSelected(v);
 
                 break;
 
 
             case R.id.rating_3:
 
-                setRatingSelected(v);
-
                 activity.ratingFilter = "3";
+
+                setRatingSelected(v);
 
                 break;
 
             case R.id.rating_4:
 
-                setRatingSelected(v);
-
                 activity.ratingFilter = "4";
+
+                setRatingSelected(v);
 
                 break;
 
             case R.id.rating_5:
 
-                setRatingSelected(v);
-
                 activity.ratingFilter = "5";
+
+                setRatingSelected(v);
 
                 break;
 
@@ -230,12 +211,22 @@ public class FilterOnClickListener implements View.OnClickListener
 
     public void setRatingSelected(View v)
     {
+        activity.setRatingEnabled(true);
+
+        boolean isRatingEnabled = !v.isSelected();
+
+        Logger.logI("RATING_ENABLED", v.getId() + "," + isRatingEnabled);
+
         if(lastRatingSelected != null)
         {
             lastRatingSelected.setSelected(false);
         }
 
-        v.setSelected(true);
+        if(!isRatingEnabled) {
+            activity.ratingFilter = null;
+        }
+
+        v.setSelected(isRatingEnabled);
 
         lastRatingSelected = v;
     }
