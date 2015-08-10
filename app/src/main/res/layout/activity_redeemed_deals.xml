@@ -76,7 +76,7 @@
             android:layout_centerInParent="true"
             android:visibility="gone"
             android:indeterminateDrawable="@drawable/custom_progress"
-            style="?android:attr/progressBarStyleLarge" />
+            style="?android:attr/progressBarStyle"/>
 
     </RelativeLayout>
 

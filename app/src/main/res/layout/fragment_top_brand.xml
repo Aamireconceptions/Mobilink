@@ -1,11 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:paddingTop="@dimen/_6sdp"
-    android:paddingBottom="@dimen/_6sdp"
-              android:paddingStart="@dimen/_6sdp"
-              android:paddingEnd="@dimen/_6sdp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_6sdp">
 
     <ImageView
         android:id="@+id/image_view"
@@ -13,4 +14,13 @@
         android:layout_height="match_parent"
         android:src="@drawable/logos_bg"/>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/custom_progress"
+        android:visibility="gone"/>
+
+</RelativeLayout>

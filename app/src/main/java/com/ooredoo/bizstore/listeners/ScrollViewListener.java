@@ -19,6 +19,7 @@ public class ScrollViewListener implements ScrollViewHelper.OnScrollViewListener
     private AlphaForeGroundColorSpan mAlphaForegroundColorSpan;
     private SpannableString mSpannableString;
 
+    private final int scrollOffset = 255;
     public ScrollViewListener(ActionBar actionBar) {
         this.actionBar = actionBar;
         mSpannableString = new SpannableString(actionBar.getTitle());
@@ -30,19 +31,19 @@ public class ScrollViewListener implements ScrollViewHelper.OnScrollViewListener
 
     @Override
     public void onScrollChanged(ScrollViewHelper v, int l, int t, int oldl, int oldt) {
-        setTitleAlpha(255 - getAlphaforActionBar(v.getScrollY()));
+        setTitleAlpha(scrollOffset - getAlphaforActionBar(v.getScrollY()));
         cd.setAlpha(getAlphaforActionBar(v.getScrollY()));
     }
 
     private int getAlphaforActionBar(int scrollY) {
-        int minDist = 0, maxDist = 550;
+        int minDist = 0, maxDist = 255;
         if(scrollY > maxDist) {
-            return 255;
+            return scrollOffset;
         } else {
             if(scrollY < minDist) {
                 return 0;
             } else {
-                return (int) ((255.0 / maxDist) * scrollY);
+                return (scrollOffset / maxDist) * scrollY;
             }
         }
     }
