@@ -65,7 +65,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     private LinearLayout llVoucherCode;
 
-    private TextView tvDiscount, tvValidity, tvCode, tvNote;
+    private TextView tvDiscount, tvValidity, tvCode, tvNote, tvDiscountVoucher;
 
     private int id;
 
@@ -171,6 +171,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
         tvNote = (TextView) findViewById(R.id.note);
 
+        tvDiscountVoucher = (TextView) findViewById(R.id.discount_voucher);
+
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
     }
 
@@ -247,11 +249,20 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             {
                 llVoucherCode.setVisibility(View.VISIBLE);
 
-                tvCode.setText(deal.voucher);
+                if(deal.status.equals("Available"))
+                {
+                    tvCode.setText(deal.voucher);
+
+                    tvNote.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    tvCode.setText("This voucher code has been already redeemed!");
+
+                    tvDiscountVoucher.setVisibility(View.GONE);
+                }
 
                 btGetCode.setVisibility(View.GONE);
-
-                tvNote.setVisibility(View.VISIBLE);
 
                 ivLine.setVisibility(View.VISIBLE);
             }

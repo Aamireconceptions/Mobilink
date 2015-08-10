@@ -116,7 +116,7 @@ public class GetRedeemedDealsTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        //params.put(TYPE, type);
+        params.put(TYPE, type);
 
         String query = createQuery(params);
 

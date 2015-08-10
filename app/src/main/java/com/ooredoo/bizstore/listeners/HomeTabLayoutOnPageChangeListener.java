@@ -11,21 +11,13 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
  */
 public class HomeTabLayoutOnPageChangeListener extends TabLayout.TabLayoutOnPageChangeListener
 {
-    private HomeActivity homeActivity;
-
-    public HomeTabLayoutOnPageChangeListener(HomeActivity homeActivity, TabLayout tabLayout)
+    public HomeTabLayoutOnPageChangeListener(TabLayout tabLayout)
     {
         super(tabLayout);
-
-        this.homeActivity = homeActivity;
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
         super.onPageScrollStateChanged(state);
-
-        homeActivity.setSwipeRefreshLayoutEnabled(state == ViewPager.SCROLL_STATE_IDLE);
     }
-
-
 }

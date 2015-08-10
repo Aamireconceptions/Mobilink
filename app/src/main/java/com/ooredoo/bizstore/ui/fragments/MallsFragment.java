@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -97,6 +98,10 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         listView = (ListView) v.findViewById(R.id.list_view);
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            listView.setNestedScrollingEnabled(true);
+        }
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }

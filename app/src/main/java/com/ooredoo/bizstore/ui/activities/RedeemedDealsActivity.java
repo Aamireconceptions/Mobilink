@@ -43,7 +43,7 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
 
     private View lastSelected;
 
-    private String type = "availabe";
+    private String type = "Available";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -139,7 +139,7 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
 
                 if(!v.isSelected())
                 {
-                    type = "available";
+                    type = "Available";
 
                     setSelected(v);
 
@@ -156,7 +156,7 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
 
                 if(!v.isSelected())
                 {
-                    type = "redeemed";
+                    type = "Redeemed";
 
                     setSelected(v);
 

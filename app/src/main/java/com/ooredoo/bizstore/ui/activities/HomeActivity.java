@@ -88,7 +88,6 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
                                                                OnFilterChangeListener,
                                                                TextView.OnEditorActionListener,
-                                                              // SwipeRefreshLayout.OnRefreshListener,
                                                                OnSubCategorySelectedListener{
     public static boolean rtl = false;
 
@@ -243,17 +242,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         initFilter();
     }
 
-    public void setSwipeRefreshLayoutEnabled(boolean enabled)
-    {
-        //swipeRefreshLayout.setEnabled(enabled);
-    }
-
-   /* @Override
-    public void onRefresh()
-    {
-        ((OnRefreshListener) currentFragment).onRefreshStarted();
-    }*/
-
     private void setupSearchField() {
         acSearch.setThreshold(1);
 
@@ -284,7 +272,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private void setupPager() {
         viewPager.setAdapter(homePagerAdapter);
-        viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(this, tabLayout));
+        viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
     }
 
     private void initFilter() {
@@ -656,11 +644,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         }
         return false;
     }
-
-    /*public void onRefreshCompleted()
-    {
-        swipeRefreshLayout.setRefreshing(false);
-    }*/
 
     @Override
     protected void onDestroy() {
