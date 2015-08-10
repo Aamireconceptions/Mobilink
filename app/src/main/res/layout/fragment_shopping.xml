@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
     <include layout="@layout/layout_filter_header"/>
 
@@ -21,12 +22,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/header"
-                android:scrollbars="none"
-                android:verticalSpacing="@dimen/_6sdp"
                 android:horizontalSpacing="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:numColumns="2"
                 android:paddingEnd="@dimen/_6sdp"
-                android:numColumns="2" />
+                android:paddingStart="@dimen/_6sdp"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/_6sdp"/>
 
             <TextView
                 android:id="@+id/empty_view"
@@ -44,11 +45,11 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"
         android:indeterminateDrawable="@drawable/custom_progress"
-        style="?android:attr/progressBarStyleLarge"/>
+        android:visibility="gone"/>
 
 </RelativeLayout>
