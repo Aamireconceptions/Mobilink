@@ -322,6 +322,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
         tvDiscount.setOnClickListener(clickListener);
 
+        findViewById(R.id.cb_highest_discount).setOnClickListener(clickListener);
+
         rangeSeekBar = (RangeSeekBar) findViewById(R.id.discount_seekbar);
         rangeSeekBar.setEnabled(false);
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));

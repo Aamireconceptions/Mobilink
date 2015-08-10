@@ -7,7 +7,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -23,7 +22,6 @@ import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -204,6 +202,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         }
 
         if(homeActivity.doApplyDiscount) {
+            //TODO sort by discount (ASC | DESC)
             isFilterEnabled = true;
             params.put("min_discount", String.valueOf(homeActivity.minDiscount));
             params.put("max_discount", String.valueOf(homeActivity.maxDiscount));

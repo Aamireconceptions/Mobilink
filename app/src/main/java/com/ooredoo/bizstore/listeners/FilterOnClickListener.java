@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.listeners;
 import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.ooredoo.bizstore.BizStore;
@@ -203,6 +204,13 @@ public class FilterOnClickListener implements View.OnClickListener
                 activity.doApplyDiscount = v.isSelected();
 
                 activity.rangeSeekBar.setEnabled(v.isSelected());
+
+                break;
+
+            case R.id.cb_highest_discount:
+
+                activity.doApplyDiscount = ((CheckBox) v).isChecked();
+                Logger.logI("DISCOUNT_FILTER", String.valueOf(activity.doApplyDiscount));
 
                 break;
         }
