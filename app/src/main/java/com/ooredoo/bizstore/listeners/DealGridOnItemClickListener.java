@@ -9,6 +9,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
@@ -31,16 +32,24 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-    {
-        GenericDeal genericDeal = adapter.getItem(position);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(isSearchEnabled()) {
+            HomeActivity homeActivity = (HomeActivity) activity;
+            homeActivity.showHideSearchBar(false);
+        } else {
+            GenericDeal genericDeal = adapter.getItem(position);
 
-        int dealId = genericDeal.id;
+            int dealId = genericDeal.id;
 
-        Intent intent = new Intent(activity, DealDetailActivity.class);
-        intent.putExtra(AppConstant.ID, dealId);
-        intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
+            Intent intent = new Intent(activity, DealDetailActivity.class);
+            intent.putExtra(AppConstant.ID, dealId);
+            intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
 
-        activity.startActivity(intent);
+            activity.startActivity(intent);
+        }
+    }
+
+    private boolean isSearchEnabled() {
+        return activity instanceof HomeActivity && ((HomeActivity) activity).isSearchEnabled;
     }
 }

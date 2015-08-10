@@ -114,7 +114,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ExpandableListView expandableListView;
-    private boolean isSearchEnabled = false;
+
+    public boolean isSearchEnabled = false;
 
     public boolean doApplyDiscount = false;
 

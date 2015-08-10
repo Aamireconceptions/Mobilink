@@ -172,14 +172,24 @@ public class ListViewBaseAdapter extends BaseAdapter {
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDetail(deal);
+                if(isSearchEnabled()) {
+                    HomeActivity homeActivity = (HomeActivity) activity;
+                    homeActivity.showHideSearchBar(false);
+                } else {
+                    showDetail(deal);
+                }
             }
         });
 
         holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DealDetailActivity.shareDeal((Activity) context, deal.id);
+                if(isSearchEnabled()) {
+                    HomeActivity homeActivity = (HomeActivity) activity;
+                    homeActivity.showHideSearchBar(false);
+                } else {
+                    DealDetailActivity.shareDeal((Activity) context, deal.id);
+                }
             }
         });
 
@@ -224,7 +234,12 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v)
                 {
-                    showDetail(deal);
+                    if(isSearchEnabled()) {
+                        HomeActivity homeActivity = (HomeActivity) activity;
+                        homeActivity.showHideSearchBar(false);
+                    } else {
+                        showDetail(deal);
+                    }
                 }
             });
         }
@@ -257,6 +272,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
         prevItem = position;
 
         return row;
+    }
+
+    private boolean isSearchEnabled() {
+        return activity instanceof HomeActivity && ((HomeActivity) activity).isSearchEnabled;
     }
 
     private void showDetail(GenericDeal deal) {
