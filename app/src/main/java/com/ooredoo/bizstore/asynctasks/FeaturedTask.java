@@ -1,7 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -17,12 +16,19 @@ import com.ooredoo.bizstore.utils.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
+import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
+import static java.lang.System.currentTimeMillis;
+
 /**
- * Created by Babar on 25-Jun-15.
+ * @author Babar
+ * @since 25-Jun-15.
  */
 public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 {
@@ -34,13 +40,14 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
     private final static String SERVICE_NAME = "/featureddeals?";
 
-    public FeaturedTask(FeaturedStatePagerAdapter adapter,
+    private HomeActivity activity;
+
+    public FeaturedTask(HomeActivity activity, FeaturedStatePagerAdapter adapter,
                         ViewPager viewPager, CirclePageIndicator featuredIndicator)
     {
         this.adapter = adapter;
-
+        this.activity = activity;
         this.viewPager = viewPager;
-
         this.featuredIndicator = featuredIndicator;
     }
 
@@ -118,6 +125,14 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
         InputStream inputStream = null;
 
+        final String KEY = "FEATURED_DEALS";
+
+        final String cachedData = getStringVal(activity, KEY);
+
+        boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
+
+        if(hasInternetConnection(activity) && (isNullOrEmpty(cachedData) || updateFromServer)) {
+
         try
         {
             HashMap<String, String> params = new HashMap<>();
@@ -133,7 +148,8 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
             Logger.print("getFeatured: "+result);
 
-            return result;
+            updateVal(activity, KEY, result);
+            updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
 
         }
         finally
@@ -143,5 +159,10 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
                 inputStream.close();
             }
         }
+        } else {
+            result = cachedData;
+        }
+
+        return result;
     }
 }
