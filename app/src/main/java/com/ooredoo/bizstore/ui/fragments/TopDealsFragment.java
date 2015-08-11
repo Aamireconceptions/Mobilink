@@ -128,7 +128,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.top_deals_banner); //TODO replace banner (electronics->top)
+        ivBanner.setImageResource(R.drawable.top_deals_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
     }
