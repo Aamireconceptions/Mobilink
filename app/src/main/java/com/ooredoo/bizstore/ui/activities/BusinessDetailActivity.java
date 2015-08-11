@@ -185,7 +185,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.iv_favorite) {
-            //TODO impl favorite business.
             if(src != null) {
                 boolean isFavorite = !v.isSelected();
                 v.setSelected(isFavorite);

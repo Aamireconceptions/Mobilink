@@ -203,7 +203,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         }
 
         if(homeActivity.doApplyDiscount) {
-            //TODO sort by discount (ASC | DESC)
             if(isNotNullOrEmpty(sortColumns)) {
                 sortColumns = sortColumns.concat(",discount_dsc");
             } else {
