@@ -37,6 +37,10 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
         DealsTask.sortColumn = "createdate";
         DealsTask.subCategories = "";
 
+        homeActivity.doApplyDiscount = false;
+
+        homeActivity.ratingFilter = null;
+
         setCurrentFragment();
     }
 
