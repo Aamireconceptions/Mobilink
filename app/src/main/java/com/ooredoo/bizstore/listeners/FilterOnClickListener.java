@@ -91,6 +91,8 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.filter:
 
+                ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_highest_discount)).setChecked(activity.doApplyDiscount);
+
                 activity.drawerLayout.openDrawer(GravityCompat.END);
 
                 if(category > 0) {

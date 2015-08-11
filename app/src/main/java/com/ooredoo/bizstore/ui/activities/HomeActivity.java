@@ -192,6 +192,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         RecentSearchesAdapter.homeActivity = this;
 
+        initFilter();
+
         searchView = getLayoutInflater().inflate(R.layout.search_popup, null);
         searchPopup = new PopupWindow(searchView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -238,8 +240,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setupTabs();
 
         setupPager();
-
-        initFilter();
     }
 
     private void setupSearchField() {
@@ -318,6 +318,17 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
 
         subCategoryChangeListener = new SubCategoryChangeListener(this);
+
+        resetFilters();
+    }
+
+    public void resetFilters() {
+        tvRating1.setSelected(false);
+        tvRating2.setSelected(false);
+        tvRating3.setSelected(false);
+        tvRating4.setSelected(false);
+        tvRating5.setSelected(false);
+        ((CheckBox) findViewById(R.id.cb_highest_discount)).setChecked(doApplyDiscount);
     }
 
     private void registeredWithGcmIfRequired()
