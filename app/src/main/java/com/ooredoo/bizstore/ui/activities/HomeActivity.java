@@ -268,10 +268,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
+
     }
 
     private void setupPager() {
         viewPager.setAdapter(homePagerAdapter);
+        viewPager.setOffscreenPageLimit(11);
         viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
     }
 

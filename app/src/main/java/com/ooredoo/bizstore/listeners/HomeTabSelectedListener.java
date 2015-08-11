@@ -32,7 +32,7 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
     {
        Logger.print("Tab Selected:" + tab.getPosition());
 
-        viewPager.setCurrentItem(tab.getPosition(), true);
+        viewPager.setCurrentItem(tab.getPosition());
 
         DealsTask.sortColumn = "createdate";
         DealsTask.subCategories = "";

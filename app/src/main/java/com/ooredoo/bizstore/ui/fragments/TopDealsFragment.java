@@ -77,7 +77,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view, R.id.appBarLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         ivBanner = (ImageView) v.findViewById(R.id.banner);
