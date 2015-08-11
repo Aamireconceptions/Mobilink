@@ -120,7 +120,7 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
         {
             convertView.setBackgroundColor(context.getResources().getColor(R.color.grey));
 
-            ivIndicator.setImageResource(R.drawable.ic_group_collapse);
+            ivIndicator.setImageResource(R.drawable.ic_group_expand);
         }
         else
         {

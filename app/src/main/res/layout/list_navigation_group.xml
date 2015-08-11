@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/group_bg">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/group_bg"
+              android:gravity="start|center_vertical">
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:drawablePadding="@dimen/_12sdp"
         android:padding="@dimen/_18sdp"
         android:text="Categories"
-        android:textStyle="bold"
-        android:textColor="@android:color/primary_text_light" />
+        android:textColor="@android:color/primary_text_light"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_11sdp"
+        android:src="@drawable/ic_group_fwd"/>
 
 </LinearLayout>

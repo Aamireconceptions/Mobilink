@@ -9,7 +9,7 @@
         android:layout_gravity="start"
         android:background="@color/white"
         android:divider="@null"
-        android:groupIndicator="@drawable/group_selector"
+        android:groupIndicator="@null"
         android:scrollbarStyle="insideOverlay"
         android:scrollbars="none" />
 

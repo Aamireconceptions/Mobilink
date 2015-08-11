@@ -1,19 +1,18 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.CustomExpandableListViewOnChildClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
-import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.CustomExpandableListView;
@@ -119,6 +118,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         }
 
         NavigationItem navigationItem = (NavigationItem) getGroup(groupPosition);
+
+        ImageView ivIndicator = (ImageView) convertView.findViewById(R.id.indicator);
+
+        if(isExpanded) {
+            ivIndicator.setImageResource(R.drawable.ic_group_collapse);
+        } else {
+            ivIndicator.setImageResource(R.drawable.ic_group_fwd);
+        }
 
         String name = navigationItem.getItemName();
         int resId = navigationItem.getResId();
