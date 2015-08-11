@@ -17,6 +17,7 @@ import com.ooredoo.bizstore.ui.fragments.JewelleryFragment;
 import com.ooredoo.bizstore.ui.fragments.MallsFragment;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.SportsAndFitnessFragment;
+import com.ooredoo.bizstore.ui.fragments.TestTopDealsFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 import com.ooredoo.bizstore.ui.fragments.TravelFragment;
 import com.ooredoo.bizstore.utils.Logger;

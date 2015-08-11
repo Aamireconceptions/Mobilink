@@ -54,7 +54,7 @@ public class SliderUtils
                                 {
                                     View imageView = child.findViewById(R.id.image_view);
 
-                                    Logger.print("SliderImageView: "+imageView);
+                                    //Logger.print("SliderImageView: "+imageView);
 
                                     String tag = (String) imageView.getTag();
 
@@ -90,7 +90,7 @@ public class SliderUtils
                                 {
                                     View imageView = child.findViewById(R.id.image_view);
 
-                                    Logger.print("SliderImageView: "+imageView);
+                                    //Logger.print("SliderImageView: "+imageView);
 
                                     String tag = (String) imageView.getTag();
 
