@@ -5,17 +5,20 @@ import android.support.v4.view.ViewPager;
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
-import com.ooredoo.bizstore.model.Brand;
-import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.model.MallResponse;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
+import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
+import static java.lang.System.currentTimeMillis;
 
 /**
  * @author Babar
@@ -29,9 +32,11 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
     private final static String SERVICE_NAME = "/topbrand?";
 
-    public TopMallsTask(TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
-        this.adapter = adapter;
+    private HomeActivity activity;
 
+    public TopMallsTask(HomeActivity activity, TopMallsStatePagerAdapter adapter, ViewPager viewPager) {
+        this.adapter = adapter;
+        this.activity = activity;
         this.viewPager = viewPager;
     }
 
@@ -60,6 +65,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
             if(mallResponse.resultCode != - 1)
             {
+
                 adapter.setData(mallResponse.malls);
 
                 if (BizStore.getLanguage().equals("ar")) {
@@ -80,17 +86,31 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     {
         String result;
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put(OS, ANDROID);
-        params.put(CATEGORY, category);
+        final String KEY = "TOP_MALLS";
 
-        String query = createQuery(params);
+        final String cachedData = getStringVal(activity, KEY);
 
-        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+        boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
 
-        Logger.print("getTopMalls() URL:"+ url.toString());
+        if(hasInternetConnection(activity) && (isNullOrEmpty(cachedData) || updateFromServer)) {
 
-        result = getJson(url);
+            HashMap<String, String> params = new HashMap<>();
+            params.put(OS, ANDROID);
+            params.put(CATEGORY, category);
+
+            String query = createQuery(params);
+
+            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+            Logger.print("getTopMalls() URL:" + url.toString());
+
+            result = getJson(url);
+
+            updateVal(activity, KEY, result);
+            updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
+        } else {
+            result = cachedData;
+        }
 
         Logger.print("getTopMalls:" + result);
 

@@ -40,6 +40,11 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
+import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
+
 /**
  * @author Babar
  */
@@ -173,7 +178,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadPromos()
     {
-        PromoTask promoTask = new PromoTask(promoAdapter,
+        PromoTask promoTask = new PromoTask(activity, promoAdapter,
                                             promoPager, promoIndicator);
         promoTask.execute();
     }
@@ -202,9 +207,17 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadFeatured()
     {
-        FeaturedTask featuredTask = new FeaturedTask(featuredAdapter, featuredPager,
-                                                     featuredIndicator);
-        featuredTask.execute();
+        final String KEY = "FEATURED_DEALS";
+
+        final String cachedData = getStringVal(activity, KEY);
+
+        boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
+
+        if(hasInternetConnection(activity) && (isNullOrEmpty(cachedData) || updateFromServer)) {
+
+            FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager, featuredIndicator);
+            featuredTask.execute();
+        }
     }
 
     private TopBrandsStatePagerAdapter topBrandsStatePagerAdapter;
@@ -222,7 +235,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadTopBrands()
     {
-        TopBrandsTask topBrandsTask = new TopBrandsTask(topBrandsStatePagerAdapter, topBrandsPager);
+        TopBrandsTask topBrandsTask = new TopBrandsTask(activity, topBrandsStatePagerAdapter, topBrandsPager);
         topBrandsTask.execute("malls");
     }
 
@@ -241,7 +254,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadTopMalls()
     {
-        TopMallsTask topMallsTask = new TopMallsTask(topMallsAdapter, topMallsPager);
+        TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager);
         topMallsTask.execute("malls");
     }
 

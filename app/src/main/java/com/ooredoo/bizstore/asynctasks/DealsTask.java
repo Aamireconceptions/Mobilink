@@ -204,7 +204,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
         if(homeActivity.doApplyDiscount) {
             if(isNotNullOrEmpty(sortColumns)) {
-                sortColumns = sortColumns.concat(",discount_dsc");
+                sortColumns = "discount_dsc,".concat(sortColumns);
             } else {
                 sortColumns = "discount_dsc";
             }

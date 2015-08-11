@@ -5,17 +5,20 @@ import android.support.v4.view.ViewPager;
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
-import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.BrandResponse;
-import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
+import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
+import static java.lang.System.currentTimeMillis;
 
 /**
  * @author Babar
@@ -29,9 +32,11 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
     private final static String SERVICE_NAME = "/topbrand?";
 
-    public TopBrandsTask(TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
-        this.adapter = adapter;
+    private HomeActivity activity;
 
+    public TopBrandsTask(HomeActivity activity, TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
+        this.adapter = adapter;
+        this.activity = activity;
         this.viewPager = viewPager;
     }
 
@@ -81,17 +86,30 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
     private String getTopBrands(String category) throws IOException {
         String result;
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put(OS, ANDROID);
-        params.put(CATEGORY, category);
+        final String KEY = "TOP_BRANDS";
+        final String cachedData = getStringVal(activity, KEY);
 
-        String query = createQuery(params);
+        boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
 
-        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+        if(hasInternetConnection(activity) && (isNullOrEmpty(cachedData) || updateFromServer)) {
 
-        Logger.print("getTopBrands() URL:"+ url.toString());
+            HashMap<String, String> params = new HashMap<>();
+            params.put(OS, ANDROID);
+            params.put(CATEGORY, category);
 
-        result = getJson(url);
+            String query = createQuery(params);
+
+            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+            Logger.print("getTopBrands() URL:" + url.toString());
+
+            result = getJson(url);
+
+            updateVal(activity, KEY, result);
+            updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
+        } else {
+            result = cachedData;
+        }
 
         Logger.print("getTopBrands:" + result);
 
