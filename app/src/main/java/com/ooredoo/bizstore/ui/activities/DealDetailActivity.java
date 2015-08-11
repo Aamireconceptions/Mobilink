@@ -125,8 +125,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+
+        snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
         if(id > 0) {
-            DealDetailTask dealDetailTask = new DealDetailTask(this, null);
+            DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
             dealDetailTask.execute(String.valueOf(id));
         }
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -173,7 +175,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
         tvDiscountVoucher = (TextView) findViewById(R.id.discount_voucher);
 
-        snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
+
     }
 
     public void populateData(GenericDeal deal) {

@@ -27,6 +27,7 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
+import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -107,9 +108,11 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+
+        SnackBarUtils snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
         if(id > 0) {
 
-            BusinessDetailTask detailTask = new BusinessDetailTask(this, null);
+            BusinessDetailTask detailTask = new BusinessDetailTask(this, null, snackBarUtils);
             detailTask.execute(String.valueOf(id));
         }
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);

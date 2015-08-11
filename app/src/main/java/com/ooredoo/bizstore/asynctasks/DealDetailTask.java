@@ -1,16 +1,19 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.DealDetail;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,12 +29,16 @@ public class DealDetailTask extends BaseAsyncTask<String, Void, String> {
 
     private ProgressBar progressBar;
 
+    private SnackBarUtils snackBarUtils;
+
     private final static String SERVICE_NAME = "/getdetails?";
 
-    public DealDetailTask(DealDetailActivity detailActivity, ProgressBar progressBar) {
+    public DealDetailTask(DealDetailActivity detailActivity, ProgressBar progressBar, SnackBarUtils snackBarUtils) {
         this.detailActivity = detailActivity;
 
         this.progressBar = progressBar;
+
+        this.snackBarUtils = snackBarUtils;
     }
 
     @Override
@@ -82,6 +89,10 @@ public class DealDetailTask extends BaseAsyncTask<String, Void, String> {
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }
+        }
+        else
+        {
+            snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
     }
 
