@@ -6,6 +6,7 @@ import android.view.View;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -92,6 +93,10 @@ public class PromoTask extends BaseAsyncTask<String, Void, String>
 
                         viewPager.setCurrentItem(deals.size() - 1);
                     }
+                }
+                else
+                {
+                    viewPager.setBackgroundResource(R.drawable.feature_banner);
                 }
             }
             catch (JsonSyntaxException e)
