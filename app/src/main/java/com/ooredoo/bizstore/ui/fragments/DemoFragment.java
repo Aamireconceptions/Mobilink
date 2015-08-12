@@ -73,7 +73,7 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
        // SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
 
        // signUpActivity.startActivity(HomeActivity.class);
-        signUpActivity.toolbar.setVisibility(View.VISIBLE);
+        // signUpActivity.toolbar.setVisibility(View.VISIBLE);
         FragmentUtils.replaceFragment(activity,
                                       R.id.fragment_container,
                                       new SubscriptionPlansFragment(),

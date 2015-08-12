@@ -8,6 +8,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
+import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
@@ -30,6 +31,9 @@ public class SignUpFragment extends BaseFragment {
     }
 
     public void init(View parent) {
+        SignUpActivity.hideToolbar = false;
+        SignUpActivity signUpActivity = (SignUpActivity) mActivity;
+        signUpActivity.toolbar.setVisibility(View.VISIBLE);
         etMsisdn = (EditText) parent.findViewById(R.id.et_phone_num);
         parent.findViewById(R.id.btn_next).setOnClickListener(this);
         mActivity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_VISIBLE | SOFT_INPUT_ADJUST_RESIZE);

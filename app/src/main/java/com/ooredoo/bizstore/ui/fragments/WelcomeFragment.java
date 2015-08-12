@@ -29,7 +29,7 @@ public class WelcomeFragment extends BaseFragment {
 
         SignUpActivity signUpActivity = (SignUpActivity) activity;
         signUpActivity.toolbar.setVisibility(View.GONE);
-        SignUpActivity.isWelcomeScreen = true;
+        SignUpActivity.hideToolbar = true;
     }
 
     @Override

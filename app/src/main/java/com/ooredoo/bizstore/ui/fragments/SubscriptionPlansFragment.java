@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 
 /**
@@ -22,6 +23,9 @@ public class SubscriptionPlansFragment extends BaseFragment {
     }
 
     public void init(View parent) {
+        SignUpActivity signUpActivity = (SignUpActivity) mActivity;
+        signUpActivity.toolbar.setVisibility(View.GONE);
+        SignUpActivity.hideToolbar = true;
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
     }

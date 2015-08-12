@@ -14,7 +14,7 @@ import static com.ooredoo.bizstore.utils.FragmentUtils.addFragmentWithBackStack;
 
 public class SignUpActivity extends BaseActivity {
 
-    public static boolean isWelcomeScreen = false;
+    public static boolean hideToolbar = false;
 
     FragmentManager mFragmentManager;
 
@@ -68,8 +68,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     private void toggleToolbar() {
-        if(isWelcomeScreen)
-            isWelcomeScreen = false;
-        toolbar.setVisibility(isWelcomeScreen ? View.GONE : View.VISIBLE);
+        toolbar.setVisibility(hideToolbar ? View.GONE : View.VISIBLE);
+        hideToolbar = false;
     }
 }

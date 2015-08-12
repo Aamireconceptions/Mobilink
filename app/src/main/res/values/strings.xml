@@ -201,5 +201,11 @@
     <string name="qatar_code">974</string>
     <string name="error_no_data">Oops nothing found :(</string>
     <string name="redeemed_deals">Redeemed Deals</string>
+    <string name="find_popular_venues">Find Popular Venues</string>
+    <string name="get_restaurants_deals">Get Restaurant Deals</string>
+    <string name="discounts_on_fav_brands">Discounts On Your Favorite Brands</string>
+    <string name="movies_cinemas_more">Movies, Cinemas &amp; Much More</string>
+    <string name="subscription_charges">You will be charged QAR <b>9</b>/week</string>
+    <string name="subscription_terms_services">By Subscribing you Agree with our <u><b>Terms &amp; Services</b></u></string>
 
 </resources>

@@ -194,5 +194,11 @@
     <string name="slide_4_text_1">Slide 4 Text 1</string>
     <string name="slide_4_text_2">Slide 4 Text 2</string>
     <string name="qatar_code">974</string>
+    <string name="find_popular_venues">Find Popular Venues</string>
+    <string name="get_restaurants_deals">Get Restaurant Deals</string>
+    <string name="discounts_on_fav_brands">Discounts On Your Favorite Brands</string>
+    <string name="movies_cinemas_more"><![CDATA[Movies, Cinemas & Much More]]></string>
+    <string name="subscription_charges">You will be charged QAR 9/week</string>
+    <string name="subscription_terms_services"><![CDATA[By Subscribing you Agree with our Terms & Services]]></string>
 
 </resources>

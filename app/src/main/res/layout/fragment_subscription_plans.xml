@@ -1,87 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/grey"
-                android:padding="20dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layoutDirection="ltr"
-        android:layout_centerInParent="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/bizstore"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:src="@drawable/subscription"/>
 
         <TextView
-            android:id="@+id/tv_subscription_plans"
-            android:layout_width="match_parent"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line_red"
-            android:background="@color/grey"
-            android:gravity="center"
-            android:padding="12dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/red_tickicon"
+            android:textSize="13sp"
+            android:text="@string/find_popular_venues"/>
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/red_tickicon"
+            android:textSize="13sp"
+            android:text="@string/get_restaurants_deals"/>
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/red_tickicon"
+            android:textSize="13sp"
+            android:text="@string/discounts_on_fav_brands"/>
+
+        <TextView
+            android:id="@+id/tv_movies_cinemas_etc"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/red_tickicon"
+            android:textSize="13sp"
+            android:text="@string/movies_cinemas_more"/>
+
+        <TextView
+            android:id="@+id/tv_sub_charges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25sdp"
             android:textSize="16sp"
-            android:text="@string/SUBSCRIPTION_PLANS"
-            android:textColor="@color/red"
-            android:textStyle="bold"/>
-
-        <RelativeLayout
-            android:id="@+id/rl_sub_plans"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_subscription_plans"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:id="@+id/tv_plan_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/red_popup_left"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="@string/plan_details"/>
-
-            <TextView
-                android:id="@+id/tv_weekly_plan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/tv_plan_details"
-                android:layout_alignParentTop="true"
-                android:layout_alignEnd="@+id/tv_plan_details"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="@string/WEEKLY_PLAN"
-                android:textColor="@color/white"/>
-
-        </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/ib_sub__plan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/rl_sub_plans"
-            android:layout_below="@+id/rl_sub_plans"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="-15dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:src="@drawable/circle_check"
-            android:textColor="@color/white"/>
+            android:text="@string/subscription_charges"/>
 
         <Button
             android:id="@+id/btn_subscribe"
-            android:layout_width="225dp"
+            android:layout_width="230dp"
             android:layout_height="38dp"
-            android:layout_below="@+id/ib_sub__plan"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:alpha="1.0"
-            android:background="@drawable/btn_red"
+            android:background="@drawable/bg_red"
             android:gravity="center"
             android:text="@string/SUBSCRIBE"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
-    </RelativeLayout>
-</RelativeLayout>
+
+        <TextView
+            android:id="@+id/agree_terms_services"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/subscription_terms_services"/>
+
+    </LinearLayout>
+
+</ScrollView>
