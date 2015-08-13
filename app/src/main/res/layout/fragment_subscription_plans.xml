@@ -64,7 +64,7 @@
             android:id="@+id/tv_sub_charges"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:textSize="16sp"
             android:text="@string/subscription_charges"/>
 
@@ -74,7 +74,7 @@
             android:layout_height="38dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="0dp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:alpha="1.0"
             android:background="@drawable/bg_red"
             android:gravity="center"
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:gravity="center"
             android:textSize="12sp"
             android:text="@string/subscription_terms_services"/>
