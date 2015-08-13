@@ -207,7 +207,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadFeatured()
     {
-        final String KEY = "FEATURED_DEALS";
+        /*final String KEY = "FEATURED_DEALS";
 
         final String cachedData = getStringVal(activity, KEY);
 
@@ -217,7 +217,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
             FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager, featuredIndicator);
             featuredTask.execute();
-        }
+        }*/
+
+        FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager, featuredIndicator);
+        featuredTask.execute();
     }
 
     private TopBrandsStatePagerAdapter topBrandsStatePagerAdapter;

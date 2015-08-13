@@ -177,11 +177,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         init();
 
-        //registeredWithGcmIfRequired();
+        registeredWithGcmIfRequired();
 
-       // new SearchKeywordsTask(this).execute();
+        new SearchKeywordsTask(this).execute();
 
-       // new AccountDetailsTask().execute(BizStore.username);
+        new AccountDetailsTask().execute(BizStore.username);
     }
 
     private void overrideFonts()
@@ -282,6 +282,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private void setupPager() {
         viewPager.setAdapter(homePagerAdapter);
         viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setOffscreenPageLimit(11);
     }
 
     private void initFilter() {

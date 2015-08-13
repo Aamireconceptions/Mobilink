@@ -274,7 +274,7 @@
 
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_marginTop="@dimen/_65sdp"
-                    android:text="Get Code"
+                    android:text="Get Discount Voucher"
                     android:textColor="@color/white"
 
                     android:textAllCaps="true"
