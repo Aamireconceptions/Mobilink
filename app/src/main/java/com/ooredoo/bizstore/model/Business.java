@@ -35,6 +35,20 @@ public class Business  implements Serializable{
         this.image = mall.image;
     }
 
+    public Business(RecentItem recentItem)
+    {
+        this.id = recentItem.id;
+        this.title = recentItem.title;
+        this.views = recentItem.views;
+        this.rating = recentItem.rating;
+        this.contact = recentItem.contact;
+        this.address = recentItem.address;
+        //this.location = recentItem.location;
+        this.description = recentItem.description;
+
+        //this.image = recentItem.image;
+    }
+
     public Business(Brand brand)
     {
         this.id = brand.id;

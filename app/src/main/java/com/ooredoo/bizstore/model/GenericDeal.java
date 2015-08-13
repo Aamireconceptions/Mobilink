@@ -35,6 +35,7 @@ public class GenericDeal implements Serializable{
         this.category = deal.category;
         this.isFav = deal.isFavorite;
         this.description = deal.description;
+        this.endDate = deal.endDate;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
 
@@ -47,8 +48,10 @@ public class GenericDeal implements Serializable{
         this.contact = result.contact;
         this.discount = result.discount;
         this.category = result.category;
+
         //this.isFav = result.isFavorite;
         this.description = result.description;
+        this.endDate = result.endDate;
 
        // Logger.logI("DEAL: " + result.id, String.valueOf(deal.isFavorite));
     }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.RecentItem;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
@@ -129,11 +130,13 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
     public void showDetailActivity(RecentItem recentItem) {
         Intent intent = new Intent();
         if(recentItem.isBusiness) {
+
             intent.setClass(mActivity, BusinessDetailActivity.class);
+            intent.putExtra("business", new Business(recentItem));
         } else {
             intent.setClass(mActivity, DealDetailActivity.class);
         }
-        intent.putExtra(AppConstant.ID, recentItem.id);
+        //intent.putExtra(AppConstant.ID, recentItem.id);
         mActivity.startActivity(intent);
     }
 

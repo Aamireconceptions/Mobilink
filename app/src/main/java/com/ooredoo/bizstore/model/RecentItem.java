@@ -65,6 +65,8 @@ public class RecentItem extends Model {
     @Column(name = "isBusiness")
     public boolean isBusiness;
 
+
+
     public RecentItem() {
     }
 

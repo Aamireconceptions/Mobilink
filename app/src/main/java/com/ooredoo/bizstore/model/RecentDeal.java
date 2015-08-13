@@ -57,6 +57,7 @@ public class RecentDeal extends Model {
     @Column(name = "isFavorite")
     public boolean isFavorite;
 
+    public String endDate;
     public RecentDeal() {
     }
 
