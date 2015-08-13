@@ -20,26 +20,39 @@ public class CryptoUtils
         try
         {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance(MD5_ALGO);
+            md.update(text.getBytes());
 
-            byte[] array = md.digest(text.getBytes());
+            byte[] bytes = md.digest();
 
-            StringBuffer sb = new StringBuffer();
+            String hex = bytesToHexString(bytes);
 
-            for(int i = 0; i < array.length; i++)
-            {
-                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
-            }
-
-            Logger.print("encryptToMD5: "+sb.toString());
-
-            return sb.toString();
+            return hex;
         }
         catch (NoSuchAlgorithmException e)
         {
             e.printStackTrace();
+
+            return String.valueOf(text.hashCode());
+        }
+    }
+
+    private static String bytesToHexString(byte[] bytes)
+    {
+        StringBuffer sb = new StringBuffer();
+
+        for(int i = 0; i < bytes.length; i++)
+        {
+            String hex = Integer.toHexString(0xFF & bytes[i]);
+
+            if(hex.length() == 1)
+            {
+                sb.append('0');
+            }
+
+            sb.append(hex);
         }
 
-        return null;
+        return sb.toString();
     }
 
     public static String encodeToBase64(String str) {

@@ -17,7 +17,7 @@ import static java.lang.System.currentTimeMillis;
 
 public class SharedPrefUtils {
 
-    public static final long CACHE_TIME = 10 * 60 * 1000;
+    public static final long CACHE_TIME = 60 * 60 * 1000;
 
     public static final String MyPREFERENCES = "OrdBsPrefs";
 

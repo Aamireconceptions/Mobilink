@@ -63,6 +63,7 @@ import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -152,6 +153,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private MemoryCache memoryCache = MemoryCache.getInstance();
 
+    private DiskCache diskCache = DiskCache.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,11 +174,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         init();
 
-        registeredWithGcmIfRequired();
+        //registeredWithGcmIfRequired();
 
-        new SearchKeywordsTask(this).execute();
+       // new SearchKeywordsTask(this).execute();
 
-        new AccountDetailsTask().execute(BizStore.username);
+       // new AccountDetailsTask().execute(BizStore.username);
     }
 
     private void overrideFonts()
@@ -186,6 +189,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private void init()
     {
+        diskCache.requestInit(this);
+
         sharedPrefUtils = new SharedPrefUtils(this);
 
         gcmPreferences = new GcmPreferences(this);
@@ -273,7 +278,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private void setupPager() {
         viewPager.setAdapter(homePagerAdapter);
-        viewPager.setOffscreenPageLimit(11);
         viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
     }
 
@@ -402,6 +406,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             showHideSearchBar(show);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+        diskCache.requestFlush();
     }
 
     public void hideSearchResults() {
@@ -658,17 +670,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         return false;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
-        if(searchPopup != null && searchPopup.isShowing())
-            searchPopup.dismiss();
-
-        memoryCache.tearDown();
-
-        Logger.print("HomeActivity onDestroy");
-    }
 
     private boolean isGPlayServicesAvailable()
     {
@@ -707,4 +709,22 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             loaderItem.setVisible(false);
         }
     }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(searchPopup != null && searchPopup.isShowing())
+            searchPopup.dismiss();
+
+        memoryCache.tearDown();
+
+        diskCache.requestClose();
+
+        Logger.print("HomeActivity onDestroy");
+    }
+
+
 }

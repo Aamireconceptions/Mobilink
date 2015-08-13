@@ -25,6 +25,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
@@ -53,6 +54,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
     private Holder holder;
 
     private MemoryCache memoryCache;
+
+    private DiskCache diskCache = DiskCache.getInstance();
 
     private String category;
 
@@ -211,22 +214,12 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             if(bitmap != null)
             {
-
                 holder.ivPromotional.setImageBitmap(bitmap);
                 holder.progressBar.setVisibility(View.GONE);
             }
             else
             {
-                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                holder.progressBar.setVisibility(View.VISIBLE);
-
-                BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                        new BaseAdapterBitmapDownloadTask(this);
-
-                /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                        String.valueOf(reqWidth), String.valueOf(reqHeight));*/
-
-                bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                fallBackToDiskCache(url);
             }
 
             holder.ivPromotional.setOnClickListener(new View.OnClickListener()
@@ -272,6 +265,51 @@ public class ListViewBaseAdapter extends BaseAdapter {
         prevItem = position;
 
         return row;
+    }
+
+    private void fallBackToDiskCache(final String url)
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+               Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
+
+                Logger.print("dCache getting bitmap from cache");
+
+                if(bitmap != null)
+                {
+                    Logger.print("dCache found!");
+
+                    memoryCache.addBitmapToCache(url, bitmap);
+
+                    activity.runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run() {
+                            Logger.print(" dCache fallback notifyDataSetChanged");
+                            notifyDataSetChanged();
+                        }
+                    });
+
+                }
+                else
+                {
+                    holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                    holder.progressBar.setVisibility(View.VISIBLE);
+
+                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                            new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
+
+                /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                                        String.valueOf(reqWidth), String.valueOf(reqHeight));*/
+
+                    bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                }
+            }
+        });
+
+        thread.start();
     }
 
     private boolean isSearchEnabled() {

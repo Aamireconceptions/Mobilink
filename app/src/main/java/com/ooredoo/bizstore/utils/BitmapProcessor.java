@@ -12,6 +12,7 @@ import android.media.ExifInterface;
 
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -63,6 +64,21 @@ public class BitmapProcessor
         }
 
         return bitmap;
+    }
+
+    public Bitmap decodeSampledBitmapFromDescriptor(FileDescriptor fd)
+    {
+        /*final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeFileDescriptor(fd, null, options);
+
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        options.inJustDecodeBounds = false;*/
+
+        return BitmapFactory.decodeFileDescriptor(fd);
+
     }
 
     public Bitmap decodeSampledBitmapFromFile(String pathName, int reqWidth, int reqHeight) throws IOException {

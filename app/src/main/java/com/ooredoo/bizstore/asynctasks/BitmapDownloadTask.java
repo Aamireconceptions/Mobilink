@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -31,6 +32,8 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     private BitmapProcessor bitmapProcessor = new BitmapProcessor(this);
 
     private MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private DiskCache diskCache = DiskCache.getInstance();
 
     private URL url;
 
@@ -68,7 +71,8 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         if(bitmap != null)
         {
-            Logger.print("Downloaded: "+imgUrl);
+            Logger.print("Downloaded: " + imgUrl);
+
             memoryCache.addBitmapToCache(imgUrl, bitmap);
 
             if(imageView != null)
@@ -112,7 +116,14 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
             int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));
 
-            return bitmapProcessor.decodeSampledBitmapFromStream(inputStream, width, height);
+            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, width, height);
+
+            if(bitmap != null)
+            {
+                diskCache.addBitmapToDiskCache(imgUrl, bitmap);
+            }
+
+            return bitmap;
         }
         catch (MalformedURLException e)
         {

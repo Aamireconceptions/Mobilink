@@ -17,6 +17,7 @@ import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -32,6 +33,12 @@ public class PromoFragment extends Fragment implements View.OnClickListener
     private HomeActivity activity;
 
     private int id;
+
+    private Bitmap bitmap;
+
+    MemoryCache memoryCache = MemoryCache.getInstance();
+
+    DiskCache diskCache = DiskCache.getInstance();
 
     public static PromoFragment newInstance(String imgUrl, int id)
     {
@@ -55,9 +62,10 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         return v;
     }
 
+
+
     private void initAndLoadBanner(View v)
     {
-
         activity = (HomeActivity) getActivity();
 
         Bundle bundle = getArguments();
@@ -73,15 +81,19 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         if(imgUrl != null)
         {
             Logger.print("imgUrl was NOT null");
-            MemoryCache memoryCache = MemoryCache.getInstance();
 
             String url = BaseAsyncTask.IMAGE_BASE_URL + imgUrl;
 
             Logger.logE("FRAGMENT URL:", url);
 
-            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+            bitmap = memoryCache.getBitmapFromCache(url);
 
-            Logger.print("PromoFragment bitmap: " +imageView);
+            if(bitmap == null)
+            {
+                fallBackToDiskCache(url);
+            }
+
+            Logger.print("dCache PromoFragment bitmap: " +bitmap);
 
             if(bitmap != null) {
                 imageView.setImageBitmap(bitmap);
@@ -107,8 +119,39 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         {
             Logger.print("imgUrl was null");
         }
-
     }
+
+    private void fallBackToDiskCache(final String url)
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                bitmap = diskCache.getBitmapFromDiskCache(url);
+
+                Logger.print("dCache getting bitmap from cache");
+
+                if(bitmap != null)
+                {
+                    Logger.print("dCache found!");
+
+                    memoryCache.addBitmapToCache(url, bitmap);
+                }
+            }
+        });
+
+        thread.start();
+
+        try
+        {
+            thread.join();
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void onClick(View v)

@@ -5,7 +5,6 @@ package com.ooredoo.bizstore;
  * @since 6/22/2015.
  */
 public class AppConstant {
-
     public static final String ID = "ID";
     public static final String TYPE_ID = "TYPE_ID";
     public static final String BUSINESS_TYPE = "BUSINESS_TYPE";

@@ -17,6 +17,7 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -29,6 +30,12 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
     private HomeActivity activity;
 
     private int id;
+
+    private Bitmap bitmap;
+
+    private MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private DiskCache diskCache = DiskCache.getInstance();
 
     public static TopMallFragment newInstance(int id, String name, String imgUrl)
     {
@@ -76,13 +83,18 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
         if(imgUrl != null)
         {
             Logger.print("imgUrl was NOT null");
-            MemoryCache memoryCache = MemoryCache.getInstance();
+
 
             String url = BaseAsyncTask.IMAGE_BASE_URL + imgUrl;
 
             Logger.logE("FRAGMENT URL:", url);
 
-            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+            bitmap = memoryCache.getBitmapFromCache(url);
+
+            if(bitmap == null)
+            {
+                fallBackToDiskCache(url);
+            }
 
             if(bitmap != null) {
                 imageView.setImageBitmap(bitmap);
@@ -107,6 +119,37 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
         else
         {
             Logger.print("imgUrl was null");
+        }
+    }
+
+    private void fallBackToDiskCache(final String url)
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                bitmap = diskCache.getBitmapFromDiskCache(url);
+
+                Logger.print("dCache getting bitmap from cache");
+
+                if(bitmap != null)
+                {
+                    Logger.print("dCache found!");
+
+                    memoryCache.addBitmapToCache(url, bitmap);
+                }
+            }
+        });
+
+        thread.start();
+
+        try
+        {
+            thread.join();
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
         }
     }
 
