@@ -42,7 +42,7 @@ public class GetCodeTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPreExecute();
 
-        dialog = DialogUtils.createCustomLoader(detailActivity, "Getting Code");
+        dialog = DialogUtils.createCustomLoader(detailActivity, "Getting Discount Voucher");
         dialog.show();
     }
 

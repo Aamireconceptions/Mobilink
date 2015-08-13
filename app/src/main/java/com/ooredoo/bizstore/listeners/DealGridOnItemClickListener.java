@@ -42,6 +42,7 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
             int dealId = genericDeal.id;
 
             Intent intent = new Intent(activity, DealDetailActivity.class);
+            intent.putExtra("generic_deal", genericDeal);
             intent.putExtra(AppConstant.ID, dealId);
             intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
 

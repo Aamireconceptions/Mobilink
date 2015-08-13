@@ -96,6 +96,7 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
 
             if(bitmap != null) {
                 imageView.setImageBitmap(bitmap);
+                imageView.setTag("loaded");
             } else {
                 Logger.print("Root Width:" + v.getWidth());
 

@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.MyFavoritesActivity;
@@ -98,6 +100,8 @@ public class FavoritesAdapter extends ArrayAdapter<Favorite> {
             public void onClick(View v) {
                 DealDetailActivity.selectedDeal = null;
                 BusinessDetailActivity.selectedBusiness = null;
+
+
                 showDetailActivity(favorite);
             }
         });
@@ -139,8 +143,10 @@ public class FavoritesAdapter extends ArrayAdapter<Favorite> {
         Intent intent = new Intent();
         if(favorite.isBusiness) {
             intent.setClass(mActivity, BusinessDetailActivity.class);
+            intent.putExtra("business", new Business(favorite));
         } else {
             intent.setClass(mActivity, DealDetailActivity.class);
+            intent.putExtra("generic_deal", new GenericDeal(favorite));
         }
         intent.putExtra(AppConstant.ID, favorite.id);
         mActivity.startActivity(intent);

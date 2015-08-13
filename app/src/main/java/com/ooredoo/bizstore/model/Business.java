@@ -75,4 +75,18 @@ public class Business  implements Serializable{
 
         this.image = result.image;
     }
+
+    public Business(Favorite fav)
+    {
+        this.id = fav.id;
+        this.title = fav.title;
+        this.views = fav.views;
+        this.rating = fav.rating;
+        this.contact = fav.contact;
+        this.address = fav.address;
+       // this.location = fav.location;
+        this.description = fav.description;
+
+        //this.image = fav.image;
+    }
 }
