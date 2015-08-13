@@ -32,7 +32,6 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
-import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static java.lang.String.valueOf;
 
 /**
@@ -253,7 +252,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
         }
 
-        if(doAnimate)
+        if(doAnimate && position > 0)
         {
             AnimUtils.slideView(activity, row, prevItem < position);
         }

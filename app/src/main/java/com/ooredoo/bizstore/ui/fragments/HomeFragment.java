@@ -40,11 +40,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
-import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
-
 /**
  * @author Babar
  */
@@ -207,18 +202,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadFeatured()
     {
-        /*final String KEY = "FEATURED_DEALS";
-
-        final String cachedData = getStringVal(activity, KEY);
-
-        boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
-
-        if(hasInternetConnection(activity) && (isNullOrEmpty(cachedData) || updateFromServer)) {
-
-            FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager, featuredIndicator);
-            featuredTask.execute();
-        }*/
-
         FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager, featuredIndicator);
         featuredTask.execute();
     }
