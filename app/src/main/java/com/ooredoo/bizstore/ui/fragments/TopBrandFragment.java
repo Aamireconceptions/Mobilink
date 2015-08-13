@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -35,15 +37,18 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
 
     private Bitmap bitmap;
 
+    private Brand brand;
+
     private MemoryCache memoryCache = MemoryCache.getInstance();
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    public static TopBrandFragment newInstance(int id, String imgUrl)
+    public static TopBrandFragment newInstance(Brand brand)
     {
         Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
-        bundle.putString("image_url", imgUrl);
+        /*bundle.putInt("id", id);
+        bundle.putString("image_url", imgUrl);*/
+        bundle.putSerializable("brand", brand);
 
         TopBrandFragment fragment = new TopBrandFragment();
         fragment.setArguments(bundle);
@@ -68,9 +73,11 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
 
         Bundle bundle = getArguments();
 
-        String imgUrl = bundle.getString("image_url");
+        brand = (Brand) bundle.getSerializable("brand");
 
-        id = bundle.getInt("id");
+        String imgUrl = brand.image.logoUrl;
+
+        id = brand.id;
 
         ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
 
@@ -151,6 +158,8 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v)
     {
-        activity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[1], id);
+        //activity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[1], id);
+
+        activity.showBusinessDetailActivity(DEAL_CATEGORIES[1], new Business(brand));
     }
 }

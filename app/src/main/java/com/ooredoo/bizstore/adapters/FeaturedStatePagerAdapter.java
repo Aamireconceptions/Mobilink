@@ -43,9 +43,11 @@ public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        String url = deals.get(position).image.featured;
+        //String url = deals.get(position).image.featured;
 
-        return FeaturedFragment.newInstance(deals.get(position).id, url);
+        GenericDeal genericDeal = deals.get(position);
+
+        return FeaturedFragment.newInstance(genericDeal);
     }
 
     @Override

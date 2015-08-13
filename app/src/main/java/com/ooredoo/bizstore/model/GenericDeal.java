@@ -3,11 +3,13 @@ package com.ooredoo.bizstore.model;
 import com.google.gson.annotations.SerializedName;
 import com.ooredoo.bizstore.utils.Logger;
 
+import java.io.Serializable;
+
 /**
  * @author Babar
  * @since 18-Jun-15.
  */
-public class GenericDeal {
+public class GenericDeal implements Serializable{
 
     public int id, views, discount;
 
@@ -34,6 +36,21 @@ public class GenericDeal {
         this.isFav = deal.isFavorite;
         this.description = deal.description;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
+    }
+
+    public GenericDeal(SearchResult result) {
+        this.id = result.id;
+        this.title = result.title;
+        this.views = result.views;
+        this.rating = result.rating;
+        this.address = result.address;
+        this.contact = result.contact;
+        this.discount = result.discount;
+        this.category = result.category;
+        //this.isFav = result.isFavorite;
+        this.description = result.description;
+
+       // Logger.logI("DEAL: " + result.id, String.valueOf(deal.isFavorite));
     }
 
     public GenericDeal(Deal deal) {

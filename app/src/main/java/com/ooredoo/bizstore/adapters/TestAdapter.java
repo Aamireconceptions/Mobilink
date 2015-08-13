@@ -233,7 +233,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
         Deal recentDeal = new Deal(deal);
         RecentViewedActivity.addToRecentViewed(recentDeal);
         DealDetailActivity.selectedDeal = deal;
-        ((HomeActivity) context).showDetailActivity(DEAL, category, deal.id);
+        ((HomeActivity) context).showDealDetailActivity(category, deal);
     }
 
     @Override

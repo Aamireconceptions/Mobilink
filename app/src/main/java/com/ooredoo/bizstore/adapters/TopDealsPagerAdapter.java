@@ -36,8 +36,9 @@ public class TopDealsPagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return FeaturedFragment.newInstance(deals.get(position).id,
-                                            deals.get(position).image.featured);
+        GenericDeal genericDeal = deals.get(position);
+
+        return FeaturedFragment.newInstance(genericDeal);
     }
 
     @Override

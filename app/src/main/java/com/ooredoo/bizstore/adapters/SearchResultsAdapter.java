@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Business;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -93,14 +94,21 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
 
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 RecentViewedActivity.addToRecentViewed(result);
                 Log.i("ITEM", String.valueOf(result.type));
                 if(isBusiness) {
                     BusinessDetailActivity.selectedBusiness = new Business(result);
-                    mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], result.id);
+
+                    //mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], result.id);
+
+                    mActivity.showBusinessDetailActivity(DEAL_CATEGORIES[2], new Business(result));
                 } else {
-                    mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], result.id);
+
+                    //mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], result.id);
+
+                    mActivity.showDealDetailActivity(DEAL_CATEGORIES[0], new GenericDeal(result));
                 }
             }
         });

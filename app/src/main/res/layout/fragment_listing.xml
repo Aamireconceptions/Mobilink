@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent">-->
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 layout="@layout/layout_filter_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/banner" />
+                android:layout_below="@+id/banner" />-->
 
        <!-- </android.support.design.widget.AppBarLayout>-->
 
@@ -36,9 +36,9 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_below="@+id/header"
+
+
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout

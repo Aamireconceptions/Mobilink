@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
@@ -40,11 +41,13 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
     DiskCache diskCache = DiskCache.getInstance();
 
-    public static PromoFragment newInstance(String imgUrl, int id)
+    private GenericDeal genericDeal;
+
+    public static PromoFragment newInstance(GenericDeal genericDeal)
     {
         Bundle bundle = new Bundle();
-        bundle.putString("image_url", imgUrl);
-        bundle.putInt("id", id);
+        //bundle.putString("image_url", imgUrl);
+        bundle.putSerializable("generic_deal", genericDeal);
 
         PromoFragment fragment = new PromoFragment();
         fragment.setArguments(bundle);
@@ -62,15 +65,17 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         return v;
     }
 
-
-
     private void initAndLoadBanner(View v)
     {
         activity = (HomeActivity) getActivity();
 
         Bundle bundle = getArguments();
 
-        String imgUrl = bundle.getString("image_url");
+        genericDeal = (GenericDeal) bundle.getSerializable("generic_deal");
+
+        /*String imgUrl = bundle.getString("image_url");*/
+
+        String imgUrl = genericDeal.image.promotionalUrl;
 
         id = bundle.getInt("id");
 
@@ -156,7 +161,9 @@ public class PromoFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
-        activity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], id);
+        //activity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], id);
+
+        activity.showDealDetailActivity(DEAL_CATEGORIES[0], genericDeal );
     }
 
 }

@@ -316,11 +316,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
         return activity instanceof HomeActivity && ((HomeActivity) activity).isSearchEnabled;
     }
 
-    private void showDetail(GenericDeal deal) {
+    private void showDetail(GenericDeal deal)
+    {
         Deal recentDeal = new Deal(deal);
         RecentViewedActivity.addToRecentViewed(recentDeal);
         DealDetailActivity.selectedDeal = deal;
-        ((HomeActivity) context).showDetailActivity(DEAL, category, deal.id);
+
+
+        ((HomeActivity) context).showDealDetailActivity(category, deal);
     }
 
     private class FavouriteOnClickListener implements View.OnClickListener {

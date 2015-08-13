@@ -2,11 +2,13 @@ package com.ooredoo.bizstore.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * @author Pehlaj Rai
  * @since 6/29/2015.
  */
-public class Business {
+public class Business  implements Serializable{
 
     public int id, views;
 
@@ -19,7 +21,32 @@ public class Business {
     @SerializedName("images")
     public Image image;
 
-    public Business() {
+    public Business(Mall mall)
+    {
+        this.id = mall.id;
+        this.title = mall.title;
+        this.views = mall.views;
+        this.rating = mall.rating;
+        this.contact = mall.contact;
+        this.address = mall.address;
+        this.location = mall.location;
+        this.description = mall.description;
+
+        this.image = mall.image;
+    }
+
+    public Business(Brand brand)
+    {
+        this.id = brand.id;
+        this.title = brand.title;
+        this.views = brand.views;
+        this.rating = brand.rating;
+        this.contact = brand.contact;
+        this.address = brand.address;
+        this.location = brand.location;
+        this.description = brand.description;
+
+        this.image = brand.image;
     }
 
     public Business(SearchResult result) {
@@ -31,5 +58,7 @@ public class Business {
         this.address = result.address;
         this.location = result.location;
         this.description = result.description;
+
+        this.image = result.image;
     }
 }

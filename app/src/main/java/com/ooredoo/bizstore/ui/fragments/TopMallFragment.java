@@ -15,6 +15,8 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.model.Business;
+import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -37,12 +39,15 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    public static TopMallFragment newInstance(int id, String name, String imgUrl)
+    private Mall mall;
+
+    public static TopMallFragment newInstance(Mall mall)
     {
         Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
+        /*bundle.putInt("id", id);
         bundle.putString("name", name);
-        bundle.putString("image_url", imgUrl);
+        bundle.putString("image_url", imgUrl);*/
+        bundle.putSerializable("mall", mall);
 
         TopMallFragment fragment = new TopMallFragment();
         fragment.setArguments(bundle);
@@ -67,11 +72,19 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         Bundle bundle = getArguments();
 
-        id = bundle.getInt("id");
+        mall = (Mall) bundle.getSerializable("mall");
+
+        /*id = bundle.getInt("id");
 
         String name = bundle.getString("name");
 
-        String imgUrl = bundle.getString("image_url");
+        String imgUrl = bundle.getString("image_url");*/
+
+        id = mall.id;
+
+        String name = mall.title;
+
+        String imgUrl = mall.image.logoUrl;
 
         ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
 
@@ -156,6 +169,8 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v)
     {
-        activity.showDetailActivity(AppConstant.BUSINESS, AppConstant.DEAL_CATEGORIES[6], id);
+        //activity.showDetailActivity(AppConstant.BUSINESS, AppConstant.DEAL_CATEGORIES[6], id);
+
+        activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
     }
 }

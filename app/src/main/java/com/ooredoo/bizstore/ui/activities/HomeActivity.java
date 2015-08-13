@@ -59,6 +59,8 @@ import com.ooredoo.bizstore.listeners.HomeTabLayoutOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
+import com.ooredoo.bizstore.model.Business;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -72,6 +74,7 @@ import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -571,10 +574,28 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         return results;
     }
 
-    public void showDetailActivity(int detailType, String dealCategory, int typeId) {
+    /*public void showDetailActivity(int detailType, String dealCategory, int typeId) {
         Intent intent = new Intent();
         intent.setClass(this, detailType == BUSINESS ? BusinessDetailActivity.class : DealDetailActivity.class);
         intent.putExtra(AppConstant.ID, typeId);
+        intent.putExtra(CATEGORY, dealCategory);
+        startActivity(intent);
+    }*/
+
+    public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal)
+    {
+        Intent intent = new Intent();
+        intent.setClass(this, DealDetailActivity.class);
+        intent.putExtra("generic_deal", genericDeal);
+        intent.putExtra(CATEGORY, dealCategory);
+        startActivity(intent);
+    }
+
+    public void showBusinessDetailActivity( String dealCategory, Business business)
+    {
+        Intent intent = new Intent();
+        intent.setClass(this, BusinessDetailActivity.class);
+        intent.putExtra("business", business);
         intent.putExtra(CATEGORY, dealCategory);
         startActivity(intent);
     }

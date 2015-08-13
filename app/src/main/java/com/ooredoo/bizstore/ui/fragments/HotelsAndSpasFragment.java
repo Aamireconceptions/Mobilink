@@ -67,7 +67,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     {
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
-        init(v);
+        init(v, inflater);
 
         fetchAndDisplayHotelsAndSpas();
 
@@ -76,7 +76,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         return v;
     }
 
-    private void init(View v)
+    private void init(View v, LayoutInflater inflater)
     {
         activity = (HomeActivity) getActivity();
 
@@ -85,12 +85,16 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        ivBanner = (ImageView) v.findViewById(R.id.banner);
+        /* ivBanner = (ImageView) v.findViewById(R.id.banner);
 
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);
+        rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
+
+        ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
+
+        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_HOTELS);
-        clickListener.setLayout(v);
+        clickListener.setLayout(rlHeader);
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -100,6 +104,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         listView = (ListView) v.findViewById(R.id.list_view);
+        listView.addHeaderView(ivBanner);
+        listView.addHeaderView(rlHeader);
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

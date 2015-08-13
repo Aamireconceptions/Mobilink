@@ -146,8 +146,6 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
             result = getJson(url);
 
-            Logger.print("getFeatured: "+result);
-
             updateVal(activity, KEY, result);
             updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
 
@@ -162,6 +160,8 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
         } else {
             result = cachedData;
         }
+
+        Logger.print("getFeatured: "+result);
 
         return result;
     }

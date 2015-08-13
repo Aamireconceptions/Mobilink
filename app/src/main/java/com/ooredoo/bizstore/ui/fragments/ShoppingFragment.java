@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
+import com.ooredoo.bizstore.views.HeaderGridView;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private TextView tvEmptyView;
 
-    private GridView gridView;
+    private HeaderGridView gridView;
 
     private boolean isCreated = false;
 
@@ -62,7 +64,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
 
-        init(v);
+        init(v, inflater);
 
         isCreated = true;
 
@@ -74,7 +76,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void init(View v) {
+    private void init(View v, LayoutInflater inflater) {
         activity = (HomeActivity) getActivity();
 
         snackBarUtils = new SnackBarUtils(activity, v);
@@ -86,15 +88,19 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         swipeRefreshLayout.setSwipeableChildrens(R.id.shopping_gridview, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);
+       // rlHeader = (RelativeLayout) v.findViewById(R.id.header);
+
+        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        gridView = (GridView) v.findViewById(R.id.shopping_gridview);
+        gridView = (HeaderGridView) v.findViewById(R.id.shopping_gridview);
+        gridView.addHeaderView(rlHeader);
         gridView.setOnItemClickListener(new DealGridOnItemClickListener(activity, adapter));
         gridView.setAdapter(adapter);
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             gridView.setNestedScrollingEnabled(true);
@@ -103,7 +109,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CT_SHOPPING);
-        clickListener.setLayout(v);
+        clickListener.setLayout(rlHeader);
 
         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
 

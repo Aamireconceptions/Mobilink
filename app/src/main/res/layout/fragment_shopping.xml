@@ -4,7 +4,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-    <include layout="@layout/layout_filter_header"/>
+    <!--<include layout="@layout/layout_filter_header"/>-->
 
     <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -17,7 +17,19 @@
             android:layout_height="match_parent"
             android:clickable="true">
 
-            <GridView
+            <!--<GridView
+                android:id="@+id/shopping_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/header"
+                android:horizontalSpacing="@dimen/_6sdp"
+                android:numColumns="2"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/_6sdp"/>-->
+
+            <com.ooredoo.bizstore.views.HeaderGridView
                 android:id="@+id/shopping_gridview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

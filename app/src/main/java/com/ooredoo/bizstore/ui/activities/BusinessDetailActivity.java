@@ -51,7 +51,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     ScrollViewHelper scrollViewHelper;
 
-    private int id;
+    private int id = -1;
 
     public Business src;
 
@@ -101,20 +101,19 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     }
 
     private void initViews() {
-        id = intent.getIntExtra(AppConstant.ID, 0);
+        /*id = intent.getIntExtra(AppConstant.ID, 0);
 
-        Logger.logI("DETAIL_ID", valueOf(id));
+        Logger.logI("DETAIL_ID", valueOf(id));*/
+
+        src = (Business) intent.getSerializableExtra("business");
+
         category = intent.getStringExtra(CATEGORY);
 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
         scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
         SnackBarUtils snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
-        if(id > 0) {
 
-            BusinessDetailTask detailTask = new BusinessDetailTask(this, null, snackBarUtils);
-            detailTask.execute(String.valueOf(id));
-        }
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
@@ -126,12 +125,22 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         findViewById(R.id.tv_share).setOnClickListener(this);
         findViewById(R.id.iv_share).setOnClickListener(this);
         findViewById(R.id.iv_favorite).setOnClickListener(this);
+
+        if(src != null && id != -1) {
+
+            BusinessDetailTask detailTask = new BusinessDetailTask(this, null, snackBarUtils);
+            detailTask.execute(String.valueOf(id));
+        }
+        else
+        {
+            populateData(src);
+        }
     }
 
     public void populateData(Business business) {
         if(business != null) {
             src = business;
-            src.id = id;
+            src.id = business.id;
 
             src.isFavorite = Favorite.isFavorite(src.id);
 
@@ -154,7 +163,12 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-            String detailImageUrl = business.image.detailBannerUrl;
+            String detailImageUrl = null;
+
+            if(business.image != null)
+            {
+               detailImageUrl = business.image.detailBannerUrl;
+            }
 
             Logger.print("detailImgUrl: "+detailImageUrl);
 

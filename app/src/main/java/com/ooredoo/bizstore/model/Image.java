@@ -2,11 +2,13 @@ package com.ooredoo.bizstore.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * @author Babar
  * @since 30-Jun-15.
  */
-public class Image
+public class Image implements Serializable
 {
     @SerializedName("logo")
     public String logoUrl;

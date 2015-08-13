@@ -67,11 +67,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     private TextView tvDiscount, tvValidity, tvCode, tvNote, tvDiscountVoucher;
 
-    private int id;
+    private int id = -1;
 
     public Deal src;
 
-    public static GenericDeal selectedDeal;
+    public static GenericDeal selectedDeal, genericDeal;
 
     private Dialog ratingDialog;
 
@@ -118,19 +118,21 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     }
 
     private void initViews() {
-        id = intent.getIntExtra(AppConstant.ID, 0);
+
+        genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
+
+      //  id = intent.getIntExtra(AppConstant.ID, 0);
+
+       // id = genericDeal.id;
 
         Logger.logI("DETAIL_ID", valueOf(id));
         category = intent.getStringExtra(CATEGORY);
 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
-        scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+        //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
-        if(id > 0) {
-            DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
-            dealDetailTask.execute(String.valueOf(id));
-        }
+
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
@@ -175,16 +177,25 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
         tvDiscountVoucher = (TextView) findViewById(R.id.discount_voucher);
 
-
+        if(genericDeal == null && id != -1) {
+            DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
+            dealDetailTask.execute(String.valueOf(id));
+        }
+        else
+        {
+            populateData(genericDeal);
+        }
     }
 
     public void populateData(GenericDeal deal) {
         if(deal != null) {
             src = new Deal(deal);
-            src.id = id;
+            src.id = deal.id;
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "deals", id);
             incrementViewsTask.execute();
+
             mActionBar.setTitle(deal.title);
+
             scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
@@ -217,7 +228,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-            String detailImageUrl = deal.image.detailBannerUrl;
+            String detailImageUrl = null;
+            if(deal.image != null)
+            {
+                detailImageUrl = deal.image.detailBannerUrl;
+            }
 
             Logger.print("detailImgUrl: " + detailImageUrl);
 
@@ -272,6 +287,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
+
+
     }
 
     @Override
