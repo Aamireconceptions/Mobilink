@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         listAdapter.setCategory(ResourceUtils.TOP_DEALS);
 
         listView.addHeaderView(header);
