@@ -18,7 +18,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
@@ -28,7 +27,6 @@ import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -123,7 +121,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
       //  id = intent.getIntExtra(AppConstant.ID, 0);
 
-       // id = genericDeal.id;
+        id = genericDeal.id;
 
         Logger.logI("DETAIL_ID", valueOf(id));
         category = intent.getStringExtra(CATEGORY);
