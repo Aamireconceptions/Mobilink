@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 
@@ -84,6 +88,13 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
             holder = (Holder) row.getTag();
         }
 
+        row.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetail(deal);
+            }
+        });
+
         String category = deal.category;
         holder.tvCategory.setText(category);
 
@@ -111,6 +122,15 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
         return row;
     }
 
+    private void showDetail(GenericDeal deal) {
+        Deal recentDeal = new Deal(deal);
+        RecentViewedActivity.addToRecentViewed(recentDeal);
+        DealDetailActivity.selectedDeal = deal;
+        Intent intent = new Intent();
+        intent.setClass(context, DealDetailActivity.class);
+        intent.putExtra("generic_deal", deal);
+        context.startActivity(intent);
+    }
 
     private static class Holder {
 
