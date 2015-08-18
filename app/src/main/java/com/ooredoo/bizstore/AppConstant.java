@@ -1,5 +1,7 @@
 package com.ooredoo.bizstore;
 
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+
 /**
  * @author Pehlaj Rai
  * @since 6/22/2015.
@@ -24,7 +26,7 @@ public class AppConstant {
 
     public static float MAX_ALPHA = 1.0f;
 
-    public static String PROFILE_PIC_URL = "http://203.215.183.98:10009/ooredoo/uploads/user/" + BizStore.username + ".png";
+    public static String PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "/ooredoo/uploads/user/" + BizStore.username + ".png";
 
     public static final int MSISDN_MIN_LEN = 7; //TODO CHANGE MINIMUM LENGTH for Msisdn
     public static final int VERIFICATION_CODE_MIN_LEN = 4; //TODO CHANGE MINIMUM LENGTH for Msisdn Verification Code

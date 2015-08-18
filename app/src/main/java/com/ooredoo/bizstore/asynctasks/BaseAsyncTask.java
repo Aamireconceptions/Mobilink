@@ -33,9 +33,9 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     protected final static String SLASH = "/";
     protected final static String QUESTION_MARK = "?";
 
-    public static String SERVER_URL = "http://203.215.183.98:10009/";
+    public static String SERVER_URL = "http://203.215.183.98:30127";
 
-    public static String BASE_URL = "http://203.215.183.98:10009/ooredoo/index.php/api/";
+    public static String BASE_URL = "http://203.215.183.98:30127/ooredoo/index.php/api/";
 
     public final static int CONNECTION_TIME_OUT = 10 * 1000;
 
@@ -69,7 +69,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String HTTP_X_PASSWORD = "HTTP_X_PASSWORD";
 
-    public final static String IMAGE_BASE_URL = "http://203.215.183.98:10009";
+    public final static String IMAGE_BASE_URL = "http://203.215.183.98:30127";
 
     protected Dialog dialog;
 
