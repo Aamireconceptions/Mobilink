@@ -4,7 +4,6 @@ import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -58,7 +57,7 @@ public class FilterOnClickListener implements View.OnClickListener
 
         FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btPopularDeals);
 
-        ImageView ivFilter = (ImageView) layout.findViewById(R.id.filter);
+        Button ivFilter = (Button) layout.findViewById(R.id.filter);
         ivFilter.setOnClickListener(this);
     }
 

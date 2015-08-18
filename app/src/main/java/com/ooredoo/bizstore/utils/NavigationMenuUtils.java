@@ -142,6 +142,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         prepareNavigationMenuData();
 
         View navigationHeader = activity.getLayoutInflater().inflate(R.layout.layout_navigation_header, null);
+        View navigationFooter = activity.getLayoutInflater().inflate(R.layout.layout_navigation_footer, null);
 
         setProfilePicture(navigationHeader);
 
@@ -162,6 +163,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         ExpandableListAdapter adapter = new ExpandableListAdapter(this, activity, groupList, childList, navigationHeader);
 
         expandableListView.addHeaderView(navigationHeader);
+        expandableListView.addFooterView(navigationFooter);
         expandableListView.setAdapter(adapter);
         expandableListView.setOnGroupCollapseListener(this);
         expandableListView.setOnGroupExpandListener(this);

@@ -2,12 +2,12 @@ package com.ooredoo.bizstore;
 
 import com.activeandroid.ActiveAndroid;
 import com.ooredoo.bizstore.model.User;
-import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.HashMap;
 
 import static com.ooredoo.bizstore.utils.CryptoUtils.encodeToBase64;
+import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
 
 /**
  * @author pehlaj.rai
@@ -20,13 +20,9 @@ public class BizStore extends com.activeandroid.app.Application {
 
     private static String language = "en";
 
-    public static String username = "3008351882";
+    public static String username = "3455341467";
 
-    public static String password = "tP59SrD3";
-
-    /*public static String username = "3455341467";
-
-    public static String password = "GLrg5BqB";*/
+    public static String password = "GLrg5BqB";
 
     private final static String DEFAULT = "DEFAULT";
     private final static String MONOSPACE = "MONOSPACE";
@@ -60,14 +56,10 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public void overrideDefaultFonts()
     {
-        FontUtils.setDefaultFont(this,
-                                 DEFAULT, language.equals("en") ? DEFAULT_FONT : ARABIC_DEFAULT_FONT);
-        FontUtils.setDefaultFont(this,
-                                 MONOSPACE, language.equals("en") ? MONOSPACE_FONT : ARABIC_DEFAULT_FONT);
-        FontUtils.setDefaultFont(this,
-                                 SERIF, language.equals("en") ? SERIF_FONT : ARABIC_DEFAULT_FONT);
-        FontUtils.setDefaultFont(this,
-                                 SANS_SERIF, language.equals("en") ? SANS_SERIF_FONT : ARABIC_DEFAULT_FONT);
+        setDefaultFont(this, DEFAULT, language.equals("en") ? DEFAULT_FONT : ARABIC_DEFAULT_FONT);
+        setDefaultFont(this, MONOSPACE, language.equals("en") ? MONOSPACE_FONT : ARABIC_DEFAULT_FONT);
+        setDefaultFont(this, SERIF, language.equals("en") ? SERIF_FONT : ARABIC_DEFAULT_FONT);
+        setDefaultFont(this, SANS_SERIF, language.equals("en") ? SANS_SERIF_FONT : ARABIC_DEFAULT_FONT);
     }
 
 

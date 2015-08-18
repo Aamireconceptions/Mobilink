@@ -7,8 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -90,7 +88,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
        // rlHeader = (RelativeLayout) v.findViewById(R.id.header);
 
-        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_shopping_header, null);
 
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
 

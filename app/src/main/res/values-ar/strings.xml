@@ -109,6 +109,7 @@
     <string name="call">اتصال</string>
     <string name="cancel">إلغاء</string>
     <string name="plan_details">ريال قطري <b>9</b>\nأسبوعياً</string>
+    <string name="filter">مصنفة</string>
     <string name="filter_results">نتائج مصنفة</string>
     <string name="percentage_off">% خصم</string>
     <string name="error_provide_num">الرجاء إدخال رقم الهاتفك</string>

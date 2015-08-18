@@ -93,22 +93,22 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         setDashboardItemsClickListener(header);
 
         TextView tvHotDeals = (TextView) header.findViewById(R.id.hot_deals);
-        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvHotDeals);
+        FontUtils.setFont(activity, BizStore.MONOSPACE_FONT, tvHotDeals);
 
         TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
-        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvTopBrands);
+        FontUtils.setFont(activity, BizStore.MONOSPACE_FONT, tvTopBrands);
 
         TextView tvHotelsAndSpas = (TextView) header.findViewById(R.id.hotels_spas);
-        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvHotelsAndSpas);
+        FontUtils.setFont(activity, BizStore.MONOSPACE_FONT, tvHotelsAndSpas);
 
         TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
-        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvTopMalls);
+        FontUtils.setFont(activity, BizStore.MONOSPACE_FONT, tvTopMalls);
 
         TextView tvEntertainment = (TextView) header.findViewById(R.id.entertainment_header);
-        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvEntertainment);
+        FontUtils.setFont(activity, BizStore.MONOSPACE_FONT, tvEntertainment);
 
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
-        FontUtils.setFont(activity, BizStore.SERIF_FONT, tvDealsOfTheDay);
+        FontUtils.setFont(activity, BizStore.MONOSPACE_FONT, tvDealsOfTheDay);
 
         List<GenericDeal> deals = new ArrayList<>();
 

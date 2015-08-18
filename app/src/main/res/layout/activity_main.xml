@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/btn_red"
+        android:background="@drawable/btn_red_rounded"
         android:gravity="center"
         android:text="@string/SIGNUP"
         android:textColor="@android:color/white"

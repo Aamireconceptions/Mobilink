@@ -39,7 +39,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
@@ -74,13 +73,11 @@ import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
-import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
 import static com.ooredoo.bizstore.AppData.predefinedSearches;
@@ -268,7 +265,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowTitleEnabled(false);
-        mActionBar.setLogo(R.drawable.ic_bizstore);
+
+        boolean isArabic = BizStore.getLanguage().equals("ar");
+        mActionBar.setLogo(isArabic ? R.drawable.ic_bizstore_arabic : R.drawable.ic_bizstore);
     }
 
     private void setupTabs() {
