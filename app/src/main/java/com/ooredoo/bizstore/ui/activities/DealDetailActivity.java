@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -286,6 +287,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 ivLine.setVisibility(View.VISIBLE);
             }
 
+            if(deal.is_exclusive == 1)
+            {
+                findViewById(R.id.voucher_frame).setVisibility(View.GONE);
+            }
+
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
@@ -375,6 +381,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         tvCode.setText(code);
 
         tvNote.setVisibility(View.VISIBLE);
+
+        genericDeal.voucher = code;
     }
 
     public static void shareDeal(Activity activity, long dealId) {
@@ -415,4 +423,6 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setShowHideAnimationEnabled(false);
     }
+
+
 }

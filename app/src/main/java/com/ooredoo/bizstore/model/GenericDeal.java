@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class GenericDeal implements Serializable{
 
-    public int id, views, discount;
+    public int id, views, discount, is_exclusive;
 
     public String description, startDate, endDate, voucher, status, redeemedOn;
 

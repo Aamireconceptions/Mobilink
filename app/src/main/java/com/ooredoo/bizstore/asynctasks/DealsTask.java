@@ -133,27 +133,34 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
                     List<GenericDeal> deals = response.deals;
 
-                    adapter.setData(deals);
-
-                    String bannerUrl = response.topBannerUrl;
-
-                    if(bannerUrl != null)
+                    if(deals != null)
                     {
-                        String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
+                        adapter.setData(deals);
 
-                        Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+                        String bannerUrl = response.topBannerUrl;
 
-                        if(bitmap != null)
+                        if(bannerUrl != null)
                         {
-                            ivBanner.setImageBitmap(bitmap);
+                            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
+
+                            Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+                            if(bitmap != null)
+                            {
+                                ivBanner.setImageBitmap(bitmap);
+                            }
+                            else
+                            {
+                                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner,
+                                        null);
+                                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth),
+                                        String.valueOf(reqHeight));
+                            }
                         }
-                        else
-                        {
-                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner,
-                                    null);
-                            bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth),
-                                    String.valueOf(reqHeight));
-                        }
+                    }
+                    else
+                    {
+                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
                 }
                 else

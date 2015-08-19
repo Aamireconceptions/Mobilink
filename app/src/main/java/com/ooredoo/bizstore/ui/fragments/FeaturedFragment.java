@@ -124,7 +124,7 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
 
                     memoryCache.addBitmapToCache(url, bitmap);
 
-                    imageView.post(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             imageView.setImageBitmap(bitmap);
