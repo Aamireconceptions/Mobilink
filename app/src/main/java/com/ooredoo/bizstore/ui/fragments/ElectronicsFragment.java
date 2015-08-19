@@ -65,7 +65,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
         init(v, inflater);
 
-        fetchAndDisplayElectronics();
+        fetchAndDisplayElectronics(progressBar);
 
         isCreated = true;
 
@@ -112,7 +112,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayElectronics()
+    private void fetchAndDisplayElectronics(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
         dealsTask.execute("electronics");
@@ -120,12 +120,12 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onFilterChange() {
-        fetchAndDisplayElectronics();
+        fetchAndDisplayElectronics(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        fetchAndDisplayElectronics();
+        fetchAndDisplayElectronics(null);
     }
 
     @Override

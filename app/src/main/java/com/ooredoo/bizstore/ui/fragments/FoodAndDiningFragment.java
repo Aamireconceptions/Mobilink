@@ -64,7 +64,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         init(v, inflater);
 
-        fetchAndDisplayFoodAndDining();
+        fetchAndDisplayFoodAndDining(progressBar);
 
         isCreated = true;
 
@@ -111,7 +111,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayFoodAndDining() {
+    private void fetchAndDisplayFoodAndDining(ProgressBar progressBar) {
         DealsTask dealsTask = new DealsTask(activity, adapter,
                                             progressBar, ivBanner,
                                             this);
@@ -123,13 +123,13 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     {
         Logger.print("FoodAndDiningFragment onFilterChange");
 
-        fetchAndDisplayFoodAndDining();
+        fetchAndDisplayFoodAndDining(progressBar);
     }
 
     @Override
     public void onRefresh()
     {
-        fetchAndDisplayFoodAndDining();
+        fetchAndDisplayFoodAndDining(null);
     }
 
     @Override

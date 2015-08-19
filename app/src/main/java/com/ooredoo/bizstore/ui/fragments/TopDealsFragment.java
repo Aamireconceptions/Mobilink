@@ -64,7 +64,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         init(v, inflater);
 
-        loadTopDeals();
+        loadTopDeals(progressBar);
 
         isCreated = true;
 
@@ -111,7 +111,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void loadTopDeals()
+    private void loadTopDeals(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
         dealsTask.execute("top_deals");
@@ -119,12 +119,12 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onFilterChange() {
-        loadTopDeals();
+        loadTopDeals(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        loadTopDeals();
+        loadTopDeals(null);
     }
 
     @Override

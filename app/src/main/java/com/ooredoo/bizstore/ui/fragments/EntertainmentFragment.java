@@ -69,7 +69,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
         init(v, inflater);
 
-        fetchAndDisplayEntertainment();
+        fetchAndDisplayEntertainment(progressBar);
 
         isCreated = true;
 
@@ -118,9 +118,9 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayEntertainment()
+    private void fetchAndDisplayEntertainment(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        DealsTask dealsTask = new DealsTask(activity, adapter, this.progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
@@ -133,12 +133,12 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onFilterChange()
     {
-        fetchAndDisplayEntertainment();
+        fetchAndDisplayEntertainment(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        fetchAndDisplayEntertainment();
+        fetchAndDisplayEntertainment(null);
     }
 
     @Override

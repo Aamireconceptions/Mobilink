@@ -67,7 +67,7 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
         init(v, inflater);
 
-        fetchAndDisplayJewelry();
+        fetchAndDisplayJewelry(progressBar);
 
         isCreated = true;
 
@@ -114,7 +114,7 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayJewelry()
+    private void fetchAndDisplayJewelry(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
         dealsTask.execute("jewelry");
@@ -123,12 +123,12 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     @Override
     public void onFilterChange()
     {
-        fetchAndDisplayJewelry();
+        fetchAndDisplayJewelry(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        fetchAndDisplayJewelry();
+        fetchAndDisplayJewelry(null);
     }
 
     @Override

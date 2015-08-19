@@ -69,7 +69,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
         init(v, inflater);
 
-        fetchAndDisplaySportsAndFitness();
+        fetchAndDisplaySportsAndFitness(progressBar);
 
         isCreated = true;
 
@@ -116,9 +116,9 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplaySportsAndFitness()
+    private void fetchAndDisplaySportsAndFitness(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        DealsTask dealsTask = new DealsTask(activity, adapter, this.progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
@@ -131,12 +131,12 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     @Override
     public void onFilterChange()
     {
-        fetchAndDisplaySportsAndFitness();
+        fetchAndDisplaySportsAndFitness(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        fetchAndDisplaySportsAndFitness();
+        fetchAndDisplaySportsAndFitness(null);
     }
 
     @Override

@@ -113,10 +113,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         showSubCategories(activity, CT_SHOPPING);
 
-        loadDeals();
+        loadDeals(progressBar);
     }
 
-    private void loadDeals()
+    private void loadDeals(ProgressBar progressBar)
     {
         ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
         shoppingTask.execute("shopping");
@@ -130,12 +130,12 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onFilterChange() {
-        loadDeals();
+        loadDeals(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        loadDeals();
+        loadDeals(null);
     }
 
     @Override

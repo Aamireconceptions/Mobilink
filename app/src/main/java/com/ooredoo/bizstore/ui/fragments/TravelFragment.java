@@ -61,7 +61,7 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
 
         init(v, inflater);
 
-        fetchAndDisplayTravel();
+        fetchAndDisplayTravel(progressBar);
 
         return v;
     }
@@ -108,7 +108,7 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayTravel()
+    private void fetchAndDisplayTravel(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
         dealsTask.execute("travel");
@@ -117,12 +117,12 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onFilterChange()
     {
-        fetchAndDisplayTravel();
+        fetchAndDisplayTravel(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        fetchAndDisplayTravel();
+        fetchAndDisplayTravel(null);
     }
 
     @Override

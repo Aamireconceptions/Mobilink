@@ -65,7 +65,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
         init(v, inflater);
 
-        fetchAndDisplayAutomotive();
+        fetchAndDisplayAutomotive(progressBar);
 
         isCreated = true;
 
@@ -112,7 +112,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayAutomotive()
+    private void fetchAndDisplayAutomotive(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
         dealsTask.execute("automotive");
@@ -121,12 +121,12 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
     @Override
     public void onFilterChange() {
 
-        fetchAndDisplayAutomotive();
+        fetchAndDisplayAutomotive(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        fetchAndDisplayAutomotive();
+        fetchAndDisplayAutomotive(null);
     }
 
     @Override

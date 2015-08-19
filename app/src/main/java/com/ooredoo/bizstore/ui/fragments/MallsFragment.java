@@ -65,7 +65,7 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
         init(v, inflater);
 
-        fetchAndDisplayMalls();
+        fetchAndDisplayMalls(progressBar);
 
         isCreated = true;
 
@@ -112,7 +112,7 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayMalls()
+    private void fetchAndDisplayMalls(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
         dealsTask.execute("malls");
@@ -121,12 +121,12 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onFilterChange()
     {
-        fetchAndDisplayMalls();
+        fetchAndDisplayMalls(progressBar);
     }
 
     @Override
     public void onRefresh() {
-        fetchAndDisplayMalls();
+        fetchAndDisplayMalls(null);
     }
 
     @Override

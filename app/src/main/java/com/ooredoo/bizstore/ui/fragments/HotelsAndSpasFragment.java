@@ -69,7 +69,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
         init(v, inflater);
 
-        fetchAndDisplayHotelsAndSpas();
+        fetchAndDisplayHotelsAndSpas(progressBar);
 
         isCreated = true;
 
@@ -116,7 +116,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    private void fetchAndDisplayHotelsAndSpas()
+    private void fetchAndDisplayHotelsAndSpas(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
@@ -131,13 +131,13 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onFilterChange()
     {
-        fetchAndDisplayHotelsAndSpas();
+        fetchAndDisplayHotelsAndSpas(progressBar);
     }
 
     @Override
     public void onRefresh()
     {
-        fetchAndDisplayHotelsAndSpas();
+        fetchAndDisplayHotelsAndSpas(null);
     }
 
     @Override

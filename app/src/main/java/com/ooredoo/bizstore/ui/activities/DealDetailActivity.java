@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -321,7 +322,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         if(viewId == R.id.get_code)
         {
             GetCodeTask getCodeTask = new GetCodeTask(this, snackBarUtils);
-            getCodeTask.execute(String.valueOf(id));
+            getCodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
         }
     }
 
