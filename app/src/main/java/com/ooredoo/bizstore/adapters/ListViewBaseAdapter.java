@@ -294,8 +294,13 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 }
                 else
                 {
-                    holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                    holder.progressBar.setVisibility(View.VISIBLE);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                            holder.progressBar.setVisibility(View.VISIBLE);
+                        }
+                    });
 
                     BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                             new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);

@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -99,7 +100,17 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
     {
         GetRedeemedDealsTask getRedeemedDealsTask = new GetRedeemedDealsTask(this, adapter,
                                                                              progressBar, deals);
-        getRedeemedDealsTask.execute(type);
+        getRedeemedDealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type);
+        //getRedeemedDealsTask.execute(type);
+
+        if(type.equals("Available"))
+        {
+            adapter.available = true;
+        }
+        else
+        {
+            adapter.available = false;
+        }
     }
 
     @Override

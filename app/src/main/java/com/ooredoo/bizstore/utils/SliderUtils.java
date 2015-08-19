@@ -16,11 +16,15 @@ public class SliderUtils
 {
     private ViewPager viewPager;
 
+    private TimerTask timerTask;
+
     private Timer timer;
 
     private int pos = 0;
 
     private boolean isEndReached = false;
+
+    public int count;
 
     private final static int DELAY = 5 * 1000;
 
@@ -33,9 +37,11 @@ public class SliderUtils
 
     public void start(final int count)
     {
+        this.count = count;
+
         stop();
 
-        TimerTask timerTask = new TimerTask()
+        timerTask = new TimerTask()
         {
             @Override
             public void run()
@@ -46,7 +52,7 @@ public class SliderUtils
 
                     if(pos >= 0)
                     {
-                        viewPager.post(new Runnable() {
+                        /*viewPager.post(new Runnable() {
                             @Override
                             public void run() {
                                 View child = viewPager.getChildAt(pos);
@@ -68,7 +74,14 @@ public class SliderUtils
                                     }
                                 }
                             }
+                        });*/
+                        viewPager.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewPager.setCurrentItem(pos, true);
+                            }
                         });
+
 
                     }
                     else
@@ -82,7 +95,7 @@ public class SliderUtils
 
                     if(pos < count)
                     {
-                        viewPager.post(new Runnable() {
+                       /* viewPager.post(new Runnable() {
                             @Override
                             public void run() {
                                 View child = viewPager.getChildAt(pos);
@@ -104,6 +117,12 @@ public class SliderUtils
                                     }
                                 }
                             }
+                        });*/
+                        viewPager.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                viewPager.setCurrentItem(pos, true);
+                            }
                         });
 
                     }
@@ -124,6 +143,11 @@ public class SliderUtils
         if(timer != null)
         {
             timer.cancel();
+        }
+
+        if(timerTask != null)
+        {
+            timerTask.cancel();
         }
     }
 }

@@ -28,6 +28,7 @@ import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -73,6 +74,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     public static GenericDeal selectedDeal, genericDeal;
 
     private Dialog ratingDialog;
+
+    private  MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private DiskCache diskCache = DiskCache.getInstance();
 
     private SnackBarUtils snackBarUtils;
     public DealDetailActivity() {
@@ -186,6 +191,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         }
     }
 
+    ImageView ivDetail;
+    ProgressBar progressBar;
     public void populateData(GenericDeal deal) {
         if(deal != null) {
             src = new Deal(deal);
@@ -223,9 +230,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
             ((ImageView) findViewById(R.id.iv_deal_category)).setImageResource(categoryIcon);
 
-            ImageView ivDetail = (ImageView) findViewById(R.id.detail_img);
+            ivDetail = (ImageView) findViewById(R.id.detail_img);
 
-            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
             String detailImageUrl = null;
             if(deal.image != null)
@@ -239,7 +246,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             {
                 String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + detailImageUrl;
 
-                MemoryCache memoryCache = MemoryCache.getInstance();
+
 
                 Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
@@ -249,11 +256,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 }
                 else
                 {
-                    DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
-                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
-                    bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
-                            String.valueOf(displayMetrics.heightPixels / 2));
+                    fallBackToDiskCache(imgUrl);
                 }
             }
 
@@ -288,6 +291,41 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         }
 
 
+    }
+    Bitmap bitmap;
+
+    private void fallBackToDiskCache(final String url)
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                bitmap = diskCache.getBitmapFromDiskCache(url);
+
+                Logger.print("dCache getting bitmap from cache");
+
+                if(bitmap != null)
+                {
+                    Logger.print("dCache found!");
+
+                    memoryCache.addBitmapToCache(url, bitmap);
+                    ivDetail.setImageBitmap(bitmap);
+                }
+                else
+                {
+                    DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+
+                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
+                        /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
+                                String.valueOf(displayMetrics.heightPixels / 2));*/
+                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                            url, String.valueOf(displayMetrics.widthPixels),
+                            String.valueOf(displayMetrics.heightPixels / 2));
+                }
+            }
+        });
+
+        thread.start();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,7 @@ import com.ooredoo.bizstore.asynctasks.TopMallsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
+import com.ooredoo.bizstore.listeners.SliderOnTouchListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
@@ -158,6 +160,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         promoSlider = new SliderUtils(promoPager);
 
+        promoPager.setOnTouchListener(new SliderOnTouchListener(promoSlider));
+
         promoAdapter = new PromoStatePagerAdapter(getFragmentManager(), deals, promoSlider);
 
         promoPager.setAdapter(promoAdapter);
@@ -175,7 +179,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     {
         PromoTask promoTask = new PromoTask(activity, promoAdapter,
                                             promoPager, promoIndicator);
-        promoTask.execute();
+        //promoTask.execute();
+        promoTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private FeaturedStatePagerAdapter featuredAdapter;
@@ -186,6 +191,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
 
         featuredSlider = new SliderUtils(featuredPager);
+
+        featuredPager.setOnTouchListener(new SliderOnTouchListener(featuredSlider));
 
         featuredAdapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals, featuredSlider);
 
@@ -203,7 +210,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void loadFeatured()
     {
         FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager, featuredIndicator);
-        featuredTask.execute();
+        //featuredTask.execute();
+        featuredTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private TopBrandsStatePagerAdapter topBrandsStatePagerAdapter;
@@ -222,7 +230,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void loadTopBrands()
     {
         TopBrandsTask topBrandsTask = new TopBrandsTask(activity, topBrandsStatePagerAdapter, topBrandsPager);
-        topBrandsTask.execute("malls");
+        //topBrandsTask.execute("malls");
+        topBrandsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
     }
 
     private TopMallsStatePagerAdapter topMallsAdapter;
@@ -241,12 +250,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void loadTopMalls()
     {
         TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager);
-        topMallsTask.execute("malls");
+        //topMallsTask.execute("malls");
+        topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
     }
 
     private void initAndLoadDealsOfTheDay() {
         DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null, this);
-        dealsTask.execute("dealofday");
+        //dealsTask.execute("dealofday");
+        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealofday");
     }
 
     private void setupScroller(ViewPager viewPager) {

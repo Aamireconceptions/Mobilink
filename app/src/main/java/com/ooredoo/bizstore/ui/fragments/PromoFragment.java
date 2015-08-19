@@ -43,6 +43,12 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
     private GenericDeal genericDeal;
 
+    private ImageView imageView;
+
+    private ProgressBar progressBar;
+
+    private View v;
+
     public static PromoFragment newInstance(GenericDeal genericDeal)
     {
         Bundle bundle = new Bundle();
@@ -57,7 +63,7 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_promo, container, false);
+        v = inflater.inflate(R.layout.fragment_promo, container, false);
         v.setOnClickListener(this);
 
         initAndLoadBanner(v);
@@ -79,9 +85,9 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
         id = bundle.getInt("id");
 
-        ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
+        imageView = (ImageView) v.findViewById(R.id.image_view);
 
-        ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         if(imgUrl != null)
         {
@@ -97,29 +103,12 @@ public class PromoFragment extends Fragment implements View.OnClickListener
             {
                 fallBackToDiskCache(url);
             }
+            else
+            {
+                imageView.setImageBitmap(bitmap);
+            }
 
             Logger.print("dCache PromoFragment bitmap: " +bitmap);
-
-            if(bitmap != null) {
-                imageView.setImageBitmap(bitmap);
-                imageView.setTag("loaded");
-            } else {
-                Logger.print("Root Width:" + v.getWidth());
-
-                Resources resources = activity.getResources();
-
-                int reqWidth = resources.getDisplayMetrics().widthPixels;
-
-                int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._160sdp)
-                        /
-                        resources.getDisplayMetrics().density);
-
-                Logger.print("req Width Pixels:" + reqWidth);
-                Logger.print("req Height Pixels:" + reqHeight);
-
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
-                bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
-            }
         }
         else
         {
@@ -142,22 +131,43 @@ public class PromoFragment extends Fragment implements View.OnClickListener
                     Logger.print("dCache found!");
 
                     memoryCache.addBitmapToCache(url, bitmap);
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageView.setImageBitmap(bitmap);
+                            imageView.setTag("loaded");
+                        }
+                    });
+                }
+                else
+                {
+                    Logger.print("Root Width:" + v.getWidth());
+
+                    Resources resources = activity.getResources();
+
+                    final int reqWidth = resources.getDisplayMetrics().widthPixels;
+
+                    final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._160sdp)
+                            /
+                            resources.getDisplayMetrics().density);
+
+                    Logger.print("req Width Pixels:" + reqWidth);
+                    Logger.print("req Height Pixels:" + reqHeight);
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
+                            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                        }
+                    });
                 }
             }
         });
 
         thread.start();
-
-        try
-        {
-            thread.join();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
     }
-
 
     @Override
     public void onClick(View v)
@@ -166,5 +176,4 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
         activity.showDealDetailActivity(DEAL_CATEGORIES[0], genericDeal );
     }
-
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
@@ -37,6 +38,8 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
     private Holder holder;
 
     private int prevItem = -1;
+
+    public boolean available = false;
 
     public RedeemedDealsBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals) {
         this.context = context;
@@ -82,11 +85,14 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
             holder.tvValidity = (TextView) row.findViewById(R.id.validity);
             holder.tvCode = (TextView) row.findViewById(R.id.code);
             holder.tvRedeemedOn = (TextView) row.findViewById(R.id.redeemed_on);
+            holder.llRedeemOn = (LinearLayout) row.findViewById(R.id.redeem_on_layout);
 
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
         }
+
+
 
         row.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +119,15 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
 
         holder.tvCode.setText(deal.voucher);
 
-        holder.tvRedeemedOn.setText(deal.startDate);
+        if(available)
+        {
+            holder.llRedeemOn.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.tvRedeemedOn.setText(deal.startDate);
+            holder.llRedeemOn.setVisibility(View.VISIBLE);
+        }
 
         AnimUtils.slideView((Activity) context, row, prevItem < position);
 
@@ -135,5 +149,7 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
     private static class Holder {
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvValidity, tvCode, tvRedeemedOn;
+
+        LinearLayout llRedeemOn;
     }
 }
