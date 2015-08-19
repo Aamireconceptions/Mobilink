@@ -118,7 +118,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     private void fetchAndDisplaySportsAndFitness(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, this.progressBar, ivBanner, this);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
