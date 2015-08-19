@@ -87,6 +87,13 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         catch (IOException e)
         {
             e.printStackTrace();
+
+            homeActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
+                }
+            });
         }
 
         return null;

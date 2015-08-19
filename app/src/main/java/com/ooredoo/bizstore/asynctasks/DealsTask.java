@@ -99,6 +99,14 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
             return getDeals(category);
         } catch(IOException e) {
             e.printStackTrace();
+
+            homeActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
+                }
+            });
+
         }
 
         return null;
@@ -119,7 +127,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
         if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
-        if(result != null) {
+        if(result != null)
+        {
             Logger.logI("DEALS: " + category, result);
 
             Gson gson = new Gson();
@@ -174,6 +183,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         }
         else
         {
+            Logger.print("DEALS TASK CALLED");
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
         }
 

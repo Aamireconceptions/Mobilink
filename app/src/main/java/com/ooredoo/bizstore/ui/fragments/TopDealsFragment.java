@@ -142,7 +142,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
-
         rlHeader.setVisibility(View.GONE);
 
         tvEmptyView.setText(stringResId);
