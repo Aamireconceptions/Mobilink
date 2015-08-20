@@ -25,7 +25,7 @@
             android:id="@+id/available"
             android:layout_width="@dimen/_115sdp"
             android:layout_height="@dimen/_34sdp"
-            android:text="Available"
+            android:text="@string/available"
             android:textAllCaps="false"
             android:textColor="@color/black_white_selector"
             android:background="@drawable/bt_tab_style_left_selector"/>
@@ -34,7 +34,7 @@
             android:id="@+id/redeemed"
             android:layout_width="@dimen/_115sdp"
             android:layout_height="@dimen/_34sdp"
-            android:text="Redeemed"
+            android:text="@string/redeemed"
             android:textAllCaps="false"
             android:textColor="@color/black_white_selector"
             android:background="@drawable/bt_tab_style_right_selector"/>

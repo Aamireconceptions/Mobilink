@@ -24,7 +24,7 @@
     <string name="entertainment">تسلية</string>
     <string name="deals_of_the_day">عروض اليوم</string>
     <string name="my_deals">عروضي</string>
-    <string name="my_favorites">My Favorites</string>
+    <string name="my_favorites">المفضلة</string>
     <string name="recommended">موصى به</string>
     <string name="recent_searches">عمليات البحث الأخيرة</string>
     <string name="recent_viewed">نتائج سابقة</string>
@@ -115,6 +115,8 @@
     <string name="error_provide_num">الرجاء إدخال رقم الهاتفك</string>
     <string name="please_wait">الرجاء الانتظار</string>
     <string name="success_shared">تمت المشاركة بنجاح</string>
+    <string name="redeemed">مستبدلة</string>
+    <string name="redeemed_deals">عروض مستبدلة</string>
     <string name="help_question1">ما هو Ooredoo بيزستور</string>
     <string name="help_answer1"> بيزستور هي رسائل نصية و تطبيق للهاتف الجوال توفر للعميل منصة لمتابعة أفضل العروض و الخصومات في قطر. من أشهر الماركات لها علاقة بالموضة و الصحة و حتى اللياقة بالإضافة إلى التسوق، المطاعم و السفر والسياحة و الأكثر من ذلك كلٌ في مكان واحد!! كما يقد بيزستور مجموعة متنوعة من العروض و الخدمات لمستخدميه حيث يمكن الإستفادة منها في أي وقت و مكان.</string>
     <string name="help_question2">ماذا أحصل من إشتراكي في خدمة Ooredoo بيزستور؟</string>
@@ -172,7 +174,7 @@
     <string name="Clothing">ملابس</string>
     <string name="Equipment">معدات</string>
     <string name="error_invalid_num">الرجاء إدخال رقم هاتفك</string>
-    <string name="error_invalid_verification_code">Please provide valid verification code</string>
+    <string name="error_invalid_verification_code">الرجاء إدخال رقم التأكيد</string>
     <string name="copyrights_text">Copyright 2015 Ooredoo Bizstore\nجميع حقوق النشر محفوظة</string>
     <string name="Clear_All">إخلاء</string>
     <string name="error_server_down">الخدمة تحت الصيانة. الرجاء المحاولة مرة أخى في وقت لاحق</string>
@@ -184,7 +186,11 @@
     <string name="select_pic">الرجاء إختيار صورة</string>
     <string name="no_fav_item">لا يوجد نتائج مفضلة</string>
     <string name="no_recent_item">لا يوجد نتائج مفضلة تم البحث عليها مسبقاً</string>
-
+    <string name="available">متوفر</string>
+    <string name="provide_valid_verification">الرجاء إدخال رقم التأكيد</string>
+    <string name="getting_vocher">الحصول على الكوبون</string>
+    <string name="get_discount_voucher">أحصل على كوبون الخصم</string>
+    <string name="redeem_until">إستبدل العرض إلى</string>
     <string name="notification_text">يمكنك إختراء الفئة المفضلة لديك و الحصول على العروض فوراً.</string>
     <string name="slide_1_text_1">Slide 1 Text 1</string>
     <string name="slide_1_text_2">Slide 1 Text 2</string>
@@ -201,5 +207,5 @@
     <string name="movies_cinemas_more"><![CDATA[Movies, Cinemas & Much More]]></string>
     <string name="subscription_charges">You will be charged QAR 9/week</string>
     <string name="subscription_terms_services"><![CDATA[By Subscribing you Agree with our Terms & Services]]></string>
-
+    <string name="error_no_data">عذرا لم يتم العثور على البحث</string>
 </resources>

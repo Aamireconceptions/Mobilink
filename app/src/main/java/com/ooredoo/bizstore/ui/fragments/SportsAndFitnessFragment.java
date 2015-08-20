@@ -98,7 +98,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory(ResourceUtils.SPORTS_AND_FITNESS);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);

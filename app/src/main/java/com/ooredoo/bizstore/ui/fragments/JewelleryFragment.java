@@ -96,7 +96,7 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
         adapter.setCategory("Jewellery");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);

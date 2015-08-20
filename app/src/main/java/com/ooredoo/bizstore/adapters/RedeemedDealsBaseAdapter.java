@@ -115,7 +115,7 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
 
         holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
-        holder.tvValidity.setText("Redeem Discount Until " + deal.endDate);
+        holder.tvValidity.setText(context.getString(R.string.redeem_until) + " " + deal.endDate);
 
         holder.tvCode.setText(deal.voucher);
 

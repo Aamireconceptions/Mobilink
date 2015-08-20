@@ -115,6 +115,10 @@
     <string name="error_provide_num">Please provide the phone number</string>
     <string name="please_wait">Please wait</string>
     <string name="success_shared">Successfully shared</string>
+    <string name="available">Available</string>
+    <string name="redeem_until">Redeem Discount Until</string>
+    <string name="get_discount_voucher">Get discount voucher</string>
+    <string name="getting_vocher">Getting Voucher</string>
     <string name="help_question1">What is Ooredoo Biz Store?</string>
     <string name="help_answer1"><![CDATA[Ooredoo Biz Store is an SMS/Mobile Application based service which provides a platform to view best Deals & Discounts in Qatar. With major brands on-board ranging from fashion & lifestyle to health & fitness, shopping, restaurants, travelling and much more, Biz Store has it All! Biz Store also offers a variety of Exclusive Deals to the users who can later avail them from the respective stores/outlets.]]></string>
     <string name="help_question2">What do I get from Ooredoo Biz Store?</string>
@@ -201,6 +205,7 @@
     <string name="gcm_sender_id">999481636845</string>
     <string name="qatar_code">974</string>
     <string name="error_no_data">Oops nothing found :(</string>
+    <string name="redeemed">Redeemed</string>
     <string name="redeemed_deals">Redeemed Deals</string>
     <string name="find_popular_venues">Find Popular Venues</string>
     <string name="get_restaurants_deals">Get Restaurant Deals</string>

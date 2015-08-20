@@ -263,7 +263,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
             tvDiscount.setText(discount);
 
-            tvValidity.setText("Redeem Discount Until " + deal.endDate);
+            tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
 
             if(deal.voucher != null && !deal.voucher.isEmpty())
             {

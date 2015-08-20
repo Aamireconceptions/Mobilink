@@ -216,7 +216,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-
                         android:textColor="@android:color/secondary_text_light"/>
 
                     <ImageView
@@ -275,7 +274,7 @@
 
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_marginTop="@dimen/_65sdp"
-                    android:text="Get Discount Voucher"
+                    android:text="@string/get_discount_voucher"
                     android:textColor="@color/white"
 
                     android:textAllCaps="true"
