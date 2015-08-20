@@ -58,6 +58,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     private int reqWidth, reqHeight;
 
+    private boolean isServerDown = false;
+
     public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter,
                      ProgressBar progressBar, ImageView ivBanner, Fragment fragment)
     {
@@ -99,6 +101,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
             return getDeals(category);
         } catch(IOException e) {
             e.printStackTrace();
+            isServerDown = true;
 
             homeActivity.runOnUiThread(new Runnable() {
                 @Override
@@ -116,78 +119,68 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-       // homeActivity.hideLoader();
-
-        subCategories = "";
-        sortColumn = "createdate";
+        if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         dealsTaskFinishedListener.onRefreshCompleted();
 
-        adapter.clearData();
+        if(isServerDown) {
+            dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
+        } else {
+            // homeActivity.hideLoader();
 
-        if(progressBar != null) { progressBar.setVisibility(View.GONE); }
+            subCategories = "";
+            sortColumn = "createdate";
 
-        if(result != null)
-        {
-            Logger.logI("DEALS: " + category, result);
+            adapter.clearData();
 
-            Gson gson = new Gson();
+            if(result != null) {
+                Logger.logI("DEALS: " + category, result);
 
-            try {
-                Response response = gson.fromJson(result, Response.class);
+                Gson gson = new Gson();
 
-                if(response.resultCode != -1)
-                {
-                    dealsTaskFinishedListener.onHaveDeals();
+                try {
+                    Response response = gson.fromJson(result, Response.class);
 
-                    List<GenericDeal> deals = response.deals;
+                    if(response.resultCode != -1) {
+                        dealsTaskFinishedListener.onHaveDeals();
 
-                    if(deals != null)
-                    {
-                        adapter.setData(deals);
+                        List<GenericDeal> deals = response.deals;
 
-                        String bannerUrl = response.topBannerUrl;
+                        if(deals != null) {
+                            adapter.setData(deals);
 
-                        if(bannerUrl != null)
-                        {
-                            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
+                            String bannerUrl = response.topBannerUrl;
 
-                            Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+                            if(bannerUrl != null) {
+                                String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
 
-                            if(bitmap != null)
-                            {
-                                ivBanner.setImageBitmap(bitmap);
+                                Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+                                if(bitmap != null) {
+                                    ivBanner.setImageBitmap(bitmap);
+                                } else {
+                                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner, null);
+                                    bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                                }
                             }
-                            else
-                            {
-                                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner,
-                                        null);
-                                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth),
-                                        String.valueOf(reqHeight));
-                            }
+                        } else {
+                            dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
-                }
-                else
-                {
-                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
-                }
 
-            } catch(JsonSyntaxException e) {
-                e.printStackTrace();
+                } catch(JsonSyntaxException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Logger.print("DEALS TASK CALLED");
+                dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
             }
-        }
-        else
-        {
-            Logger.print("DEALS TASK CALLED");
-            dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
-        }
 
-        adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+        }
+        isServerDown = false;
     }
 
     private String getDeals(String category) throws IOException {
