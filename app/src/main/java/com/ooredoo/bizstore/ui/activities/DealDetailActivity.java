@@ -315,7 +315,13 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                     Logger.print("dCache found!");
 
                     memoryCache.addBitmapToCache(url, bitmap);
-                    ivDetail.setImageBitmap(bitmap);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ivDetail.setImageBitmap(bitmap);
+                        }
+                    });
+
                 }
                 else
                 {

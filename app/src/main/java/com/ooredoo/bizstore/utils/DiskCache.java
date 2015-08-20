@@ -36,7 +36,7 @@ public class DiskCache
 
     private static final String DISK_CACHE_SUBDIR = "ooredoo_thumbnails";
 
-    private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
+    private static final int DISK_CACHE_SIZE = 1024 * 1024 * 50; // 50MB
 
     public static DiskCache getInstance()
     {
