@@ -93,23 +93,6 @@ public class SharedPrefUtils {
         }
     }
 
-    public static void updateVal(Activity activity, final String KEY, final int VAL) {
-        try {
-            if(activity != null) {
-                sharedPreferences = getSharedPreferences(activity);
-                if(sharedPreferences != null) {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    if(editor != null) {
-                        editor.putInt(KEY, VAL);
-                        editor.commit();
-                    }
-                }
-            }
-        } catch(Throwable e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void updateVal(Activity activity, final String KEY, final String VAL) {
         try {
             if(activity != null) {
