@@ -12,7 +12,7 @@ import com.ooredoo.bizstore.ui.fragments.SlideFragment;
  */
 public class DemoPagerAdapter extends FragmentPagerAdapter
 {
-    public final static int SLIDE_COUNT = 4;
+    public final static int SLIDE_COUNT = 3;
 
     public DemoPagerAdapter(FragmentManager fm)
     {

@@ -93,7 +93,7 @@ public class SlideFragment extends Fragment
                 break;
 
             case 2:
-                textView2.setTextColor(ColorUtils.RED);
+                /*textView2.setTextColor(ColorUtils.RED);
                 textView3.setTextColor(ColorUtils.BLACK);
                 textView2.setTypeface(null, Typeface.BOLD);
                 textView3.setTypeface(null, Typeface.NORMAL);
@@ -104,7 +104,7 @@ public class SlideFragment extends Fragment
 
                 break;
 
-            case 3:
+            case 3:*/
                 textView3.setTextColor(ColorUtils.RED);
                 textView2.setTextColor(ColorUtils.BLACK);
                 textView3.setTypeface(null, Typeface.BOLD);
