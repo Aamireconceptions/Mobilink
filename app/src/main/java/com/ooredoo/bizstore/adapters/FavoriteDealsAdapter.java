@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.MyDealsActivity;
@@ -109,7 +108,7 @@ public class FavoriteDealsAdapter extends ArrayAdapter<Favorite> {
             }
         });
 
-        deal.isFavorite = Deal.isFavorite(deal.id);
+        deal.isFavorite = Favorite.isFavorite(deal.id);
 
         holder.ivFav.setSelected(deal.isFavorite);
 

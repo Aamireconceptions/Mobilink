@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
@@ -23,7 +22,6 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
-import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -31,7 +29,6 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
-import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static java.lang.String.valueOf;
 
 /**
@@ -108,7 +105,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
             }
         }
 
-        deal.isFav = Deal.isFavorite(deal.id);
+        deal.isFav = Favorite.isFavorite(deal.id);
 
         holder.ivFav.setSelected(deal.isFav);
         holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));

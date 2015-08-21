@@ -62,7 +62,7 @@ public class RecentDeal extends Model {
     }
 
     public static boolean isFavorite(RecentDeal deal) {
-        List<Deal> deals = new Select().all().from(Deal.class).where("dealId = " + deal.id + " AND isFavorite = 1").execute();
+        List<Favorite> deals = new Select().all().from(Favorite.class).where("dealId = " + deal.id + " AND isFavorite = 1").execute();
 
         if(deals != null && deals.size() > 0) {
             return deals.get(0).isFavorite;

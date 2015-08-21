@@ -15,8 +15,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
-import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.Logger;
@@ -118,7 +117,7 @@ public class GridViewBaseAdapter extends BaseAdapter
 
         final GenericDeal deal = getItem(position);
 
-        deal.isFav = Deal.isFavorite(deal.id);
+        deal.isFav = Favorite.isFavorite(deal.id);
 
         holder.ivFav.setSelected(deal.isFav);
 
@@ -187,8 +186,8 @@ public class GridViewBaseAdapter extends BaseAdapter
 
             v.setSelected(!isSelected);
 
-            Deal favDeal = new Deal(genericDeal);
-            Deal.updateDealAsFavorite(favDeal);
+            Favorite favorite = new Favorite(genericDeal);
+            Favorite.updateFavorite(favorite);
         }
     }
 
