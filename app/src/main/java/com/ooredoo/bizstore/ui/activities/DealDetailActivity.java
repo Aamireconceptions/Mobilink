@@ -12,7 +12,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -28,6 +27,7 @@ import com.ooredoo.bizstore.asynctasks.GetCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
+import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -224,7 +224,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             ((TextView) findViewById(R.id.tv_discount)).setText(discount);
             ((TextView) findViewById(R.id.tv_deal_discount)).setText(discount);
 
-            src.isFavorite = Deal.isFavorite(id);
+            src.isFavorite = Favorite.isFavorite(id);
+
             findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
             int categoryIcon = getCategoryIcon(deal.category);
@@ -347,7 +348,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
             if(src != null) {
                 src.isFavorite = !src.isFavorite;
                 v.setSelected(src.isFavorite);
-                Deal.updateDealAsFavorite(src);
+                Favorite favorite = new Favorite(genericDeal);
+                Favorite.updateFavorite(favorite);
             } else {
                 //TODO src == null => No detail found OR any exception occurred.
             }

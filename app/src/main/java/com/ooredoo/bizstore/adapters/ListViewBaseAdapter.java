@@ -158,7 +158,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
         }
 
-        deal.isFav = Deal.isFavorite(deal.id);
+        deal.isFav = Favorite.isFavorite(deal.id);
 
         holder.ivFav.setSelected(deal.isFav);
         holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
