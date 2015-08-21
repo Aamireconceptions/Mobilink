@@ -37,13 +37,13 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
             HomeActivity homeActivity = (HomeActivity) activity;
             homeActivity.showHideSearchBar(false);
         } else {
-            GenericDeal genericDeal = adapter.getItem(position);
+            GenericDeal genericDeal = (GenericDeal) parent.getItemAtPosition(position);
 
             int dealId = genericDeal.id;
 
             Intent intent = new Intent(activity, DealDetailActivity.class);
             intent.putExtra("generic_deal", genericDeal);
-            intent.putExtra(AppConstant.ID, dealId);
+            //intent.putExtra(AppConstant.ID, dealId);
             intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
 
             activity.startActivity(intent);
