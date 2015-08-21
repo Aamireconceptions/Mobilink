@@ -124,7 +124,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         if(isExpanded) {
             ivIndicator.setImageResource(R.drawable.ic_group_collapse);
         } else {
-            ivIndicator.setImageResource(R.drawable.ic_group_fwd);
+            ivIndicator.setImageResource(R.drawable.ic_group_expand);
         }
 
         String name = navigationItem.getItemName();

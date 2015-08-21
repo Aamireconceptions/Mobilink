@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -125,7 +126,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
             subCategory = ""; //Reset sub category filter.
         }
 
-        dealsTask.execute("hotels_spas");
+        //dealsTask.execute("hotels_spas");
+        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "hotels_spas");
     }
 
     @Override

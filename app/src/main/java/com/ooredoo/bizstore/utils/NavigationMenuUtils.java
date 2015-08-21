@@ -271,8 +271,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(foodSubCategories[i]);
-            navigationItem.setResId(i != foodSubCategories.length - 1
-                    ? R.drawable.node_start : R.drawable.node_end);
+            navigationItem.setResId(getTreeNode(i, foodSubCategories));
 
             foodSubList.add(navigationItem);
         }
@@ -283,8 +282,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(shoppingSubCategories[i]);
-            navigationItem.setResId(i != shoppingSubCategories.length - 1
-                    ? R.drawable.node_start : R.drawable.node_end);
+            navigationItem.setResId(getTreeNode(i, shoppingSubCategories));
 
             shoppingSubList.add(navigationItem);
         }
@@ -295,8 +293,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(electronicsSubCategories[i]);
-            navigationItem.setResId(i != electronicsSubCategories.length - 1
-                    ? R.drawable.node_start : R.drawable.node_end);
+            navigationItem.setResId(getTreeNode(i, electronicsSubCategories));
 
             electronicsSubList.add(navigationItem);
         }
@@ -307,8 +304,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(hotelsSubCategories[i]);
-            navigationItem.setResId(i != hotelsSubCategories.length - 1
-                    ? R.drawable.node_start : R.drawable.node_end);
+            navigationItem.setResId(getTreeNode(i, hotelsSubCategories));
 
             hotelsSubList.add(navigationItem);
         }
@@ -319,8 +315,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(mallsSubCategories[i]);
-            navigationItem.setResId(i != mallsSubCategories.length - 1
-                    ? R.drawable.node_start : R.drawable.node_end);
+            navigationItem.setResId(getTreeNode(i, mallsSubCategories));
 
             mallsSubList.add(navigationItem);
         }
@@ -331,8 +326,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(automotiveSubCategories[i]);
-            navigationItem.setResId(i != automotiveSubCategories.length - 1
-                    ? R.drawable.node_start : R.drawable.node_end);
+            navigationItem.setResId(getTreeNode(i, automotiveSubCategories));
 
             automotiveSubList.add(navigationItem);
         }
@@ -354,8 +348,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(entertainmentSubCategories[i]);
-            navigationItem.setResId(i != entertainmentSubCategories.length - 1
-                    ? R.drawable.node_start : R.drawable.node_end);
+            navigationItem.setResId(getTreeNode(i, entertainmentSubCategories));
 
             entertainmentSubList.add(navigationItem);
         }
@@ -366,8 +359,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(jewellerySubCategories[i]);
-            navigationItem.setResId(i != jewellerySubCategories.length - 1
-                    ? R.drawable.node_start : R.drawable.node_end);
+            navigationItem.setResId(getTreeNode(i, jewellerySubCategories));
 
             jewellerySubList.add(navigationItem);
         }
@@ -378,7 +370,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         {
             NavigationItem navigationItem = new NavigationItem();
             navigationItem.setItemName(sportsSubCategories[i]);
-            navigationItem.setResId(R.drawable.node_start);
+            navigationItem.setResId(getTreeNode(i, sportsSubCategories));
 
             sportsSubList.add(navigationItem);
         }
@@ -395,6 +387,16 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         subChildList.put(subGroupList.get(9).getItemName(), jewellerySubList);
         subChildList.put(subGroupList.get(10).getItemName(), sportsSubList);
         //subChildList.put(subGroupList.get(10).getItemName(), sportsSubList);
+    }
+
+    private int getTreeNode(int index, String [] array)
+    {
+
+        int resId = index != array.length - 1
+                ? BizStore.getLanguage().equals("en") ? R.drawable.node_start : R.drawable.node_start_flip
+                :  BizStore.getLanguage().equals("en") ? R.drawable.node_end : R.drawable.node_end_flip;
+
+        return  resId;
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -305,10 +306,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                             new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
 
-                /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                        String.valueOf(reqWidth), String.valueOf(reqHeight));*/
+                bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                                        String.valueOf(reqWidth), String.valueOf(reqHeight));
 
-                    bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                   // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
                 }
             }
         });

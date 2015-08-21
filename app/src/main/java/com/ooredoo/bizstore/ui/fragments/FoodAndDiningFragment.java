@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -115,7 +116,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         DealsTask dealsTask = new DealsTask(activity, adapter,
                                             progressBar, ivBanner,
                                             this);
-        dealsTask.execute("food");
+        //dealsTask.execute("food");
+        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "food");
     }
 
     @Override
@@ -168,5 +170,12 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         {
             isCreated = false;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Logger.print("onPause: FoodANdDiinignFrag");
     }
 }

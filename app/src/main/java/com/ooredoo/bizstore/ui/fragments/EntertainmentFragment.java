@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -127,7 +128,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
             subCategory = ""; //Reset sub category filter.
         }
 
-        dealsTask.execute("entertainment");
+        //dealsTask.execute("entertainment");
+        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "entertainment");
     }
 
     @Override

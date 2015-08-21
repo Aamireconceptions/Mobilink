@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -125,7 +126,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
             subCategory = ""; //Reset sub category filter.
         }
 
-        dealsTask.execute("sports_fitness");
+        //dealsTask.execute("sports_fitness");
+        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "sports_fitness");
     }
 
     @Override

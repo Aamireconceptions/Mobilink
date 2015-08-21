@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.animation.LayoutTransition;
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -116,7 +117,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     private void fetchAndDisplayElectronics(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
-        dealsTask.execute("electronics");
+        //dealsTask.execute("electronics");
+        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "electronics");
     }
 
     @Override

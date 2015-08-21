@@ -147,9 +147,9 @@ public class GridViewBaseAdapter extends BaseAdapter
                 BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                         new BaseAdapterBitmapDownloadTask(this);
 
-                /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
-                                         String.valueOf(reqWidth), String.valueOf(reqHeight));*/
-                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
+                                         String.valueOf(reqWidth), String.valueOf(reqHeight));
+                /*bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));*/
             }
         }
         else

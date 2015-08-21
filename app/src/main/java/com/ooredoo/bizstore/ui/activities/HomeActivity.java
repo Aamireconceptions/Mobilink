@@ -750,6 +750,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         diskCache.requestClose();
 
         Logger.print("HomeActivity onDestroy");
+
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -117,7 +118,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     private void fetchAndDisplayJewelry(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
-        dealsTask.execute("jewelry");
+        //dealsTask.execute("jewelry");
+        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "jewelry");
     }
 
     @Override

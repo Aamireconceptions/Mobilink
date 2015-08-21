@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -119,7 +120,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     private void loadDeals(ProgressBar progressBar)
     {
         ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
-        shoppingTask.execute("shopping");
+        //shoppingTask.execute("shopping");
+        shoppingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "shopping");
     }
 
     public static ShoppingFragment newInstance() {

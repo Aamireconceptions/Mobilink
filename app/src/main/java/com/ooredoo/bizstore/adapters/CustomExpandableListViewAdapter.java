@@ -126,7 +126,15 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
         {
             convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
 
-            ivIndicator.setImageResource(R.drawable.ic_group_fwd);
+            if(BizStore.getLanguage().equals("en"))
+            {
+                ivIndicator.setImageResource(R.drawable.ic_group_fwd);
+            }
+            else
+            {
+                ivIndicator.setImageResource(R.drawable.ic_group_fwd_flip);
+            }
+
         }
 
         groupName = (String) getGroup(groupPosition);
