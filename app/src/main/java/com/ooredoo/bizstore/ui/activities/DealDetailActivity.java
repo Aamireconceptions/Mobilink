@@ -345,9 +345,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.iv_favorite) {
-            if(src != null) {
-                src.isFavorite = !src.isFavorite;
-                v.setSelected(src.isFavorite);
+            if(genericDeal != null) {
+                genericDeal.isFav = !genericDeal.isFav;
+                v.setSelected(genericDeal.isFav);
                 Favorite favorite = new Favorite(genericDeal);
                 Favorite.updateFavorite(favorite);
             } else {
