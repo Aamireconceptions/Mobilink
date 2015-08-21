@@ -44,7 +44,8 @@
         <activity
             android:name=".ui.activities.SignUpActivity"
             android:configChanges="screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".ui.activities.HomeActivity"
             android:label="@string/app_name"
