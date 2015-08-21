@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -114,7 +115,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     private void loadTopDeals(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
-        dealsTask.execute("top_deals");
+        //dealsTask.execute("top_deals");
+        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "top_deals");
     }
 
     @Override

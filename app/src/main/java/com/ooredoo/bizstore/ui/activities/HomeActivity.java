@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -176,9 +177,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         registeredWithGcmIfRequired();
 
-        new SearchKeywordsTask(this).execute();
+        /*new SearchKeywordsTask(this).execute();
 
-        new AccountDetailsTask().execute(BizStore.username);
+        new AccountDetailsTask().execute(BizStore.username);*/
+
+        new SearchKeywordsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        new AccountDetailsTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
     }
 
     private void overrideFonts()
