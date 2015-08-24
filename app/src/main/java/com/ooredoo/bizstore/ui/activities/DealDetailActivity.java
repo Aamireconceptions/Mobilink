@@ -290,7 +290,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
             if(deal.is_exclusive == 1)
             {
-                findViewById(R.id.voucher_frame).setVisibility(View.GONE);
+                findViewById(R.id.voucher_frame).setVisibility(View.VISIBLE);
             }
 
         } else {
