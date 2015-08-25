@@ -20,6 +20,7 @@
             android:id="@+id/tv_congratz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/icon"
             android:gravity="center"
 
@@ -33,6 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_congratz"
             android:padding="@dimen/_8sdp"
+            android:gravity="center"
+            android:textSize="12sp"
             android:text="@string/TXT_DETAILS"/>
 
         <Button
