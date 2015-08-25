@@ -54,7 +54,7 @@ public class DiskCache
     {
         this.context = context;
 
-        bitmapProcessor = new BitmapProcessor(null);
+        bitmapProcessor = new BitmapProcessor();
 
         new DiskCacheTask(this).execute(DiskCacheTask.INIT);
     }

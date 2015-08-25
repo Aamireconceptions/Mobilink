@@ -43,11 +43,9 @@ public class MyGcmListenerService extends GcmListenerService
 
             String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
 
-            String reqWidth = String.valueOf((int) getResources()
-                                    .getDimension(android.R.dimen.notification_large_icon_width));
+            String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
 
-            String reqHeight = String.valueOf((int) getResources()
-                                     .getDimension(android.R.dimen.notification_large_icon_height));
+            String reqHeight = String.valueOf((int) Converter.convertDpToPixels(256));
 
             Logger.print("gcm width:"+reqWidth);
 

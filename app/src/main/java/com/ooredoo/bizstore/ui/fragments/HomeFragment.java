@@ -179,8 +179,18 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     {
         PromoTask promoTask = new PromoTask(activity, promoAdapter,
                                             promoPager, promoIndicator);
-        //promoTask.execute();
-        promoTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        String cache = promoTask.getCache();
+
+        if(cache != null)
+        {
+            promoTask.setData(cache);
+        }
+        else
+        {
+            promoTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+
     }
 
     private FeaturedStatePagerAdapter featuredAdapter;
@@ -210,8 +220,17 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void loadFeatured()
     {
         FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager, featuredIndicator);
-        //featuredTask.execute();
-        featuredTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        String cache = featuredTask.getCache();
+
+        if(cache != null)
+        {
+            featuredTask.setData(cache);
+        }
+        else
+        {
+            featuredTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 
     private TopBrandsStatePagerAdapter topBrandsStatePagerAdapter;
@@ -230,8 +249,17 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void loadTopBrands()
     {
         TopBrandsTask topBrandsTask = new TopBrandsTask(activity, topBrandsStatePagerAdapter, topBrandsPager);
-        //topBrandsTask.execute("malls");
-        topBrandsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
+
+        String cache = topBrandsTask.getCache();
+
+        if(cache != null)
+        {
+            topBrandsTask.setData(cache);
+        }
+        else
+        {
+            topBrandsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
+        }
     }
 
     private TopMallsStatePagerAdapter topMallsAdapter;
@@ -250,14 +278,32 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void loadTopMalls()
     {
         TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager);
-        //topMallsTask.execute("malls");
-        topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
+
+        String cache = topMallsTask.getCache();
+
+        if(cache != null)
+        {
+            topMallsTask.setData(cache);
+        }
+        else
+        {
+            topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
+        }
     }
 
     private void initAndLoadDealsOfTheDay() {
         DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null, this);
-        //dealsTask.execute("dealofday");
-        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealofday");
+
+        String cache = dealsTask.getCache("dealofday");
+
+        if(cache != null)
+        {
+            dealsTask.setData(cache);
+        }
+        else
+        {
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealofday");
+        }
     }
 
     private void setupScroller(ViewPager viewPager) {

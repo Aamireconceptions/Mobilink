@@ -54,6 +54,11 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        setData(result);
+    }
+
+    public void setData(String result)
+    {
         adapter.clear();
 
         if(result != null) {
@@ -86,33 +91,39 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     {
         String result;
 
-        final String KEY = "TOP_MALLS";
+        HashMap<String, String> params = new HashMap<>();
+        params.put(OS, ANDROID);
+        params.put(CATEGORY, category);
+
+        String query = createQuery(params);
+
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        Logger.print("getTopMalls() URL:" + url.toString());
+
+        result = getJson(url);
+
+        updateVal(activity, KEY, result);
+        updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
+
+        Logger.print("getTopMalls:" + result);
+
+        return result;
+    }
+
+    final String KEY = "TOP_MALLS";
+    public String getCache()
+    {
+        String result = null;
 
         final String cachedData = getStringVal(activity, KEY);
 
         boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
 
-        if(hasInternetConnection(activity) && (isNullOrEmpty(cachedData) || updateFromServer)) {
-
-            HashMap<String, String> params = new HashMap<>();
-            params.put(OS, ANDROID);
-            params.put(CATEGORY, category);
-
-            String query = createQuery(params);
-
-            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
-
-            Logger.print("getTopMalls() URL:" + url.toString());
-
-            result = getJson(url);
-
-            updateVal(activity, KEY, result);
-            updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
-        } else {
+        if(!isNullOrEmpty(cachedData) && (!hasInternetConnection(activity) || !updateFromServer))
+        {
             result = cachedData;
         }
-
-        Logger.print("getTopMalls:" + result);
 
         return result;
     }

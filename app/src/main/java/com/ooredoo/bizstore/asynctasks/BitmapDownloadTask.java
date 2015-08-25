@@ -30,7 +30,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     public String imgUrl;
 
-    private BitmapProcessor bitmapProcessor = new BitmapProcessor(this);
+    private BitmapProcessor bitmapProcessor = new BitmapProcessor();
 
     private MemoryCache memoryCache = MemoryCache.getInstance();
 
@@ -124,7 +124,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
             int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));
 
-            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, width, height);
+            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
 
             if(bitmap != null)
             {

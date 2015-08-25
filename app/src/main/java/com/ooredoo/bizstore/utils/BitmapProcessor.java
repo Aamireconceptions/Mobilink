@@ -15,6 +15,7 @@ import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * @author  Babar
@@ -22,14 +23,7 @@ import java.io.InputStream;
  */
 public class BitmapProcessor
 {
-    private BitmapDownloadTask bitmapDownloadTask;
-
-    public BitmapProcessor(BitmapDownloadTask bitmapDownloadTask)
-    {
-        this.bitmapDownloadTask = bitmapDownloadTask;
-    }
-
-    public Bitmap decodeSampledBitmapFromStream(InputStream inputStream,
+    public Bitmap decodeSampledBitmapFromStream(InputStream inputStream, URL url,
                                                 int reqWidth, int reqHeight) throws IOException {
         Bitmap bitmap;
 
@@ -49,7 +43,7 @@ public class BitmapProcessor
         options.inJustDecodeBounds = false;
         options.inSampleSize = sampleSize;
 
-        inputStream = bitmapDownloadTask.openStream();
+        inputStream = url.openStream();
 
         bitmap = BitmapFactory.decodeStream(inputStream, null, options);
 

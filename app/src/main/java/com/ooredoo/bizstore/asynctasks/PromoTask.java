@@ -62,6 +62,11 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        setData(result);
+    }
+
+    public void setData(String result)
+    {
         adapter.clear();
 
         if(result != null) {
@@ -102,7 +107,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
     private String getPromos() throws IOException {
         String result;
 
-        final String KEY = "PROMO_DEALS";
+        /*final String KEY = "PROMO_DEALS";
 
         final String cachedData = getStringVal(activity, KEY);
 
@@ -123,9 +128,39 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
             updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
         } else {
             result = cachedData;
-        }
+        }*/
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put(OS, ANDROID);
+
+        String query = createQuery(params);
+
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        result = getJson(url);
+
+        updateVal(activity, KEY, result);
+        updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
 
         Logger.print("getPromos: " + result);
+
+        return result;
+    }
+
+    final String KEY = "PROMO_DEALS";
+
+    public String getCache()
+    {
+        String result = null;
+
+        final String cachedData = getStringVal(activity, KEY);
+
+        boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
+
+        if(!isNullOrEmpty(cachedData) && (!hasInternetConnection(activity) || !updateFromServer))
+        {
+            result = cachedData;
+        }
 
         return result;
     }

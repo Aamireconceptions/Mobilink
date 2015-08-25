@@ -71,6 +71,11 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
+        setData(result);
+    }
+
+    public void setData(String result)
+    {
         adapter.clear();
 
         if(result != null)
@@ -123,45 +128,39 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
     {
         String result;
 
-        InputStream inputStream = null;
+        HashMap<String, String> params = new HashMap<>();
+        params.put(OS, ANDROID);
 
-        final String KEY = "FEATURED_DEALS";
+        String query = createQuery(params);
+
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        Logger.print("getFeatured() URL:"+ url.toString());
+
+        result = getJson(url);
+
+        updateVal(activity, KEY, result);
+        updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
+
+        Logger.print("getFeatured: " + result);
+
+        return result;
+    }
+
+    final String KEY = "FEATURED_DEALS";
+
+    public String getCache()
+    {
+        String result = null;
 
         final String cachedData = getStringVal(activity, KEY);
 
         boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
 
-        if(hasInternetConnection(activity) && (isNullOrEmpty(cachedData) || updateFromServer)) {
+        if(!isNullOrEmpty(cachedData) && (!hasInternetConnection(activity) || !updateFromServer)) {
 
-        try
-        {
-            HashMap<String, String> params = new HashMap<>();
-            params.put(OS, ANDROID);
-
-            String query = createQuery(params);
-
-            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
-
-            Logger.print("getFeatured() URL:"+ url.toString());
-
-            result = getJson(url);
-
-            updateVal(activity, KEY, result);
-            updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
-
-        }
-        finally
-        {
-            if(inputStream != null)
-            {
-                inputStream.close();
-            }
-        }
-        } else {
             result = cachedData;
         }
-
-        Logger.print("getFeatured: "+result);
 
         return result;
     }

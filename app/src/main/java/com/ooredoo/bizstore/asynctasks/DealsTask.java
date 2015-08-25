@@ -20,17 +20,20 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.NetworkUtils.*;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 import static java.lang.System.currentTimeMillis;
 
 /**
@@ -119,6 +122,11 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        setData(result);
+    }
+
+    public void setData(String result)
+    {
         if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         dealsTaskFinishedListener.onRefreshCompleted();
@@ -237,27 +245,39 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         final String KEY = PREFIX_DEALS.concat(category);
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
-        if(isFilterEnabled || checkIfUpdateData(homeActivity, UPDATE_KEY)) {
+        String query = createQuery(params);
 
-            String query = createQuery(params);
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+        Logger.print("getDeals() URL:" + url.toString());
 
-            Logger.print("getDeals() URL:" + url.toString());
+        result = getJson(url);
 
-            result = getJson(url);
+        Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
 
-            Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
-
-            if(!isFilterEnabled) {
-                updateVal(homeActivity, KEY, result);
-                updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
-            }
-        } else {
-            result = getStringVal(homeActivity, KEY);
-        }
+        updateVal(homeActivity, KEY, result);
+        updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
 
         Logger.print("getDeals: " + result);
+
+        return result;
+    }
+
+    public String getCache(String category)
+    {
+        String result = null;
+
+        final String KEY = PREFIX_DEALS.concat(category);
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+        String cacheData = getStringVal(homeActivity, KEY);
+
+        boolean updateFromServer = checkIfUpdateData(homeActivity, UPDATE_KEY);
+
+        if(!isNullOrEmpty(cacheData) && (!hasInternetConnection(homeActivity) || !updateFromServer))
+        {
+            result = cacheData;
+        }
 
         return result;
     }
