@@ -89,8 +89,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     @Override
     public void init() {
         setupToolbar();
-        initViews();
+
         handleIntentFilter();
+
+        initViews();
     }
 
     @Override
@@ -110,7 +112,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         if(intent != null) {
             Uri uri = intent.getData();
 
-            if(uri != null) {
+            /*if(uri != null) {
                 String paramId = uri.getQueryParameter("id");
 
                 Logger.print("Extras: " + paramId);
@@ -118,19 +120,36 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
                 getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
                 initViews();
+            }*/
+
+            if(uri != null)
+            {
+                String paramId = uri.getQueryParameter("id");
+
+                Logger.print("Extras: " + paramId);
+
+                getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
             }
+
+            id = intent.getIntExtra(AppConstant.ID, 0);
+            getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
+            //initViews();
         }
     }
 
-    private void initViews() {
-
+    private void initViews()
+    {
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
-      //  id = intent.getIntExtra(AppConstant.ID, 0);
+        //  id = intent.getIntExtra(AppConstant.ID, 0);
 
-        id = genericDeal.id;
+        if(genericDeal != null) {
 
-        Logger.logI("DETAIL_ID", valueOf(id));
+            id = genericDeal.id;
+
+            Logger.logI("DETAIL_ID", valueOf(id));
+        }
+
         category = intent.getStringExtra(CATEGORY);
 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
@@ -182,9 +201,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
         tvDiscountVoucher = (TextView) findViewById(R.id.discount_voucher);
 
-        if(genericDeal == null && id != -1) {
+        if(genericDeal == null) {
             DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
-            dealDetailTask.execute(String.valueOf(id));
+            dealDetailTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
+            //dealDetailTask.execute(String.valueOf(id));
         }
         else
         {
@@ -326,14 +346,20 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 }
                 else
                 {
-                    DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
+                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
-                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                            url, String.valueOf(displayMetrics.widthPixels),
-                            String.valueOf(displayMetrics.heightPixels / 2));
+                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                    url, String.valueOf(displayMetrics.widthPixels),
+                                    String.valueOf(displayMetrics.heightPixels / 2));
+                        }
+                    });
+
                 }
             }
         });

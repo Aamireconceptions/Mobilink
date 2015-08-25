@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NotificationUtils;
 
 /**
@@ -14,11 +15,20 @@ public class BitmapNotificationTask extends BitmapDownloadTask
 {
     private Context context;
 
-    public BitmapNotificationTask(Context context)
+    private int id;
+
+    private String title, desc;
+    public BitmapNotificationTask(Context context, int id, String title, String desc)
     {
         super(null, null);
 
         this.context = context;
+
+        this.id = id;
+
+        this.title = title;
+
+        this.desc = desc;
     }
 
     @Override
@@ -34,7 +44,13 @@ public class BitmapNotificationTask extends BitmapDownloadTask
 
         if(bitmap != null)
         {
-            NotificationUtils.showNotification(context, "Title", "Text", bitmap);
+            NotificationUtils.showNotification(context, title, desc, id, bitmap);
+        }
+        else
+        {
+            NotificationUtils.showNotification(context, title, desc, id, null);
+
+            Logger.print("Failed to download notification img");
         }
     }
 }

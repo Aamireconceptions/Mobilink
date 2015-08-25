@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 
@@ -16,14 +17,15 @@ import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
  */
 public class NotificationUtils
 {
-    public static void showNotification(Context context, String title, String text, Bitmap bitmap)
+    public static void showNotification(Context context, String title, String desc, int id, Bitmap bitmap)
     {
         Notification.Builder builder =
                 new Notification.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(bitmap)
                 .setContentTitle(title)
-                .setContentText(text);
+                .setTicker(desc)
+                .setContentText(desc);
 
         if(bitmap != null)
         {
@@ -34,6 +36,7 @@ public class NotificationUtils
         }
 
         Intent intent = new Intent(context, DealDetailActivity.class);
+        intent.putExtra(AppConstant.ID, id);
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
@@ -48,7 +51,7 @@ public class NotificationUtils
         // Adds the Intent that starts the Activity to the top of the stack
         taskStackBuilder.addNextIntent(intent);
 
-        PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0,
+        PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(id,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(pendingIntent);
@@ -61,6 +64,10 @@ public class NotificationUtils
 
         Notification notification = builder.build();
 
-        notificationManager.notify(1, notification);
+        //notification.defaults |= Notification.DEFAULT_ALL;
+        notification.defaults |= Notification.DEFAULT_SOUND;
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        notificationManager.notify(id, notification);
     }
 }
