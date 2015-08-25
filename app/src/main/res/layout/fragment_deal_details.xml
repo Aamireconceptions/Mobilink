@@ -111,7 +111,7 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_share_white"/>
             </TableRow>
-            <TableRow android:layout_marginBottom="15dp">
+            <TableRow android:layout_marginBottom="@dimen/_15sdp">
                 <TextView
                     android:id="@+id/tv_call"
                     android:layout_width="0dp"
@@ -170,7 +170,7 @@
                 <TextView
                     android:id="@+id/tv_hdr_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_margin="0dp"
                     android:background="@drawable/deal_header_bg"
                     android:gravity="center_vertical"
@@ -294,12 +294,12 @@
                 <TextView
                     android:id="@+id/tv_hdr_deal_desc"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/_50sdp"
                     android:layout_below="@+id/iv_deal_banner"
                     android:layout_margin="0dp"
                     android:background="@drawable/deal_header_bg"
                     android:gravity="center_vertical"
-                    android:paddingStart="10dp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:text="@string/Deal_Description"
                     android:textColor="@color/red"/>
                 <TextView
@@ -309,7 +309,7 @@
                     android:layout_marginTop="0dp"
                     android:background="@drawable/border_grey"
                     android:gravity="center_vertical"
-                    android:padding="10dp"
+                    android:padding="@dimen/_10sdp"
                     android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/tv_discount"
@@ -326,17 +326,17 @@
             <TextView
                 android:id="@+id/tv_hdr_contact_info"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/deal_header_bg"
                 android:gravity="center_vertical"
-                android:paddingStart="10dp"
+                android:paddingStart="@dimen/_10sdp"
                 android:text="@string/Contact_Information"
                 android:textColor="@color/red"/>
             <TextView
                 android:id="@+id/tv_contact"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="@dimen/_65sdp"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/deal_footer_bg"
                 android:gravity="center_vertical"
@@ -346,11 +346,11 @@
             <TextView
                 android:id="@+id/tv_hdr_address"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/deal_header_bg"
                 android:gravity="center_vertical"
-                android:paddingStart="10dp"
+                android:paddingStart="@dimen/_10sdp"
                 android:text="@string/Address"
                 android:textColor="@color/red"/>
             <TextView
@@ -360,7 +360,7 @@
                 android:layout_marginTop="0dp"
                 android:background="@drawable/deal_footer_bg"
                 android:gravity="center_vertical"
-                android:padding="10dp"
+                android:padding="@dimen/_10sdp"
                 android:textColor="@color/black"/>
 
             <LinearLayout
@@ -372,11 +372,11 @@
                 <TextView
                     android:id="@+id/tv_hdr_category"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/deal_header_bg"
                     android:gravity="center_vertical"
-                    android:paddingStart="10dp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:text="@string/Category"
                     android:textColor="@color/red"/>
 
@@ -391,8 +391,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/tv_category"
                         android:layout_alignTop="@+id/tv_category"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_10sdp"
                         android:src="@drawable/ic_jewellery"/>
                     <TextView
                         android:id="@+id/tv_category"
@@ -401,7 +401,7 @@
                         android:layout_marginTop="0dp"
                         android:layout_toEndOf="@+id/iv_deal_category"
                         android:gravity="center_vertical"
-                        android:padding="10dp"
+                        android:padding="@dimen/_10sdp"
                         android:textColor="@color/black"/>
                 </RelativeLayout>
             </LinearLayout>

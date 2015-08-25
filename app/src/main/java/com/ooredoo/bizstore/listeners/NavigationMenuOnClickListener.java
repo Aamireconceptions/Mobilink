@@ -55,7 +55,11 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
                 lang = "ar";
 
                 break;
+
+
         }
+
+        BizStore.forceStopTasks = true;
 
         SharedPrefUtils.updateVal(activity, APP_LANGUAGE, lang);
 

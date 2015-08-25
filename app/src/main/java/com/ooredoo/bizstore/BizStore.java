@@ -18,6 +18,8 @@ public class BizStore extends com.activeandroid.app.Application {
 
     private static final User user = new User();
 
+    public static boolean forceStopTasks = false;
+
     private static String language = "en";
 
     public static String username = "3455341467";
@@ -37,7 +39,7 @@ public class BizStore extends com.activeandroid.app.Application {
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
     public void onCreate() {
-
+        super.onCreate();
         Logger.setEnabled(true);
 
         ActiveAndroid.initialize(this);

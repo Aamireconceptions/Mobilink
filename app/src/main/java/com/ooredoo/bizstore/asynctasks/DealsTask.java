@@ -186,6 +186,13 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
     private String getDeals(String category) throws IOException {
         String result;
 
+        if(BizStore.forceStopTasks)
+        {
+            Logger.print("Force stopped deals task");
+
+            return null;
+        }
+
         boolean isFilterEnabled = false;
 
         HashMap<String, String> params = new HashMap<>();

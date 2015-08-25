@@ -184,6 +184,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         new SearchKeywordsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         new AccountDetailsTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
+
+        BizStore.forceStopTasks = false;
     }
 
     private void overrideFonts()

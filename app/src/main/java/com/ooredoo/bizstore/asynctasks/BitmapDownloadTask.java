@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
@@ -104,6 +105,13 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             if(isCancelled())
             {
                 Logger.print("isCancelled: true");
+
+                return null;
+            }
+
+            if(BizStore.forceStopTasks)
+            {
+                Logger.print("Force stopped bitmap download task");
 
                 return null;
             }
