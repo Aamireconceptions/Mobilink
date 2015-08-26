@@ -37,6 +37,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -486,7 +487,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tabLayout.setAlpha(MAX_ALPHA);
         viewPager.setAlpha(MAX_ALPHA);
         searchPopup.dismiss();
-        acSearch.setText(null);
+        //acSearch.setText(null);
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(acSearch.getWindowToken(), 0);
     }
@@ -550,7 +551,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                     } else {
                         results = getDeals();
                     }
-                    populateSearchResults(results);
+                    String keyword = acSearch.getText().toString();
+                    setupSearchResults(keyword, results, false);
                 }
             }
             Logger.print("SEARCH_FILTER: " + searchType);
@@ -621,10 +623,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void populateSearchResults(List<SearchResult> searchResultList) {
-        mSearchResultsAdapter = new SearchResultsAdapter(this, R.layout.search_result_item, searchResultList);
-        mSearchResultsListView.setAdapter(mSearchResultsAdapter);
-        mSearchResultsAdapter.setData(searchResultList);
-        mSearchResultsAdapter.notifyDataSetChanged();
+        if(searchResultList.size() > 0) {
+            mSearchResultsAdapter = new SearchResultsAdapter(this, R.layout.search_result_item, searchResultList);
+            mSearchResultsListView.setAdapter(mSearchResultsAdapter);
+            mSearchResultsAdapter.setData(searchResultList);
+            mSearchResultsAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.error_no_data, LENGTH_SHORT).show();
+            hideSearchResults();
+            showHideSearchBar(true);
+        }
     }
 
     public void setupSearchResults(String keyword, List<SearchResult> results, boolean isKeywordSearch) {

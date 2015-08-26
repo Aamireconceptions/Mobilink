@@ -1,8 +1,11 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.AppData;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Results;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.ooredoo.bizstore.AppData.searchResults;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.searchType;
 import static com.ooredoo.bizstore.utils.DialogUtils.createCustomLoader;
@@ -81,6 +85,7 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
                     mActivity.setupSearchResults(keyword, results, false);
                     BaseFragment.hideKeyboard(mActivity);
                 } else {
+                    Toast.makeText(mActivity, R.string.error_no_data, LENGTH_SHORT).show();
                     mActivity.hideSearchResults();
                     mActivity.showHideSearchBar(true);
                 }
