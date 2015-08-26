@@ -58,6 +58,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private boolean isRefreshed = false;
+
     public static SportsAndFitnessFragment newInstance()
     {
         SportsAndFitnessFragment fragment = new SportsAndFitnessFragment();
@@ -130,7 +132,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
         String cache = dealsTask.getCache("sports_fitness");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -149,7 +151,9 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         fetchAndDisplaySportsAndFitness(null);
+        isRefreshed = false;
     }
 
     @Override

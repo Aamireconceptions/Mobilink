@@ -50,6 +50,7 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private boolean isRefreshed = false;
     public static TravelFragment newInstance()
     {
         TravelFragment fragment = new TravelFragment();
@@ -117,7 +118,7 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
 
         String cache = dealsTask.getCache("travel");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -135,7 +136,9 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         fetchAndDisplayTravel(null);
+        isRefreshed = false;
     }
 
     @Override

@@ -58,6 +58,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private boolean isRefreshed = false;
+
     public static EntertainmentFragment newInstance()
     {
         EntertainmentFragment fragment = new EntertainmentFragment();
@@ -132,7 +134,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
         String cache = dealsTask.getCache("entertainment");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -150,7 +152,9 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         fetchAndDisplayEntertainment(null);
+        isRefreshed = false;
     }
 
     @Override
