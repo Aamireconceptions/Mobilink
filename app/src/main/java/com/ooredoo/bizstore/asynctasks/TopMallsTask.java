@@ -30,7 +30,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
     private ViewPager viewPager;
 
-    private final static String SERVICE_NAME = "/topbrand?";
+    private final static String SERVICE_NAME = "/topmalls?";
 
     private HomeActivity activity;
 
@@ -93,7 +93,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(CATEGORY, category);
+       // params.put(CATEGORY, category);
 
         String query = createQuery(params);
 

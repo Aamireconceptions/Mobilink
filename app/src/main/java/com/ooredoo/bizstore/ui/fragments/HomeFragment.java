@@ -263,7 +263,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         }
         else
         {
-            topBrandsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
+            topBrandsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "brands");
         }
     }
 

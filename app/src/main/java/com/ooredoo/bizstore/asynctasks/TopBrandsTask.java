@@ -93,7 +93,7 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(CATEGORY, category);
+        //params.put(CATEGORY, category);
 
         String query = createQuery(params);
 
