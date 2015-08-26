@@ -411,7 +411,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             boolean show = id == R.id.action_search;
             if(!show) {
                 isShowResults = false;
-                acSearch.setText("");
+                //acSearch.setText("");
                 acSearch.setHint("Search");
             }
             showHideSearchBar(show);
@@ -447,7 +447,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mMenu.findItem(R.id.action_search).setVisible(!show);
         mActionBar.setDisplayUseLogoEnabled(!show);
         if(!show) {
-            acSearch.setText(null);
+            //acSearch.setText(null);
             findViewById(R.id.layout_search_results).setVisibility(View.GONE);
         }
         mActionBar.setHomeAsUpIndicator(show ? R.drawable.ic_action_back : R.drawable.ic_menu);
@@ -470,7 +470,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         viewPager.setAlpha(0.25f);
         setPredefinedSearches();
         findViewById(R.id.layout_search_results).setVisibility(View.GONE);
-        searchPopup.showAsDropDown(acSearch, 10, 55);
+        searchPopup.showAsDropDown(acSearch, 10, 25);
     }
 
     public void setPredefinedSearches() {
@@ -527,6 +527,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         } else {
             searchType = "deals";
             cbSearchDeals.setChecked(true);
+            this.cbSearchBusinesses.setChecked(false);
         }
     }
 

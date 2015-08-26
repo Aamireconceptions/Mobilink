@@ -18,7 +18,7 @@
         <CheckBox
             android:id="@+id/cb_search_deals"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/_6sdp"
             android:layout_weight="0.45"
@@ -37,7 +37,7 @@
         <CheckBox
             android:id="@+id/cb_search_business"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_weight="0.50"
             android:button="@drawable/checkbox_button"
@@ -49,13 +49,13 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="1dp"
         android:background="@color/grey"/>
 
     <ListView
         android:id="@+id/lv_predefined_searches"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_height="@dimen/_125sdp"
         android:layout_margin="0dp"
         android:background="@drawable/bg_grey_rad2"
         android:scrollbars="none"
