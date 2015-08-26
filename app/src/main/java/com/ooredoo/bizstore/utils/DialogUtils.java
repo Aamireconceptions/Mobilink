@@ -73,6 +73,7 @@ public class DialogUtils {
 
     public static Dialog showRatingDialog(final Activity activity, final String type, final long typeId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
         LayoutInflater inflater = activity.getLayoutInflater();
 
         View view = inflater.inflate(R.layout.dialog_rate, null);
@@ -93,7 +94,7 @@ public class DialogUtils {
 
         dialog.setCancelable(true);
         builder.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(false);
+
         dialog.show();
         return dialog;
     }
