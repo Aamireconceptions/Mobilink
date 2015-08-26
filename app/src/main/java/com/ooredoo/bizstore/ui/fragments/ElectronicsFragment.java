@@ -2,10 +2,12 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.animation.LayoutTransition;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +98,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals,this);
         adapter.setCategory(ResourceUtils.ELECTRONICS);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
@@ -117,8 +119,17 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     private void fetchAndDisplayElectronics(ProgressBar progressBar)
     {
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
-        //dealsTask.execute("electronics");
-        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "electronics");
+
+        String cache = dealsTask.getCache("electronics");
+
+        if(cache != null)
+        {
+            dealsTask.setData(cache);
+        }
+        else
+        {
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "electronics");
+        }
     }
 
     @Override
@@ -163,6 +174,19 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         else
         {
             isCreated = false;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == AppCompatActivity.RESULT_OK)
+        {
+            boolean isFav = data.getBooleanExtra("is_fav", false);
+
+            adapter.genericDeal.isFav = isFav;
+            adapter.notifyDataSetChanged();
         }
     }
 }

@@ -107,11 +107,11 @@ public class GetCodeTask extends BaseAsyncTask<String, Void, String>
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-        Logger.print("getFeatured() URL:"+ url.toString());
+        Logger.print("getCode() URL:"+ url.toString());
 
         result = getJson(url);
 
-        Logger.print("getFeatured: "+result);
+        Logger.print("getCode: "+result);
 
         return result;
 

@@ -150,7 +150,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         return url.openStream();
     }
 
-    private void showProgress(int visible)
+    public void showProgress(int visible)
     {
         if(progressBar != null)
         {

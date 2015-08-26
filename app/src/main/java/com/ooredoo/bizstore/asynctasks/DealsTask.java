@@ -61,8 +61,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
     private int reqWidth, reqHeight;
 
-    private boolean isServerDown = false;
-
     public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter,
                      ProgressBar progressBar, ImageView ivBanner, Fragment fragment)
     {
@@ -104,15 +102,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
             return getDeals(category);
         } catch(IOException e) {
             e.printStackTrace();
-            isServerDown = true;
-
-            homeActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
-                }
-            });
-
         }
 
         return null;
@@ -131,65 +120,70 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
         dealsTaskFinishedListener.onRefreshCompleted();
 
-        if(isServerDown) {
-            dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
-        } else {
-            // homeActivity.hideLoader();
+        subCategories = "";
+        sortColumn = "createdate";
 
-            subCategories = "";
-            sortColumn = "createdate";
+        adapter.clearData();
 
-            adapter.clearData();
+        if(result != null)
+        {
+            Logger.logI("DEALS: " + category, result);
 
-            if(result != null) {
-                Logger.logI("DEALS: " + category, result);
+            Gson gson = new Gson();
 
-                Gson gson = new Gson();
+            try {
+                Response response = gson.fromJson(result, Response.class);
 
-                try {
-                    Response response = gson.fromJson(result, Response.class);
+                if(response.resultCode != -1)
+                {
+                    dealsTaskFinishedListener.onHaveDeals();
 
-                    if(response.resultCode != -1) {
-                        dealsTaskFinishedListener.onHaveDeals();
+                    List<GenericDeal> deals = response.deals;
 
-                        List<GenericDeal> deals = response.deals;
+                    if(deals != null)
+                    {
+                        adapter.setData(deals);
 
-                        if(deals != null) {
-                            adapter.setData(deals);
+                        String bannerUrl = response.topBannerUrl;
 
-                            String bannerUrl = response.topBannerUrl;
+                        if(bannerUrl != null) {
+                            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
 
-                            if(bannerUrl != null) {
-                                String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
+                            Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
-                                Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
-
-                                if(bitmap != null) {
-                                    ivBanner.setImageBitmap(bitmap);
-                                } else {
-                                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner, null);
-                                    bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
-                                }
+                            if(bitmap != null) {
+                                ivBanner.setImageBitmap(bitmap);
+                            } else {
+                                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner, null);
+                                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
                             }
-                        } else {
-                            dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                         }
                     } else {
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
 
-                } catch(JsonSyntaxException e) {
-                    e.printStackTrace();
                 }
-            } else {
-                Logger.print("DEALS TASK CALLED");
+                else
+                {
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                }
+
+                }
+                catch(JsonSyntaxException e)
+                {
+                    e.printStackTrace();
+
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
+                }
+            }
+            else
+            {
                 dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
             }
 
             adapter.notifyDataSetChanged();
         }
-        isServerDown = false;
-    }
+
 
     private String getDeals(String category) throws IOException {
         String result;
@@ -255,8 +249,11 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
 
         Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
 
-        updateVal(homeActivity, KEY, result);
-        updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
+        if(!isFilterEnabled)
+        {
+            updateVal(homeActivity, KEY, result);
+            updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
+        }
 
         Logger.print("getDeals: " + result);
 
@@ -270,11 +267,31 @@ public class DealsTask extends BaseAsyncTask<String, Void, String> {
         final String KEY = PREFIX_DEALS.concat(category);
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
+        boolean isFilterEnabled = false;
+
+        if(isNotNullOrEmpty(sortColumn)) {
+            if(sortColumn.equals("views"))
+                isFilterEnabled = true;
+        }
+
+        if(isNotNullOrEmpty(subCategories)) {
+            isFilterEnabled = true;
+        }
+
+        if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
+            isFilterEnabled = true;
+        }
+
+        if(homeActivity.doApplyDiscount) {
+
+            isFilterEnabled = true;
+        }
+
         String cacheData = getStringVal(homeActivity, KEY);
 
         boolean updateFromServer = checkIfUpdateData(homeActivity, UPDATE_KEY);
 
-        if(!isNullOrEmpty(cacheData) && (!hasInternetConnection(homeActivity) || !updateFromServer))
+        if(!isNullOrEmpty(cacheData) && !isFilterEnabled && (!hasInternetConnection(homeActivity) || !updateFromServer))
         {
             result = cacheData;
         }

@@ -97,6 +97,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         gridView = (HeaderGridView) v.findViewById(R.id.shopping_gridview);
         gridView.addHeaderView(rlHeader);
+       // gridView.setEmptyView(tvEmptyView);
         gridView.setOnItemClickListener(new DealGridOnItemClickListener(activity, adapter));
         gridView.setAdapter(adapter);
 
@@ -120,8 +121,17 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     private void loadDeals(ProgressBar progressBar)
     {
         ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
-        //shoppingTask.execute("shopping");
-        shoppingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "shopping");
+
+        String cache = shoppingTask.getCache("shopping");
+
+        if(cache != null)
+        {
+            shoppingTask.setData(cache);
+        }
+        else
+        {
+            shoppingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "shopping");
+        }
     }
 
     public static ShoppingFragment newInstance() {

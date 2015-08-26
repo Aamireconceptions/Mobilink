@@ -1,7 +1,9 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -33,6 +35,7 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
+import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
 
 /**
@@ -48,6 +51,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
     private int layoutResId;
 
     private List<GenericDeal> deals;
+
+    private Fragment fragment;
 
     private LayoutInflater inflater;
 
@@ -65,7 +70,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     public boolean doAnimate = true;
 
-    public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals) {
+    public GenericDeal genericDeal;
+
+    public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals,
+                               Fragment fragment) {
         this.context = context;
 
         this.activity = (Activity) context;
@@ -73,6 +81,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
         this.layoutResId = layoutResId;
 
         this.deals = deals;
+
+        this.fragment = fragment;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -255,7 +265,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         if(doAnimate && position > 0)
         {
-            AnimUtils.slideView(activity, row, prevItem < position);
+            //AnimUtils.slideView(activity, row, prevItem < position);
         }
         else
         {
@@ -291,7 +301,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
                             notifyDataSetChanged();
                         }
                     });
-
                 }
                 else
                 {
@@ -300,14 +309,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
                         public void run() {
                             holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                             holder.progressBar.setVisibility(View.VISIBLE);
+
+                            BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                                    new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
+
+                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                                    String.valueOf(reqWidth), String.valueOf(reqHeight));
                         }
                     });
 
-                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                            new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
 
-                bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                        String.valueOf(reqWidth), String.valueOf(reqHeight));
 
                    // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
                 }
@@ -323,12 +334,23 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     private void showDetail(GenericDeal deal)
     {
+        this.genericDeal = deal;
+
         Deal recentDeal = new Deal(deal);
         RecentViewedActivity.addToRecentViewed(recentDeal);
         DealDetailActivity.selectedDeal = deal;
 
 
-        ((HomeActivity) context).showDealDetailActivity(category, deal);
+        showDealDetailActivity(category, deal);
+    }
+
+    public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal)
+    {
+        Intent intent = new Intent();
+        intent.setClass(activity, DealDetailActivity.class);
+        intent.putExtra("generic_deal", genericDeal);
+        intent.putExtra(CATEGORY, dealCategory);
+        fragment.startActivityForResult(intent, 1);
     }
 
     private class FavouriteOnClickListener implements View.OnClickListener {

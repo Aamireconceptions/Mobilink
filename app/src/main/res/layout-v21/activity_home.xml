@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -43,96 +43,11 @@
 
                     </android.support.v7.widget.Toolbar>
 
-                    <LinearLayout
-                        android:id="@+id/layout_search_results"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="0dp"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:paddingStart="@dimen/_6sdp"
-                            android:paddingEnd="@dimen/_6sdp">
 
-                            <CheckBox
-                                android:id="@+id/cb_search_deals"
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_gravity="bottom"
-                                android:layout_marginStart="@dimen/_6sdp"
-                                android:layout_weight="0.45"
-                                android:button="@drawable/checkbox_button"
-                                android:checked="true"
-                                android:paddingStart="@dimen/_8sdp"
-                                android:text="@string/Search_for_Deals"
-                                android:textSize="13sp"/>
-
-                            <View
-                                android:layout_width="0.25dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.015"
-                                android:background="@color/grey"/>
-
-                            <CheckBox
-                                android:id="@+id/cb_search_business"
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="@dimen/_12sdp"
-                                android:layout_weight="0.50"
-                                android:button="@drawable/checkbox_button"
-                                android:paddingStart="@dimen/_8sdp"
-                                android:text="@string/Search_for_Business"
-                                android:textSize="13sp"/>
-                        </LinearLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/rl_search_results"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="start|center_vertical"
-                            android:background="@color/red"
-                            android:gravity="start|center_vertical">
-
-                            <TextView
-                                android:id="@+id/tv_search_results"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_toStartOf="@+id/iv_filter_results"
-                                android:paddingStart="15dp"
-                                android:text="Showing 10 Results"
-                                android:textAllCaps="false"
-                                android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:textStyle="normal"/>
-
-                            <ImageView
-                                android:id="@+id/iv_filter_results"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="10dp"
-                                android:src="@drawable/ic_filter"/>
-                        </RelativeLayout>
-
-                        <ListView
-                            android:id="@+id/lv_search_results"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="0dp"
-                            android:divider="@color/white"
-                            android:dividerHeight="0dp"
-                            android:scrollbars="none"
-                            android:visibility="visible"/>
-                    </LinearLayout>
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                         <android.support.design.widget.TabLayout
                             android:id="@+id/tab_layout"
@@ -153,6 +68,95 @@
                             android:layout_height="48dp"
                             android:src="@drawable/tabs_overlay" />
 
+                        <LinearLayout
+                            android:id="@+id/layout_search_results"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="0dp"
+                                android:background="@color/white"
+                                android:orientation="horizontal"
+                                android:paddingStart="@dimen/_6sdp"
+                                android:paddingEnd="@dimen/_6sdp">
+
+                                <CheckBox
+                                    android:id="@+id/cb_search_deals"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginStart="@dimen/_6sdp"
+                                    android:layout_weight="0.45"
+                                    android:button="@drawable/checkbox_button"
+                                    android:checked="true"
+                                    android:paddingStart="@dimen/_8sdp"
+                                    android:text="@string/Search_for_Deals"
+                                    android:textSize="13sp"/>
+
+                                <View
+                                    android:layout_width="0.25dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.015"
+                                    android:background="@color/grey"/>
+
+                                <CheckBox
+                                    android:id="@+id/cb_search_business"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:layout_marginStart="@dimen/_12sdp"
+                                    android:layout_weight="0.50"
+                                    android:button="@drawable/checkbox_button"
+                                    android:paddingStart="@dimen/_8sdp"
+                                    android:text="@string/Search_for_Business"
+                                    android:textSize="13sp"/>
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rl_search_results"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_gravity="start|center_vertical"
+                                android:background="@color/red"
+                                android:gravity="start|center_vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_search_results"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_toStartOf="@+id/iv_filter_results"
+                                    android:paddingStart="15dp"
+                                    android:text="Showing 10 Results"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal"/>
+
+                                <ImageView
+                                    android:id="@+id/iv_filter_results"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:src="@drawable/ic_filter"/>
+                            </RelativeLayout>
+
+                            <ListView
+                                android:id="@+id/lv_search_results"
+                                android:layout_width="match_parent"
+                                android:layout_height="1000dp"
+                                android:layout_weight="1"
+                                android:layout_margin="0dp"
+                                android:divider="@color/white"
+                                android:dividerHeight="0dp"
+                                android:scrollbars="none"
+                                android:visibility="visible"
+                                android:background="@color/white"/>
+                        </LinearLayout>
+
                     </FrameLayout>
 
                 </android.support.design.widget.AppBarLayout>
@@ -172,7 +176,9 @@
 
             </android.support.design.widget.CoordinatorLayout>
 
-        </LinearLayout>
+
+
+        </RelativeLayout>
 
         <include layout="@layout/layout_navigation"/>
 

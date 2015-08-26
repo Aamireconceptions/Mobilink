@@ -1,10 +1,12 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +96,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
@@ -116,8 +118,17 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         DealsTask dealsTask = new DealsTask(activity, adapter,
                                             progressBar, ivBanner,
                                             this);
-        //dealsTask.execute("food");
-        dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "food");
+
+        String cache = dealsTask.getCache("food");
+
+        if(cache != null)
+        {
+            dealsTask.setData(cache);
+        }
+        else
+        {
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "food");
+        }
     }
 
     @Override
@@ -177,5 +188,18 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         super.onPause();
 
         Logger.print("onPause: FoodANdDiinignFrag");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == AppCompatActivity.RESULT_OK)
+        {
+            boolean isFav = data.getBooleanExtra("is_fav", false);
+
+            adapter.genericDeal.isFav = isFav;
+            adapter.notifyDataSetChanged();
+        }
     }
 }

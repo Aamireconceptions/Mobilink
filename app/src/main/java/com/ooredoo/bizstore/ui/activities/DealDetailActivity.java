@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -71,6 +72,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     private int id = -1;
 
     public Deal src;
+
+    boolean isFav = false;
 
     public static GenericDeal selectedDeal, genericDeal;
 
@@ -368,6 +371,20 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+
+                sendResult();
+
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.iv_favorite) {
@@ -376,6 +393,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
                 v.setSelected(genericDeal.isFav);
                 Favorite favorite = new Favorite(genericDeal);
                 Favorite.updateFavorite(favorite);
+
+                isFav = genericDeal.isFav;
+
             } else {
                 //TODO src == null => No detail found OR any exception occurred.
             }
@@ -444,10 +464,29 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+
         if(ratingDialog != null && ratingDialog.isShowing()) {
             ratingDialog.dismiss();
         }
+
+
+
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        sendResult();
+    }
+
+    private void sendResult()
+    {
+        Intent intent = new Intent();
+        intent.putExtra("is_fav", isFav);
+        setResult(RESULT_OK, intent);
+
+        finish();
     }
 
     private void setupToolbar() {

@@ -31,6 +31,7 @@ public class NotificationUtils
         {
             Notification.BigPictureStyle bigPictureStyle = new Notification.BigPictureStyle();
             bigPictureStyle.bigPicture(bitmap);
+            bigPictureStyle.setBigContentTitle(desc);
 
             builder.setStyle(bigPictureStyle);
         }

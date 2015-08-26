@@ -1,11 +1,13 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +116,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals);
+        listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         listAdapter.setCategory(ResourceUtils.TOP_DEALS);
 
         listView.addHeaderView(header);
@@ -378,5 +380,18 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onNoDeals(int stringResId) {
         tvDealsOfTheDay.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == AppCompatActivity.RESULT_OK)
+        {
+            boolean isFav = data.getBooleanExtra("is_fav", false);
+
+            listAdapter.genericDeal.isFav = isFav;
+            listAdapter.notifyDataSetChanged();
+        }
     }
 }

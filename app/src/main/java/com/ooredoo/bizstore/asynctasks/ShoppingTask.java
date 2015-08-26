@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
@@ -14,6 +15,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.NetworkUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.IOException;
@@ -28,6 +30,7 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 import static java.lang.System.currentTimeMillis;
 
 /**
@@ -87,56 +90,57 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         catch (IOException e)
         {
             e.printStackTrace();
-
-            homeActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
-                }
-            });
         }
 
         return null;
     }
-
-
 
     @Override
     protected void onPostExecute(String result)
     {
         super.onPostExecute(result);
 
+        setData(result);
+    }
+
+    public void setData(String result)
+    {
         dealsTaskFinishedListener.onRefreshCompleted();
 
         if(progressBar != null) {
             this.progressBar.setVisibility(View.GONE);
         }
 
+        adapter.clearData();
+
         if(result != null)
         {
             Gson gson = new Gson();
 
-            Response response = gson.fromJson(result, Response.class);
-
-            adapter.clearData();
-
-            if(response.resultCode != -1)
+            try
             {
-                dealsTaskFinishedListener.onHaveDeals();
+                Response response = gson.fromJson(result, Response.class);
 
-                List<GenericDeal> deals = new ArrayList<>();
+                if(response.resultCode != -1)
+                {
+                    dealsTaskFinishedListener.onHaveDeals();
 
-                if(response.deals != null)
-                    deals = response.deals;
+                    List<GenericDeal> deals = new ArrayList<>();
 
-                adapter.setData(deals);
+                    if(response.deals != null)
+                        deals = response.deals;
+
+                    adapter.setData(deals);
+                }
+                else
+                {
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                }
             }
-            else
+            catch (JsonSyntaxException e)
             {
-                dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
             }
-
-            adapter.notifyDataSetChanged();
         }
         else
         {
@@ -144,6 +148,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
             snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     private String getDeals(String category) throws IOException
@@ -184,24 +190,64 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         final String KEY = PREFIX_DEALS.concat(category);
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
-        if(isFilterEnabled || checkIfUpdateData(homeActivity, UPDATE_KEY)) {
+        String query = createQuery(params);
 
-            String query = createQuery(params);
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+        Logger.print("Shopping url: " + url.toString());
 
-            Logger.print("Shopping url: " + url.toString());
+        result = getJson(url);
 
-            result = getJson(url);
-            if(!isFilterEnabled) {
+            /*if(!isFilterEnabled) {
                 updateVal(homeActivity, KEY, result);
                 updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
-            }
-        } else {
-            result = getStringVal(homeActivity, KEY);
+            }*/
+
+        if(!isFilterEnabled)
+        {
+            updateVal(homeActivity, KEY, result);
+            updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
         }
 
-        Logger.print("Shopping getDeals: "+result);
+        Logger.print("Shopping getDeals: " + result);
+
+        return result;
+    }
+
+    public String getCache(String category)
+    {
+        String result = null;
+
+        final String KEY = PREFIX_DEALS.concat(category);
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+        boolean isFilterEnabled = false;
+
+        if(isNotNullOrEmpty(sortColumn)) {
+            if(sortColumn.equals("views"))
+                isFilterEnabled = true;
+        }
+
+        if(isNotNullOrEmpty(subCategories)) {
+            isFilterEnabled = true;
+        }
+
+        if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
+            isFilterEnabled = true;
+        }
+
+        if(homeActivity.doApplyDiscount) {
+            isFilterEnabled = true;
+        }
+
+        String cacheData = getStringVal(homeActivity, KEY);
+
+        boolean updateFromServer = checkIfUpdateData(homeActivity, UPDATE_KEY);
+
+        if(!isNullOrEmpty(cacheData) && !isFilterEnabled && (!NetworkUtils.hasInternetConnection(homeActivity) || !updateFromServer))
+        {
+            result = cacheData;
+        }
 
         return result;
     }
