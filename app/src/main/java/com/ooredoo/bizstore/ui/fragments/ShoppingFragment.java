@@ -1,10 +1,12 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +61,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private DealGridOnItemClickListener dealGridOnItemClickListener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
@@ -98,7 +102,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         gridView = (HeaderGridView) v.findViewById(R.id.shopping_gridview);
         gridView.addHeaderView(rlHeader);
        // gridView.setEmptyView(tvEmptyView);
-        gridView.setOnItemClickListener(new DealGridOnItemClickListener(activity, adapter));
+        dealGridOnItemClickListener = new DealGridOnItemClickListener(activity, adapter, this);
+        gridView.setOnItemClickListener(dealGridOnItemClickListener);
         gridView.setAdapter(adapter);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -179,6 +184,28 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         else
         {
             isCreated = false;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == AppCompatActivity.RESULT_OK)
+        {
+            boolean isFav = data.getBooleanExtra("is_fav", false);
+
+            dealGridOnItemClickListener.genericDeal.isFav = isFav;
+
+            String voucher = data.getStringExtra("voucher");
+
+            if(voucher != null)
+            {
+                dealGridOnItemClickListener.genericDeal.voucher = voucher;
+                dealGridOnItemClickListener.genericDeal.status = "Available";
+            }
+
+            adapter.notifyDataSetChanged();
         }
     }
 }

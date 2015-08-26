@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +11,7 @@ import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
@@ -24,11 +26,16 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
 
     private GridViewBaseAdapter adapter;
 
-    public DealGridOnItemClickListener(Activity activity, GridViewBaseAdapter adapter)
+    public GenericDeal genericDeal;
+
+    private ShoppingFragment fragment;
+    public DealGridOnItemClickListener(Activity activity, GridViewBaseAdapter adapter, ShoppingFragment fragment)
     {
         this.activity = activity;
 
         this.adapter = adapter;
+
+        this.fragment = fragment;
     }
 
     @Override
@@ -37,16 +44,16 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
             HomeActivity homeActivity = (HomeActivity) activity;
             homeActivity.showHideSearchBar(false);
         } else {
-            GenericDeal genericDeal = (GenericDeal) parent.getItemAtPosition(position);
+            genericDeal = (GenericDeal) parent.getItemAtPosition(position);
 
-            int dealId = genericDeal.id;
+            //int dealId = gDeal.id;
 
             Intent intent = new Intent(activity, DealDetailActivity.class);
             intent.putExtra("generic_deal", genericDeal);
             //intent.putExtra(AppConstant.ID, dealId);
             intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
 
-            activity.startActivity(intent);
+            fragment.startActivityForResult(intent, 2);
         }
     }
 

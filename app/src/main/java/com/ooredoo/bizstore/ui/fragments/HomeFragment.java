@@ -391,7 +391,18 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
             boolean isFav = data.getBooleanExtra("is_fav", false);
 
             listAdapter.genericDeal.isFav = isFav;
+
+            String voucher = data.getStringExtra("voucher");
+
+            if(voucher != null)
+            {
+                listAdapter.genericDeal.voucher = voucher;
+                listAdapter.genericDeal.status = "Available";
+            }
+
             listAdapter.notifyDataSetChanged();
+
+
         }
     }
 }

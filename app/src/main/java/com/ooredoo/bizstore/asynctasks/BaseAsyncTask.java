@@ -37,9 +37,9 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public static String BASE_URL = "http://203.215.183.98:30127/ooredoo/index.php/api/";
 
-    public final static int CONNECTION_TIME_OUT = 10 * 1000;
+    public final static int CONNECTION_TIME_OUT = 20 * 1000;
 
-    public final static int  READ_TIME_OUT = 5 * 1000;
+    public final static int  READ_TIME_OUT = 15 * 1000;
 
     public final static String METHOD = "GET";
 

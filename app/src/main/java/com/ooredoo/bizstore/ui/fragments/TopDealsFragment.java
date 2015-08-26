@@ -180,6 +180,15 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
             boolean isFav = data.getBooleanExtra("is_fav", false);
 
             adapter.genericDeal.isFav = isFav;
+
+            String voucher = data.getStringExtra("voucher");
+
+            if(voucher != null)
+            {
+                adapter.genericDeal.voucher = voucher;
+                adapter.genericDeal.status = "Available";
+            }
+
             adapter.notifyDataSetChanged();
         }
     }
