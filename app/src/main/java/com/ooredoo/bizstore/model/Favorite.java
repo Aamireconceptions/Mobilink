@@ -160,6 +160,8 @@ public class Favorite extends Model {
             favDeal.discount = favorite.discount;
             favDeal.isFavorite = favorite.isFavorite;
             favDeal.description = favorite.description;
+            favDeal.address = favorite.address;
+            favDeal.contact = favorite.contact;
             Log.i("UPDATE_FAV_DEAL: " + favorite.id, "---" + favorite.isFavorite);
             favDeal.save();
         }
