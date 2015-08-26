@@ -102,6 +102,11 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
 
     public static void clearCache(Activity activity) {
 
+        for(String key : CategoryUtils.CACHE_KEYS) {
+            updateVal(activity, key, "");
+            updateVal(activity, key.concat("_UPDATE"), 0);
+        }
+
         for(String category : CategoryUtils.categories) {
             final String KEY = PREFIX_DEALS.concat(category);
             final String UPDATE_KEY = KEY.concat("_UPDATE");
