@@ -55,6 +55,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private boolean isRefreshed = false;
+
     public static ElectronicsFragment newInstance()
     {
         ElectronicsFragment fragment = new ElectronicsFragment();
@@ -122,7 +124,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
         String cache = dealsTask.getCache("electronics");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -139,7 +141,9 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         fetchAndDisplayElectronics(null);
+        isRefreshed = false;
     }
 
     @Override

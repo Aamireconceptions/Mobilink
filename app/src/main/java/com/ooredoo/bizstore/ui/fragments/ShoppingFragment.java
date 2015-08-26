@@ -63,6 +63,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private DealGridOnItemClickListener dealGridOnItemClickListener;
 
+    private boolean isRefreshed = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
@@ -129,7 +130,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         String cache = shoppingTask.getCache("shopping");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             shoppingTask.setData(cache);
         }
@@ -152,7 +153,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         loadDeals(null);
+        isRefreshed = false;
     }
 
     @Override

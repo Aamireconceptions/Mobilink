@@ -54,6 +54,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private boolean isRefreshed = false;
+
     public static JewelleryFragment newInstance()
     {
         JewelleryFragment fragment = new JewelleryFragment();
@@ -123,7 +125,7 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
         String cache = dealsTask.getCache("jewelry");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -141,7 +143,9 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         fetchAndDisplayJewelry(null);
+        isRefreshed = false;
     }
 
     @Override

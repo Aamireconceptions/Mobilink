@@ -53,6 +53,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     private boolean isCreated = false;
 
+    private boolean isRefreshed = false;
+
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     public static FoodAndDiningFragment newInstance() {
@@ -121,7 +123,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         String cache = dealsTask.getCache("food");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -142,7 +144,11 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onRefresh()
     {
+        isRefreshed = true;
+
         fetchAndDisplayFoodAndDining(null);
+
+        isRefreshed = false;
     }
 
     @Override

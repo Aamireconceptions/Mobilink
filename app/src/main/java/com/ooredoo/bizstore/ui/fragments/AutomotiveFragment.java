@@ -53,6 +53,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
     private boolean isCreated = false;
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
+    private boolean isRefreshed = false;
 
     public static AutomotiveFragment newInstance()
     {
@@ -121,7 +122,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
         String cache = dealsTask.getCache("automotive");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -139,7 +140,9 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         fetchAndDisplayAutomotive(null);
+        isRefreshed = false;
     }
 
     @Override

@@ -58,6 +58,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private boolean isRefreshed = false;
+
     public static HotelsAndSpasFragment newInstance()
     {
         HotelsAndSpasFragment fragment = new HotelsAndSpasFragment();
@@ -130,7 +132,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
         String cache = dealsTask.getCache("hotels_spas");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -149,7 +151,9 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onRefresh()
     {
+        isRefreshed = true;
         fetchAndDisplayHotelsAndSpas(null);
+        isRefreshed = false;
     }
 
     @Override

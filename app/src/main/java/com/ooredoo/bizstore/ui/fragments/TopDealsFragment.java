@@ -54,6 +54,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private boolean isRefreshed = false;
+
     public static TopDealsFragment newInstance() {
         TopDealsFragment fragment = new TopDealsFragment();
 
@@ -121,7 +123,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         String cache = dealsTask.getCache("top_deals");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -138,7 +140,10 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         loadTopDeals(null);
+        isRefreshed = false;
+
     }
 
     @Override

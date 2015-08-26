@@ -54,6 +54,7 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
+    private boolean isRefreshed = false;
     public static MallsFragment newInstance()
     {
         MallsFragment fragment = new MallsFragment();
@@ -121,7 +122,7 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
         String cache = dealsTask.getCache("malls");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -140,7 +141,9 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onRefresh() {
+        isRefreshed = true;
         fetchAndDisplayMalls(null);
+        isRefreshed = false;
     }
 
     @Override

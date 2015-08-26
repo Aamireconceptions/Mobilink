@@ -65,6 +65,9 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private SliderUtils promoSlider, featuredSlider;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    boolean isRefreshed = false;
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
 
@@ -184,7 +187,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         String cache = promoTask.getCache();
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             promoTask.setData(cache);
         }
@@ -225,7 +228,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         String cache = featuredTask.getCache();
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             featuredTask.setData(cache);
         }
@@ -254,7 +257,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         String cache = topBrandsTask.getCache();
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             topBrandsTask.setData(cache);
         }
@@ -283,7 +286,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         String cache = topMallsTask.getCache();
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             topMallsTask.setData(cache);
         }
@@ -298,7 +301,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         String cache = dealsTask.getCache("dealofday");
 
-        if(cache != null)
+        if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);
         }
@@ -360,11 +363,16 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onRefresh() {
+
+        isRefreshed = true;
+
         loadPromos();
         loadFeatured();
         loadTopBrands();
         loadTopMalls();
         initAndLoadDealsOfTheDay();
+
+        isRefreshed = false;
     }
 
     @Override
