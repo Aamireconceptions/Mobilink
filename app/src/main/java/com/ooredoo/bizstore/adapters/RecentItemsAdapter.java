@@ -14,6 +14,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.RecentItem;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
@@ -21,6 +22,7 @@ import com.ooredoo.bizstore.utils.AnimUtils;
 
 import java.util.List;
 
+import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
 
 public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
@@ -138,6 +140,25 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
         }
         //intent.putExtra(AppConstant.ID, recentItem.id);
         mActivity.startActivity(intent);
+    }
+
+    public void showDealDetailActivity(String dealCategory, RecentItem recentItem)
+    {
+        Intent intent = new Intent();
+
+        if(recentItem.isBusiness)
+        {
+            intent.setClass(mActivity, BusinessDetailActivity.class);
+            intent.putExtra("business", new Business(recentItem));
+        }
+        else
+        {
+            intent.setClass(mActivity, DealDetailActivity.class);
+            intent.putExtra("generic_deal", new GenericDeal(recentItem));
+        }
+
+        intent.putExtra(CATEGORY, dealCategory);
+        mActivity.startActivityForResult(intent, 1);
     }
 
     private static class Holder {

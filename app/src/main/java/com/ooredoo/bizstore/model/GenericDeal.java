@@ -39,6 +39,21 @@ public class GenericDeal implements Serializable{
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
 
+    public GenericDeal(RecentItem recentItem) {
+        this.id = recentItem.id;
+        this.title = recentItem.title;
+        this.views = recentItem.views;
+        this.rating = recentItem.rating;
+        this.address = recentItem.address;
+        this.contact = recentItem.contact;
+        this.discount = recentItem.discount;
+        this.category = recentItem.category;
+        this.isFav = recentItem.isFavorite;
+        this.description = recentItem.description;
+        //this.endDate = recentItem.endDate;
+       // Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
+    }
+
     public GenericDeal(SearchResult result) {
         this.id = result.id;
         this.title = result.title;

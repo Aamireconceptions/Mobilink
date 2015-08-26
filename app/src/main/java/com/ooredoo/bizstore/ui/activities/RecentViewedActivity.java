@@ -174,6 +174,8 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.rating = deal.rating;
             rd.category = deal.category;
             rd.discount = deal.discount;
+            rd.address = deal.address;
+            rd.contact = deal.contact;
 
             Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();

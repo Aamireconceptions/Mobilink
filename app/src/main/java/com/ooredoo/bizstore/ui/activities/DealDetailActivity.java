@@ -484,7 +484,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     {
         Intent intent = new Intent();
         intent.putExtra("is_fav", isFav);
-        intent.putExtra("voucher", genericDeal.voucher);
+        if(genericDeal != null)
+        {
+            intent.putExtra("voucher", genericDeal.voucher);
+        }
+
         setResult(RESULT_OK, intent);
 
         finish();
