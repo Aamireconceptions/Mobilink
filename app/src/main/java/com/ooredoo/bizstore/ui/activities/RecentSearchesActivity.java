@@ -58,6 +58,7 @@ public class RecentSearchesActivity extends AppCompatActivity implements View.On
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(getString(R.string.recent_searches));
     }
 
     @Override

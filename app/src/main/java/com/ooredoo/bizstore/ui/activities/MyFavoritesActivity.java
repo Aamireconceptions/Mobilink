@@ -58,5 +58,6 @@ public class MyFavoritesActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(getString(R.string.my_favorites));
     }
 }

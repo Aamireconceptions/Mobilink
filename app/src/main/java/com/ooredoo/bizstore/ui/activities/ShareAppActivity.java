@@ -35,6 +35,7 @@ public class ShareAppActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(getString(R.string.share_app_with_friends));
     }
 
     private void init() {

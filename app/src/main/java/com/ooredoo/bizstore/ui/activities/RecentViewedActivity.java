@@ -75,6 +75,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.recent_viewed);
 
     }
 

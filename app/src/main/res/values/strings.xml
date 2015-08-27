@@ -27,6 +27,7 @@
     <string name="my_favorites">My Favorites</string>
     <string name="recommended">Tell a friend</string>
     <string name="recent_searches">Recent Searches</string>
+    <string name="recent_searches">Recent Searches</string>
     <string name="recent_viewed">Recent Viewed</string>
     <string name="categories">Categories</string>
     <string name="settings">Settings</string>
@@ -213,5 +214,5 @@
     <string name="movies_cinemas_more">Movies, Cinemas &amp; Much More</string>
     <string name="subscription_charges">You will be charged QAR <b>9</b>/week</string>
     <string name="subscription_terms_services">By Subscribing you Agree with our <u><b>Terms &amp; Services</b></u></string>
-
+    <string name="rate_deal">Rate this deal</string>
 </resources>

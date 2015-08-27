@@ -208,4 +208,5 @@
     <string name="subscription_charges">You will be charged QAR 9/week</string>
     <string name="subscription_terms_services"><![CDATA[By Subscribing you Agree with our Terms & Services]]></string>
     <string name="error_no_data">عذرا لم يتم العثور على البحث</string>
+    <string name="rate_deal">Rate this deal</string>
 </resources>

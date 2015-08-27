@@ -23,7 +23,7 @@
             android:layout_weight="0.95"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:text="RATE THIS DEAL"
+            android:text="@string/rate_deal"
             android:textAllCaps="true"
             android:textSize="16sp"
             android:textStyle="bold"/>

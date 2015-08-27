@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.LanguageTask;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -60,6 +61,9 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
 
 
         }
+
+        LanguageTask languageTask = new LanguageTask();
+        languageTask.execute(lang);
 
         BizStore.forceStopTasks = true;
 

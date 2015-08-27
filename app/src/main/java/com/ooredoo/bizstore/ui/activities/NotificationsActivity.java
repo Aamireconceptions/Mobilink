@@ -65,6 +65,7 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.my_notifications);
     }
 
     public void initNotificationsData() {

@@ -1,10 +1,12 @@
 package com.ooredoo.bizstore.utils;
 
+import android.app.Activity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,6 +16,8 @@ import java.util.TimerTask;
  */
 public class SliderUtils
 {
+    private Activity activity;
+
     private ViewPager viewPager;
 
     private TimerTask timerTask;
@@ -26,12 +30,14 @@ public class SliderUtils
 
     public int count;
 
-    private final static int DELAY = 5 * 1000;
+    private final static int DELAY = 10 * 1000;
 
     private final static int PERIOD = 3 * 1000;
 
-    public SliderUtils(final ViewPager viewPager)
+    public SliderUtils(HomeActivity activity, final ViewPager viewPager)
     {
+        this.activity = activity;
+
         this.viewPager = viewPager;
     }
 
@@ -52,35 +58,32 @@ public class SliderUtils
 
                     if(pos >= 0)
                     {
-                        /*viewPager.post(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 View child = viewPager.getChildAt(pos);
-                                if(child != null)
-                                {
+                                if (child != null) {
                                     View imageView = child.findViewById(R.id.image_view);
 
                                     //Logger.print("SliderImageView: "+imageView);
 
                                     String tag = (String) imageView.getTag();
 
-                                    if(imageView != null && tag != null &&  tag.equals("loaded"))
-                                    {
+                                    if (imageView != null && tag != null && tag.equals("loaded")) {
                                         viewPager.setCurrentItem(pos, true);
-                                    }
-                                    else
-                                    {
+                                    } else {
+                                        Logger.print("Images: Not Loaded");
                                         pos++;
                                     }
                                 }
                             }
-                        });*/
-                        viewPager.post(new Runnable() {
+                        });
+                        /*viewPager.post(new Runnable() {
                             @Override
                             public void run() {
                                 viewPager.setCurrentItem(pos, true);
                             }
-                        });
+                        });*/
 
 
                     }
@@ -95,35 +98,31 @@ public class SliderUtils
 
                     if(pos < count)
                     {
-                       /* viewPager.post(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 View child = viewPager.getChildAt(pos);
-                                if(child != null)
-                                {
+                                if (child != null) {
                                     View imageView = child.findViewById(R.id.image_view);
 
                                     //Logger.print("SliderImageView: "+imageView);
 
                                     String tag = (String) imageView.getTag();
 
-                                    if(imageView != null && tag != null &&  tag.equals("loaded"))
-                                    {
+                                    if (imageView != null && tag != null && tag.equals("loaded")) {
                                         viewPager.setCurrentItem(pos, true);
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         pos--;
                                     }
                                 }
                             }
-                        });*/
-                        viewPager.post(new Runnable() {
+                        });
+                        /*viewPager.post(new Runnable() {
                             @Override
                             public void run() {
                                 viewPager.setCurrentItem(pos, true);
                             }
-                        });
+                        });*/
 
                     }
                     else
@@ -143,11 +142,15 @@ public class SliderUtils
         if(timer != null)
         {
             timer.cancel();
+
+            Logger.print("SliderUtils: Timer cancelled");
         }
 
         if(timerTask != null)
         {
             timerTask.cancel();
+
+            Logger.print("SliderUtils: TimerTask cancelled");
         }
     }
 }

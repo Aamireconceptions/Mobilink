@@ -274,6 +274,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.my_account);
     }
 
     public void updateProfilePicture() {

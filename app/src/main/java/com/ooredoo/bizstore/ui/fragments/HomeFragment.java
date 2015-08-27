@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
 
-        promoSlider = new SliderUtils(promoPager);
+        promoSlider = new SliderUtils(activity, promoPager);
 
         promoPager.setOnTouchListener(new SliderOnTouchListener(promoSlider));
 
@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
 
-        featuredSlider = new SliderUtils(featuredPager);
+        featuredSlider = new SliderUtils(activity, featuredPager);
 
         featuredPager.setOnTouchListener(new SliderOnTouchListener(featuredSlider));
 
