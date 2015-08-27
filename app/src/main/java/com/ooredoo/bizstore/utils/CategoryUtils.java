@@ -33,7 +33,7 @@ public class CategoryUtils {
     public static final int CT_JEWELLERY = 10;
     public static final int CT_SPORTS = 11;
 
-    public static final String[] CACHE_KEYS = { "TOP_BRANDS", "TOP_MALLS" };
+    public static final String[] CACHE_KEYS = { "TOP_BRANDS", "TOP_MALLS", "PROMO_DEALS", "FEATURED_DEALS" };
 
     public static final String[] categories = { "dealofday", "top_deals", "food", "shopping", "electronics", "hotels_spas", "malls", "automotive", "travel", "entertainment", "jewelry", "sports_fitness" };
 
