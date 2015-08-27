@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import com.ooredoo.bizstore.BizStore;
+
 /**
  * Created by Babar on 18-Jun-15.
  */
@@ -22,7 +24,7 @@ public class SnackBarUtils
 
     public  void showSimple(int resId, int duration)
     {
-        Snackbar.make(parent, context.getString(resId), duration).show();
+        Snackbar.make(parent, resId, duration).show();
     }
 
 }

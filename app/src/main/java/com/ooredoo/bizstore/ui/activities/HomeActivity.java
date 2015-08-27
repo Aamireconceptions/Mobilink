@@ -659,7 +659,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void executeSearchTask(String keyword) {
-        new SearchTask(this).execute(keyword);
+        //new SearchTask(this).execute(keyword);
+        new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
     }
 
     public class SearchTextWatcher implements TextWatcher {
@@ -692,7 +693,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(hasInternetConnection(this)) {
             String keyword = v.getText().toString();
             Logger.print("SEARCH_KEYWORD: " + keyword);
-            new SearchTask(this).execute(keyword);
+            new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
         } else {
             makeText(getApplicationContext(), getString(R.string.error_no_internet), LENGTH_SHORT).show();
         }
