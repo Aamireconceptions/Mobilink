@@ -151,6 +151,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 mActionBar.setTitle(business.title);
                 scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
             }
+
+            ((TextView) findViewById(R.id.tv_desc)).setText(business.description);
+
             ((TextView) findViewById(R.id.tv_title)).setText(business.title);
             ((TextView) findViewById(R.id.tv_contact)).setText(business.contact);
             ((TextView) findViewById(R.id.tv_address)).setText(business.address);

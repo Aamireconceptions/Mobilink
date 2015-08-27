@@ -27,7 +27,6 @@
     <string name="my_favorites">My Favorites</string>
     <string name="recommended">Tell a friend</string>
     <string name="recent_searches">Recent Searches</string>
-    <string name="recent_searches">Recent Searches</string>
     <string name="recent_viewed">Recent Viewed</string>
     <string name="categories">Categories</string>
     <string name="settings">Settings</string>
@@ -89,6 +88,7 @@
     <string name="share_with_friends_txt">"Hi,\n\n I just found this great app for you called Ooredoo biz store. You can find businesses and enjoy the best deals &amp; discounts in your town.\n\nSend SUB to 92806 to download the application"</string>
     <string name="share_now">Share Now</string>
     <string name="Preview">Preview</string>
+    <string name="description">Description</string>
     <string name="Deal_Description">Deal Description</string>
     <string name="Address">Address</string>
     <string name="Contact_Information">Contact Information</string>
@@ -215,4 +215,7 @@
     <string name="subscription_charges">You will be charged QAR <b>9</b>/week</string>
     <string name="subscription_terms_services">By Subscribing you Agree with our <u><b>Terms &amp; Services</b></u></string>
     <string name="rate_deal">Rate this deal</string>
+
+    <string name="showing">Showing</string>
+    <string name="results">Results</string>
 </resources>

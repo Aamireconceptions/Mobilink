@@ -88,6 +88,7 @@
     <string name="share_with_friends_txt">"مرحبا، وجت هذا التطبيق الرهيب لأفضل العروض في المدينة. أرسل رسالة نصية الى 92806 و حمل التطبيق"</string>
     <string name="share_now">شارك الآن</string>
     <string name="Preview">عرض</string>
+    <string name="description">تفاصيل</string>
     <string name="Deal_Description">تفاصيل العرض</string>
     <string name="Address">العنوان</string>
     <string name="Contact_Information">بيانات الاتصال</string>
@@ -209,4 +210,7 @@
     <string name="subscription_terms_services"><![CDATA[By Subscribing you Agree with our Terms & Services]]></string>
     <string name="error_no_data">عذرا لم يتم العثور على البحث</string>
     <string name="rate_deal">Rate this deal</string>
+
+    <string name="showing">عرض</string>
+    <string name="results">نتائج</string>
 </resources>
