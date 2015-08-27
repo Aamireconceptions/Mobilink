@@ -148,6 +148,8 @@ public class RecentItem extends Model {
             favDeal.discount = favorite.discount;
             favDeal.isFavorite = favorite.isFavorite;
             favDeal.description = favorite.description;
+            favDeal.contact = favorite.contact;
+            favDeal.address = favorite.address;
             Log.i("UPDATE_FAV_DEAL: " + favorite.id, "---" + favorite.isFavorite);
             favDeal.save();
         }

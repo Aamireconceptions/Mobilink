@@ -119,6 +119,13 @@ public class Favorite extends Model {
         Logger.logI("FAV_BUSINESS: " + business.id, String.valueOf(business.isFavorite));
     }
 
+    public static void clearFavorites() {
+        List<Favorite> favorites = new Select().all().from(Favorite.class).execute();
+        for(Favorite favorite : favorites) {
+            favorite.delete();
+        }
+    }
+
     public Favorite(RecentItem recentItem) {
         this.id = recentItem.id;
         this.title = recentItem.title;

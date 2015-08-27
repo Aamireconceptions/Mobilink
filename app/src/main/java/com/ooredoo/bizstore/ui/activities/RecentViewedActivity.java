@@ -97,13 +97,17 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void clearRecentDeals() {
+        clearRecentItems();
+        mAdapter.clear();
+        toggleEmptyView(0); //0 => NO_RECENT_VIEWED
+        btnClearAll.setVisibility(View.GONE);
+    }
+
+    public static void clearRecentItems() {
         List<RecentItem> recentItems = new Select().all().from(RecentItem.class).execute();
         for(RecentItem recentItem : recentItems) {
             recentItem.delete();
         }
-        mAdapter.clear();
-        toggleEmptyView(0); //0 => NO_RECENT_VIEWED
-        btnClearAll.setVisibility(View.GONE);
     }
 
     private void setSelected(View v) {
