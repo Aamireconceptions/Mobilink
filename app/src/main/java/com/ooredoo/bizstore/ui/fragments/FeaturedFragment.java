@@ -168,6 +168,8 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
 
             //activity.showDetailActivity(DEAL, DEAL_CATEGORIES[1], id);
             activity.showDealDetailActivity(DEAL_CATEGORIES[1], genericDeal);
+
+            genericDeal.views = genericDeal.views + 1;
         }
     }
 }

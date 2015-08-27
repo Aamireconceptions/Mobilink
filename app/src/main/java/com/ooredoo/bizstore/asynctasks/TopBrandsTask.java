@@ -1,6 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
@@ -30,14 +32,24 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
     private ViewPager viewPager;
 
+    private ProgressBar pbTopBrands;
+
     private final static String SERVICE_NAME = "/topbrand?";
 
     private HomeActivity activity;
 
-    public TopBrandsTask(HomeActivity activity, TopBrandsStatePagerAdapter adapter, ViewPager viewPager) {
+    public TopBrandsTask(HomeActivity activity, TopBrandsStatePagerAdapter adapter, ViewPager viewPager,
+                         ProgressBar pbTopBrands) {
         this.adapter = adapter;
         this.activity = activity;
         this.viewPager = viewPager;
+        this.pbTopBrands = pbTopBrands;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pbTopBrands.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -60,6 +72,7 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
     public void setData(String result)
     {
+        pbTopBrands.setVisibility(View.GONE);
         adapter.clear();
 
         if(result != null) {

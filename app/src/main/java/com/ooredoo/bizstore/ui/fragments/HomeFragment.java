@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
@@ -59,6 +60,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     DashboardItemClickListener dashboardItemClickListener;
 
     public static ViewPager featuredPager, promoPager, topBrandsPager, topMallsPager;
+
+    private ProgressBar pbPromo, pbFeatued, pbTopBrands, pbTopMalls;
 
     private CirclePageIndicator promoIndicator, featuredIndicator;
 
@@ -163,6 +166,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
 
+        pbPromo = (ProgressBar) v.findViewById(R.id.promo_progress);
+
         promoSlider = new SliderUtils(activity, promoPager);
 
         promoPager.setOnTouchListener(new SliderOnTouchListener(promoSlider));
@@ -182,8 +187,9 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadPromos()
     {
+
         PromoTask promoTask = new PromoTask(activity, promoAdapter,
-                                            promoPager, promoIndicator);
+                                            promoPager, promoIndicator, pbPromo);
 
         String cache = promoTask.getCache();
 
@@ -205,6 +211,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
 
+        pbFeatued = (ProgressBar) v.findViewById(R.id.featured_progress);
+
         featuredSlider = new SliderUtils(activity, featuredPager);
 
         featuredPager.setOnTouchListener(new SliderOnTouchListener(featuredSlider));
@@ -224,7 +232,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadFeatured()
     {
-        FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager, featuredIndicator);
+        FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager,
+                                                     featuredIndicator, pbFeatued);
 
         String cache = featuredTask.getCache();
 
@@ -246,6 +255,9 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         topBrandsStatePagerAdapter = new TopBrandsStatePagerAdapter(getFragmentManager(), brands);
 
         topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
+
+        pbTopBrands = (ProgressBar) v.findViewById(R.id.top_brands_progress);
+
         topBrandsPager.setAdapter(topBrandsStatePagerAdapter);
 
         loadTopBrands();
@@ -253,7 +265,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadTopBrands()
     {
-        TopBrandsTask topBrandsTask = new TopBrandsTask(activity, topBrandsStatePagerAdapter, topBrandsPager);
+        TopBrandsTask topBrandsTask = new TopBrandsTask(activity, topBrandsStatePagerAdapter,
+                                                        topBrandsPager, pbTopBrands);
 
         String cache = topBrandsTask.getCache();
 
@@ -275,6 +288,9 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         topMallsAdapter = new TopMallsStatePagerAdapter(getFragmentManager(), malls);
 
         topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
+
+        pbTopMalls = (ProgressBar) v.findViewById(R.id.top_malls_progress);
+
         topMallsPager.setAdapter(topMallsAdapter);
 
         loadTopMalls();
@@ -282,7 +298,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadTopMalls()
     {
-        TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager);
+        TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager,
+                                                     pbTopMalls);
 
         String cache = topMallsTask.getCache();
 

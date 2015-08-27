@@ -14,7 +14,7 @@ import static java.lang.System.currentTimeMillis;
  */
 public class LanguageTask extends BaseAsyncTask<String, Void, String>
 {
-    private final static String SERVICE_NAME = "/promotionaldeals?";
+    private final static String SERVICE_NAME = "/changesettings?";
 
     @Override
     protected String doInBackground(String... params)
@@ -34,11 +34,13 @@ public class LanguageTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put("lang", lang);
+        params.put("language_id", lang);
 
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        Logger.print("languageTask url: "+url);
 
         result = getJson(url);
 

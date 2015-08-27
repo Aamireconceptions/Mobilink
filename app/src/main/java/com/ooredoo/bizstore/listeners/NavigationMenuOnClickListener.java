@@ -63,7 +63,8 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
         }
 
         LanguageTask languageTask = new LanguageTask();
-        languageTask.execute(lang);
+
+        if(lang.equals("en")) languageTask.execute("1"); else languageTask.execute("2");
 
         BizStore.forceStopTasks = true;
 

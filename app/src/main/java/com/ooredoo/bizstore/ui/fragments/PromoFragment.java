@@ -175,5 +175,7 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         //activity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], id);
 
         activity.showDealDetailActivity(DEAL_CATEGORIES[0], genericDeal );
+
+        genericDeal.views = ++genericDeal.views;
     }
 }

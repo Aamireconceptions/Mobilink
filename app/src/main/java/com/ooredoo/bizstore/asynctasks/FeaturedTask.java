@@ -1,6 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -38,17 +40,26 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
     private CirclePageIndicator featuredIndicator;
 
+    private ProgressBar pbFeatued;
+
     private final static String SERVICE_NAME = "/featureddeals?";
 
     private HomeActivity activity;
 
     public FeaturedTask(HomeActivity activity, FeaturedStatePagerAdapter adapter,
-                        ViewPager viewPager, CirclePageIndicator featuredIndicator)
+                        ViewPager viewPager, CirclePageIndicator featuredIndicator, ProgressBar pbFeatued)
     {
         this.adapter = adapter;
         this.activity = activity;
         this.viewPager = viewPager;
         this.featuredIndicator = featuredIndicator;
+        this.pbFeatued = pbFeatued;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pbFeatued.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -76,6 +87,7 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
     public void setData(String result)
     {
+        pbFeatued.setVisibility(View.GONE);
         adapter.clear();
 
         if(result != null)
