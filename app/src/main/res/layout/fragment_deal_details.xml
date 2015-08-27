@@ -237,7 +237,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            android:text="Discount Voucher : "
+                            android:text="@string/discount_voucher"
                             android:textColor="@android:color/secondary_text_light"
                             android:textAllCaps="true"/>
 
@@ -258,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:gravity="center_horizontal"
-                        android:text="Dear user, you can redeem this discount voucher at the respective outlet."
+                        android:text="@string/respective_outlet"
                         android:textSize="12sp"
                         android:textColor="@color/red"
                         android:visibility="gone"/>

@@ -15,7 +15,7 @@
     <string name="SUBSCRIPTION_PLANS">خيارات الاشتراك</string>
     <string name="sms_charges">سيقوم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
     <string name="num_confirm_text">سيقوم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
-    <string name="NEXT">Next</string>
+    <string name="NEXT">التالي</string>
     <string name="SIGNUP">التسجيل</string>
     <string name="SUBSCRIBE">الإشتراك</string>
     <string name="top_brands">أفضل الماركات</string>
@@ -59,9 +59,9 @@
     <string name="_15">15</string>
     <string name="_20">20</string>
     <string name="rating">تقييم</string>
-    <string name="top_rated">Top Rated</string>
-    <string name="sort_discount">Highest to Lowest Discount</string>
-    <string name="sub_categories">Sub Categories</string>
+    <string name="top_rated">أشهر العروض</string>
+    <string name="sort_discount">من أعلى إلى أدنا خصم</string>
+    <string name="sub_categories">فئات فرعية</string>
     <string name="discount_offer">عروض الخصم</string>
     <string name="category_selection">اختيار الفئة</string>
     <string name="search_hint">أكتب هنا</string>
@@ -202,15 +202,17 @@
     <string name="slide_4_text_1">Slide 4 Text 1</string>
     <string name="slide_4_text_2">Slide 4 Text 2</string>
     <string name="qatar_code">974</string>
-    <string name="find_popular_venues">Find Popular Venues</string>
-    <string name="get_restaurants_deals">Get Restaurant Deals</string>
-    <string name="discounts_on_fav_brands">Discounts On Your Favorite Brands</string>
-    <string name="movies_cinemas_more"><![CDATA[Movies, Cinemas & Much More]]></string>
-    <string name="subscription_charges">You will be charged QAR 9/week</string>
-    <string name="subscription_terms_services"><![CDATA[By Subscribing you Agree with our Terms & Services]]></string>
+    <string name="find_popular_venues">البحث عن أماكن شعبية</string>
+    <string name="get_restaurants_deals">أحصل على عروض المطاعم</string>
+    <string name="discounts_on_fav_brands">خصومات على ماركاتكم المفضلة</string>
+    <string name="movies_cinemas_more"><![CDATA[أفلام، سينما و المزيد]]></string>
+    <string name="subscription_charges">سيتم إحتساب 9 ريال قطري أسبوعيا</string>
+    <string name="subscription_terms_services"><![CDATA[في حال الإشتراك فقد قمت بالموافقة على البنود و الخدمات]]></string>
     <string name="error_no_data">عذرا لم يتم العثور على البحث</string>
-    <string name="rate_deal">Rate this deal</string>
-
+    <string name="rate_deal">قيم هذا العرض</string>
+    <string name="discount_voucher">القسيمة الخصم :</string>
     <string name="showing">عرض</string>
     <string name="results">نتائج</string>
+    <string name="respective_outlet">عزيزي العزيز يمكنك إستبدال القسيمة من المتجر المختار</string>
+    <string name="already_redeemed">تم إستبدال هذه القسيمة مسبقا</string>
 </resources>

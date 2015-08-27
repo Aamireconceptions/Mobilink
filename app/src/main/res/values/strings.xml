@@ -215,7 +215,9 @@
     <string name="subscription_charges">You will be charged QAR <b>9</b>/week</string>
     <string name="subscription_terms_services">By Subscribing you Agree with our <u><b>Terms &amp; Services</b></u></string>
     <string name="rate_deal">Rate this deal</string>
-
+    <string name="discount_voucher">Discount Voucher :</string>
     <string name="showing">Showing</string>
     <string name="results">Results</string>
+    <string name="respective_outlet">Dear user, you can redeem this discount voucher at the respective outlet.</string>
+    <string name="already_redeemed">This voucher code has been already redeemed!</string>
 </resources>
