@@ -201,6 +201,10 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
                 adapter.genericDeal.status = "Available";
             }
 
+            int views = data.getIntExtra("views", -1);
+
+            adapter.genericDeal.views = views;
+
             adapter.notifyDataSetChanged();
         }
     }

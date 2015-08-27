@@ -125,7 +125,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
     private void fetchAndDisplayEntertainment(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, this.progressBar, ivBanner, this);
+        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
@@ -209,6 +209,10 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
                 adapter.genericDeal.voucher = voucher;
                 adapter.genericDeal.status = "Available";
             }
+
+            int views = data.getIntExtra("views", -1);
+
+            adapter.genericDeal.views = views;
 
             adapter.notifyDataSetChanged();
         }

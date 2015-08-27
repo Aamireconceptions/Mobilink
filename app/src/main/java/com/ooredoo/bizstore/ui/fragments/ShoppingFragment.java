@@ -208,6 +208,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
                 dealGridOnItemClickListener.genericDeal.status = "Available";
             }
 
+            int views = data.getIntExtra("views", -1);
+
+            dealGridOnItemClickListener.genericDeal.views = views;
+
             adapter.notifyDataSetChanged();
         }
     }

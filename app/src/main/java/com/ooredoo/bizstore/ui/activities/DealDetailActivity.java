@@ -488,6 +488,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         {
             intent.putExtra("voucher", genericDeal.voucher);
         }
+        intent.putExtra("views", ++genericDeal.views);
 
         setResult(RESULT_OK, intent);
 

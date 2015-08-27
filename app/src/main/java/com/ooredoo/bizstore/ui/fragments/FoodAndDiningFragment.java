@@ -214,6 +214,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
                 adapter.genericDeal.status = "Available";
             }
 
+            int views = data.getIntExtra("views", -1);
+
+            adapter.genericDeal.views = views;
+
             adapter.notifyDataSetChanged();
         }
     }

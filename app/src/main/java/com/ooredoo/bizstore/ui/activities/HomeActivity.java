@@ -182,7 +182,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         new AccountDetailsTask().execute(BizStore.username);*/
 
-        new SearchKeywordsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        //new SearchKeywordsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         new AccountDetailsTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
 

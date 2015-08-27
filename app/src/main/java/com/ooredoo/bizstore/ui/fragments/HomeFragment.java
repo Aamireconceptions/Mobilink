@@ -408,6 +408,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
                 listAdapter.genericDeal.status = "Available";
             }
 
+            int views = data.getIntExtra("views", -1);
+
+            listAdapter.genericDeal.views = views;
+
             listAdapter.notifyDataSetChanged();
 
 
