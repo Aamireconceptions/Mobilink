@@ -652,7 +652,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         findViewById(R.id.iv_filter_results).setVisibility(View.GONE);
         TextView tvSearchResults = (TextView) findViewById(R.id.tv_search_results);
-        tvSearchResults.setText(R.string.showing + " " + results.size() + " " + R.string.results);
+        tvSearchResults.setText(getString(R.string.showing) + " " + results.size() + " " + getString(R.string.results));
         tvSearchResults.setVisibility(View.VISIBLE);
 
         populateSearchResults(results);
