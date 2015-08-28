@@ -1,8 +1,10 @@
 package com.ooredoo.bizstore.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -41,6 +44,8 @@ public class GridViewBaseAdapter extends BaseAdapter
     private Holder holder;
 
     private MemoryCache memoryCache;
+
+    private DiskCache diskCache = DiskCache.getInstance();
 
     private int reqWidth, reqHeight;
 
@@ -138,7 +143,7 @@ public class GridViewBaseAdapter extends BaseAdapter
             }
             else
             {
-                holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                /*holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
                 holder.progressBar.setVisibility(View.VISIBLE);
 
                 Logger.print("Download started for position: " + position);
@@ -146,9 +151,11 @@ public class GridViewBaseAdapter extends BaseAdapter
                 BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                         new BaseAdapterBitmapDownloadTask(this);
 
-                /*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
-                                         String.valueOf(reqWidth), String.valueOf(reqHeight));*/
-                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                *//*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
+                                         String.valueOf(reqWidth), String.valueOf(reqHeight));*//*
+                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));*/
+
+                fallBackToDiskCache(imgUrl);
             }
         }
         else
@@ -166,6 +173,54 @@ public class GridViewBaseAdapter extends BaseAdapter
         holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
         return grid;
+    }
+
+    private void fallBackToDiskCache(final String url)
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
+
+                Logger.print("dCache getting bitmap from cache");
+
+                if(bitmap != null)
+                {
+                    Logger.print("dCache found!");
+
+                    memoryCache.addBitmapToCache(url, bitmap);
+                    ((Activity) context).runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run() {
+                            Logger.print(" dCache fallback notifyDataSetChanged");
+                            notifyDataSetChanged();
+                        }
+                    });
+                }
+                else
+                {
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                            holder.progressBar.setVisibility(View.VISIBLE);
+
+                            BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                                    new BaseAdapterBitmapDownloadTask(GridViewBaseAdapter.this);
+
+                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                                    String.valueOf(reqWidth), String.valueOf(reqHeight));
+
+                            // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                        }
+                    });
+                }
+            }
+        });
+
+        thread.start();
     }
 
     private class FavouriteOnClickListener implements View.OnClickListener {

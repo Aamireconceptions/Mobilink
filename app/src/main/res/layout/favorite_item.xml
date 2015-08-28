@@ -53,6 +53,8 @@
             android:gravity="start|center_vertical"
             android:text="@string/sms_charges"
             android:textColor="@color/hex808080"
+            android:maxLines="3"
+            android:ellipsize="end"
             android:textSize="14sp"/>
 
         <TextView

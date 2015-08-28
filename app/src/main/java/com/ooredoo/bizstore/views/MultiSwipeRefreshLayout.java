@@ -80,11 +80,12 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout
     {
         if(mSwipeableChildrens != null && mSwipeableChildrens.length > 0)
         {
-            Logger.print("Toolbar scaleY: "+ HomeActivity.toolbar.getScaleY());
+            //Logger.print("AppBar top: "+ HomeActivity.appBarLayout.getTop());
             // Iterate through the scrollable children and check if any of them can not scroll up
             for(View view : mSwipeableChildrens)
             {
-                if(view != null && view.isShown() && !canViewScrollUp(view))
+                if(view != null && view.isShown() && !canViewScrollUp(view)
+                        && HomeActivity.appBarLayout.getTop() == 0)
                 {
                     // If the view is shown, and can not scroll upwards, return false and start the
                     // gesture.

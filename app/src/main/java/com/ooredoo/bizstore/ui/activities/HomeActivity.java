@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -265,9 +266,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         acSearch.setOnEditorActionListener(this);
     }
 
-    public static Toolbar toolbar;
+    public static AppBarLayout appBarLayout;
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
