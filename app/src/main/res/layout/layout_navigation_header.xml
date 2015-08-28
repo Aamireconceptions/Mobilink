@@ -66,7 +66,7 @@
             android:id="@+id/btn_lang_english"
             android:layout_width="115dp"
             android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="0.4dp"
+
             android:background="@drawable/lang_left_selector"
             android:text="@string/English"
             android:textAllCaps="false"

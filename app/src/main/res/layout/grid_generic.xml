@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Wedding Formal Dess"
             android:textColor="@color/red"
+            android:textStyle="bold"
             android:lines="1"
             android:maxLines="1"
             android:ellipsize="end"/>
@@ -58,7 +59,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="Wedding Formal Dess"
-            android:textSize="12sp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
@@ -66,7 +66,7 @@
             android:id="@+id/discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:text="30% off"
             android:textAllCaps="true"
             android:textColor="@color/red"/>

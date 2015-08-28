@@ -423,7 +423,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             boolean show = id == R.id.action_search;
             if(!show) {
                 isShowResults = false;
-                //acSearch.setText("");
+                acSearch.setText("");
                 acSearch.setHint(R.string.search);
             }
             showHideSearchBar(show);

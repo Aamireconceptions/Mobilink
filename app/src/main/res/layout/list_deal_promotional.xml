@@ -57,7 +57,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:text="Amir Adnan Wedding Coture Package 2015 - Sherwani, Inner, Lawn, Suite, etc"
             android:maxLines="2"
-            android:ellipsize="end"/>
+            />
 
         <TextView
             android:id="@+id/discount"

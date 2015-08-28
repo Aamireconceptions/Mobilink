@@ -18,6 +18,7 @@ package com.ooredoo.bizstore.views;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
@@ -84,8 +85,10 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout
             // Iterate through the scrollable children and check if any of them can not scroll up
             for(View view : mSwipeableChildrens)
             {
+                AppBarLayout appBarLayout = HomeActivity.appBarLayout;
+
                 if(view != null && view.isShown() && !canViewScrollUp(view)
-                        && HomeActivity.appBarLayout.getTop() == 0)
+                        && (appBarLayout != null && appBarLayout.getTop() == 0))
                 {
                     // If the view is shown, and can not scroll upwards, return false and start the
                     // gesture.
