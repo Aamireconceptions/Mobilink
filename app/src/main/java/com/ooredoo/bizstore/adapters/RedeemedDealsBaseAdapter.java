@@ -129,7 +129,7 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
             holder.llRedeemOn.setVisibility(View.VISIBLE);
         }
 
-        AnimUtils.slideView((Activity) context, row, prevItem < position);
+        //AnimUtils.slideView((Activity) context, row, prevItem < position);
 
         prevItem = position;
 

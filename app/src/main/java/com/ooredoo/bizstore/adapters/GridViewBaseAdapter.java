@@ -167,6 +167,10 @@ public class GridViewBaseAdapter extends BaseAdapter
         if(deal.discount == 0) {
             holder.tvDiscount.setVisibility(View.GONE);
         }
+        else
+        {
+            holder.tvDiscount.setVisibility(View.VISIBLE);
+        }
 
         holder.tvTitle.setText(deal.title);
         holder.tvDesc.setText(deal.description);

@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
-            android:text="30% off"
+
             android:textSize="14sp"
             android:textColor="@color/red"
             android:textAllCaps="true"/>

@@ -16,6 +16,7 @@
         android:drawableStart="@drawable/ic_shopping"
         android:drawablePadding="@dimen/_6sdp"
         android:text="Shopping"
+        android:visibility="gone"
         android:textColor="@android:color/primary_text_light"
         android:background="@drawable/deal_header_bg"/>
 

@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     public static ViewPager featuredPager, promoPager, topBrandsPager, topMallsPager;
 
-    private ProgressBar pbPromo, pbFeatued, pbTopBrands, pbTopMalls;
+   // private ProgressBar pbPromo, pbFeatued, pbTopBrands, pbTopMalls;
 
     private CirclePageIndicator promoIndicator, featuredIndicator;
 
@@ -170,7 +170,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
         promoPager.addOnPageChangeListener(pageChangeListener);
 
-        pbPromo = (ProgressBar) v.findViewById(R.id.promo_progress);
+        ProgressBar pbPromo = (ProgressBar) v.findViewById(R.id.promo_progress);
 
         promoSlider = new SliderUtils(activity, promoPager);
 
@@ -186,10 +186,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         promoIndicator.setViewPager(promoPager);
         promoIndicator.setVisibility(View.GONE);
 
-        loadPromos();
+        loadPromos(pbPromo);
     }
 
-    private void loadPromos()
+    private void loadPromos(ProgressBar pbPromo)
     {
 
         PromoTask promoTask = new PromoTask(activity, promoAdapter,
@@ -215,7 +215,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
 
-        pbFeatued = (ProgressBar) v.findViewById(R.id.featured_progress);
+        ProgressBar pbFeatued = (ProgressBar) v.findViewById(R.id.featured_progress);
 
         featuredSlider = new SliderUtils(activity, featuredPager);
 
@@ -231,10 +231,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         featuredIndicator.setViewPager(featuredPager);
         featuredIndicator.setVisibility(View.GONE);
 
-        loadFeatured();
+        loadFeatured(pbFeatued);
     }
 
-    private void loadFeatured()
+    private void loadFeatured(ProgressBar pbFeatued)
     {
         FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager,
                                                      featuredIndicator, pbFeatued);
@@ -260,14 +260,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
 
-        pbTopBrands = (ProgressBar) v.findViewById(R.id.top_brands_progress);
+        ProgressBar pbTopBrands = (ProgressBar) v.findViewById(R.id.top_brands_progress);
 
         topBrandsPager.setAdapter(topBrandsStatePagerAdapter);
 
-        loadTopBrands();
+        loadTopBrands(pbTopBrands);
     }
 
-    private void loadTopBrands()
+    private void loadTopBrands(ProgressBar pbTopBrands)
     {
         TopBrandsTask topBrandsTask = new TopBrandsTask(activity, topBrandsStatePagerAdapter,
                                                         topBrandsPager, pbTopBrands);
@@ -293,14 +293,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
 
-        pbTopMalls = (ProgressBar) v.findViewById(R.id.top_malls_progress);
+        ProgressBar pbTopMalls = (ProgressBar) v.findViewById(R.id.top_malls_progress);
 
         topMallsPager.setAdapter(topMallsAdapter);
 
-        loadTopMalls();
+        loadTopMalls(pbTopMalls);
     }
 
-    private void loadTopMalls()
+    private void loadTopMalls(ProgressBar pbTopMalls)
     {
         TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager,
                                                      pbTopMalls);
@@ -387,10 +387,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         isRefreshed = true;
 
-        loadPromos();
-        loadFeatured();
-        loadTopBrands();
-        loadTopMalls();
+        loadPromos(null);
+        loadFeatured(null);
+        loadTopBrands(null);
+        loadTopMalls(null);
         initAndLoadDealsOfTheDay();
 
         isRefreshed = false;

@@ -196,12 +196,16 @@
     <string name="notification_text">يمكنك إختراء الفئة المفضلة لديك و الحصول على العروض فوراً.</string>
     <string name="slide_1_text_1">آخر الصفقات والخصومات</string>
     <string name="slide_1_text_2">على المفضل لديكم</string>
+    <string name="slide_1_text_3">الماركات والمطاعم</string>
     <string name="slide_2_text_1">الماركات والمطاعم</string>
     <string name="slide_2_text_2">الأفلام ودور السينما، والأحداث</string>
+    <string name="slide_2_text_3">على اصبعك النصائح</string>
     <string name="slide_3_text_1">والترفيه</string>
     <string name="slide_3_text_2">على اصبعك النصائح</string>
+    <string name="slide_3_text_3">وأكثر بكثير</string>
     <string name="slide_4_text_1">سفر والسياحة والفنادق وأمبير.</string>
     <string name="slide_4_text_2">المنتجعات الصحية، لياقة ورياضة</string>
+    <string name="slide_4_text_3">في قطر</string>
     <string name="qatar_code">974</string>
     <string name="find_popular_venues">البحث عن أماكن شعبية</string>
     <string name="get_restaurants_deals">أحصل على عروض المطاعم</string>

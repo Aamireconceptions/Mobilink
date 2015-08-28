@@ -180,6 +180,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
         if(deal.discount == 0) {
             holder.tvDiscount.setVisibility(View.GONE);
         }
+        else
+        {
+            holder.tvDiscount.setVisibility(View.VISIBLE);
+        }
         holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
