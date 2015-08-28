@@ -104,6 +104,7 @@ public class CategoryUtils {
                 sc.isVisible = true;
                 Logger.logI("SUB CATEGORY: " + sc.isSelected, sc.title);
                 CheckBox checkBox = (CheckBox) activity.findViewById(sc.checkBoxId);
+                checkBox.setText(sc.title);
                 checkBox.setChecked(sc.isSelected);
                 checkBox.setSelected(sc.isSelected);
                 checkBox.setVisibility(View.VISIBLE);
@@ -111,6 +112,8 @@ public class CategoryUtils {
                 activity.findViewById(sc.checkBoxId).setVisibility(View.GONE);
             }
         }
+        CheckBox discountCheckBox = (CheckBox) activity.findViewById(R.id.cb_highest_discount);
+        discountCheckBox.setText(activity.getString(R.string.sort_discount));
     }
 
     public static SubCategory getSubCategoryByCheckboxId(int checkBoxId) {
