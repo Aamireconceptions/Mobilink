@@ -169,8 +169,8 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
         connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
-        //connection.setConnectTimeout(CONNECTION_TIME_OUT);
-        //connection.setReadTimeout(READ_TIME_OUT);
+        connection.setConnectTimeout(CONNECTION_TIME_OUT);
+        connection.setReadTimeout(READ_TIME_OUT);
         connection.setRequestMethod(METHOD);
         connection.setDoInput(true);
         connection.connect();
