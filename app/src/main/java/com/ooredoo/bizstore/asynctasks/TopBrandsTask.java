@@ -49,7 +49,7 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pbTopBrands.setVisibility(View.VISIBLE);
+        if(pbTopBrands != null)  pbTopBrands.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
     public void setData(String result)
     {
-        pbTopBrands.setVisibility(View.GONE);
+        if(pbTopBrands != null)  pbTopBrands.setVisibility(View.GONE);
         adapter.clear();
 
         if(result != null) {

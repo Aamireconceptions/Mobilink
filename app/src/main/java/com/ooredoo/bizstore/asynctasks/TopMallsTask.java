@@ -50,7 +50,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        pbTopMalls.setVisibility(View.VISIBLE);
+        if(pbTopMalls != null) pbTopMalls.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
     public void setData(String result)
     {
-        pbTopMalls.setVisibility(View.GONE);
+         if(pbTopMalls != null)pbTopMalls.setVisibility(View.GONE);
         adapter.clear();
 
         if(result != null) {

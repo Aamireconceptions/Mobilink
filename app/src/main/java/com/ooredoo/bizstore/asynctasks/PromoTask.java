@@ -57,7 +57,10 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        pbPromo.setVisibility(View.VISIBLE);
+        if(pbPromo != null)
+        {
+            pbPromo.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -80,7 +83,11 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
 
     public void setData(String result)
     {
-        pbPromo.setVisibility(View.GONE);
+        if(pbPromo != null)
+        {
+            pbPromo.setVisibility(View.GONE);
+        }
+
 
         adapter.clear();
 

@@ -59,7 +59,7 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pbFeatued.setVisibility(View.VISIBLE);
+        if(pbFeatued != null) pbFeatued.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
     public void setData(String result)
     {
-        pbFeatued.setVisibility(View.GONE);
+        if(pbFeatued != null) pbFeatued.setVisibility(View.GONE);
         adapter.clear();
 
         if(result != null)
