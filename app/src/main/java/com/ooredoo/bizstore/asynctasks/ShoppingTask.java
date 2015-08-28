@@ -162,13 +162,14 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         params.put(OS, ANDROID);
         params.put(CATEGORY, category);
 
+        String sortColumns = "";
+
         Logger.print("Sort by: " + sortColumn);
         Logger.print("Sub Categories: " + subCategories);
 
-        if(isNotNullOrEmpty(sortColumn)) {
-            if(sortColumn.equals("views"))
+        if(isNotNullOrEmpty(sortColumns)) {
+            if(sortColumns.equals("views"))
                 isFilterEnabled = true;
-            params.put("sort", sortColumn);
         }
 
         if(isNotNullOrEmpty(subCategories)) {
@@ -182,10 +183,28 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         }
 
         if(homeActivity.doApplyDiscount) {
+            if(isNotNullOrEmpty(sortColumns)) {
+                sortColumns = "discount_dsc,".concat(sortColumns);
+            } else {
+                sortColumns = "discount_dsc";
+            }
+            isFilterEnabled = true;
+        }
+
+        if(isNotNullOrEmpty(sortColumns)) {
+            params.put("sort", sortColumns);
+        }
+
+        if(isNotNullOrEmpty(subCategories)) {
+            isFilterEnabled = true;
+            params.put("subcategories", subCategories);
+        }
+
+        /*if(homeActivity.doApplyDiscount) {
             isFilterEnabled = true;
             params.put("min_discount", String.valueOf(homeActivity.minDiscount));
             params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
-        }
+        }*/
 
         final String KEY = PREFIX_DEALS.concat(category);
         final String UPDATE_KEY = KEY.concat("_UPDATE");
