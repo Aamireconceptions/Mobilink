@@ -65,6 +65,14 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
         holder.tvKeyword.setText(item.keyword);
         holder.tvResultCount.setText(results);
 
+        holder.tvResultCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeActivity.executeSearchTask(item.keyword);
+                mActivity.onBackPressed();
+            }
+        });
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
