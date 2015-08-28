@@ -84,6 +84,8 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
 
         Favorite.clearFavorites();
 
+        CategoryUtils.subCategories.clear();
+
         changeLocale();
 
     }
@@ -100,6 +102,8 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
 
     private void changeLocale() {
         updateConfiguration(activity, lang);
+
+        CategoryUtils.setUpSubCategories(activity);
 
         activity.recreate();
     }

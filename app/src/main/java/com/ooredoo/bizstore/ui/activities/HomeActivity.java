@@ -162,6 +162,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        CategoryUtils.setUpSubCategories(this);
+
         String language = SharedPrefUtils.getStringVal(this, APP_LANGUAGE);
 
         if(StringUtils.isNotNullOrEmpty(language)) {
@@ -340,6 +342,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         rangeSeekBar.setEnabled(false);
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
 
+        CategoryUtils.subCategories.clear();
+        CategoryUtils.setUpSubCategories(this);
         subCategoryChangeListener = new SubCategoryChangeListener(this);
 
         resetFilters();
@@ -351,7 +355,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvRating3.setSelected(false);
         tvRating4.setSelected(false);
         tvRating5.setSelected(false);
-        ((CheckBox) findViewById(R.id.cb_highest_discount)).setChecked(doApplyDiscount);
+        CheckBox discountCheckBox = (CheckBox) findViewById(R.id.cb_highest_discount);
+        discountCheckBox.setChecked(doApplyDiscount);
+        discountCheckBox.setText(getString(R.string.sort_discount));
     }
 
     private void registeredWithGcmIfRequired()
