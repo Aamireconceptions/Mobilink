@@ -265,9 +265,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         acSearch.setOnEditorActionListener(this);
     }
 
+    public static Toolbar toolbar;
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         mActionBar = getSupportActionBar();
         mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);

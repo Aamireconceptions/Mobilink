@@ -30,6 +30,7 @@ import com.ooredoo.bizstore.asynctasks.TopMallsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
+import com.ooredoo.bizstore.listeners.PromoOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.SliderOnTouchListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -164,7 +165,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private void initAndLoadPromotions(View v) {
         List<GenericDeal> deals = new ArrayList<>();
 
+        PromoOnPageChangeListener pageChangeListener = new PromoOnPageChangeListener(swipeRefreshLayout);
+
         promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
+        promoPager.addOnPageChangeListener(pageChangeListener);
 
         pbPromo = (ProgressBar) v.findViewById(R.id.promo_progress);
 

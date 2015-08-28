@@ -30,7 +30,7 @@ public class SliderUtils
 
     public int count;
 
-    private final static int DELAY = 10 * 1000;
+    private final static int DELAY = 5 * 1000;
 
     private final static int PERIOD = 3 * 1000;
 
@@ -70,6 +70,9 @@ public class SliderUtils
                                     String tag = (String) imageView.getTag();
 
                                     if (imageView != null && tag != null && tag.equals("loaded")) {
+
+                                        Logger.print("ViewPager setCurrentItem to pos: "+pos);
+
                                         viewPager.setCurrentItem(pos, true);
                                     } else {
                                         Logger.print("Images: Not Loaded");
@@ -110,6 +113,7 @@ public class SliderUtils
                                     String tag = (String) imageView.getTag();
 
                                     if (imageView != null && tag != null && tag.equals("loaded")) {
+                                        Logger.print("ViewPager setCurrentItem to pos: "+pos);
                                         viewPager.setCurrentItem(pos, true);
                                     } else {
                                         pos--;

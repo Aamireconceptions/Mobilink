@@ -24,6 +24,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AbsListView;
 
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Logger;
+
 /**
  * Created by Babar on 06-Aug-15.
  */
@@ -77,6 +80,7 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout
     {
         if(mSwipeableChildrens != null && mSwipeableChildrens.length > 0)
         {
+            Logger.print("Toolbar scaleY: "+ HomeActivity.toolbar.getScaleY());
             // Iterate through the scrollable children and check if any of them can not scroll up
             for(View view : mSwipeableChildrens)
             {
