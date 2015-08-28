@@ -77,6 +77,7 @@
     <string name="jokes">نكت</string>
     <string name="new_deals">العروض الجديدة</string>
     <string name="popular_deals">العروض الرائجة</string>
+    <string name="error_search_term">يرجى تقديم مصطلح البحث</string>
     <string name="error_no_internet">لايوجد اتصال مع الإنترنت</string>
     <string name="rate_us">قيمنا على بلايستور</string>
     <string name="English">English</string>

@@ -692,8 +692,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private void performSearch(AutoCompleteTextView v) {
         if(hasInternetConnection(this)) {
             String keyword = v.getText().toString();
-            Logger.print("SEARCH_KEYWORD: " + keyword);
-            new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
+            if(isNotNullOrEmpty(keyword)) {
+                Logger.print("SEARCH_KEYWORD: " + keyword);
+                new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
+            } else {
+                makeText(acSearch.getContext(), getString(R.string.error_search_term), LENGTH_SHORT).show();
+            }
         } else {
             makeText(getApplicationContext(), getString(R.string.error_no_internet), LENGTH_SHORT).show();
         }

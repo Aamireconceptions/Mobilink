@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/_175sdp"
+              android:layout_height="@dimen/_180sdp"
     android:background="@drawable/grid_white_bg">
 
     <RelativeLayout
@@ -48,8 +48,19 @@
             android:layout_height="wrap_content"
             android:text="Wedding Formal Dess"
             android:textSize="13sp"
-            android:lines="2"
-            android:maxLines="2"
+            android:lines="1"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Wedding Formal Dess"
+            android:textSize="13sp"
+            android:lines="1"
+            android:maxLines="1"
             android:ellipsize="end"/>
 
         <TextView

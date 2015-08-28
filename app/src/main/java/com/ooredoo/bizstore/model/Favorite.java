@@ -151,26 +151,27 @@ public class Favorite extends Model {
 
     public static void updateFavorite(Favorite favorite) {
         if(favorite != null && favorite.id > 0) {
-            Favorite favDeal = new Favorite();
+            Favorite fav = new Favorite();
             List<Favorite> favorites = new Select().all().from(Favorite.class).where("itemId=" + favorite.id).execute();
             if(favorites != null && favorites.size() > 0) {
-                favDeal = favorites.get(0);
+                fav = favorites.get(0);
             }
-            favDeal.id = favorite.id;
-            favDeal.city = favorite.city;
-            favDeal.description = favorite.description;
-            favDeal.type = favorite.type;
-            favDeal.views = favorite.views;
-            favDeal.title = favorite.title;
-            favDeal.rating = favorite.rating;
-            favDeal.category = favorite.category;
-            favDeal.discount = favorite.discount;
-            favDeal.isFavorite = favorite.isFavorite;
-            favDeal.description = favorite.description;
-            favDeal.address = favorite.address;
-            favDeal.contact = favorite.contact;
+            fav.isBusiness = favorite.isBusiness;
+            fav.id = favorite.id;
+            fav.city = favorite.city;
+            fav.description = favorite.description;
+            fav.type = favorite.type;
+            fav.views = favorite.views;
+            fav.title = favorite.title;
+            fav.rating = favorite.rating;
+            fav.category = favorite.category;
+            fav.discount = favorite.discount;
+            fav.isFavorite = favorite.isFavorite;
+            fav.description = favorite.description;
+            fav.address = favorite.address;
+            fav.contact = favorite.contact;
             Log.i("UPDATE_FAV_DEAL: " + favorite.id, "---" + favorite.isFavorite);
-            favDeal.save();
+            fav.save();
         }
     }
 }

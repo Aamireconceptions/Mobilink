@@ -212,7 +212,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 Favorite favorite = new Favorite(src);
                 favorite.isBusiness = true;
                 Favorite.updateFavorite(favorite);
-                favorite.save();
             }
         } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
             ratingDialog = showRatingDialog(this, "business", id);

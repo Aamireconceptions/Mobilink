@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.View;
 
+import com.ooredoo.bizstore.AppData;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.LanguageTask;
@@ -13,6 +14,7 @@ import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.ooredoo.bizstore.ui.activities.RecentViewedActivity.clearRecentItems;
@@ -77,6 +79,8 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
         clearCache(activity);
 
         clearRecentItems();
+
+        AppData.predefinedSearches.list = new ArrayList<>();
 
         Favorite.clearFavorites();
 

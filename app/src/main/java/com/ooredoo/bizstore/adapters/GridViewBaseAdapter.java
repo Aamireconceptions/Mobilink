@@ -3,7 +3,6 @@ package com.ooredoo.bizstore.adapters;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,6 +103,7 @@ public class GridViewBaseAdapter extends BaseAdapter
 
             holder.ivThumbnail = (ImageView) grid.findViewById(R.id.thumbnail);
             holder.ivFav = (ImageView) grid.findViewById(R.id.fav);
+            holder.tvDesc = (TextView) grid.findViewById(R.id.desc);
             holder.tvTitle = (TextView) grid.findViewById(R.id.title);
             holder.tvDiscount = (TextView) grid.findViewById(R.id.discount);
             holder.progressBar = (ProgressBar) grid.findViewById(R.id.progress_bar);
@@ -162,6 +162,7 @@ public class GridViewBaseAdapter extends BaseAdapter
         }
 
         holder.tvTitle.setText(deal.title);
+        holder.tvDesc.setText(deal.description);
         holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
         return grid;
@@ -195,7 +196,7 @@ public class GridViewBaseAdapter extends BaseAdapter
     {
         ImageView ivThumbnail, ivFav;
 
-        TextView tvTitle, tvDiscount;
+        TextView tvTitle, tvDiscount, tvDesc;
 
         ProgressBar progressBar;
     }

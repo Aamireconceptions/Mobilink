@@ -77,6 +77,7 @@
     <string name="jokes">Jokes</string>
     <string name="new_deals">New Deals</string>
     <string name="popular_deals">Popular Deals</string>
+    <string name="error_search_term">Please provide search term</string>
     <string name="error_no_internet">No Internet Connection</string>
     <string name="rate_us">Rate Us on Playstore</string>
     <string name="English">English</string>
