@@ -36,6 +36,8 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
+import java.io.IOException;
+
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
@@ -91,6 +93,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     @Override
     public void init() {
+
+        diskCache.requestInit(this);
+
         setupToolbar();
 
         handleIntentFilter();
@@ -102,7 +107,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Logger.logI("DEAL_DETAIL", "onNewIntent");
+        Logger.print("DEAL_DETAIL: onNewIntent");
 
         setIntent(intent);
 
@@ -111,6 +116,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     private void handleIntentFilter() {
         Intent intent = getIntent();
+
+        Logger.print("HandleIntentFilter");
 
         if(intent != null) {
             Uri uri = intent.getData();
@@ -156,7 +163,6 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         category = intent.getStringExtra(CATEGORY);
 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
-        //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
@@ -487,8 +493,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         if(genericDeal != null)
         {
             intent.putExtra("voucher", genericDeal.voucher);
+
+            intent.putExtra("views", ++genericDeal.views);
         }
-        intent.putExtra("views", ++genericDeal.views);
 
         setResult(RESULT_OK, intent);
 

@@ -148,6 +148,7 @@ public class DiskCache
 
         synchronized (mDiskCacheLock)
         {
+            Logger.print("mDiskcachestarting: "+mDiskCacheStarting);
             // Wait while disk cache is started from background thread
             while (mDiskCacheStarting)
             {
