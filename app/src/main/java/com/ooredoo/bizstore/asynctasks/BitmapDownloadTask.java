@@ -121,8 +121,12 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             InputStream inputStream = openStream();
 
-            int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
-            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));
+           /* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
+            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*/
+
+            int width = Integer.parseInt(reqWidth);
+
+            int height = Integer.parseInt(reqHeight);
 
             Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
 

@@ -35,8 +35,11 @@ public class BitmapProcessor
         int width = options.outWidth;
         int height = options.outHeight;
 
-        Logger.print("Actual Width: "+width);
-        Logger.print("Actual Height: " + height);
+        Logger.print("@Req Width: "+reqWidth);
+        Logger.print("@Req Height: " + reqHeight);
+
+        Logger.print("@Actual Width: "+width);
+        Logger.print("@Actual Height: " + height);
 
         int sampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
@@ -52,9 +55,9 @@ public class BitmapProcessor
             width = bitmap.getWidth();
             height = bitmap.getHeight();
 
-            Logger.print("inSample:"+sampleSize);
-            Logger.print("Modified Width: "+width);
-            Logger.print("Modified Height: " + height);
+            Logger.print("@inSample:"+sampleSize);
+            Logger.print("@Modified Width: "+width);
+            Logger.print("@Modified Height: " + height);
         }
 
         return bitmap;
@@ -86,8 +89,11 @@ public class BitmapProcessor
         int width = options.outWidth;
         int height = options.outHeight;
 
-        Logger.print("Actual Width: "+width);
-        Logger.print("Actual Height: " + height);
+        Logger.print("@Req Width: "+reqWidth);
+        Logger.print("@Req Height: " + reqHeight);
+
+        Logger.print("@Actual Width: "+width);
+        Logger.print("@Actual Height: " + height);
 
         int sampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
@@ -101,9 +107,9 @@ public class BitmapProcessor
             width = bitmap.getWidth();
             height = bitmap.getHeight();
 
-            Logger.print("inSample:"+sampleSize);
-            Logger.print("Modified Width: "+width);
-            Logger.print("Modified Height: " + height);
+            Logger.print("@inSample:"+sampleSize);
+            Logger.print("@Modified Width: "+width);
+            Logger.print("@Modified Height: " + height);
         }
 
         return bitmap != null ? rotateBitmapIfNeeded(pathName, bitmap) : null;
