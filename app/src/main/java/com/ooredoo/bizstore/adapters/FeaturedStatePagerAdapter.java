@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
 {
-    private List<GenericDeal> deals;
+    public List<GenericDeal> deals;
 
     private SliderUtils featuredSlider;
 
@@ -48,6 +48,11 @@ public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
         GenericDeal genericDeal = deals.get(position);
 
         return FeaturedFragment.newInstance(genericDeal);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
     @Override

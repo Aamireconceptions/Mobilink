@@ -26,6 +26,8 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
@@ -60,6 +62,9 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     private boolean isRefreshed = false;
 
+    private MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private DiskCache diskCache = DiskCache.getInstance();
     public static SportsAndFitnessFragment newInstance()
     {
         SportsAndFitnessFragment fragment = new SportsAndFitnessFragment();
@@ -151,6 +156,9 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     @Override
     public void onRefresh() {
+        diskCache.remove(adapter.deals);
+
+        memoryCache.remove(adapter.deals);
         isRefreshed = true;
         fetchAndDisplaySportsAndFitness(null);
         isRefreshed = false;

@@ -26,6 +26,8 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
@@ -55,6 +57,10 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     private boolean isRefreshed = false;
+
+    MemoryCache memoryCache = MemoryCache.getInstance();
+
+    DiskCache diskCache = DiskCache.getInstance();
 
     public static TopDealsFragment newInstance() {
         TopDealsFragment fragment = new TopDealsFragment();
@@ -140,10 +146,14 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onRefresh() {
-        isRefreshed = true;
-        loadTopDeals(null);
-        isRefreshed = false;
 
+    diskCache.remove(adapter.deals);
+
+    memoryCache.remove(adapter.deals);
+
+    isRefreshed = true;
+    loadTopDeals(null);
+    isRefreshed = false;
     }
 
     @Override

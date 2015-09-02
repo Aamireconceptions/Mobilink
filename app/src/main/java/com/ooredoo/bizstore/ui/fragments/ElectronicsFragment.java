@@ -27,6 +27,8 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
@@ -56,6 +58,10 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     private boolean isRefreshed = false;
+
+    private MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private DiskCache diskCache = DiskCache.getInstance();
 
     public static ElectronicsFragment newInstance()
     {
@@ -141,6 +147,10 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onRefresh() {
+
+        diskCache.remove(adapter.deals);
+
+        memoryCache.remove(adapter.deals);
         isRefreshed = true;
         fetchAndDisplayElectronics(null);
         isRefreshed = false;

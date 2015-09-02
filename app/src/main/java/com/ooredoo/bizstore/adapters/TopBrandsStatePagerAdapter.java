@@ -17,7 +17,7 @@ import java.util.List;
 public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
 {
     private final static float PAGE_WIDTH = 0.33f;
-    private List<Brand> brands = new ArrayList<>();
+    public List<Brand> brands = new ArrayList<>();
 
     public TopBrandsStatePagerAdapter(FragmentManager fm, List<Brand> brands)
     {
@@ -41,6 +41,11 @@ public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
         Brand brand = brands.get(position);
 
         return TopBrandFragment.newInstance(brand);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
     @Override

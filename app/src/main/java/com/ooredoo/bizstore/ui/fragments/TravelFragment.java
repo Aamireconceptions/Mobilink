@@ -25,6 +25,8 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
@@ -51,6 +53,11 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     private boolean isRefreshed = false;
+
+    private MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private DiskCache diskCache = DiskCache.getInstance();
+
     public static TravelFragment newInstance()
     {
         TravelFragment fragment = new TravelFragment();
@@ -136,6 +143,10 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onRefresh() {
+
+        diskCache.remove(adapter.deals);
+
+        memoryCache.remove(adapter.deals);
         isRefreshed = true;
         fetchAndDisplayTravel(null);
         isRefreshed = false;

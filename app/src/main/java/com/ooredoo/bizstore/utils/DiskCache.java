@@ -2,8 +2,13 @@ package com.ooredoo.bizstore.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.DiskCacheTask;
+import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Mall;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -11,6 +16,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Babar on 12-Aug-15.
@@ -275,14 +282,122 @@ public class DiskCache
         }
     }
 
-    public void requestTearDown()
+    List<GenericDeal> genericDeals = new ArrayList<>();
+
+    public void requestRemove(List<GenericDeal> genericDeals)
     {
-        new DiskCacheTask(this).execute(DiskCacheTask.TEAR_DOWN);
+        this.genericDeals.clear();
+        this.genericDeals.addAll(genericDeals);
+
+        DiskCacheTask diskCacheTask = new DiskCacheTask(diskCache);
+        diskCacheTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, DiskCacheTask.REMOVE);
+    }
+
+    public void remove(List<GenericDeal> genericDeals)
+    {
+        synchronized (mDiskCacheLock)
+        {
+            mDiskCacheStarting = true;
+
+            if (mDiskLruCache != null && !mDiskLruCache.isClosed())
+            {
+                for(GenericDeal genericDeal : genericDeals)
+                {
+                    try
+                    {
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.bannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.detailBannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.featured));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.gridBannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.promotionalUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.logoUrl));
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            mDiskCacheStarting = false;
+        }
+
+        Logger.print("remove: Disk");
+    }
+
+    public void removeBrands(List<Brand> brands)
+    {
+        synchronized (mDiskCacheLock)
+        {
+            mDiskCacheStarting = true;
+
+            if (mDiskLruCache != null && !mDiskLruCache.isClosed())
+            {
+                for(Brand brand : brands)
+                {
+                    try
+                    {
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + brand.image.bannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + brand.image.detailBannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + brand.image.featured));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + brand.image.gridBannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + brand.image.promotionalUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + brand.image.logoUrl));
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            mDiskCacheStarting = false;
+        }
+
+        Logger.print("remove: Done");
+    }
+
+    public void removeMalls(List<Mall> malls)
+    {
+        synchronized (mDiskCacheLock)
+        {
+            mDiskCacheStarting = true;
+
+            if (mDiskLruCache != null && !mDiskLruCache.isClosed())
+            {
+                for(Mall mall : malls)
+                {
+                    try
+                    {
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + mall.image.bannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + mall.image.detailBannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + mall.image.featured));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + mall.image.gridBannerUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + mall.image.promotionalUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + mall.image.logoUrl));
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            mDiskCacheStarting = false;
+        }
+
+        Logger.print("remove: Done");
     }
 
     /**
      * Do not call this method unless you need to explicitly clear disk cache
      */
+    public void requestTearDown()
+    {
+        new DiskCacheTask(this).execute(DiskCacheTask.TEAR_DOWN);
+    }
+
     public final void tearDown()
     {
         synchronized (mDiskCacheLock)

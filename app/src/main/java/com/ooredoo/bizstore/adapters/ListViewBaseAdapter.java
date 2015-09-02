@@ -50,7 +50,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     private int layoutResId;
 
-    private List<GenericDeal> deals;
+    public List<GenericDeal> deals;
 
     private Fragment fragment;
 

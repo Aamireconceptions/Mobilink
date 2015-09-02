@@ -26,7 +26,9 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -55,6 +57,10 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     private boolean isRefreshed = false;
+
+    private MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private DiskCache diskCache = DiskCache.getInstance();
 
     public static JewelleryFragment newInstance()
     {
@@ -143,6 +149,9 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
     @Override
     public void onRefresh() {
+        diskCache.remove(adapter.deals);
+
+        memoryCache.remove(adapter.deals);
         isRefreshed = true;
         fetchAndDisplayJewelry(null);
         isRefreshed = false;

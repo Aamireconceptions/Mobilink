@@ -3,6 +3,13 @@ package com.ooredoo.bizstore.utils;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Mall;
+
+import java.util.List;
+
 /**
  * @author  Babar
  * @since 15-Jun-15.
@@ -65,6 +72,47 @@ public class MemoryCache
     public Bitmap getBitmapFromCache(String key)
     {
         return lruCache.get(key);
+    }
+
+    public void remove(List<GenericDeal> genericDeals)
+    {
+        for(GenericDeal genericDeal : genericDeals)
+        {
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.bannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.detailBannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.featured);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.gridBannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.promotionalUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.logoUrl);
+        }
+
+        Logger.print("remove Memory");
+    }
+
+    public void removeBrands(List<Brand> brands)
+    {
+        for(Brand brand : brands)
+        {
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.bannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.detailBannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.featured);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.gridBannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.promotionalUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.logoUrl);
+        }
+    }
+
+    public void removeMalls(List<Mall> malls)
+    {
+        for(Mall mall : malls)
+        {
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.bannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.detailBannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.featured);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.gridBannerUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.promotionalUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.logoUrl);
+        }
     }
 
     public void tearDown()

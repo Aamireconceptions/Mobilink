@@ -89,7 +89,7 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
 
             String url = BaseAsyncTask.IMAGE_BASE_URL + imgUrl;
 
-            Logger.logE("FRAGMENT URL:", url);
+            Logger.print("FRAGMENT URL:"+ url);
 
             bitmap = memoryCache.getBitmapFromCache(url);
 

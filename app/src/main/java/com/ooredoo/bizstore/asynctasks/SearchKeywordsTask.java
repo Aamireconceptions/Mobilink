@@ -47,7 +47,7 @@ public class SearchKeywordsTask extends BaseAsyncTask<Void, Void, String> {
             try {
                 AppData.predefinedSearches = new Gson().fromJson(result, PredefinedSearches.class);
 
-                if(AppData.predefinedSearches.list == null)
+                if(AppData.predefinedSearches != null && AppData.predefinedSearches.list == null)
                     AppData.predefinedSearches.list = new ArrayList<>();
 
                 Logger.logI("SUGGESTIONS_COUNT", String.valueOf(AppData.predefinedSearches.list.size()));

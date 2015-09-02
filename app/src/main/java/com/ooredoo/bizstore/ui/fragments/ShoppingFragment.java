@@ -24,6 +24,8 @@ import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 import com.ooredoo.bizstore.views.HeaderGridView;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
@@ -64,6 +66,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     private DealGridOnItemClickListener dealGridOnItemClickListener;
 
     private boolean isRefreshed = false;
+
+    private MemoryCache memoryCache = MemoryCache.getInstance();
+
+    private DiskCache diskCache = DiskCache.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
@@ -153,6 +159,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onRefresh() {
+        memoryCache.remove(adapter.deals);
+
+        diskCache.remove(adapter.deals);
+
         isRefreshed = true;
         loadDeals(null);
         isRefreshed = false;

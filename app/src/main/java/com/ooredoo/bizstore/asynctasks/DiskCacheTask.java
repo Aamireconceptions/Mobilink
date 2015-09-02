@@ -27,6 +27,8 @@ public class DiskCacheTask extends BaseAsyncTask<Integer, Void, Void>
 
     public static final int TEAR_DOWN = 4;
 
+    public static final int REMOVE = 5;
+
     public DiskCacheTask(DiskCache diskCache)
     {
         this.diskCache = diskCache;
@@ -69,6 +71,12 @@ public class DiskCacheTask extends BaseAsyncTask<Integer, Void, Void>
             case TEAR_DOWN:
 
                 diskCache.tearDown();
+
+                break;
+
+            case REMOVE:
+
+                //diskCache.remove();
 
                 break;
         }

@@ -37,11 +37,14 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.MyScroller;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.utils.SliderUtils;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +74,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private SwipeRefreshLayout swipeRefreshLayout;
 
     boolean isRefreshed = false;
+
+    MemoryCache memoryCache = MemoryCache.getInstance();
+
+    DiskCache diskCache = DiskCache.getInstance();
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -384,6 +391,17 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onRefresh() {
+        diskCache.remove(featuredAdapter.deals);
+        diskCache.remove(promoAdapter.deals);
+        diskCache.remove(listAdapter.deals);
+        diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
+        diskCache.removeMalls(topMallsAdapter.malls);
+
+        memoryCache.remove(featuredAdapter.deals);
+        memoryCache.remove(promoAdapter.deals);
+        memoryCache.remove(listAdapter.deals);
+        memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
+        memoryCache.removeMalls(topMallsAdapter.malls);
 
         isRefreshed = true;
 

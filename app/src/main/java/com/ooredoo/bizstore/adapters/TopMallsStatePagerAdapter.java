@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class TopMallsStatePagerAdapter extends FragmentStatePagerAdapter
 {
-    private List<Mall> malls;
+    public List<Mall> malls;
 
     private final static float PAGE_WIDTH = 0.33f;
 
@@ -43,6 +43,11 @@ public class TopMallsStatePagerAdapter extends FragmentStatePagerAdapter
                                            mall.image.logoUrl);*/
 
         return TopMallFragment.newInstance(mall);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
     @Override
