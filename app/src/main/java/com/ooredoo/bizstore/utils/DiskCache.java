@@ -35,8 +35,6 @@ public class DiskCache
 
     private BitmapProcessor bitmapProcessor;
 
-
-
     private static final int DISK_CACHE_INDEX = 0;
 
     public static boolean mDiskCacheStarting = true;
@@ -93,6 +91,11 @@ public class DiskCache
         }
     }
 
+    /**
+     * Save the bitmap to disk cache. Due to disk access this method shouldn't be called from UI Thread.
+     * @param key the key for the bitmap to save against i.e img_url
+     * @param value bitmap
+     */
     public void addBitmapToDiskCache(final String key, final Bitmap value) {
         if (key == null || value == null) {
             return;

@@ -33,7 +33,8 @@ public class MyFavoritesActivity extends AppCompatActivity {
 
         Select select = new Select();
 
-        List<Favorite> favorites = select.all().from(Favorite.class).where("isFavorite = 1").execute();
+        List<Favorite> favorites = select.all().from(Favorite.class).where("isFavorite = 1")
+                .orderBy("id DESC").execute();
 
         FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.favorite_item, favorites);
 

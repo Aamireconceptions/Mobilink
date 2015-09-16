@@ -43,7 +43,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
     private void init() {
         setupToolbar();
 
-        List<RecentItem> recentItems = new Select().all().from(RecentItem.class).execute();
+        List<RecentItem> recentItems = new Select().all().from(RecentItem.class).orderBy("id DESC").execute();
 
         mListView = (ListView) findViewById(R.id.list_view);
 
