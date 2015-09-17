@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author  Babar
@@ -37,6 +39,8 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     private DiskCache diskCache = DiskCache.getInstance();
 
     private URL url;
+
+    public static List<String> downloadingPool = new ArrayList<>();
 
     public BitmapDownloadTask(ImageView imageView, ProgressBar progressBar)
     {
@@ -70,9 +74,14 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         showProgress(View.GONE);
 
+        if(downloadingPool.remove(imgUrl));
+        {
+            Logger.print("x3 " + imgUrl + " removed from pool");
+        }
+
         if(bitmap != null)
         {
-            Logger.print("Downloaded: " + imgUrl);
+            Logger.print("x3 Downloaded: " + imgUrl);
 
             memoryCache.addBitmapToCache(imgUrl, bitmap);
 
@@ -102,6 +111,22 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 cancel(true);
             }
 
+            if(BizStore.forceStopTasks)
+            {
+                Logger.print("Force stopped bitmap download task");
+
+                return null;
+            }
+
+            for(String url : downloadingPool)
+            {
+                if(url.equals(imgUrl))
+                {
+                    Logger.print("x3 Image Download alreay in progress");
+                    cancel(true);
+                }
+            }
+
             if(isCancelled())
             {
                 Logger.print("isCancelled: true");
@@ -109,12 +134,9 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 return null;
             }
 
-            if(BizStore.forceStopTasks)
-            {
-                Logger.print("Force stopped bitmap download task");
+            Logger.print("x3 " + imgUrl + " added to pool");
 
-                return null;
-            }
+            downloadingPool.add(imgUrl);
 
             Logger.print("Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);

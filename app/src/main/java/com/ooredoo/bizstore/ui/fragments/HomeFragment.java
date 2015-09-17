@@ -43,6 +43,7 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.MyScroller;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.utils.SliderUtils;
+import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -71,7 +72,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private SliderUtils promoSlider, featuredSlider;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     boolean isRefreshed = false;
 
@@ -98,9 +99,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         activity = (HomeActivity) getActivity();
         activity.setCurrentFragment(this);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.home_list_view, R.id.empty_view, R.id.appBarLayout);
 
         ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 

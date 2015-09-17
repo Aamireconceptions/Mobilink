@@ -49,6 +49,7 @@ import com.ooredoo.bizstore.adapters.PredefinedSearchesAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
@@ -275,7 +276,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         mActionBar = getSupportActionBar();
         mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -776,6 +776,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         memoryCache.tearDown();
 
         diskCache.requestClose();
+
+        BitmapDownloadTask.downloadingPool.clear();
 
         Logger.print("HomeActivity onDestroy");
 

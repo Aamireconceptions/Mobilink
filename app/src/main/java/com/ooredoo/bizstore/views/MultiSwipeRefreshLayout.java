@@ -87,6 +87,7 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout
             {
                 AppBarLayout appBarLayout = HomeActivity.appBarLayout;
 
+                Logger.print("AppBar: "+HomeActivity.appBarLayout);
                 if(view != null && view.isShown() && !canViewScrollUp(view)
                         && (appBarLayout != null && appBarLayout.getTop() == 0))
                 {

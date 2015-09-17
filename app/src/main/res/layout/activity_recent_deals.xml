@@ -22,7 +22,7 @@
         android:layout_height="38dp"
         android:visibility="gone"
         android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="10dp"
         android:background="@drawable/bg_red_rad5"
         android:gravity="center"

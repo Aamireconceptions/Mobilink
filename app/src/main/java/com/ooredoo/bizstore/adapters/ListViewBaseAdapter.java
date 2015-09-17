@@ -318,11 +318,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
                                     new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
 
                             bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                    String.valueOf(reqWidth), String.valueOf(reqHeight));
+                                            String.valueOf(reqWidth), String.valueOf(reqHeight));
                         }
                     });
-
-
 
                    // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
                 }
