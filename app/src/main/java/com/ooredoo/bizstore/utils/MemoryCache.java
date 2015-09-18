@@ -69,6 +69,11 @@ public class MemoryCache
         }
     }
 
+    public void removeBitmapFromCache(String key)
+    {
+        lruCache.remove(key);
+    }
+
     public Bitmap getBitmapFromCache(String key)
     {
         return lruCache.get(key);

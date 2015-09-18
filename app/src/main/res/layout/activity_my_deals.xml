@@ -26,6 +26,10 @@
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:divider="@null"
+        android:dividerHeight="@dimen/_3sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:layout_below="@+id/toolbar"/>
 
 </RelativeLayout>

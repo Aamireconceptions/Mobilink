@@ -14,7 +14,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
-import com.ooredoo.bizstore.ui.activities.MyDealsActivity;
+import com.ooredoo.bizstore.ui.activities.MyFavoritesActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.ResourceUtils;
@@ -119,7 +119,7 @@ public class FavoriteDealsAdapter extends ArrayAdapter<Favorite> {
                 deal.save();
                 deals.remove(deal);
                 notifyDataSetChanged();
-                ((MyDealsActivity) mActivity).toggleEmptyView(getCount());
+                ((MyFavoritesActivity) mActivity).toggleEmptyView(getCount());
             }
         });
 

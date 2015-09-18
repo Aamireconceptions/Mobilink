@@ -2,11 +2,15 @@ package com.ooredoo.bizstore.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by Babar on 12-Aug-15.
@@ -47,5 +51,27 @@ public class FileUtils
         final StatFs stats = new StatFs(path.getPath());
 
         return (long) stats.getBlockSize() * (long) stats.getAvailableBlocks();
+    }
+
+    public static void saveBitmap(Bitmap bitmap, String path)
+    {
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(path);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(fileOutputStream != null)
+            {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

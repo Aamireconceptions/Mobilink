@@ -36,7 +36,8 @@ public class MyFavoritesActivity extends AppCompatActivity {
         List<Favorite> favorites = select.all().from(Favorite.class).where("isFavorite = 1")
                 .orderBy("id DESC").execute();
 
-        FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.favorite_item, favorites);
+        //FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.favorite_item, favorites);
+        FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.list_deal_promotional, favorites);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);

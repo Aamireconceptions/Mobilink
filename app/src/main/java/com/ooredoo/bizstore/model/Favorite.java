@@ -65,6 +65,16 @@ public class Favorite extends Model {
     @Column(name = "isBusiness")
     public boolean isBusiness;
 
+    @Column(name = "banner")
+    public String banner;
+
+    @Column(name = "detail_banner")
+    public String detailBanner;
+
+    public boolean isFav;
+
+
+
     public Favorite() {
     }
 
@@ -88,6 +98,10 @@ public class Favorite extends Model {
         this.discount = deal.discount;
         this.category = deal.category;
         this.description = deal.description;
+        this.banner = deal.image != null ? deal.image.bannerUrl : null;
+        this.detailBanner = deal.image != null ? deal.image.detailBannerUrl : null;
+
+        this.isFav = true;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }
 
@@ -170,6 +184,8 @@ public class Favorite extends Model {
             fav.description = favorite.description;
             fav.address = favorite.address;
             fav.contact = favorite.contact;
+            fav.banner = favorite.banner;
+            fav.detailBanner = favorite.detailBanner;
             Log.i("UPDATE_FAV_DEAL: " + favorite.id, "---" + favorite.isFavorite);
             fav.save();
         }

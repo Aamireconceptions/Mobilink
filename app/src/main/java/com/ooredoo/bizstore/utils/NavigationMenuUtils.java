@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.utils;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
 import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
@@ -181,12 +183,12 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         if(bitmap != null) {
             profilePicture.setImageBitmap(bitmap);
         } else {
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
+           // ExecutorService executorService = Executors.newSingleThreadExecutor();
             int width = (int) Converter.convertDpToPixels(100);
             int height = width;
             ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
-            BitmapDownloadTask bitmapTask = new BitmapDownloadTask(profilePicture, progressBar);
-            bitmapTask.executeOnExecutor(executorService, PROFILE_PIC_URL, valueOf(width), valueOf(height));
+            ProfilePicDownloadTask bitmapTask = new ProfilePicDownloadTask(profilePicture, progressBar);
+            bitmapTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
         }
     }
 

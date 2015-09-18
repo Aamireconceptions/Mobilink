@@ -58,11 +58,11 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".ui.activities.HomeActivity"
             android:windowSoftInputMode="stateAlwaysHidden|"/>
-        <activity
+       <!-- <activity
             android:name=".ui.activities.MyDealsActivity"
             android:label="@string/my_deals"
             android:screenOrientation="portrait"
-            android:parentActivityName=".ui.activities.HomeActivity"/>
+            android:parentActivityName=".ui.activities.HomeActivity"/>-->
         <activity
             android:name=".ui.activities.MyFavoritesActivity"
             android:label="@string/my_favorites"

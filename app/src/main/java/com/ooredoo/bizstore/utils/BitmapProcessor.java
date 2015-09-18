@@ -78,7 +78,7 @@ public class BitmapProcessor
 
     }
 
-    public Bitmap decodeSampledBitmapFromFile(String pathName, int reqWidth, int reqHeight) throws IOException {
+    public  Bitmap decodeSampledBitmapFromFile(String pathName, int reqWidth, int reqHeight) throws IOException {
         Bitmap bitmap;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -131,7 +131,7 @@ public class BitmapProcessor
             // Calculate the largest inSampleSize value that is a power of 2 and keeps both
             // height and width larger than the requested height and width.
             while ((halfWidth / inSampleSize) > requiredWidth
-                                    &&
+                                    ||
                     (halfHeight / inSampleSize) > requiredHeight)
             {
                 inSampleSize *= 2;

@@ -35,10 +35,10 @@ public class MyDealsActivity extends AppCompatActivity {
 
         List<Favorite> favorites = select.all().from(Favorite.class).where("isFavorite = 1").execute();
 
-        FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.list_item_deal, favorites);
+      //  FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.list_item_deal, favorites);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
 
         toggleEmptyView(favorites.size());
     }

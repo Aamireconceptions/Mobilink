@@ -109,7 +109,10 @@ public class GenericDeal implements Serializable{
         this.contact = fav.contact;
         this.discount = fav.discount;
         this.category = fav.category;
-
+        Image image = new Image();
+        image.bannerUrl = fav.banner;
+        image.detailBannerUrl = fav.detailBanner;
+        this.image = image;
         //this.isFav = result.isFavorite;
         this.description = fav.description;
         //this.endDate = fav.endDate;

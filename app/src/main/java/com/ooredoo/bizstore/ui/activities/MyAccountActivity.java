@@ -2,12 +2,15 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -24,10 +27,15 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
 import com.ooredoo.bizstore.asynctasks.UpdateAccountTask;
+import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.FileUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +60,7 @@ import static java.lang.String.valueOf;
  */
 public class MyAccountActivity extends BaseActivity implements View.OnClickListener {
 
-    boolean hasUserSelectedPic, canEditDp, canEditName;
+    boolean hasUserSelectedPic, canEditDp = true, canEditName;
 
     EditText etName, etNumber;
 
@@ -61,8 +69,11 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     public MyAccountActivity() {
         super();
         layoutResId = R.layout.activity_my_account;
+
+        bitmapProcessor = new BitmapProcessor();
     }
 
+    ImageView ivEdit;
     @Override
     public void init() {
         setupToolbar();
@@ -85,20 +96,22 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
         if(bitmap != null) {
-            Bitmap rotatedBitmap = bitmap;
+
+            ivProfilePic.setImageBitmap(bitmap);
+            /*Bitmap rotatedBitmap = bitmap;
             try {
                 rotatedBitmap = rotateBitmapIfNeeded(PROFILE_PIC_URL, bitmap);
             } catch(IOException ioe) {
                 ioe.printStackTrace();
             }
-            ivProfilePic.setImageBitmap(rotatedBitmap);
+            ivProfilePic.setImageBitmap(rotatedBitmap);*/
         } else {
-            int width = (int) convertDpToPixels(225);
+            int width = (int) convertDpToPixels(200);
             int height = width;
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
-            BitmapDownloadTask bitmapTask = new BitmapDownloadTask(ivProfilePic, progressBar);
-            bitmapTask.executeOnExecutor(executorService, PROFILE_PIC_URL, valueOf(width), valueOf(height));
+            //ExecutorService executorService = Executors.newSingleThreadExecutor();
+            ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(ivProfilePic, progressBar);
+            profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
         }
     }
 
@@ -133,9 +146,10 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             }
 
         } else if(viewId == R.id.iv_edit_dp) {
-            canEditDp = !canEditDp;
-            ImageView ivEdit = (ImageView) v;
-            ivEdit.setImageResource(canEditDp ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
+           // canEditDp = !canEditDp;
+            ivEdit = (ImageView) v;
+            ivEdit.setImageResource(R.drawable.ic_edit_white);
+            //ivEdit.setImageResource(canEditDp ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
             if(canEditDp) {
                 takePicture();
             } else {
@@ -150,10 +164,25 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     }
 
     int rotation = 0;
-    String path = "/storage/emulated/0/obs_user_dp.png";
+    String path;
 
+    BitmapProcessor bitmapProcessor;
     public void takePicture() {
         rotation = 0;
+
+        //"/storage/emulated/0/obs_user_dp.png";
+
+        File dir = FileUtils.getDiskCacheDir(this, "profile_pic");
+
+        if(!dir.exists())
+        {
+            dir.mkdir();
+        }
+
+        path = dir.getPath() + "/" + "user_dp.jpg";
+
+        Logger.print("dp: "+path);
+
         Log.i("camera", "startCameraActivity()");
         File file = new File(path);
         Uri outputFileUri = Uri.fromFile(file);
@@ -163,15 +192,16 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         startActivityForResult(intent, 1);
     }
 
+    Bitmap bitmap;
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
         super.onActivityResult(requestCode, resultCode, intent);
 
         Log.i("RequestCode: " + requestCode, "resultCode: " + resultCode);
 
-        hasUserSelectedPic = true;
+        //hasUserSelectedPic = true;
 
-        if(resultCode == RESULT_OK && null != intent) {
+        /*if(resultCode == RESULT_OK && null != intent) {
 
             Uri selectedImage = intent.getData();
 
@@ -219,7 +249,47 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                     processImage();
                     break;
             }
+        }*/
+
+        if(resultCode == RESULT_OK)
+        {
+            Resources res= getResources();
+
+            try {
+                hasUserSelectedPic = true;
+                canEditDp = false;
+                ivEdit.setImageResource(R.drawable.ic_done_white);
+                bitmap = bitmapProcessor.decodeSampledBitmapFromFile(path,
+                        (int)Converter.convertDpToPixels(200),
+                        (int)Converter.convertDpToPixels(200));
+
+                FileUtils.saveBitmap(bitmap, path);
+
+                ivProfilePic.setImageBitmap(bitmap);
+                profilePicture.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
+        else
+        {
+            ivEdit.setImageResource(R.drawable.ic_edit_white);
+            canEditDp = true;
+
+            hasUserSelectedPic = false;
+        }
+
+       /* switch(resultCode) {
+            case 0:
+                hasUserSelectedPic = false;
+                Log.i("SonaSys", "User cancelled");
+                break;
+            case -1:
+                processImage();
+                break;
+        }*/
     }
 
     private void processImage() {
@@ -235,10 +305,10 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }
 
         // decode with inSampleSize
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap, rotatedBitmap.getWidth(), height, true);
+        //Bitmap scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap, rotatedBitmap.getWidth(), height, true);
 
-        ivProfilePic.setImageBitmap(scaledBitmap);
-        profilePicture.setImageBitmap(scaledBitmap);
+        ivProfilePic.setImageBitmap(rotatedBitmap);
+        profilePicture.setImageBitmap(rotatedBitmap);
 
         //cropImage();
     }
@@ -280,9 +350,17 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     public void updateProfilePicture() {
 
         MemoryCache memoryCache = MemoryCache.getInstance();
-        memoryCache.tearDown();
+        memoryCache.removeBitmapFromCache(PROFILE_PIC_URL);
 
-        loadPicture();
+        memoryCache.addBitmapToCache(PROFILE_PIC_URL, bitmap);
+
+        int reqWidth = (int) convertDpToPixels(200);
+        int reqHeight = reqWidth;
+        ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(profilePicture, null);
+        profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL,
+                valueOf(reqWidth), valueOf(reqHeight));
+
+        /*loadPicture();
 
         Bitmap dpBitmap = memoryCache.getBitmapFromCache(PROFILE_PIC_URL);
 
@@ -294,7 +372,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(profilePicture, null);
             bitmapDownloadTask.executeOnExecutor(executorService, PROFILE_PIC_URL, valueOf(reqWidth), valueOf(reqHeight));
-        }
+        }*/
     }
 
     public Bitmap decodeFile(String path) {
@@ -368,5 +446,9 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         } catch(IOException ioe) {
             return null;
         }
+    }
+
+    public void showMessage() {
+        new SnackBarUtils(this, ivProfilePic).showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
     }
 }
