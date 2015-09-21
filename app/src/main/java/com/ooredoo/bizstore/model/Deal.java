@@ -62,6 +62,12 @@ public class Deal extends Model {
     @Column(name = "isFavorite")
     public boolean isFavorite;
 
+    @Column(name = "banner")
+    public String banner;
+
+    @Column(name = "detail_banner")
+    public String detailBanner;
+
     public Deal() {
     }
 
@@ -85,6 +91,8 @@ public class Deal extends Model {
         this.discount = deal.discount;
         this.category = deal.category;
         this.description = deal.description;
+        this.banner = deal.image != null ? deal.image.bannerUrl : null;
+        this.detailBanner = deal.image != null ? deal.image.detailBannerUrl : null;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }
 

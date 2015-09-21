@@ -63,7 +63,7 @@ public class Favorite extends Model {
     public boolean isFavorite;
 
     @Column(name = "isBusiness")
-    public boolean isBusiness;
+    public int isBusiness = 0;
 
     @Column(name = "banner")
     public String banner;
@@ -130,6 +130,8 @@ public class Favorite extends Model {
         this.category = "";
         this.isFavorite = business.isFavorite;
         this.description = business.description;
+        this.banner = business.image != null ? business.image.bannerUrl : null;
+        this.detailBanner = business.image != null ? business.image.detailBannerUrl : null;
         Logger.logI("FAV_BUSINESS: " + business.id, String.valueOf(business.isFavorite));
     }
 

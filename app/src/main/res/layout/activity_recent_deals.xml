@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
-    <Button
+    <!--<Button
         android:id="@+id/btn_clear"
         android:layout_width="100dp"
         android:layout_height="38dp"
@@ -29,12 +29,16 @@
         android:text="@string/Clear_All"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textStyle="bold"/>-->
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_clear"/>
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:divider="@null"
+        android:dividerHeight="@dimen/_6sdp"
+        android:layout_below="@+id/toolbar"/>
 
 </RelativeLayout>

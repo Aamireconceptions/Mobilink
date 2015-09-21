@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,6 +42,26 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         init();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_recent_viewed, menu);
+
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.clear)
+        {
+            clearRecentDeals();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void init() {
         setupToolbar();
 
@@ -47,17 +69,17 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
 
         mListView = (ListView) findViewById(R.id.list_view);
 
-        mAdapter = new RecentItemsAdapter(this, R.layout.recent_item, recentItems);
+        mAdapter = new RecentItemsAdapter(this, R.layout.list_deal_promotional, recentItems);
 
         mListView.setAdapter(mAdapter);
 
         int count = recentItems.size();
 
         toggleEmptyView(count);
-
+/*
         btnClearAll = (Button) findViewById(R.id.btn_clear);
         btnClearAll.setOnClickListener(this);
-        btnClearAll.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
+        btnClearAll.setVisibility(count == 0 ? View.GONE : View.VISIBLE);*/
     }
 
     private void toggleEmptyView(int count) {
@@ -101,7 +123,6 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         clearRecentItems();
         mAdapter.clear();
         toggleEmptyView(0); //0 => NO_RECENT_VIEWED
-        btnClearAll.setVisibility(View.GONE);
     }
 
     public static void clearRecentItems() {
@@ -181,6 +202,8 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.discount = deal.discount;
             rd.address = deal.address;
             rd.contact = deal.contact;
+            rd.banner = deal.banner;
+            rd.detailBanner = deal.detailBanner;
 
             Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();

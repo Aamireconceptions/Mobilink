@@ -8,9 +8,11 @@ import android.widget.AdapterView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
@@ -47,6 +49,10 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
             genericDeal = (GenericDeal) parent.getItemAtPosition(position);
 
             //int dealId = gDeal.id;
+
+            Deal recentDeal = new Deal((GenericDeal) parent.getItemAtPosition(position));
+            RecentViewedActivity.addToRecentViewed(recentDeal);
+            DealDetailActivity.selectedDeal = (GenericDeal) parent.getItemAtPosition(position);
 
             Intent intent = new Intent(activity, DealDetailActivity.class);
             intent.putExtra("generic_deal", genericDeal);

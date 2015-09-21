@@ -9,11 +9,40 @@
         android:background="@color/red"
         android:theme="@style/toolBarTheme"/>
 
-    <!--include
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/filter"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/_8sdp"
         android:layout_below="@+id/toolbar"
-        layout="@layout/layout_filter_header"/-->
+        android:layoutDirection="ltr">
+
+        <Button
+            android:id="@+id/deals"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+
+            android:text="@string/deals"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"
+            android:background="@drawable/bt_tab_style_left_selector"/>
+
+        <Button
+            android:id="@+id/businesses"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_toEndOf="@+id/deals"
+            android:layout_centerVertical="true"
+
+            android:text="@string/businesses"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"
+            android:background="@drawable/bt_tab_style_right_selector"/>
+
+    </RelativeLayout>
 
     <include
         android:id="@+id/no_data_view"
@@ -28,8 +57,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_6sdp"
         android:divider="@null"
-        android:dividerHeight="@dimen/_3sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_below="@+id/toolbar"/>
+        android:dividerHeight="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:layout_below="@+id/filter"/>
 
 </RelativeLayout>

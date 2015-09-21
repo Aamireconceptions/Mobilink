@@ -46,6 +46,12 @@ public class Business  implements Serializable{
         //this.location = recentItem.location;
         this.description = recentItem.description;
 
+        Image image = new Image();
+        image.bannerUrl = recentItem.banner;
+        image.detailBannerUrl = recentItem.detailBanner;
+
+        this.image = image;
+
         //this.image = recentItem.image;
     }
 
@@ -86,6 +92,12 @@ public class Business  implements Serializable{
         this.address = fav.address;
        // this.location = fav.location;
         this.description = fav.description;
+
+        Image image = new Image();
+        image.bannerUrl = fav.banner;
+        image.detailBannerUrl = fav.detailBanner;
+
+        this.image = image;
 
         //this.image = fav.image;
     }

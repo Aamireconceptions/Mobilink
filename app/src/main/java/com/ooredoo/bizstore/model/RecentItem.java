@@ -65,6 +65,11 @@ public class RecentItem extends Model {
     @Column(name = "isBusiness")
     public boolean isBusiness;
 
+    @Column(name = "banner")
+    public String banner;
+
+    @Column(name = "detail_banner")
+    public String detailBanner;
 
 
     public RecentItem() {

@@ -5,18 +5,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.FavoritesAdapter;
+import com.ooredoo.bizstore.listeners.FavoritesFilterOnClickListener;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.utils.FontUtils;
 
 import java.util.List;
 
 public class MyFavoritesActivity extends AppCompatActivity {
+
+    public int isBusiness = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +37,26 @@ public class MyFavoritesActivity extends AppCompatActivity {
 
         setupToolbar();
 
+        FavoritesFilterOnClickListener listener = new FavoritesFilterOnClickListener(this);
+        Button btNewDeals = (Button) findViewById(R.id.deals);
+        btNewDeals.setOnClickListener(listener);
+        listener.setButtonSelected(btNewDeals);
+
+        FontUtils.setFont(this, BizStore.DEFAULT_FONT, btNewDeals);
+
+        Button btPopularDeals = (Button) findViewById(R.id.businesses);
+        btPopularDeals.setOnClickListener(listener);
+
+        FontUtils.setFont(this, BizStore.DEFAULT_FONT, btPopularDeals);
+
+        showFavs();
+    }
+
+    public void showFavs()
+    {
         Select select = new Select();
 
-        List<Favorite> favorites = select.all().from(Favorite.class).where("isFavorite = 1")
+        List<Favorite> favorites = select.all().from(Favorite.class).where("isFavorite = 1 AND isBusiness = "+isBusiness)
                 .orderBy("id DESC").execute();
 
         //FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.favorite_item, favorites);

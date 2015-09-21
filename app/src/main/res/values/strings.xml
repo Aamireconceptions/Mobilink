@@ -221,4 +221,6 @@
     <string name="results">Results</string>
     <string name="respective_outlet">Dear user, you can redeem this discount voucher at the respective outlet.</string>
     <string name="already_redeemed">This voucher code has been already redeemed!</string>
+    <string name="deals">Deals</string>
+    <string name="businesses">Businesses</string>
 </resources>

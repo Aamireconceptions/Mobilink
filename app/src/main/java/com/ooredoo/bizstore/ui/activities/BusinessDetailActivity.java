@@ -210,7 +210,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 v.setSelected(isFavorite);
                 src.isFavorite = isFavorite;
                 Favorite favorite = new Favorite(src);
-                favorite.isBusiness = true;
+                favorite.isBusiness = 1;
                 Favorite.updateFavorite(favorite);
             }
         } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {

@@ -50,6 +50,11 @@ public class GenericDeal implements Serializable{
         this.category = recentItem.category;
         this.isFav = recentItem.isFavorite;
         this.description = recentItem.description;
+        Image image = new Image();
+        image.bannerUrl = recentItem.banner;
+        image.detailBannerUrl = recentItem.detailBanner;
+        this.image = image;
+
         //this.endDate = recentItem.endDate;
        // Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
