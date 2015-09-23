@@ -458,7 +458,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
             listAdapter.notifyDataSetChanged();
 
-
         }
     }
 }

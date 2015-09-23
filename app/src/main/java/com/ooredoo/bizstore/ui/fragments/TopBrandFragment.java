@@ -160,6 +160,7 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
     {
         //activity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[1], id);
 
+        brand.views += 1;
         activity.showBusinessDetailActivity(DEAL_CATEGORIES[1], new Business(brand));
     }
 }

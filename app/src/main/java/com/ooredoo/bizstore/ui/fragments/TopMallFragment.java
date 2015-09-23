@@ -171,6 +171,7 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
     {
         //activity.showDetailActivity(AppConstant.BUSINESS, AppConstant.DEAL_CATEGORIES[6], id);
 
+        mall.views += 1;
         activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
     }
 }

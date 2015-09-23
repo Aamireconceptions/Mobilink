@@ -72,6 +72,7 @@ public class GenericDeal implements Serializable{
         //this.isFav = result.isFavorite;
         this.description = result.description;
         this.endDate = result.endDate;
+        this.image = result.image;
 
        // Logger.logI("DEAL: " + result.id, String.valueOf(deal.isFavorite));
     }

@@ -167,9 +167,10 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
         if(v.getId() == R.id.image_view) {
 
             //activity.showDetailActivity(DEAL, DEAL_CATEGORIES[1], id);
+            genericDeal.views = genericDeal.views + 1;
             activity.showDealDetailActivity(DEAL_CATEGORIES[1], genericDeal);
 
-            genericDeal.views = genericDeal.views + 1;
+
         }
     }
 }

@@ -15,6 +15,8 @@ public class SearchResult {
 
     public float rating;
 
+    String banner, detailBanner;
+
     @SerializedName("images")
     public Image image;
 }

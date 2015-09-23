@@ -348,6 +348,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal)
     {
+        genericDeal.views += 1;
         Intent intent = new Intent();
         intent.setClass(activity, DealDetailActivity.class);
         intent.putExtra("generic_deal", genericDeal);

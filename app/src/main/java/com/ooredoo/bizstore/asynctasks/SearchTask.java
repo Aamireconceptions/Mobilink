@@ -111,5 +111,4 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
 
         return result;
     }
-
 }

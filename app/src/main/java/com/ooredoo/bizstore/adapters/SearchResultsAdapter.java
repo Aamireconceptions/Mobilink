@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.adapters;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
@@ -22,6 +24,7 @@ import com.ooredoo.bizstore.utils.StringUtils;
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.BUSINESS;
+import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static java.lang.String.valueOf;
@@ -98,27 +101,33 @@ public class SearchResultsAdapter extends ArrayAdapter<SearchResult> {
             {
                 RecentViewedActivity.addToRecentViewed(result);
                 Log.i("ITEM", String.valueOf(result.type));
+                result.views += 1;
                 if(isBusiness) {
+
                     BusinessDetailActivity.selectedBusiness = new Business(result);
 
                     //mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], result.id);
-
+                    //showBusinessDetailActivity("", new Business(result));
                     mActivity.showBusinessDetailActivity(DEAL_CATEGORIES[2], new Business(result));
                 } else {
 
                     //mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], result.id);
-
+                    //showDealDetailActivity("", new GenericDeal(result));
                     mActivity.showDealDetailActivity(DEAL_CATEGORIES[0], new GenericDeal(result));
                 }
+
+                notifyDataSetChanged();
             }
         });
 
-        AnimUtils.slideView(mActivity, view, prevItem < position);
+       // AnimUtils.slideView(mActivity, view, prevItem < position);
 
         prevItem = position;
 
         return view;
     }
+
+
 
     private static class Holder {
         View detail;
