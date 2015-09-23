@@ -66,6 +66,8 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    ImageView imageView;
+    ProgressBar progressBar;
     private void initAndLoadTopMalls(View v)
     {
         activity = (HomeActivity) getActivity();
@@ -86,17 +88,16 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         String imgUrl = mall.image.logoUrl;
 
-        ImageView imageView = (ImageView) v.findViewById(R.id.image_view);
+       imageView = (ImageView) v.findViewById(R.id.image_view);
 
         TextView textView = (TextView) v.findViewById(R.id.text_view);
         textView.setText(name);
 
-        ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         if(imgUrl != null)
         {
             Logger.print("imgUrl was NOT null");
-
 
             String url = BaseAsyncTask.IMAGE_BASE_URL + imgUrl;
 
@@ -108,25 +109,9 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
             {
                 fallBackToDiskCache(url);
             }
-
-            if(bitmap != null) {
+            else
+            {
                 imageView.setImageBitmap(bitmap);
-            } else {
-                Logger.print("Root Width:" + v.getWidth());
-
-                Resources resources = activity.getResources();
-
-                int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
-
-                int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._90sdp)
-                        /
-                        resources.getDisplayMetrics().density);
-
-                Logger.print("req Width Pixels:" + reqWidth);
-                Logger.print("req Height Pixels:" + reqHeight);
-
-                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
-                bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
             }
         }
         else
@@ -150,20 +135,51 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
                     Logger.print("dCache found!");
 
                     memoryCache.addBitmapToCache(url, bitmap);
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageView.setImageBitmap(bitmap);
+                            imageView.setTag("loaded");
+                        }
+                    });
+                }
+                else
+                {
+                   // Logger.print("Root Width:" + v.getWidth());
+
+                    Resources resources = activity.getResources();
+
+                    final int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
+
+                    final int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._90sdp)
+                            /
+                            resources.getDisplayMetrics().density);
+
+                    Logger.print("req Width Pixels:" + reqWidth);
+                    Logger.print("req Height Pixels:" + reqHeight);
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
+                            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                        }
+                    });
                 }
             }
         });
 
         thread.start();
 
-        try
+  /*      try
         {
             thread.join();
         }
         catch (InterruptedException e)
         {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override

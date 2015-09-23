@@ -131,7 +131,6 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
                             imageView.setTag("loaded");
                         }
                     });
-
                 }
                 else
                 {

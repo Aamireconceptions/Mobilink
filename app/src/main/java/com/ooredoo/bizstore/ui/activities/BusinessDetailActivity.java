@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -24,6 +25,7 @@ import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -45,6 +47,7 @@ import static java.lang.String.valueOf;
  */
 public class BusinessDetailActivity extends BaseActivity implements OnClickListener {
 
+    Bitmap bitmap;
     public String category;
 
     private ActionBar mActionBar;
@@ -55,6 +58,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     public Business src;
 
+    MemoryCache memoryCache = MemoryCache.getInstance();
+
+    DiskCache diskCache = DiskCache.getInstance();
     public static Business selectedBusiness;
 
     private Dialog ratingDialog;
@@ -136,6 +142,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             populateData(src);
         }
     }
+    ImageView ivDetail;
+
+    ProgressBar progressBar;
 
     public void populateData(Business business) {
         if(business != null) {
@@ -162,9 +171,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             ((TextView) findViewById(R.id.tv_views)).setText(valueOf(business.views));
             findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
-            ImageView ivDetail = (ImageView) findViewById(R.id.detail_img);
+            ivDetail = (ImageView) findViewById(R.id.detail_img);
 
-            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
             String detailImageUrl = null;
 
@@ -179,9 +188,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             {
                 String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + detailImageUrl;
 
-                MemoryCache memoryCache = MemoryCache.getInstance();
 
-                Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+               bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
                 if(bitmap != null)
                 {
@@ -189,16 +198,64 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 }
                 else
                 {
-                    DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
-                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
-                    bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
-                            String.valueOf(displayMetrics.heightPixels / 2));
+                    fallBackToDiskCache(imgUrl);
                 }
             }
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
+    }
+
+    private void fallBackToDiskCache(final String url)
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                bitmap = diskCache.getBitmapFromDiskCache(url);
+
+                Logger.print("dCache getting bitmap from cache");
+
+                if(bitmap != null)
+                {
+                    Logger.print("dCache found!");
+
+                    memoryCache.addBitmapToCache(url, bitmap);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ivDetail.setImageBitmap(bitmap);
+                        }
+                    });
+
+                }
+                else
+                {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
+                        /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
+                                String.valueOf(displayMetrics.heightPixels / 2));*/
+                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                            url, String.valueOf(displayMetrics.widthPixels),
+                                            String.valueOf(displayMetrics.heightPixels / 2));
+                                }
+                            });
+
+                        }
+                    });
+
+                }
+            }
+        });
+
+        thread.start();
     }
 
     @Override
