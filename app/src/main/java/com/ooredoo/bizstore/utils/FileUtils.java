@@ -25,7 +25,7 @@ public class FileUtils
         // otherwise use internal cache dir
 
         final String cachePath =
-                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
+                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) &&
                 !Environment.isExternalStorageRemovable() ? context.getExternalCacheDir().getPath() :
                         context.getCacheDir().getPath();
 

@@ -140,17 +140,23 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
 
                     Resources resources = activity.getResources();
 
-                    int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
+                    final int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
 
-                    int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._140sdp)
+                    final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._140sdp)
                             /
                             resources.getDisplayMetrics().density);
 
                     Logger.print("req Width Pixels:" + reqWidth);
                     Logger.print("req Height Pixels:" + reqHeight);
 
-                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
-                    bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
+                            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                        }
+                    });
+
                 }
             }
         });

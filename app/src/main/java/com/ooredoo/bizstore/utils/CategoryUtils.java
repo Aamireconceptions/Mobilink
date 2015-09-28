@@ -211,7 +211,7 @@ public class CategoryUtils {
     }
 
     public static String getSelectedSubCategories(int category) {
-        Logger.logI("getSelectedSubCategories", "---" + category);
+        Logger.print("getSelectedSubCategories ---" + category);
         String selectedSubCategories = "";
         for(SubCategory s : subCategories) {
             if(s.isSelected) {

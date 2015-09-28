@@ -47,6 +47,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.PredefinedSearchesAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
+import com.ooredoo.bizstore.adapters.SearchBaseAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
@@ -103,7 +104,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public PredefinedSearchesAdapter mPredefinedSearchesAdapter;
 
-    public SearchResultsAdapter mSearchResultsAdapter;
+    public SearchBaseAdapter mSearchResultsAdapter;
 
     public PopupWindow searchPopup;
     public ActionBar mActionBar;
@@ -637,7 +638,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void populateSearchResults(List<SearchResult> searchResultList) {
         if(searchResultList.size() > 0) {
-            mSearchResultsAdapter = new SearchResultsAdapter(this, R.layout.search_result_item, searchResultList);
+
+            mSearchResultsAdapter = new SearchBaseAdapter(this, R.layout.list_deal_promotional, searchResultList);
             mSearchResultsListView.setAdapter(mSearchResultsAdapter);
             mSearchResultsAdapter.setData(searchResultList);
             mSearchResultsAdapter.notifyDataSetChanged();

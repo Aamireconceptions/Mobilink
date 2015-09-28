@@ -105,6 +105,24 @@ public class Favorite extends Model {
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }
 
+    public Favorite(SearchResult result) {
+        this.id = result.id;
+        this.title = result.title;
+        this.views = result.views;
+        this.rating = result.rating;
+        this.contact = result.contact;
+        this.address = result.address;
+        this.isFavorite = result.isFav;
+        this.discount = result.discount;
+        this.category = result.category;
+        this.description = result.description;
+        this.banner = result.image != null ? result.image.bannerUrl : null;
+        this.detailBanner = result.image != null ? result.image.detailBannerUrl : null;
+
+        this.isFav = true;
+        Logger.logI("DEAL: " + result.id, String.valueOf(result.isFav));
+    }
+
     public Favorite(RecentDeal deal) {
         this.id = deal.id;
         this.title = deal.title;

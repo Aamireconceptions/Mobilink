@@ -101,7 +101,7 @@ public class FilterOnClickListener implements View.OnClickListener
                     } else {
                         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
                     }
-                    Logger.logI("CATEGORY", String.valueOf(category));
+                    Logger.print("CATEGORY:"+ String.valueOf(category));
                     CategoryUtils.showSubCategories(activity, category);
                 }
                 break;
@@ -116,11 +116,12 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
 
+
                 String subCategories = CategoryUtils.getSelectedSubCategories(category);
                 DealsTask.subCategories = subCategories;
                 ShoppingTask.subCategories = subCategories;
 
-                Logger.logI("SELECTION", subCategories);
+                Logger.print("SELECTION: "+ subCategories);
 
                 onFilterChangeListener.onFilterChange();
 
