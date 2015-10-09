@@ -27,13 +27,13 @@
             android:text="@string/Salons"
             android:textColor="@color/home_category_item"/>
 
-        <ImageView
+       <!-- <ImageView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_70sdp"
             android:layout_gravity="top"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:src="@drawable/horizontal_separator"/>
+            android:src="@drawable/horizontal_separator"/>-->
 
         <TextView
             android:id="@+id/lodging"
@@ -47,13 +47,13 @@
             android:text="@string/Lodging"
             android:textColor="@color/home_category_item"/>
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_70sdp"
             android:layout_gravity="top"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:src="@drawable/horizontal_separator"/>
+            android:src="@drawable/horizontal_separator"/>-->
 
         <TextView
             android:id="@+id/spas"

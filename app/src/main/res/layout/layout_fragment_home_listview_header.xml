@@ -32,6 +32,8 @@
 
     </RelativeLayout>
 
+
+
     <TextView
         android:id="@+id/hot_deals"
         android:layout_width="match_parent"
@@ -48,6 +50,21 @@
         android:background="@color/home_heading_bg" />
 
     <include layout="@layout/layout_horizontal_top_deals" />
+
+    <TextView
+        android:id="@+id/featured_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingStart="@dimen/_18sdp"
+        android:paddingEnd="@dimen/_18sdp"
+        android:text="@string/featured_deals"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+
+        android:textColor="@color/home_heading_text"
+        android:background="@color/home_heading_bg" />
 
     <RelativeLayout
         android:layout_width="match_parent"

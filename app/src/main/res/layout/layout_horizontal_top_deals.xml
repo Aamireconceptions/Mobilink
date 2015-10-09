@@ -26,60 +26,66 @@
             android:text="@string/entertainment"
             android:textColor="@color/home_category_item"/>
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_60sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:src="@drawable/horizontal_separator"/>
+            android:src="@drawable/horizontal_separator"/>-->
 
         <TextView
             android:id="@+id/shopping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
             android:gravity="center"
-            android:layout_marginStart="@dimen/_1sdp"
+
             android:drawableTop="@drawable/shopping"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/shopping"
             android:textColor="@color/home_category_item"/>
 
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_60sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:src="@drawable/horizontal_separator"/>
+            android:src="@drawable/horizontal_separator"/>-->
 
         <TextView
             android:id="@+id/electronics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:gravity="center"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
-            android:layout_marginStart="@dimen/_1sdp"
+
             android:drawableTop="@drawable/electronics"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/electronics"
             android:textColor="@color/home_category_item"/>
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_60sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:src="@drawable/horizontal_separator"/>
+            android:src="@drawable/horizontal_separator"/>-->
 
         <TextView
             android:id="@+id/restaurants"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:gravity="center"
-            android:layout_marginStart="@dimen/_6sdp"
+
             android:drawableTop="@drawable/restaurants"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/restaurants"

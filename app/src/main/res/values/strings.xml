@@ -223,4 +223,5 @@
     <string name="already_redeemed">This voucher code has been already redeemed!</string>
     <string name="deals">Deals</string>
     <string name="businesses">Businesses</string>
+    <string name="featured_deals">Featured Deals</string>
 </resources>

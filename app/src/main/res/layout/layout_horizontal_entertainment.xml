@@ -27,12 +27,12 @@
             android:text="@string/movie_tickets"
             android:textColor="@color/home_category_item"/>
 
-         <ImageView
+        <!-- <ImageView
              android:layout_width="wrap_content"
              android:layout_height="@dimen/_70sdp"
              android:layout_marginStart="@dimen/_8sdp"
              android:layout_marginEnd="@dimen/_8sdp"
-             android:src="@drawable/horizontal_separator"/>
+             android:src="@drawable/horizontal_separator"/>-->
 
         <TextView
             android:id="@+id/events"
@@ -46,12 +46,12 @@
             android:text="@string/events"
             android:textColor="@color/home_category_item"/>
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_70sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:src="@drawable/horizontal_separator"/>
+            android:src="@drawable/horizontal_separator"/>-->
 
         <TextView
             android:id="@+id/kids_activities"
