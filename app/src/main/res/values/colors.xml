@@ -17,7 +17,7 @@
     <color name="home_mall_title">#e0e0e0</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="tab_text_color">#F5F5F5</color>
-
+<color name="congrats_color">#ed1c24</color>
     <drawable name="red">@color/red</drawable>
     <drawable name="transparent">@color/transparent</drawable>
     <drawable name="grey">@color/grey</drawable>

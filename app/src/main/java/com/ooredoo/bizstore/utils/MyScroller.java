@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Scroller;
 
 public class MyScroller extends Scroller {
-    private int mDuration = 1500;
+    private int mDuration = 2000;
 
     public MyScroller(Context context) {
         super(context);

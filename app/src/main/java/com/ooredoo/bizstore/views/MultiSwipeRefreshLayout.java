@@ -87,14 +87,27 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout
             {
                 AppBarLayout appBarLayout = HomeActivity.appBarLayout;
 
-                Logger.print("AppBar: "+HomeActivity.appBarLayout);
-                if(view != null && view.isShown() && !canViewScrollUp(view)
-                        && (appBarLayout != null && appBarLayout.getTop() == 0))
+                if(appBarLayout != null)
                 {
-                    // If the view is shown, and can not scroll upwards, return false and start the
-                    // gesture.
-                    return false;
+                    Logger.print("AppBar: "+HomeActivity.appBarLayout);
+                    if(view != null && view.isShown() && !canViewScrollUp(view)
+                            && (appBarLayout != null && appBarLayout.getTop() == 0))
+                    {
+                        // If the view is shown, and can not scroll upwards, return false and start the
+                        // gesture.
+                        return false;
+                    }
                 }
+                else
+                {
+                    if(view != null && view.isShown() && !canViewScrollUp(view))
+                    {
+                        // If the view is shown, and can not scroll upwards, return false and start the
+                        // gesture.
+                        return false;
+                    }
+                }
+
             }
         }
 

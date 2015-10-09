@@ -33,7 +33,7 @@
         android:layoutDirection="ltr"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_14sdp"
         android:orientation="horizontal">
 
         <Button
@@ -43,7 +43,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="0dp"
-            android:layout_marginTop="0.4dp"
+
             android:background="@drawable/lang_left_selector"
             android:text="@string/English"
             android:textAllCaps="false"

@@ -26,8 +26,9 @@
             android:gravity="center"
 
             android:text="@string/CONGRATULATIONS"
-            android:textColor="@color/red"
-            android:textSize="22sp" />
+            android:textColor="@color/congrats_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_details"

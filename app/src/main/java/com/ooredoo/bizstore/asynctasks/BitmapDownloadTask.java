@@ -118,14 +118,18 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 return null;
             }
 
-            for(String url : downloadingPool)
+            synchronized(this)
             {
-                if(url.equals(imgUrl))
+                for(String url : downloadingPool)
                 {
-                    Logger.print("x3 Image Download alreay in progress");
-                    cancel(true);
+                    if(url.equals(imgUrl))
+                    {
+                        Logger.print("x3 Image Download alreay in progress");
+                        cancel(true);
+                    }
                 }
             }
+
 
             if(isCancelled())
             {

@@ -43,7 +43,7 @@
         android:text="@string/hot_deals"
         android:textSize="16sp"
         android:textAllCaps="true"
-        android:typeface="serif"
+
         android:textColor="@color/home_heading_text"
         android:background="@color/home_heading_bg" />
 
