@@ -1,12 +1,18 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Activity;
+import android.app.Dialog;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -17,13 +23,19 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
     private SignUpFragment signUpFragment;
 
+    private String SERVICE_NAME = "http://203.215.183.98:10041/yellowPages/subscriberIdentifier/subscribe?";
+
     public SubscriptionTask(SignUpFragment signUpFragment) {
         this.signUpFragment = signUpFragment;
     }
 
+    Dialog dialog;
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
+        dialog = DialogUtils.createCustomLoader(signUpFragment.getActivity(), "Subscribing....");
+        dialog.show();;
     }
 
     @Override
@@ -42,11 +54,15 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        dialog.dismiss();
+
         if(result != null) {
             try {
                 Subscription subscription = new Gson().fromJson(result, Subscription.class);
 
                 signUpFragment.processSubscription(subscription);
+
+                DialogUtils.processVerificationCode();
 
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
@@ -65,12 +81,19 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(OS, ANDROID);
+       // params.put(OS, ANDROID);
         params.put("msisdn", msisdn);
+        params.put("password", "A33w3zH2OsCMD");
 
-        setServiceUrl("subscribe", params);
+        String query = createQuery(params);
 
-        result = getJson();
+        URL url = new URL(SERVICE_NAME + query);
+
+        Logger.print("subscribe URL:" + url.toString());
+
+        result = getJson(url);
+
+       // result = getJson();
 
         Logger.print("Subscribe: " + result);
 

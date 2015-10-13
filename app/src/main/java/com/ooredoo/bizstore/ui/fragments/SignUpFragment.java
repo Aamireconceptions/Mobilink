@@ -9,6 +9,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
@@ -41,15 +42,16 @@ public class SignUpFragment extends BaseFragment {
 
     @Override
     public void onClick(View v) {
-        showVerificationCodeDialog(mActivity);
+        //showVerificationCodeDialog(mActivity);
         //TODO uncomment & remove above line subscribe();
 
-        //subscribe();
+        subscribe();
     }
 
     private void subscribe() {
         String msisdn = etMsisdn.getText().toString();
 
+        msisdn = "66703202";
         String errMsg = "Error";
         if(NetworkUtils.hasInternetConnection(mActivity)) {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
@@ -71,8 +73,12 @@ public class SignUpFragment extends BaseFragment {
         String errMsg = "Error";
         if(subscription != null) {
             if(subscription.resultCode != -1) {
+
                 BizStore.password = subscription.password;
+
                 showVerificationCodeDialog(mActivity);
+
+                DialogUtils.etCode.setText(subscription.password);
             } else {
                 errMsg = subscription.desc;
             }
@@ -83,7 +89,5 @@ public class SignUpFragment extends BaseFragment {
         if(!errMsg.equals("Error")) {
             Snackbar.make(etMsisdn, errMsg, Snackbar.LENGTH_LONG).show();
         }
-
-
     }
 }

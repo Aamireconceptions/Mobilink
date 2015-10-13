@@ -2,13 +2,17 @@ package com.ooredoo.bizstore.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,6 +22,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.LoginTask;
 import com.ooredoo.bizstore.asynctasks.UnSubTask;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
@@ -132,47 +137,106 @@ public class DialogUtils {
         dialog.show();
     }
 
+    static Activity activity;
+
+    public static EditText etCode;
+    static Dialog dialog;
     public static void showVerificationCodeDialog(final Activity activity) {
+
+        DialogUtils.activity = activity;
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
 
+
+
         final View view = inflater.inflate(R.layout.dialog_verification_code, null);
+
+        etCode = (EditText) view.findViewById(R.id.et_code);
+
         builder.setView(view);
 
-        final Dialog dialog = builder.create();
+        dialog = builder.create();
 
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         view.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-                BaseFragment.hideKeyboard(activity);
-                AppCompatActivity compatActivity = (AppCompatActivity) activity;
-                replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
+               // dialog.dismiss();
+                //BaseFragment.hideKeyboard(activity);
+                //AppCompatActivity compatActivity = (AppCompatActivity) activity;
+                //replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
                 //TODO un-comment & remove above 3 lines processVerificationCode();
 
-               // processVerificationCode();
+                processVerificationCode();
             }
 
-            private void processVerificationCode() {
-                EditText etCode = (EditText) view.findViewById(R.id.et_code);
-                String code = etCode.getText().toString();
-                if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN && code.equals(password)) {
-                    dialog.dismiss();
-                    BaseFragment.hideKeyboard(activity);
-                    activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                    AppCompatActivity compatActivity = (AppCompatActivity) activity;
-                    replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
-                } else {
-                    Snackbar.make(etCode, activity.getString(R.string.error_invalid_verification_code), Snackbar.LENGTH_SHORT).show();
-                }
-            }
+
         });
 
         dialog.setCancelable(true);
         builder.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+    }
+
+    static LoginTask loginTask = new LoginTask(null);
+    public static void processVerificationCode() {
+
+
+        etCode.setText(BizStore.password);
+
+        String code = etCode.getText().toString();
+        if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN && code.equals(password)) {
+
+            SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
+            sharedPrefUtils.updateVal(activity, "username", BizStore.username);
+            sharedPrefUtils.updateVal(activity, "password", BizStore.password);
+
+            if(loginTask.getStatus() != AsyncTask.Status.RUNNING)
+            {
+                loginTask = new LoginTask(activity);
+                loginTask.execute();
+            }
+                    /*dialog.dismiss();
+                    BaseFragment.hideKeyboard(activity);
+                    activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                    AppCompatActivity compatActivity = (AppCompatActivity) activity;
+                    replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");*/
+        } else {
+            Snackbar.make(etCode, activity.getString(R.string.error_invalid_verification_code), Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void dismissPasswordDialog()
+    {
+        dialog.dismiss();
+    }
+
+    public static void startWelcomeFragment()
+    {
+        dialog.dismiss();
+         BaseFragment.hideKeyboard(activity);
+        activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        AppCompatActivity compatActivity = (AppCompatActivity) activity;
+        FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
+    }
+
+    public static Dialog createAlertDialog(Context context)
+    {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable((new ColorDrawable(android.graphics.Color.TRANSPARENT)));
+        dialog.setContentView(R.layout.alert_dialog);
+
+
+        dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        return dialog;
     }
 }
