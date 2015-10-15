@@ -193,6 +193,7 @@ public class DialogUtils {
             sharedPrefUtils.updateVal(activity, "username", BizStore.username);
             sharedPrefUtils.updateVal(activity, "password", BizStore.password);
 
+
             if(loginTask.getStatus() != AsyncTask.Status.RUNNING)
             {
                 loginTask = new LoginTask(activity);

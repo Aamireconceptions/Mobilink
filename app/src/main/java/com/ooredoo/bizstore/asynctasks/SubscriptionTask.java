@@ -6,6 +6,7 @@ import android.app.Dialog;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -34,7 +35,8 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        dialog = DialogUtils.createCustomLoader(signUpFragment.getActivity(), "Subscribing....");
+        dialog = DialogUtils.createCustomLoader(signUpFragment.getActivity(),
+                signUpFragment.getActivity().getString(R.string.subscribing));
         dialog.show();;
     }
 

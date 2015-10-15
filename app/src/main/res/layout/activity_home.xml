@@ -38,6 +38,7 @@
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:hint="@string/search"
+                            android:inputType="textCapWords"
                             android:imeOptions="actionSearch"
                             android:singleLine="true"
                             android:visibility="gone"/>
@@ -49,7 +50,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="gone"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@color/white">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -124,11 +126,13 @@
                             android:id="@+id/lv_search_results"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="0dp"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginBottom="@dimen/_6sdp"
                             android:divider="@color/white"
-                            android:dividerHeight="0dp"
+                            android:dividerHeight="@dimen/_6sdp"
                             android:scrollbars="none"
-                            android:visibility="visible"/>
+                            android:visibility="visible"
+                            android:background="@color/white"/>
                     </LinearLayout>
 
                     <FrameLayout

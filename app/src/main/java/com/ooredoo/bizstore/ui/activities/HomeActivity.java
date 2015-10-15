@@ -53,6 +53,7 @@ import com.ooredoo.bizstore.adapters.SearchBaseAdapter;
 import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
 import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.CheckSubscriptionTask;
 import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
@@ -82,6 +83,8 @@ import com.ooredoo.bizstore.views.RangeSeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
@@ -162,9 +165,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private DiskCache diskCache = DiskCache.getInstance();
 
+    private long time = 15 * 60 * 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        BizStore.username = SharedPrefUtils.getStringVal(this, "username");
+        BizStore.password = SharedPrefUtils.getStringVal(this, "password");
+
 
         CategoryUtils.setUpSubCategories(this);
 
@@ -194,6 +202,29 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         new AccountDetailsTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
 
         BizStore.forceStopTasks = false;
+
+       // startSubscriptionCheck();
+    }
+
+    Timer timer;
+
+    private void startSubscriptionCheck()
+    {
+        timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CheckSubscriptionTask subscriptionTask = new CheckSubscriptionTask(HomeActivity.this);
+                        subscriptionTask.execute();
+                    }
+                });
+            }
+        },0, time);
     }
 
     private void overrideFonts()
@@ -805,8 +836,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         Logger.print("HomeActivity onDestroy");
 
-
+        //timer.cancel();
     }
-
 
 }

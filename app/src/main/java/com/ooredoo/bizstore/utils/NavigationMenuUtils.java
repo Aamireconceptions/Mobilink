@@ -6,12 +6,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -151,6 +153,9 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         HomeActivity homeActivity = (HomeActivity) activity;
 
         NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
+
+        TextView tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
+        tvNumber.setText(PhoneNumberUtils.formatNumber("+947"+ BizStore.username));
 
         Button btEnglish = (Button) navigationHeader.findViewById(R.id.btn_lang_english);
         btEnglish.setOnClickListener(clickListener);

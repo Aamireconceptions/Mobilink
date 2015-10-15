@@ -183,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
-                    android:src="@drawable/tmp_banner"/>
+                    android:src="@drawable/detail_temp"/>
             </LinearLayout>
 
             <FrameLayout

@@ -68,7 +68,7 @@ public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
 
         result = getJson();
 
-        Logger.print("viewprofile: " + result);
+        Logger.print("viewprofile result: " + result);
 
         return result;
     }

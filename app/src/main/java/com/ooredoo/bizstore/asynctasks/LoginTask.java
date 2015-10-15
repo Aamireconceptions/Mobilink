@@ -42,8 +42,8 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        dialog = DialogUtils.createCustomLoader((Activity) activity, "Verifying....");
-        dialog.show();;
+       // dialog = DialogUtils.createCustomLoader((Activity) activity, "Verifying....");
+       // dialog.show();;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        dialog.dismiss();
+       // dialog.dismiss();
 
         if(result != null)
         {

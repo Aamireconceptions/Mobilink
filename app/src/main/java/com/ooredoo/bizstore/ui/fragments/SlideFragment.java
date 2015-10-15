@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.FontUtils;
 
 /**
  * @author Babar
@@ -68,13 +70,18 @@ public class SlideFragment extends Fragment
         String text3 = null;
         int resId = 0;
 
+        String font = BizStore.getLanguage().equals("en") ? BizStore.DEFAULT_FONT : BizStore.ARABIC_DEFAULT_FONT;
+        Typeface typeface = Typeface.createFromAsset(activity.getAssets(), font);
+
         switch (slideNum)
         {
             case 0:
-                textView3.setTextColor(ColorUtils.RED);
+
+                textView1.setTextColor(ColorUtils.BLACK);
                 textView2.setTextColor(ColorUtils.BLACK);
-                textView3.setTypeface(null, Typeface.BOLD);
-                textView2.setTypeface(null, Typeface.NORMAL);
+                textView3.setTextColor(ColorUtils.RED);
+                textView3.setTypeface(typeface, Typeface.BOLD);
+               // textView2.setTypeface(typeface, Typeface.NORMAL);
                 text1 = activity.getString(R.string.slide_1_text_1);
                 text2 = activity.getString(R.string.slide_1_text_2);
                 text3 = activity.getString(R.string.slide_1_text_3);
@@ -82,10 +89,11 @@ public class SlideFragment extends Fragment
                 break;
 
             case 1:
+                textView1.setTextColor(ColorUtils.BLACK);
                 textView2.setTextColor(ColorUtils.RED);
+                textView2.setTypeface(typeface, Typeface.BOLD);
                 textView3.setTextColor(ColorUtils.BLACK);
-                textView2.setTypeface(null, Typeface.BOLD);
-                textView3.setTypeface(null, Typeface.NORMAL);
+
                 text1 = activity.getString(R.string.slide_2_text_1);
                 text2 = activity.getString(R.string.slide_2_text_2);
                 text3 = activity.getString(R.string.slide_2_text_3);
@@ -93,22 +101,12 @@ public class SlideFragment extends Fragment
                 break;
 
             case 2:
-                /*textView2.setTextColor(ColorUtils.RED);
-                textView3.setTextColor(ColorUtils.BLACK);
-                textView2.setTypeface(null, Typeface.BOLD);
-                textView3.setTypeface(null, Typeface.NORMAL);
-                text1 = activity.getString(R.string.slide_4_text_1);
-                text2 = activity.getString(R.string.slide_4_text_2);
-                text3 = activity.getString(R.string.slide_4_text_3);
-                resId = R.drawable.slide_3;
 
-                break;
-
-            case 3:*/
-                textView3.setTextColor(ColorUtils.RED);
+                textView1.setTextColor(ColorUtils.BLACK);
                 textView2.setTextColor(ColorUtils.BLACK);
-                textView3.setTypeface(null, Typeface.BOLD);
-                textView2.setTypeface(null, Typeface.NORMAL);
+                textView3.setTextColor(ColorUtils.RED);
+                textView3.setTypeface(typeface, Typeface.BOLD);
+
                 text1 = activity.getString(R.string.slide_3_text_1);
                 text2 = activity.getString(R.string.slide_3_text_2);
                 text3 = activity.getString(R.string.slide_3_text_3);

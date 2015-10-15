@@ -58,7 +58,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     public String category;
     public boolean showBanner = false;
 
-    public int bannerResId = R.drawable.tmp_banner;
+   // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
     ScrollViewHelper scrollViewHelper;
@@ -170,7 +170,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
-        ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
+       // ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
         findViewById(R.id.tv_call).setOnClickListener(this);
         findViewById(R.id.iv_call).setOnClickListener(this);

@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
-            android:src="@drawable/deal_banner"/>
+            android:src="@drawable/deal_banner"
+            android:background="@drawable/list_border"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"

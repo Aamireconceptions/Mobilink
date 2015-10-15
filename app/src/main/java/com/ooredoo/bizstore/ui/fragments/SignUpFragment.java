@@ -51,7 +51,14 @@ public class SignUpFragment extends BaseFragment {
     private void subscribe() {
         String msisdn = etMsisdn.getText().toString();
 
-        msisdn = "66703202";
+       // msisdn = "66703202";
+
+        if(!msisdn.equals("66703202"))
+        {
+            Snackbar.make(etMsisdn, mActivity.getString(R.string.invalid_num), Snackbar.LENGTH_SHORT).show();
+
+            return;
+        }
         String errMsg = "Error";
         if(NetworkUtils.hasInternetConnection(mActivity)) {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {

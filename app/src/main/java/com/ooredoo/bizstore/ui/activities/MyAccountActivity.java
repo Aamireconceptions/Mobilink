@@ -11,6 +11,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -18,8 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -123,10 +126,54 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             canEditName = !canEditName;
             Log.i("NAME", etName.getText().toString());
             ImageView ivEdit = (ImageView) v;
+
+            if(canEditName || isValidName) {
+                etName.setFocusable(canEditName);
+                etName.setFocusableInTouchMode(canEditName);
+                // etName.requestFocus();
+                ivEdit.setImageResource(canEditName ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
+
+
+            }
+
             if(canEditName) {
+                etName.setFocusable(true);
+               etName.requestFocus();
+
+
                 etName.performClick();
+
+                InputMethodManager keyboard = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+              //  keyboard.showSoftInput(etName, 0);
+
+                keyboard.showSoftInput(etName, InputMethodManager.SHOW_IMPLICIT);
+
+                long downTime = SystemClock.uptimeMillis();
+                long eventTime = SystemClock.uptimeMillis() + 100;
+                float x = 0.0f;
+                float y = 0.0f;
+// List of meta states found here:     developer.android.com/reference/android/view/KeyEvent.html#getMetaState()
+                int metaState = 0;
+                MotionEvent motionEvent = MotionEvent.obtain(
+                        downTime,
+                        eventTime,
+                        MotionEvent.ACTION_UP,
+                        x,
+                        y,
+                        metaState
+                );
+
+// Dispatch touch event to view
+                etName.dispatchTouchEvent(motionEvent);
             } else {
-                //etName.clearFocus();
+                InputMethodManager keyboard = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                //  keyboard.showSoftInput(etName, 0);
+
+                keyboard.hideSoftInputFromInputMethod(etName.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                etName.clearFocus();
+                etName.setFocusable(false);
                 String name = etName.getText().toString();
                 if(isNotNullOrEmpty(name)) {
                     isValidName = true;
@@ -137,13 +184,11 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                     String msg = getString(R.string.provide_name);
                     Snackbar.make(etName, msg, Snackbar.LENGTH_SHORT).show();
                 }
+
+
             }
 
-            if(canEditName || isValidName) {
-                etName.setFocusable(canEditName);
-                etName.setFocusableInTouchMode(canEditName);
-                ivEdit.setImageResource(canEditName ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
-            }
+
 
         } else if(viewId == R.id.iv_edit_dp) {
            // canEditDp = !canEditDp;
@@ -352,6 +397,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         MemoryCache memoryCache = MemoryCache.getInstance();
         memoryCache.removeBitmapFromCache(PROFILE_PIC_URL);
 
+        if(bitmap != null){
         memoryCache.addBitmapToCache(PROFILE_PIC_URL, bitmap);
 
         int reqWidth = (int) convertDpToPixels(200);
@@ -359,6 +405,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(profilePicture, null);
         profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL,
                 valueOf(reqWidth), valueOf(reqHeight));
+        }
 
         /*loadPicture();
 

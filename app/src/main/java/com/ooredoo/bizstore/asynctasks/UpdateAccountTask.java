@@ -146,6 +146,8 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
         HttpClient httpclient = new DefaultHttpClient();
 
         HttpPost httpPost = new HttpPost(url);
+
+        Logger.print("UpdateAccountTask URL:"+url);
         httpPost.setHeader(HTTP_X_USERNAME, BizStore.username);
         httpPost.setHeader(HTTP_X_PASSWORD, BizStore.password);
 

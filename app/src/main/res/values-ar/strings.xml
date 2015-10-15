@@ -13,8 +13,8 @@
     <string name="weekly_plan_details"><![CDATA[ريال قطري <b>9</b>\nأسبوعيا]]></string>
     <string name="WEEKLY_PLAN">اسبوعي</string>
     <string name="SUBSCRIPTION_PLANS">خيارات الاشتراك</string>
-    <string name="sms_charges">سيقوم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
-    <string name="num_confirm_text">سيقوم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
+    <string name="sms_charges"> سيتم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
+    <string name="num_confirm_text">سيتم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
     <string name="NEXT">التالي</string>
     <string name="SIGNUP">التسجيل</string>
     <string name="SUBSCRIBE">الإشتراك</string>
@@ -60,7 +60,7 @@
     <string name="_20">20</string>
     <string name="rating">تقييم</string>
     <string name="top_rated">أشهر العروض</string>
-    <string name="sort_discount">من أعلى إلى أدنا خصم</string>
+    <string name="sort_discount"> من أعلى إلى أدنى خصم.</string>
     <string name="sub_categories">فئات فرعية</string>
     <string name="discount_offer">عروض الخصم</string>
     <string name="category_selection">اختيار الفئة</string>
@@ -79,14 +79,14 @@
     <string name="popular_deals">العروض الرائجة</string>
     <string name="error_search_term">يرجى تقديم مصطلح البحث</string>
     <string name="error_no_internet">لايوجد اتصال مع الإنترنت</string>
-    <string name="rate_us">قيمنا على بلايستور</string>
+    <string name="rate_us">قيمنا على بلاي ستور.</string>
     <string name="English">English</string>
     <string name="arabic">العربية</string>
     <string name="is_arabic">true</string>
     <string name="share_app_note">شارك التطبيق مع الأصدقاء و الأقارب</string>
     <string name="enter_number">أدخل رقم جوالك</string>
     <string name="sharing_msg">رسالة المشاركة</string>
-    <string name="share_with_friends_txt">"مرحبا، وجت هذا التطبيق الرهيب لأفضل العروض في المدينة. أرسل رسالة نصية الى 92806 و حمل التطبيق"</string>
+    <string name="share_with_friends_txt">مرحبا، وجدت هذا التطبيق الرهيب لأفضل العروض في المدينة. أرسل رسالة نصية الى 92806 و حمل التطبيق</string>
     <string name="share_now">شارك الآن</string>
     <string name="Preview">عرض</string>
     <string name="description">تفاصيل</string>
@@ -98,8 +98,8 @@
     <string name="No">لا</string>
     <string name="Yes">نعم</string>
     <string name="ENTER_CODE">أدخل الرمز</string>
-    <string name="verification_code_details">سيتم ارسال الرقم القصير الرجاء تفقد الرائل الواردة </string>
-    <string name="unsub_details">الغاء الاشتراك في بيزستور يستنج عنه ايقاف كل التنبيهات لجميع العروض الجديدة من التطبيق</string>
+    <string name="verification_code_details">سيتم ارسال الرقم القصير الرجاء تفقد الرسائل الواردة</string>
+    <string name="unsub_details"> الغاء الاشتراك في بيزستور يتنج عنه ايقاف كل التنبيهات لجميع العروض الجديدة من التطبيق.</string>
     <string name="share_app_with_friends">شارك التطبيق مع الأصدقاء</string>
     <string name="About_Us">عن التطبيق</string>
     <string name="select_all">اخيتار كل</string>
@@ -114,12 +114,12 @@
     <string name="filter">مصنفة</string>
     <string name="filter_results">نتائج مصنفة</string>
     <string name="percentage_off">% خصم</string>
-    <string name="error_provide_num">الرجاء إدخال رقم الهاتفك</string>
+    <string name="error_provide_num">الرجاء إدخال رقم هاتفك</string>
     <string name="please_wait">الرجاء الانتظار</string>
     <string name="success_shared">تمت المشاركة بنجاح</string>
     <string name="redeemed">مستبدلة</string>
     <string name="redeemed_deals">عروض مستبدلة</string>
-    <string name="help_question1">ما هو Ooredoo بيزستور</string>
+    <string name="help_question1">ما هو أوريدو بيزستور؟</string>
     <string name="help_answer1"> بيزستور هي رسائل نصية و تطبيق للهاتف الجوال توفر للعميل منصة لمتابعة أفضل العروض و الخصومات في قطر. من أشهر الماركات لها علاقة بالموضة و الصحة و حتى اللياقة بالإضافة إلى التسوق، المطاعم و السفر والسياحة و الأكثر من ذلك كلٌ في مكان واحد!! كما يقد بيزستور مجموعة متنوعة من العروض و الخدمات لمستخدميه حيث يمكن الإستفادة منها في أي وقت و مكان.</string>
     <string name="help_question2">ماذا أحصل من إشتراكي في خدمة Ooredoo بيزستور؟</string>
     <string name="help_answer2"><![CDATA[يمكن لعملاء خدمة Ooredoo بيزستور البحث على عناوين و بيانات الإتصال للمتاجر والخدمات التي يفضلوها. للعميل عدة خيارات للحصول على أحدث العروض، الخصومات، و آخر الأخبار. الفئات هي:n\أفضل العروضn\أفضل مجمعات تجارية في قطرn\مطاعمn\تسوقn\تعليمn\نمط حياة و موضةn\ترفيه و إستجمامn\]]></string>
@@ -220,4 +220,8 @@
     <string name="results">نتائج</string>
     <string name="respective_outlet">عزيزي العزيز يمكنك إستبدال القسيمة من المتجر المختار</string>
     <string name="already_redeemed">تم إستبدال هذه القسيمة مسبقا</string>
+    <string name="invalid_num">يرجى تقديم رقم كيوتل صحيح</string>
+    <string name="featured_deals">عروض مميزة</string>
+    <string name="subscribing">اشتراك</string>
+    <string name="unsubscribing">إلغاء الاشتراك</string>
 </resources>

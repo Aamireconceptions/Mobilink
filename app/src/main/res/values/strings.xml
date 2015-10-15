@@ -224,4 +224,7 @@
     <string name="deals">Deals</string>
     <string name="businesses">Businesses</string>
     <string name="featured_deals">Featured Deals</string>
+    <string name="invalid_num">Please provide a valid Ooredoo number</string>
+    <string name="subscribing">Subscribing</string>
+    <string name="unsubscribing">Unsubscribing</string>
 </resources>
