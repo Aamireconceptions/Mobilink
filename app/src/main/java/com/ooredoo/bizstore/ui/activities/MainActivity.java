@@ -44,7 +44,9 @@ public class MainActivity extends BaseActivity {
             BizStore.setLanguage(language);
             btnArabicLang.setSelected(isArabic);
             btnEnglishLang.setSelected(!isArabic);
+
             NavigationMenuOnClickListener.updateConfiguration(this, language);
+
             startActivity(SignUpActivity.class);
         }
     }

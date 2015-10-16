@@ -29,7 +29,7 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
 
     private Dialog dialog;
 
-    private final static String SERVICE_URL= "http://203.215.183.98:10041/yellowPages/mobileApp/login?";
+    private final static String SERVICE_URL= "/login?";
     private Context activity;
 
     public LoginTask(Context activity) {
@@ -71,7 +71,7 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
 
             if(response.resultCode != -1)
             {
-                if(response.desc.equals("Successfully login"))
+                if(response.desc.equals("Logged in successfully"))
                 {
                     DialogUtils.startWelcomeFragment();
                 }
@@ -96,11 +96,11 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
         //params.put(OS, ANDROID);
         params.put(MSISDN, BizStore.username);
         params.put("password", BizStore.password);
-        params.put("secret", "A33w3zH2OsCMD");
+        //params.put("secret", "A33w3zH2OsCMD");
 
         String query = createQuery(params);
 
-        URL url = new URL(SERVICE_URL + query);
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_URL + query);
 
         Logger.print("login() URL:" + url.toString());
 
@@ -110,5 +110,4 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
 
         return result;
     }
-
 }

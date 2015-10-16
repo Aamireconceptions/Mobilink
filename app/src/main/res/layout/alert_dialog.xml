@@ -15,7 +15,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textColor="@android:color/secondary_text_light"
-            android:text="Dear User you have enetered an invalid MSISDN #, Please verify and correct"
+            android:text="Dear user, you have entered an invalid phone number. Please verify and correct"
             android:textSize="14sp"/>
 
         <Button

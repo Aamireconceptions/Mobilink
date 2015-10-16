@@ -24,7 +24,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
     private SignUpFragment signUpFragment;
 
-    private String SERVICE_NAME = "http://203.215.183.98:10041/yellowPages/subscriberIdentifier/subscribe?";
+    private String SERVICE_NAME = "/subscribe?";
 
     public SubscriptionTask(SignUpFragment signUpFragment) {
         this.signUpFragment = signUpFragment;
@@ -64,7 +64,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
                 signUpFragment.processSubscription(subscription);
 
-                DialogUtils.processVerificationCode();
+                //DialogUtils.processVerificationCode();
 
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
@@ -83,13 +83,13 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
-       // params.put(OS, ANDROID);
+        params.put(OS, ANDROID);
         params.put("msisdn", msisdn);
-        params.put("password", "A33w3zH2OsCMD");
+       // params.put("password", "A33w3zH2OsCMD");
 
         String query = createQuery(params);
 
-        URL url = new URL(SERVICE_NAME + query);
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
         Logger.print("subscribe URL:" + url.toString());
 

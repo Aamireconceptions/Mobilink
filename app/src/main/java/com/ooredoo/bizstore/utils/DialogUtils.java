@@ -174,8 +174,8 @@ public class DialogUtils {
 
         });
 
-        dialog.setCancelable(true);
-        builder.setCancelable(true);
+        dialog.setCancelable(false);
+        //builder.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
@@ -184,7 +184,7 @@ public class DialogUtils {
     public static void processVerificationCode() {
 
 
-        etCode.setText(BizStore.password);
+       // etCode.setText(BizStore.password);
 
         String code = etCode.getText().toString();
         if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN && code.equals(password)) {

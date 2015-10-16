@@ -53,12 +53,13 @@ public class SignUpFragment extends BaseFragment {
 
        // msisdn = "66703202";
 
-        if(!msisdn.equals("66703202"))
+        /*if(!msisdn.equals("66703202"))
         {
             Snackbar.make(etMsisdn, mActivity.getString(R.string.invalid_num), Snackbar.LENGTH_SHORT).show();
 
             return;
-        }
+        }*/
+
         String errMsg = "Error";
         if(NetworkUtils.hasInternetConnection(mActivity)) {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
@@ -81,11 +82,13 @@ public class SignUpFragment extends BaseFragment {
         if(subscription != null) {
             if(subscription.resultCode != -1) {
 
-                BizStore.password = subscription.password;
+               // BizStore.password = subscription.password;
 
                 showVerificationCodeDialog(mActivity);
 
-                DialogUtils.etCode.setText(subscription.password);
+               // DialogUtils.etCode.setText(subscription.password);
+
+
             } else {
                 errMsg = subscription.desc;
             }

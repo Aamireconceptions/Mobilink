@@ -50,7 +50,7 @@ public class SubscriptionPlansFragment extends BaseFragment {
         if(id == R.id.agree_terms_services)
         {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("http://203.215.183.98:30127/ooredoo/index.php/other/terms/android"));
+            intent.setData(Uri.parse("http://ooredoo.bizstore.com.pk/index.php/other/terms/android"));
 
             startActivity(intent);
 

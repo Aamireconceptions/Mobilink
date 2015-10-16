@@ -24,7 +24,7 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
 {
 
-    private final static String SERVICE_NAME = "/login?";
+    private final static String SERVICE_NAME = "/verify?";
 
     private HomeActivity activity;
 

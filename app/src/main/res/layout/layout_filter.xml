@@ -29,12 +29,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxWidth="200dp"
+
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_toStartOf="@+id/done"
                 android:layout_toEndOf="@+id/back"
-                android:singleLine="true"
+
                 android:text="@string/filter_results"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>

@@ -167,16 +167,18 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 // Dispatch touch event to view
                 etName.dispatchTouchEvent(motionEvent);
             } else {
-                InputMethodManager keyboard = (InputMethodManager)
+
+                /*InputMethodManager keyboard = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
                 //  keyboard.showSoftInput(etName, 0);
 
-                keyboard.hideSoftInputFromInputMethod(etName.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                etName.clearFocus();
+                keyboard.hideSoftInputFromInputMethod(etName.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);*/
+               // etName.clearFocus();
                 etName.setFocusable(false);
                 String name = etName.getText().toString();
                 if(isNotNullOrEmpty(name)) {
                     isValidName = true;
+                    ivEdit.setImageResource(R.drawable.ic_edit_white);
                     updateVal(this, NAME, name);
                     UpdateAccountTask uploadTask = new UpdateAccountTask(this, name, null);
                     uploadTask.execute();

@@ -14,6 +14,8 @@
 
     <uses-permission android:name="com.ooredoo.bizstore.permission.C2D_MESSAGE"/>
 
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
     <application
         android:name=".BizStore"
         android:allowBackup="true"
@@ -140,6 +142,7 @@
             android:name=".ui.activities.MyAccountActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/my_account"
+            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"/>
@@ -216,6 +219,16 @@
 
         </service>
 
+
+        <receiver android:name="com.ooredoo.bizstore.receivers.SMSReceiver">
+
+            <intent-filter>
+
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+
+            </intent-filter>
+
+        </receiver>
 
 
     </application>
