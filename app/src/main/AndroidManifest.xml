@@ -37,11 +37,11 @@
             android:name=".ui.activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.activities.SignUpActivity"
@@ -52,7 +52,15 @@
             android:name=".ui.activities.HomeActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+            </activity>
         <activity android:name=".ui.activities.FilterActivity"/>
         <activity
             android:name=".ui.activities.ShareAppActivity"

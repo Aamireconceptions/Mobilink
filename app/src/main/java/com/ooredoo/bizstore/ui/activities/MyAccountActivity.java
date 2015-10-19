@@ -19,13 +19,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -80,11 +84,26 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void init() {
         setupToolbar();
+        final ImageView ivEditName = (ImageView) findViewById(R.id.iv_edit_name);
         etName = (EditText) findViewById(R.id.et_name);
+        etName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_DONE){
+                   ivEditName.performClick();
+                    etName.clearFocus();
+
+                    //etName.setFocusable(false);
+                   // ivEditName.setFocusableInTouchMode(false);
+                }
+                return false;
+            }
+        });
         etNumber = (EditText) findViewById(R.id.et_number);
         ivProfilePic = (ImageView) findViewById(R.id.iv_profile_pic);
         findViewById(R.id.iv_edit_dp).setOnClickListener(this);
-        findViewById(R.id.iv_edit_name).setOnClickListener(this);
+
+        ivEditName.setOnClickListener(this);
 
         if(userAccount != null && isNotNullOrEmpty(userAccount.name)) {
             etName.setText(userAccount.name);
@@ -109,7 +128,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             }
             ivProfilePic.setImageBitmap(rotatedBitmap);*/
         } else {
-            int width = (int) convertDpToPixels(200);
+            int width = (int) convertDpToPixels(250);
             int height = width;
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
             //ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -132,8 +151,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 etName.setFocusableInTouchMode(canEditName);
                 // etName.requestFocus();
                 ivEdit.setImageResource(canEditName ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
-
-
             }
 
             if(canEditName) {
@@ -141,13 +158,13 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                etName.requestFocus();
 
 
-                etName.performClick();
+                /*etName.performClick();
 
                 InputMethodManager keyboard = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
               //  keyboard.showSoftInput(etName, 0);
 
-                keyboard.showSoftInput(etName, InputMethodManager.SHOW_IMPLICIT);
+                keyboard.showSoftInput(etName, InputMethodManager.SHOW_IMPLICIT);*/
 
                 long downTime = SystemClock.uptimeMillis();
                 long eventTime = SystemClock.uptimeMillis() + 100;
@@ -174,7 +191,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
                 keyboard.hideSoftInputFromInputMethod(etName.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);*/
                // etName.clearFocus();
-                etName.setFocusable(false);
+
                 String name = etName.getText().toString();
                 if(isNotNullOrEmpty(name)) {
                     isValidName = true;
@@ -187,7 +204,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                     Snackbar.make(etName, msg, Snackbar.LENGTH_SHORT).show();
                 }
 
-
+               // etName.setFocusable(false);
             }
 
 
@@ -307,8 +324,8 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 canEditDp = false;
                 ivEdit.setImageResource(R.drawable.ic_done_white);
                 bitmap = bitmapProcessor.decodeSampledBitmapFromFile(path,
-                        (int)Converter.convertDpToPixels(200),
-                        (int)Converter.convertDpToPixels(200));
+                        (int)Converter.convertDpToPixels(300),
+                        (int)Converter.convertDpToPixels(300));
 
                 FileUtils.saveBitmap(bitmap, path);
 
@@ -396,6 +413,8 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
     public void updateProfilePicture() {
 
+        Toast.makeText(this, R.string.profile_update, Toast.LENGTH_SHORT).show();
+
         MemoryCache memoryCache = MemoryCache.getInstance();
         memoryCache.removeBitmapFromCache(PROFILE_PIC_URL);
 
@@ -424,7 +443,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }*/
     }
 
-    public Bitmap decodeFile(String path) {
+    private Bitmap decodeFile(String path) {
         int orientation;
 
         DisplayMetrics displayMetrics = new DisplayMetrics();

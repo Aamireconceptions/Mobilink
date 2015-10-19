@@ -110,6 +110,10 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
 
             Logger.logI(LOG_TAG, isNotNullOrEmpty(result) ? result : "ERR_UPLOADING_PICTURE");
         }
+        else
+        {
+            Toast.makeText(myAccountActivity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

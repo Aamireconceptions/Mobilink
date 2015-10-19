@@ -10,6 +10,7 @@ import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
@@ -35,6 +36,11 @@ public class SignUpFragment extends BaseFragment {
         SignUpActivity.hideToolbar = false;
         SignUpActivity signUpActivity = (SignUpActivity) mActivity;
         signUpActivity.toolbar.setVisibility(View.VISIBLE);
+
+        EditText etCountryCode = (EditText) parent.findViewById(R.id.et_country_code);
+        FontUtils.setFont(getActivity(), BizStore.getLanguage().equals("en") ? BizStore.DEFAULT_FONT
+        : BizStore.ARABIC_DEFAULT_FONT, etCountryCode);
+
         etMsisdn = (EditText) parent.findViewById(R.id.et_phone_num);
         parent.findViewById(R.id.btn_next).setOnClickListener(this);
         mActivity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_VISIBLE | SOFT_INPUT_ADJUST_RESIZE);

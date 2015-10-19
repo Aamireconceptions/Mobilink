@@ -3,8 +3,10 @@ package com.ooredoo.bizstore.ui.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
@@ -31,7 +33,9 @@ public class SubscriptionPlansFragment extends BaseFragment {
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
 
-        parent.findViewById(R.id.agree_terms_services).setOnClickListener(this);
+        TextView tvTOS = (TextView ) parent.findViewById(R.id.agree_terms_services);
+        tvTOS.setText(Html.fromHtml(signUpActivity.getString(R.string.subscription_terms_services)));
+        tvTOS.setOnClickListener(this);
     }
 
     @Override

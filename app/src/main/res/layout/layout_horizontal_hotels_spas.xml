@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:paddingTop="@dimen/_25sdp"
         android:paddingBottom="@dimen/_25sdp"
         android:paddingStart="@dimen/_12sdp"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="@dimen/_10sdp"
+
             android:drawableTop="@drawable/saloons"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/Salons"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="@dimen/_10sdp"
+
             android:drawableTop="@drawable/lodging"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/Lodging"
@@ -61,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="@dimen/_10sdp"
+
             android:drawableTop="@drawable/spas"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/Spas"

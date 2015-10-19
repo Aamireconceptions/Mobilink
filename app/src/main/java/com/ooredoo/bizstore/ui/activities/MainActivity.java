@@ -6,6 +6,7 @@ import android.widget.Button;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
@@ -23,6 +24,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void init() {
         btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
+
+        FontUtils.setFont(this, BizStore.ARABIC_DEFAULT_FONT, btnArabicLang);
+
         btnEnglishLang = (Button) findViewById(R.id.btn_lang_english);
         btnArabicLang.setOnClickListener(this);
         btnEnglishLang.setOnClickListener(this);
@@ -44,6 +48,9 @@ public class MainActivity extends BaseActivity {
             BizStore.setLanguage(language);
             btnArabicLang.setSelected(isArabic);
             btnEnglishLang.setSelected(!isArabic);
+
+            BizStore bizStore = (BizStore) getApplication();
+            bizStore.overrideDefaultFonts();
 
             NavigationMenuOnClickListener.updateConfiguration(this, language);
 

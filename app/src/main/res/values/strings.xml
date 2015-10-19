@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bizstore</string>
+    <string name="app_name">Ooredoo Bizstore</string>
     <string name="plus_sign">+</string>
     <string name="phone_number">phone number</string>
     <string name="search">Search</string>
@@ -103,7 +103,7 @@
     <string name="share_app_with_friends">Share App with Friends</string>
     <string name="About_Us">About Us</string>
     <string name="select_all">Select All</string>
-    <string name="name_hint">Enter Your Name</string>
+    <string name="name_hint">Please enter your name</string>
     <string name="no_recent_searches">No Recent Searches Found</string>
     <string name="my_businesses">My Businesses</string>
     <string name="share">share</string>
@@ -227,4 +227,5 @@
     <string name="invalid_num">Please provide a valid Ooredoo number</string>
     <string name="subscribing">Subscribing</string>
     <string name="unsubscribing">Unsubscribing</string>
+    <string name="profile_update">Profile updated successfully</string>
 </resources>

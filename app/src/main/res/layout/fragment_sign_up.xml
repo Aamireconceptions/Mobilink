@@ -39,7 +39,7 @@
         android:editable="false"
         android:focusable="false"
         android:gravity="center_vertical"
-        android:inputType="number"
+        android:inputType="none"
         android:text="@string/qatar_code"
         android:textSize="13sp"
         android:textStyle="bold"/>
@@ -51,6 +51,8 @@
         android:layout_below="@+id/tv_confirm_code"
         android:layout_toEndOf="@+id/et_country_code"
         android:inputType="number"
+        android:layoutDirection="locale"
+        android:gravity="start"
         android:hint="@string/phone_number"
         android:singleLine="true"
         android:textSize="14sp"

@@ -2,6 +2,8 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -28,9 +30,13 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
     public SubscriptionTask(SignUpFragment signUpFragment) {
         this.signUpFragment = signUpFragment;
+
+        this.context = signUpFragment.getActivity();
     }
 
     Dialog dialog;
+
+    Context context;
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -47,6 +53,8 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
             return subscribe(msisdn);
         } catch(IOException e) {
             e.printStackTrace();
+
+
         }
 
         return null;
@@ -68,7 +76,13 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
+
+                Toast.makeText(context, context.getString(R.string.error_server_down), Toast.LENGTH_SHORT).show();
             }
+        }
+        else
+        {
+            Toast.makeText(context, context.getString(R.string.error_no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 

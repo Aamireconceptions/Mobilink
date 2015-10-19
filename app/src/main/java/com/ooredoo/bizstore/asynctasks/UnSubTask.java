@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
@@ -58,6 +59,10 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
             activity.finish();
 
             activity.startActivity(new Intent(activity, MainActivity.class));
+        }
+        else
+        {
+            Toast.makeText(activity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         }
     }
 

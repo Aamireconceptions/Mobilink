@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:paddingTop="@dimen/_25sdp"
         android:paddingBottom="@dimen/_25sdp"
         android:paddingStart="@dimen/_12sdp"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="@dimen/_10sdp"
+
             android:drawableTop="@drawable/tickets"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/movie_tickets"
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="@dimen/_10sdp"
+
             android:drawableTop="@drawable/events"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/events"
@@ -59,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="@dimen/_10sdp"
+
             android:drawableTop="@drawable/kids_activities"
             android:drawablePadding="@dimen/_4sdp"
             android:text="@string/Kids_Activities"

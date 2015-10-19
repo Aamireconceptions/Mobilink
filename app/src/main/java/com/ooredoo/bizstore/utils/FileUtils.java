@@ -59,7 +59,7 @@ public class FileUtils
         try {
             fileOutputStream = new FileOutputStream(path);
 
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fileOutputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

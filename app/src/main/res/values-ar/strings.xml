@@ -212,7 +212,7 @@
     <string name="discounts_on_fav_brands">خصومات على ماركاتكم المفضلة</string>
     <string name="movies_cinemas_more"><![CDATA[أفلام، سينما و المزيد]]></string>
     <string name="subscription_charges">سيتم إحتساب 9 ريال قطري أسبوعيا</string>
-    <string name="subscription_terms_services"><![CDATA[في حال الإشتراك فقد قمت بالموافقة على البنود و الخدمات]]></string>
+    <string name="subscription_terms_services"><![CDATA[في حال الإشتراك فقد قمت بالموافقة على <u>البنود و الخدمات</u>]]></string>
     <string name="error_no_data">عذرا لم يتم العثور على البحث</string>
     <string name="rate_deal">قيم هذا العرض</string>
     <string name="discount_voucher">القسيمة الخصم :</string>
