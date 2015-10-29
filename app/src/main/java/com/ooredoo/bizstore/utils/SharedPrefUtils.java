@@ -17,7 +17,7 @@ import static java.lang.System.currentTimeMillis;
 
 public class SharedPrefUtils {
 
-    public static final long CACHE_TIME = 60 * 60 * 1000;
+    public static final long CACHE_TIME = 24 * 60 * 60 * 1000;
 
     public static final String MyPREFERENCES = "OrdBsPrefs";
 
@@ -45,6 +45,19 @@ public class SharedPrefUtils {
         sharedPreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         editor = sharedPreferences.edit();
+    }
+
+    public static void updateVal(Activity activity, final String key, float value)
+    {
+        sharedPreferences = getSharedPreferences(activity);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat(key, value).commit();
+    }
+
+    public static float getFloatValue(Activity activity, final String key)
+    {
+        sharedPreferences = getSharedPreferences(activity);
+        return sharedPreferences.getFloat(key, 0);
     }
 
     public static boolean getBooleanVal(Activity activity, final String KEY) {

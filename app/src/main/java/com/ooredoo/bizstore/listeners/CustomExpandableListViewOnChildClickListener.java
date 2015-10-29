@@ -67,10 +67,9 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
         int tabPos = getTabPosition();
 
-        Logger.logI("Sub-Category: " + tabPos, subCategory);
+        Logger.print("Sub-Category: " + tabPos + ", " + subCategory);
 
-        homeActivity.selectTab(tabPos);
-        homeActivity.drawerLayout.closeDrawer(GravityCompat.START);
+
 
         if(getTabPosition() != 3)
         {
@@ -80,8 +79,12 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
         {
             ShoppingTask.subCategories = filter;
         }
+        homeActivity.selectTab(tabPos);
+        homeActivity.drawerLayout.closeDrawer(GravityCompat.START);
 
         subCategorySelectedListener.onSubCategorySelected();
+
+
 
         return true;
     }

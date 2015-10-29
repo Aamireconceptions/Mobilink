@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
@@ -24,6 +26,7 @@ import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -107,6 +110,15 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         gridView = (HeaderGridView) v.findViewById(R.id.shopping_gridview);
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+        {
+            if(BizStore.getLanguage().equals("ar"))
+                gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._6sdp));
+            else
+                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
+        }
+
         gridView.addHeaderView(rlHeader);
        // gridView.setEmptyView(tvEmptyView);
         dealGridOnItemClickListener = new DealGridOnItemClickListener(activity, adapter, this);
@@ -129,6 +141,26 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         loadDeals(progressBar);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+
+        if(newConfig.getLayoutDirection() == Configuration.SCREENLAYOUT_LAYOUTDIR_RTL)
+            gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._6sdp));
+        else
+            gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
+    }
+
+
 
     private void loadDeals(ProgressBar progressBar)
     {

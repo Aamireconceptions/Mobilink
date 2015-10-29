@@ -78,13 +78,13 @@
     <string name="new_deals">العروض الجديدة</string>
     <string name="popular_deals">العروض الرائجة</string>
     <string name="error_search_term">يرجى تقديم مصطلح البحث</string>
-    <string name="error_no_internet">لايوجد اتصال مع الإنترنت</string>
+    <string name="error_no_internet">الاتصال بشبكة الانترنت هو أسفل، يرجى المحاولة مرة أخرى!</string>
     <string name="rate_us">قيمنا على بلاي ستور.</string>
     <string name="English">English</string>
     <string name="arabic">العربية</string>
     <string name="is_arabic">true</string>
     <string name="share_app_note">شارك التطبيق مع الأصدقاء و الأقارب</string>
-    <string name="enter_number">أدخل رقم جوالك</string>
+    <string name="enter_number">يرجى تقديم رقم هاتفك.</string>
     <string name="sharing_msg">رسالة المشاركة</string>
     <string name="share_with_friends_txt">مرحبا، وجدت هذا التطبيق الرهيب لأفضل العروض في المدينة. أرسل رسالة نصية الى 92806 و حمل التطبيق</string>
     <string name="share_now">شارك الآن</string>
@@ -98,8 +98,8 @@
     <string name="No">لا</string>
     <string name="Yes">نعم</string>
     <string name="ENTER_CODE">أدخل الرمز</string>
-    <string name="verification_code_details">سيتم ارسال الرقم القصير الرجاء تفقد الرسائل الواردة</string>
-    <string name="unsub_details"> الغاء الاشتراك في بيزستور يتنج عنه ايقاف كل التنبيهات لجميع العروض الجديدة من التطبيق.</string>
+    <string name="verification_code_details">عزيزي المستخدم، سوف تتلقى رمز المرور الخاص من الناقل \ n الرجاء مراجعة البريد الوارد الخاص بك.</string>
+    <string name="unsub_details">بعدم الاشتراك Bizstore، وسوف لم يعد الحصول على تنبيهات تعزيز أو الخدمة من التطبيق.</string>
     <string name="share_app_with_friends">شارك التطبيق مع الأصدقاء</string>
     <string name="About_Us">عن التطبيق</string>
     <string name="select_all">اخيتار كل</string>
@@ -114,7 +114,7 @@
     <string name="filter">مصنفة</string>
     <string name="filter_results">نتائج مصنفة</string>
     <string name="percentage_off">% خصم</string>
-    <string name="error_provide_num">الرجاء إدخال رقم هاتفك</string>
+    <string name="error_provide_num">يرجى تقديم رقم هاتفك.</string>
     <string name="please_wait">الرجاء الانتظار</string>
     <string name="success_shared">تمت المشاركة بنجاح</string>
     <string name="redeemed">مستبدلة</string>
@@ -175,19 +175,19 @@
     <string name="Currency">عملة</string>
     <string name="Clothing">ملابس</string>
     <string name="Equipment">معدات</string>
-    <string name="error_invalid_num">الرجاء إدخال رقم هاتفك</string>
-    <string name="error_invalid_verification_code">الرجاء إدخال رقم التأكيد</string>
+    <string name="error_invalid_num">يرجى تقديم رقم هاتف صالح.</string>
+    <string name="error_invalid_verification_code">يرجى نسخ رمز المرور من SMS وحاول مرة أخرى.</string>
     <string name="copyrights_text">Copyright 2015 Ooredoo Bizstore\nجميع حقوق النشر محفوظة</string>
     <string name="Clear_All">إخلاء</string>
-    <string name="error_server_down">الخدمة تحت الصيانة. الرجاء المحاولة مرة أخى في وقت لاحق</string>
+    <string name="error_server_down">الاتصال بخادم باستمرار، يرجى التحقق مرة أخرى قريبا!</string>
     <string name="skip">تخطى</string>
     <string name="All">كل</string>
     <string name="hot_deals">عروض خاصة</string>
 
-    <string name="provide_name">الرجاء إدخال إسمك</string>
-    <string name="select_pic">الرجاء إختيار صورة</string>
-    <string name="no_fav_item">لا يوجد نتائج مفضلة</string>
-    <string name="no_recent_item">لا يوجد نتائج مفضلة تم البحث عليها مسبقاً</string>
+    <string name="provide_name">اسمك</string>
+    <string name="select_pic">صورتك</string>
+    <string name="no_fav_item">دلو المفضل هو فارغ.</string>
+    <string name="no_recent_item">هل لا ينظر أي صفقة أو الأعمال، دعونا التحقق من ذلك!ً</string>
     <string name="available">متوفر</string>
     <string name="provide_valid_verification">الرجاء إدخال رقم التأكيد</string>
     <string name="getting_vocher">الحصول على الكوبون</string>
@@ -224,4 +224,9 @@
     <string name="featured_deals">عروض مميزة</string>
     <string name="subscribing">اشتراك</string>
     <string name="unsubscribing">إلغاء الاشتراك</string>
+    <string name="invalid_phone_num">عزيزي المستخدم، كنت قد قدمت رقم الهاتف غير صالح</string>
+    <string name="profile_update">تم تحديث إعدادات ملف التعريف بنجاح.</string>
+    <string name="cinemas"> دور السينما</string>
+    <string name="apply">تطبيق</string>
+    <string name="rating_success">  أشكركم على التصنيف</string>
 </resources>

@@ -28,7 +28,8 @@ public class DrawerChangeListener implements DrawerLayout.DrawerListener {
     }
 
     @Override
-    public void onDrawerClosed(View view) {
+    public void onDrawerClosed(View view)
+    {
 
     }
 

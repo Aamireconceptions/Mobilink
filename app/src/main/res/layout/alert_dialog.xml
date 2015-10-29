@@ -11,12 +11,12 @@
         <TextView
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textColor="@android:color/secondary_text_light"
-            android:text="Dear user, you have entered an invalid phone number. Please verify and correct"
-            android:textSize="14sp"/>
+            android:text="@string/invalid_phone_num"
+            android:textSize="16sp"/>
 
         <Button
             android:id="@+id/ok"

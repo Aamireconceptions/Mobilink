@@ -116,7 +116,6 @@ public class FilterOnClickListener implements View.OnClickListener
 
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
 
-
                 String subCategories = CategoryUtils.getSelectedSubCategories(category);
                 DealsTask.subCategories = subCategories;
                 ShoppingTask.subCategories = subCategories;

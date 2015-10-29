@@ -146,7 +146,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
         String name1 = navigationItem1.getItemName();
 
-        Logger.print("getChildView: groupPos: " + groupPosition + ", childPos: " + childPosition + " " + name1);
+        // Logger.print("getChildView: groupPos: " + groupPosition + ", childPos: " + childPosition + " " + name1);
 
         if((groupPosition == 0 && childPosition == 0 || childPosition == 7) || groupPosition == 1) {
 
@@ -160,10 +160,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             int resId = navigationItem.getResId();
 
             TextView tvName = (TextView) convertView.findViewById(R.id.name);
-
             tvName.setLayoutDirection(direction);
             tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
-
             tvName.setText(name);
 
             return convertView;

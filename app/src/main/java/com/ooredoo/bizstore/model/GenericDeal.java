@@ -15,7 +15,9 @@ public class GenericDeal implements Serializable{
 
     public String description, startDate, endDate, voucher, status, redeemedOn;
 
-    public String title, category, contact, address;
+    public String title, category, contact, address, location;
+
+
 
     @SerializedName("images")
     public Image image;

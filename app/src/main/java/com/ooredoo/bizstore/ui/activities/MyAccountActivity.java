@@ -40,6 +40,7 @@ import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.FileUtils;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -89,17 +90,21 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         etName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_DONE){
-                   ivEditName.performClick();
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    ivEditName.performClick();
                     etName.clearFocus();
 
+
                     //etName.setFocusable(false);
-                   // ivEditName.setFocusableInTouchMode(false);
+                    // ivEditName.setFocusableInTouchMode(false);
                 }
                 return false;
             }
         });
         etNumber = (EditText) findViewById(R.id.et_number);
+
+        FontUtils.setFont(this, BizStore.getLanguage().equals("en") ? BizStore.DEFAULT_FONT
+        : BizStore.ARABIC_DEFAULT_FONT, etNumber);
         ivProfilePic = (ImageView) findViewById(R.id.iv_profile_pic);
         findViewById(R.id.iv_edit_dp).setOnClickListener(this);
 
@@ -183,6 +188,8 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
 // Dispatch touch event to view
                 etName.dispatchTouchEvent(motionEvent);
+                etName.setCursorVisible(true);
+                etName.setSelection(etName.getText().length());
             } else {
 
                 /*InputMethodManager keyboard = (InputMethodManager)
@@ -204,6 +211,10 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                     Snackbar.make(etName, msg, Snackbar.LENGTH_SHORT).show();
                 }
 
+                etName.setCursorVisible(false);
+
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(etName.getWindowToken(), 0);
                // etName.setFocusable(false);
             }
 
@@ -324,8 +335,8 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 canEditDp = false;
                 ivEdit.setImageResource(R.drawable.ic_done_white);
                 bitmap = bitmapProcessor.decodeSampledBitmapFromFile(path,
-                        (int)Converter.convertDpToPixels(300),
-                        (int)Converter.convertDpToPixels(300));
+                        (int)Converter.convertDpToPixels(600),
+                        (int)Converter.convertDpToPixels(600));
 
                 FileUtils.saveBitmap(bitmap, path);
 

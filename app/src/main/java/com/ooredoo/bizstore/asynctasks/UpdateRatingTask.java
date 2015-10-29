@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Activity;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
@@ -78,6 +79,12 @@ public class UpdateRatingTask extends BaseAsyncTask<Void, Void, String> {
 
             ((RatingBar) mActivity.findViewById(R.id.rating_bar)).setRating(rating);
             Logger.logI(LOG_TAG, isNotNullOrEmpty(result) ? result : "ERR_UPDATING_RATING");
+
+            Toast.makeText(mActivity, R.string.rating_success, Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(mActivity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         }
     }
 

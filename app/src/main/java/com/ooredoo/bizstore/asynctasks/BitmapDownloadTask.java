@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -74,10 +75,21 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         showProgress(View.GONE);
 
-        if(downloadingPool.remove(imgUrl));
+        Iterator<String> iterator = downloadingPool.iterator();
+
+        while (iterator.hasNext())
         {
-            Logger.print("x3 " + imgUrl + " removed from pool");
+            String str = iterator.next();
+
+            if(str.equals(imgUrl));
+            {
+               // downloadingPool.remove(imgUrl)
+                iterator.remove();
+
+                Logger.print("x3 " + imgUrl + " removed from pool");
+            }
         }
+
 
         if(bitmap != null)
         {
@@ -120,7 +132,11 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             synchronized(this)
             {
-                for(String url : downloadingPool)
+                String pool[] = new String[downloadingPool.size()];
+
+                downloadingPool.toArray(pool);
+
+                for(String url : pool)
                 {
                     if(url.equals(imgUrl))
                     {
@@ -140,10 +156,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             Logger.print("x3 " + imgUrl + " added to pool");
 
-            synchronized (this)
-            {
-                downloadingPool.add(imgUrl);
-            }
+            downloadingPool.add(imgUrl);
 
             Logger.print("Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);

@@ -65,6 +65,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     private Dialog ratingDialog;
 
+    static String packageName;
+
     public BusinessDetailActivity() {
         super();
         layoutResId = R.layout.activity_business_details;
@@ -110,7 +112,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         /*id = intent.getIntExtra(AppConstant.ID, 0);
 
         Logger.logI("DETAIL_ID", valueOf(id));*/
-
+    packageName = getPackageName();
         src = (Business) intent.getSerializableExtra("business");
 
         category = intent.getStringExtra(CATEGORY);
@@ -296,7 +298,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         Logger.print("Uri: " + uri);
 
-        uri = "View this restaurant on BizStore http://ooredoo.bizstore/business_detail?id=" + businessId;
+        uri = "View this restaurant on BizStore http://ooredoo.bizstore/business_detail?id=" + businessId+
+        "\n\nor download app from play.google.com/store/apps/details?id="+packageName;
 
         DealDetailActivity.startShareIntent(activity, uri, businessId);
     }

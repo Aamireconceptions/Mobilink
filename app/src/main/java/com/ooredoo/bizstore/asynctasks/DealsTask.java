@@ -40,7 +40,8 @@ import static java.lang.System.currentTimeMillis;
  * @author Babar
  * @since 26-Jun-15.
  */
-public class DealsTask extends BaseAsyncTask<String, Void, String> {
+public class DealsTask extends BaseAsyncTask<String, Void, String>
+{
     private HomeActivity homeActivity;
 
     private ListViewBaseAdapter adapter;

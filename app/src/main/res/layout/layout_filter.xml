@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_back_white"/>
+                android:src="@drawable/ic_close_white"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,15 +37,20 @@
 
                 android:text="@string/filter_results"
                 android:textColor="@color/white"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
-            <ImageView
+            <TextView
                 android:id="@+id/done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_done_white"/>
+                android:padding="@dimen/_4sdp"
+                android:text="@string/apply"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
 
         </RelativeLayout>
 

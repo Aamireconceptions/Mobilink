@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.MyScroller;
 import com.ooredoo.bizstore.utils.ResourceUtils;
@@ -89,12 +91,13 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
+dealofDayCalled = false;
         init(v);
 
         return v;
     }
 
+    boolean dealofDayCalled = false;
     private void init(View v) {
         activity = (HomeActivity) getActivity();
         activity.setCurrentFragment(this);
@@ -104,7 +107,9 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setSwipeableChildrens(R.id.home_list_view, R.id.empty_view, R.id.appBarLayout);
 
-        ListView listView = (ListView) v.findViewById(R.id.home_list_view);
+        final ListView listView = (ListView) v.findViewById(R.id.home_list_view);
+
+
 
         LayoutInflater inflater = activity.getLayoutInflater();
 
@@ -148,6 +153,32 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
             listView.setNestedScrollingEnabled(true);
         }
 
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final int lastItem = firstVisibleItem + visibleItemCount;
+
+
+                if (listView.getLastVisiblePosition() == listView.getAdapter().getCount() -1 &&
+                        listView.getChildAt(listView.getChildCount() - 1).getBottom() <= listView.getHeight())
+                {
+                    //It is scrolled all the way down here
+                    if(!dealofDayCalled) {
+                        dealofDayCalled = true;
+
+                        initAndLoadDealsOfTheDay();
+
+                        Logger.print("Last Item");
+                    }
+                }
+            }
+        });
+
         initAndLoadPromotions(v);
 
         initAndLoadFeaturedDeals(v);
@@ -156,7 +187,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         initAndLoadTopMalls(v);
 
-        initAndLoadDealsOfTheDay();
+        //initAndLoadDealsOfTheDay();
     }
 
     private void setDashboardItemsClickListener(View parent) {
@@ -206,7 +237,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private void loadPromos(ProgressBar pbPromo)
     {
-
         PromoTask promoTask = new PromoTask(activity, promoAdapter,
                                             promoPager, promoIndicator, pbPromo);
 

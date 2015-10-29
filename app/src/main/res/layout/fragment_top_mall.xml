@@ -35,10 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_2sdp"
-        android:ellipsize="end"
+
         android:gravity="center_horizontal"
-        android:maxLines="2"
-        android:minLines="2"
+        android:maxLines="1"
         android:textColor="@android:color/secondary_text_light"
         android:textSize="12sp"/>
 

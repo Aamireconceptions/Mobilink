@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,7 +102,8 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
                                                                OnFilterChangeListener,
                                                                TextView.OnEditorActionListener,
-                                                               OnSubCategorySelectedListener{
+                                                               OnSubCategorySelectedListener,
+        LocationListener{
     public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
@@ -170,9 +174,18 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BizStore.username = SharedPrefUtils.getStringVal(this, "username");
-        BizStore.password = SharedPrefUtils.getStringVal(this, "password");
+        String username = SharedPrefUtils.getStringVal(this, "username");
+        String password = SharedPrefUtils.getStringVal(this, "password");
 
+        if(!username.equals(SharedPrefUtils.EMPTY))
+        {
+            BizStore.username = username;
+        }
+
+        if(!password.equals(SharedPrefUtils.EMPTY))
+        {
+            BizStore.password = password;
+        }
 
         CategoryUtils.setUpSubCategories(this);
 
@@ -233,6 +246,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         bizStore.overrideDefaultFonts();
     }
 
+    LocationManager locationManager;
+
+    int minTimeMillis = 10 * 60 * 1000;
+    int distanceMeters = 50;
+
     private void init()
     {
         diskCache.requestInit(this);
@@ -262,9 +280,22 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         homePagerAdapter = new HomePagerAdapter(this, getFragmentManager());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+       // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+
 
         drawerLayout.setDrawerListener(mDrawerListener);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis, distanceMeters, this);
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if(location != null)
+        {
+            Logger.print("Location Changed#LastKnown: "+location.getLatitude() + ", "+location.getLongitude());
+
+            SharedPrefUtils.updateVal(this, "lat", (float) location.getLatitude());
+            SharedPrefUtils.updateVal(this, "lng", (float) location.getLongitude());
+        }
 
         viewPager = (ViewPager) findViewById(R.id.home_viewpager);
 
@@ -340,8 +371,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         ImageView ivBack = (ImageView) findViewById(R.id.back);
         ivBack.setOnClickListener(clickListener);
 
-        ImageView ivDone = (ImageView) findViewById(R.id.done);
-        ivDone.setOnClickListener(clickListener);
+        TextView tvDone = (TextView) findViewById(R.id.done);
+        tvDone.setOnClickListener(clickListener);
 
         /*TextView tvDealsAndDiscount = (TextView) findViewById(R.id.deals_discount_checkbox);
         tvDealsAndDiscount.setOnClickListener(clickListener);
@@ -566,6 +597,33 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public void onSubCategorySelected()
     {
         ((OnSubCategorySelectedListener) currentFragment).onSubCategorySelected();
+    }
+
+    @Override
+    public void onLocationChanged(Location location)
+    {
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+
+        Logger.print("Location Changed: "+lat + ", "+lng);
+
+        SharedPrefUtils.updateVal(this, "lat", (float) lat);
+        SharedPrefUtils.updateVal(this, "lng", (float) lng);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 
 
@@ -835,6 +893,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         BitmapDownloadTask.downloadingPool.clear();
 
         Logger.print("HomeActivity onDestroy");
+
+        locationManager.removeUpdates(this);
 
         //timer.cancel();
     }

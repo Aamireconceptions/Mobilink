@@ -97,7 +97,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
     }
 
     private String getEntertainmentSubCategory(int id) {
-        return id == R.id.events ? mActivity.getString(R.string.events) : id == R.id.movie_tickets ? mActivity.getString(R.string.movie_tickets) : mActivity.getString(R.string.Kids_Activities);
+        return id == R.id.events ? mActivity.getString(R.string.events) : id == R.id.movie_tickets ? mActivity.getString(R.string.cinemas) : mActivity.getString(R.string.Kids_Activities);
     }
 
     private void processSubCategory(String subCategoryName) {

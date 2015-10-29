@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.ui.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -56,6 +57,7 @@ import static java.lang.String.valueOf;
 public class DealDetailActivity extends BaseActivity implements OnClickListener {
 
     public String category;
+    static String packageName;
     public boolean showBanner = false;
 
    // public int bannerResId = R.drawable.tmp_banner;
@@ -152,7 +154,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
         //  id = intent.getIntExtra(AppConstant.ID, 0);
-
+packageName = getPackageName();
         if(genericDeal != null) {
 
             id = genericDeal.id;
@@ -453,7 +455,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
         Logger.print("Uri: " + uri);
 
-        uri = "View this awesome deal on BizStore http://ooredoo.bizstore/deal_detail?id=" + dealId;
+        uri = "View this awesome deal on BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
+        "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);
     }

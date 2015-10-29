@@ -115,7 +115,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/top_brands_pager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp" />
+        android:layout_height="@dimen/_130sdp" />
 
         <ProgressBar
             android:id="@+id/top_brands_progress"
@@ -164,7 +164,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/top_malls_pager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp" />
+        android:layout_height="@dimen/_130sdp" />
 
         <ProgressBar
             android:id="@+id/top_malls_progress"

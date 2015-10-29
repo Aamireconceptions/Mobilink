@@ -127,7 +127,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
         DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("automotive");
-
+//cache = null;
         if(cache != null && !isRefreshed)
         {
             dealsTask.setData(cache);

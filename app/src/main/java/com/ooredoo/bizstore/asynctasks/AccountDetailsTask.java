@@ -3,10 +3,12 @@ package com.ooredoo.bizstore.asynctasks;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.AppData;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.model.UserAccount;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -15,6 +17,7 @@ import java.util.HashMap;
  */
 public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
 
+    private final static String SERVICE_NAME = "/viewprofile?";
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -64,9 +67,16 @@ public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
         params.put(OS, ANDROID);
         params.put("msisdn", msisdn);
 
-        setServiceUrl("viewprofile", params);
+        String query = createQuery(params);
 
-        result = getJson();
+        URL url =  new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        Logger.print("getAccountDetails() URL:" + url.toString());
+
+        result = getJson(url);
+       // setServiceUrl("viewprofile", params);
+
+       // result = getJson();
 
         Logger.print("viewprofile result: " + result);
 
