@@ -1,10 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-                android:paddingStart="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_8sdp">
+                >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:padding="@dimen/_8sdp"
+        android:background="@drawable/list_border_head">
+
+        <ImageView
+            android:id="@+id/brand_logo"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_rate"
+            android:background="@drawable/box"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/brand_logo"
+            android:layout_toStartOf="@+id/directions"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/brand_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subway"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/brand_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Safa gold f6 - Islamabad"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/directions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:drawableTop="@drawable/ic_directions_big"
+
+            android:text="1.5 km"
+            android:textColor="@color/red"
+            android:gravity="center"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/promotion_layout"
@@ -27,6 +88,26 @@
             android:indeterminateDrawable="@drawable/custom_progress"
             android:visibility="visible"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/discount_tag"
+            android:src="@drawable/list_discount_tag"/>
+
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:gravity="center"
+            android:text="50%\noff"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:rotation="-40"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
@@ -37,17 +118,20 @@
         android:id="@+id/layout_deal_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/promotion_layout"
-        android:padding="@dimen/_12sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
         android:orientation="vertical"
-        android:background="@drawable/deal_detail_bg">
+        android:background="@drawable/list_border_footer">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_18sdp"
             android:text="Amir Adnan"
-            android:textSize="14sp"
+            android:textSize="18sp"
+            android:textAllCaps="true"
             android:textStyle="bold"
             android:textColor="@color/red"/>
 
@@ -55,12 +139,14 @@
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:text="Amir Adnan Wedding Coture Package 2015 - Sherwani, Inner, Lawn, Suite, etc"
-            android:maxLines="2"
-            />
+            android:layout_marginStart="@dimen/_18sdp"
 
-        <TextView
+            android:textColor="@color/black"
+            android:text="Amir Adnan Wedding Coture Package 2015 - Sherwani, Inner, Lawn, Suite, etc"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <!--<TextView
             android:id="@+id/discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,11 +154,11 @@
 
             android:textSize="14sp"
             android:textColor="@color/red"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"/>-->
 
     </LinearLayout>
 
-    <RelativeLayout
+ <!--   <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_deal_detail"
@@ -108,15 +194,15 @@
             android:drawablePadding="@dimen/_4sdp"
             android:text="0"/>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/fav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:src="@drawable/fav_selector"/>
+        android:src="@drawable/fav_selector"/>-->
 
-</RelativeLayout>
+</LinearLayout>

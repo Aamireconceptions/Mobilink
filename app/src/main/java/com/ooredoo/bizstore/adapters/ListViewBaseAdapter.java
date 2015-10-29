@@ -23,6 +23,7 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
@@ -151,10 +152,69 @@ public class ListViewBaseAdapter extends BaseAdapter {
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
             holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
+            holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
+            holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+            holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
 
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
+        }
+
+        //holder.tvBrandName.setText(genericDeal.brandName);
+        //holder.tvBrandAddress.setText(genericDeal.brandAddress);
+
+        String brandLogoUrl = deal.image != null ? deal.image.logoUrl : null;
+
+        Logger.print("BrandLogo: " + brandLogoUrl);
+
+        if(brandLogoUrl != null )
+        {
+            String url = BaseAsyncTask.IMAGE_BASE_URL + brandLogoUrl;
+
+            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+            if(bitmap != null)
+            {
+                holder.ivBrand.setImageBitmap(bitmap);
+                //holder.progressBar.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.ivBrand.setImageBitmap(null);
+
+                fallBackToDiskCache(url);
+            }
+
+            holder.ivPromotional.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if(isSearchEnabled()) {
+                        HomeActivity homeActivity = (HomeActivity) activity;
+                        homeActivity.showHideSearchBar(false);
+                    } else {
+                        showDetail(deal);
+                    }
+                }
+            });
+        }
+        else
+        {
+            if(holder.ivPromotional != null)
+            {
+                holder.rlPromotionalLayout.setVisibility(View.GONE);
+
+               /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                holder.progressBar.setVisibility(View.GONE);
+                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDetail(deal);
+                    }
+                });*/
+            }
         }
 
         if(holder.tvCategory != null)
@@ -170,8 +230,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         deal.isFav = Favorite.isFavorite(deal.id);
 
-        holder.ivFav.setSelected(deal.isFav);
-        holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
+       // holder.ivFav.setSelected(deal.isFav);
+      //  holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
         holder.tvTitle.setText(deal.title);
 
@@ -184,7 +244,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         {
             holder.tvDiscount.setVisibility(View.VISIBLE);
         }
-        holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
+        holder.tvDiscount.setText(valueOf(deal.discount) +"%\nOFF");
 
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +258,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
         });
 
-        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+       /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isSearchEnabled()) {
@@ -208,11 +268,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     DealDetailActivity.shareDeal((Activity) context, deal.id);
                 }
             }
-        });
+        });*/
 
-        holder.rbRatings.setRating(deal.rating);
+//        holder.rbRatings.setRating(deal.rating);
 
-        holder.tvViews.setText(valueOf(deal.views));
+     //   holder.tvViews.setText(valueOf(deal.views));
 
         String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
 
@@ -233,6 +293,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
             else
             {
+                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                holder.progressBar.setVisibility(View.VISIBLE);
+
                 fallBackToDiskCache(url);
             }
 
@@ -311,8 +374,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                            holder.progressBar.setVisibility(View.VISIBLE);
+                           // holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                           // holder.progressBar.setVisibility(View.VISIBLE);
 
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                     new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
@@ -384,9 +447,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         View layout;
 
-        ImageView ivFav, ivShare, ivPromotional;
+        ImageView ivFav, ivShare, ivPromotional, ivBrand;
 
-        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;
+        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress;
 
         RatingBar rbRatings;
 

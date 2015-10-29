@@ -15,9 +15,7 @@ public class GenericDeal implements Serializable{
 
     public String description, startDate, endDate, voucher, status, redeemedOn;
 
-    public String title, category, contact, address, location;
-
-
+    public String title, category, contact, address, location, brandName, brandAddress;
 
     @SerializedName("images")
     public Image image;
@@ -25,6 +23,8 @@ public class GenericDeal implements Serializable{
     public boolean isFav;
 
     public float rating;
+
+    public double latitude, longitude;
 
     public GenericDeal(RecentDeal deal) {
         this.id = deal.id;

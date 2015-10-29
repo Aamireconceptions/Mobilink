@@ -3,7 +3,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-    android:fillViewport="true"
             android:scrollbars="none"
             android:scrollbarStyle="insideOverlay">
 
@@ -16,6 +15,8 @@
             android:id="@+id/rl_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+
 
             <ImageView
                 android:id="@+id/detail_img"
@@ -32,44 +33,103 @@
                 android:layout_centerInParent="true"
                 android:visibility="gone"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/_4sdp"
                 android:background="@drawable/gradient_overlay">
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:textColor="#F7F7F7"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/tv_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:textColor="@color/grey"
-                    android:textStyle="normal"/>
-
-                <RatingBar
-                    android:id="@+id/rating_bar"
+                <ImageView
+                    android:id="@+id/brand_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
                     android:layout_centerVertical="true"
-                    android:rating="3"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:progressDrawable="@drawable/deal_rating_bar"
-                    style="?android:attr/ratingBarStyleSmall"/>
-            </LinearLayout>
+                    android:src="@drawable/ic_directions_big"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/directions_layout"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_toEndOf="@+id/brand_logo"
+                    android:layout_centerVertical="true">
+
+
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:textAllCaps="true"
+                        android:text="subway"
+                        android:textColor="#F7F7F7"
+                        android:textSize="24sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_title"
+                        android:layout_alignLeft="@+id/tv_title"
+
+                        android:textColor="@color/white"
+                        android:text="Restaurant"
+                        android:textStyle="normal"/>
+
+                    <!--<TextView
+                        android:id="@+id/tv_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:textColor="@color/grey"
+                        android:textStyle="normal"/>-->
+
+                    <RatingBar
+                        android:id="@+id/rating_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:rating="3"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:progressDrawable="@drawable/deal_rating_bar"
+                        style="?android:attr/ratingBarStyleSmall"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/directions_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="106dp"
+                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#33ffffff">
+
+                    <TextView
+                        android:id="@+id/directions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:gravity="center_horizontal"
+                        android:drawableTop="@drawable/ic_directions_big"
+                        android:text="Distance\n1.4 km"/>
+
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+
 
 
         </RelativeLayout>
@@ -155,6 +215,50 @@
         </TableLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_20sdp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:background="@drawable/list_border_head">
+
+                <TextView
+                    android:id="@+id/city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textAllCaps="true"
+                    android:text="Islamabad"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Locations"
+                    android:drawableEnd="@drawable/ic_arrow_down"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:textColor="@color/red"
+                    android:textStyle="bold"/>
+
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+        <!--<LinearLayout
             android:id="@+id/ll_deal_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -231,6 +335,6 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:textColor="@color/black"/>
-        </LinearLayout>
+        </LinearLayout>-->
     </LinearLayout>
 </ScrollView>
