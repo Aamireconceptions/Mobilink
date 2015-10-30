@@ -155,6 +155,8 @@ public class GridViewBaseAdapter extends BaseAdapter
                                          String.valueOf(reqWidth), String.valueOf(reqHeight));*//*
                 bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));*/
 
+                holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                holder.progressBar.setVisibility(View.VISIBLE);
                 fallBackToDiskCache(imgUrl);
             }
         }
@@ -208,8 +210,8 @@ public class GridViewBaseAdapter extends BaseAdapter
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
-                            holder.progressBar.setVisibility(View.VISIBLE);
+                           // holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                            //holder.progressBar.setVisibility(View.VISIBLE);
 
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                     new BaseAdapterBitmapDownloadTask(GridViewBaseAdapter.this);

@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
@@ -15,11 +16,20 @@ public class BaseAdapterBitmapDownloadTask extends BitmapDownloadTask
 {
     private BaseAdapter adapter;
 
+    private BaseExpandableListAdapter baseExpandableListAdapter;
+
     public BaseAdapterBitmapDownloadTask(BaseAdapter adapter)
     {
         super(null, null);
 
         this.adapter = adapter;
+    }
+
+    public BaseAdapterBitmapDownloadTask(BaseExpandableListAdapter adapter)
+    {
+        super(null, null);
+
+        this.baseExpandableListAdapter = adapter;
     }
 
     @Override
@@ -29,12 +39,20 @@ public class BaseAdapterBitmapDownloadTask extends BitmapDownloadTask
 
         if(bitmap != null)
         {
-            if(adapter instanceof ListViewBaseAdapter)
-            {
-                ((ListViewBaseAdapter) adapter).doAnimate = false;
-            }
 
-            adapter.notifyDataSetChanged();
+//            if(adapter instanceof ListViewBaseAdapter)
+//            {
+//                ((ListViewBaseAdapter) adapter).doAnimate = false;
+//            }
+
+            if(adapter != null)
+            {
+                adapter.notifyDataSetChanged();
+            }
+            else
+            {
+                baseExpandableListAdapter.notifyDataSetChanged();
+            }
         }
     }
 }

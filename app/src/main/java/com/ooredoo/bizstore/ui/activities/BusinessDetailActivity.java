@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,8 +10,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -54,6 +57,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     ScrollViewHelper scrollViewHelper;
 
+    ExpandableListView expandableListView;
+
     private int id = -1;
 
     public Business src;
@@ -69,7 +74,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     public BusinessDetailActivity() {
         super();
-        layoutResId = R.layout.activity_business_details;
+        layoutResId = R.layout.business_detail_activity;
     }
 
     @Override
@@ -108,30 +113,44 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
     }
 
+    View header;
     private void initViews() {
         /*id = intent.getIntExtra(AppConstant.ID, 0);
 
         Logger.logI("DETAIL_ID", valueOf(id));*/
-    packageName = getPackageName();
+
+        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        header = layoutInflater.inflate(R.layout.fragment_business_details, null);
+
+        expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
+        expandableListView.addHeaderView(header);
+
+
+
+
+
+        packageName = getPackageName();
         src = (Business) intent.getSerializableExtra("business");
 
         category = intent.getStringExtra(CATEGORY);
 
-        scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
-        scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+        //scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
+       // scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
         SnackBarUtils snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        ProgressBar progressBar = (ProgressBar) header.findViewById(R.id.progress_bar);
         if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
-        findViewById(R.id.tv_call).setOnClickListener(this);
-        findViewById(R.id.iv_call).setOnClickListener(this);
-        findViewById(R.id.tv_rate).setOnClickListener(this);
-        findViewById(R.id.iv_rate).setOnClickListener(this);
-        findViewById(R.id.tv_share).setOnClickListener(this);
-        findViewById(R.id.iv_share).setOnClickListener(this);
+        header.findViewById(R.id.tv_call).setOnClickListener(this);
+        header.findViewById(R.id.iv_call).setOnClickListener(this);
+        header.findViewById(R.id.tv_rate).setOnClickListener(this);
+        header.findViewById(R.id.iv_rate).setOnClickListener(this);
+        header.findViewById(R.id.tv_share).setOnClickListener(this);
+        header.findViewById(R.id.iv_share).setOnClickListener(this);
+
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
         if(src != null && id != -1) {
@@ -155,27 +174,27 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
             src.isFavorite = Favorite.isFavorite(src.id);
 
-            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+            header.findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
             if(isNotNullOrEmpty(business.title)) {
                 mActionBar.setTitle(business.title);
-                scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+                //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
             }
 
-            ((TextView) findViewById(R.id.tv_desc)).setText(business.description);
+            ((TextView) header.findViewById(R.id.tv_desc)).setText(business.description);
 
-            ((TextView) findViewById(R.id.tv_title)).setText(business.title);
-            ((TextView) findViewById(R.id.tv_contact)).setText(business.contact);
-            ((TextView) findViewById(R.id.tv_address)).setText(business.address);
-            ((TextView) findViewById(R.id.tv_location)).setText(business.location);
-            ((RatingBar) findViewById(R.id.rating_bar)).setRating(business.rating);
-            ((TextView) findViewById(R.id.tv_views)).setText(valueOf(business.views));
-            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+            ((TextView) header.findViewById(R.id.tv_title)).setText(business.title);
+            ((TextView) header.findViewById(R.id.tv_contact)).setText(business.contact);
+            ((TextView) header.findViewById(R.id.tv_address)).setText(business.address);
+            ((TextView) header.findViewById(R.id.city)).setText(business.location);
+            ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(business.rating);
+            ((TextView) header.findViewById(R.id.tv_views)).setText(valueOf(business.views));
+            header.findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
-            ivDetail = (ImageView) findViewById(R.id.detail_img);
+            ivDetail = (ImageView) header.findViewById(R.id.detail_img);
 
-            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar = (ProgressBar) header.findViewById(R.id.progressBar);
 
             String detailImageUrl = null;
 
