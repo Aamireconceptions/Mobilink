@@ -43,9 +43,9 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 {
     private Context context;
 
-    private String[] groupArray;
+    private List<String> groupList;
 
-    private List<List<Object>> childList;
+    private List<List<?>> childList;
 
     private LayoutInflater layoutInflater;
 
@@ -54,11 +54,11 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
     private int reqWidth, reqHeight;
 
-    public BusinessAdapter(Context context, String[] groupArray, List<List<Object>> childList)
+    public BusinessAdapter(Context context, List<String> groupList, List<List<?>> childList)
     {
         this.context = context;
 
-        this.groupArray = groupArray;
+        this.groupList = groupList;
 
         this.childList = childList;
 
@@ -75,7 +75,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
     @Override
     public int getGroupCount() {
 
-        return groupArray.length;
+        return groupList.size();
     }
 
     @Override
@@ -87,7 +87,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
     @Override
     public String getGroup(int groupPosition)
     {
-        return groupArray[groupPosition];
+        return groupList.get(groupPosition);
     }
 
     @Override
@@ -315,6 +315,15 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             gridLayout.addView(childView);
 
             View brandView = layoutInflater.inflate(R.layout.brand, parent, false);
+            brandView.setTag(brand);
+            brandView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+
+                }
+            });
 
             TextView tvTitle = (TextView) brandView.findViewById(R.id.text_view);
             tvTitle.setText(brand.title);

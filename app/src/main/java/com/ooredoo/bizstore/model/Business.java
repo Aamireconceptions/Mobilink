@@ -1,8 +1,10 @@
 package com.ooredoo.bizstore.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ooredoo.bizstore.adapters.Gallery;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Pehlaj Rai
@@ -20,6 +22,14 @@ public class Business  implements Serializable{
 
     @SerializedName("images")
     public Image image;
+
+    public List<Menu> menus;
+
+    public List<Gallery> galleries;
+
+    public List<GenericDeal> deals;
+
+    public List<Brand> brands;
 
     public Business(Mall mall)
     {

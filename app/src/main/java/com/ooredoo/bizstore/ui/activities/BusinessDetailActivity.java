@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -15,24 +16,35 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.BusinessAdapter;
+import com.ooredoo.bizstore.adapters.Gallery;
+import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BusinessDetailTask;
+import com.ooredoo.bizstore.asynctasks.BusinessMiscTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.model.Menu;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -114,6 +126,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     }
 
     View header;
+    SnackBarUtils snackBarUtils;
     private void initViews() {
         /*id = intent.getIntExtra(AppConstant.ID, 0);
 
@@ -130,6 +143,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
 
 
+
+
         packageName = getPackageName();
         src = (Business) intent.getSerializableExtra("business");
 
@@ -138,7 +153,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         //scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
        // scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
-        SnackBarUtils snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
+        snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
         ProgressBar progressBar = (ProgressBar) header.findViewById(R.id.progress_bar);
         if(progressBar != null) {
@@ -167,14 +182,37 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     ProgressBar progressBar;
 
+    List<String> groupList;
+
+    List<List<?>> childList;
+
+    RelativeLayout rlDescription;
+
+    TextView tvDescription, tvDescriptionArrow, tvMenuArrow;
+
+    LinearLayout llMenu;
+
+    ViewPager galleryPager;
+
+    BusinessAdapter adapter;
+
     public void populateData(Business business) {
         if(business != null) {
+
+            groupList = new ArrayList<>();
+
+            childList = new ArrayList<>();
+
+            adapter = new BusinessAdapter(this, groupList, childList);
+
+            expandableListView.setAdapter(adapter);
+
             src = business;
             src.id = business.id;
 
             src.isFavorite = Favorite.isFavorite(src.id);
 
-            header.findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
             if(isNotNullOrEmpty(business.title)) {
@@ -182,15 +220,28 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
             }
 
-            ((TextView) header.findViewById(R.id.tv_desc)).setText(business.description);
+            tvDescriptionArrow = (TextView) header.findViewById(R.id.description_arrow);
+
+            rlDescription = (RelativeLayout) header.findViewById(R.id.description_layout);
+            rlDescription.setOnClickListener(this);
+
+            tvDescription = ((TextView) header.findViewById(R.id.description));
+            tvDescription.setText(business.description);
+
+            RelativeLayout rlMenu = (RelativeLayout) header.findViewById(R.id.menu_layout);
+            rlMenu.setOnClickListener(this);
+
+            tvMenuArrow = (TextView) header.findViewById(R.id.menu_arrow);
+
+            llMenu = (LinearLayout) header.findViewById(R.id.ll_menu);
 
             ((TextView) header.findViewById(R.id.tv_title)).setText(business.title);
-            ((TextView) header.findViewById(R.id.tv_contact)).setText(business.contact);
-            ((TextView) header.findViewById(R.id.tv_address)).setText(business.address);
+            ((TextView) header.findViewById(R.id.phone)).setText(business.contact);
+            ((TextView) header.findViewById(R.id.address)).setText(business.address);
             ((TextView) header.findViewById(R.id.city)).setText(business.location);
             ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(business.rating);
             ((TextView) header.findViewById(R.id.tv_views)).setText(valueOf(business.views));
-            header.findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+           findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
             ivDetail = (ImageView) header.findViewById(R.id.detail_img);
 
@@ -225,7 +276,13 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
+
+        BusinessMiscTask businessMiscTask = new BusinessMiscTask(this, null, snackBarUtils);
+        //businessMiscTask.execute(String.valueOf(id));
     }
+
+
+
 
     private void fallBackToDiskCache(final String url)
     {
@@ -304,9 +361,46 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             } else {
                 makeText(getApplicationContext(), "No contact number found", LENGTH_LONG).show();
             }
-        } else if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
+        } else
+        if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
             shareBusiness(this, src.id);
         }
+        else
+            if(viewId == R.id.description_layout)
+            {
+                if(rlDescription.getTag().equals("collapsed"))
+                {
+                    tvDescription.setVisibility(View.VISIBLE);
+                    tvDescriptionArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow, 0);
+
+                    rlDescription.setTag("expanded");
+                }
+                else
+                {
+                    tvDescription.setVisibility(View.GONE);
+                    tvDescriptionArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
+
+                    rlDescription.setTag("collapsed");
+                }
+            }
+        else
+                if(viewId == R.id.menu_layout)
+                {
+                    if(v.getTag().equals("collapsed"))
+                    {
+                        llMenu.setVisibility(View.VISIBLE);
+                        tvMenuArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow, 0);
+
+                        v.setTag("expanded");
+                    }
+                    else
+                    {
+                        llMenu.setVisibility(View.GONE);
+                        tvMenuArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
+
+                        v.setTag("collapsed");
+                    }
+                }
     }
 
     public static void shareBusiness(Activity activity, int businessId) {
@@ -338,4 +432,67 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setShowHideAnimationEnabled(false);
     }
+
+    public void populateMisc(Business business)
+    {
+        llMenu = (LinearLayout) header.findViewById(R.id.ll_menu);
+
+        setupMenu(llMenu, business);
+
+        setupGallery(business);
+
+        setupSimilarDealsAndBrands(business);
+    }
+
+
+    private void setupMenu(LinearLayout llMenu, Business business)
+    {
+        View menuView = getLayoutInflater().inflate(R.layout.layout_menu, null);
+
+        if(business.menus != null)
+        {
+            for(Menu menu : business.menus)
+            {
+                TextView textView = (TextView) menuView.findViewById(R.id.item);
+                textView.setText(menu.item);
+
+                TextView tvPrice = (TextView) menuView.findViewById(R.id.price);
+                tvPrice.setText(menu.price);
+
+                llMenu.addView(menuView);
+            }
+        }
+    }
+
+    private void setupGallery(Business business)
+    {
+        LinearLayout llGallery = (LinearLayout) header.findViewById(R.id.gallery_layout);
+
+        if(business.galleries != null && business.galleries.size() > 0)
+        {
+            llGallery.setVisibility(View.VISIBLE);
+
+            GalleryStatePagerAdapter galleryAdapter = new GalleryStatePagerAdapter(getFragmentManager(), business.galleries);
+
+            galleryPager = (ViewPager) header.findViewById(R.id.gallery_pager);
+            galleryPager.setAdapter(galleryAdapter);
+        }
+        else
+        {
+            llGallery.setVisibility(View.GONE);
+        }
+    }
+
+    public void setupSimilarDealsAndBrands(Business business)
+    {
+        groupList.add(business.title + "Deals");
+        groupList.add("Similar brands");
+
+        childList.add(( business.deals));
+        childList.add(business.brands);
+
+        adapter.notifyDataSetChanged();
+
+    }
+
 }

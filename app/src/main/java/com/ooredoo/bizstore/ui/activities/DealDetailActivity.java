@@ -162,6 +162,8 @@ packageName = getPackageName();
             Logger.logI("DETAIL_ID", valueOf(id));
         }
 
+        View header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
+
         category = intent.getStringExtra(CATEGORY);
 
         scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
