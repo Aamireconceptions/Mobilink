@@ -433,10 +433,12 @@
             </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/similar_nearby"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/similar_deals"

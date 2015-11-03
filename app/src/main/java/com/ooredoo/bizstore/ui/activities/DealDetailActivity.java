@@ -3,7 +3,6 @@ package com.ooredoo.bizstore.ui.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -30,17 +29,14 @@ import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.GetCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
-import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.ScrollViewHelper;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +89,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     private DiskCache diskCache = DiskCache.getInstance();
 
     private SnackBarUtils snackBarUtils;
+
+    LinearLayout llSimilarNearby;
+
     public DealDetailActivity() {
         super();
         layoutResId = R.layout.deal_detail_activity;
@@ -156,7 +155,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     View header;
     ListView listView;
-    ListViewBaseAdapter adapter;
+    ListViewBaseAdapter similarAdapter, nearbyAdapter;
 
     List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
     private void initViews()
@@ -174,8 +173,13 @@ packageName = getPackageName();
 
         header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
 
+        llSimilarNearby = (LinearLayout) header.findViewById(R.id.similar_nearby);
+
         listView = (ListView) findViewById(R.id.list_view);
         listView.addHeaderView(header);
+
+        TextView tvEmptyView = (TextView) findViewById(R.id.empty_view);
+        //listView.setEmptyView(tvEmptyView);
 
         category = intent.getStringExtra(CATEGORY);
 
@@ -305,8 +309,6 @@ packageName = getPackageName();
             {
                 String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + detailImageUrl;
 
-
-
                 Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
                 if(bitmap != null)
@@ -320,6 +322,13 @@ packageName = getPackageName();
             }
 
             tvDiscount.setText(discount);
+
+            Button btSimilarDeals = (Button) header.findViewById(R.id.similar_deals);
+            btSimilarDeals.setOnClickListener(this);
+           // btSimilarDeals.performClick();
+
+            Button btNearbyDeals = (Button) header.findViewById(R.id.nearby_deals);
+            btNearbyDeals.setOnClickListener(this);
 
             //tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
 
@@ -355,8 +364,10 @@ packageName = getPackageName();
         }
 
 
-      adapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-        listView.setAdapter(adapter);
+      similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
+
+        nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
+        //listView.setAdapter(adapter);
     }
     Bitmap bitmap;
 
@@ -420,6 +431,7 @@ packageName = getPackageName();
         return super.onOptionsItemSelected(item);
     }
 
+    View lastSelected = null;
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -458,6 +470,33 @@ packageName = getPackageName();
             GetCodeTask getCodeTask = new GetCodeTask(this, snackBarUtils);
             getCodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
         }
+        else
+            if(viewId == R.id.similar_deals)
+            {
+                setSelected(v);
+
+                listView.setAdapter(similarAdapter);
+
+            }
+        else
+                if(viewId == R.id.nearby_deals)
+                {
+                    setSelected(v);
+
+                    listView.setAdapter(nearbyAdapter);
+                }
+    }
+
+    private void setSelected(View v)
+    {
+        if(lastSelected != null)
+        {
+            lastSelected.setSelected(false);
+        }
+
+        v.setSelected(true);
+
+        lastSelected = v;
     }
 
     public void showCode(String code)
@@ -541,5 +580,13 @@ packageName = getPackageName();
         mActionBar.setShowHideAnimationEnabled(false);
     }
 
+   public void onHaveData()
+   {
+       llSimilarNearby.setVisibility(View.VISIBLE);
+   }
 
+    public void onNoData()
+    {
+        llSimilarNearby.setVisibility(View.GONE);
+    }
 }
