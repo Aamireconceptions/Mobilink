@@ -177,6 +177,7 @@ packageName = getPackageName();
 
         listView = (ListView) findViewById(R.id.list_view);
         listView.addHeaderView(header);
+        listView.setAdapter(null);
 
         TextView tvEmptyView = (TextView) findViewById(R.id.empty_view);
         //listView.setEmptyView(tvEmptyView);

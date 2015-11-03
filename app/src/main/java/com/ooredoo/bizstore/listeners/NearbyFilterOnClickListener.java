@@ -4,7 +4,9 @@ import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 
+import com.google.android.gms.maps.MapFragment;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -18,7 +20,7 @@ import com.ooredoo.bizstore.utils.Logger;
 /**
  * Created by Babar on 23-Jun-15.
  */
-public class FilterOnClickListener implements View.OnClickListener
+public class NearbyFilterOnClickListener implements View.OnClickListener
 {
     private HomeActivity activity;
 
@@ -34,13 +36,18 @@ public class FilterOnClickListener implements View.OnClickListener
 
     private View layout;
 
-    public FilterOnClickListener(HomeActivity activity, int category)
+    private  ListView listView; MapFragment mapFragment;
+    public NearbyFilterOnClickListener(HomeActivity activity, int category, ListView listView, MapFragment mapFragment)
     {
         this.activity = activity;
 
         this.category = category;
 
         onFilterChangeListener = activity;
+
+        this.listView = listView;
+
+        this.mapFragment = mapFragment;
     }
     Button btList, btMap;
 
@@ -76,8 +83,10 @@ public class FilterOnClickListener implements View.OnClickListener
                 DealsTask.sortColumn = "createdate";
                 ShoppingTask.sortColumn = "createdate";
 
-                onFilterChangeListener.onFilterChange();
+               // onFilterChangeListener.onFilterChange();
 
+                listView.setVisibility(View.VISIBLE);
+                mapFragment.getView().setVisibility(View.GONE);
                 break;
 
             case R.id.popular_deals:
@@ -87,7 +96,10 @@ public class FilterOnClickListener implements View.OnClickListener
                 DealsTask.sortColumn = "views";
                 ShoppingTask.sortColumn = "views";
 
-                onFilterChangeListener.onFilterChange();
+                //onFilterChangeListener.onFilterChange();
+
+                listView.setVisibility(View.GONE);
+                mapFragment.getView().setVisibility(View.VISIBLE);
 
                 break;
 

@@ -8,6 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
@@ -15,19 +22,23 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.ooredoo.bizstore.utils.NetworkUtils.*;
+import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
@@ -40,13 +51,19 @@ import static java.lang.System.currentTimeMillis;
  * @author Babar
  * @since 26-Jun-15.
  */
-public class DealsTask extends BaseAsyncTask<String, Void, String>
+public class NearbyTask extends BaseAsyncTask<String, Void, String>
 {
     private HomeActivity homeActivity;
 
     private ListViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
+
+    BitmapProcessor bitmapProcessor;
+
+    MemoryCache memoryCache = MemoryCache.getInstance();
+
+    DiskCache diskCache = DiskCache.getInstance();
 
     private ImageView ivBanner;
 
@@ -58,12 +75,17 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     public String category;
 
     private OnDealsTaskFinishedListener dealsTaskFinishedListener;
-    private MemoryCache memoryCache;
+   // private MemoryCache memoryCache;
 
     private int reqWidth, reqHeight;
 
-    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter,
-                     ProgressBar progressBar, ImageView ivBanner, Fragment fragment)
+    private GoogleMap map;
+    private HashMap<String, Marker> genericDealHashMap;
+    Resources res;
+
+    public NearbyTask(HomeActivity homeActivity, ListViewBaseAdapter adapter,
+                      ProgressBar progressBar, ImageView ivBanner, Fragment fragment,
+                      GoogleMap map,  HashMap<String, Marker> genericDealHashMap)
     {
         this.homeActivity = homeActivity;
 
@@ -75,9 +97,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         dealsTaskFinishedListener = (OnDealsTaskFinishedListener) fragment;
 
-        memoryCache = MemoryCache.getInstance();
-
-        Resources res = homeActivity.getResources();
+        res = homeActivity.getResources();
 
         DisplayMetrics displayMetrics = res.getDisplayMetrics();
 
@@ -85,6 +105,12 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         reqHeight = (int) Converter.convertDpToPixels(res.getDimension(R.dimen._160sdp)
                 / displayMetrics.density);
+
+        this.map = map;
+
+        bitmapProcessor = new BitmapProcessor();
+
+        this.genericDealHashMap = genericDealHashMap;
     }
 
     @Override
@@ -145,6 +171,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                     {
                         adapter.setData(deals);
 
+                        populateMap(deals);
+
                         String bannerUrl = response.topBannerUrl;
 
                         if(bannerUrl != null) {
@@ -185,6 +213,124 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             adapter.notifyDataSetChanged();
         }
 
+    private void populateMap(List<GenericDeal> deals)
+    {
+        for(final GenericDeal deal : deals)
+        {
+            Image image = deal.image;
+
+            if(image != null) {
+                final String url = image.logoUrl;
+
+                if (url != null && !url.isEmpty()) {
+                    Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+                    if (bitmap == null) {
+                        bitmap = diskCache.getBitmapFromDiskCache(url);
+                    }
+
+                    if (bitmap != null) {
+                        addMarker(bitmap, deal);
+                    } else {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Bitmap bitmap = downloadBitmap(url, String.valueOf(res.getDimension(R.dimen._120sdp)),
+                                        String.valueOf(res.getDimension(R.dimen._120sdp)));
+
+                                addMarker(bitmap ,deal);
+
+                            }
+                        }).start();
+                    }
+                }
+            }
+        }
+    }
+        private void addMarker(Bitmap bitmap, GenericDeal deal)
+        {
+            if(bitmap != null)
+            {
+                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
+
+                MarkerOptions options = new MarkerOptions()
+                        .title(deal.title)
+                        .snippet(deal.description)
+                        .position(new LatLng(deal.latitude, deal.longitude))
+                        .icon(bd);
+
+                Marker marker = map.addMarker(options);
+                genericDealHashMap.put(marker.getId(), marker);
+            }
+        }
+
+    public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
+    {
+        try
+        {
+            if(memoryCache.getBitmapFromCache(imgUrl) != null)
+            {
+                return memoryCache.getBitmapFromCache(imgUrl);
+                /*Logger.print("Already downloaded. Cancelling task");
+
+                cancel(true);*/
+            }
+
+            Bitmap b = diskCache.getBitmapFromDiskCache(imgUrl);
+            if(b != null)
+            {
+                return b;
+            }
+
+            if(BizStore.forceStopTasks)
+            {
+                Logger.print("Force stopped bitmap download task");
+
+                return null;
+            }
+
+            if(isCancelled())
+            {
+                Logger.print("isCancelled: true");
+
+                return null;
+            }
+
+
+
+            Logger.print("Bitmap Url: " + imgUrl);
+            URL url = new URL(imgUrl);
+
+            InputStream inputStream = url.openStream();
+
+           /* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
+            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*/
+
+            int width = Integer.parseInt(reqWidth);
+
+            int height = Integer.parseInt(reqHeight);
+
+            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
+
+            if(bitmap != null)
+            {
+                diskCache.addBitmapToDiskCache(imgUrl, bitmap);
+                memoryCache.addBitmapToCache(imgUrl, bitmap);
+            }
+
+            return bitmap;
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     private String getDeals(String category) throws IOException {
         String result;
@@ -201,13 +347,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
         params.put(CATEGORY, category);
+        params.put("lat", String.valueOf(HomeActivity.lat));
+        params.put("lng", String.valueOf(HomeActivity.lng));
 
-      /*  if(category.equals("nearby"))
-        {
-            params.put("lat", String.valueOf(HomeActivity.lat));
-            params.put("lng", String.valueOf(HomeActivity.lng));
-
-        }*/
 
         Logger.print("Sort by: " + sortColumn);
         Logger.print("Sub Categories: " + subCategories);

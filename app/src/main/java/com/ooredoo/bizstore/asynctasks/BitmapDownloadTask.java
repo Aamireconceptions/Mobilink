@@ -146,7 +146,6 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 }
             }
 
-
             if(isCancelled())
             {
                 Logger.print("isCancelled: true");

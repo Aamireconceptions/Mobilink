@@ -15,6 +15,7 @@ import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 import com.ooredoo.bizstore.ui.fragments.JewelleryFragment;
 import com.ooredoo.bizstore.ui.fragments.MallsFragment;
+import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.SportsAndFitnessFragment;
 import com.ooredoo.bizstore.ui.fragments.TestTopDealsFragment;
@@ -30,7 +31,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 {
     private Context context;
 
-    private final static int PAGE_COUNT = 12;
+    private final static int PAGE_COUNT = 13;
 
     public HomePagerAdapter(Context context, FragmentManager fragmentManager)
     {
@@ -47,26 +48,28 @@ public class HomePagerAdapter extends FragmentPagerAdapter
             case 0:
                 return HomeFragment.newInstance();
             case 1:
-                return TopDealsFragment.newInstance();
+                return NearbyFragment.newInstance();
             case 2:
-                return FoodAndDiningFragment.newInstance();
+                return TopDealsFragment.newInstance();
             case 3:
-                return ShoppingFragment.newInstance();
+                return FoodAndDiningFragment.newInstance();
             case 4:
-                return ElectronicsFragment.newInstance();
+                return ShoppingFragment.newInstance();
             case 5:
-                return HotelsAndSpasFragment.newInstance();
+                return ElectronicsFragment.newInstance();
             case 6:
-                return MallsFragment.newInstance();
+                return HotelsAndSpasFragment.newInstance();
             case 7:
-                return AutomotiveFragment.newInstance();
+                return MallsFragment.newInstance();
             case 8:
-                return TravelFragment.newInstance();
+                return AutomotiveFragment.newInstance();
             case 9:
-                return EntertainmentFragment.newInstance();
+                return TravelFragment.newInstance();
             case 10:
-                return JewelleryFragment.newInstance();
+                return EntertainmentFragment.newInstance();
             case 11:
+                return JewelleryFragment.newInstance();
+            case 12:
                 return SportsAndFitnessFragment.newInstance();
         }
 
@@ -89,45 +92,49 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
             case 1:
 
-                return context.getString(R.string.top_deals);
+                return context.getString(R.string.nearby);
 
             case 2:
 
-                return context.getString(R.string.food_dining);
+                return context.getString(R.string.top_deals);
 
             case 3:
 
-                return context.getString(R.string.shopping);
+                return context.getString(R.string.food_dining);
 
             case 4:
 
-                return context.getString(R.string.electronics);
+                return context.getString(R.string.shopping);
 
             case 5:
 
-                return context.getString(R.string.hotels_spa);
+                return context.getString(R.string.electronics);
 
             case 6:
 
-                return context.getString(R.string.markets_malls);
+                return context.getString(R.string.hotels_spa);
 
             case 7:
 
-                return context.getString(R.string.automotive);
+                return context.getString(R.string.markets_malls);
 
             case 8:
 
-                return context.getString(R.string.travel_tours);
+                return context.getString(R.string.automotive);
 
             case 9:
 
-                return context.getString(R.string.entertainment);
+                return context.getString(R.string.travel_tours);
 
             case 10:
 
-                return context.getString(R.string.jewelry_exchange);
+                return context.getString(R.string.entertainment);
 
             case 11:
+
+                return context.getString(R.string.jewelry_exchange);
+
+            case 12:
 
                 return context.getString(R.string.sports_fitness);
         }

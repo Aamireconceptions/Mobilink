@@ -232,4 +232,8 @@
     <string name="invalid_phone_num">Dear user, you have provided an invalid phone number.</string>
     <string name="cinemas">Cinemas</string>
     <string name="rating_success">Thank you for rating!</string>
+    <string name="nearby">Near By</string>
+    <string name="error_no_location">Location not available, Please turn location on!</string>
+    <string name="list">List</string>
+    <string name="map">Map</string>
 </resources>
