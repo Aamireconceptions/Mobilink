@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -147,6 +149,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
+            holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
             holder.tvViews = (TextView) row.findViewById(R.id.views);
             holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
@@ -155,6 +158,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
             holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
             holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
             holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
+            holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+
 
             row.setTag(holder);
         } else {
@@ -239,11 +244,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         if(deal.discount == 0) {
             holder.tvDiscount.setVisibility(View.GONE);
+            holder.ivDiscountTag.setVisibility(View.GONE);
         }
         else
         {
             holder.tvDiscount.setVisibility(View.VISIBLE);
+            holder.ivDiscountTag.setVisibility(View.VISIBLE);
         }
+
         holder.tvDiscount.setText(valueOf(deal.discount) +"%\nOFF");
 
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
@@ -328,6 +336,21 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     }
                 });*/
             }
+        }
+
+        if((deal.latitude != 0 && deal.longitude != 0)
+                && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
+        {
+            holder.tvDirections.setVisibility(View.VISIBLE);
+            float results[] = new float[3];
+            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
+                    results);
+
+            holder.tvDirections.setText(results[0] + "km");
+        }
+        else
+        {
+            holder.tvDirections.setVisibility(View.GONE);
         }
 
         if(doAnimate && position > 0)
@@ -447,9 +470,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         View layout;
 
-        ImageView ivFav, ivShare, ivPromotional, ivBrand;
+        ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
 
-        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress;
+        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
+                 tvDirections;
 
         RatingBar rbRatings;
 

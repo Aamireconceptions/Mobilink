@@ -24,7 +24,10 @@ public class SnackBarUtils
 
     public  void showSimple(int resId, int duration)
     {
-        Snackbar.make(parent, resId, duration).show();
+        if(parent != null)
+        {
+            Snackbar.make(parent, resId, duration).show();
+        }
     }
 
 }

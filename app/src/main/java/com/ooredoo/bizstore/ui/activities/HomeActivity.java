@@ -599,11 +599,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         ((OnSubCategorySelectedListener) currentFragment).onSubCategorySelected();
     }
 
+    public static double lat;
+    public static double lng;
     @Override
     public void onLocationChanged(Location location)
     {
-        double lat = location.getLatitude();
-        double lng = location.getLongitude();
+        lat = location.getLatitude();
+        lng = location.getLongitude();
 
         Logger.print("Location Changed: "+lat + ", "+lng);
 

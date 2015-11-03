@@ -16,12 +16,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
@@ -38,6 +41,8 @@ import com.ooredoo.bizstore.utils.ScrollViewHelper;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -63,7 +68,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
    // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
-    ScrollViewHelper scrollViewHelper;
+    //ScrollViewHelper scrollViewHelper;
 
     private Button btGetCode;
 
@@ -90,7 +95,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     private SnackBarUtils snackBarUtils;
     public DealDetailActivity() {
         super();
-        layoutResId = R.layout.activity_deal_details;
+        layoutResId = R.layout.deal_detail_activity;
     }
 
     @Override
@@ -149,6 +154,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         }
     }
 
+    View header;
+    ListView listView;
+    ListViewBaseAdapter adapter;
+
+    List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
     private void initViews()
     {
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
@@ -162,11 +172,14 @@ packageName = getPackageName();
             Logger.logI("DETAIL_ID", valueOf(id));
         }
 
-        View header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
+        header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
+
+        listView = (ListView) findViewById(R.id.list_view);
+        listView.addHeaderView(header);
 
         category = intent.getStringExtra(CATEGORY);
 
-        scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
+        //scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
 
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
@@ -176,43 +189,43 @@ packageName = getPackageName();
         }
        // ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
-        findViewById(R.id.tv_call).setOnClickListener(this);
-        findViewById(R.id.iv_call).setOnClickListener(this);
-        findViewById(R.id.tv_rate).setOnClickListener(this);
-        findViewById(R.id.iv_rate).setOnClickListener(this);
-        findViewById(R.id.tv_share).setOnClickListener(this);
-        findViewById(R.id.iv_share).setOnClickListener(this);
+        header.findViewById(R.id.tv_call).setOnClickListener(this);
+        header.findViewById(R.id.iv_call).setOnClickListener(this);
+        header.findViewById(R.id.tv_rate).setOnClickListener(this);
+        header.findViewById(R.id.iv_rate).setOnClickListener(this);
+        header.findViewById(R.id.tv_share).setOnClickListener(this);
+        header.findViewById(R.id.iv_share).setOnClickListener(this);
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
-        findViewById(R.id.tv_hdr_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
-        findViewById(R.id.iv_deal_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
+        //header.findViewById(R.id.tv_hdr_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
+        //header.findViewById(R.id.iv_deal_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
 
-        findViewById(R.id.ll_deal_details).setVisibility(View.VISIBLE);
-        findViewById(R.id.ll_deal_category).setVisibility(View.VISIBLE);
-        findViewById(R.id.ll_banner_preview).setVisibility(View.VISIBLE);
+        //header.findViewById(R.id.ll_deal_details).setVisibility(View.VISIBLE);
+        //header.findViewById(R.id.ll_deal_category).setVisibility(View.VISIBLE);
+       // header.findViewById(R.id.ll_banner_preview).setVisibility(View.VISIBLE);
 
-        if(isNotNullOrEmpty(category)) {
+       /* if(isNotNullOrEmpty(category)) {
             if(category.equalsIgnoreCase("PROMO") || category.equalsIgnoreCase("FEATURED")) {
                 findViewById(R.id.ll_banner_preview).setVisibility(View.VISIBLE);
             }
-        }
+        }*/
 
-        btGetCode = (Button) findViewById(R.id.get_code);
+        btGetCode = (Button) header.findViewById(R.id.get_code);
         btGetCode.setOnClickListener(this);
 
-        ivLine = (ImageView) findViewById(R.id.horizontal_line);
+        //ivLine = (ImageView) findViewById(R.id.horizontal_line);
 
-        llVoucherCode = (LinearLayout) findViewById(R.id.voucher_code_layout);
+        //llVoucherCode = (LinearLayout) findViewById(R.id.voucher_code_layout);
 
         tvDiscount = (TextView) findViewById(R.id.discount);
 
-        tvValidity = (TextView) findViewById(R.id.validity);
+       // tvValidity = (TextView) findViewById(R.id.validity);
 
-        tvCode = (TextView) findViewById(R.id.voucher_code);
+        //tvCode = (TextView) findViewById(R.id.voucher_code);
 
-        tvNote = (TextView) findViewById(R.id.note);
+       // tvNote = (TextView) findViewById(R.id.note);
 
-        tvDiscountVoucher = (TextView) findViewById(R.id.discount_voucher);
+        //tvDiscountVoucher = (TextView) findViewById(R.id.discount_voucher);
 
         if(genericDeal == null) {
             DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
@@ -236,26 +249,37 @@ packageName = getPackageName();
 
             mActionBar.setTitle(deal.title);
 
-            scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+            //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
                 deal.category = deal.category.replace(".", ",");
             }
-            ((TextView) findViewById(R.id.tv_title)).setText(deal.title);
-            ((TextView) findViewById(R.id.tv_contact)).setText(deal.contact);
-            ((TextView) findViewById(R.id.tv_deal_desc)).setText(deal.description);
-            ((TextView) findViewById(R.id.tv_address)).setText(deal.address);
-            ((TextView) findViewById(R.id.tv_category)).setText(deal.category);
-            ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
-            ((TextView) findViewById(R.id.tv_views)).setText(valueOf(deal.views));
+            ((TextView) header.findViewById(R.id.title)).setText(deal.title);
+            ((TextView) header.findViewById(R.id.phone)).setText(deal.contact);
+            ((TextView) header.findViewById(R.id.description)).setText(deal.description);
+            ((TextView) header.findViewById(R.id.address)).setText(deal.address);
+            //((TextView) findViewById(R.id.tv_category)).setText(deal.category);
+            ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(deal.rating);
+            ((TextView) header.findViewById(R.id.tv_views)).setText(valueOf(deal.views));
+
+            RelativeLayout rlVoucher = (RelativeLayout) header.findViewById(R.id.voucher_layout);
 
             if(deal.discount == 0) {
-                findViewById(R.id.tv_discount).setVisibility(View.GONE);
-                findViewById(R.id.tv_deal_discount).setVisibility(View.GONE);
+                rlVoucher.setVisibility(View.GONE);
+                tvDiscount.setVisibility(View.GONE);
+
+               // findViewById(R.id.tv_discount).setVisibility(View.GONE);
+                //findViewById(R.id.tv_deal_discount).setVisibility(View.GONE);
             }
+            else
+            {
+                rlVoucher.setVisibility(View.VISIBLE);
+                tvDiscount.setVisibility(View.VISIBLE);
+            }
+
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
-            ((TextView) findViewById(R.id.tv_discount)).setText(discount);
-            ((TextView) findViewById(R.id.tv_deal_discount)).setText(discount);
+            //((TextView) findViewById(R.id.discount)).setText(discount);
+            //((TextView) findViewById(R.id.tv_deal_discount)).setText(discount);
 
             src.isFavorite = Favorite.isFavorite(id);
 
@@ -263,11 +287,11 @@ packageName = getPackageName();
 
             int categoryIcon = getCategoryIcon(deal.category);
 
-            ((ImageView) findViewById(R.id.iv_deal_category)).setImageResource(categoryIcon);
+            //((ImageView) header.findViewById(R.id.iv_deal_category)).setImageResource(categoryIcon);
 
-            ivDetail = (ImageView) findViewById(R.id.detail_img);
+            ivDetail = (ImageView) header.findViewById(R.id.detail_img);
 
-            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar = (ProgressBar) header.findViewById(R.id.progressBar);
 
             String detailImageUrl = null;
             if(deal.image != null)
@@ -297,9 +321,9 @@ packageName = getPackageName();
 
             tvDiscount.setText(discount);
 
-            tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
+            //tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
 
-            if(deal.voucher != null && !deal.voucher.isEmpty())
+            /*if(deal.voucher != null && !deal.voucher.isEmpty())
             {
                 llVoucherCode.setVisibility(View.VISIBLE);
 
@@ -319,11 +343,11 @@ packageName = getPackageName();
                 btGetCode.setVisibility(View.GONE);
 
                 ivLine.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             if(deal.is_exclusive == 1)
             {
-                findViewById(R.id.voucher_frame).setVisibility(View.VISIBLE);
+               // header.findViewById(R.id.voucher_frame).setVisibility(View.VISIBLE);
             }
 
         } else {
@@ -331,6 +355,8 @@ packageName = getPackageName();
         }
 
 
+      adapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
+        listView.setAdapter(adapter);
     }
     Bitmap bitmap;
 
