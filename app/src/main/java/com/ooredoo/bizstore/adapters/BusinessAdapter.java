@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,8 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
     private LayoutInflater layoutInflater;
 
+    private Resources resources;
+
     MemoryCache memoryCache = MemoryCache.getInstance();
     DiskCache diskCache = DiskCache.getInstance();
 
@@ -64,7 +67,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
         layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 
-        Resources resources = context.getResources();
+        resources = context.getResources();
 
         reqWidth = resources.getDisplayMetrics().widthPixels;
 
@@ -133,23 +136,37 @@ public class BusinessAdapter extends BaseExpandableListAdapter
         View childView = null;
 
         Logger.print("group:position:"+groupPosition+", child:position:"+childPosition);
-        if(groupPosition == 0)
+        if(getChild(groupPosition, childPosition) instanceof GenericDeal)
         {
-            childView = layoutInflater.inflate(R.layout.list_deal_promotional, parent, false);
+            childView = layoutInflater.inflate(R.layout.list_deal_promotional_similar_deals, parent, false);
+            childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
+                    (int) resources.getDimension(R.dimen._5sdp));
+
+            if(childPosition == 0)
+            {
+                childView.setPadding(0, (int) resources.getDimension(R.dimen._10sdp), 0,
+                        (int) resources.getDimension(R.dimen._5sdp));
+            }
+
+            if(childPosition == getChildrenCount(groupPosition) - 1)
+            {
+                childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
+                                     (int) resources.getDimension(R.dimen._10sdp));
+            }
 
             final GenericDeal deal = (GenericDeal) getChild(groupPosition, childPosition);
 
-                View layout = childView.findViewById(R.id.layout_deal_detail);
-                TextView tvCategory = (TextView) childView.findViewById(R.id.category_icon);
-                TextView tvTitle = (TextView) childView.findViewById(R.id.title);
-                TextView tvDetail = (TextView) childView.findViewById(R.id.detail);
-                TextView tvDiscount = (TextView) childView.findViewById(R.id.discount);
-                ImageView ivPromotional = (ImageView) childView.findViewById(R.id.promotional_banner);
-                ProgressBar progressBar = (ProgressBar) childView.findViewById(R.id.progress_bar);
-                RelativeLayout rlPromotionalLayout = (RelativeLayout) childView.findViewById(R.id.promotion_layout);
-                ImageView ivBrand = (ImageView) childView.findViewById(R.id.brand_logo);
-                TextView tvBrandName = (TextView) childView.findViewById(R.id.brand_name);
-                TextView tvBrandAddress = (TextView) childView.findViewById(R.id.brand_address);
+            View layout = childView.findViewById(R.id.layout_deal_detail);
+            TextView tvCategory = (TextView) childView.findViewById(R.id.category_icon);
+            TextView tvTitle = (TextView) childView.findViewById(R.id.title);
+            TextView tvDetail = (TextView) childView.findViewById(R.id.detail);
+            TextView tvDiscount = (TextView) childView.findViewById(R.id.discount);
+            ImageView ivPromotional = (ImageView) childView.findViewById(R.id.promotional_banner);
+            ProgressBar progressBar = (ProgressBar) childView.findViewById(R.id.progress_bar);
+            RelativeLayout rlPromotionalLayout = (RelativeLayout) childView.findViewById(R.id.promotion_layout);
+            ImageView ivBrand = (ImageView) childView.findViewById(R.id.brand_logo);
+            TextView tvBrandName = (TextView) childView.findViewById(R.id.brand_name);
+            TextView tvBrandAddress = (TextView) childView.findViewById(R.id.brand_address);
 
             //holder.tvBrandName.setText(genericDeal.brandName);
             //holder.tvBrandAddress.setText(genericDeal.brandAddress);
@@ -304,6 +321,8 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 });*/
                 }
             }
+
+            return childView;
         }
         else
         {
@@ -312,15 +331,15 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             childView = layoutInflater.inflate(R.layout.grid_layout, parent, false);
 
             GridLayout gridLayout = (GridLayout) childView;
-            gridLayout.addView(childView);
 
             View brandView = layoutInflater.inflate(R.layout.brand, parent, false);
+
+
+
             brandView.setTag(brand);
-            brandView.setOnClickListener(new View.OnClickListener()
-            {
+            brandView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
 
                 }
             });
@@ -328,29 +347,36 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             TextView tvTitle = (TextView) brandView.findViewById(R.id.text_view);
             tvTitle.setText(brand.title);
 
-            String logoUrl = brand.image.logoUrl;
-
-            Bitmap bitmap = memoryCache.getBitmapFromCache(logoUrl);
-
-            ImageView ivImageView = (ImageView) brandView.findViewById(R.id.image_view);
-
-            ProgressBar progressBar = (ProgressBar) brandView.findViewById(R.id.progress_bar);
-
-            if(bitmap != null)
+            if(brand.businessLogo != null && !brand.businessLogo.isEmpty())
             {
-                ivImageView.setImageBitmap(bitmap);
-                progressBar.setVisibility(View.GONE);
-            }
-            else
-            {
-                ivImageView.setImageBitmap(null);
-                progressBar.setVisibility(View.VISIBLE);
+                String logoUrl = BaseAsyncTask.IMAGE_BASE_URL + brand.businessLogo;
 
-                fallBackToDiskCache(logoUrl);
+                Bitmap bitmap = memoryCache.getBitmapFromCache(logoUrl);
+
+                ImageView ivImageView = (ImageView) brandView.findViewById(R.id.image_view);
+
+                ProgressBar progressBar = (ProgressBar) brandView.findViewById(R.id.progressBar);
+
+                if(bitmap != null)
+                {
+                    ivImageView.setImageBitmap(bitmap);
+                    progressBar.setVisibility(View.GONE);
+                }
+                else
+                {
+                    ivImageView.setImageBitmap(null);
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    fallBackToDiskCache(logoUrl);
+                }
             }
+
+            gridLayout.addView(brandView);
+
+            return childView;
         }
 
-        return childView;
+
     }
 
 
@@ -393,7 +419,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
                     memoryCache.addBitmapToCache(url, bitmap);
 
-                    Handler handler = new Handler();
+                    Handler handler = new Handler(Looper.getMainLooper());
 
                     handler.post(new Runnable() {
                         @Override
@@ -405,7 +431,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 }
                 else
                 {
-                    new Handler().post(new Runnable() {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
                             // holder.ivPromotional.setImageResource(R.drawable.deal_banner);

@@ -31,7 +31,7 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
 
     private SnackBarUtils snackBarUtils;
 
-    private final static String SERVICE_NAME = "/getdetails?";
+    private final static String SERVICE_NAME = "/fullDetails?";
 
     public BusinessMiscTask(BusinessDetailActivity detailActivity, ProgressBar progressBar,
                             SnackBarUtils snackBarUtils) {
@@ -46,15 +46,15 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        dialog = DialogUtils.createCustomLoader(detailActivity, "Loading...");
+       // dialog = DialogUtils.createCustomLoader(detailActivity, "Loading...");
 
-        if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
+       // if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
 
     @Override
     protected String doInBackground(String... params) {
         try {
-            return getBusinessDetails(params[0]);
+            return getBusinessMisc(params[0]);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -66,7 +66,7 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        closeDialog(dialog);
+        ///closeDialog(dialog);
 
         if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
@@ -75,7 +75,7 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
 
             Gson gson = new Gson();
 
-            Logger.print("DETAIL: " + result);
+            //Logger.print("Business Misc: " + result);
             try {
                 BusinessDetail businessDetail = gson.fromJson(result, BusinessDetail.class);
 
@@ -98,7 +98,7 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
         }
     }
 
-    private String getBusinessDetails(String dealId) throws IOException {
+    private String getBusinessMisc(String dealId) throws IOException {
         String result;
 
         InputStream inputStream = null;
@@ -113,11 +113,11 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
 
             URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-            Logger.print("getDetails() URL:" + url.toString());
+            Logger.print("getBusinessMisc() URL:" + url.toString());
 
             result = getJson(url);
 
-            Logger.print("getDetails: " + result);
+            Logger.print("getBusinessMisc: " + result);
         } finally {
             if(inputStream != null) {
                 inputStream.close();

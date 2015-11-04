@@ -259,8 +259,12 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
 
-        getFragmentManager().beginTransaction().remove(mapFragment).commit();
+        if(!activity.isDestroyed())
+        {
+            getFragmentManager().beginTransaction().remove(mapFragment).commit();
+        }
+
+        super.onDestroyView();
     }
 }

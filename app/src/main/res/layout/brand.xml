@@ -2,6 +2,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:layout_columnWeight="1"
     android:orientation="vertical"
     android:paddingBottom="@dimen/_6sdp"
     android:paddingEnd="@dimen/_6sdp"

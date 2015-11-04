@@ -14,7 +14,7 @@ public class Business  implements Serializable{
 
     public int id, views;
 
-    public String title, description, location, contact, address;
+    public String title, description, location, contact, address, businessLogo, timing;
 
     public float rating;
 
@@ -23,13 +23,20 @@ public class Business  implements Serializable{
     @SerializedName("images")
     public Image image;
 
+    public double latitude, longitude;
+
+    public String type;
+
+    @SerializedName("menu")
     public List<Menu> menus;
 
     public List<Gallery> galleries;
 
-    public List<GenericDeal> deals;
+    @SerializedName("deals")
+    public List<GenericDeal> moreDeals;
 
-    public List<Brand> brands;
+    @SerializedName("relatedBusiness")
+    public List<Brand> similarBrands;
 
     public Business(Mall mall)
     {

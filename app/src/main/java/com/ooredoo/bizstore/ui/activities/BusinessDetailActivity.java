@@ -2,9 +2,11 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
@@ -35,6 +37,7 @@ import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Menu;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -139,12 +142,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
         expandableListView.addHeaderView(header);
 
-
-
-
-
-
-
         packageName = getPackageName();
         src = (Business) intent.getSerializableExtra("business");
 
@@ -168,8 +165,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
-        if(src != null && id != -1) {
-
+        if(src != null && id != -1)
+        {
             BusinessDetailTask detailTask = new BusinessDetailTask(this, null, snackBarUtils);
             detailTask.execute(String.valueOf(id));
         }
@@ -196,8 +193,68 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     BusinessAdapter adapter;
 
+    Business mBusiness;
+
     public void populateData(Business business) {
         if(business != null) {
+
+            id = business.id;
+            mBusiness = business;
+            LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
+
+            RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
+
+            if((business.latitude == 0 && business.longitude == 0)
+                    || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
+            {
+                llDirections.setVisibility(View.GONE);
+                rlDistance.setVisibility(View.GONE);
+            }
+            else
+            {
+                float results[] = new float[3];
+                Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
+                        business.latitude, business.longitude,
+                        results);
+
+                TextView tvDirections = (TextView) findViewById(R.id.directions);
+                tvDirections.setText(results[0] + "km");
+                tvDirections.setOnClickListener(this);
+
+                TextView tvDistance= (TextView) findViewById(R.id.distance);
+                tvDistance.setText(results[0] + "km away");
+            }
+
+            TextView tvTiming = (TextView) findViewById(R.id.timing);
+            tvTiming.setText(business.timing);
+
+
+            ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
+
+            String brandLogo = null;
+
+            if(business.image != null)
+            {
+                brandLogo = business.image.logoUrl;
+            }
+
+            Logger.print("BrandLogo: "+brandLogo);
+
+            if(brandLogo != null && !brandLogo.equals(""))
+            {
+                String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
+
+                bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+                if(bitmap != null)
+                {
+                    ivBrandLogo.setImageBitmap(bitmap);
+                }
+                else
+                {
+                    fallBackToDiskCache(imgUrl, ivBrandLogo);
+                }
+            }
 
             groupList = new ArrayList<>();
 
@@ -239,6 +296,16 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             ((TextView) header.findViewById(R.id.phone)).setText(business.contact);
             ((TextView) header.findViewById(R.id.address)).setText(business.address);
             ((TextView) header.findViewById(R.id.city)).setText(business.location);
+            TextView tvType = (TextView) header.findViewById(R.id.type);
+            if(business.type != null)
+            {
+                tvType.setText(business.type);
+            }
+            else
+            {
+                tvType.setVisibility(View.GONE);
+            }
+
             ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(business.rating);
             ((TextView) header.findViewById(R.id.tv_views)).setText(valueOf(business.views));
            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
@@ -270,7 +337,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl);
+                    fallBackToDiskCache(imgUrl, ivDetail);
                 }
             }
         } else {
@@ -278,13 +345,13 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
 
         BusinessMiscTask businessMiscTask = new BusinessMiscTask(this, null, snackBarUtils);
-        //businessMiscTask.execute(String.valueOf(id));
+        businessMiscTask.execute(String.valueOf(id));
     }
 
 
 
 
-    private void fallBackToDiskCache(final String url)
+    private void fallBackToDiskCache(final String url, final ImageView imageView)
     {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -302,7 +369,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ivDetail.setImageBitmap(bitmap);
+                            imageView.setImageBitmap(bitmap);
                         }
                     });
 
@@ -317,7 +384,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
+                                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
                                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
@@ -401,6 +468,11 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                         v.setTag("collapsed");
                     }
                 }
+        else
+                if(viewId == R.id.directions)
+                {
+                    startDirections();
+                }
     }
 
     public static void shareBusiness(Activity activity, int businessId) {
@@ -444,7 +516,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         setupSimilarDealsAndBrands(business);
     }
 
-
     private void setupMenu(LinearLayout llMenu, Business business)
     {
         View menuView = getLayoutInflater().inflate(R.layout.layout_menu, null);
@@ -485,14 +556,48 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     public void setupSimilarDealsAndBrands(Business business)
     {
-        groupList.add(business.title + "Deals");
-        groupList.add("Similar brands");
+        if(business.moreDeals.size() > 0)
+        {
+            groupList.add(business.title + " Deals");
+            childList.add(( business.moreDeals));
+        }
 
-        childList.add(( business.deals));
-        childList.add(business.brands);
+        if(business.similarBrands.size() > 0)
+        {
+            groupList.add("Similar brands");
+            childList.add(business.similarBrands);
+        }
 
         adapter.notifyDataSetChanged();
-
     }
 
+    private void startDirections()
+    {
+        double mLat = HomeActivity.lat;
+        double mLong = HomeActivity.lng;
+
+        String src = null, dest = null;
+
+        src = "saddr=" + mLat + "," + mLong + "&";
+
+        dest = "daddr="+mBusiness.latitude + "," + mBusiness.longitude;
+
+        String uri = "http://maps.google.com/maps?";
+
+        uri += src;
+        uri += dest;
+
+        System.out.println("Directions URI:"+uri);
+
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+
+        try
+        {
+            startActivity(intent);
+        }
+        catch (ActivityNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

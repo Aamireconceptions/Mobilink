@@ -17,7 +17,9 @@ public class Brand implements Serializable
 
     public int id, views;
 
-    public String title, description, location, contact, address;
+    public String title, description, location, contact, address, businessLogo;
+
+    double latitude, longitude;
 
     public float rating;
 
