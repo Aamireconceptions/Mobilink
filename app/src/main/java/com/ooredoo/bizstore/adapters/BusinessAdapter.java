@@ -7,11 +7,14 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -21,9 +24,11 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.Converter;
@@ -31,6 +36,7 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
+import com.ooredoo.bizstore.views.NonScrollableGridView;
 
 import java.util.List;
 
@@ -84,6 +90,11 @@ public class BusinessAdapter extends BaseExpandableListAdapter
     @Override
     public int getChildrenCount(int groupPosition)
     {
+        if(childList.size() > 0 && childList.get(groupPosition).get(0) instanceof Brand)
+        {
+            return 1;
+        }
+
         return childList.get(groupPosition).size();
     }
 
@@ -326,15 +337,41 @@ public class BusinessAdapter extends BaseExpandableListAdapter
         }
         else
         {
-            Brand brand = (Brand) getChild(groupPosition, childPosition);
+           // Brand brand = (Brand) getChild(groupPosition, childPosition);
 
-            childView = layoutInflater.inflate(R.layout.grid_layout, parent, false);
+            SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.brand, (List<Brand>) childList.get(groupPosition));
 
-            GridLayout gridLayout = (GridLayout) childView;
+           // GridView gridView = (GridView) layoutInflater.inflate(R.layout.grid_view, parent, false);
+            NonScrollableGridView gridView = new NonScrollableGridView(context, null);
 
-            View brandView = layoutInflater.inflate(R.layout.brand, parent, false);
 
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                    Brand brand1 = (Brand) parent.getItemAtPosition(position);
+
+                    Business business = new Business(brand1);
+
+                    Intent intent = new Intent(context, BusinessDetailActivity.class);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                   // intent.setClass(context, BusinessDetailActivity.class);
+                    intent.putExtra("business", business);
+                    intent.putExtra(CATEGORY, "N/A");
+                    context.startActivity(intent);
+                }
+            });
+            gridView.setNumColumns(3);
+            gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._10sdp));
+            gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._10sdp));
+
+            gridView.setGravity(Gravity.CENTER_HORIZONTAL);
+
+            gridView.setAdapter(adapter);
+
+            //GridLayout gridLayout = new GridLayout(context);
+
+           /* View brandView = layoutInflater.inflate(R.layout.brand, parent, false);
 
             brandView.setTag(brand);
             brandView.setOnClickListener(new View.OnClickListener() {
@@ -345,15 +382,16 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             });
 
             TextView tvTitle = (TextView) brandView.findViewById(R.id.text_view);
-            tvTitle.setText(brand.title);
+            tvTitle.setText(brand.title);*/
 
-            if(brand.businessLogo != null && !brand.businessLogo.isEmpty())
+           /* if(brand.businessLogo != null && !brand.businessLogo.isEmpty())
             {
                 String logoUrl = BaseAsyncTask.IMAGE_BASE_URL + brand.businessLogo;
 
                 Bitmap bitmap = memoryCache.getBitmapFromCache(logoUrl);
 
                 ImageView ivImageView = (ImageView) brandView.findViewById(R.id.image_view);
+
 
                 ProgressBar progressBar = (ProgressBar) brandView.findViewById(R.id.progressBar);
 
@@ -369,16 +407,13 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
                     fallBackToDiskCache(logoUrl);
                 }
-            }
+            }*/
 
-            gridLayout.addView(brandView);
 
-            return childView;
+
+            return gridView;
         }
-
-
     }
-
 
     private void showDetail(GenericDeal deal)
     {

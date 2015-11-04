@@ -12,7 +12,9 @@ import java.util.List;
  */
 public class Business  implements Serializable{
 
-    public int id, views;
+    public int id;
+
+    public int views;
 
     public String title, description, location, contact, address, businessLogo, timing;
 
@@ -82,6 +84,9 @@ public class Business  implements Serializable{
         this.address = brand.address;
         this.location = brand.location;
         this.description = brand.description;
+        this.businessLogo = brand.businessLogo;
+        this.latitude = brand.latitude;
+        this.longitude = brand.longitude;
 
         this.image = brand.image;
     }
