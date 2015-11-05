@@ -195,6 +195,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     Business mBusiness;
 
+    RelativeLayout rlMenu;
     public void populateData(Business business) {
         if(business != null) {
 
@@ -285,7 +286,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             tvDescription = ((TextView) header.findViewById(R.id.description));
             tvDescription.setText(business.description);
 
-            RelativeLayout rlMenu = (RelativeLayout) header.findViewById(R.id.menu_layout);
+            rlMenu = (RelativeLayout) header.findViewById(R.id.menu_layout);
             rlMenu.setOnClickListener(this);
 
             tvMenuArrow = (TextView) header.findViewById(R.id.menu_arrow);
@@ -518,12 +519,23 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     private void setupMenu(LinearLayout llMenu, Business business)
     {
-        View menuView = getLayoutInflater().inflate(R.layout.layout_menu, null);
-
         if(business.menus != null)
         {
-            for(Menu menu : business.menus)
+            for(int j = 0; j < business.menus.size(); j++)
             {
+                Menu menu = business.menus.get(j);
+
+                View menuView = getLayoutInflater().inflate(R.layout.layout_menu, null);
+
+                if(j == business.menus.size() - 1)
+                {
+                    menuView.setBackgroundResource(R.drawable.layer_list_end);
+                }
+                else
+                {
+                    menuView.setBackgroundResource(R.drawable.layer_list);
+                }
+
                 TextView textView = (TextView) menuView.findViewById(R.id.item);
                 textView.setText(menu.item);
 
@@ -532,6 +544,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
                 llMenu.addView(menuView);
             }
+
+            rlMenu.setVisibility(View.VISIBLE);
         }
     }
 

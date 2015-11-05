@@ -48,14 +48,14 @@ public class FilterOnClickListener implements View.OnClickListener
         this.layout = layout;
 
         Button btList = (Button) layout.findViewById(R.id.new_deals);
-        btList.setText(R.string.list);
+        btList.setText(R.string.deals);
         btList.setOnClickListener(this);
         setButtonSelected(btList);
 
         FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btList);
 
         Button btMap = (Button) layout.findViewById(R.id.popular_deals);
-        btMap.setText(R.string.map);
+        btMap.setText(R.string.brands);
         btMap.setOnClickListener(this);
 
         FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btMap);

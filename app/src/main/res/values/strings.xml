@@ -236,4 +236,5 @@
     <string name="error_no_location">Location not available, Please turn location on!</string>
     <string name="list">List</string>
     <string name="map">Map</string>
+    <string name="brands">Brands</string>
 </resources>

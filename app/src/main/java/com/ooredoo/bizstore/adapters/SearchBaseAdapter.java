@@ -170,8 +170,8 @@ public class SearchBaseAdapter extends BaseAdapter {
 
         deal.isFav = Favorite.isFavorite(deal.id);
 
-        holder.ivFav.setSelected(deal.isFav);
-        holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
+       // holder.ivFav.setSelected(deal.isFav);
+        //holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
         holder.tvTitle.setText(deal.title);
 
@@ -200,23 +200,23 @@ public class SearchBaseAdapter extends BaseAdapter {
             }
         });
 
-        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+        /*holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* if(isSearchEnabled()) {
+               *//* if(isSearchEnabled()) {
                     HomeActivity homeActivity = (HomeActivity) activity;
                     homeActivity.showHideSearchBar(false);
                 } else {
                     DealDetailActivity.shareDeal((Activity) context, deal.id);
-                }*/
+                }*//*
 
                 DealDetailActivity.shareDeal((Activity) context, deal.id);
             }
-        });
+        });*/
 
-        holder.rbRatings.setRating(deal.rating);
+        //holder.rbRatings.setRating(deal.rating);
 
-        holder.tvViews.setText(valueOf(deal.views));
+       // holder.tvViews.setText(valueOf(deal.views));
 
         String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
 
