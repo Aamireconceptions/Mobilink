@@ -30,7 +30,7 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
 
     private List<GenericDeal> similarDeals, nearbyDeals;
 
-    private final static String SERVICE_NAME = "/deal_misc";
+    private final static String SERVICE_NAME = "/fullDetails?";
 
     public DealDetailMiscTask(DealDetailActivity activity, List<GenericDeal> similarDeals, List<GenericDeal> nearbyDeals)
     {
@@ -44,6 +44,12 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
     @Override
     protected String doInBackground(String... params)
     {
+        try {
+            return getDealsMisc(params[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -58,8 +64,9 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
 
             DealMisc dealMisc = gson.fromJson(result, DealMisc.class);
 
-            similarDeals = dealMisc.similarDeals;
-            nearbyDeals = dealMisc.nearbyDeals;
+            similarDeals.clear();
+            similarDeals.addAll(dealMisc.genericDeal.similarDeals);
+            nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
 
             activity.onHaveData();
         }
@@ -71,17 +78,23 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
-    private String getDealsMisc(String id, String category) throws IOException {
+    private String getDealsMisc(String id) throws IOException {
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
         params.put(ID, id);
-        params.put(CATEGORY, category);
+        params.put("type", "deals");
+
+        HomeActivity.lat = 33.6962951;
+        HomeActivity.lng = 73.0412254;
+
         params.put("lat", String.valueOf(HomeActivity.lat));
-        params.put("lng", String.valueOf(HomeActivity.lng));
+        params.put("long", String.valueOf(HomeActivity.lng));
 
         String query = createQuery(params);
 
         URL url = new URL(BaseAsyncTask.BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        Logger.print("getDealsMisc URL:"+url);
 
         String json = getJson(url);
 

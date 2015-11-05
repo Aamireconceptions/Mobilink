@@ -56,6 +56,19 @@
                 android:dividerHeight="@dimen/_8sdp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+            <!--<GridView
+                android:id="@+id/grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:horizontalSpacing="@dimen/_6sdp"
+                android:layoutDirection="locale"
+                android:numColumns="3"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/_6sdp"/>-->
+
             <TextView
                 android:id="@+id/empty_view"
                 android:layout_width="match_parent"

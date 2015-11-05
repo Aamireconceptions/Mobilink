@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -52,6 +53,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private TextView tvEmptyView;
 
     private ListView listView;
+
+    private GridView gridView;
 
     private boolean isCreated = false;
 
@@ -114,10 +117,15 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         listView.addHeaderView(rlHeader);
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
+
+        //gridView = (GridView) v.findViewById(R.id.grid_view)
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             listView.setNestedScrollingEnabled(true);
         }
+
+
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }

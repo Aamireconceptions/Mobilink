@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Babar
@@ -13,7 +14,7 @@ public class GenericDeal implements Serializable{
 
     public int id, views, discount, is_exclusive;
 
-    public String description, startDate, endDate, voucher, status, redeemedOn;
+    public String description, startDate, endDate, voucher, status, redeemedOn, businessLogo, businessName;
 
     public String title, category, contact, address, location, brandName, brandAddress;
 
@@ -25,6 +26,12 @@ public class GenericDeal implements Serializable{
     public float rating;
 
     public double latitude, longitude;
+
+    @SerializedName("relatedDeals")
+    public List<GenericDeal> similarDeals;
+
+    @SerializedName("nearDeals")
+    public List<GenericDeal> nearbyDeals;
 
     public GenericDeal(RecentDeal deal) {
         this.id = deal.id;

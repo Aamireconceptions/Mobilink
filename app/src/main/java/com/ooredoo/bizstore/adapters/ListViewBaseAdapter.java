@@ -133,6 +133,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        Logger.print("getView");
         final GenericDeal deal = getItem(position);
 
         View row = convertView;
@@ -346,7 +347,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
                     results);
 
-            holder.tvDirections.setText(results[0] + "km");
+            holder.tvDirections.setText(String.format("%.2f",results[0]) + "km");
         }
         else
         {
@@ -439,7 +440,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
         intent.setClass(activity, DealDetailActivity.class);
         intent.putExtra("generic_deal", genericDeal);
         intent.putExtra(CATEGORY, dealCategory);
-        fragment.startActivityForResult(intent, 1);
+
+        activity.startActivityForResult(intent, 1);
+        //fragment.startActivityForResult(intent, 1);
     }
 
     private class FavouriteOnClickListener implements View.OnClickListener {

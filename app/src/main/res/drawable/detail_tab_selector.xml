@@ -4,5 +4,8 @@
     <item android:drawable="@drawable/tab_active"
         android:state_selected="true"/>
 
+    <item android:drawable="@drawable/tab_active"
+        android:state_pressed="true"/>
+
     <item android:drawable="@drawable/tab_inactive"/>
 </selector>

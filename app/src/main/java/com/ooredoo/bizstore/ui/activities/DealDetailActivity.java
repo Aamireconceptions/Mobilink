@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
@@ -20,12 +21,14 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.GetCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
@@ -254,6 +257,33 @@ packageName = getPackageName();
 
             mActionBar.setTitle(deal.title);
 
+            LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
+
+            RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
+
+            if((deal.latitude == 0 && deal.longitude == 0)
+                    || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
+            {
+                llDirections.setVisibility(View.GONE);
+                rlDistance.setVisibility(View.GONE);
+            }
+            else
+            {
+                float results[] = new float[3];
+                Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
+                        deal.latitude, deal.longitude,
+                        results);
+
+                TextView tvDirections = (TextView) findViewById(R.id.directions);
+
+                tvDirections.setText(String.format("%.2f",results[0]) + "km");
+                tvDirections.setOnClickListener(this);
+
+                TextView tvDistance= (TextView) findViewById(R.id.distance);
+
+                tvDistance.setText(String.format("%.2f",results[0]) + "km away");
+            }
+
             //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
@@ -368,7 +398,12 @@ packageName = getPackageName();
       similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
 
         nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
-        //listView.setAdapter(adapter);
+        listView.setAdapter(similarAdapter);
+        listView.setAdapter(nearbyAdapter);
+
+
+        DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, similarDeals, nearbyDeals);
+        detailMiscTask.execute(String.valueOf(deal.id));
     }
     Bitmap bitmap;
 
@@ -475,16 +510,52 @@ packageName = getPackageName();
             if(viewId == R.id.similar_deals)
             {
                 setSelected(v);
+                similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
 
-                listView.setAdapter(similarAdapter);
+
+
+
+               listView.setAdapter(similarAdapter);
+
+
+               // listView.scrollTo(0, (int) llSimilarNearby.getY());
+                //listView.setScrollY((int) llSimilarNearby.getY());
+               // listView.smoothScrollToPosition(1);
+
+                listView.setSelection(1);
+//listView.requestFocusFromTouch();
+
+                //similarAdapter.notifyDataSetChanged();
 
             }
         else
                 if(viewId == R.id.nearby_deals)
                 {
-                    setSelected(v);
+                    if(HomeActivity.lat != 0 && HomeActivity.lng != 0)
+                    {
+                        if(nearbyDeals.size() > 0)
+                        {
+                            setSelected(v);
 
-                    listView.setAdapter(nearbyAdapter);
+                            nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
+
+                            listView.setAdapter(nearbyAdapter);
+
+                            listView.setSelection(1);
+                            //listView.scrollBy(0,  llSimilarNearby.getTop() - 100);
+
+                        }
+                        else
+                        {
+                            Toast.makeText(this, "No Nearby Deals Available!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "Your location is not available!", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
     }
 

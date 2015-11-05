@@ -8,12 +8,14 @@ import java.util.List;
 /**
  * Created by Babar on 03-Nov-15.
  */
+
 public class DealMisc
 {
     @SerializedName("result")
     public int resultCode;
 
-    public List<GenericDeal> similarDeals;
+    @SerializedName("results")
+    public GenericDeal genericDeal;
 
-    public List<GenericDeal> nearbyDeals;
+
 }

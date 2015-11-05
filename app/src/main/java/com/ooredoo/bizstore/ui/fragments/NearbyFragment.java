@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.Marker;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
@@ -80,7 +82,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_nearby, container, false);
 
-        init(v, inflater);
+        init(v, inflater, savedInstanceState);
 
         if(HomeActivity.lat !=0 && HomeActivity.lng != 0)
         {
@@ -99,7 +101,9 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
     GoogleMap googleMap;
     MapFragment mapFragment;
-    private void init(View v, LayoutInflater inflater)
+
+    MapView mapView;
+    private void init(View v, LayoutInflater inflater, Bundle savedInstanceState)
     {
         activity = (HomeActivity) getActivity();
 
@@ -123,12 +127,26 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-       mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+      // mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 
-        if(mapFragment != null)
+        mapView = (MapView) v.findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+
+        try
+        {
+            MapsInitializer.initialize(activity.getApplicationContext());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        googleMap = mapView.getMap();
+
+        /*if(mapFragment != null)
         {
             googleMap = mapFragment.getMap();
-        }
+        }*/
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
@@ -171,6 +189,15 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         fetchAndDisplayFoodAndDining(progressBar);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mapView.onResume();
+    }
+
+
 
     @Override
     public void onRefresh()
@@ -229,6 +256,8 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         super.onPause();
 
         Logger.print("onPause: FoodANdDiinignFrag");
+
+        mapView.onPause();
     }
 
     @Override
@@ -255,6 +284,18 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 
     @Override

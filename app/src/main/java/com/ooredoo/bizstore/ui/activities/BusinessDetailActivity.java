@@ -219,11 +219,13 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                         results);
 
                 TextView tvDirections = (TextView) findViewById(R.id.directions);
-                tvDirections.setText(results[0] + "km");
+
+                tvDirections.setText(String.format("%.2f",results[0]) + "km");
                 tvDirections.setOnClickListener(this);
 
                 TextView tvDistance= (TextView) findViewById(R.id.distance);
-                tvDistance.setText(results[0] + "km away");
+
+                tvDistance.setText(String.format("%.2f",results[0]) + "km away");
             }
 
             TextView tvTiming = (TextView) findViewById(R.id.timing);
@@ -545,7 +547,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 llMenu.addView(menuView);
             }
 
-            rlMenu.setVisibility(View.VISIBLE);
+            if(business.menus.size() > 0)
+            {
+                rlMenu.setVisibility(View.VISIBLE);
+            }
         }
     }
 
