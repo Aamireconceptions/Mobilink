@@ -84,8 +84,8 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         params.put(ID, id);
         params.put("type", "deals");
 
-        HomeActivity.lat = 33.6962951;
-        HomeActivity.lng = 73.0412254;
+        HomeActivity.lat = 25.283982;
+        HomeActivity.lng = 51.563376;
 
         params.put("lat", String.valueOf(HomeActivity.lat));
         params.put("long", String.valueOf(HomeActivity.lng));

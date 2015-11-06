@@ -398,12 +398,12 @@ packageName = getPackageName();
       similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
 
         nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
-        listView.setAdapter(similarAdapter);
-        listView.setAdapter(nearbyAdapter);
+        //listView.setAdapter(similarAdapter);
+        //listView.setAdapter(nearbyAdapter);
 
 
         DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, similarDeals, nearbyDeals);
-        detailMiscTask.execute(String.valueOf(deal.id));
+        detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id));
     }
     Bitmap bitmap;
 

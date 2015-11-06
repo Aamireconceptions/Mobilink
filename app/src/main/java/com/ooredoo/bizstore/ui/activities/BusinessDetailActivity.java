@@ -348,7 +348,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
 
         BusinessMiscTask businessMiscTask = new BusinessMiscTask(this, null, snackBarUtils);
-        businessMiscTask.execute(String.valueOf(id));
+        businessMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
     }
 
 
