@@ -289,6 +289,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(mapView != null)
         mapView.onDestroy();
     }
 
@@ -301,10 +302,10 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onDestroyView() {
 
-        if(!activity.isDestroyed())
+       /* if(!activity.isDestroyed())
         {
             getFragmentManager().beginTransaction().remove(mapFragment).commit();
-        }
+        }*/
 
         super.onDestroyView();
     }

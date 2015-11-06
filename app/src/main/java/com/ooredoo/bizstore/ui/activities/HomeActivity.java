@@ -356,16 +356,57 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private void setupTabs() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
+        //tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
         tabLayout.addTab(tabLayout.newTab());
-        tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
+
+       tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
+
 
     }
 
     private void setupPager() {
+        viewPager.setAdapter(null);
         viewPager.setAdapter(homePagerAdapter);
         viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
         //viewPager.setOffscreenPageLimit(11);
+        //tabLayout.setupWithViewPager(viewPager);
+       /* if(BizStore.getLanguage().equals("ar"))
+        {
+            viewPager.setCurrentItem(homePagerAdapter.getCount() - 1);
+        }*/
+
+       /* if(BizStore.getLanguage().equals("ar"))
+        {
+            Logger.print("Lang Arabic");
+           *//* viewPager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    viewPager.setCurrentItem(homePagerAdapter.getCount() - 1, false);
+                }
+            }, 1000);*//*
+
+
+            TabLayout.Tab tab = tabLayout.getTabAt(homePagerAdapter.getCount() - 1);
+            tab.select();
+        }
+        else
+        {
+            Logger.print("Lang Eng");
+
+            *//*viewPager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    viewPager.setCurrentItem(0, false);
+                }
+            }, 1000);*//*
+
+            TabLayout.Tab tab = tabLayout.getTabAt(0);
+            tab.select();
+        }*/
+
     }
 
     private void initFilter() {
@@ -463,6 +504,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvRating3.setEnabled(enabled);
         tvRating4.setEnabled(enabled);
         tvRating5.setEnabled(enabled);
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
     }
 
     @Override
