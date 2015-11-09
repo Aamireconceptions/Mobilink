@@ -106,6 +106,7 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.MALLS);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
@@ -142,6 +143,18 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onFilterChange()
     {
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
+
         fetchAndDisplayMalls(progressBar);
     }
 

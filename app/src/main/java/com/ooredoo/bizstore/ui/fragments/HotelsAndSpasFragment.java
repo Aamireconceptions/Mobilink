@@ -111,6 +111,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.HOTELS_AND_SPA);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
@@ -149,8 +150,19 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     }
 
     @Override
-    public void onFilterChange()
-    {
+    public void onFilterChange() {
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
+
         fetchAndDisplayHotelsAndSpas(progressBar);
     }
 

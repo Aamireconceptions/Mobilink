@@ -380,7 +380,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
-                    android:text="description"
+                    android:text="@string/description"
                     android:textColor="@color/black"/>
 
                 <TextView

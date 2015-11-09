@@ -617,8 +617,6 @@ packageName = getPackageName();
             ratingDialog.dismiss();
         }
 
-
-
         super.onDestroy();
     }
 

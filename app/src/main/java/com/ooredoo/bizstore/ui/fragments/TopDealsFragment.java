@@ -106,6 +106,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.TOP_DEALS);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 

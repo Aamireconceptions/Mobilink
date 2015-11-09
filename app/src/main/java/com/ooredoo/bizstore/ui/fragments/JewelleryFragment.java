@@ -109,6 +109,7 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory("Jewellery");
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
@@ -144,6 +145,18 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     @Override
     public void onFilterChange()
     {
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
+
         fetchAndDisplayJewelry(progressBar);
     }
 

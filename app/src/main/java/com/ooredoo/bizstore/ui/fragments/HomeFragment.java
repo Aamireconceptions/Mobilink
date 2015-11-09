@@ -145,6 +145,7 @@ dealofDayCalled = false;
 
         listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         listAdapter.setCategory(ResourceUtils.TOP_DEALS);
+        listAdapter.setListingType("deals");
 
         listView.addHeaderView(header);
         listView.setAdapter(listAdapter);

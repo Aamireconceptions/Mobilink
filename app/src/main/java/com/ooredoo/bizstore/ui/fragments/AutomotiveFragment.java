@@ -106,6 +106,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.AUTOMOTIVE);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
@@ -140,6 +141,18 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
     @Override
     public void onFilterChange() {
+
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
 
         fetchAndDisplayAutomotive(progressBar);
     }

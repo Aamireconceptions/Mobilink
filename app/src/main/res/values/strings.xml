@@ -115,6 +115,7 @@
     <string name="filter">Filter</string>
     <string name="filter_results">Filter Results</string>
     <string name="percentage_off">"% OFF"</string>
+    <string name="off">off</string>
     <string name="error_provide_num">Please provide your phone number.</string>
     <string name="please_wait">Please wait</string>
     <string name="success_shared">Successfully shared</string>

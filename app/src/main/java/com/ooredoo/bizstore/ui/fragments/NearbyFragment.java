@@ -124,6 +124,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 

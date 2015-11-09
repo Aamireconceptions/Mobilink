@@ -110,6 +110,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.SPORTS_AND_FITNESS);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
@@ -166,6 +167,18 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     @Override
     public void onRefreshCompleted() {
+
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
         swipeRefreshLayout.setRefreshing(false);
     }
 

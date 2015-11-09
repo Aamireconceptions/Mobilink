@@ -113,6 +113,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.ENTERTAINMENT);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
@@ -153,6 +154,18 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onFilterChange()
     {
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
+
         fetchAndDisplayEntertainment(progressBar);
     }
 

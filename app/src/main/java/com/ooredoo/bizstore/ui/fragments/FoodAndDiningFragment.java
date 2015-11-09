@@ -109,6 +109,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
@@ -117,6 +118,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         listView.addHeaderView(rlHeader);
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
+
 
         //gridView = (GridView) v.findViewById(R.id.grid_view)
 
@@ -152,7 +154,20 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     {
         Logger.print("FoodAndDiningFragment onFilterChange");
 
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
         fetchAndDisplayFoodAndDining(progressBar);
+
+
     }
 
     @Override

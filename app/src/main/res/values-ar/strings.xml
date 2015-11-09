@@ -114,6 +114,7 @@
     <string name="filter">مصنفة</string>
     <string name="filter_results">نتائج مصنفة</string>
     <string name="percentage_off">% خصم</string>
+    <string name="off">بعيدا</string>
     <string name="error_provide_num">يرجى تقديم رقم هاتفك.</string>
     <string name="please_wait">الرجاء الانتظار</string>
     <string name="success_shared">تمت المشاركة بنجاح</string>

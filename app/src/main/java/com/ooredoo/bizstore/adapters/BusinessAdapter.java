@@ -38,6 +38,8 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.NonScrollableGridView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
@@ -136,7 +138,20 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             convertView = inflater.inflate(R.layout.business_group_view, parent, false);
         }
 
-        ((TextView) convertView).setText(getGroup(groupPosition));
+        TextView textView = (TextView) convertView;
+
+        textView.setText(getGroup(groupPosition));
+
+
+        if(groupPosition == 0)
+        {
+            textView.setBackgroundColor(resources.getColor(R.color.red));
+        }
+        else
+        {
+            textView.setBackgroundColor(resources.getColor(R.color.random));
+        }
+
 
         return convertView;
     }

@@ -14,6 +14,8 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.BrandResponse;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -24,6 +26,7 @@ import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,7 +53,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
     private ImageView ivBanner;
 
-    private final static String SERVICE_NAME = "/deals?";
+    private final static String SERVICE_NAME = "/listing?";
 
     public static String sortColumn = "createdate"; //Default new deals
     public static String subCategories;
@@ -115,75 +118,90 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         setData(result);
     }
 
-    public void setData(String result)
-    {
-        if(progressBar != null) { progressBar.setVisibility(View.GONE); }
+    public void setData(String result) {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
 
         dealsTaskFinishedListener.onRefreshCompleted();
 
-        subCategories = "";
-        sortColumn = "createdate";
 
-        adapter.clearData();
+        if (result != null) {
+            if (sortColumn.equals("createdate")) {
+                subCategories = "";
+                sortColumn = "createdate";
 
-        if(result != null)
-        {
-            Logger.logI("DEALS: " + category, result);
+                Logger.logI("DEALS: " + category, result);
 
-            Gson gson = new Gson();
+               // adapter.clearData();
 
-            try {
-                Response response = gson.fromJson(result, Response.class);
+                Gson gson = new Gson();
 
-                if(response.resultCode != -1)
-                {
-                    dealsTaskFinishedListener.onHaveDeals();
+                try {
+                    Response response = gson.fromJson(result, Response.class);
 
-                    List<GenericDeal> deals = response.deals;
+                    if (response.resultCode != -1) {
+                        dealsTaskFinishedListener.onHaveDeals();
 
-                    if(deals != null)
-                    {
-                        adapter.setData(deals);
+                        List<GenericDeal> deals = response.deals;
 
-                        String bannerUrl = response.topBannerUrl;
+                        if (deals != null) {
+                            adapter.setData(deals);
 
-                        if(bannerUrl != null) {
-                            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
+                            String bannerUrl = response.topBannerUrl;
 
-                            Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+                            if (bannerUrl != null) {
+                                String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
 
-                            if(bitmap != null) {
-                                ivBanner.setImageBitmap(bitmap);
-                            } else {
-                                BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner, null);
-                                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                                Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+                                if (bitmap != null) {
+                                    ivBanner.setImageBitmap(bitmap);
+                                } else {
+                                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner, null);
+                                    bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                                }
                             }
+                        } else {
+                            dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                         }
+                        adapter.notifyDataSetChanged();
                     } else {
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
 
-                }
-                else
-                {
-                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
-                }
-
-                }
-                catch(JsonSyntaxException e)
-                {
+                } catch (JsonSyntaxException e) {
                     e.printStackTrace();
 
                     dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
                 }
-            }
-            else
-            {
-                dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
-            }
+            } else
+                if(sortColumn.equals("views"))
+                {
+                    Gson gson = new Gson();
 
-            adapter.notifyDataSetChanged();
+                    BrandResponse brand = gson.fromJson(result, BrandResponse.class);
+
+                    if(brand.resultCode != - 1)
+                    {
+                        if(brand.brands != null)
+                        {
+                            adapter.setBrandsList(brand.brands);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                    else
+                    {
+                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                    }
+                }
+
+        } else {
+            dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
         }
+
+
+    }
 
 
     private String getDeals(String category) throws IOException {
@@ -217,6 +235,15 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             if(sortColumn.equals("views"))
                 isFilterEnabled = true;
             sortColumns = sortColumn;
+
+            if(sortColumn.equals("createdate"))
+            {
+                params.put("type", "deals");
+            }
+            else
+            {
+                params.put("type", "business");
+            }
         }
 
         if(isNotNullOrEmpty(subCategories)) {

@@ -8,24 +8,32 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
@@ -35,7 +43,9 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
+import com.ooredoo.bizstore.views.NonScrollableGridView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
@@ -75,6 +85,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     public GenericDeal genericDeal;
 
+    public String listingType = "";
+
+    Resources resources;
+
     public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals,
                                Fragment fragment) {
         this.context = context;
@@ -91,12 +105,17 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         memoryCache = MemoryCache.getInstance();
 
-        Resources resources = context.getResources();
+        resources = context.getResources();
 
         reqWidth = resources.getDisplayMetrics().widthPixels;
 
         reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._105sdp)
                     / resources.getDisplayMetrics().density);
+    }
+
+    public void setListingType(String type)
+    {
+        this.listingType = type;
     }
 
     public void setCategory(String category) {
@@ -115,9 +134,19 @@ public class ListViewBaseAdapter extends BaseAdapter {
         }
     }
 
+
+
     @Override
     public int getCount() {
-        return deals.size();
+
+        if(listingType.equals("deals"))
+        {
+            return deals.size();
+        }
+        else
+        {
+            return 1;
+        }
     }
 
     @Override
@@ -127,90 +156,96 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return deals.get(position).id;
+        return 0;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Logger.print("getView");
-        final GenericDeal deal = getItem(position);
-
-        View row = convertView;
-
-        if(row == null) {
-            row = inflater.inflate(layoutResId, parent, false);
-
-            holder = new Holder();
-
-            holder.layout = row.findViewById(R.id.layout_deal_detail);
-            holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
-            holder.ivFav = (ImageView) row.findViewById(R.id.fav);
-            holder.ivShare = (ImageView) row.findViewById(R.id.share);
-            holder.tvTitle = (TextView) row.findViewById(R.id.title);
-            holder.tvDetail = (TextView) row.findViewById(R.id.detail);
-            holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
-            holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
-            holder.tvViews = (TextView) row.findViewById(R.id.views);
-            holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
-            holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
-            holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
-            holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
-            holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
-            holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
-            holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
-            holder.tvDirections = (TextView) row.findViewById(R.id.directions);
-
-
-            row.setTag(holder);
-        } else {
-            holder = (Holder) row.getTag();
-        }
-
-        //holder.tvBrandName.setText(genericDeal.brandName);
-        //holder.tvBrandAddress.setText(genericDeal.brandAddress);
-
-        String brandLogoUrl = deal.image != null ? deal.image.logoUrl : null;
-
-        Logger.print("BrandLogo: " + brandLogoUrl);
-
-        if(brandLogoUrl != null )
+        if(listingType.equals("deals"))
         {
-            String url = BaseAsyncTask.IMAGE_BASE_URL + brandLogoUrl;
+            Logger.print("getView");
+            final GenericDeal deal = getItem(position);
 
-            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
-
-            if(bitmap != null)
+            View row = null;
+            if((convertView instanceof LinearLayout))
             {
-                holder.ivBrand.setImageBitmap(bitmap);
-                //holder.progressBar.setVisibility(View.GONE);
+                 row = convertView;
+            }
+
+            if(row == null) {
+                row = inflater.inflate(layoutResId, parent, false);
+
+                holder = new Holder();
+
+                holder.layout = row.findViewById(R.id.layout_deal_detail);
+                holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
+                holder.ivFav = (ImageView) row.findViewById(R.id.fav);
+                holder.ivShare = (ImageView) row.findViewById(R.id.share);
+                holder.tvTitle = (TextView) row.findViewById(R.id.title);
+                holder.tvDetail = (TextView) row.findViewById(R.id.detail);
+                holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
+                holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
+                holder.tvViews = (TextView) row.findViewById(R.id.views);
+                holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
+                holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
+                holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
+                holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
+                holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
+                holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+                holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
+                holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+
+
+                row.setTag(holder);
+            } else {
+                holder = (Holder) row.getTag();
+            }
+
+            //holder.tvBrandName.setText(genericDeal.brandName);
+            //holder.tvBrandAddress.setText(genericDeal.brandAddress);
+
+            String brandLogoUrl = deal.image != null ? deal.image.logoUrl : null;
+
+            Logger.print("BrandLogo: " + brandLogoUrl);
+
+            if(brandLogoUrl != null )
+            {
+                String url = BaseAsyncTask.IMAGE_BASE_URL + brandLogoUrl;
+
+                Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+                if(bitmap != null)
+                {
+                    holder.ivBrand.setImageBitmap(bitmap);
+                    //holder.progressBar.setVisibility(View.GONE);
+                }
+                else
+                {
+                    holder.ivBrand.setImageBitmap(null);
+
+                    fallBackToDiskCache(url);
+                }
+
+                holder.ivPromotional.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        if(isSearchEnabled()) {
+                            HomeActivity homeActivity = (HomeActivity) activity;
+                            homeActivity.showHideSearchBar(false);
+                        } else {
+                            showDetail(deal);
+                        }
+                    }
+                });
             }
             else
             {
-                holder.ivBrand.setImageBitmap(null);
-
-                fallBackToDiskCache(url);
-            }
-
-            holder.ivPromotional.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
+                if(holder.ivPromotional != null)
                 {
-                    if(isSearchEnabled()) {
-                        HomeActivity homeActivity = (HomeActivity) activity;
-                        homeActivity.showHideSearchBar(false);
-                    } else {
-                        showDetail(deal);
-                    }
-                }
-            });
-        }
-        else
-        {
-            if(holder.ivPromotional != null)
-            {
-                holder.rlPromotionalLayout.setVisibility(View.GONE);
+                    holder.rlPromotionalLayout.setVisibility(View.GONE);
 
                /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                 holder.progressBar.setVisibility(View.GONE);
@@ -220,52 +255,61 @@ public class ListViewBaseAdapter extends BaseAdapter {
                         showDetail(deal);
                     }
                 });*/
-            }
-        }
-
-        if(holder.tvCategory != null)
-        {
-            String category = deal.category;
-            holder.tvCategory.setText(category);
-
-            int categoryDrawable = ResourceUtils.getDrawableResId(this.category);
-            if(categoryDrawable > 0) {
-                holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
-            }
-        }
-
-        deal.isFav = Favorite.isFavorite(deal.id);
-
-       // holder.ivFav.setSelected(deal.isFav);
-      //  holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
-
-        holder.tvTitle.setText(deal.title);
-
-        holder.tvDetail.setText(deal.description);
-
-        if(deal.discount == 0) {
-            holder.tvDiscount.setVisibility(View.GONE);
-            holder.ivDiscountTag.setVisibility(View.GONE);
-        }
-        else
-        {
-            holder.tvDiscount.setVisibility(View.VISIBLE);
-            holder.ivDiscountTag.setVisibility(View.VISIBLE);
-        }
-
-        holder.tvDiscount.setText(valueOf(deal.discount) +"%\nOFF");
-
-        holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isSearchEnabled()) {
-                    HomeActivity homeActivity = (HomeActivity) activity;
-                    homeActivity.showHideSearchBar(false);
-                } else {
-                    showDetail(deal);
                 }
             }
-        });
+
+            if(holder.tvCategory != null)
+            {
+                String category = deal.category;
+                holder.tvCategory.setText(category);
+
+                int categoryDrawable = ResourceUtils.getDrawableResId(this.category);
+                if(categoryDrawable > 0) {
+                    holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
+                }
+            }
+
+            deal.isFav = Favorite.isFavorite(deal.id);
+
+            // holder.ivFav.setSelected(deal.isFav);
+            //  holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
+
+            holder.tvTitle.setText(deal.title);
+
+            holder.tvDetail.setText(deal.description);
+
+            if(deal.discount == 0) {
+                holder.tvDiscount.setVisibility(View.GONE);
+                holder.ivDiscountTag.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.tvDiscount.setVisibility(View.VISIBLE);
+                holder.ivDiscountTag.setVisibility(View.VISIBLE);
+            }
+
+            holder.tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
+
+            if(BizStore.getLanguage().equals("en"))
+            {
+                holder.tvDiscount.setRotation(-40);
+            }
+            else
+            {
+                holder.tvDiscount.setRotation(40);
+            }
+
+            holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(isSearchEnabled()) {
+                        HomeActivity homeActivity = (HomeActivity) activity;
+                        homeActivity.showHideSearchBar(false);
+                    } else {
+                        showDetail(deal);
+                    }
+                }
+            });
 
        /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,52 +325,52 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
 //        holder.rbRatings.setRating(deal.rating);
 
-     //   holder.tvViews.setText(valueOf(deal.views));
+            //   holder.tvViews.setText(valueOf(deal.views));
 
-        String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
+            String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
 
-        Logger.print("promotionalBanner: " + promotionalBanner);
+            Logger.print("promotionalBanner: " + promotionalBanner);
 
-        if(promotionalBanner != null && holder.ivPromotional != null)
-        {
-            holder.rlPromotionalLayout.setVisibility(View.VISIBLE);
-
-            String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
-
-            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
-
-            if(bitmap != null)
+            if(promotionalBanner != null && holder.ivPromotional != null)
             {
-                holder.ivPromotional.setImageBitmap(bitmap);
-                holder.progressBar.setVisibility(View.GONE);
+                holder.rlPromotionalLayout.setVisibility(View.VISIBLE);
+
+                String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
+
+                Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+                if(bitmap != null)
+                {
+                    holder.ivPromotional.setImageBitmap(bitmap);
+                    holder.progressBar.setVisibility(View.GONE);
+                }
+                else
+                {
+                    holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                    holder.progressBar.setVisibility(View.VISIBLE);
+
+                    fallBackToDiskCache(url);
+                }
+
+                holder.ivPromotional.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        if(isSearchEnabled()) {
+                            HomeActivity homeActivity = (HomeActivity) activity;
+                            homeActivity.showHideSearchBar(false);
+                        } else {
+                            showDetail(deal);
+                        }
+                    }
+                });
             }
             else
             {
-                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                holder.progressBar.setVisibility(View.VISIBLE);
-
-                fallBackToDiskCache(url);
-            }
-
-            holder.ivPromotional.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
+                if(holder.ivPromotional != null)
                 {
-                    if(isSearchEnabled()) {
-                        HomeActivity homeActivity = (HomeActivity) activity;
-                        homeActivity.showHideSearchBar(false);
-                    } else {
-                        showDetail(deal);
-                    }
-                }
-            });
-        }
-        else
-        {
-            if(holder.ivPromotional != null)
-            {
-                holder.rlPromotionalLayout.setVisibility(View.GONE);
+                    holder.rlPromotionalLayout.setVisibility(View.GONE);
 
                /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                 holder.progressBar.setVisibility(View.GONE);
@@ -336,36 +380,80 @@ public class ListViewBaseAdapter extends BaseAdapter {
                         showDetail(deal);
                     }
                 });*/
+                }
             }
-        }
 
-        if((deal.latitude != 0 && deal.longitude != 0)
-                && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
-        {
-            holder.tvDirections.setVisibility(View.VISIBLE);
-            float results[] = new float[3];
-            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
-                    results);
+            if((deal.latitude != 0 && deal.longitude != 0)
+                    && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
+            {
+                holder.tvDirections.setVisibility(View.VISIBLE);
+                float results[] = new float[3];
+                Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
+                        results);
 
-            holder.tvDirections.setText(String.format("%.2f",results[0]) + "km");
+                holder.tvDirections.setText(String.format("%.2f",results[0]) + "km");
+            }
+            else
+            {
+                holder.tvDirections.setVisibility(View.GONE);
+            }
+
+            if(doAnimate && position > 0)
+            {
+                //AnimUtils.slideView(activity, row, prevItem < position);
+            }
+            else
+            {
+                doAnimate = true;
+            }
+
+            prevItem = position;
+
+            return row;
         }
         else
-        {
-            holder.tvDirections.setVisibility(View.GONE);
-        }
+            if(listingType.equals("brands"))
+            {
+                SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.brand, brands);
 
-        if(doAnimate && position > 0)
-        {
-            //AnimUtils.slideView(activity, row, prevItem < position);
-        }
-        else
-        {
-            doAnimate = true;
-        }
+                NonScrollableGridView gridView = new NonScrollableGridView(context, null);
 
-        prevItem = position;
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        return row;
+                        Brand brand1 = (Brand) parent.getItemAtPosition(position);
+
+                        Business business = new Business(brand1);
+
+                        Intent intent = new Intent(context, BusinessDetailActivity.class);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        // intent.setClass(context, BusinessDetailActivity.class);
+                        intent.putExtra("business", business);
+                        intent.putExtra(CATEGORY, "N/A");
+                        context.startActivity(intent);
+                    }
+                });
+                gridView.setNumColumns(3);
+                gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._10sdp));
+                gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._10sdp));
+
+                gridView.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                gridView.setAdapter(adapter);
+
+                return gridView;
+            }
+
+        return null;
+
+    }
+
+    private List<Brand> brands = new ArrayList<>();
+
+    public void setBrandsList(List<Brand> brands)
+    {
+        this.brands = brands;
     }
 
     private void fallBackToDiskCache(final String url)
