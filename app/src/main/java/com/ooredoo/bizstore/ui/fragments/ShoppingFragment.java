@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -106,6 +107,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_shopping_header, null);
 
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
+        adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
@@ -186,6 +188,19 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onFilterChange() {
+
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(ShoppingTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
+
         loadDeals(progressBar);
     }
 

@@ -83,10 +83,10 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
                 DealsTask.sortColumn = "createdate";
                 ShoppingTask.sortColumn = "createdate";
 
-               // onFilterChangeListener.onFilterChange();
+                onFilterChangeListener.onFilterChange();
 
-                listView.setVisibility(View.VISIBLE);
-                mapFragment.getView().setVisibility(View.GONE);
+               // listView.setVisibility(View.VISIBLE);
+               // mapFragment.getView().setVisibility(View.GONE);
                 break;
 
             case R.id.popular_deals:
@@ -96,10 +96,10 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
                 DealsTask.sortColumn = "views";
                 ShoppingTask.sortColumn = "views";
 
-                //onFilterChangeListener.onFilterChange();
+                onFilterChangeListener.onFilterChange();
 
-                listView.setVisibility(View.GONE);
-                mapFragment.getView().setVisibility(View.VISIBLE);
+                //listView.setVisibility(View.GONE);
+               // mapFragment.getView().setVisibility(View.VISIBLE);
 
                 break;
 

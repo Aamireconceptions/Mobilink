@@ -8,8 +8,11 @@ import android.widget.AdapterView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
+import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
@@ -46,20 +49,37 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
             HomeActivity homeActivity = (HomeActivity) activity;
             homeActivity.showHideSearchBar(false);
         } else {
-            genericDeal = (GenericDeal) parent.getItemAtPosition(position);
 
-            //int dealId = gDeal.id;
+            if(adapter.listingType.equals("deals"))
+            {
+                genericDeal = (GenericDeal) parent.getItemAtPosition(position);
 
-            Deal recentDeal = new Deal((GenericDeal) parent.getItemAtPosition(position));
-            RecentViewedActivity.addToRecentViewed(recentDeal);
-            DealDetailActivity.selectedDeal = (GenericDeal) parent.getItemAtPosition(position);
+                //int dealId = gDeal.id;
 
-            Intent intent = new Intent(activity, DealDetailActivity.class);
-            intent.putExtra("generic_deal", genericDeal);
-            //intent.putExtra(AppConstant.ID, dealId);
-            intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
+                Deal recentDeal = new Deal((GenericDeal) parent.getItemAtPosition(position));
+                RecentViewedActivity.addToRecentViewed(recentDeal);
+                DealDetailActivity.selectedDeal = (GenericDeal) parent.getItemAtPosition(position);
 
-            fragment.startActivityForResult(intent, 2);
+                Intent intent = new Intent(activity, DealDetailActivity.class);
+                intent.putExtra("generic_deal", genericDeal);
+                //intent.putExtra(AppConstant.ID, dealId);
+                intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
+
+                fragment.startActivityForResult(intent, 2);
+            }
+            else
+            {
+                Brand brand = (Brand) parent.getItemAtPosition(position);
+
+                Business business = new Business(brand);
+
+                Intent intent = new Intent();
+                intent.setClass(activity, BusinessDetailActivity.class);
+                intent.putExtra("business", business);
+                intent.putExtra(CATEGORY, "");
+                activity.startActivity(intent);
+            }
+
         }
     }
 

@@ -11,6 +11,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
+import com.ooredoo.bizstore.model.BrandResponse;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -53,7 +54,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
     public static String subCategories;
 
-    private final static String SERVICE_NAME = "/deals?";
+    private final static String SERVICE_NAME = "/listing?";
 
     public ShoppingTask(HomeActivity homeActivity, GridViewBaseAdapter adapter,
                         ProgressBar progressBar, SnackBarUtils snackBarUtils,
@@ -111,36 +112,63 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
             this.progressBar.setVisibility(View.GONE);
         }
 
-        adapter.clearData();
+        //adapter.clearData();
 
         if(result != null)
         {
-            Gson gson = new Gson();
-
-            try
+            if(sortColumn.equals("createdate"))
             {
-                Response response = gson.fromJson(result, Response.class);
+                Gson gson = new Gson();
 
-                if(response.resultCode != -1)
+                try
                 {
-                    dealsTaskFinishedListener.onHaveDeals();
+                    Response response = gson.fromJson(result, Response.class);
 
-                    List<GenericDeal> deals = new ArrayList<>();
+                    if(response.resultCode != -1)
+                    {
+                        dealsTaskFinishedListener.onHaveDeals();
 
-                    if(response.deals != null)
-                        deals = response.deals;
+                        List<GenericDeal> deals = new ArrayList<>();
 
-                    adapter.setData(deals);
+                        if(response.deals != null)
+                            deals = response.deals;
+
+                        adapter.setData(deals);
+                    }
+                    else
+                    {
+                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                    }
                 }
-                else
+                catch (JsonSyntaxException e)
                 {
-                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
                 }
+
+                adapter.notifyDataSetChanged();
             }
-            catch (JsonSyntaxException e)
-            {
-                dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
-            }
+            else
+                if(sortColumn.equals("views"))
+                {
+                    Gson gson = new Gson();
+
+                    BrandResponse brand = gson.fromJson(result, BrandResponse.class);
+
+                    if(brand.resultCode != - 1)
+                    {
+                        if(brand.brands != null)
+                        {
+                            adapter.setBrandsList(brand.brands);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                    else
+                    {
+                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                    }
+
+                  //  adapter.notifyDataSetChanged();
+                }
         }
         else
         {
@@ -149,7 +177,6 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
             snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
 
-        adapter.notifyDataSetChanged();
     }
 
     private String getDeals(String category) throws IOException
@@ -167,9 +194,25 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         Logger.print("Sort by: " + sortColumn);
         Logger.print("Sub Categories: " + subCategories);
 
+        if(isNotNullOrEmpty(sortColumn)) {
+            if(sortColumn.equals("views"))
+                isFilterEnabled = true;
+            sortColumns = sortColumn;
+
+            if(sortColumn.equals("createdate"))
+            {
+                params.put("type", "deals");
+            }
+            else
+            {
+                params.put("type", "business");
+            }
+        }
+
         if(isNotNullOrEmpty(sortColumns)) {
             if(sortColumns.equals("views"))
                 isFilterEnabled = true;
+
         }
 
         if(isNotNullOrEmpty(subCategories)) {

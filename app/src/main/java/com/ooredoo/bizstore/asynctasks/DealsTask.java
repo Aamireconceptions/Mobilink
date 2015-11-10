@@ -199,8 +199,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         } else {
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
         }
-
-
     }
 
 
@@ -218,14 +216,22 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(CATEGORY, category);
 
-      /*  if(category.equals("nearby"))
+
+        if(category.equals("nearby"))
         {
-            params.put("lat", String.valueOf(HomeActivity.lat));
-            params.put("lng", String.valueOf(HomeActivity.lng));
+            params.put("nearby", "true");
 
-        }*/
+           // HomeActivity.lat = 25.283982;
+           // HomeActivity.lng = 51.563376;
+
+            params.put("lat", String.valueOf(HomeActivity.lat));
+            params.put("long", String.valueOf(HomeActivity.lng));
+        }
+        else
+        {
+            params.put(CATEGORY, category);
+        }
 
         Logger.print("Sort by: " + sortColumn);
         Logger.print("Sub Categories: " + subCategories);
@@ -284,7 +290,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
 
-        if(!isFilterEnabled)
+        if(!isFilterEnabled && !result.contains("No item Found"))
         {
             updateVal(homeActivity, KEY, result);
             updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());

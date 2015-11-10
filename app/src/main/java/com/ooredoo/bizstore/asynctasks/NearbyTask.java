@@ -171,7 +171,7 @@ public class NearbyTask extends BaseAsyncTask<String, Void, String>
                     {
                         adapter.setData(deals);
 
-                        populateMap(deals);
+                        //populateMap(deals);
 
                         String bannerUrl = response.topBannerUrl;
 
@@ -213,124 +213,6 @@ public class NearbyTask extends BaseAsyncTask<String, Void, String>
             adapter.notifyDataSetChanged();
         }
 
-    private void populateMap(List<GenericDeal> deals)
-    {
-        for(final GenericDeal deal : deals)
-        {
-            Image image = deal.image;
-
-            if(image != null) {
-                final String url = image.logoUrl;
-
-                if (url != null && !url.isEmpty()) {
-                    Bitmap bitmap = memoryCache.getBitmapFromCache(url);
-
-                    if (bitmap == null) {
-                        bitmap = diskCache.getBitmapFromDiskCache(url);
-                    }
-
-                    if (bitmap != null) {
-                        addMarker(bitmap, deal);
-                    } else {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Bitmap bitmap = downloadBitmap(url, String.valueOf(res.getDimension(R.dimen._120sdp)),
-                                        String.valueOf(res.getDimension(R.dimen._120sdp)));
-
-                                addMarker(bitmap ,deal);
-
-                            }
-                        }).start();
-                    }
-                }
-            }
-        }
-    }
-        private void addMarker(Bitmap bitmap, GenericDeal deal)
-        {
-            if(bitmap != null)
-            {
-                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
-
-                MarkerOptions options = new MarkerOptions()
-                        .title(deal.title)
-                        .snippet(deal.description)
-                        .position(new LatLng(deal.latitude, deal.longitude))
-                        .icon(bd);
-
-                Marker marker = map.addMarker(options);
-                genericDealHashMap.put(marker.getId(), marker);
-            }
-        }
-
-    public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
-    {
-        try
-        {
-            if(memoryCache.getBitmapFromCache(imgUrl) != null)
-            {
-                return memoryCache.getBitmapFromCache(imgUrl);
-                /*Logger.print("Already downloaded. Cancelling task");
-
-                cancel(true);*/
-            }
-
-            Bitmap b = diskCache.getBitmapFromDiskCache(imgUrl);
-            if(b != null)
-            {
-                return b;
-            }
-
-            if(BizStore.forceStopTasks)
-            {
-                Logger.print("Force stopped bitmap download task");
-
-                return null;
-            }
-
-            if(isCancelled())
-            {
-                Logger.print("isCancelled: true");
-
-                return null;
-            }
-
-
-
-            Logger.print("Bitmap Url: " + imgUrl);
-            URL url = new URL(imgUrl);
-
-            InputStream inputStream = url.openStream();
-
-           /* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
-            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*/
-
-            int width = Integer.parseInt(reqWidth);
-
-            int height = Integer.parseInt(reqHeight);
-
-            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
-
-            if(bitmap != null)
-            {
-                diskCache.addBitmapToDiskCache(imgUrl, bitmap);
-                memoryCache.addBitmapToCache(imgUrl, bitmap);
-            }
-
-            return bitmap;
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     private String getDeals(String category) throws IOException {
         String result;

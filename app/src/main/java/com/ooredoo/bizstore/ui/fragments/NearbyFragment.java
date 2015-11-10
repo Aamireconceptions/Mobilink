@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -27,9 +29,9 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
-import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.NearbyFilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -78,8 +80,10 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         return fragment;
     }
 
+    ViewGroup parent;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        parent = container;
         View v = inflater.inflate(R.layout.fragment_nearby, container, false);
 
         init(v, inflater, savedInstanceState);
@@ -107,6 +111,52 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     {
         activity = (HomeActivity) getActivity();
 
+        RelativeLayout linearLayout = (RelativeLayout) inflater.inflate(R.layout.layout_map, null, false);
+
+        ImageView imageView =  (ImageView) linearLayout.findViewById(R.id.dummy);
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    Logger.print("down");
+                    listView.setScrollContainer(false);
+
+                    return true;
+                }
+
+                if(event.getAction() == MotionEvent.ACTION_UP)
+                {Logger.print("up");
+                    listView.setScrollContainer(true);
+
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+        mapView = (MapView) linearLayout.findViewById(R.id.mapView);
+
+
+        mapView.onCreate(savedInstanceState);
+
+
+        try
+        {
+            MapsInitializer.initialize(activity.getApplicationContext());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        googleMap = mapView.getMap();
+
+
+
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
@@ -125,32 +175,24 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
         adapter.setListingType("deals");
+        adapter.setMapLayout(linearLayout);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
       // mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 
-        mapView = (MapView) v.findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
+        adapter.setMapView(mapView);
 
-        try
-        {
-            MapsInitializer.initialize(activity.getApplicationContext());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        adapter.setGenericDealHashMap(genericDealHashMap);
 
-        googleMap = mapView.getMap();
-
+        adapter.setGoogleMap(googleMap);
         /*if(mapFragment != null)
         {
             googleMap = mapFragment.getMap();
         }*/
 
         listView = (ListView) v.findViewById(R.id.list_view);
-        listView.addHeaderView(ivBanner);
+        //listView.addHeaderView(ivBanner);
         listView.addHeaderView(rlHeader);
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -161,7 +203,8 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
-        NearbyFilterOnClickListener clickListener = new NearbyFilterOnClickListener(activity, CategoryUtils.CT_NEARBY,
+        NearbyFilterOnClickListener clickListener = new NearbyFilterOnClickListener(activity,
+                CategoryUtils.CT_NEARBY,
                 listView, mapFragment);
         clickListener.setLayout(rlHeader);
     }
@@ -172,6 +215,8 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
                                             this);
 
         String cache = dealsTask.getCache("nearby");
+
+        cache = null;
 
         if(cache != null && !isRefreshed)
         {
@@ -188,7 +233,17 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     {
         Logger.print("FoodAndDiningFragment onFilterChange");
 
-        fetchAndDisplayFoodAndDining(progressBar);
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("map");
+        }
+
+        adapter.notifyDataSetChanged();
+        //fetchAndDisplayFoodAndDining(progressBar);
     }
 
     @Override
@@ -222,7 +277,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onHaveDeals()
     {
-        ivBanner.setImageResource(R.drawable.food_dinning_banner);
+       // ivBanner.setImageResource(R.drawable.food_dinning_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
     }

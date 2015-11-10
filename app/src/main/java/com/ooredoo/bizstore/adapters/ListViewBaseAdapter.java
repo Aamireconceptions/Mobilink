@@ -10,10 +10,14 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +26,13 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
@@ -38,6 +49,7 @@ import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
+import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -45,7 +57,12 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.NonScrollableGridView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
@@ -87,6 +104,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     public String listingType = "";
 
+    BitmapProcessor bitmapProcessor;
+
     Resources resources;
 
     public ListViewBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals,
@@ -111,6 +130,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._105sdp)
                     / resources.getDisplayMetrics().density);
+
+        bitmapProcessor = new BitmapProcessor();
     }
 
     public void setListingType(String type)
@@ -139,7 +160,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
     @Override
     public int getCount() {
 
-        if(listingType.equals("deals"))
+        if(listingType.equals("deals") || listingType.equals("list"))
         {
             return deals.size();
         }
@@ -205,7 +226,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
             //holder.tvBrandName.setText(genericDeal.brandName);
             //holder.tvBrandAddress.setText(genericDeal.brandAddress);
 
-            String brandLogoUrl = deal.image != null ? deal.image.logoUrl : null;
+           // String brandLogoUrl = deal.image != null ? deal.image.logoUrl : null;
+
+            String brandLogoUrl = deal.businessLogo != null ? deal.businessLogo : null;
 
             Logger.print("BrandLogo: " + brandLogoUrl);
 
@@ -391,7 +414,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
                         results);
 
-                holder.tvDirections.setText(String.format("%.2f",results[0]) + "km");
+                holder.tvDirections.setText(String.format("%.2f",(results[0] / 1000)) + "km");
             }
             else
             {
@@ -444,9 +467,181 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                 return gridView;
             }
+        else
+            if(listingType.equals("map"))
+            {
+
+
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
+                        1000);
+
+                mapView.setLayoutParams(params);
+
+                mapView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Logger.print("MAP Touched");
+                        return false;
+                    }
+                });
+               /* mapView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                        Logger.print("map lambai:" + mapView.getHeight());
+                    }
+                });*/
+
+                populateMap(deals);
+
+                return mapLayout;
+
+            }
 
         return null;
 
+    }
+
+    RelativeLayout mapLayout;
+    public void setMapLayout(RelativeLayout mapLayout)
+    {
+        this.mapLayout = mapLayout;
+    }
+
+    private void populateMap(List<GenericDeal> deals)
+    {
+        for(final GenericDeal deal : deals)
+        {
+            //Image image = deal.image;
+
+            String businessLogoUrl = deal.businessLogo;
+
+            if(businessLogoUrl != null) {
+                final String url = BaseAsyncTask.IMAGE_BASE_URL + businessLogoUrl;
+
+                Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+                if (bitmap == null) {
+                    bitmap = diskCache.getBitmapFromDiskCache(url);
+                }
+
+                if (bitmap != null) {
+                    addMarker(bitmap, deal);
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final Bitmap bitmap = downloadBitmap(url, String.valueOf((int) resources.getDimension(R.dimen._60sdp)),
+                                    String.valueOf((int) resources.getDimension(R.dimen._60sdp)));
+
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    addMarker(bitmap, deal);
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            }
+        }
+    }
+    private void addMarker(Bitmap bitmap, GenericDeal deal)
+    {
+        if(bitmap != null)
+        {
+            BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
+
+            MarkerOptions options = new MarkerOptions()
+                    .title(deal.title)
+                    .snippet(deal.description)
+                    .position(new LatLng(deal.latitude, deal.longitude))
+                    .icon(bd);
+
+            Marker marker = googleMap.addMarker(options);
+            genericDealHashMap.put(marker.getId(), marker);
+        }
+    }
+
+    private HashMap<String, Marker> genericDealHashMap;
+
+    public void setGenericDealHashMap(HashMap<String, Marker> genericDealHashMap)
+    {
+        this.genericDealHashMap = genericDealHashMap;
+    }
+
+    public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
+    {
+        try
+        {
+            if(memoryCache.getBitmapFromCache(imgUrl) != null)
+            {
+                return memoryCache.getBitmapFromCache(imgUrl);
+                /*Logger.print("Already downloaded. Cancelling task");
+
+                cancel(true);*/
+            }
+
+            Bitmap b = diskCache.getBitmapFromDiskCache(imgUrl);
+            if(b != null)
+            {
+                return b;
+            }
+
+            if(BizStore.forceStopTasks)
+            {
+                Logger.print("Force stopped bitmap download task");
+
+                return null;
+            }
+
+            Logger.print("Bitmap Url: " + imgUrl);
+            URL url = new URL(imgUrl);
+
+            InputStream inputStream = url.openStream();
+
+           /* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
+            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*/
+
+            int width = Integer.parseInt(reqWidth);
+
+            int height = Integer.parseInt(reqHeight);
+
+            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
+
+            if(bitmap != null)
+            {
+                diskCache.addBitmapToDiskCache(imgUrl, bitmap);
+                memoryCache.addBitmapToCache(imgUrl, bitmap);
+            }
+
+            return bitmap;
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    MapView mapView;
+    GoogleMap googleMap;
+
+    public void setMapView(MapView mapView)
+    {
+        this.mapView = mapView;
+    }
+
+    public void setGoogleMap(GoogleMap googleMap)
+    {
+        this.googleMap = googleMap;
     }
 
     private List<Brand> brands = new ArrayList<>();
