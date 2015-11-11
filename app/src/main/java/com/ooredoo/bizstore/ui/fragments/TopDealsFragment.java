@@ -142,6 +142,19 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onFilterChange() {
+
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
+
         loadTopDeals(progressBar);
     }
 

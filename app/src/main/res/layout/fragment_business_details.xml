@@ -65,20 +65,17 @@
                         android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:textAllCaps="true"
                         android:text="subway"
                         android:textColor="#F7F7F7"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_alignLeft="@+id/tv_title"
-
                         android:textColor="@color/white"
                         android:text="Restaurant"
                         android:textStyle="normal"
@@ -109,6 +106,8 @@
                     android:id="@+id/directions_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="106dp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
@@ -122,7 +121,7 @@
                         android:drawablePadding="@dimen/_4sdp"
                         android:gravity="center_horizontal"
                         android:drawableTop="@drawable/ic_directions_big"
-                        android:text="Distance\n1.4 km"/>
+                        android:text=""/>
 
                 </LinearLayout>
 
@@ -232,7 +231,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
-                    android:text="Islamabad"
+                    android:text=""
                     android:textColor="@color/black"/>
 
                 <TextView
@@ -253,8 +252,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/_50sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:background="@drawable/layer_list">
 
                 <TextView
@@ -262,11 +264,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:autoLink="phone"
                     android:drawableStart="@drawable/ic_call"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text="051-3223324"
+                    android:text=""
                     android:textColor="@color/black"/>
-
 
             </RelativeLayout>
 
@@ -274,7 +276,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
+                android:minHeight="@dimen/_50sdp"
                 android:paddingEnd="@dimen/_10sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:background="@drawable/layer_list">
 
                 <TextView
@@ -283,10 +288,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/_6sdp"
+                    android:autoLink="map"
                     android:layout_toStartOf="@+id/address_arrow"
                     android:drawableStart="@drawable/ic_location"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text="F/7 Jinnad Super Market"
+                    android:text=""
                     android:textColor="@color/black"/>
 
                 <ImageView
@@ -296,7 +302,7 @@
                    android:src="@drawable/ic_next_arrow"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                   />
+                   android:visibility="gone"/>
 
 
 
@@ -305,9 +311,12 @@
             <RelativeLayout
                 android:id="@+id/distance_layout"
                 android:layout_width="match_parent"
+                android:minHeight="@dimen/_50sdp"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:background="@drawable/layer_list">
 
                 <TextView
@@ -319,7 +328,8 @@
                     android:layout_toStartOf="@+id/distance_arrow"
                     android:drawableStart="@drawable/ic_directions_small"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text="12.3 km away"
+                    android:text=""
+
                     android:textColor="@color/black"/>
 
                 <ImageView
@@ -329,7 +339,7 @@
                     android:src="@drawable/ic_next_arrow"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    />
+                    android:visibility="gone"/>
 
 
 
@@ -340,6 +350,9 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
+                android:minHeight="@dimen/_50sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
                 android:background="@drawable/layer_list_end">
 
                 <TextView
@@ -351,7 +364,7 @@
                     android:layout_toStartOf="@+id/timing_arrow"
                     android:drawableStart="@drawable/ic_clock"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text="7:00 am - 7:00 pm"
+                    android:text=""
                     android:textColor="@color/black"/>
 
                 <ImageView
@@ -361,7 +374,7 @@
                     android:src="@drawable/ic_next_arrow"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    />
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 

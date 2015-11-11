@@ -354,7 +354,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
         {
            // Brand brand = (Brand) getChild(groupPosition, childPosition);
 
-            SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.brand, (List<Brand>) childList.get(groupPosition));
+            SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand, (List<Brand>) childList.get(groupPosition));
 
            // GridView gridView = (GridView) layoutInflater.inflate(R.layout.grid_view, parent, false);
             NonScrollableGridView gridView = new NonScrollableGridView(context, null);

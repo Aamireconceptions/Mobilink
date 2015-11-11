@@ -10,10 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:padding="@dimen/_8sdp"
+        android:padding="@dimen/_6sdp"
         android:background="@drawable/list_border_head">
-
-
 
         <FrameLayout
             android:id="@+id/logo_frame"
@@ -73,7 +71,7 @@
                 android:textAllCaps="true"
                 android:textSize="12sp"
                 android:singleLine="true"
-                android:textStyle="bold"/>
+                android:ellipsize="end"/>
 
         </LinearLayout>
 
@@ -84,9 +82,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:drawableTop="@drawable/ic_directions_big"
-
-
-            android:textColor="@color/red"
+            android:textSize="10sp"
+            android:textColor="@color/random"
             android:gravity="center"/>
 
     </RelativeLayout>
@@ -99,11 +96,10 @@
         <ImageView
             android:id="@+id/promotional_banner"
             android:layout_width="match_parent"
-            android:padding="1dp"
+
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
-            android:src="@drawable/deal_banner"
-            android:background="@drawable/list_border"/>
+            android:src="@drawable/deal_banner" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -123,9 +119,8 @@
             android:id="@+id/discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:gravity="center"
             android:text="50%\noff"
             android:textColor="@color/white"
@@ -143,6 +138,7 @@
         android:id="@+id/layout_deal_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:orientation="vertical"
@@ -152,22 +148,21 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:text="Amir Adnan"
             android:singleLine="true"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textAllCaps="true"
-            android:textStyle="bold"
             android:textColor="@color/red"/>
 
         <TextView
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_18sdp"
-
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_2sdp"
             android:textColor="@color/black"
+            android:textSize="12sp"
             android:text="Amir Adnan Wedding Coture Package 2015 - Sherwani, Inner, Lawn, Suite, etc"
             android:maxLines="1"
             android:ellipsize="end"/>

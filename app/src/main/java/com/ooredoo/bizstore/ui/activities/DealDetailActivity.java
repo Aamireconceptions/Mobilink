@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -38,6 +39,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
@@ -258,6 +260,12 @@ packageName = getPackageName();
             mActionBar.setTitle(deal.title);
 
             LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
+            llDirections.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startDirections();
+                }
+            });
 
             RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
 
@@ -276,7 +284,7 @@ packageName = getPackageName();
 
                 TextView tvDirections = (TextView) findViewById(R.id.directions);
 
-                tvDirections.setText(String.format("%.2f",results[0]) + "km");
+                tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
                 tvDirections.setOnClickListener(this);
 
                 TextView tvDistance= (TextView) findViewById(R.id.distance);
@@ -310,6 +318,37 @@ packageName = getPackageName();
             {
                 rlVoucher.setVisibility(View.VISIBLE);
                 tvDiscount.setVisibility(View.VISIBLE);
+            }
+
+            final ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
+
+            String brandLogo = deal.businessLogo;
+
+           /* if(deal.image != null)
+            {
+                brandLogo = deal.image.logoUrl;
+            }*/
+
+            Logger.print("BrandLogo: " + brandLogo);
+
+            if(brandLogo != null && !brandLogo.equals(""))
+            {
+               final String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
+
+                bitmap = memoryCache.getBitmapFromCache(imgUrl);
+
+                if(bitmap != null)
+                {
+                    ivBrandLogo.setImageBitmap(bitmap);
+                }
+                else
+                {
+                    fallBackToDiskCache(imgUrl, ivBrandLogo);
+                }
+            }
+            else
+            {
+                ivBrandLogo.setVisibility(View.GONE);
             }
 
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
@@ -348,9 +387,10 @@ packageName = getPackageName();
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl);
+                    fallBackToDiskCache(imgUrl, ivDetail);
                 }
             }
+
 
             tvDiscount.setText(discount);
 
@@ -407,7 +447,7 @@ packageName = getPackageName();
     }
     Bitmap bitmap;
 
-    private void fallBackToDiskCache(final String url)
+    private void fallBackToDiskCache(final String url, final ImageView imageView)
     {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -425,7 +465,7 @@ packageName = getPackageName();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ivDetail.setImageBitmap(bitmap);
+                            imageView.setImageBitmap(bitmap);
                         }
                     });
 
@@ -511,12 +551,9 @@ packageName = getPackageName();
             {
                 setSelected(v);
                 similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-
-
-
+                similarAdapter.setListingType("deals");
 
                listView.setAdapter(similarAdapter);
-
 
                // listView.scrollTo(0, (int) llSimilarNearby.getY());
                 //listView.setScrollY((int) llSimilarNearby.getY());
@@ -538,6 +575,7 @@ packageName = getPackageName();
                             setSelected(v);
 
                             nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
+                            nearbyAdapter.setListingType("deals");
 
                             listView.setAdapter(nearbyAdapter);
 
@@ -556,6 +594,11 @@ packageName = getPackageName();
                         Toast.makeText(this, "Your location is not available!", Toast.LENGTH_SHORT).show();
                     }
 
+                }
+                else
+                if(viewId == R.id.directions)
+                {
+                    startDirections();
                 }
     }
 
@@ -598,6 +641,63 @@ packageName = getPackageName();
         "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);
+    }
+
+    private void startDirections()
+    {
+        double mLat = HomeActivity.lat;
+        double mLong = HomeActivity.lng;
+
+        String src = null, dest = null;
+
+        if(mLat != 0 && mLong != 0)
+        {
+            src = "saddr=" + mLat + "," + mLong + "&";
+        }
+
+        if(genericDeal.latitude != 0 && genericDeal.longitude != 0)
+        {
+            dest = "daddr="+genericDeal.latitude + "," + genericDeal.longitude;
+        }
+
+        String uri = "http://maps.google.com/maps?";
+
+        if(src != null)
+        {
+            uri += src;
+        }
+
+        if(dest != null)
+        {
+            uri += dest;
+        }
+
+        System.out.println("Directions URI:"+uri);
+
+        if(src == null)
+        {
+            Toast.makeText(this, "Location not available. Please enable location services!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        if(dest == null)
+        {
+            Toast.makeText(this, "Deal location is not available!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+
+        try
+        {
+            startActivity(intent);
+        }
+        catch (ActivityNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public static void startShareIntent(Activity activity, String uri, long id) {

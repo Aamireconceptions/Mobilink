@@ -283,7 +283,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
             else
             {
                 holder.tvBrandText.setVisibility(View.VISIBLE);
-                holder.tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
+                if(deal.businessName != null)
+                {
+                    holder.tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
+                }
+
                 holder.ivBrand.setImageBitmap(null);
             }
 
@@ -422,7 +426,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
                         results);
 
-                holder.tvDirections.setText(String.format("%.2f",(results[0] / 1000)) + "km");
+                holder.tvDirections.setText(String.format("%.1f",(results[0] / 1000)) + "km");
             }
             else
             {
@@ -445,7 +449,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         else
             if(listingType.equals("brands"))
             {
-                SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.brand, brands);
+                SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand, brands);
 
                 NonScrollableGridView gridView = new NonScrollableGridView(context, null);
 

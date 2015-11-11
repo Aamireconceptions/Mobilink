@@ -7,18 +7,18 @@
 
             <solid android:color="#cdcdcd" />
 
-            <size android:height="150px"/>
+
         </shape>
         </item>
 
     <item
-        android:left="3px"
-        android:right="3px"
-        android:bottom="3px">
+        android:left="1px"
+        android:right="1px"
+        android:bottom="1px">
 
         <shape android:shape="rectangle">
             <solid android:color="@color/white"/>
-            <size android:height="150px"/>
+
         </shape>
     </item>
 

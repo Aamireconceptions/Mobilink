@@ -66,7 +66,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
 
         memoryCache = MemoryCache.getInstance();
 
-        reqWidth = Resources.getSystem().getDisplayMetrics().widthPixels / 2;
+        reqWidth = Resources.getSystem().getDisplayMetrics().widthPixels / 3;
 
         reqHeight = reqWidth;
 

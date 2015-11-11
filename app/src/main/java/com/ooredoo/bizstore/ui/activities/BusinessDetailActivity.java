@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
@@ -202,6 +203,12 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             id = business.id;
             mBusiness = business;
             LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
+            llDirections.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startDirections();
+                }
+            });
 
             RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
 
@@ -220,7 +227,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
                 TextView tvDirections = (TextView) findViewById(R.id.directions);
 
-                tvDirections.setText(String.format("%.2f",results[0]) + "km");
+                tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
                 tvDirections.setOnClickListener(this);
 
                 TextView tvDistance= (TextView) findViewById(R.id.distance);
@@ -234,12 +241,12 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
             ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
 
-            String brandLogo = null;
+            String brandLogo = business.businessLogo;
 
-            if(business.image != null)
+           /* if(business.image != null)
             {
                 brandLogo = business.image.logoUrl;
-            }
+            }*/
 
             Logger.print("BrandLogo: "+brandLogo);
 
@@ -257,6 +264,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 {
                     fallBackToDiskCache(imgUrl, ivBrandLogo);
                 }
+            }
+            else
+            {
+                ivBrandLogo.setVisibility(View.GONE);
             }
 
             groupList = new ArrayList<>();
@@ -351,7 +362,62 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         businessMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
     }
 
+    private void startShareIntent()
+    {
+        double mLat = HomeActivity.lat;
+        double mLong = HomeActivity.lng;
 
+        String src = null, dest = null;
+
+        if(mLat != 0 && mLong != 0)
+        {
+            src = "saddr=" + mLat + "," + mLong + "&";
+        }
+
+        if(mBusiness.latitude != 0 && mBusiness.longitude != 0)
+        {
+            dest = "daddr="+mBusiness.latitude + "," + mBusiness.longitude;
+        }
+
+        String uri = "http://maps.google.com/maps?";
+
+        if(src != null)
+        {
+            uri += src;
+        }
+
+        if(dest != null)
+        {
+            uri += dest;
+        }
+
+        System.out.println("Directions URI:"+uri);
+
+        if(src == null)
+        {
+            Toast.makeText(this, "Location not available. Please enable location services!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        if(dest == null)
+        {
+            Toast.makeText(this, "Deal location is not available!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+
+        try
+        {
+            startActivity(intent);
+        }
+        catch (ActivityNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 
     private void fallBackToDiskCache(final String url, final ImageView imageView)
