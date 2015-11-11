@@ -75,18 +75,19 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         showProgress(View.GONE);
 
-        Iterator<String> iterator = downloadingPool.iterator();
+        synchronized (this) {
+            Iterator<String> iterator = downloadingPool.iterator();
 
-        while (iterator.hasNext())
-        {
-            String str = iterator.next();
+            while (iterator.hasNext()) {
+                String str = iterator.next();
 
-            if(str.equals(imgUrl));
-            {
-               // downloadingPool.remove(imgUrl)
-                iterator.remove();
+                if (str.equals(imgUrl)) ;
+                {
+                    // downloadingPool.remove(imgUrl)
+                    iterator.remove();
 
-                Logger.print("x3 " + imgUrl + " removed from pool");
+                    Logger.print("x3 " + imgUrl + " removed from pool");
+                }
             }
         }
 
@@ -130,7 +131,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 return null;
             }
 
-            synchronized(this)
+           /* synchronized(this)
             {
                 String pool[] = new String[downloadingPool.size()];
 
@@ -138,11 +139,23 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
                 for(String url : pool)
                 {
-                    if(url.equals(imgUrl))
+                    if(url != null && url.equals(imgUrl))
                     {
                         Logger.print("x3 Image Download alreay in progress");
                         cancel(true);
                     }
+                }
+            }*/
+            String pool[] = new String[downloadingPool.size()];
+
+            downloadingPool.toArray(pool);
+
+            for(String url : pool)
+            {
+                if(url != null && url.equals(imgUrl))
+                {
+                    Logger.print("x3 Image Download alreay in progress");
+                    cancel(true);
                 }
             }
 

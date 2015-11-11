@@ -61,7 +61,6 @@
                 android:scrollbars="none"
                 android:divider="@null"
                 android:dividerHeight="@dimen/_8sdp"
-                android:background="@color/random"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             <TextView

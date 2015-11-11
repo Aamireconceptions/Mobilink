@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/dummy"
-        android:src="@android:color/holo_blue_bright"/>
+        android:src="@drawable/color_drawable"
+        android:visibility="gone"/>
 
 </RelativeLayout>

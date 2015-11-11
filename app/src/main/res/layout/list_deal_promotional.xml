@@ -13,17 +13,41 @@
         android:padding="@dimen/_8sdp"
         android:background="@drawable/list_border_head">
 
-        <ImageView
-            android:id="@+id/brand_logo"
+
+
+        <FrameLayout
+            android:id="@+id/logo_frame"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_centerVertical="true"
-            android:background="@drawable/box"/>
+            android:background="@drawable/box">
+
+            <ImageView
+                android:id="@+id/brand_logo"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+
+                />
+
+            <TextView
+                android:id="@+id/brand_txt"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+     android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:background="@color/red"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/brand_logo"
+            android:layout_toEndOf="@+id/logo_frame"
             android:layout_toStartOf="@+id/directions"
             android:gravity="center_vertical"
             android:orientation="vertical"
@@ -35,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Subway"
+            android:singleLine="true"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -47,7 +72,7 @@
                 android:text="Safa gold f6 - Islamabad"
                 android:textAllCaps="true"
                 android:textSize="12sp"
-
+                android:singleLine="true"
                 android:textStyle="bold"/>
 
         </LinearLayout>
@@ -60,7 +85,7 @@
             android:layout_alignParentEnd="true"
             android:drawableTop="@drawable/ic_directions_big"
 
-            android:text="1.5 km"
+
             android:textColor="@color/red"
             android:gravity="center"/>
 
@@ -74,6 +99,7 @@
         <ImageView
             android:id="@+id/promotional_banner"
             android:layout_width="match_parent"
+            android:padding="1dp"
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
             android:src="@drawable/deal_banner"
@@ -129,6 +155,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_18sdp"
             android:text="Amir Adnan"
+            android:singleLine="true"
             android:textSize="18sp"
             android:textAllCaps="true"
             android:textStyle="bold"

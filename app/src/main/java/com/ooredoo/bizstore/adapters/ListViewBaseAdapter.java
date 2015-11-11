@@ -132,6 +132,30 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     / resources.getDisplayMetrics().density);
 
         bitmapProcessor = new BitmapProcessor();
+
+        initMarker();
+    }
+
+    ImageView markerImageView;
+    TextView tvBrandText;
+    FrameLayout linearLayout;
+    void initMarker()
+    {
+        linearLayout = (FrameLayout) inflater.inflate(R.layout.marker, null);
+
+        markerImageView = (ImageView) linearLayout.findViewById(R.id.brand_icon);
+
+        tvBrandText = (TextView) linearLayout.findViewById(R.id.brand_text);
+        //imageView.setImageBitmap(bitmap);
+
+        //linearLayout.setDrawingCacheEnabled(true);
+
+        linearLayout.measure(View.MeasureSpec.makeMeasureSpec((int) resources.getDimension(R.dimen._50sdp), View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec((int) resources.getDimension(R.dimen._60sdp), View.MeasureSpec.EXACTLY));
+
+        linearLayout.layout(0, 0, linearLayout.getMeasuredWidth(), linearLayout.getMeasuredHeight());
+
+        //linearLayout.buildDrawingCache();
     }
 
     public void setListingType(String type)
@@ -216,7 +240,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
                 holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
                 holder.tvDirections = (TextView) row.findViewById(R.id.directions);
-
+                holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
 
                 row.setTag(holder);
             } else {
@@ -228,12 +252,18 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
            // String brandLogoUrl = deal.image != null ? deal.image.logoUrl : null;
 
+            holder.tvBrandName.setText(deal.businessName);
+
+            holder.tvBrandAddress.setText(deal.location);
+
+
             String brandLogoUrl = deal.businessLogo != null ? deal.businessLogo : null;
 
             Logger.print("BrandLogo: " + brandLogoUrl);
 
             if(brandLogoUrl != null )
             {
+                tvBrandText.setVisibility(View.GONE);
                 String url = BaseAsyncTask.IMAGE_BASE_URL + brandLogoUrl;
 
                 Bitmap bitmap = memoryCache.getBitmapFromCache(url);
@@ -249,36 +279,12 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                     fallBackToDiskCache(url);
                 }
-
-                holder.ivPromotional.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        if(isSearchEnabled()) {
-                            HomeActivity homeActivity = (HomeActivity) activity;
-                            homeActivity.showHideSearchBar(false);
-                        } else {
-                            showDetail(deal);
-                        }
-                    }
-                });
             }
             else
             {
-                if(holder.ivPromotional != null)
-                {
-                    holder.rlPromotionalLayout.setVisibility(View.GONE);
-
-               /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                holder.progressBar.setVisibility(View.GONE);
-                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDetail(deal);
-                    }
-                });*/
-                }
+                holder.tvBrandText.setVisibility(View.VISIBLE);
+                holder.tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
+                holder.ivBrand.setImageBitmap(null);
             }
 
             if(holder.tvCategory != null)
@@ -395,6 +401,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 {
                     holder.rlPromotionalLayout.setVisibility(View.GONE);
 
+                    holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+
                /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                 holder.progressBar.setVisibility(View.GONE);
                 holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
@@ -473,7 +481,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
 
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
-                        1000);
+                        resources.getDisplayMetrics().heightPixels - 120);
 
                 mapView.setLayoutParams(params);
 
@@ -545,22 +553,66 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     }).start();
                 }
             }
+            else
+            {
+                addMarker(null, deal);
+            }
         }
     }
     private void addMarker(Bitmap bitmap, GenericDeal deal)
     {
+        linearLayout.setDrawingCacheEnabled(true);
+
         if(bitmap != null)
         {
-            BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
+            tvBrandText.setVisibility(View.GONE);
+            markerImageView.setVisibility(View.VISIBLE);
+            markerImageView.setImageBitmap(bitmap);
 
-            MarkerOptions options = new MarkerOptions()
-                    .title(deal.title)
-                    .snippet(deal.description)
-                    .position(new LatLng(deal.latitude, deal.longitude))
-                    .icon(bd);
+            bitmap = linearLayout.getDrawingCache();
 
-            Marker marker = googleMap.addMarker(options);
-            genericDealHashMap.put(marker.getId(), marker);
+            if(bitmap != null)
+            {
+                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
+
+                MarkerOptions options = new MarkerOptions()
+                        .title(deal.title)
+                        .snippet(deal.description)
+                        .position(new LatLng(deal.latitude, deal.longitude))
+                        .icon(bd);
+
+                Marker marker = googleMap.addMarker(options);
+                genericDealHashMap.put(marker.getId(), marker);
+
+                linearLayout.setDrawingCacheEnabled(false);
+            }
+
+
+        }
+        else
+        {
+            markerImageView.setVisibility(View.GONE);
+
+            tvBrandText.setVisibility(View.VISIBLE);
+            tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
+
+            bitmap = linearLayout.getDrawingCache();
+
+            if(bitmap != null)
+            {
+                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
+
+                MarkerOptions options = new MarkerOptions()
+                        .title(deal.title)
+                        .snippet(deal.description)
+                        .position(new LatLng(deal.latitude, deal.longitude))
+                        .icon(bd);
+
+                Marker marker = googleMap.addMarker(options);
+                genericDealHashMap.put(marker.getId(), marker);
+
+                linearLayout.setDrawingCacheEnabled(false);
+            }
         }
     }
 
@@ -759,7 +811,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
-                 tvDirections;
+                 tvDirections, tvBrandText;
 
         RatingBar rbRatings;
 

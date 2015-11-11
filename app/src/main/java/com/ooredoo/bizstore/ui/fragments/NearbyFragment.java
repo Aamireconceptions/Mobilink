@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -155,6 +156,12 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         googleMap = mapView.getMap();
 
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(true);
+        googleMap.setMyLocationEnabled(true);
+
+
 
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
@@ -236,14 +243,19 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         if(DealsTask.sortColumn.equals("createdate"))
         {
             adapter.setListingType("deals");
+
+            swipeRefreshLayout.setEnabled(true);
         }
         else
         {
             adapter.setListingType("map");
+
+            swipeRefreshLayout.setEnabled(false);
         }
 
         adapter.notifyDataSetChanged();
-        //fetchAndDisplayFoodAndDining(progressBar);
+
+        fetchAndDisplayFoodAndDining(progressBar);
     }
 
     @Override
