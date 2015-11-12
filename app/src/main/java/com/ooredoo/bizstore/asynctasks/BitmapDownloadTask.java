@@ -75,21 +75,25 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         showProgress(View.GONE);
 
-        synchronized (this) {
+
             Iterator<String> iterator = downloadingPool.iterator();
 
             while (iterator.hasNext()) {
-                String str = iterator.next();
 
-                if (str.equals(imgUrl)) ;
-                {
-                    // downloadingPool.remove(imgUrl)
-                    iterator.remove();
+                if (!writing) {
+                    String str = iterator.next();
 
-                    Logger.print("x3 " + imgUrl + " removed from pool");
+
+                    if (str.equals(imgUrl)) ;
+                    {
+                        // downloadingPool.remove(imgUrl)
+                        iterator.remove();
+
+                        Logger.print("x3 " + imgUrl + " removed from pool");
+                    }
                 }
             }
-        }
+
 
 
         if(bitmap != null)
@@ -113,6 +117,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         Logger.print("onCacelled");
     }
 
+    boolean writing = false;
     public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
     {
         try
@@ -168,7 +173,10 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             Logger.print("x3 " + imgUrl + " added to pool");
 
+            writing = true;
             downloadingPool.add(imgUrl);
+            writing = false;
+
 
             Logger.print("Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);

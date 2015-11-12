@@ -216,7 +216,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_16sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingTop="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:orientation="vertical">
 
             <TextView
@@ -236,7 +239,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:text="THis is smaple deal description and this issdssasa"
 
                  />
     
@@ -420,6 +422,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/timing_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/_50sdp"
@@ -453,11 +456,23 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/validity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textSize="12sp"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+
+
         <LinearLayout
             android:id="@+id/similar_nearby"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
+
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -469,6 +484,7 @@
                 android:textColor="@color/black_white_selector"
                 android:layout_weight="1"
                 android:text="Similar Deals"
+                android:paddingBottom="@dimen/_6sdp"
                 android:background="@drawable/detail_tab_selector"/>
 
             <Button
@@ -476,12 +492,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/black_white_selector"
                 android:layout_weight="1"
                 android:text="Nearby Deals"
                 android:background="@drawable/detail_tab_selector"/>
-
-        </LinearLayout>
 
         </LinearLayout>
 

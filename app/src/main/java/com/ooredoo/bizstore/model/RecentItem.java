@@ -71,6 +71,20 @@ public class RecentItem extends Model {
     @Column(name = "detail_banner")
     public String detailBanner;
 
+    @Column(name = "latitude")
+    public double latitude;
+
+    @Column(name = "longitude")
+    public double longitude;
+
+    @Column(name = "business_name")
+    public String businessName;
+
+    @Column(name = "businessLogo")
+    public String businessLogo;
+
+    @Column(name = "brand_address")
+    public String brandAddress;
 
     public RecentItem() {
     }

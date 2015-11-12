@@ -36,7 +36,9 @@
         android:scrollbars="none"
         android:divider="@null"
         android:dividerHeight="@dimen/_8sdp"
-        android:layout_below="@+id/toolbar_layout"/>
+        android:layout_below="@+id/toolbar_layout"
+        android:background="@color/white"/>
+
 
     <TextView
         android:id="@+id/empty_view"

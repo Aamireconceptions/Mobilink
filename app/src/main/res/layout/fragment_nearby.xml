@@ -46,6 +46,7 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
             >
 
             <!--<com.google.android.gms.maps.MapView

@@ -71,7 +71,7 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
 
 
-        if(getTabPosition() != 3)
+        if(getTabPosition() != 4)
         {
             DealsTask.subCategories = filter;
         }
@@ -93,52 +93,52 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
     {
         if(groupName.equals(context.getString(R.string.food_dining)))
         {
-            return 2;
+            return 3;
         }
         else
             if(groupName.equals(context.getString(R.string.shopping_speciality)))
             {
-                return 3;
+                return 4;
             }
         else
             if(groupName.equals(context.getString(R.string.electronics)))
             {
-                return 4;
+                return 5;
             }
         else
             if(groupName.equals(context.getString(R.string.hotels_spa)))
             {
-                return 5;
+                return 6;
             }
         else
             if(groupName.equals(context.getString(R.string.markets_malls)))
             {
-                return 6;
+                return 7;
             }
         else
             if(groupName.equals(context.getString(R.string.automotive)))
             {
-                return 7;
+                return 8;
             }
         else
             if(groupName.equals(context.getString(R.string.travel_tours)))
             {
-                return 8;
+                return 9;
             }
         else
             if(groupName.equals(context.getString(R.string.entertainment)))
             {
-                return 9;
+                return 10;
             }
         else
             if(groupName.equals(context.getString(R.string.jewelry_exchange)))
             {
-                return 10;
+                return 11;
             }
         else
             if(groupName.equals(context.getString(R.string.sports_fitness)))
             {
-                return 11;
+                return 12;
             }
 
         return -1;

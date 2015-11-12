@@ -259,6 +259,9 @@ packageName = getPackageName();
 
             mActionBar.setTitle(deal.title);
 
+            TextView tvValidity = (TextView) findViewById(R.id.validity);
+            tvValidity.setText("This deal is valid till " + deal.endDate);
+
             LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
                 @Override
@@ -288,6 +291,13 @@ packageName = getPackageName();
                 tvDirections.setOnClickListener(this);
 
                 TextView tvDistance= (TextView) findViewById(R.id.distance);
+                tvDistance.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        startDirections();
+                    }
+                });
 
                 tvDistance.setText(String.format("%.2f",results[0]) + " km away");
             }
@@ -330,6 +340,20 @@ packageName = getPackageName();
             }*/
 
             Logger.print("BrandLogo: " + brandLogo);
+
+            RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
+
+            TextView tvTiming = (TextView) findViewById(R.id.timing);
+
+            if(deal.timing != null && !deal.timing.isEmpty())
+            {
+                rlTiming.setVisibility(View.VISIBLE);
+                tvTiming.setText(deal.timing);
+            }
+            else
+            {
+                rlTiming.setVisibility(View.GONE);
+            }
 
             if(brandLogo != null && !brandLogo.equals(""))
             {

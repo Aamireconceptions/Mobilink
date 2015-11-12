@@ -51,7 +51,7 @@ public class HeaderNavigationListener implements View.OnClickListener {
                // mActivity.startActivity(new Intent(mActivity, RecentSearchesActivity.class));
                 break;
             case R.id.recent_viewed:
-               // mActivity.startActivity(new Intent(mActivity, RecentViewedActivity.class));
+                mActivity.startActivity(new Intent(mActivity, RecentViewedActivity.class));
                 break;
             case R.id.redeem_deals:
                 //mActivity.startActivity(new Intent(mActivity, RedeemedDealsActivity.class));

@@ -68,6 +68,22 @@ public class Deal extends Model {
     @Column(name = "detail_banner")
     public String detailBanner;
 
+    @Column(name = "lat")
+    public double lat;
+
+    @Column(name = "lng")
+    public double lng;
+
+    @Column(name = "business_name")
+    public String businessName;
+
+    @Column(name = "businessLogo")
+    public String businessLogo;
+
+    @Column(name = "brand_address")
+    public String brandAddress;
+
+
     public Deal() {
     }
 
@@ -93,6 +109,13 @@ public class Deal extends Model {
         this.description = deal.description;
         this.banner = deal.image != null ? deal.image.bannerUrl : null;
         this.detailBanner = deal.image != null ? deal.image.detailBannerUrl : null;
+
+        this.lat = deal.latitude;
+        this.lng = deal.longitude;
+        this.brandAddress = deal.brandAddress;
+        this.businessLogo = deal.businessLogo;
+        this.businessName = deal.businessName;
+
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }
 
