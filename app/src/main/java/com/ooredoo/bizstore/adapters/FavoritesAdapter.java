@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
+import java.util.Random;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
@@ -129,11 +132,21 @@ public class FavoritesAdapter extends BaseAdapter {
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
             holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
+            holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
+            holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+            holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
+            holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+            holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+            holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
 
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
         }
+
+        holder.tvBrandName.setText(fav.businessName);
+
+        holder.tvBrandAddress.setText(fav.location);
 
         if(holder.tvCategory != null)
         {
@@ -146,10 +159,60 @@ public class FavoritesAdapter extends BaseAdapter {
             }
         }
 
-        fav.isFav = Favorite.isFavorite(fav.id);
+        if((fav.lat != 0 && fav.lng != 0)
+                && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
+        {
+            holder.tvDirections.setVisibility(View.VISIBLE);
+            float results[] = new float[3];
+            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, fav.lat, fav.lng,
+                    results);
 
-        holder.ivFav.setSelected(fav.isFav);
-        holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
+            holder.tvDirections.setText(String.format("%.1f",(results[0] / 1000)) + "km");
+        }
+        else
+        {
+            holder.tvDirections.setVisibility(View.GONE);
+        }
+
+     //   fav.isFav = Favorite.isFavorite(fav.id);
+
+     //   holder.ivFav.setSelected(fav.isFav);
+   //     holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
+
+        String brandLogoUrl = fav.businessLogo != null ? fav.businessLogo : null;
+
+        Logger.print("BrandLogo: " + brandLogoUrl);
+
+        if(brandLogoUrl != null )
+        {
+            holder.tvBrandText.setVisibility(View.GONE);
+            String url = BaseAsyncTask.IMAGE_BASE_URL + brandLogoUrl;
+
+            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+            if(bitmap != null)
+            {
+                holder.ivBrand.setImageBitmap(bitmap);
+                //holder.progressBar.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.ivBrand.setImageBitmap(null);
+
+                fallBackToDiskCache(url);
+            }
+        }
+        else
+        {
+            holder.tvBrandText.setVisibility(View.VISIBLE);
+            if(fav.businessName != null)
+            {
+                holder.tvBrandText.setText(String.valueOf(fav.businessName.charAt(0)));
+                holder.tvBrandText.setBackgroundColor(Color.parseColor(getColorCode()));
+            }
+
+            holder.ivBrand.setImageBitmap(null);
+        }
 
         holder.tvTitle.setText(fav.title);
 
@@ -157,30 +220,33 @@ public class FavoritesAdapter extends BaseAdapter {
 
         if(fav.discount == 0) {
             holder.tvDiscount.setVisibility(View.GONE);
+            holder.ivDiscountTag.setVisibility(View.GONE);
         }
         else
         {
             holder.tvDiscount.setVisibility(View.VISIBLE);
+            holder.ivDiscountTag.setVisibility(View.VISIBLE);
         }
-        holder.tvDiscount.setText(valueOf(fav.discount) + context.getString(R.string.percentage_off));
+
+        holder.tvDiscount.setText(valueOf(fav.discount) + "%\n"+context.getString(R.string.off));
 
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               showDetailActivity(fav);
+                showDetailActivity(fav);
             }
         });
 
-        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+       /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DealDetailActivity.shareDeal((Activity) context, fav.id);
             }
-        });
+        });*/
 
-        holder.rbRatings.setRating(fav.rating);
+      //  holder.rbRatings.setRating(fav.rating);
 
-        holder.tvViews.setText(valueOf(fav.views));
+      //  holder.tvViews.setText(valueOf(fav.views));
 
         String promotionalBanner = fav.banner;
 
@@ -360,15 +426,58 @@ public class FavoritesAdapter extends BaseAdapter {
         }
     }
 
+    public String getColorCode()
+    {
+        int min = 1;
+        int max = 8;
 
+        Random random = new Random();
+
+        int i = random.nextInt(max - min) + min;
+
+        Logger.print("random: "+i);
+
+        String color = null;
+        switch (i)
+        {
+            case 1:
+                color = "#90a4ae";
+                break;
+            case 2:
+                color = "#ff8a65";
+                break;
+            case 3:
+                color = "#ba68c8";
+                break;
+            case 4:
+                color = "#da4336";
+                break;
+            case 5:
+                color = "#4fc3f7";
+                break;
+            case 6:
+                color = "#ffa726";
+                break;
+            case 7:
+                color = "#aed581";
+                break;
+            case 8:
+                color = "#b39ddb";
+                break;
+        }
+
+        return color;
+    }
 
     private static class Holder {
 
         View layout;
 
-        ImageView ivFav, ivShare, ivPromotional;
+        ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
 
-        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;
+        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
+                tvDirections, tvBrandText;
+
 
         RatingBar rbRatings;
 

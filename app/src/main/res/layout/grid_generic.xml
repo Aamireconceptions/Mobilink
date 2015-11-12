@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/_180sdp"
+              android:layout_height="@dimen/_175sdp"
     android:background="@drawable/grid_white_bg">
 
     <RelativeLayout
@@ -48,6 +48,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Wedding Formal Dess"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:gravity="center_vertical"
             android:textColor="@color/red"
             android:maxLines="1"
@@ -57,7 +60,6 @@
             android:id="@+id/desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
             android:text="Wedding Formal Dess"
             android:maxLines="1"
             android:ellipsize="end"/>
@@ -69,6 +71,7 @@
             android:layout_marginTop="@dimen/_2sdp"
             android:text="30% off"
             android:textAllCaps="true"
+            android:visibility="gone"
             android:textColor="@color/red"/>
 
     </LinearLayout>

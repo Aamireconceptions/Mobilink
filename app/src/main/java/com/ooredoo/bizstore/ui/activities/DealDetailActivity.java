@@ -250,7 +250,7 @@ packageName = getPackageName();
 
     ImageView ivDetail;
     ProgressBar progressBar;
-    public void populateData(GenericDeal deal) {
+    public void populateData(final GenericDeal deal) {
         if(deal != null) {
             src = new Deal(deal);
             src.id = deal.id;
@@ -258,6 +258,9 @@ packageName = getPackageName();
             incrementViewsTask.execute();
 
             mActionBar.setTitle(deal.title);
+
+            TextView tvBrand = (TextView) findViewById(R.id.brand_name);
+            tvBrand.setText(deal.businessName);
 
             TextView tvValidity = (TextView) findViewById(R.id.validity);
             tvValidity.setText("This deal is valid till " + deal.endDate);
@@ -313,7 +316,21 @@ packageName = getPackageName();
             ((TextView) header.findViewById(R.id.address)).setText(deal.address);
             //((TextView) findViewById(R.id.tv_category)).setText(deal.category);
             ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(deal.rating);
-            ((TextView) header.findViewById(R.id.tv_views)).setText(valueOf(deal.views));
+            header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(DealDetailActivity.this, "This deal has been viewed "+deal.views, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            TextView tvView = ((TextView) header.findViewById(R.id.tv_views));
+            tvView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(DealDetailActivity.this, "This deal has been viewed "+deal.views, Toast.LENGTH_SHORT).show();
+                }
+            });
+            tvView.setText(valueOf(deal.views));
 
             RelativeLayout rlVoucher = (RelativeLayout) header.findViewById(R.id.voucher_layout);
 

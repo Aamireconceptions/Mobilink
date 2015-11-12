@@ -86,6 +86,9 @@ public class RecentItem extends Model {
     @Column(name = "brand_address")
     public String brandAddress;
 
+    @Column(name = "location")
+    public String location;
+
     public RecentItem() {
     }
 

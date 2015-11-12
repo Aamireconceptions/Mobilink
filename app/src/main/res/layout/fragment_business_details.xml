@@ -66,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAllCaps="true"
-                        android:text="subway"
+
                         android:textColor="#F7F7F7"
                         android:textSize="20sp"
                         android:textStyle="bold"/>
@@ -95,7 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:rating="3"
+
                         android:layout_marginTop="@dimen/_4sdp"
                         android:progressDrawable="@drawable/deal_rating_bar"
                         style="?android:attr/ratingBarStyleSmall"/>
@@ -346,6 +346,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/timing_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"

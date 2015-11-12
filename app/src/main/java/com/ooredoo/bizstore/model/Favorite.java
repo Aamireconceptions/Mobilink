@@ -73,7 +73,23 @@ public class Favorite extends Model {
 
     public boolean isFav;
 
+    @Column(name = "lat")
+    public double lat;
 
+    @Column(name = "lng")
+    public double lng;
+
+    @Column(name = "business_name")
+    public String businessName;
+
+    @Column(name = "businessLogo")
+    public String businessLogo;
+
+    @Column(name = "brand_address")
+    public String brandAddress;
+
+    @Column(name = "location")
+    public String location;
 
     public Favorite() {
     }
@@ -100,6 +116,13 @@ public class Favorite extends Model {
         this.description = deal.description;
         this.banner = deal.image != null ? deal.image.bannerUrl : null;
         this.detailBanner = deal.image != null ? deal.image.detailBannerUrl : null;
+
+        this.lat = deal.latitude;
+        this.lng = deal.longitude;
+        this.brandAddress = deal.brandAddress;
+        this.businessLogo = deal.businessLogo;
+        this.businessName = deal.businessName;
+        this.location = deal.location;
 
         this.isFav = true;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
@@ -150,6 +173,14 @@ public class Favorite extends Model {
         this.description = business.description;
         this.banner = business.image != null ? business.image.bannerUrl : null;
         this.detailBanner = business.image != null ? business.image.detailBannerUrl : null;
+
+        this.lat = business.latitude;
+        this.lng = business.longitude;
+        this.brandAddress = business.address;
+        this.businessLogo = business.businessLogo;
+        this.businessName = business.title;
+        this.location = business.location;
+
         Logger.logI("FAV_BUSINESS: " + business.id, String.valueOf(business.isFavorite));
     }
 
@@ -206,6 +237,14 @@ public class Favorite extends Model {
             fav.contact = favorite.contact;
             fav.banner = favorite.banner;
             fav.detailBanner = favorite.detailBanner;
+
+            fav.lat = favorite.lat;
+            fav.lng = favorite.lng;
+            fav.businessLogo = favorite.businessLogo;
+            fav.brandAddress = favorite.brandAddress;
+            fav.businessName = favorite.businessName;
+            fav.location = favorite.location;
+
             Log.i("UPDATE_FAV_DEAL: " + favorite.id, "---" + favorite.isFavorite);
             fav.save();
         }

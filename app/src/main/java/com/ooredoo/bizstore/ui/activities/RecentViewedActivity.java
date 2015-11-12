@@ -209,6 +209,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.businessLogo = deal.businessLogo;
             rd.businessName = deal.businessName;
             rd.brandAddress = deal.brandAddress;
+            rd.location = deal.location;
 
             Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();

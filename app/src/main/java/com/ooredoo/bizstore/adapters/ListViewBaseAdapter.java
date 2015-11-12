@@ -152,8 +152,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         //linearLayout.setDrawingCacheEnabled(true);
 
-        linearLayout.measure(View.MeasureSpec.makeMeasureSpec((int) resources.getDimension(R.dimen._50sdp), View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec((int) resources.getDimension(R.dimen._60sdp), View.MeasureSpec.EXACTLY));
+        linearLayout.measure(View.MeasureSpec.makeMeasureSpec((int) resources.getDimension(R.dimen._35sdp), View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec((int) resources.getDimension(R.dimen._45sdp), View.MeasureSpec.EXACTLY));
 
         linearLayout.layout(0, 0, linearLayout.getMeasuredWidth(), linearLayout.getMeasuredHeight());
 

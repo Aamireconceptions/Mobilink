@@ -286,11 +286,16 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
             holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
             holder.tvDirections = (TextView) row.findViewById(R.id.directions);
             holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+            holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
 
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
         }
+
+        holder.tvBrandName.setText(recentItem.businessName);
+
+        holder.tvBrandAddress.setText(recentItem.location);
 
         if(holder.tvCategory != null)
         {
@@ -302,6 +307,8 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
                 holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
             }
         }
+
+
 
         if((recentItem.latitude != 0 && recentItem.longitude != 0)
                 && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))

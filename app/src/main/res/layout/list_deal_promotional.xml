@@ -10,7 +10,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:padding="@dimen/_6sdp"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_6sdp"
         android:background="@drawable/list_border_head">
 
         <FrameLayout
@@ -49,14 +52,14 @@
             android:layout_toStartOf="@+id/directions"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_centerVertical="true">
 
         <TextView
             android:id="@+id/brand_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subway"
+
             android:singleLine="true"
             android:textAllCaps="true"
             android:textColor="@color/black"
@@ -67,7 +70,7 @@
                 android:id="@+id/brand_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Safa gold f6 - Islamabad"
+
                 android:textAllCaps="true"
                 android:textSize="12sp"
                 android:singleLine="true"
@@ -96,10 +99,11 @@
         <ImageView
             android:id="@+id/promotional_banner"
             android:layout_width="match_parent"
-
+            android:padding="1dp"
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
-            android:src="@drawable/deal_banner" />
+            android:src="@drawable/deal_banner"
+            android:background="@drawable/list_border"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"

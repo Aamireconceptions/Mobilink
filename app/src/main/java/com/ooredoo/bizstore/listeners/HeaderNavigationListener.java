@@ -42,7 +42,7 @@ public class HeaderNavigationListener implements View.OnClickListener {
                 mActivity.selectTab(0);
                 break;
             case R.id.my_deals:
-                //mActivity.startActivity(new Intent(mActivity, MyFavoritesActivity.class));
+                mActivity.startActivity(new Intent(mActivity, MyFavoritesActivity.class));
                 break;
             case R.id.recommended:
                 mActivity.startActivity(new Intent(mActivity, ShareAppActivity.class));

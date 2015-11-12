@@ -180,15 +180,15 @@ public class GridViewBaseAdapter extends BaseAdapter
                 holder.progressBar.setVisibility(View.GONE);
             }
 
-            if (deal.discount == 0) {
+           /* if (deal.discount == 0) {
                 holder.tvDiscount.setVisibility(View.GONE);
             } else {
                 holder.tvDiscount.setVisibility(View.VISIBLE);
-            }
+            }*/
 
-            holder.tvTitle.setText(deal.title);
-            holder.tvDesc.setText(deal.description);
-            holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
+            holder.tvTitle.setText(deal.businessName);
+            holder.tvDesc.setText(deal.title);
+           // holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
             return grid;
         }
@@ -258,7 +258,7 @@ public class GridViewBaseAdapter extends BaseAdapter
                     holder.tvDiscount.setVisibility(View.VISIBLE);
                 }*/
 
-                holder.tvDiscount.setVisibility(View.GONE);
+               // holder.tvDiscount.setVisibility(View.GONE);
 
                 holder.tvTitle.setText(brand.title);
                 holder.tvDesc.setText(brand.description);

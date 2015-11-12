@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author  Babar
@@ -41,7 +43,9 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     private URL url;
 
-    public static List<String> downloadingPool = new ArrayList<>();
+    //public static List<String> downloadingPool = new ArrayList<>();
+
+    public static ConcurrentHashMap<String, String> downloadingPool = new ConcurrentHashMap<>();
 
     public BitmapDownloadTask(ImageView imageView, ProgressBar progressBar)
     {
@@ -75,24 +79,24 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         showProgress(View.GONE);
 
-
+/*
             Iterator<String> iterator = downloadingPool.iterator();
 
             while (iterator.hasNext()) {
 
-                if (!writing) {
-                    String str = iterator.next();
+                String str = iterator.next();
 
 
-                    if (str.equals(imgUrl)) ;
-                    {
-                        // downloadingPool.remove(imgUrl)
-                        iterator.remove();
+                if (str.equals(imgUrl)) ;
+                {
+                    // downloadingPool.remove(imgUrl)
+                    iterator.remove();
 
-                        Logger.print("x3 " + imgUrl + " removed from pool");
-                    }
+                    Logger.print("x3 " + imgUrl + " removed from pool");
                 }
-            }
+            }*/
+
+        downloadingPool.remove(imgUrl);
 
 
 
@@ -151,7 +155,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                     }
                 }
             }*/
-            String pool[] = new String[downloadingPool.size()];
+          /*  String pool[] = new String[downloadingPool.size()];
 
             downloadingPool.toArray(pool);
 
@@ -160,6 +164,19 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 if(url != null && url.equals(imgUrl))
                 {
                     Logger.print("x3 Image Download alreay in progress");
+                    cancel(true);
+                }
+            }*/
+
+            Iterator it = downloadingPool.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                System.out.println(pair.getKey() + " = " + pair.getValue());
+
+                if(pair.getKey().equals(imgUrl))
+                {
+                    Logger.print("x3 Image Download alreay in progress");
+
                     cancel(true);
                 }
             }
@@ -173,9 +190,9 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             Logger.print("x3 " + imgUrl + " added to pool");
 
-            writing = true;
-            downloadingPool.add(imgUrl);
-            writing = false;
+           // downloadingPool.add(imgUrl);
+
+            downloadingPool.put(imgUrl, imgUrl);
 
 
             Logger.print("Bitmap Url: " + imgUrl);

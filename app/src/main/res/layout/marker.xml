@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/_50sdp"
-    android:layout_height="@dimen/_60sdp"
-android:paddingLeft="@dimen/_2sdp"
-    android:paddingEnd="@dimen/_2sdp"
-    android:paddingTop="@dimen/_2sdp"
-    android:paddingBottom="@dimen/_13sdp"
+    android:layout_width="@dimen/_35sdp"
+    android:layout_height="@dimen/_45sdp"
+android:paddingLeft="@dimen/_1sdp"
+    android:paddingEnd="@dimen/_1sdp"
+    android:paddingTop="@dimen/_1sdp"
+    android:paddingBottom="@dimen/_10sdp"
     android:background="@drawable/marker">
 
     <ImageView
@@ -21,7 +21,7 @@ android:paddingLeft="@dimen/_2sdp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textStyle="bold"
-        android:textSize="26sp"
+        android:textSize="20sp"
         android:textColor="@color/white"/>
 
 </FrameLayout>

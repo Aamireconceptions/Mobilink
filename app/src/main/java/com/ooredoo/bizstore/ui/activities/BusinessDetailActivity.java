@@ -197,7 +197,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     Business mBusiness;
 
     RelativeLayout rlMenu;
-    public void populateData(Business business) {
+    public void populateData(final Business business) {
         if(business != null) {
 
             id = business.id;
@@ -235,13 +235,32 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 tvDistance.setText(String.format("%.2f",results[0]) + " km away");
             }
 
+            RelativeLayout rltiming = (RelativeLayout) findViewById(R.id.timing_layout);
+
+            if(business.timing == null || business.timing.isEmpty())
+            {
+                rltiming.setVisibility(View.GONE);
+            }
             TextView tvTiming = (TextView) findViewById(R.id.timing);
-            tvTiming.setText(business.timing);
+            if(business.timing != null)
+            {
+                tvTiming.setText(business.timing);
+            }
+
 
 
             ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
 
             String brandLogo = business.businessLogo;
+
+            if(brandLogo == null || brandLogo.isEmpty())
+            {
+                if(business.image != null)
+                {
+                    brandLogo = business.image.logoUrl;
+                }
+
+            }
 
            /* if(business.image != null)
             {
@@ -321,7 +340,21 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             }
 
             ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(business.rating);
-            ((TextView) header.findViewById(R.id.tv_views)).setText(valueOf(business.views));
+            header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(BusinessDetailActivity.this, "This deal has been viewed " + business.views, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            TextView tvView = ((TextView) header.findViewById(R.id.tv_views));
+            tvView.setText(valueOf(business.views));
+            tvView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(BusinessDetailActivity.this, "This deal has been viewed " + business.views, Toast.LENGTH_SHORT).show();
+                }
+            });
            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
             ivDetail = (ImageView) header.findViewById(R.id.detail_img);
