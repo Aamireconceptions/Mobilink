@@ -232,7 +232,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
                 TextView tvDistance= (TextView) findViewById(R.id.distance);
 
-                tvDistance.setText(String.format("%.2f",results[0]) + "km away");
+                tvDistance.setText(String.format("%.2f",results[0]) + " km away");
             }
 
             TextView tvTiming = (TextView) findViewById(R.id.timing);

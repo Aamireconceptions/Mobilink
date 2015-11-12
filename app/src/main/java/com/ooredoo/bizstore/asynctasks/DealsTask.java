@@ -125,6 +125,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         dealsTaskFinishedListener.onRefreshCompleted();
 
+        //adapter.clearData();
 
         if (result != null) {
             if (sortColumn.equals("createdate") || category.equals("nearby")) {
