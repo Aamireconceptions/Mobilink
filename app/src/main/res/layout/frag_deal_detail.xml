@@ -466,7 +466,13 @@
 
         </LinearLayout>
 
-
+        <ProgressBar
+            android:id="@+id/more_progress"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
 
         <LinearLayout
             android:id="@+id/similar_nearby"

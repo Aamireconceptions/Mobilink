@@ -1,6 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,13 +34,17 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
 
     private final static String SERVICE_NAME = "/fullDetails?";
 
-    public DealDetailMiscTask(DealDetailActivity activity, List<GenericDeal> similarDeals, List<GenericDeal> nearbyDeals)
+    ProgressBar progressBar;
+
+    public DealDetailMiscTask(DealDetailActivity activity, List<GenericDeal> similarDeals, List<GenericDeal> nearbyDeals, ProgressBar progressBar)
     {
         this.activity = activity;
 
         this.similarDeals = similarDeals;
 
         this.nearbyDeals = nearbyDeals;
+
+        this.progressBar = progressBar;
     }
 
     @Override
@@ -58,6 +64,7 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
+        progressBar.setVisibility(View.GONE);
         if(result != null)
         {
             Gson gson = new Gson();

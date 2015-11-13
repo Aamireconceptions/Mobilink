@@ -33,6 +33,7 @@ import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.NearbyFilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -44,6 +45,8 @@ import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 
 public class NearbyFragment extends Fragment implements OnFilterChangeListener,
                                                                OnDealsTaskFinishedListener,
@@ -73,7 +76,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    HashMap<String, Marker> genericDealHashMap = new HashMap<>();
+    HashMap<String, GenericDeal> genericDealHashMap = new HashMap<>();
 
     public static NearbyFragment newInstance() {
         NearbyFragment fragment = new NearbyFragment();
@@ -160,6 +163,23 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setMapToolbarEnabled(true);
         googleMap.setMyLocationEnabled(true);
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker)
+            {
+                String id = marker.getId();
+
+                GenericDeal genericDeal = genericDealHashMap.get(id);
+
+                Intent intent = new Intent();
+                intent.setClass(activity, DealDetailActivity.class);
+                intent.putExtra("generic_deal", genericDeal);
+                intent.putExtra(CATEGORY, "");
+
+                activity.startActivity(intent);
+
+            }
+        });
 
 
 

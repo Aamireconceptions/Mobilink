@@ -482,8 +482,9 @@ packageName = getPackageName();
         //listView.setAdapter(similarAdapter);
         //listView.setAdapter(nearbyAdapter);
 
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
 
-        DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, similarDeals, nearbyDeals);
+        DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, similarDeals, nearbyDeals, progressBar);
         detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id));
     }
     Bitmap bitmap;

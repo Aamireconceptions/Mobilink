@@ -391,7 +391,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
 
-        BusinessMiscTask businessMiscTask = new BusinessMiscTask(this, null, snackBarUtils);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
+
+        BusinessMiscTask businessMiscTask = new BusinessMiscTask(this, snackBarUtils, progressBar);
         businessMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
     }
 

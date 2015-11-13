@@ -27,19 +27,19 @@ import java.util.HashMap;
 public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
     private BusinessDetailActivity detailActivity;
 
-    private ProgressBar progressBar;
-
     private SnackBarUtils snackBarUtils;
 
+    private ProgressBar progressBar;
     private final static String SERVICE_NAME = "/fullDetails?";
 
-    public BusinessMiscTask(BusinessDetailActivity detailActivity, ProgressBar progressBar,
-                            SnackBarUtils snackBarUtils) {
+    public BusinessMiscTask(BusinessDetailActivity detailActivity,
+                            SnackBarUtils snackBarUtils, ProgressBar progressBar) {
         this.detailActivity = detailActivity;
 
         this.progressBar = progressBar;
 
         this.snackBarUtils = snackBarUtils;
+
     }
 
     @Override

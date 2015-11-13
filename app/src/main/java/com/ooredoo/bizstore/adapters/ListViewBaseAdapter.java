@@ -591,7 +591,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                         .icon(bd);
 
                 Marker marker = googleMap.addMarker(options);
-                genericDealHashMap.put(marker.getId(), marker);
+                genericDealHashMap.put(marker.getId(), deal);
 
                 linearLayout.setDrawingCacheEnabled(false);
             }
@@ -618,16 +618,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
                         .icon(bd);
 
                 Marker marker = googleMap.addMarker(options);
-                genericDealHashMap.put(marker.getId(), marker);
+                genericDealHashMap.put(marker.getId(), deal);
 
                 linearLayout.setDrawingCacheEnabled(false);
             }
         }
     }
 
-    private HashMap<String, Marker> genericDealHashMap;
+    private HashMap<String, GenericDeal> genericDealHashMap;
 
-    public void setGenericDealHashMap(HashMap<String, Marker> genericDealHashMap)
+    public void setGenericDealHashMap(HashMap<String, GenericDeal> genericDealHashMap)
     {
         this.genericDealHashMap = genericDealHashMap;
     }
