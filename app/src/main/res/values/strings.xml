@@ -238,4 +238,18 @@
     <string name="list">List</string>
     <string name="map">Map</string>
     <string name="brands">Brands</string>
+    <string name="km">km</string>
+    <string name="deal">Deal</string>
+    <string name="brand">Brand</string>
+    <string name="redeem_deal">Redeem deal</string>
+    <string name="locations">Locations</string>
+    <string name="km_away">km away</string>
+    <string name="deal_valid_till">This deal is valid till</string>
+    <string name="similar_deals">Similar Deals</string>
+    <string name="no_nearby_deals">No nearby deals found</string>
+    <string name="deal_has_been_viewed">This deal has been viewed</string>
+    <string name="times">times</string>
+    <string name="business_has_been_viewed">This business has been viewed</string>
+    <string name="similar_brands">Similar Brands</string>
+
 </resources>

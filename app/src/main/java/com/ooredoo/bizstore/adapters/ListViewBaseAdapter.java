@@ -192,7 +192,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
         }
         else
         {
-            return 1;
+            if(brands.size() > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 
@@ -429,7 +436,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
                         results);
 
-                holder.tvDirections.setText(String.format("%.1f",(results[0] / 1000)) + "km");
+                holder.tvDirections.setText(String.format("%.1f",(results[0] / 1000)) + " " + context.getString(R.string.km));
             }
             else
             {
@@ -603,7 +610,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
             markerImageView.setVisibility(View.GONE);
 
             tvBrandText.setVisibility(View.VISIBLE);
-            tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
+            if(deal.businessName != null && !deal.businessName.isEmpty())
+            {
+                tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
+            }
+            else
+            if(deal.title != null && !deal.title.isEmpty())
+            {
+                tvBrandText.setText(String.valueOf(deal.title.charAt(0)));
+            }
+
 
             bitmap = linearLayout.getDrawingCache();
 

@@ -272,7 +272,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="Redeem deal"
+                    android:text="@string/redeem_deal"
                     android:textColor="@color/white"
                     android:textAllCaps="true"
                     android:background="@drawable/btn_red"/>
@@ -501,7 +501,7 @@
                 android:paddingBottom="@dimen/_6sdp"
                 android:textColor="@color/black_white_selector"
                 android:layout_weight="1"
-                android:text="Nearby Deals"
+                android:text="@string/nearby"
                 android:background="@drawable/detail_tab_selector"/>
 
         </LinearLayout>

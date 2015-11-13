@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +32,7 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -196,9 +198,26 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             TextView tvBrandName = (TextView) childView.findViewById(R.id.brand_name);
             TextView tvBrandAddress = (TextView) childView.findViewById(R.id.brand_address);
             TextView tvBrandText = (TextView) childView.findViewById(R.id.brand_txt);
+            TextView tvDirections = (TextView) childView.findViewById(R.id.directions);
+            ImageView ivDiscountTag = (ImageView) childView.findViewById(R.id.discount_tag);
 
             //holder.tvBrandName.setText(genericDeal.brandName);
             //holder.tvBrandAddress.setText(genericDeal.brandAddress);
+
+            if((deal.latitude != 0 && deal.longitude != 0)
+                    && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
+            {
+                tvDirections.setVisibility(View.VISIBLE);
+                float results[] = new float[3];
+                Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
+                        results);
+
+                tvDirections.setText(String.format("%.1f",(results[0] / 1000)) + " " + context.getString(R.string.km));
+            }
+            else
+            {
+                tvDirections.setVisibility(View.GONE);
+            }
 
            tvBrandName.setText(deal.businessName);
 
@@ -269,12 +288,15 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
             if(deal.discount == 0) {
                 tvDiscount.setVisibility(View.GONE);
+                ivDiscountTag.setVisibility(View.GONE);
             }
             else
             {
                 tvDiscount.setVisibility(View.VISIBLE);
+                ivDiscountTag.setVisibility(View.VISIBLE);
             }
-            tvDiscount.setText(valueOf(deal.discount) +"%\nOFF");
+
+            tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
 
             layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
                 @Override

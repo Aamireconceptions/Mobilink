@@ -263,7 +263,7 @@ packageName = getPackageName();
             tvBrand.setText(deal.businessName);
 
             TextView tvValidity = (TextView) findViewById(R.id.validity);
-            tvValidity.setText("This deal is valid till " + deal.endDate);
+            tvValidity.setText(getString(R.string.deal_valid_till) + " " + deal.endDate);
 
             LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
@@ -302,7 +302,7 @@ packageName = getPackageName();
                     }
                 });
 
-                tvDistance.setText(String.format("%.2f",results[0]) + " km away");
+                tvDistance.setText(String.format("%.2f",results[0]) + " " + getString(R.string.km_away));
             }
 
             //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
@@ -319,7 +319,7 @@ packageName = getPackageName();
             header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(DealDetailActivity.this, "This deal has been viewed "+deal.views, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views + " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -327,7 +327,7 @@ packageName = getPackageName();
             tvView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(DealDetailActivity.this, "This deal has been viewed "+deal.views, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views+ " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
                 }
             });
             tvView.setText(valueOf(deal.views));

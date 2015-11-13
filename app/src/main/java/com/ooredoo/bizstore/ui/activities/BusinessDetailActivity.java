@@ -343,7 +343,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(BusinessDetailActivity.this, "This deal has been viewed " + business.views, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BusinessDetailActivity.this, getString(R.string.business_has_been_viewed) +" " + business.views + " "+getString(R.string.times), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -352,7 +352,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             tvView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(BusinessDetailActivity.this, "This deal has been viewed " + business.views, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BusinessDetailActivity.this, getString(R.string.business_has_been_viewed) +" " + business.views + " "+getString(R.string.times), Toast.LENGTH_SHORT).show();
                 }
             });
            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
@@ -678,13 +678,13 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     {
         if(business.moreDeals.size() > 0)
         {
-            groupList.add(business.title + " Deals");
+            groupList.add(business.title + " " + getString(R.string.deals));
             childList.add(( business.moreDeals));
         }
 
         if(business.similarBrands.size() > 0)
         {
-            groupList.add("Similar brands");
+            groupList.add(getString(R.string.similar_brands));
             childList.add(business.similarBrands);
         }
 

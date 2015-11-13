@@ -230,5 +230,22 @@
     <string name="cinemas"> دور السينما</string>
     <string name="apply">تطبيق</string>
     <string name="rating_success">  أشكركم على التصنيف</string>
-    <string name="nearby">قريب</string>
+    <string name="nearby">عروض المجاورة</string>
+    <string name="km">km</string>
+    <string name="list">قائمة</string>
+    <string name="map">رسم خريطة</string>
+    <string name="deal">صفقة</string>
+    <string name="brand">علامة تجارية</string>
+    <string name="redeem_deal">تخليص صفقة</string>
+    <string name="locations">المواقع</string>
+    <string name="km_away">كم عن الفندق</string>
+    <string name="deal_valid_till">هذه الصفقة ساري حتى</string>
+    <string name="similar_deals">صفقات مماثلة</string>
+    <string name="no_nearby_deals">لا صفقات القريبة وجدت</string>
+    <string name="deal_has_been_viewed">تم استعراض هذا الاتفاق</string>
+    <string name="times">مرات</string>
+    <string name="business_has_been_viewed">تمت مشاهدة هذا العمل</string>
+    <string name="similar_brands">ماركات مماثلة</string>
+    <string name="deals">عروض</string>
+    <string name="brands">العلامات التجارية</string>
 </resources>

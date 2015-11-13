@@ -95,7 +95,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
 
-         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
+        ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
@@ -185,7 +185,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
-        //rlHeader.setVisibility(View.GONE);
+
+        rlHeader.setVisibility(View.GONE);
 
         //adapter.clearData();
 

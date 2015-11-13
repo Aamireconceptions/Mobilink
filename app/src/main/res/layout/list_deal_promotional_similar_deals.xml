@@ -82,7 +82,7 @@
             android:layout_alignParentEnd="true"
             android:drawableTop="@drawable/ic_directions_big"
 
-            android:text="1.5 km"
+
             android:textColor="@color/red"
             android:gravity="center"/>
 
