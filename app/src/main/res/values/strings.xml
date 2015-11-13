@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Ooredoo BizStore</string>
+    <string name="popular_searches">Popular Searches</string>
     <string name="plus_sign">+</string>
     <string name="phone_number">phone number</string>
     <string name="search">Search</string>
@@ -77,7 +78,7 @@
     <string name="jokes">Jokes</string>
     <string name="new_deals">New Deals</string>
     <string name="popular_deals">Popular Deals</string>
-    <string name="error_search_term">Please provide search term</string>
+    <string name="error_search_term">Please enter search item</string>
     <string name="error_no_internet">The internet connection is down, please try again!</string>
     <string name="rate_us">Rate Us on Playstore</string>
     <string name="English">English</string>

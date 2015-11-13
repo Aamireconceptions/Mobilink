@@ -1,7 +1,8 @@
 package com.ooredoo.bizstore;
 
-import com.ooredoo.bizstore.model.PredefinedSearches;
+import com.ooredoo.bizstore.model.PopularSearches;
 import com.ooredoo.bizstore.model.Results;
+import com.ooredoo.bizstore.model.SearchSuggestions;
 import com.ooredoo.bizstore.model.UserAccount;
 
 /**
@@ -15,5 +16,7 @@ public final class AppData {
 
     public static Results searchResults;
 
-    public static PredefinedSearches predefinedSearches = new PredefinedSearches(); //Pre-defined searches fetched from server
+    public static SearchSuggestions searchSuggestions;
+
+    public static PopularSearches popularSearches = new PopularSearches(); //Pre-defined searches fetched from server
 }

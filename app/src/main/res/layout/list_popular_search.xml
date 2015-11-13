@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_grey_rad2"
+              android:layoutDirection="inherit"
+              android:orientation="vertical"
+              android:textAlignment="inherit"
+              android:textDirection="inherit">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:padding="8dp"
+        android:textSize="13sp"
+        android:text="Categories"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textDirection="inherit"
+        android:textStyle="normal"/>
+
+</LinearLayout>

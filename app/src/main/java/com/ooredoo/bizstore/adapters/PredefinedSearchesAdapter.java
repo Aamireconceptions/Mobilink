@@ -67,7 +67,7 @@ public class PredefinedSearchesAdapter extends ArrayAdapter<KeywordSearch> {
         Results results = new Results();
         results.list = keywordSearch.results;
         AppData.searchResults = results;
-        mActivity.selectDealsAndBusiness();
+        //mActivity.selectDealsAndBusiness();
         mActivity.setupSearchResults(keywordSearch.title, keywordSearch.results, true);
     }
 }

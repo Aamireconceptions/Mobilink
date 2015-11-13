@@ -23,11 +23,16 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
 
     private int prevItem = -1;
 
+    private boolean showResultCount = true;
     public RecentSearchesAdapter(Activity activity, int layoutResourceID, List<SearchItem> items) {
         super(activity, layoutResourceID, items);
         this.mActivity = activity;
         this.items = items;
         this.layoutResID = layoutResourceID;
+    }
+
+    public void setShowResultCount(boolean showResultCount) {
+        this.showResultCount = showResultCount;
     }
 
     public void setData(List<SearchItem> searchItems) {
@@ -65,13 +70,18 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
         holder.tvKeyword.setText(item.keyword);
         holder.tvResultCount.setText(results);
 
-        holder.tvResultCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                homeActivity.executeSearchTask(item.keyword);
-                mActivity.onBackPressed();
-            }
-        });
+        if(showResultCount) {
+            holder.tvResultCount.setVisibility(View.VISIBLE);
+            holder.tvResultCount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    homeActivity.executeSearchTask(item.keyword);
+                    mActivity.onBackPressed();
+                }
+            });
+        } else {
+            holder.tvResultCount.setVisibility(View.GONE);
+        }
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

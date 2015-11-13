@@ -1,5 +1,6 @@
 ﻿<resources>
     <string name="app_name">Bizstore</string>
+    <string name="popular_searches">Popular Searches</string>
     <string name="plus_sign">+</string>
     <string name="phone_number">رقم الهاتف</string>
     <string name="search">بحث</string>

@@ -3,7 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.AppData;
-import com.ooredoo.bizstore.model.PredefinedSearches;
+import com.ooredoo.bizstore.model.PopularSearches;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -45,14 +45,16 @@ public class SearchKeywordsTask extends BaseAsyncTask<Void, Void, String> {
 
         if(result != null) {
             try {
-                AppData.predefinedSearches = new Gson().fromJson(result, PredefinedSearches.class);
+                AppData.popularSearches = new Gson().fromJson(result, PopularSearches.class);
 
-                if(AppData.predefinedSearches != null && AppData.predefinedSearches.list == null)
-                    AppData.predefinedSearches.list = new ArrayList<>();
+                if(AppData.popularSearches != null && AppData.popularSearches.list == null)
+                    AppData.popularSearches.list = new ArrayList<>();
 
-                Logger.logI("SUGGESTIONS_COUNT", String.valueOf(AppData.predefinedSearches.list.size()));
+                Logger.logI("POPULAR_SEARCH_COUNT", String.valueOf(AppData.popularSearches.list.size()));
 
-                mActivity.setPredefinedSearches();
+                if(AppData.popularSearches != null && AppData.popularSearches.list != null) {
+                    mActivity.setPopularSearches(AppData.popularSearches.list);
+                }
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }

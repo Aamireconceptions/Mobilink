@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -28,8 +28,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/colorPrimary"
-                        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-                        app:layout_scrollFlags="scroll|enterAlways">
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
                         <AutoCompleteTextView
                             android:id="@+id/ac_search"
@@ -38,14 +38,12 @@
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:hint="@string/search"
-                            android:inputType="textCapWords"
                             android:imeOptions="actionSearch"
+                            android:inputType="textCapWords"
                             android:singleLine="true"
                             android:visibility="gone"/>
 
                     </android.support.v7.widget.Toolbar>
-
-
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -55,110 +53,127 @@
                             android:id="@+id/tab_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="@dimen/_12sdp"
-                            android:paddingEnd="@dimen/_12sdp"
-                            android:scrollbars="none"
                             android:background="@color/red"
-                            app:tabTextColor="@color/tab_text_color"
+                            android:paddingEnd="@dimen/_12sdp"
+                            android:paddingStart="@dimen/_12sdp"
+                            android:scrollbars="none"
                             app:tabIndicatorColor="@color/white"
                             app:tabMode="scrollable"
                             app:tabSelectedTextColor="@color/white"
-                            app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small" />
+                            app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+                            app:tabTextColor="@color/tab_text_color"/>
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:src="@drawable/tabs_overlay" />
+                            android:src="@drawable/tabs_overlay"/>
 
                         <LinearLayout
-                            android:id="@+id/layout_search_results"
+                            android:id="@+id/layout_search"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:visibility="gone"
+                            android:background="@color/white"
                             android:orientation="vertical"
-                            android:background="@color/white">
+                            android:visibility="gone">
+
                             <LinearLayout
+                                android:id="@+id/layout_search_filter"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="0dp"
-                                android:background="@color/white"
-                                android:orientation="horizontal"
-                                android:paddingStart="@dimen/_6sdp"
-                                android:paddingEnd="@dimen/_6sdp">
+                                android:orientation="horizontal">
 
-                                <CheckBox
-                                    android:id="@+id/cb_search_deals"
-                                    android:layout_width="wrap_content"
+                                <TextView
+                                    android:id="@+id/search_deals"
+                                    android:layout_width="0dp"
                                     android:layout_height="50dp"
+                                    android:gravity="center_horizontal"
+                                    android:paddingTop="12dp"
                                     android:layout_gravity="bottom"
                                     android:layout_marginStart="@dimen/_6sdp"
-                                    android:layout_weight="0.45"
-                                    android:button="@drawable/checkbox_button"
-                                    android:checked="true"
-                                    android:paddingStart="@dimen/_8sdp"
+                                    android:layout_weight="0.5"
+                                    android:background="@drawable/detail_tab_selector"
+                                    android:textColor="@color/black_white_selector"
                                     android:text="@string/Search_for_Deals"
                                     android:textSize="13sp"/>
 
-                                <View
-                                    android:layout_width="0.25dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="0.015"
-                                    android:background="@color/grey"/>
-
-                                <CheckBox
-                                    android:id="@+id/cb_search_business"
-                                    android:layout_width="wrap_content"
+                                <TextView
+                                    android:id="@+id/search_business"
+                                    android:layout_width="0dp"
                                     android:layout_height="50dp"
-                                    android:layout_marginStart="@dimen/_12sdp"
+                                    android:gravity="center_horizontal"
+                                    android:paddingTop="12dp"
                                     android:layout_weight="0.50"
-                                    android:button="@drawable/checkbox_button"
+                                    android:background="@drawable/detail_tab_selector"
+                                    android:enabled="false"
                                     android:paddingStart="@dimen/_8sdp"
+                                    android:textColor="@color/black_white_selector"
                                     android:text="@string/Search_for_Business"
                                     android:textSize="13sp"/>
                             </LinearLayout>
 
-                            <RelativeLayout
-                                android:id="@+id/rl_search_results"
+                            <ListView
+                                android:id="@+id/list_recent_searches"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_gravity="start|center_vertical"
-                                android:background="@color/red"
-                                android:gravity="start|center_vertical">
+                                android:layout_height="150dp"
+                                android:layout_margin="0dp"
+                                android:divider="@color/grey"
+                                android:dividerHeight="1dp"
+                                android:scrollbars="none"
+                                android:visibility="visible"/>
+
+                            <LinearLayout
+                                android:id="@+id/layout_popular_searches"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/tv_search_results"
-                                    android:layout_width="fill_parent"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_toStartOf="@+id/iv_filter_results"
-                                    android:paddingStart="15dp"
-                                    android:text="Showing 10 Results"
-                                    android:textAllCaps="false"
-                                    android:textColor="@color/white"
-                                    android:textSize="14sp"
-                                    android:textStyle="normal"/>
-
-                                <ImageView
-                                    android:id="@+id/iv_filter_results"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
                                     android:layout_marginEnd="10dp"
-                                    android:src="@drawable/ic_filter"/>
-                            </RelativeLayout>
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:padding="0dp"
+                                    android:text="@string/popular_searches"
+                                    android:textColor="@color/red"
+                                    android:textStyle="bold"/>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_margin="10dp"
+                                    android:background="@color/red"/>
+
+                                <GridView
+                                    android:id="@+id/grid_popular_searches"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:horizontalSpacing="@dimen/_4sdp"
+                                    android:layoutDirection="locale"
+                                    android:numColumns="4"
+                                    android:paddingBottom="@dimen/_6sdp"
+                                    android:paddingEnd="@dimen/_6sdp"
+                                    android:paddingStart="@dimen/_6sdp"
+                                    android:scrollbars="none"
+                                    android:verticalSpacing="@dimen/_6sdp"/>
+
+                            </LinearLayout>
 
                             <ListView
                                 android:id="@+id/lv_search_results"
                                 android:layout_width="match_parent"
                                 android:layout_height="1000dp"
-                                android:layout_weight="1"
-                                android:layout_marginTop="@dimen/_6sdp"
                                 android:layout_marginBottom="@dimen/_6sdp"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:layout_weight="1"
+                                android:background="@color/white"
                                 android:divider="@color/white"
                                 android:dividerHeight="@dimen/_6sdp"
                                 android:scrollbars="none"
-                                android:visibility="visible"
-                                android:background="@color/white"/>
+                                android:visibility="gone"/>
+
                         </LinearLayout>
 
                     </FrameLayout>
@@ -179,8 +194,6 @@
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             </android.support.design.widget.CoordinatorLayout>
-
-
 
         </RelativeLayout>
 

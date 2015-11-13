@@ -37,6 +37,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -45,20 +46,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.query.Select;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.ooredoo.bizstore.AppData;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
-import com.ooredoo.bizstore.adapters.PredefinedSearchesAdapter;
+import com.ooredoo.bizstore.adapters.PopularSearchesGridAdapter;
 import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
 import com.ooredoo.bizstore.adapters.SearchBaseAdapter;
-import com.ooredoo.bizstore.adapters.SearchResultsAdapter;
+import com.ooredoo.bizstore.adapters.SearchSuggestionsAdapter;
 import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CheckSubscriptionTask;
 import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
+import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
@@ -71,6 +75,7 @@ import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.KeywordSearch;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -93,25 +98,24 @@ import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
-import static com.ooredoo.bizstore.AppData.predefinedSearches;
 import static com.ooredoo.bizstore.AppData.searchResults;
+import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
-                                                               OnFilterChangeListener,
-                                                               TextView.OnEditorActionListener,
-                                                               OnSubCategorySelectedListener,
-        LocationListener{
+public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener, OnFilterChangeListener, TextView.OnEditorActionListener, OnSubCategorySelectedListener, LocationListener {
     public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
     private DrawerChangeListener mDrawerListener = new DrawerChangeListener(this);
 
-    public ListView mPredefinedSearchesListView, mSearchResultsListView;
+    public GridView mPopularSearchGridView;
+    public ListView mRecentSearchListView, mSearchResultsListView, mSearchSuggestionListView;
 
-    public PredefinedSearchesAdapter mPredefinedSearchesAdapter;
+    public SearchSuggestionsAdapter mSearchSuggestionsAdapter;
+    public RecentSearchesAdapter mRecentSearchesAdapter;
+    public PopularSearchesGridAdapter mPopularSearchesGridAdapter;
 
     public SearchBaseAdapter mSearchResultsAdapter;
 
@@ -151,7 +155,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public static boolean isShowResults = false;
 
-    public CheckBox cbSearchDeals, cbSearchBusinesses;
+    public TextView searchDeals, searchBusinesses;
 
     public static ImageView profilePicture;
 
@@ -169,7 +173,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private DiskCache diskCache = DiskCache.getInstance();
 
+    private HomeActivity activity = this;
+
     private long time = 15 * 60 * 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,13 +187,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         HomeActivity.lat = SharedPrefUtils.getFloatValue(this, "lat");
         HomeActivity.lng = SharedPrefUtils.getFloatValue(this, "lng");
 
-        if(!username.equals(SharedPrefUtils.EMPTY))
-        {
+        if(!username.equals(SharedPrefUtils.EMPTY)) {
             BizStore.username = username;
         }
 
-        if(!password.equals(SharedPrefUtils.EMPTY))
-        {
+        if(!password.equals(SharedPrefUtils.EMPTY)) {
             BizStore.password = password;
         }
 
@@ -219,13 +224,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         BizStore.forceStopTasks = false;
 
-       // startSubscriptionCheck();
+        // startSubscriptionCheck();
     }
 
     Timer timer;
 
-    private void startSubscriptionCheck()
-    {
+    private void startSubscriptionCheck() {
         timer = new Timer();
 
         timer.schedule(new TimerTask() {
@@ -240,11 +244,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                     }
                 });
             }
-        },0, time);
+        }, 0, time);
     }
 
-    private void overrideFonts()
-    {
+    private void overrideFonts() {
         BizStore bizStore = (BizStore) getApplicationContext();
         bizStore.overrideDefaultFonts();
     }
@@ -254,8 +257,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     int minTimeMillis = 10 * 60 * 1000;
     int distanceMeters = 50;
 
-    private void init()
-    {
+    private void init() {
         diskCache.requestInit(this);
 
         sharedPrefUtils = new SharedPrefUtils(this);
@@ -269,22 +271,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchView = getLayoutInflater().inflate(R.layout.search_popup, null);
         searchPopup = new PopupWindow(searchView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        findViewById(R.id.cb_search_deals).setOnClickListener(this);
-        findViewById(R.id.cb_search_business).setOnClickListener(this);
+        searchDeals = (TextView) findViewById(R.id.search_deals);
+        searchBusinesses = (TextView) findViewById(R.id.search_business);
 
-        CheckBoxClickListener checkBoxClickListener = new CheckBoxClickListener();
+        searchDeals.setSelected(searchType.equals("deals"));
+        searchBusinesses.setSelected(searchType.equals("business"));
 
-        cbSearchDeals = (CheckBox) searchView.findViewById(R.id.cb_search_deals);
-        cbSearchBusinesses = (CheckBox) searchView.findViewById(R.id.cb_search_business);
-
-        cbSearchDeals.setOnClickListener(checkBoxClickListener);
-        cbSearchBusinesses.setOnClickListener(checkBoxClickListener);
+        searchDeals.setOnClickListener(this);
+        searchBusinesses.setOnClickListener(this);
 
         homePagerAdapter = new HomePagerAdapter(this, getFragmentManager());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-       // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
-
+        // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
 
         drawerLayout.setDrawerListener(mDrawerListener);
 
@@ -292,9 +291,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis, distanceMeters, this);
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if(location != null)
-        {
-            Logger.print("Location Changed#LastKnown: "+location.getLatitude() + ", "+location.getLongitude());
+        if(location != null) {
+            Logger.print("Location Changed#LastKnown: " + location.getLatitude() + ", " + location.getLongitude());
 
             SharedPrefUtils.updateVal(this, "lat", (float) location.getLatitude());
             SharedPrefUtils.updateVal(this, "lng", (float) location.getLongitude());
@@ -305,9 +303,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
 
         mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
-        mPredefinedSearchesListView = (ListView) searchView.findViewById(R.id.lv_predefined_searches);
+        mRecentSearchListView = (ListView) findViewById(R.id.list_recent_searches);
+        mPopularSearchGridView = (GridView) findViewById(R.id.grid_popular_searches);
+        mSearchSuggestionListView = (ListView) searchView.findViewById(R.id.list_search_suggestions);
 
-        mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, null);
+        setRecentSearches();
+
+        mPopularSearchesGridAdapter = new PopularSearchesGridAdapter(this, R.layout.list_popular_search, new ArrayList<KeywordSearch>());
+        mPopularSearchGridView.setAdapter(mPopularSearchesGridAdapter);
+
+        setSearchSuggestions(new ArrayList<String>());
 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
 
@@ -327,6 +332,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setupPager();
     }
 
+    public void setSearchSuggestions(List<String> list) {
+        mSearchSuggestionsAdapter = new SearchSuggestionsAdapter(this, R.layout.list_search_suggestion, list);
+        mSearchSuggestionListView.setAdapter(mSearchSuggestionsAdapter);
+        mSearchSuggestionListView.setVisibility(View.VISIBLE);
+    }
+
     private void setupSearchField() {
         acSearch.setThreshold(1);
 
@@ -338,6 +349,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public static AppBarLayout appBarLayout;
+
     private void setupToolbar() {
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
@@ -362,8 +374,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
         tabLayout.addTab(tabLayout.newTab());
 
-       tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
-
+        tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
 
     }
 
@@ -468,10 +479,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         discountCheckBox.setText(getString(R.string.sort_discount));
     }
 
-    private void registeredWithGcmIfRequired()
-    {
-        if(isGPlayServicesAvailable())
-        {
+    private void registeredWithGcmIfRequired() {
+        if(isGPlayServicesAvailable()) {
             Logger.print("GPlayServicesAvailable");
 
             String deviceGcmToken = gcmPreferences.getDeviceGCMToken();
@@ -480,10 +489,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
             String userGcmId = gcmPreferences.getUserGCMToken(BizStore.username + "_" + deviceGcmToken);
 
-            Logger.print("userGcmId: "+userGcmId);
+            Logger.print("userGcmId: " + userGcmId);
 
-            if(userGcmId != null)
-            {
+            if(userGcmId != null) {
                 Logger.print("Skipping gcmRegistering. User already registered");
                 return;
             }
@@ -492,8 +500,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
             GCMRegisterTask gcmRegisterTask = new GCMRegisterTask(this, gcmPreferences);
             gcmRegisterTask.execute();
-        }
-        else
+        } else
             Logger.print("GPlayServices not available");
     }
 
@@ -505,12 +512,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvRating5.setEnabled(enabled);
     }
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
-
 
     }
 
@@ -529,8 +533,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home) {
-
             Logger.print("as");
+            if(searchPopup.isShowing())
+                searchPopup.dismiss();
             if(isSearchEnabled) {
                 hideSearchResults();
             } else {
@@ -542,6 +547,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                 isShowResults = false;
                 acSearch.setText("");
                 acSearch.setHint(R.string.search);
+            } else {
+                if(searchSuggestions == null || searchSuggestions.list == null || searchSuggestions.list.size() == 0) {
+                    new SearchSuggestionsTask(this).execute();
+                }
             }
             showHideSearchBar(show);
         }
@@ -549,8 +558,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
 
         diskCache.requestFlush();
@@ -558,7 +566,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void hideSearchResults() {
         isShowResults = false;
-        findViewById(R.id.layout_search_results).setVisibility(View.VISIBLE);
+        //findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
         showHideSearchBar(false);
     }
 
@@ -575,31 +583,28 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mMenu.findItem(R.id.search).setVisible(show);
         mMenu.findItem(R.id.action_search).setVisible(!show);
         mActionBar.setDisplayUseLogoEnabled(!show);
-        if(!show) {
-            //acSearch.setText(null);
-            findViewById(R.id.layout_search_results).setVisibility(View.GONE);
+        findViewById(R.id.grid_popular_searches).setVisibility(show ? View.VISIBLE : View.GONE);
+        findViewById(R.id.layout_search_filter).setVisibility(show ? View.VISIBLE : View.GONE);
+        mRecentSearchListView.setVisibility(show ? View.VISIBLE : View.GONE);
+        findViewById(R.id.lv_search_results).setVisibility(View.GONE);
+        if(show) {
+            setRecentSearches();
+            setPopularSearches(AppData.popularSearches.list);
         }
         mActionBar.setHomeAsUpIndicator(show ? R.drawable.ic_action_back : R.drawable.ic_menu);
         acSearch.setVisibility(show ? View.VISIBLE : View.GONE);
-		
-		 acSearch.requestFocus();
+
+        acSearch.requestFocus();
 
         long downTime = SystemClock.uptimeMillis();
         long eventTime = SystemClock.uptimeMillis() + 100;
         float x = 0.0f;
         float y = 0.0f;
-// List of meta states found here:     developer.android.com/reference/android/view/KeyEvent.html#getMetaState()
+        // List of meta states found here: developer.android.com/reference/android/view/KeyEvent.html#getMetaState()
         int metaState = 0;
-        MotionEvent motionEvent = MotionEvent.obtain(
-                downTime,
-                eventTime,
-                MotionEvent.ACTION_UP,
-                x,
-                y,
-                metaState
-        );
+        MotionEvent motionEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_UP, x, y, metaState);
 
-// Dispatch touch event to view
+        // Dispatch touch event to view
         acSearch.dispatchTouchEvent(motionEvent);
         if(show) {
             new Handler().postDelayed(new Runnable() {
@@ -615,27 +620,40 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void showSearchPopup() {
         isShowResults = false;
-        tabLayout.setAlpha(0.25f);
-        viewPager.setAlpha(0.25f);
-        setPredefinedSearches();
-        findViewById(R.id.layout_search_results).setVisibility(View.GONE);
-        searchPopup.showAsDropDown(acSearch, 10, 25);
+        tabLayout.setAlpha(0f);
+        viewPager.setAlpha(0f);
+        setRecentSearches();
+        setPopularSearches(AppData.popularSearches.list);
+        findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
+        mRecentSearchListView.setVisibility(View.VISIBLE);
+        findViewById(R.id.layout_search_filter).setVisibility(View.GONE);
+        //searchPopup.showAsDropDown(acSearch, 10, 25);
     }
 
-    public void setPredefinedSearches() {
-        if(predefinedSearches != null && predefinedSearches.list != null) {
-            mPredefinedSearchesAdapter = new PredefinedSearchesAdapter(this, R.layout.predefined_search_item, predefinedSearches.list);
-            mPredefinedSearchesListView.setAdapter(mPredefinedSearchesAdapter);
-            mPredefinedSearchesAdapter.notifyDataSetChanged();
-            mPredefinedSearchesListView.setVisibility(View.VISIBLE);
+    public void setRecentSearches() {
+        List<SearchItem> searchItems = new Select().all().from(SearchItem.class).execute();
+        Logger.print("RECENT_SEARCH_ITEM_COUNT: " + searchItems.size());
+        mRecentSearchesAdapter = new RecentSearchesAdapter(this, R.layout.list_item_recent_search, searchItems);
+        mRecentSearchesAdapter.setShowResultCount(false);
+        mRecentSearchListView.setAdapter(mRecentSearchesAdapter);
+    }
+
+    public void setPopularSearches(List<KeywordSearch> list) {
+        if(list != null) {
+            mPopularSearchesGridAdapter = new PopularSearchesGridAdapter(this, R.layout.list_popular_search, list);
+            mPopularSearchGridView.setAdapter(mPopularSearchesGridAdapter);
+            findViewById(R.id.layout_popular_searches).setVisibility(list.size() == 0 ? View.GONE : View.VISIBLE);
         }
     }
 
     public void hideSearchPopup() {
         isShowResults = true;
+        findViewById(R.id.layout_search).setVisibility(View.GONE);
+        mSearchResultsListView.setVisibility(View.GONE);
+        mRecentSearchListView.setVisibility(View.GONE);
         tabLayout.setAlpha(MAX_ALPHA);
         viewPager.setAlpha(MAX_ALPHA);
-        searchPopup.dismiss();
+        //searchPopup.dismiss();
         //acSearch.setText(null);
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(acSearch.getWindowToken(), 0);
@@ -646,20 +664,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     @Override
-    public void onSubCategorySelected()
-    {
+    public void onSubCategorySelected() {
         ((OnSubCategorySelectedListener) currentFragment).onSubCategorySelected();
     }
 
     public static double lat;
     public static double lng;
+
     @Override
-    public void onLocationChanged(Location location)
-    {
+    public void onLocationChanged(Location location) {
         lat = location.getLatitude();
         lng = location.getLongitude();
 
-        Logger.print("Location Changed: "+lat + ", "+lng);
+        Logger.print("Location Changed: " + lat + ", " + lng);
 
         SharedPrefUtils.updateVal(this, "lat", (float) lat);
         SharedPrefUtils.updateVal(this, "lng", (float) lng);
@@ -680,52 +697,31 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     }
 
-
-    public class CheckBoxClickListener implements OnClickListener {
-        @Override
-        public void onClick(View v) {
-            ((CheckBox) findViewById(v.getId())).setChecked(((CheckBox) v).isChecked());
-            setSearchCheckboxSelection(cbSearchDeals, cbSearchBusinesses);
-        }
-    }
-
     public void selectDealsAndBusiness() {
-        searchType = "all";
-        cbSearchDeals.setChecked(true);
-        cbSearchBusinesses.setChecked(true);
-        ((CheckBox) findViewById(R.id.cb_search_deals)).setChecked(true);
-        ((CheckBox) findViewById(R.id.cb_search_business)).setChecked(true);
+        searchType = "deals";
+        searchDeals.setSelected(true);
+        searchBusinesses.setSelected(true);
     }
 
-    public void setSearchCheckboxSelection(CheckBox cbSearchDeals, CheckBox cbSearchBusinesses) {
-        if(cbSearchDeals.isChecked() && cbSearchBusinesses.isChecked()) {
-            searchType = "all";
-        } else if(cbSearchBusinesses.isChecked()) {
-            searchType = "business";
-        } else {
-            searchType = "deals";
-            cbSearchDeals.setChecked(true);
-            this.cbSearchBusinesses.setChecked(false);
-        }
+    public void setSearchCheckboxSelection(View searchDeals, View searchBusinesses) {
+        searchDeals.setSelected(searchType.equals("deals"));
+        searchBusinesses.setSelected(searchType.equals("business"));
     }
 
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
 
-        CheckBox cbSearchDeals = (CheckBox) findViewById(R.id.cb_search_deals);
-        CheckBox cbSearchBusinesses = (CheckBox) findViewById(R.id.cb_search_business);
-
         List<SearchResult> results;
 
-        if(viewId == R.id.cb_search_deals || viewId == R.id.cb_search_business) {
+        if(viewId == R.id.search_deals || viewId == R.id.search_business) {
             //((CheckBox)searchView.findViewById(v.getId())).setChecked(((CheckBox)v).isChecked());
-            setSearchCheckboxSelection(cbSearchDeals, cbSearchBusinesses);
+            boolean showDeals = viewId == R.id.search_deals;
+            searchType = showDeals ? "deals" : "business";
+            setSearchCheckboxSelection(searchDeals, searchBusinesses);
             if(searchResults != null) {
                 if(searchResults.list != null & searchResults.list.size() > 0) {
-                    if(searchType.equalsIgnoreCase("all")) {
-                        results = searchResults.list;
-                    } else if(searchType.equalsIgnoreCase("business")) {
+                    if(searchType.equalsIgnoreCase("business")) {
                         results = getBusinesses();
                     } else {
                         results = getDeals();
@@ -770,8 +766,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         startActivity(intent);
     }*/
 
-    public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal)
-    {
+    public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal) {
         Intent intent = new Intent();
         intent.setClass(this, DealDetailActivity.class);
         intent.putExtra("generic_deal", genericDeal);
@@ -779,8 +774,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         startActivity(intent);
     }
 
-    public void showBusinessDetailActivity( String dealCategory, Business business)
-    {
+    public void showBusinessDetailActivity(String dealCategory, Business business) {
         Intent intent = new Intent();
         intent.setClass(this, BusinessDetailActivity.class);
         intent.putExtra("business", business);
@@ -803,7 +797,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void populateSearchResults(List<SearchResult> searchResultList) {
         if(searchResultList.size() > 0) {
-
             mSearchResultsAdapter = new SearchBaseAdapter(this, R.layout.list_deal_promotional, searchResultList);
             mSearchResultsListView.setAdapter(mSearchResultsAdapter);
             mSearchResultsAdapter.setData(searchResultList);
@@ -827,14 +820,40 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         hideSearchPopup();
         HomeActivity.isShowResults = true;
-        findViewById(R.id.layout_search_results).setVisibility(View.VISIBLE);
+        mRecentSearchListView.setVisibility(View.GONE);
+        findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
+        findViewById(R.id.lv_search_results).setVisibility(View.VISIBLE);
+        findViewById(R.id.grid_popular_searches).setVisibility(View.GONE);
+        findViewById(R.id.layout_search_filter).setVisibility(View.VISIBLE);
 
-        findViewById(R.id.iv_filter_results).setVisibility(View.GONE);
-        TextView tvSearchResults = (TextView) findViewById(R.id.tv_search_results);
-        tvSearchResults.setText(getString(R.string.showing) + " " + results.size() + " " + getString(R.string.results));
-        tvSearchResults.setVisibility(View.VISIBLE);
+        searchDeals.setText(getDealsCount() + " " + getString(R.string.deals));
+        searchBusinesses.setText(getBusinessCount() + " " + getString(R.string.businesses));
 
         populateSearchResults(results);
+    }
+
+    private int getDealsCount() {
+        int count = 0;
+        for(SearchResult result : AppData.searchResults.list) {
+            if(isNotNullOrEmpty(result.type)) {
+                if(!result.type.equalsIgnoreCase("business")) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private int getBusinessCount() {
+        int count = 0;
+        for(SearchResult result : AppData.searchResults.list) {
+            if(isNotNullOrEmpty(result.type)) {
+                if(result.type.equalsIgnoreCase("business")) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     public void executeSearchTask(String keyword) {
@@ -848,11 +867,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Logger.print("onTextChanged: " + s);
         }
 
         public void afterTextChanged(Editable edt) {
-            mPredefinedSearchesAdapter.getFilter().filter(edt.toString());
-            mPredefinedSearchesAdapter.notifyDataSetChanged();
+            if(edt.toString().length() == 0) {
+                searchPopup.dismiss();
+            } else {
+                mSearchSuggestionsAdapter.getFilter().filter(edt.toString());
+                mSearchSuggestionsAdapter.notifyDataSetChanged();
+                if(!searchPopup.isShowing()) {
+                    searchPopup.showAsDropDown(acSearch, 25, 25);
+                }
+            }
         }
     }
 
@@ -872,6 +899,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(hasInternetConnection(this)) {
             String keyword = v.getText().toString();
             if(isNotNullOrEmpty(keyword)) {
+                mSearchSuggestionListView.setVisibility(View.GONE);
                 Logger.print("SEARCH_KEYWORD: " + keyword);
                 new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
             } else {
@@ -891,14 +919,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         return false;
     }
 
-
-
-    private boolean isGPlayServicesAvailable()
-    {
+    private boolean isGPlayServicesAvailable() {
         int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
 
-        if(code != ConnectionResult.SUCCESS)
-        {
+        if(code != ConnectionResult.SUCCESS) {
             GoogleApiAvailability.getInstance().getErrorDialog(this, code, 0).show();
 
             return false;
@@ -930,8 +954,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             loaderItem.setVisible(false);
         }
     }
-
-
 
     @Override
     protected void onDestroy() {

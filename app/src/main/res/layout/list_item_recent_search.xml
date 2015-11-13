@@ -2,10 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="50dp"
+              android:background="@drawable/bg_grey_rad2"
               android:layout_gravity="start|center_vertical"
               android:gravity="start|center_vertical"
               android:orientation="horizontal"
               android:padding="0dp">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:src="@drawable/ic_recent_searches"/>
 
     <TextView
         android:id="@+id/tv_keyword"
@@ -29,6 +37,7 @@
         android:text="110 results found"
         android:textColor="@color/red"
         android:textSize="14sp"
+        android:visibility="gone"
         android:textStyle="bold"/>
 
 </LinearLayout>

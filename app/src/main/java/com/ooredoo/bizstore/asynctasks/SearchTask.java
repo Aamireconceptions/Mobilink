@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static android.widget.Toast.LENGTH_SHORT;
-import static com.ooredoo.bizstore.AppData.searchResults;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.searchType;
 import static com.ooredoo.bizstore.utils.DialogUtils.createCustomLoader;
 
@@ -72,9 +71,7 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
 
                 List<SearchResult> results = new ArrayList<>();
                 if(AppData.searchResults.list.size() > 0) {
-                    if(searchType.equalsIgnoreCase("all")) {
-                        results = searchResults.list;
-                    } else if(searchType.equalsIgnoreCase("business")) {
+                    if(searchType.equalsIgnoreCase("business")) {
                         results = HomeActivity.getBusinesses();
                     } else {
                         results = HomeActivity.getDeals();
