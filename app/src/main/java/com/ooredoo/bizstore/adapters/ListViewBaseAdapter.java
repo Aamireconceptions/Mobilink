@@ -192,7 +192,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         }
         else
         {
-            if(brands.size() > 0)
+            if(brands.size() > 0 || listingType.equals("map"))
             {
                 return 1;
             }
