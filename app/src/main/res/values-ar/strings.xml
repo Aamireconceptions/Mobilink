@@ -248,5 +248,6 @@
     <string name="business_has_been_viewed">تمت مشاهدة هذا العمل</string>
     <string name="similar_brands">ماركات مماثلة</string>
     <string name="deals">عروض</string>
+    <string name="businesses">Businesses</string>
     <string name="brands">العلامات التجارية</string>
 </resources>

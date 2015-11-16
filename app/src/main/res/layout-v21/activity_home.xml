@@ -90,7 +90,6 @@
                                     android:gravity="center_horizontal"
                                     android:paddingTop="12dp"
                                     android:layout_gravity="bottom"
-                                    android:layout_marginStart="@dimen/_6sdp"
                                     android:layout_weight="0.5"
                                     android:background="@drawable/detail_tab_selector"
                                     android:textColor="@color/black_white_selector"
@@ -105,8 +104,6 @@
                                     android:paddingTop="12dp"
                                     android:layout_weight="0.50"
                                     android:background="@drawable/detail_tab_selector"
-                                    android:enabled="false"
-                                    android:paddingStart="@dimen/_8sdp"
                                     android:textColor="@color/black_white_selector"
                                     android:text="@string/Search_for_Business"
                                     android:textSize="13sp"/>
@@ -115,7 +112,7 @@
                             <ListView
                                 android:id="@+id/list_recent_searches"
                                 android:layout_width="match_parent"
-                                android:layout_height="150dp"
+                                android:layout_height="wrap_content"
                                 android:layout_margin="0dp"
                                 android:divider="@color/grey"
                                 android:dividerHeight="1dp"
@@ -126,6 +123,7 @@
                                 android:id="@+id/layout_popular_searches"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
                                 android:orientation="vertical">
 
                                 <TextView

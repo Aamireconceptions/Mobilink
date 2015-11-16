@@ -134,6 +134,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private ExpandableListView expandableListView;
 
     public boolean isSearchEnabled = false;
+    public boolean isSearchTextWatcherEnabled = true;
 
     public boolean doApplyDiscount = false;
 
@@ -275,7 +276,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchBusinesses = (TextView) findViewById(R.id.search_business);
 
         searchDeals.setSelected(searchType.equals("deals"));
-        searchBusinesses.setSelected(searchType.equals("business"));
+        searchBusinesses.setSelected(!searchType.equals("deals"));
 
         searchDeals.setOnClickListener(this);
         searchBusinesses.setOnClickListener(this);
@@ -636,6 +637,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mRecentSearchesAdapter = new RecentSearchesAdapter(this, R.layout.list_item_recent_search, searchItems);
         mRecentSearchesAdapter.setShowResultCount(false);
         mRecentSearchListView.setAdapter(mRecentSearchesAdapter);
+        mRecentSearchListView.setVisibility(searchItems.size() == 0 ? View.GONE : View.VISIBLE);
     }
 
     public void setPopularSearches(List<KeywordSearch> list) {
@@ -697,15 +699,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     }
 
-    public void selectDealsAndBusiness() {
-        searchType = "deals";
-        searchDeals.setSelected(true);
-        searchBusinesses.setSelected(true);
-    }
-
-    public void setSearchCheckboxSelection(View searchDeals, View searchBusinesses) {
+    public void setSearchCheckboxSelection() {
         searchDeals.setSelected(searchType.equals("deals"));
-        searchBusinesses.setSelected(searchType.equals("business"));
+        searchBusinesses.setSelected(!searchType.equals("deals"));
     }
 
     @Override
@@ -716,9 +712,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         if(viewId == R.id.search_deals || viewId == R.id.search_business) {
             //((CheckBox)searchView.findViewById(v.getId())).setChecked(((CheckBox)v).isChecked());
-            boolean showDeals = viewId == R.id.search_deals;
+            boolean showDeals = (viewId == R.id.search_deals);
             searchType = showDeals ? "deals" : "business";
-            setSearchCheckboxSelection(searchDeals, searchBusinesses);
+            Logger.print("SEARCH_FILTER: " + searchType);
+            setSearchCheckboxSelection();
             if(searchResults != null) {
                 if(searchResults.list != null & searchResults.list.size() > 0) {
                     if(searchType.equalsIgnoreCase("business")) {
@@ -810,6 +807,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void setupSearchResults(String keyword, List<SearchResult> results, boolean isKeywordSearch) {
 
+        isSearchTextWatcherEnabled = false;
+
+        if(isNotNullOrEmpty(keyword)) {
+            acSearch.setText(keyword);
+        }
+
         if(results == null)
             results = new ArrayList<>();
 
@@ -820,6 +823,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         hideSearchPopup();
         HomeActivity.isShowResults = true;
+        populateSearchResults(results);
+
         mRecentSearchListView.setVisibility(View.GONE);
         findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
         findViewById(R.id.lv_search_results).setVisibility(View.VISIBLE);
@@ -829,7 +834,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchDeals.setText(getDealsCount() + " " + getString(R.string.deals));
         searchBusinesses.setText(getBusinessCount() + " " + getString(R.string.businesses));
 
-        populateSearchResults(results);
+        isSearchTextWatcherEnabled = true;
     }
 
     private int getDealsCount() {
@@ -871,13 +876,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         }
 
         public void afterTextChanged(Editable edt) {
-            if(edt.toString().length() == 0) {
-                searchPopup.dismiss();
-            } else {
-                mSearchSuggestionsAdapter.getFilter().filter(edt.toString());
-                mSearchSuggestionsAdapter.notifyDataSetChanged();
-                if(!searchPopup.isShowing()) {
-                    searchPopup.showAsDropDown(acSearch, 25, 25);
+            if(isSearchTextWatcherEnabled) {
+                if(edt.toString().length() == 0) {
+                    searchPopup.dismiss();
+                } else {
+                    mSearchSuggestionsAdapter.getFilter().filter(edt.toString());
+                    mSearchSuggestionsAdapter.notifyDataSetChanged();
+                    if(!searchPopup.isShowing()) {
+                        searchPopup.showAsDropDown(acSearch, 25, 25);
+                    }
                 }
             }
         }

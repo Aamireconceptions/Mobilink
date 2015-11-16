@@ -57,6 +57,9 @@ public class SearchSuggestionsAdapter extends ArrayAdapter<String> {
     }
 
     protected void setClickListener(String suggestion) {
+        if(mActivity.searchPopup != null && mActivity.searchPopup.isShowing()) {
+            mActivity.searchPopup.dismiss();
+        }
         new SearchTask(mActivity).execute(suggestion);
     }
 }

@@ -75,8 +75,7 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
             holder.tvResultCount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    homeActivity.executeSearchTask(item.keyword);
-                    //mActivity.onBackPressed();
+                    search(item);
                 }
             });
         } else {
@@ -86,8 +85,7 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                homeActivity.executeSearchTask(item.keyword);
-                mActivity.onBackPressed();
+                search(item);
             }
         });
 
@@ -96,6 +94,13 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
         prevItem = position;
 
         return view;
+    }
+
+    public void search(SearchItem item) {
+        if(homeActivity.searchPopup != null && homeActivity.searchPopup.isShowing()) {
+            homeActivity.searchPopup.dismiss();
+        }
+        homeActivity.executeSearchTask(item.keyword);
     }
 
     private static class Holder {

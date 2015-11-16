@@ -89,7 +89,7 @@
                 <ListView
                     android:id="@+id/list_recent_searches"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:divider="@color/grey"
                     android:dividerHeight="1dp"
@@ -101,6 +101,7 @@
                     android:id="@+id/layout_popular_searches"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:orientation="vertical">
 
                     <TextView
