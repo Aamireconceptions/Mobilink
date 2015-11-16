@@ -76,7 +76,7 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
                 @Override
                 public void onClick(View v) {
                     homeActivity.executeSearchTask(item.keyword);
-                    mActivity.onBackPressed();
+                    //mActivity.onBackPressed();
                 }
             });
         } else {
