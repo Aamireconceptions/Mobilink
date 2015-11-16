@@ -365,6 +365,34 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         boolean isArabic = BizStore.getLanguage().equals("ar");
         mActionBar.setLogo(isArabic ? R.drawable.ic_bizstore_arabic : R.drawable.ic_bizstore);
+
+        View logoView = getToolbarLogoIcon(toolbar);
+        logoView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logger.print("Logo clicked");
+                selectTab(0);
+            }
+        });
+    }
+
+    public static View getToolbarLogoIcon(Toolbar toolbar){
+        //check if contentDescription previously was set
+        boolean hadContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        String contentDescription = String.valueOf(!hadContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
+        toolbar.setLogoDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<View>();
+        //find the view based on it's content description, set programatically or with android:contentDescription
+        toolbar.findViewsWithText(potentialViews, contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        //Nav icon is always instantiated at this point because calling setLogoDescription ensures its existence
+        View logoIcon = null;
+        if(potentialViews.size() > 0){
+            logoIcon = potentialViews.get(0);
+        }
+        //Clear content description if not previously present
+        if(hadContentDescription)
+            toolbar.setLogoDescription(null);
+        return logoIcon;
     }
 
     private void setupTabs() {
@@ -778,6 +806,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         intent.putExtra(CATEGORY, dealCategory);
         startActivity(intent);
     }
+
+
 
     private Fragment currentFragment;
 

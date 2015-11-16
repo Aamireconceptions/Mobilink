@@ -15,7 +15,7 @@ public class Brand implements Serializable
     @SerializedName("images")
     public Image image;*/
 
-    public int id;
+    public int id, businessId;
 
     public int views;
 

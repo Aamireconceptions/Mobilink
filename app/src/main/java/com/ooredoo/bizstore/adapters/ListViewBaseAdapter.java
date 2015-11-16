@@ -2,12 +2,14 @@ package com.ooredoo.bizstore.adapters;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,12 +28,17 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ooredoo.bizstore.BizStore;
@@ -428,6 +435,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 }
             }
 
+            holder.tvDirections.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    genericDeal = deal;
+                    startDirections();
+                }
+            });
+
             if((deal.latitude != 0 && deal.longitude != 0)
                     && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
             {
@@ -462,6 +477,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand, brands);
 
                 NonScrollableGridView gridView = new NonScrollableGridView(context, null);
+               // gridView.setHorizontalSpacing(-30);
+                //gridView.setVerticalSpacing(-30);
 
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -480,8 +497,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     }
                 });
                 gridView.setNumColumns(3);
-                gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._10sdp));
-                gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._10sdp));
+                gridView.setHorizontalSpacing(-(int) resources.getDimension(R.dimen._5sdp));
+                //gridView.setVerticalSpacing(-(int) resources.getDimension(R.dimen._5sdp));
 
                 gridView.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -535,11 +552,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     private void populateMap(List<GenericDeal> deals)
     {
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for(final GenericDeal deal : deals)
         {
             //Image image = deal.image;
 
             String businessLogoUrl = deal.businessLogo;
+
+            builder.include(new LatLng(deal.latitude, deal.longitude));
 
             if(businessLogoUrl != null) {
                 final String url = BaseAsyncTask.IMAGE_BASE_URL + businessLogoUrl;
@@ -574,6 +594,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 addMarker(null, deal);
             }
         }
+
+        builder.include(new LatLng(HomeActivity.lat, HomeActivity.lng));
+
+        LatLngBounds bounds = builder.build();
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, resources.getDisplayMetrics().widthPixels, resources.getDisplayMetrics().heightPixels - 120, 10);
+
+        googleMap.animateCamera(cameraUpdate);
     }
     private void addMarker(Bitmap bitmap, GenericDeal deal)
     {
@@ -886,5 +914,62 @@ public class ListViewBaseAdapter extends BaseAdapter {
         ProgressBar progressBar;
 
         RelativeLayout rlPromotionalLayout;
+    }
+
+    private void startDirections()
+    {
+        double mLat = HomeActivity.lat;
+        double mLong = HomeActivity.lng;
+
+        String src = null, dest = null;
+
+        if(mLat != 0 && mLong != 0)
+        {
+            src = "saddr=" + mLat + "," + mLong + "&";
+        }
+
+        if(genericDeal.latitude != 0 && genericDeal.longitude != 0)
+        {
+            dest = "daddr="+genericDeal.latitude + "," + genericDeal.longitude;
+        }
+
+        String uri = "http://maps.google.com/maps?";
+
+        if(src != null)
+        {
+            uri += src;
+        }
+
+        if(dest != null)
+        {
+            uri += dest;
+        }
+
+        System.out.println("Directions URI:"+uri);
+
+        if(src == null)
+        {
+            Toast.makeText(context, "Location not available. Please enable location services!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        if(dest == null)
+        {
+            Toast.makeText(context, "Deal location is not available!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+
+        try
+        {
+            context.startActivity(intent);
+        }
+        catch (ActivityNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

@@ -156,6 +156,7 @@
             android:text="Amir Adnan"
             android:singleLine="true"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@color/red"/>
 

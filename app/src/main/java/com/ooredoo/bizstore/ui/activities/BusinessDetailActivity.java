@@ -132,9 +132,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     View header;
     SnackBarUtils snackBarUtils;
     private void initViews() {
-        /*id = intent.getIntExtra(AppConstant.ID, 0);
+        id = intent.getIntExtra(AppConstant.ID, -1);
 
-        Logger.logI("DETAIL_ID", valueOf(id));*/
+        Logger.print("businessId business"+ id);
 
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -166,7 +166,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
-        if(src != null && id != -1)
+        if(src == null && id != -1)
         {
             BusinessDetailTask detailTask = new BusinessDetailTask(this, null, snackBarUtils);
             detailTask.execute(String.valueOf(id));

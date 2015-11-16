@@ -273,7 +273,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
             swipeRefreshLayout.setEnabled(false);
         }
 
-        adapter.notifyDataSetChanged();
+       adapter.notifyDataSetChanged();
 
         fetchAndDisplayFoodAndDining(progressBar);
     }

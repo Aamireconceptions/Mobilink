@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -248,6 +249,7 @@ packageName = getPackageName();
         }
     }
 
+    Button btSimilarDeals;
     ImageView ivDetail;
     ProgressBar progressBar;
     public void populateData(final GenericDeal deal) {
@@ -347,7 +349,19 @@ packageName = getPackageName();
                 tvDiscount.setVisibility(View.VISIBLE);
             }
 
+            Logger.print("businessId Deal,"+deal.businessId);
             final ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
+            ivBrandLogo.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setClass(DealDetailActivity.this, BusinessDetailActivity.class);
+
+                    intent.putExtra(CATEGORY, "");
+                    intent.putExtra(AppConstant.ID, deal.businessId);
+                    startActivity(intent);
+                }
+            });
 
             String brandLogo = deal.businessLogo;
 
@@ -435,7 +449,7 @@ packageName = getPackageName();
 
             tvDiscount.setText(discount);
 
-            Button btSimilarDeals = (Button) header.findViewById(R.id.similar_deals);
+            btSimilarDeals = (Button) header.findViewById(R.id.similar_deals);
             btSimilarDeals.setOnClickListener(this);
            // btSimilarDeals.performClick();
 
@@ -602,6 +616,16 @@ packageName = getPackageName();
                // listView.smoothScrollToPosition(1);
 
                 listView.setSelection(1);
+               // listView.scrollTo(0, btSimilarDeals.getTop() - btSimilarDeals.getHeight());
+
+                /*new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.smoothScrollToPositionFromTop(1,
+                                200, 2000);
+                    }
+                }, 2000);*/
+
 //listView.requestFocusFromTouch();
 
                 //similarAdapter.notifyDataSetChanged();
@@ -620,6 +644,18 @@ packageName = getPackageName();
                             nearbyAdapter.setListingType("deals");
 
                             listView.setAdapter(nearbyAdapter);
+                           /* listView.smoothScrollToPositionFromTop(2,
+                                    0, 00);*/
+                            /*new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    listView.smoothScrollToPositionFromTop(2,
+                                            0, 00);
+                                }
+                            }, 0);
+                            */
+
+
 
                             listView.setSelection(1);
                             //listView.scrollBy(0,  llSimilarNearby.getTop() - 100);

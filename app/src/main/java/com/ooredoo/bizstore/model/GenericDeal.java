@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class GenericDeal implements Serializable{
 
-    public int id, views, discount, is_exclusive;
+    public int id, views, discount, is_exclusive, businessId;
 
     public String description, startDate, endDate, voucher, status, redeemedOn, businessLogo, businessName;
 

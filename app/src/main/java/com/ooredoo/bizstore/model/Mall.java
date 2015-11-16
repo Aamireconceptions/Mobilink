@@ -18,7 +18,7 @@ public class Mall implements Serializable
     public Image image;*/
 
 
-    public int id, views;
+    public int id, views, businessId;
 
     public String title, description, location, contact, address;
 

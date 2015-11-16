@@ -9,8 +9,8 @@
     android:paddingTop="@dimen/_6sdp">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp">
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp">
 
         <ImageView
             android:id="@+id/image_view"
@@ -18,7 +18,6 @@
             android:layout_height="match_parent"
             android:padding="1dp"
             android:focusableInTouchMode="false"
-
             android:background="@drawable/box"/>
 
         <ProgressBar
