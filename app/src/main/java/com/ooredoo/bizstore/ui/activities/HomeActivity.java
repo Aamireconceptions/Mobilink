@@ -80,6 +80,7 @@ import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
@@ -225,6 +226,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         BizStore.forceStopTasks = false;
 
+        checkIfGpsEnabled();
         // startSubscriptionCheck();
     }
 
@@ -506,6 +508,18 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         CheckBox discountCheckBox = (CheckBox) findViewById(R.id.cb_highest_discount);
         discountCheckBox.setChecked(doApplyDiscount);
         discountCheckBox.setText(getString(R.string.sort_discount));
+    }
+
+    private void checkIfGpsEnabled()
+    {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                &&
+                !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+        {
+            DialogUtils.createLocationDialog(this).show();
+        }
     }
 
     private void registeredWithGcmIfRequired() {

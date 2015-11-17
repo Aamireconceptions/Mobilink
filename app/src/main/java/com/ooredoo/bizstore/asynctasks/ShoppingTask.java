@@ -15,6 +15,7 @@ import com.ooredoo.bizstore.model.BrandResponse;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NetworkUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -50,6 +51,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
     private OnDealsTaskFinishedListener dealsTaskFinishedListener;
 
+    private ShoppingFragment shoppingFragment;
+
     public static String sortColumn = "createdate";
 
     public static String subCategories;
@@ -69,6 +72,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         this.snackBarUtils = snackBarUtils;
 
         dealsTaskFinishedListener = (OnDealsTaskFinishedListener) fragment;
+
+        this.shoppingFragment = (ShoppingFragment) fragment;
     }
 
     @Override
@@ -158,8 +163,11 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
                     {
                         if(brand.brands != null)
                         {
-                            adapter.setBrandsList(brand.brands);
-                            adapter.notifyDataSetChanged();
+
+                            //adapter.setBrandsList(brand.brands);
+                            //adapter.notifyDataSetChanged();
+
+                            shoppingFragment.showBrands(brand.brands);
                         }
                     }
                     else

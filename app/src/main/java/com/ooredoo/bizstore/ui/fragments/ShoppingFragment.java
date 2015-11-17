@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
+import com.ooredoo.bizstore.adapters.SimilarBrandsAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
@@ -25,6 +26,7 @@ import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
@@ -194,14 +196,24 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         if(ShoppingTask.sortColumn.equals("createdate"))
         {
+            gridView.setAdapter(adapter);
+            gridView.setNumColumns(2);
             adapter.setListingType("deals");
         }
         else
         {
+
+            gridView.setNumColumns(3);
             adapter.setListingType("brands");
         }
 
         loadDeals(progressBar);
+    }
+
+    public void showBrands(List<Brand> brands)
+    {
+        SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(activity, R.layout.grid_brand, brands);
+        gridView.setAdapter(adapter);
     }
 
     @Override

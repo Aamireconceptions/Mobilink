@@ -595,13 +595,17 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
         }
 
-        builder.include(new LatLng(HomeActivity.lat, HomeActivity.lng));
+        if(deals.size() > 0)
+        {
+            builder.include(new LatLng(HomeActivity.lat, HomeActivity.lng));
 
-        LatLngBounds bounds = builder.build();
+            LatLngBounds bounds = builder.build();
 
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, resources.getDisplayMetrics().widthPixels, resources.getDisplayMetrics().heightPixels - 120, 10);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, resources.getDisplayMetrics().widthPixels, resources.getDisplayMetrics().heightPixels - 120, 10);
 
-        googleMap.animateCamera(cameraUpdate);
+            googleMap.animateCamera(cameraUpdate);
+        }
+
     }
     private void addMarker(Bitmap bitmap, GenericDeal deal)
     {

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_145sdp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_white_rounded"
+        android:padding="@dimen/_24sdp">
+
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@android:color/secondary_text_light"
+            android:text="Location not available! Let's enable it."
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_34sdp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="OK"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_red"/>
+    </RelativeLayout>
+
