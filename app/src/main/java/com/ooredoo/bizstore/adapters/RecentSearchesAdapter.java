@@ -97,9 +97,6 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
     }
 
     public void search(SearchItem item) {
-        if(homeActivity.searchPopup != null && homeActivity.searchPopup.isShowing()) {
-            homeActivity.searchPopup.dismiss();
-        }
         homeActivity.executeSearchTask(item.keyword);
     }
 

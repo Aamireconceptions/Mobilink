@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
 import java.util.List;
@@ -57,9 +56,6 @@ public class SearchSuggestionsAdapter extends ArrayAdapter<String> {
     }
 
     protected void setClickListener(String suggestion) {
-        if(mActivity.searchPopup != null && mActivity.searchPopup.isShowing()) {
-            mActivity.searchPopup.dismiss();
-        }
-        new SearchTask(mActivity).execute(suggestion);
+        mActivity.executeSearchTask(suggestion);
     }
 }

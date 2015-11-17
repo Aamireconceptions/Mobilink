@@ -44,7 +44,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.google.android.gms.common.ConnectionResult;
@@ -277,8 +276,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchDeals = (TextView) findViewById(R.id.search_deals);
         searchBusinesses = (TextView) findViewById(R.id.search_business);
 
-        searchDeals.setSelected(searchType.equals("deals"));
-        searchBusinesses.setSelected(!searchType.equals("deals"));
+        setSearchCheckboxSelection();
 
         searchDeals.setOnClickListener(this);
         searchBusinesses.setOnClickListener(this);
@@ -338,6 +336,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public void setSearchSuggestions(List<String> list) {
         mSearchSuggestionsAdapter = new SearchSuggestionsAdapter(this, R.layout.list_search_suggestion, list);
         mSearchSuggestionListView.setAdapter(mSearchSuggestionsAdapter);
+        int height = (int) Converter.convertDpToPixels(160);
+        if(list != null && list.size() > 3) {
+            mSearchSuggestionListView.getLayoutParams().height = height;
+        }
         mSearchSuggestionListView.setVisibility(View.VISIBLE);
     }
 
@@ -841,16 +843,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void populateSearchResults(List<SearchResult> searchResultList) {
-        if(searchResultList.size() > 0) {
+        //if(searchResultList.size() > 0) {
             mSearchResultsAdapter = new SearchBaseAdapter(this, R.layout.list_deal_promotional, searchResultList);
             mSearchResultsListView.setAdapter(mSearchResultsAdapter);
-            mSearchResultsAdapter.setData(searchResultList);
-            mSearchResultsAdapter.notifyDataSetChanged();
-        } else {
+        //mSearchResultsAdapter.setData(searchResultList);
+        //mSearchResultsAdapter.notifyDataSetChanged();
+        /*} else {
             Toast.makeText(getApplicationContext(), R.string.error_no_data, LENGTH_SHORT).show();
             hideSearchResults();
             showHideSearchBar(true);
-        }
+        }*/
     }
 
     public void setupSearchResults(String keyword, List<SearchResult> results, boolean isKeywordSearch) {
@@ -873,10 +875,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         HomeActivity.isShowResults = true;
         populateSearchResults(results);
 
+        findViewById(R.id.layout_popular_searches).setAlpha(MAX_ALPHA);
+
         mRecentSearchListView.setVisibility(View.GONE);
         findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
         findViewById(R.id.lv_search_results).setVisibility(View.VISIBLE);
-        findViewById(R.id.grid_popular_searches).setVisibility(View.GONE);
+        findViewById(R.id.layout_popular_searches).setVisibility(View.GONE);
         findViewById(R.id.layout_search_filter).setVisibility(View.VISIBLE);
 
         searchDeals.setText(getDealsCount() + " " + getString(R.string.deals));
@@ -910,7 +914,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void executeSearchTask(String keyword) {
-        //new SearchTask(this).execute(keyword);
+        if(searchPopup != null && searchPopup.isShowing()) {
+            searchPopup.dismiss();
+        }
+        searchType = "deals";
+        setSearchCheckboxSelection();
         new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
     }
 
@@ -932,16 +940,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                 } else {
                     String filter = edt.toString();
                     List<String> filterResults = new ArrayList<>();
-                    for(String suggestion : AppData.searchSuggestions.list) {
-                        if(suggestion.startsWith(filter)) {
-                            filterResults.add(suggestion);
+                    if(AppData.searchSuggestions != null) {
+                        for(String suggestion : AppData.searchSuggestions.list) {
+                            if(suggestion.startsWith(filter)) {
+                                filterResults.add(suggestion);
+                            }
                         }
                     }
                     setSearchSuggestions(filterResults);
                     if(!searchPopup.isShowing()) {
                         mRecentSearchListView.setAlpha(0f);
                         findViewById(R.id.layout_popular_searches).setAlpha(0f);
-                        searchPopup.showAsDropDown(acSearch, 25, 50);
+                        int offset = (int) Converter.convertDpToPixels(15);
+                        searchPopup.showAsDropDown(acSearch, 0, offset);
                     }
                 }
             }
@@ -964,9 +975,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(hasInternetConnection(this)) {
             String keyword = v.getText().toString();
             if(isNotNullOrEmpty(keyword)) {
-                mSearchSuggestionListView.setVisibility(View.GONE);
                 Logger.print("SEARCH_KEYWORD: " + keyword);
-                new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
+                executeSearchTask(keyword);
             } else {
                 makeText(acSearch.getContext(), getString(R.string.error_search_term), LENGTH_SHORT).show();
             }
