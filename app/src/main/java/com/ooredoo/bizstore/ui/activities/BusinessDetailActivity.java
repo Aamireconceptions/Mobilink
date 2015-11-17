@@ -231,6 +231,13 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 tvDirections.setOnClickListener(this);
 
                 TextView tvDistance= (TextView) findViewById(R.id.distance);
+                tvDistance.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        startDirections();
+                    }
+                });
 
                 tvDistance.setText(String.format("%.2f",results[0]) + " km away");
             }

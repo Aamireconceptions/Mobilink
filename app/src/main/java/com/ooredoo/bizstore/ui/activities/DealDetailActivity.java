@@ -349,6 +349,9 @@ packageName = getPackageName();
                 tvDiscount.setVisibility(View.VISIBLE);
             }
 
+            ((TextView) header.findViewById(R.id.city)).setText(deal.location);
+            ((TextView) header.findViewById(R.id.city)).setText("doha");
+
             Logger.print("businessId Deal,"+deal.businessId);
             final ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
             ivBrandLogo.setOnClickListener(new OnClickListener() {
@@ -831,6 +834,15 @@ packageName = getPackageName();
    public void onHaveData()
    {
        llSimilarNearby.setVisibility(View.VISIBLE);
+
+       btSimilarDeals.setSelected(true);
+
+       lastSelected = btSimilarDeals;
+
+       similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
+       similarAdapter.setListingType("deals");
+
+       listView.setAdapter(similarAdapter);
    }
 
     public void onNoData()

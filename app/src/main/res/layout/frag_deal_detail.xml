@@ -107,8 +107,8 @@
                     android:id="@+id/directions_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="106dp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_8sdp"
                     android:gravity="center_vertical"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
@@ -298,7 +298,7 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
-                android:background="@drawable/list_border_head">
+                android:background="@drawable/subheading_bg">
 
                 <TextView
                     android:id="@+id/city"
@@ -318,6 +318,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="@dimen/_5sdp"
                     android:textColor="@color/red"
+                    android:textSize="12sp"
                     android:textStyle="bold"/>
 
 
@@ -417,7 +418,7 @@
                     android:src="@drawable/ic_next_arrow"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
 
 
 

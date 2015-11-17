@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
 
                 android:textAllCaps="true"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:singleLine="true"
                 android:ellipsize="end"/>
 
@@ -86,6 +86,7 @@
             android:layout_alignParentEnd="true"
             android:drawableTop="@drawable/ic_directions_big"
             android:textSize="10sp"
+            android:textStyle="bold"
             android:textColor="@color/random"
             android:gravity="center"/>
 
@@ -136,8 +137,6 @@
 
     </RelativeLayout>
 
-
-
     <LinearLayout
         android:id="@+id/layout_deal_detail"
         android:layout_width="match_parent"
@@ -145,6 +144,8 @@
         android:gravity="center_vertical"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp"
         android:orientation="vertical"
         android:background="@drawable/list_border_footer">
 
@@ -152,7 +153,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
+
             android:text="Amir Adnan"
             android:singleLine="true"
             android:textSize="16sp"
@@ -164,10 +165,10 @@
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_2sdp"
+
+            android:layout_marginTop="@dimen/_3sdp"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:text="Amir Adnan Wedding Coture Package 2015 - Sherwani, Inner, Lawn, Suite, etc"
             android:maxLines="1"
             android:ellipsize="end"/>
