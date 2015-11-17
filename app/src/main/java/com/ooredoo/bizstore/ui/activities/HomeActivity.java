@@ -674,11 +674,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void setRecentSearches() {
-        List<SearchItem> searchItems = new Select().all().from(SearchItem.class).execute();
+        List<SearchItem> searchItems = new Select().all().from(SearchItem.class).orderBy("id").execute();
         Logger.print("RECENT_SEARCH_ITEM_COUNT: " + searchItems.size());
         mRecentSearchesAdapter = new RecentSearchesAdapter(this, R.layout.list_item_recent_search, searchItems);
         mRecentSearchesAdapter.setShowResultCount(false);
         mRecentSearchListView.setAdapter(mRecentSearchesAdapter);
+        int height = (int) Converter.convertDpToPixels(160);
+        if(searchItems.size() > 3) {
+            mRecentSearchListView.getLayoutParams().height = height;
+        }
         mRecentSearchListView.setVisibility(searchItems.size() == 0 ? View.GONE : View.VISIBLE);
     }
 
@@ -922,12 +926,22 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         public void afterTextChanged(Editable edt) {
             if(isSearchTextWatcherEnabled) {
                 if(edt.toString().length() == 0) {
+                    mRecentSearchListView.setAlpha(MAX_ALPHA);
+                    findViewById(R.id.layout_popular_searches).setAlpha(MAX_ALPHA);
                     searchPopup.dismiss();
                 } else {
-                    mSearchSuggestionsAdapter.getFilter().filter(edt.toString());
-                    mSearchSuggestionsAdapter.notifyDataSetChanged();
+                    String filter = edt.toString();
+                    List<String> filterResults = new ArrayList<>();
+                    for(String suggestion : AppData.searchSuggestions.list) {
+                        if(suggestion.startsWith(filter)) {
+                            filterResults.add(suggestion);
+                        }
+                    }
+                    setSearchSuggestions(filterResults);
                     if(!searchPopup.isShowing()) {
-                        searchPopup.showAsDropDown(acSearch, 25, 25);
+                        mRecentSearchListView.setAlpha(0f);
+                        findViewById(R.id.layout_popular_searches).setAlpha(0f);
+                        searchPopup.showAsDropDown(acSearch, 25, 50);
                     }
                 }
             }
