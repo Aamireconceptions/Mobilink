@@ -25,6 +25,8 @@ public class Brand implements Serializable
 
     public float rating;
 
+    public int color = 0;
+
     public boolean isFavorite;
 
     @SerializedName("images")

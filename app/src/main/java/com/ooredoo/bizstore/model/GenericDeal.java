@@ -18,9 +18,12 @@ public class GenericDeal implements Serializable{
 
     public String title, category, contact, address, location,  brandAddress, timing;
 
+   // public List<String> locations;
 
     @SerializedName("images")
     public Image image;
+
+    public int color = -1;
 
     public boolean isFav;
 

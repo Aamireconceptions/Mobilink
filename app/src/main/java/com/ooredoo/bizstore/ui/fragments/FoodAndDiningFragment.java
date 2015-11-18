@@ -166,8 +166,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
             adapter.setListingType("brands");
         }
         fetchAndDisplayFoodAndDining(progressBar);
-
-
     }
 
     @Override
@@ -201,7 +199,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
-        rlHeader.setVisibility(View.GONE);
+        //rlHeader.setVisibility(View.GONE);
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);

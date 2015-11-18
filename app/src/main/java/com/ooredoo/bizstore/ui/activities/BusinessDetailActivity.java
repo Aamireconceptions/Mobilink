@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -49,6 +50,7 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -134,7 +136,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     private void initViews() {
         id = intent.getIntExtra(AppConstant.ID, -1);
 
-        Logger.print("businessId business"+ id);
+        Logger.print("businessId business, "+ id);
 
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -202,6 +204,14 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
             id = business.id;
             mBusiness = business;
+
+            RelativeLayout rlDescription = (RelativeLayout) findViewById(R.id.description_layout);
+
+            if(mBusiness.description == null || mBusiness.description.isEmpty())
+            {
+                rlDescription.setVisibility(View.GONE);
+            }
+
             LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
                 @Override
@@ -293,7 +303,11 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             }
             else
             {
-                ivBrandLogo.setVisibility(View.GONE);
+                //ivBrandLogo.setVisibility(View.GONE);
+
+                TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
+                tvBrandTxt.setBackgroundColor(business.color);
+                tvBrandTxt.setText(String.valueOf(business.title.charAt(0)));
             }
 
             groupList = new ArrayList<>();
@@ -726,5 +740,48 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         {
             e.printStackTrace();
         }
+    }
+
+    public String getColorCode()
+    {
+        int min = 1;
+        int max = 8;
+
+        Random random = new Random();
+
+        int i = random.nextInt(max - min) + min;
+
+        Logger.print("random: " + i);
+
+        String color = null;
+        switch (i)
+        {
+            case 1:
+                color = "#90a4ae";
+                break;
+            case 2:
+                color = "#ff8a65";
+                break;
+            case 3:
+                color = "#ba68c8";
+                break;
+            case 4:
+                color = "#da4336";
+                break;
+            case 5:
+                color = "#4fc3f7";
+                break;
+            case 6:
+                color = "#ffa726";
+                break;
+            case 7:
+                color = "#aed581";
+                break;
+            case 8:
+                color = "#b39ddb";
+                break;
+        }
+
+        return color;
     }
 }

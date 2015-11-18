@@ -18,27 +18,25 @@
 
         <FrameLayout
             android:id="@+id/logo_frame"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
             android:layout_centerVertical="true"
-            android:background="@drawable/box">
+            android:padding="@dimen/_1sdp">
 
             <ImageView
                 android:id="@+id/brand_logo"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-
-                />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/business_border" />
 
             <TextView
                 android:id="@+id/brand_txt"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-     android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="24sp"
-                android:background="@color/red"
+                android:textSize="30sp"
                 android:visibility="gone"/>
 
         </FrameLayout>
@@ -59,7 +57,6 @@
             android:id="@+id/brand_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:singleLine="true"
             android:textAllCaps="true"
             android:textColor="@color/black"
@@ -73,6 +70,7 @@
 
                 android:textAllCaps="true"
                 android:textSize="10sp"
+                android:textColor="@color/slight_grey"
                 android:singleLine="true"
                 android:ellipsize="end"/>
 
@@ -87,7 +85,7 @@
             android:drawableTop="@drawable/ic_directions_big"
             android:textSize="10sp"
             android:textStyle="bold"
-            android:textColor="@color/random"
+            android:textColor="@color/orange"
             android:gravity="center"/>
 
     </RelativeLayout>
@@ -100,11 +98,10 @@
         <ImageView
             android:id="@+id/promotional_banner"
             android:layout_width="match_parent"
-            android:padding="1dp"
+            android:padding="0dp"
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
-            android:src="@drawable/deal_banner"
-            android:background="@drawable/list_border"/>
+            android:src="@drawable/deal_banner" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -165,8 +162,8 @@
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_marginTop="@dimen/_3sdp"
+            android:gravity="top"
+            android:layout_marginTop="@dimen/_2sdp"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:text="Amir Adnan Wedding Coture Package 2015 - Sherwani, Inner, Lawn, Suite, etc"

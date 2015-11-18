@@ -147,6 +147,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                         List<GenericDeal> deals = response.deals;
 
                         if (deals != null) {
+                            //adapter.clearData();
                             adapter.setData(deals);
 
                             String bannerUrl = response.topBannerUrl;
@@ -187,6 +188,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                     {
                         if(brand.brands != null)
                         {
+                           // adapter.clearData();
                             adapter.setBrandsList(brand.brands);
                             adapter.notifyDataSetChanged();
                         }
@@ -227,7 +229,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
            // HomeActivity.lng = 51.563376;
 
             params.put("lat", String.valueOf(HomeActivity.lat));
-            params.put("long", String.valueOf(HomeActivity.lng));
+            params.put("lng", String.valueOf(HomeActivity.lng));
         }
         else
         {

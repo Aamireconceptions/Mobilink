@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/_170sdp"
+              android:layout_height="@dimen/_160sdp"
     android:background="@drawable/grid_white_bg">
 
     <RelativeLayout
@@ -17,6 +17,26 @@
             android:scaleType="fitXY"
             android:background="@drawable/box"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/discount_tag"
+            android:src="@drawable/list_discount_tag"/>
+
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="50%\noff"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:rotation="-40"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="24dp"
@@ -30,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/fav_selector"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"/>
 
@@ -65,7 +85,7 @@
             android:maxLines="1"
             android:ellipsize="end"/>
 
-        <TextView
+        <!--<TextView
             android:id="@+id/discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +93,7 @@
             android:text="30% off"
             android:textAllCaps="true"
             android:visibility="gone"
-            android:textColor="@color/red"/>
+            android:textColor="@color/red"/>-->
 
     </LinearLayout>
 

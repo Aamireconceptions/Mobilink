@@ -18,9 +18,12 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="tab_text_color">#F5F5F5</color>
 <color name="congrats_color">#ed1c24</color>
+    <color name="orange">#f26522</color>
+    <color name="slight_grey">#838383</color>
     <drawable name="red">@color/red</drawable>
     <drawable name="transparent">@color/transparent</drawable>
     <drawable name="grey">@color/grey</drawable>
+
 
 
 </resources>

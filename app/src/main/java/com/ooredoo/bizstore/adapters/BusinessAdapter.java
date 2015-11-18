@@ -153,7 +153,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
         }
         else
         {
-            textView.setBackgroundColor(resources.getColor(R.color.random));
+            textView.setBackgroundColor(resources.getColor(R.color.orange));
         }
 
 

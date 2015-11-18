@@ -284,7 +284,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         homePagerAdapter = new HomePagerAdapter(this, getFragmentManager());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
 
         drawerLayout.setDrawerListener(mDrawerListener);
 

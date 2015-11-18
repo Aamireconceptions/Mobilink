@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -26,6 +28,7 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static java.lang.String.valueOf;
 
@@ -134,6 +137,7 @@ public class GridViewBaseAdapter extends BaseAdapter
                 holder.tvTitle = (TextView) grid.findViewById(R.id.title);
                 holder.tvDiscount = (TextView) grid.findViewById(R.id.discount);
                 holder.progressBar = (ProgressBar) grid.findViewById(R.id.progress_bar);
+                holder.ivDiscountTag = (ImageView) grid.findViewById(R.id.discount_tag);
 
                 grid.setTag(holder);
             } else {
@@ -141,6 +145,32 @@ public class GridViewBaseAdapter extends BaseAdapter
             }
 
             final GenericDeal deal = (GenericDeal) getItem(position);
+
+            if(deal.color == 0)
+            {
+                deal.color = Color.parseColor(getColorCode());
+            }
+
+            if(deal.discount == 0) {
+                holder.tvDiscount.setVisibility(View.GONE);
+                holder.ivDiscountTag.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.tvDiscount.setVisibility(View.VISIBLE);
+                holder.ivDiscountTag.setVisibility(View.VISIBLE);
+            }
+
+            holder.tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
+
+            if(BizStore.getLanguage().equals("en"))
+            {
+                holder.tvDiscount.setRotation(-40);
+            }
+            else
+            {
+                holder.tvDiscount.setRotation(40);
+            }
 
             deal.isFav = Favorite.isFavorite(deal.id);
 
@@ -213,6 +243,11 @@ public class GridViewBaseAdapter extends BaseAdapter
                 }
 
                 final Brand brand = (Brand) getItem(position);
+
+                if(brand.color == 0)
+                {
+                    brand.color = Color.parseColor(getColorCode());
+                }
 
                 brand.isFavorite = Favorite.isFavorite(brand.id);
 
@@ -350,10 +385,54 @@ public class GridViewBaseAdapter extends BaseAdapter
 
     private static class Holder
     {
-        ImageView ivThumbnail, ivFav;
+        ImageView ivThumbnail, ivFav, ivDiscountTag;
 
         TextView tvTitle, tvDiscount, tvDesc;
 
         ProgressBar progressBar;
+
+    }
+
+    public String getColorCode()
+    {
+        int min = 1;
+        int max = 8;
+
+        Random random = new Random();
+
+        int i = random.nextInt(max - min) + min;
+
+        Logger.print("random: "+i);
+
+        String color = null;
+        switch (i)
+        {
+            case 1:
+                color = "#90a4ae";
+                break;
+            case 2:
+                color = "#ff8a65";
+                break;
+            case 3:
+                color = "#ba68c8";
+                break;
+            case 4:
+                color = "#da4336";
+                break;
+            case 5:
+                color = "#4fc3f7";
+                break;
+            case 6:
+                color = "#ffa726";
+                break;
+            case 7:
+                color = "#aed581";
+                break;
+            case 8:
+                color = "#b39ddb";
+                break;
+        }
+
+        return color;
     }
 }

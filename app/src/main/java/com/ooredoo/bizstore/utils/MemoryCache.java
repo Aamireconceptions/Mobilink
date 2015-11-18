@@ -89,6 +89,7 @@ public class MemoryCache
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.gridBannerUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.promotionalUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.logoUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.businessLogo);
         }
 
         Logger.print("remove Memory");
@@ -104,6 +105,7 @@ public class MemoryCache
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.gridBannerUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.promotionalUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.logoUrl);
+            lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.businessLogo);
         }
     }
 

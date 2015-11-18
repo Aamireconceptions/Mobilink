@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.ui.fragments;
 import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
+
+import java.util.Random;
 
 import static com.ooredoo.bizstore.AppConstant.BUSINESS;
 import static com.ooredoo.bizstore.AppConstant.DEAL;
@@ -76,6 +79,11 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
         Bundle bundle = getArguments();
 
         brand = (Brand) bundle.getSerializable("brand");
+
+        if(brand.color == 0)
+        {
+            brand.color = Color.parseColor(getColorCode());
+        }
 
         String imgUrl = brand.image.logoUrl;
 
@@ -181,4 +189,48 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
         brand.views += 1;
         activity.showBusinessDetailActivity(DEAL_CATEGORIES[1], new Business(brand));
     }
+
+    public String getColorCode()
+    {
+        int min = 1;
+        int max = 8;
+
+        Random random = new Random();
+
+        int i = random.nextInt(max - min) + min;
+
+        Logger.print("random: "+i);
+
+        String color = null;
+        switch (i)
+        {
+            case 1:
+                color = "#90a4ae";
+                break;
+            case 2:
+                color = "#ff8a65";
+                break;
+            case 3:
+                color = "#ba68c8";
+                break;
+            case 4:
+                color = "#da4336";
+                break;
+            case 5:
+                color = "#4fc3f7";
+                break;
+            case 6:
+                color = "#ffa726";
+                break;
+            case 7:
+                color = "#aed581";
+                break;
+            case 8:
+                color = "#b39ddb";
+                break;
+        }
+
+        return color;
+    }
+
 }

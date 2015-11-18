@@ -17,6 +17,7 @@ public class Mall implements Serializable
     @SerializedName("images")
     public Image image;*/
 
+  public int color;
 
     public int id, views, businessId;
 

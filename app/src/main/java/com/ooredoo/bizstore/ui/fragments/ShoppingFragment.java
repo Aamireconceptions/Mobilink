@@ -199,12 +199,18 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             gridView.setAdapter(adapter);
             gridView.setNumColumns(2);
             adapter.setListingType("deals");
+
+            gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._6sdp));
+            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));
         }
         else
         {
 
             gridView.setNumColumns(3);
             adapter.setListingType("brands");
+
+            gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._8sdp));
+            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._10sdp));
         }
 
         loadDeals(progressBar);

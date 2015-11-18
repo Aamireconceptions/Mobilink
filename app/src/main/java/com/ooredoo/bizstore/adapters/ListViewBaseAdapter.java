@@ -186,6 +186,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
         {
             deals.clear();
         }
+
+        if(this.brands != null)
+        {
+            brands.clear();
+        }
     }
 
 
@@ -301,8 +306,13 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder.tvBrandText.setVisibility(View.VISIBLE);
                 if(deal.businessName != null)
                 {
+                    if(deal.color == 0)
+                    {
+                        deal.color = Color.parseColor(getColorCode());
+                    }
+
                     holder.tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
-                    holder.tvBrandText.setBackgroundColor(Color.parseColor(getColorCode()));
+                    holder.tvBrandText.setBackgroundColor(deal.color);
                 }
 
                 holder.ivBrand.setImageBitmap(null);
@@ -497,7 +507,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     }
                 });
                 gridView.setNumColumns(3);
-                gridView.setHorizontalSpacing(-(int) resources.getDimension(R.dimen._5sdp));
+                gridView.setHorizontalSpacing(-(int) resources.getDimension(R.dimen._4sdp));
+                gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._10sdp));
+               // gridView.setHorizontalSpacing(-(int) resources.getDimension(R.dimen._5sdp));
                 //gridView.setVerticalSpacing(-(int) resources.getDimension(R.dimen._5sdp));
 
                 gridView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -510,9 +522,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
             if(listingType.equals("map"))
             {
 
-
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
-                        resources.getDisplayMetrics().heightPixels - 120);
+                        resources.getDisplayMetrics().heightPixels - (int) resources.getDimension(R.dimen._140sdp));
 
                 mapView.setLayoutParams(params);
 
@@ -601,7 +612,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             LatLngBounds bounds = builder.build();
 
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, resources.getDisplayMetrics().widthPixels, resources.getDisplayMetrics().heightPixels - 120, 10);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, resources.getDisplayMetrics().widthPixels,
+                    resources.getDisplayMetrics().heightPixels - (int) resources.getDimension(R.dimen._140sdp), 150);
 
             googleMap.animateCamera(cameraUpdate);
         }

@@ -27,6 +27,8 @@ public class Business  implements Serializable{
 
     public double latitude, longitude;
 
+    public int color;
+
     public String type;
 
     @SerializedName("menu")
@@ -50,6 +52,8 @@ public class Business  implements Serializable{
         this.address = mall.address;
         this.location = mall.location;
         this.description = mall.description;
+
+        this.color = mall.color;
 
         this.image = mall.image;
     }
@@ -89,6 +93,8 @@ public class Business  implements Serializable{
         this.longitude = brand.longitude;
 
         this.image = brand.image;
+
+        this.color = brand.color;
     }
 
     public Business(SearchResult result) {

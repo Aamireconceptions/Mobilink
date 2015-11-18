@@ -67,15 +67,21 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         progressBar.setVisibility(View.GONE);
         if(result != null)
         {
-            Gson gson = new Gson();
+            try {
+                Gson gson = new Gson();
 
-            DealMisc dealMisc = gson.fromJson(result, DealMisc.class);
+                DealMisc dealMisc = gson.fromJson(result, DealMisc.class);
 
-            similarDeals.clear();
-            similarDeals.addAll(dealMisc.genericDeal.similarDeals);
-            nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
+                similarDeals.clear();
+                similarDeals.addAll(dealMisc.genericDeal.similarDeals);
+                nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
 
-            activity.onHaveData();
+                activity.onHaveData();
+            }
+            catch (JsonSyntaxException e)
+            {
+                e.printStackTrace();
+            }
         }
         else
         {

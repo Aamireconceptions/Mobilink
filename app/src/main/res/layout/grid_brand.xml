@@ -3,22 +3,24 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/_6sdp"
-    android:paddingEnd="@dimen/_6sdp"
-    android:paddingStart="@dimen/_6sdp"
-    android:paddingTop="@dimen/_6sdp">
+>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_90sdp">
+        android:layout_height="@dimen/_90sdp"
+        android:paddingLeft="@dimen/_2sdp"
+        android:paddingRight="@dimen/_2sdp"
+        android:paddingTop="@dimen/_2sdp"
+        android:paddingBottom="@dimen/_2sdp"
+        >
 
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="1dp"
+            android:layout_centerInParent="true"
             android:focusableInTouchMode="false"
-            android:background="@drawable/box"/>
+            android:background="@drawable/business_border"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

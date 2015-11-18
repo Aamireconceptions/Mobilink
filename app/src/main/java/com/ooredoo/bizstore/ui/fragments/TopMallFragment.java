@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.ui.fragments;
 import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
+
+import java.util.Random;
 
 /**
  * @author Babar
@@ -75,6 +78,11 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
         Bundle bundle = getArguments();
 
         mall = (Mall) bundle.getSerializable("mall");
+
+        if(mall.color == 0)
+        {
+            mall.color = Color.parseColor(getColorCode());
+        }
 
         /*id = bundle.getInt("id");
 
@@ -189,5 +197,48 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         mall.views += 1;
         activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
+    }
+
+    public String getColorCode()
+    {
+        int min = 1;
+        int max = 8;
+
+        Random random = new Random();
+
+        int i = random.nextInt(max - min) + min;
+
+        Logger.print("random: "+i);
+
+        String color = null;
+        switch (i)
+        {
+            case 1:
+                color = "#90a4ae";
+                break;
+            case 2:
+                color = "#ff8a65";
+                break;
+            case 3:
+                color = "#ba68c8";
+                break;
+            case 4:
+                color = "#da4336";
+                break;
+            case 5:
+                color = "#4fc3f7";
+                break;
+            case 6:
+                color = "#ffa726";
+                break;
+            case 7:
+                color = "#aed581";
+                break;
+            case 8:
+                color = "#b39ddb";
+                break;
+        }
+
+        return color;
     }
 }

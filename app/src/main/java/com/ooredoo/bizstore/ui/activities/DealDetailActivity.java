@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -22,6 +23,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -98,6 +101,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
 
     LinearLayout llSimilarNearby;
 
+    ListViewBaseAdapter commonAdapter;
     public DealDetailActivity() {
         super();
         layoutResId = R.layout.deal_detail_activity;
@@ -159,6 +163,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
         }
     }
 
+    Spinner spinner;
     View header;
     ListView listView;
     ListViewBaseAdapter similarAdapter, nearbyAdapter;
@@ -166,7 +171,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
     private void initViews()
     {
+        spinner = (Spinner) findViewById(R.id.locations_spinner);
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
+
+
 
         //  id = intent.getIntExtra(AppConstant.ID, 0);
 packageName = getPackageName();
@@ -313,11 +321,39 @@ packageName = getPackageName();
                 deal.category = deal.category.replace(".", ",");
             }
             ((TextView) header.findViewById(R.id.title)).setText(deal.title);
-            ((TextView) header.findViewById(R.id.phone)).setText(deal.contact);
+            //((TextView) header.findViewById(R.id.phone)).setText(deal.contact);
+            RelativeLayout rlPhone = (RelativeLayout) findViewById(R.id.phone_layout);
+
+            TextView tvPhone= (TextView) header.findViewById(R.id.phone);
+
+            if(deal.contact != null && !deal.contact.isEmpty())
+            {
+                rlPhone.setVisibility(View.VISIBLE);
+                tvPhone.setText(deal.contact);
+            }
+            else
+            {
+                rlPhone.setVisibility(View.GONE);
+            }
             ((TextView) header.findViewById(R.id.description)).setText(deal.description);
             ((TextView) header.findViewById(R.id.address)).setText(deal.address);
+            RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
+
+            TextView tvAddress= (TextView) header.findViewById(R.id.address);
+
+            if(deal.address != null && !deal.address.isEmpty())
+            {
+                rlAddress.setVisibility(View.VISIBLE);
+                tvAddress.setText(deal.address);
+            }
+            else
+            {
+                rlAddress.setVisibility(View.GONE);
+            }
             //((TextView) findViewById(R.id.tv_category)).setText(deal.category);
             ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(deal.rating);
+
+
             header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -353,6 +389,7 @@ packageName = getPackageName();
             ((TextView) header.findViewById(R.id.city)).setText("doha");
 
             Logger.print("businessId Deal,"+deal.businessId);
+
             final ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
             ivBrandLogo.setOnClickListener(new OnClickListener() {
                 @Override
@@ -389,6 +426,8 @@ packageName = getPackageName();
                 rlTiming.setVisibility(View.GONE);
             }
 
+           // RelativeLayout rlBrandLogo = (RelativeLayout) findViewById(R.id.brand_logo_layout);
+
             if(brandLogo != null && !brandLogo.equals(""))
             {
                final String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
@@ -406,7 +445,11 @@ packageName = getPackageName();
             }
             else
             {
-                ivBrandLogo.setVisibility(View.GONE);
+               // rlBrandLogo.setVisibility(View.GONE);
+
+                TextView tvBrandTxt = (TextView) header.findViewById(R.id.brand_txt);
+                tvBrandTxt.setBackgroundColor(deal.color);
+                tvBrandTxt.setText(String.valueOf(deal.businessName.charAt(0)));
             }
 
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
@@ -493,9 +536,13 @@ packageName = getPackageName();
         }
 
 
-      similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
+      //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
 
-        nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
+       // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
+
+        commonAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
+        commonAdapter.setListingType("deals");
+        listView.setAdapter(commonAdapter);
         //listView.setAdapter(similarAdapter);
         //listView.setAdapter(nearbyAdapter);
 
@@ -536,7 +583,7 @@ packageName = getPackageName();
                         public void run() {
                             DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivDetail, progressBar);
+                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
                             bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
@@ -609,16 +656,21 @@ packageName = getPackageName();
             if(viewId == R.id.similar_deals)
             {
                 setSelected(v);
-                similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-                similarAdapter.setListingType("deals");
 
-               listView.setAdapter(similarAdapter);
+                commonAdapter.setData(similarDeals);
+                commonAdapter.notifyDataSetChanged();
+                listView.smoothScrollToPositionFromTop(1,
+                        (btSimilarDeals.getHeight() + (int) getResources().getDimension(R.dimen._7sdp)), 200);
+                //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
+                //similarAdapter.setListingType("deals");
+
+              // listView.setAdapter(similarAdapter);
 
                // listView.scrollTo(0, (int) llSimilarNearby.getY());
                 //listView.setScrollY((int) llSimilarNearby.getY());
                // listView.smoothScrollToPosition(1);
 
-                listView.setSelection(1);
+                //listView.setSelection(1);
                // listView.scrollTo(0, btSimilarDeals.getTop() - btSimilarDeals.getHeight());
 
                 /*new Handler().postDelayed(new Runnable() {
@@ -643,10 +695,16 @@ packageName = getPackageName();
                         {
                             setSelected(v);
 
-                            nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
-                            nearbyAdapter.setListingType("deals");
+                            commonAdapter.setData(nearbyDeals);
+                            commonAdapter.notifyDataSetChanged();
 
-                            listView.setAdapter(nearbyAdapter);
+                            listView.smoothScrollToPositionFromTop(1,
+                                    (btSimilarDeals.getHeight() + (int) getResources().getDimension(R.dimen._7sdp)), 200);
+
+                           // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
+                           // nearbyAdapter.setListingType("deals");
+
+                           // listView.setAdapter(nearbyAdapter);
                            /* listView.smoothScrollToPositionFromTop(2,
                                     0, 00);*/
                             /*new Handler().postDelayed(new Runnable() {
@@ -660,7 +718,7 @@ packageName = getPackageName();
 
 
 
-                            listView.setSelection(1);
+                            //listView.setSelection(1);
                             //listView.scrollBy(0,  llSimilarNearby.getTop() - 100);
 
                         }
@@ -753,7 +811,7 @@ packageName = getPackageName();
             uri += dest;
         }
 
-        System.out.println("Directions URI:"+uri);
+        System.out.println("Directions URI:" + uri);
 
         if(src == null)
         {
@@ -835,18 +893,24 @@ packageName = getPackageName();
    {
        llSimilarNearby.setVisibility(View.VISIBLE);
 
-       btSimilarDeals.setSelected(true);
+       commonAdapter.setData(similarDeals);
+       commonAdapter.notifyDataSetChanged();
 
-       lastSelected = btSimilarDeals;
+      btSimilarDeals.setSelected(true);
 
-       similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-       similarAdapter.setListingType("deals");
+      lastSelected = btSimilarDeals;
+//
+      // similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
+       //similarAdapter.setListingType("deals");
 
-       listView.setAdapter(similarAdapter);
+       //listView.setAdapter(similarAdapter);
    }
 
     public void onNoData()
     {
         llSimilarNearby.setVisibility(View.GONE);
     }
+
+
+
 }
