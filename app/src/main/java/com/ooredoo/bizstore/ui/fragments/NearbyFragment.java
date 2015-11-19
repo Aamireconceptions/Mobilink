@@ -163,6 +163,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setMapToolbarEnabled(true);
         googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker)

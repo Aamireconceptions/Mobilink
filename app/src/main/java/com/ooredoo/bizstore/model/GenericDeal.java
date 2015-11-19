@@ -18,7 +18,7 @@ public class GenericDeal implements Serializable{
 
     public String title, category, contact, address, location,  brandAddress, timing;
 
-   // public List<String> locations;
+    public List<Location> locations;
 
     @SerializedName("images")
     public Image image;

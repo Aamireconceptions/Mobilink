@@ -325,14 +325,16 @@
 
                     android:textColor="@color/black"/>
 
-                <Spinner
+                <!--<Spinner
                     android:id="@+id/locations_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:dropDownSelector="@null"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true" />-->
 
                 <TextView
+                    android:id="@+id/locations"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Locations"
@@ -342,7 +344,7 @@
                     android:drawablePadding="@dimen/_5sdp"
                     android:textColor="@color/red"
                     android:textSize="12sp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:textStyle="bold"/>
 
 

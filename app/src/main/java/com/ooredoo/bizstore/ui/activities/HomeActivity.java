@@ -256,7 +256,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     LocationManager locationManager;
 
-    int minTimeMillis = 10 * 60 * 1000;
+    int minTimeMillis = 10 * (60 * 1 * 1000);
     int distanceMeters = 50;
 
     private void init() {

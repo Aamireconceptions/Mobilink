@@ -11,11 +11,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -166,12 +169,14 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener 
     Spinner spinner;
     View header;
     ListView listView;
+    PopupMenu popupMenu;
+
     ListViewBaseAdapter similarAdapter, nearbyAdapter;
 
     List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
     private void initViews()
     {
-        spinner = (Spinner) findViewById(R.id.locations_spinner);
+
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
 
@@ -200,6 +205,8 @@ packageName = getPackageName();
 
         //scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
 
+
+
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -215,6 +222,32 @@ packageName = getPackageName();
         header.findViewById(R.id.tv_share).setOnClickListener(this);
         header.findViewById(R.id.iv_share).setOnClickListener(this);
         findViewById(R.id.iv_favorite).setOnClickListener(this);
+
+        TextView tvLocations = (TextView) header.findViewById(R.id.locations);
+        tvLocations.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenu.show();
+            }
+        });
+
+        popupMenu = new PopupMenu(this, tvLocations, Gravity.BOTTOM);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+        {
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+                int id = item.getItemId();
+
+                Logger.print("menuId: "+id);
+
+                return false;
+            }
+        });
+
+
+
+        //spinner = (Spinner) header.findViewById(R.id.locations_spinner);
 
         //header.findViewById(R.id.tv_hdr_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
         //header.findViewById(R.id.iv_deal_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
@@ -545,6 +578,18 @@ packageName = getPackageName();
         listView.setAdapter(commonAdapter);
         //listView.setAdapter(similarAdapter);
         //listView.setAdapter(nearbyAdapter);
+
+        //String[] locations = new String[genericDeal.locations.size()];
+
+        for(int i = 0; i<=genericDeal.locations.size() - 1; i++)
+        {
+            popupMenu.getMenu().add(1, genericDeal.locations.get(i).id, 0, genericDeal.locations.get(i).title);
+
+        }
+
+       /* ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, locations);
+        spinner.setAdapter(spinnerAdapter);*/
+
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
 
