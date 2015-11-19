@@ -209,6 +209,7 @@
     <string name="slide_4_text_3">ACROSS QATAR</string>
     <string name="gcm_sender_id">999481636845</string>
     <string name="qatar_code">974</string>
+    <string name="error_no_search_item_found">No search item found.</string>
     <string name="error_no_data">Oops nothing found :(</string>
     <string name="redeemed">Redeemed</string>
     <string name="redeemed_deals">Redeemed Deals</string>

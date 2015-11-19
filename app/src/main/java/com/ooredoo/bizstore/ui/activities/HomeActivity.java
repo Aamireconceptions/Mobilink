@@ -582,7 +582,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             if(searchPopup.isShowing())
                 searchPopup.dismiss();
             if(isSearchEnabled) {
+                HomeActivity.isShowResults = false;
+                acSearch.setText("");
+                acSearch.setHint(R.string.search);
                 hideSearchResults();
+                hideSearchPopup();
+                showHideSearchBar(false);
             } else {
                 showHideDrawer(GravityCompat.START, true);
             }
@@ -676,7 +681,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void setRecentSearches() {
-        List<SearchItem> searchItems = new Select().all().from(SearchItem.class).orderBy("id").execute();
+        List<SearchItem> searchItems = new Select().all().from(SearchItem.class).orderBy("id DESC").execute();
+        for(SearchItem searchItem : searchItems) {
+            Logger.logI("Search Item", searchItem.id + ", " + searchItem.keyword);
+        }
         Logger.print("RECENT_SEARCH_ITEM_COUNT: " + searchItems.size());
         mRecentSearchesAdapter = new RecentSearchesAdapter(this, R.layout.list_item_recent_search, searchItems);
         mRecentSearchesAdapter.setShowResultCount(false);
@@ -942,7 +950,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                     List<String> filterResults = new ArrayList<>();
                     if(AppData.searchSuggestions != null) {
                         for(String suggestion : AppData.searchSuggestions.list) {
-                            if(suggestion.startsWith(filter)) {
+                            if(suggestion.contains(filter)) {
                                 filterResults.add(suggestion);
                             }
                         }

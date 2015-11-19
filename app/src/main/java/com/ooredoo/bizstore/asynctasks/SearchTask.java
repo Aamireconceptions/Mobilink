@@ -82,8 +82,13 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
                     mActivity.setupSearchResults(keyword, results, false);
                     BaseFragment.hideKeyboard(mActivity);
                 } else {
-                    Toast.makeText(mActivity, R.string.error_no_data, LENGTH_SHORT).show();
+                    HomeActivity.isShowResults = false;
+                    mActivity.acSearch.setText("");
+                    mActivity.acSearch.setHint(R.string.search);
+                    Toast.makeText(mActivity, R.string.error_no_search_item_found, LENGTH_SHORT).show();
                     mActivity.hideSearchResults();
+                    mActivity.hideSearchPopup();
+                    mActivity.showHideSearchBar(false);
                     mActivity.showHideSearchBar(true);
                 }
 

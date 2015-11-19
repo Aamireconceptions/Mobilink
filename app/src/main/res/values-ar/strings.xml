@@ -215,6 +215,7 @@
     <string name="movies_cinemas_more"><![CDATA[أفلام، سينما و المزيد]]></string>
     <string name="subscription_charges">سيتم إحتساب 9 ريال قطري أسبوعيا</string>
     <string name="subscription_terms_services"><![CDATA[في حال الإشتراك فقد قمت بالموافقة على <u>البنود و الخدمات</u>]]></string>
+    <string name="error_no_search_item_found">No search item found.</string>
     <string name="error_no_data">عذرا لم يتم العثور على البحث</string>
     <string name="rate_deal">قيم هذا العرض</string>
     <string name="discount_voucher">القسيمة الخصم :</string>

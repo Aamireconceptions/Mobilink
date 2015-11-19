@@ -39,15 +39,13 @@ public class SearchItem extends Model {
 
     public static void addToRecentSearches(SearchItem searchItem) {
         if(searchItem != null && isNotNullOrEmpty(searchItem.keyword)) {
-            SearchItem item = new SearchItem();
             List<SearchItem> searchItems = new Select().all().from(SearchItem.class).where("keyword='" + searchItem.keyword + "'").execute();
             if(searchItems != null && searchItems.size() > 0) {
-                item = searchItems.get(0);
+                for(SearchItem item : searchItems) {
+                    item.delete();
+                }
             }
-            item.id = searchItem.id;
-            item.keyword = searchItem.keyword;
-            item.resultCount = searchItem.resultCount;
-            item.save();
+            searchItem.save();
         }
     }
 }
