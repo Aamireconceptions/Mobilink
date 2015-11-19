@@ -12,9 +12,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
@@ -36,9 +39,12 @@ import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BusinessDetailTask;
 import com.ooredoo.bizstore.asynctasks.BusinessMiscTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
+import com.ooredoo.bizstore.asynctasks.LocationsTask;
+import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Menu;
@@ -66,7 +72,7 @@ import static java.lang.String.valueOf;
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
-public class BusinessDetailActivity extends BaseActivity implements OnClickListener {
+public class BusinessDetailActivity extends BaseActivity implements OnClickListener, LocationNotifies {
 
     Bitmap bitmap;
     public String category;
@@ -166,6 +172,29 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         header.findViewById(R.id.tv_share).setOnClickListener(this);
         header.findViewById(R.id.iv_share).setOnClickListener(this);
 
+        TextView tvLocations = (TextView) header.findViewById(R.id.locations);
+        tvLocations.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenu.show();
+            }
+        });
+
+        popupMenu = new PopupMenu(this, tvLocations, Gravity.BOTTOM);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+
+                Logger.print("menuId: " + id);
+
+                LocationsTask locationsTask = new LocationsTask(BusinessDetailActivity.this);
+                locationsTask.execute(String.valueOf(id), "deals");
+
+                return false;
+            }
+        });
+
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
         if(src == null && id != -1)
@@ -199,6 +228,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     Business mBusiness;
 
     RelativeLayout rlMenu;
+    PopupMenu popupMenu;
+    LinearLayout llDirections;
     public void populateData(final Business business) {
         if(business != null) {
 
@@ -212,7 +243,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 rlDescription.setVisibility(View.GONE);
             }
 
-            LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
+            llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -220,7 +251,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 }
             });
 
-            RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
+            /*RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
 
             if((business.latitude == 0 && business.longitude == 0)
                     || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
@@ -262,9 +293,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             if(business.timing != null)
             {
                 tvTiming.setText(business.timing);
-            }
-
-
+            }*/
 
             ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
 
@@ -412,10 +441,94 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
 
+        for(int i = 0; i<=business.locations.size() - 1; i++)
+        {
+            popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
+        }
+
+        updateOutlet(business);
+
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
 
         BusinessMiscTask businessMiscTask = new BusinessMiscTask(this, snackBarUtils, progressBar);
         businessMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
+    }
+
+    private void updateOutlet(Business business)
+    {
+        RelativeLayout rlPhone = (RelativeLayout) findViewById(R.id.phone_layout);
+
+        TextView tvPhone= (TextView) header.findViewById(R.id.phone);
+
+        if(business.contact != null && !business.contact.isEmpty())
+        {
+            rlPhone.setVisibility(View.VISIBLE);
+            tvPhone.setText(business.contact);
+        }
+        else
+        {
+            rlPhone.setVisibility(View.GONE);
+        }
+
+        RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
+
+        if((business.latitude == 0 && business.longitude == 0)
+                || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
+        {
+            llDirections.setVisibility(View.GONE);
+            rlDistance.setVisibility(View.GONE);
+        }
+        else
+        {
+            float results[] = new float[3];
+            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
+                    business.latitude, business.longitude,
+                    results);
+
+            TextView tvDirections = (TextView) findViewById(R.id.directions);
+
+            tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
+            tvDirections.setOnClickListener(this);
+
+            TextView tvDistance= (TextView) findViewById(R.id.distance);
+            tvDistance.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    startDirections();
+                }
+            });
+
+            tvDistance.setText(String.format("%.2f", results[0]) + " " + getString(R.string.km_away));
+        }
+
+        RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
+
+        TextView tvAddress= (TextView) header.findViewById(R.id.address);
+
+        if(business.address != null && !business.address.isEmpty())
+        {
+            rlAddress.setVisibility(View.VISIBLE);
+            tvAddress.setText(business.address);
+        }
+        else
+        {
+            rlAddress.setVisibility(View.GONE);
+        }
+
+        RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
+
+        TextView tvTiming = (TextView) findViewById(R.id.timing);
+
+        if(business.timing != null && !business.timing.isEmpty())
+        {
+            rlTiming.setVisibility(View.VISIBLE);
+            tvTiming.setText(business.timing);
+        }
+        else
+        {
+            rlTiming.setVisibility(View.GONE);
+        }
     }
 
     private void startShareIntent()
@@ -742,46 +855,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
     }
 
-    public String getColorCode()
-    {
-        int min = 1;
-        int max = 8;
-
-        Random random = new Random();
-
-        int i = random.nextInt(max - min) + min;
-
-        Logger.print("random: " + i);
-
-        String color = null;
-        switch (i)
-        {
-            case 1:
-                color = "#90a4ae";
-                break;
-            case 2:
-                color = "#ff8a65";
-                break;
-            case 3:
-                color = "#ba68c8";
-                break;
-            case 4:
-                color = "#da4336";
-                break;
-            case 5:
-                color = "#4fc3f7";
-                break;
-            case 6:
-                color = "#ffa726";
-                break;
-            case 7:
-                color = "#aed581";
-                break;
-            case 8:
-                color = "#b39ddb";
-                break;
-        }
-
-        return color;
+    @Override
+    public void onUpdated(GenericDeal deal) {
+        updateOutlet(new Business(deal));
     }
 }

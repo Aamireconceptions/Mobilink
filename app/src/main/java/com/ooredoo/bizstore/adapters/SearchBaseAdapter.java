@@ -1,9 +1,14 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -35,6 +41,7 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
 import java.util.List;
+import java.util.Random;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static java.lang.String.valueOf;
@@ -142,12 +149,18 @@ public class SearchBaseAdapter extends BaseAdapter {
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
+            holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
             holder.tvViews = (TextView) row.findViewById(R.id.views);
             holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
             holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
             holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
+            holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
+            holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+            holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
+            holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+            holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
 
             row.setTag(holder);
         } else {
@@ -165,7 +178,11 @@ public class SearchBaseAdapter extends BaseAdapter {
             }
         }
 
-        deal.isFav = Favorite.isFavorite(deal.id);
+        holder.tvBrandName.setText(deal.businessName);
+
+        holder.tvBrandAddress.setText(deal.location);
+
+        //deal.isFav = Favorite.isFavorite(deal.id);
 
        // holder.ivFav.setSelected(deal.isFav);
         //holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
@@ -173,6 +190,46 @@ public class SearchBaseAdapter extends BaseAdapter {
         holder.tvTitle.setText(deal.title);
 
         holder.tvDetail.setText(deal.description);
+
+        String brandLogoUrl = deal.businessLogo != null ? deal.businessLogo : null;
+
+        Logger.print("BrandLogo: " + brandLogoUrl);
+
+        if(brandLogoUrl != null )
+        {
+            holder.tvBrandText.setVisibility(View.GONE);
+            String url = BaseAsyncTask.IMAGE_BASE_URL + brandLogoUrl;
+
+            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+            if(bitmap != null)
+            {
+                holder.ivBrand.setImageBitmap(bitmap);
+                //holder.progressBar.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.ivBrand.setImageBitmap(null);
+
+                fallBackToDiskCache(url);
+            }
+        }
+        else
+        {
+            holder.tvBrandText.setVisibility(View.VISIBLE);
+            if(deal.businessName != null)
+            {
+                if(deal.color == 0)
+                {
+                    deal.color = Color.parseColor(getColorCode());
+                }
+
+                holder.tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
+                holder.tvBrandText.setBackgroundColor(deal.color);
+            }
+
+            holder.ivBrand.setImageBitmap(null);
+        }
 
         if(deal.discount == 0) {
             holder.tvDiscount.setVisibility(View.GONE);
@@ -185,6 +242,15 @@ public class SearchBaseAdapter extends BaseAdapter {
         }
 
         holder.tvDiscount.setText(valueOf(deal.discount) + "%\n" + context.getString(R.string.off));
+
+        if(BizStore.getLanguage().equals("en"))
+        {
+            holder.tvDiscount.setRotation(-40);
+        }
+        else
+        {
+            holder.tvDiscount.setRotation(40);
+        }
 
         if(BizStore.getLanguage().equals("en")) {
             holder.tvDiscount.setRotation(-40);
@@ -277,6 +343,29 @@ public class SearchBaseAdapter extends BaseAdapter {
                     }
                 });*/
             }
+        }
+
+        holder.tvDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startDirections(deal);
+            }
+        });
+
+        if((deal.latitude != 0 && deal.longitude != 0)
+                && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
+        {
+            holder.tvDirections.setVisibility(View.VISIBLE);
+            float results[] = new float[3];
+            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
+                    results);
+
+            holder.tvDirections.setText(String.format("%.1f", (results[0] / 1000)) + " " + context.getString(R.string.km));
+        }
+        else
+        {
+            holder.tvDirections.setVisibility(View.GONE);
         }
 
         if(doAnimate && position > 0)
@@ -408,15 +497,115 @@ public class SearchBaseAdapter extends BaseAdapter {
 
         View layout;
 
-        ImageView ivFav, ivShare, ivPromotional;
+        ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
 
-        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews;
+        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
+                tvDirections, tvBrandText;
 
         RatingBar rbRatings;
 
         ProgressBar progressBar;
 
         RelativeLayout rlPromotionalLayout;
-        ImageView ivDiscountTag;
+    }
+
+    private void startDirections(SearchResult genericDeal)
+    {
+        double mLat = HomeActivity.lat;
+        double mLong = HomeActivity.lng;
+
+        String src = null, dest = null;
+
+        if(mLat != 0 && mLong != 0)
+        {
+            src = "saddr=" + mLat + "," + mLong + "&";
+        }
+
+        if(genericDeal.latitude != 0 && genericDeal.longitude != 0)
+        {
+            dest = "daddr="+genericDeal.latitude + "," + genericDeal.longitude;
+        }
+
+        String uri = "http://maps.google.com/maps?";
+
+        if(src != null)
+        {
+            uri += src;
+        }
+
+        if(dest != null)
+        {
+            uri += dest;
+        }
+
+        System.out.println("Directions URI:"+uri);
+
+        if(src == null)
+        {
+            Toast.makeText(context, "Location not available. Please enable location services!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        if(dest == null)
+        {
+            Toast.makeText(context, "Deal location is not available!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+
+        try
+        {
+            context.startActivity(intent);
+        }
+        catch (ActivityNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public String getColorCode()
+    {
+        int min = 1;
+        int max = 8;
+
+        Random random = new Random();
+
+        int i = random.nextInt(max - min) + min;
+
+        Logger.print("random: "+i);
+
+        String color = null;
+        switch (i)
+        {
+            case 1:
+                color = "#90a4ae";
+                break;
+            case 2:
+                color = "#ff8a65";
+                break;
+            case 3:
+                color = "#ba68c8";
+                break;
+            case 4:
+                color = "#da4336";
+                break;
+            case 5:
+                color = "#4fc3f7";
+                break;
+            case 6:
+                color = "#ffa726";
+                break;
+            case 7:
+                color = "#aed581";
+                break;
+            case 8:
+                color = "#b39ddb";
+                break;
+        }
+
+        return color;
     }
 }

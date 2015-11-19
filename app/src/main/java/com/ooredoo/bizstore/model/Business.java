@@ -14,6 +14,8 @@ public class Business  implements Serializable{
 
     public int id;
 
+    public List<Location> locations;
+
     public int views;
 
     public String title, description, location, contact, address, businessLogo, timing;
@@ -107,6 +109,11 @@ public class Business  implements Serializable{
         this.location = result.location;
         this.description = result.description;
          this.image = result.image;
+
+        this.businessLogo = result.businessLogo;
+        this.latitude = result.latitude;
+        this.longitude = result.longitude;
+        this.color = result.color;
        /* image.bannerUrl = result.banner;
         image.detailBannerUrl = result.detailBanner;*/
 
@@ -131,5 +138,24 @@ public class Business  implements Serializable{
         this.image = image;
 
         //this.image = fav.image;
+    }
+
+    public Business(GenericDeal deal)
+    {
+        this.id = deal.id;
+        this.title = deal.title;
+        this.views = deal.views;
+        this.rating = deal.rating;
+        this.contact = deal.contact;
+        this.address = deal.address;
+        this.location = deal.location;
+        this.description = deal.description;
+        this.businessLogo = deal.businessLogo;
+        this.latitude = deal.latitude;
+        this.longitude = deal.longitude;
+
+        this.image = deal.image;
+
+        this.color = deal.color;
     }
 }

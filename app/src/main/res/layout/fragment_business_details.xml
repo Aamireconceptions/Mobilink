@@ -253,15 +253,17 @@
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:id="@+id/locations"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/locations"
+                    android:text="Locations"
                     android:drawableEnd="@drawable/ic_arrow_down"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="@dimen/_5sdp"
-                    android:textSize="12sp"
                     android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:visibility="visible"
                     android:textStyle="bold"/>
 
 

@@ -5,11 +5,9 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +16,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,18 +36,18 @@ import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.GetCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
+import com.ooredoo.bizstore.asynctasks.LocationsTask;
+import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -67,7 +64,7 @@ import static java.lang.String.valueOf;
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
-public class DealDetailActivity extends BaseActivity implements OnClickListener {
+public class DealDetailActivity extends BaseActivity implements OnClickListener, LocationNotifies {
 
     public String category;
     static String packageName;
@@ -203,17 +200,12 @@ packageName = getPackageName();
 
         category = intent.getStringExtra(CATEGORY);
 
-        //scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
-
-
-
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
-       // ((ImageView) findViewById(R.id.iv_deal_banner)).setImageResource(bannerResId);
 
         header.findViewById(R.id.tv_call).setOnClickListener(this);
         header.findViewById(R.id.iv_call).setOnClickListener(this);
@@ -241,11 +233,12 @@ packageName = getPackageName();
 
                 Logger.print("menuId: "+id);
 
+                LocationsTask locationsTask = new LocationsTask(DealDetailActivity.this);
+                locationsTask.execute(String.valueOf(id), "deals");
+
                 return false;
             }
         });
-
-
 
         //spinner = (Spinner) header.findViewById(R.id.locations_spinner);
 
@@ -293,6 +286,7 @@ packageName = getPackageName();
     Button btSimilarDeals;
     ImageView ivDetail;
     ProgressBar progressBar;
+    LinearLayout llDirections;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
             src = new Deal(deal);
@@ -308,45 +302,13 @@ packageName = getPackageName();
             TextView tvValidity = (TextView) findViewById(R.id.validity);
             tvValidity.setText(getString(R.string.deal_valid_till) + " " + deal.endDate);
 
-            LinearLayout llDirections = (LinearLayout) findViewById(R.id.directions_layout);
+            llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startDirections();
                 }
             });
-
-            RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
-
-            if((deal.latitude == 0 && deal.longitude == 0)
-                    || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
-            {
-                llDirections.setVisibility(View.GONE);
-                rlDistance.setVisibility(View.GONE);
-            }
-            else
-            {
-                float results[] = new float[3];
-                Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
-                        deal.latitude, deal.longitude,
-                        results);
-
-                TextView tvDirections = (TextView) findViewById(R.id.directions);
-
-                tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
-                tvDirections.setOnClickListener(this);
-
-                TextView tvDistance= (TextView) findViewById(R.id.distance);
-                tvDistance.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        startDirections();
-                    }
-                });
-
-                tvDistance.setText(String.format("%.2f",results[0]) + " " + getString(R.string.km_away));
-            }
 
             //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
@@ -355,34 +317,10 @@ packageName = getPackageName();
             }
             ((TextView) header.findViewById(R.id.title)).setText(deal.title);
             //((TextView) header.findViewById(R.id.phone)).setText(deal.contact);
-            RelativeLayout rlPhone = (RelativeLayout) findViewById(R.id.phone_layout);
 
-            TextView tvPhone= (TextView) header.findViewById(R.id.phone);
-
-            if(deal.contact != null && !deal.contact.isEmpty())
-            {
-                rlPhone.setVisibility(View.VISIBLE);
-                tvPhone.setText(deal.contact);
-            }
-            else
-            {
-                rlPhone.setVisibility(View.GONE);
-            }
             ((TextView) header.findViewById(R.id.description)).setText(deal.description);
-            ((TextView) header.findViewById(R.id.address)).setText(deal.address);
-            RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
+            //((TextView) header.findViewById(R.id.address)).setText(deal.address);
 
-            TextView tvAddress= (TextView) header.findViewById(R.id.address);
-
-            if(deal.address != null && !deal.address.isEmpty())
-            {
-                rlAddress.setVisibility(View.VISIBLE);
-                tvAddress.setText(deal.address);
-            }
-            else
-            {
-                rlAddress.setVisibility(View.GONE);
-            }
             //((TextView) findViewById(R.id.tv_category)).setText(deal.category);
             ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(deal.rating);
 
@@ -445,19 +383,7 @@ packageName = getPackageName();
 
             Logger.print("BrandLogo: " + brandLogo);
 
-            RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
 
-            TextView tvTiming = (TextView) findViewById(R.id.timing);
-
-            if(deal.timing != null && !deal.timing.isEmpty())
-            {
-                rlTiming.setVisibility(View.VISIBLE);
-                tvTiming.setText(deal.timing);
-            }
-            else
-            {
-                rlTiming.setVisibility(View.GONE);
-            }
 
            // RelativeLayout rlBrandLogo = (RelativeLayout) findViewById(R.id.brand_logo_layout);
 
@@ -465,7 +391,7 @@ packageName = getPackageName();
             {
                final String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
 
-                bitmap = memoryCache.getBitmapFromCache(imgUrl);
+               Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
                 if(bitmap != null)
                 {
@@ -524,7 +450,6 @@ packageName = getPackageName();
                     fallBackToDiskCache(imgUrl, ivDetail);
                 }
             }
-
 
             tvDiscount.setText(discount);
 
@@ -590,21 +515,102 @@ packageName = getPackageName();
        /* ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, locations);
         spinner.setAdapter(spinnerAdapter);*/
 
+        updateOutlet(deal);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
 
         DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, similarDeals, nearbyDeals, progressBar);
         detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id));
     }
-    Bitmap bitmap;
 
+    private void updateOutlet(GenericDeal deal)
+    {
+        RelativeLayout rlPhone = (RelativeLayout) findViewById(R.id.phone_layout);
+
+        TextView tvPhone= (TextView) header.findViewById(R.id.phone);
+
+        if(deal.contact != null && !deal.contact.isEmpty())
+        {
+            rlPhone.setVisibility(View.VISIBLE);
+            tvPhone.setText(deal.contact);
+        }
+        else
+        {
+            rlPhone.setVisibility(View.GONE);
+        }
+
+        RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
+
+        if((deal.latitude == 0 && deal.longitude == 0)
+                || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
+        {
+            llDirections.setVisibility(View.GONE);
+            rlDistance.setVisibility(View.GONE);
+        }
+        else
+        {
+            float results[] = new float[3];
+            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
+                    deal.latitude, deal.longitude,
+                    results);
+
+            TextView tvDirections = (TextView) findViewById(R.id.directions);
+
+            tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
+            tvDirections.setOnClickListener(this);
+
+            TextView tvDistance= (TextView) findViewById(R.id.distance);
+            tvDistance.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    startDirections();
+                }
+            });
+
+            tvDistance.setText(String.format("%.2f", results[0]) + " " + getString(R.string.km_away));
+        }
+
+        RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
+
+        TextView tvAddress= (TextView) header.findViewById(R.id.address);
+
+        if(deal.address != null && !deal.address.isEmpty())
+        {
+            rlAddress.setVisibility(View.VISIBLE);
+            tvAddress.setText(deal.address);
+        }
+        else
+        {
+            rlAddress.setVisibility(View.GONE);
+        }
+
+        RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
+
+        TextView tvTiming = (TextView) findViewById(R.id.timing);
+
+        if(deal.timing != null && !deal.timing.isEmpty())
+        {
+            rlTiming.setVisibility(View.VISIBLE);
+            tvTiming.setText(deal.timing);
+        }
+        else
+        {
+            rlTiming.setVisibility(View.GONE);
+        }
+    }
+
+  // Bitmap bitmap;
     private void fallBackToDiskCache(final String url, final ImageView imageView)
     {
+
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run()
             {
-                bitmap = diskCache.getBitmapFromDiskCache(url);
+               final Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
+
 
                 Logger.print("dCache getting bitmap from cache");
 
@@ -612,10 +618,14 @@ packageName = getPackageName();
                 {
                     Logger.print("dCache found!");
 
+
+                    Logger.print("deal detail_fallback: "+url+ " ,"+bitmap);
                     memoryCache.addBitmapToCache(url, bitmap);
-                    runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable()
+                    {
                         @Override
                         public void run() {
+                            
                             imageView.setImageBitmap(bitmap);
                         }
                     });
@@ -623,20 +633,15 @@ packageName = getPackageName();
                 }
                 else
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
                             DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
                             BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
+
                             bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                     url, String.valueOf(displayMetrics.widthPixels),
                                     String.valueOf(displayMetrics.heightPixels / 2));
-                        }
-                    });
-
                 }
             }
         });
@@ -958,4 +963,9 @@ packageName = getPackageName();
 
 
 
+
+    @Override
+    public void onUpdated(GenericDeal deal) {
+        updateOutlet(deal);
+    }
 }
