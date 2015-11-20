@@ -167,7 +167,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     View header;
     ListView listView;
     PopupMenu popupMenu;
-
+    TextView tvLocations;
     ListViewBaseAdapter similarAdapter, nearbyAdapter;
 
     List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
@@ -215,7 +215,7 @@ packageName = getPackageName();
         header.findViewById(R.id.iv_share).setOnClickListener(this);
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
-        TextView tvLocations = (TextView) header.findViewById(R.id.locations);
+        tvLocations = (TextView) header.findViewById(R.id.locations);
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -370,6 +370,7 @@ packageName = getPackageName();
 
                     intent.putExtra(CATEGORY, "");
                     intent.putExtra(AppConstant.ID, deal.businessId);
+                    intent.putExtra("color", deal.color );
                     startActivity(intent);
                 }
             });
@@ -493,7 +494,6 @@ packageName = getPackageName();
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
 
-
       //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
 
        // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
@@ -506,10 +506,17 @@ packageName = getPackageName();
 
         //String[] locations = new String[genericDeal.locations.size()];
 
-        for(int i = 0; i<=genericDeal.locations.size() - 1; i++)
+        if(genericDeal.locations != null)
         {
-            popupMenu.getMenu().add(1, genericDeal.locations.get(i).id, 0, genericDeal.locations.get(i).title);
+            for(int i = 0; i<=genericDeal.locations.size() - 1; i++)
+            {
+                popupMenu.getMenu().add(1, genericDeal.locations.get(i).id, 0, genericDeal.locations.get(i).title);
 
+            }
+        }
+        else
+        {
+            tvLocations.setVisibility(View.GONE);
         }
 
        /* ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, locations);
@@ -554,7 +561,7 @@ packageName = getPackageName();
                     deal.latitude, deal.longitude,
                     results);
 
-            TextView tvDirections = (TextView) findViewById(R.id.directions);
+            TextView tvDirections = (TextView) header.findViewById(R.id.directions);
 
             tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
             tvDirections.setOnClickListener(this);
@@ -710,7 +717,7 @@ packageName = getPackageName();
                 commonAdapter.setData(similarDeals);
                 commonAdapter.notifyDataSetChanged();
                 listView.smoothScrollToPositionFromTop(1,
-                        (btSimilarDeals.getHeight() + (int) getResources().getDimension(R.dimen._7sdp)), 200);
+                        (btSimilarDeals.getHeight() + (int) getResources().getDimension(R.dimen._9sdp)), 200);
                 //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
                 //similarAdapter.setListingType("deals");
 
@@ -749,7 +756,7 @@ packageName = getPackageName();
                             commonAdapter.notifyDataSetChanged();
 
                             listView.smoothScrollToPositionFromTop(1,
-                                    (btSimilarDeals.getHeight() + (int) getResources().getDimension(R.dimen._7sdp)), 200);
+                                    (btSimilarDeals.getHeight() + (int) getResources().getDimension(R.dimen._9sdp)), 200);
 
                            // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
                            // nearbyAdapter.setListingType("deals");

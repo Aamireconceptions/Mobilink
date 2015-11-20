@@ -139,6 +139,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     View header;
     SnackBarUtils snackBarUtils;
+    TextView tvLocations;
     private void initViews() {
         id = intent.getIntExtra(AppConstant.ID, -1);
 
@@ -172,7 +173,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         header.findViewById(R.id.tv_share).setOnClickListener(this);
         header.findViewById(R.id.iv_share).setOnClickListener(this);
 
-        TextView tvLocations = (TextView) header.findViewById(R.id.locations);
+        tvLocations = (TextView) header.findViewById(R.id.locations);
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,13 +231,17 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     RelativeLayout rlMenu;
     PopupMenu popupMenu;
     LinearLayout llDirections;
+    int color;
     public void populateData(final Business business) {
         if(business != null) {
+
+            color = getIntent().getIntExtra("color", -1);
 
             id = business.id;
             mBusiness = business;
 
-            RelativeLayout rlDescription = (RelativeLayout) findViewById(R.id.description_layout);
+             rlDescription = (RelativeLayout) findViewById(R.id.description_layout);
+            rlDescription.setOnClickListener(this);
 
             if(mBusiness.description == null || mBusiness.description.isEmpty())
             {
@@ -335,6 +340,11 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 //ivBrandLogo.setVisibility(View.GONE);
 
                 TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
+
+                if(business.color == 0)
+                {
+                    business.color = color;
+                }
                 tvBrandTxt.setBackgroundColor(business.color);
                 tvBrandTxt.setText(String.valueOf(business.title.charAt(0)));
             }
@@ -362,8 +372,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
             tvDescriptionArrow = (TextView) header.findViewById(R.id.description_arrow);
 
-            rlDescription = (RelativeLayout) header.findViewById(R.id.description_layout);
-            rlDescription.setOnClickListener(this);
+            /*rlDescription = (RelativeLayout) header.findViewById(R.id.description_layout);
+            rlDescription.setOnClickListener(this);*/
 
             tvDescription = ((TextView) header.findViewById(R.id.description));
             tvDescription.setText(business.description);
@@ -441,10 +451,18 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
 
-        for(int i = 0; i<=business.locations.size() - 1; i++)
+        if(business.locations != null)
         {
-            popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
+            for(int i = 0; i<=business.locations.size() - 1; i++)
+            {
+                popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
+            }
         }
+        else
+        {
+            tvLocations.setVisibility(View.GONE);
+        }
+
 
         updateOutlet(business);
 
@@ -456,7 +474,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     private void updateOutlet(Business business)
     {
-        RelativeLayout rlPhone = (RelativeLayout) findViewById(R.id.phone_layout);
+        RelativeLayout rlPhone = (RelativeLayout) header.findViewById(R.id.phone_layout);
 
         TextView tvPhone= (TextView) header.findViewById(R.id.phone);
 
@@ -470,7 +488,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             rlPhone.setVisibility(View.GONE);
         }
 
-        RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
+        RelativeLayout rlDistance = (RelativeLayout) header.findViewById(R.id.distance_layout);
 
         if((business.latitude == 0 && business.longitude == 0)
                 || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
@@ -485,12 +503,12 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                     business.latitude, business.longitude,
                     results);
 
-            TextView tvDirections = (TextView) findViewById(R.id.directions);
+            TextView tvDirections = (TextView) header.findViewById(R.id.directions);
 
             tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
             tvDirections.setOnClickListener(this);
 
-            TextView tvDistance= (TextView) findViewById(R.id.distance);
+            TextView tvDistance= (TextView) header.findViewById(R.id.distance);
             tvDistance.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -499,10 +517,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 }
             });
 
-            tvDistance.setText(String.format("%.2f", results[0]) + " " + getString(R.string.km_away));
+            tvDistance.setText(String.format("%.2f", results[0] / 1000) + " " + getString(R.string.km_away));
         }
 
-        RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
+        RelativeLayout rlAddress = (RelativeLayout) header.findViewById(R.id.address_layout);
 
         TextView tvAddress= (TextView) header.findViewById(R.id.address);
 

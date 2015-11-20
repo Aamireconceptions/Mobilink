@@ -45,22 +45,23 @@
                     android:id="@+id/brand_logo_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:layout_centerVertical="true">
 
                     <ImageView
                         android:id="@+id/brand_logo"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:background="@drawable/business_border"
                         android:scaleType="fitXY"
 
                         />
 
                     <TextView
                         android:id="@+id/brand_txt"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
                         android:gravity="center"
                         android:textSize="50sp"
                         android:textStyle="bold"
@@ -124,8 +125,8 @@
                     android:id="@+id/directions_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="106dp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_8sdp"
                     android:gravity="center_vertical"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
@@ -271,6 +272,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/phone_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/_50sdp"
@@ -294,6 +296,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/address_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
@@ -360,9 +363,7 @@
                     android:src="@drawable/ic_next_arrow"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:visibility="gone"/>
-
-
+                    android:visibility="visible"/>
 
             </RelativeLayout>
 

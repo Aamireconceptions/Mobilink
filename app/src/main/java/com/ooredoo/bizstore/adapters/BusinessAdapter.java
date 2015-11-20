@@ -259,8 +259,13 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 tvBrandText.setVisibility(View.VISIBLE);
                 if(deal.businessName != null)
                 {
+                    if(deal.color == 0)
+                    {
+                        deal.color = Color.parseColor(getColorCode());
+                    }
+
                     tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
-                    tvBrandText.setBackgroundColor(Color.parseColor(getColorCode()));
+                    tvBrandText.setBackgroundColor(deal.color);
                 }
 
                 ivBrand.setImageBitmap(null);

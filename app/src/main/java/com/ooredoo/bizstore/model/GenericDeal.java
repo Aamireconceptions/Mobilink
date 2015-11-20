@@ -23,7 +23,7 @@ public class GenericDeal implements Serializable{
     @SerializedName("images")
     public Image image;
 
-    public int color = -1;
+    public int color = 0;
 
     public boolean isFav;
 
@@ -87,7 +87,9 @@ public class GenericDeal implements Serializable{
         this.endDate = result.endDate;
         this.image = result.image;
 
+        this.businessId = result.businessId;
         this.businessLogo = result.businessLogo;
+        this.businessName = result.businessName;
         this.latitude = result.latitude;
         this.longitude = result.longitude;
 

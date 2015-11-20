@@ -20,7 +20,7 @@ public class SearchResult {
 
     public boolean isFav;
 
-    public int color = -1;
+    public int color = 0;
 
     public double latitude, longitude;
 

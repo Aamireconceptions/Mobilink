@@ -44,6 +44,8 @@ public class Business  implements Serializable{
     @SerializedName("relatedBusiness")
     public List<Brand> similarBrands;
 
+    public int businessId;
+
     public Business(Mall mall)
     {
         this.id = mall.id;
@@ -110,6 +112,7 @@ public class Business  implements Serializable{
         this.description = result.description;
          this.image = result.image;
 
+        this.businessId = result.businessId;
         this.businessLogo = result.businessLogo;
         this.latitude = result.latitude;
         this.longitude = result.longitude;

@@ -199,7 +199,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         } catch(UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Logger.logI("SERVICE_URL", serviceUrl);
+        Logger.print("SERVICE_URL "+ serviceUrl);
     }
 
     protected void closeDialog(Dialog dialog) {
