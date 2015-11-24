@@ -335,13 +335,289 @@
                 android:id="@+id/category_selection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/filter_heading_bg"
+                android:background="@drawable/heading_bg"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_10sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:textAllCaps="true"
                 android:text="@string/sub_categories"/>
+
+            <CheckBox
+                android:id="@+id/cb_top_deals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/top_deals"/>
+
+            <CheckBox
+                android:id="@+id/cb_food_dining"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/food_dining"/>
+
+            <CheckBox
+                android:id="@+id/cb_shopping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/shopping"/>
+
+            <CheckBox
+                android:id="@+id/cb_electronics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/electronics"/>
+
+            <CheckBox
+                android:id="@+id/cb_hotels_spa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/hotels_spa"/>
+
+            <CheckBox
+                android:id="@+id/cb_markets_malls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/markets_malls"/>
+
+            <CheckBox
+                android:id="@+id/cb_automotive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/automotive"/>
+
+            <CheckBox
+                android:id="@+id/cb_travel_tours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/travel_tours"/>
+
+            <CheckBox
+                android:id="@+id/cb_entertainment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/entertainment"/>
+
+            <CheckBox
+                android:id="@+id/cb_jewelry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/jewelry_exchange"/>
+
+            <CheckBox
+                android:id="@+id/cb_sports_fitness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/sports_fitness"/>
+
+            <CheckBox
+                android:id="@+id/cb_food_dining1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/food_dining"/>
+
+            <CheckBox
+                android:id="@+id/cb_shopping1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/shopping"/>
+
+            <CheckBox
+                android:id="@+id/cb_electronics1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/electronics"/>
+
+            <CheckBox
+                android:id="@+id/cb_hotels_spa1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/hotels_spa"/>
+
+            <CheckBox
+                android:id="@+id/cb_markets_malls1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/markets_malls"/>
+
+            <CheckBox
+                android:id="@+id/cb_automotive1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/automotive"/>
+
+            <CheckBox
+                android:id="@+id/cb_travel_tours1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/travel_tours"/>
+
+            <CheckBox
+                android:id="@+id/cb_entertainment1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/entertainment"/>
+
+            <CheckBox
+                android:id="@+id/cb_jewelry1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/jewelry_exchange"/>
+
+            <CheckBox
+                android:id="@+id/cb_sports_fitness1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/sports_fitness"/>
 
             <CheckBox
                 android:id="@+id/cb_food_arabic"

@@ -16,10 +16,10 @@ import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 /**
- * Created by Babar on 23-Jun-15.
+ * @author Babar
+ * @since 23-Jun-15.
  */
-public class FilterOnClickListener implements View.OnClickListener
-{
+public class FilterOnClickListener implements View.OnClickListener {
     private HomeActivity activity;
 
     private View lastRatingSelected;
@@ -34,14 +34,14 @@ public class FilterOnClickListener implements View.OnClickListener
 
     private View layout;
 
-    public FilterOnClickListener(HomeActivity activity, int category)
-    {
+    public FilterOnClickListener(HomeActivity activity, int category) {
         this.activity = activity;
 
         this.category = category;
 
         onFilterChangeListener = activity;
     }
+
     Button btList, btMap;
 
     public void setLayout(View layout) {
@@ -65,10 +65,8 @@ public class FilterOnClickListener implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch(v.getId()) {
             case R.id.new_deals:
 
                 setButtonSelected(v);
@@ -93,18 +91,24 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.filter:
 
+                Logger.print("FilterOnClickListener: CATEGORY -> Filter: " + String.valueOf(category));
+
                 ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_highest_discount)).setChecked(activity.doApplyDiscount);
 
                 activity.drawerLayout.openDrawer(GravityCompat.END);
 
                 if(category > 0) {
-                    if(category == CategoryUtils.CT_TOP || category == CategoryUtils.CT_TRAVEL) {
-                        //There are no sub categories in TOP/TRAVEL categories
+                    if(category == CategoryUtils.CT_NEARBY) {
+                        activity.findViewById(R.id.distance_layout).setVisibility(View.VISIBLE);
+                    } else {
+                        activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
+                    }
+                    if(category == CategoryUtils.CT_TRAVEL) {
+                        //There are no sub categories in TRAVEL categories
                         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
                     } else {
                         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
                     }
-                    Logger.print("CATEGORY:"+ String.valueOf(category));
                     CategoryUtils.showSubCategories(activity, category);
                 }
                 break;
@@ -117,13 +121,13 @@ public class FilterOnClickListener implements View.OnClickListener
 
             case R.id.done:
 
-                activity.drawerLayout.closeDrawer(GravityCompat.END);
+                Logger.print("FilterOnClickListener: CATEGORY -> Apply Filter: " + String.valueOf(category));
 
+                activity.drawerLayout.closeDrawer(GravityCompat.END);
                 String subCategories = CategoryUtils.getSelectedSubCategories(category);
                 DealsTask.subCategories = subCategories;
                 ShoppingTask.subCategories = subCategories;
-
-                Logger.print("SELECTION: "+ subCategories);
+                Logger.print("SELECTION::: " + subCategories);
 
                 onFilterChangeListener.onFilterChange();
 
@@ -156,7 +160,6 @@ public class FilterOnClickListener implements View.OnClickListener
                 setRatingSelected(v);
 
                 break;
-
 
             case R.id.rating_3:
 
@@ -201,10 +204,8 @@ public class FilterOnClickListener implements View.OnClickListener
         }
     }
 
-    public void setButtonSelected(View v)
-    {
-        if(lastButtonSelected != null)
-        {
+    public void setButtonSelected(View v) {
+        if(lastButtonSelected != null) {
             lastButtonSelected.setSelected(false);
         }
 
@@ -213,16 +214,14 @@ public class FilterOnClickListener implements View.OnClickListener
         lastButtonSelected = v;
     }
 
-    public void setRatingSelected(View v)
-    {
+    public void setRatingSelected(View v) {
         activity.setRatingEnabled(true);
 
         boolean isRatingEnabled = !v.isSelected();
 
         Logger.logI("RATING_ENABLED", v.getId() + "," + isRatingEnabled);
 
-        if(lastRatingSelected != null)
-        {
+        if(lastRatingSelected != null) {
             lastRatingSelected.setSelected(false);
         }
 
@@ -235,8 +234,7 @@ public class FilterOnClickListener implements View.OnClickListener
         lastRatingSelected = v;
     }
 
-    private void setCheckboxSelected(View v)
-    {
+    private void setCheckboxSelected(View v) {
         v.setSelected(!v.isSelected());
     }
 }

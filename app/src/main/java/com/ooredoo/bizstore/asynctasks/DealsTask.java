@@ -14,7 +14,6 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
-import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.BrandResponse;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -22,15 +21,13 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.ooredoo.bizstore.utils.NetworkUtils.*;
+import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getStringVal;
@@ -43,8 +40,7 @@ import static java.lang.System.currentTimeMillis;
  * @author Babar
  * @since 26-Jun-15.
  */
-public class DealsTask extends BaseAsyncTask<String, Void, String>
-{
+public class DealsTask extends BaseAsyncTask<String, Void, String> {
     private HomeActivity homeActivity;
 
     private ListViewBaseAdapter adapter;
@@ -58,6 +54,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     public static String sortColumn = "createdate"; //Default new deals
     public static String subCategories;
 
+    public static boolean isMultipleCategoriesFilter = false;
+    public static String categories = "";
+
     public String category;
 
     private OnDealsTaskFinishedListener dealsTaskFinishedListener;
@@ -65,9 +64,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
     private int reqWidth, reqHeight;
 
-    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter,
-                     ProgressBar progressBar, ImageView ivBanner, Fragment fragment)
-    {
+    public DealsTask(HomeActivity homeActivity, ListViewBaseAdapter adapter, ProgressBar progressBar, ImageView ivBanner, Fragment fragment) {
         this.homeActivity = homeActivity;
 
         this.adapter = adapter;
@@ -86,15 +83,14 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         reqWidth = displayMetrics.widthPixels;
 
-        reqHeight = (int) Converter.convertDpToPixels(res.getDimension(R.dimen._160sdp)
-                / displayMetrics.density);
+        reqHeight = (int) Converter.convertDpToPixels(res.getDimension(R.dimen._160sdp) / displayMetrics.density);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-       // homeActivity.showLoader();
+        // homeActivity.showLoader();
 
         if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
@@ -119,7 +115,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     }
 
     public void setData(String result) {
-        if (progressBar != null) {
+        if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
 
@@ -127,37 +123,37 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         //adapter.clearData();
 
-        if (result != null) {
-            if (sortColumn.equals("createdate") || category.equals("nearby")) {
+        if(result != null) {
+            if(sortColumn.equals("createdate") || category.equals("nearby")) {
                 subCategories = "";
                 sortColumn = "createdate";
 
                 Logger.logI("DEALS: " + category, result);
 
-               // adapter.clearData();
+                // adapter.clearData();
 
                 Gson gson = new Gson();
 
                 try {
                     Response response = gson.fromJson(result, Response.class);
 
-                    if (response.resultCode != -1) {
+                    if(response.resultCode != -1) {
                         dealsTaskFinishedListener.onHaveDeals();
 
                         List<GenericDeal> deals = response.deals;
 
-                        if (deals != null) {
+                        if(deals != null) {
                             //adapter.clearData();
                             adapter.setData(deals);
 
                             String bannerUrl = response.topBannerUrl;
 
-                            if (bannerUrl != null) {
+                            if(bannerUrl != null) {
                                 String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
 
                                 Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
-                                if (bitmap != null) {
+                                if(bitmap != null) {
                                     ivBanner.setImageBitmap(bitmap);
                                 } else {
                                     BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner, null);
@@ -172,44 +168,36 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
 
-                } catch (JsonSyntaxException e) {
+                } catch(JsonSyntaxException e) {
                     e.printStackTrace();
 
                     dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
                 }
-            } else
-                if(sortColumn.equals("views"))
-                {
-                    Gson gson = new Gson();
+            } else if(sortColumn.equals("views")) {
+                Gson gson = new Gson();
 
-                    BrandResponse brand = gson.fromJson(result, BrandResponse.class);
+                BrandResponse brand = gson.fromJson(result, BrandResponse.class);
 
-                    if(brand.resultCode != - 1)
-                    {
-                        if(brand.brands != null)
-                        {
-                           // adapter.clearData();
-                            adapter.setBrandsList(brand.brands);
-                            adapter.notifyDataSetChanged();
-                        }
+                if(brand.resultCode != -1) {
+                    if(brand.brands != null) {
+                        // adapter.clearData();
+                        adapter.setBrandsList(brand.brands);
+                        adapter.notifyDataSetChanged();
                     }
-                    else
-                    {
-                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
-                    }
+                } else {
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                 }
+            }
 
         } else {
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
         }
     }
 
-
     private String getDeals(String category) throws IOException {
         String result;
 
-        if(BizStore.forceStopTasks)
-        {
+        if(BizStore.forceStopTasks) {
             Logger.print("Force stopped deals task");
 
             return null;
@@ -220,19 +208,20 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
 
-
-        if(category.equals("nearby"))
-        {
+        if(category.equals("nearby")) {
             params.put("nearby", "true");
 
-           // HomeActivity.lat = 25.283982;
-           // HomeActivity.lng = 51.563376;
+            // HomeActivity.lat = 25.283982;
+            // HomeActivity.lng = 51.563376;
 
             params.put("lat", String.valueOf(HomeActivity.lat));
             params.put("lng", String.valueOf(HomeActivity.lng));
         }
-        else
-        {
+
+        if(isNotNullOrEmpty(subCategories) && (category.equals("nearby") || category.equals("top_deals"))) {
+            Logger.print("Filter: Top_deals->" + subCategories);
+            params.put(CATEGORY, subCategories);
+        } else {
             params.put(CATEGORY, category);
         }
 
@@ -245,20 +234,15 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                 isFilterEnabled = true;
             sortColumns = sortColumn;
 
-
-
-            if(category.equals("nearby") || sortColumn.equals("createdate"))
-            {
+            if(category.equals("nearby") || sortColumn.equals("createdate")) {
                 params.put("type", "deals");
 
-            }
-            else
-            {
+            } else {
                 params.put("type", "business");
             }
         }
 
-        if(isNotNullOrEmpty(subCategories)) {
+        if(!(category.equals("nearby") || category.equals("top_deals")) && isNotNullOrEmpty(subCategories)) {
             isFilterEnabled = true;
             params.put("subcategories", subCategories);
         }
@@ -290,14 +274,16 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
+        Logger.logI("DealsTask", "Filter: " + isFilterEnabled + ", Categories: " + category + ", SubCategories: " + subCategories);
+        Logger.logI("DealsTask", "Url: " + url.toString());
+
         Logger.print("getDeals() URL:" + url.toString());
 
         result = getJson(url);
 
         Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
 
-        if(!isFilterEnabled && !result.contains("No item Found"))
-        {
+        if(!isFilterEnabled && !result.contains("No item Found")) {
             updateVal(homeActivity, KEY, result);
             updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
         }
@@ -307,8 +293,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         return result;
     }
 
-    public String getCache(String category)
-    {
+    public String getCache(String category) {
         String result = null;
 
         final String KEY = PREFIX_DEALS.concat(category);
@@ -338,8 +323,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         boolean updateFromServer = checkIfUpdateData(homeActivity, UPDATE_KEY);
 
-        if(!isNullOrEmpty(cacheData) && !isFilterEnabled && (!hasInternetConnection(homeActivity) || !updateFromServer))
-        {
+        if(!isNullOrEmpty(cacheData) && !isFilterEnabled && (!hasInternetConnection(homeActivity) || !updateFromServer)) {
             result = cacheData;
         }
 

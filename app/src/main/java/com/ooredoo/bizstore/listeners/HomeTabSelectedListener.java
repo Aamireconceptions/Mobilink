@@ -64,6 +64,10 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
     public void onTabUnselected(TabLayout.Tab tab) {
         //DealsTask.sortColumn = "createdate";
         //DealsTask.subCategories = "";
+        //NearbyFragment.categories = "";
+        //DealsTask.categories = "";
+        //NearbyFragment.isMultipleCategoriesFilter = false;
+        //DealsTask.isMultipleCategoriesFilter = false;
         homeActivity.resetFilters();
     }
 
