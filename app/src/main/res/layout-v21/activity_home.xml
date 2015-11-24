@@ -21,12 +21,14 @@
                 <android.support.design.widget.AppBarLayout
                     android:id="@+id/appBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+            >
 
                     <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:background="?attr/colorPrimary"
                         app:layout_scrollFlags="scroll|enterAlways"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
@@ -56,6 +58,7 @@
                             android:background="@color/red"
                             android:paddingEnd="@dimen/_12sdp"
                             android:paddingStart="@dimen/_12sdp"
+
                             android:scrollbars="none"
                             app:tabIndicatorColor="@color/white"
                             app:tabMode="scrollable"

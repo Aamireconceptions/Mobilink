@@ -245,9 +245,12 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                 isFilterEnabled = true;
             sortColumns = sortColumn;
 
+
+
             if(category.equals("nearby") || sortColumn.equals("createdate"))
             {
                 params.put("type", "deals");
+
             }
             else
             {

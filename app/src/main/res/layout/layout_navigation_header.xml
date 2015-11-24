@@ -13,8 +13,8 @@
         android:padding="@dimen/_20sdp">
 
         <RelativeLayout
-            android:layout_width="@dimen/_75sdp"
-            android:layout_height="@dimen/_75sdp"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
             >
 
             <com.ooredoo.bizstore.RoundedImageView

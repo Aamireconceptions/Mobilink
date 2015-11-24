@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -63,6 +64,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private TextView tvEmptyView;
 
+    private ImageView ivBanner;
+
     private HeaderGridView gridView;
 
     private boolean isCreated = false;
@@ -108,6 +111,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_shopping_header, null);
 
+        ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
+
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
         adapter.setListingType("deals");
 
@@ -123,7 +128,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
                 gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
         }
 
+        gridView.addHeaderView(ivBanner);
         gridView.addHeaderView(rlHeader);
+
        // gridView.setEmptyView(tvEmptyView);
         dealGridOnItemClickListener = new DealGridOnItemClickListener(activity, adapter, this);
         gridView.setOnItemClickListener(dealGridOnItemClickListener);
@@ -242,11 +249,15 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onHaveDeals()
     {
         rlHeader.setVisibility(View.VISIBLE);
+
+        ivBanner.setImageResource(R.drawable.shopping_banner);
     }
 
     @Override
     public void onNoDeals(int stringResId) {
         rlHeader.setVisibility(View.GONE);
+
+        ivBanner.setImageBitmap(null);
 
         tvEmptyView.setText(stringResId);
         gridView.setEmptyView(tvEmptyView);

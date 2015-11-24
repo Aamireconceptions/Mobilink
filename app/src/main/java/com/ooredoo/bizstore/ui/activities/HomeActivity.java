@@ -402,6 +402,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private void setupTabs() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
+
         //tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));

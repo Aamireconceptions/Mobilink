@@ -220,7 +220,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         }*/
 
         listView = (ListView) v.findViewById(R.id.list_view);
-        //listView.addHeaderView(ivBanner);
+        listView.addHeaderView(ivBanner);
         listView.addHeaderView(rlHeader);
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -310,7 +310,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onHaveDeals()
     {
-       // ivBanner.setImageResource(R.drawable.food_dinning_banner);
+       ivBanner.setImageResource(R.drawable.nearby_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
     }

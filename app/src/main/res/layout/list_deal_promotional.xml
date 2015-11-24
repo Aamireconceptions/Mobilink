@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_deal_detail"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,8 +19,8 @@
 
         <FrameLayout
             android:id="@+id/logo_frame"
-            android:layout_width="@dimen/_45sdp"
-            android:layout_height="@dimen/_45sdp"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_centerVertical="true"
             android:padding="@dimen/_1sdp">
 
@@ -36,7 +37,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="30sp"
+                android:textSize="26sp"
                 android:visibility="gone"/>
 
         </FrameLayout>
@@ -98,10 +99,12 @@
         <ImageView
             android:id="@+id/promotional_banner"
             android:layout_width="match_parent"
-            android:padding="0dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
-            android:src="@drawable/deal_banner" />
+            android:src="@drawable/deal_banner"
+            android:background="@drawable/listing_border"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -135,7 +138,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/layout_deal_detail"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
