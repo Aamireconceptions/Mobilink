@@ -233,7 +233,15 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         }
         else
         {
-            params.put(CATEGORY, category);
+            if(category.equals("top_deals"))
+            {
+                params.put(CATEGORY, "top_brands");
+            }
+            else
+            {
+                params.put(CATEGORY, category);
+            }
+
         }
 
         Logger.print("Sort by: " + sortColumn);

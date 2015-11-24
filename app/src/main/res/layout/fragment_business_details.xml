@@ -46,7 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/business_border">
 
                     <ImageView
                         android:id="@+id/brand_logo"
@@ -63,7 +64,7 @@
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
                         android:gravity="center"
-                        android:textSize="60sp"
+                        android:textSize="50sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         />

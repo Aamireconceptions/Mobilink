@@ -186,7 +186,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
-        rlHeader.setVisibility(View.GONE);
+       // rlHeader.setVisibility(View.GONE);
 
         //adapter.clearData();
 

@@ -314,6 +314,7 @@ public class DiskCache
                         mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.gridBannerUrl));
                         mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.promotionalUrl));
                         mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.logoUrl));
+                        mDiskLruCache.remove(CryptoUtils.encryptToMD5(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.businessLogo));
                     }
                     catch (IOException e)
                     {
