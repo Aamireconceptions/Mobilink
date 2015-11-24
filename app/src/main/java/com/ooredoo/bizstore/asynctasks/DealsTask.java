@@ -242,6 +242,12 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                 params.put(CATEGORY, category);
             }
 
+
+        if(isNotNullOrEmpty(subCategories) && (category.equals("nearby") || category.equals("top_deals"))) {
+            Logger.print("Filter: Top_deals->" + subCategories);
+            params.put(CATEGORY, subCategories);
+        } else {
+            params.put(CATEGORY, category);
         }
 
         Logger.print("Sort by: " + sortColumn);
@@ -266,7 +272,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             }
         }
 
-        if(isNotNullOrEmpty(subCategories)) {
+        if(!(category.equals("nearby") || category.equals("top_deals")) && isNotNullOrEmpty(subCategories)) {
             isFilterEnabled = true;
             params.put("subcategories", subCategories);
         }
@@ -297,6 +303,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        Logger.logI("DealsTask", "Filter: " + isFilterEnabled + ", Categories: " + category + ", SubCategories: " + subCategories);
+        Logger.logI("DealsTask", "Url: " + url.toString());
 
         Logger.print("getDeals() URL:" + url.toString());
 

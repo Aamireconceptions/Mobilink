@@ -53,14 +53,37 @@ public class SubCategoryChangeListener implements CheckBox.OnCheckedChangeListen
         ((CheckBox) activity.findViewById(R.id.cb_currency)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_sports_clothing)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_sports_equipment)).setOnCheckedChangeListener(this);
+
+        ((CheckBox) activity.findViewById(R.id.cb_top_deals)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_food_dining)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_shopping)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_electronics)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_hotels_spa)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_markets_malls)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_automotive)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_travel_tours)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_entertainment)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_jewelry)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_sports_fitness)).setOnCheckedChangeListener(this);
+
+        ((CheckBox) activity.findViewById(R.id.cb_food_dining1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_shopping1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_electronics1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_hotels_spa1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_markets_malls1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_automotive1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_travel_tours1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_entertainment1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_jewelry1)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_sports_fitness1)).setOnCheckedChangeListener(this);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         int checkBoxId = buttonView.getId();
         SubCategory subCategory = getSubCategoryByCheckboxId(checkBoxId);
-        Logger.logI("CHECK", buttonView.toString());
-        Logger.logI("SUB_CATEGORY", subCategory.title);
+        Logger.logI("SubCategoryChangeListener: CHECK", buttonView.toString());
+        Logger.logI("SubCategoryChangeListener: SUB_CATEGORY", subCategory.title);
         updateSubCategorySelection(checkBoxId, isChecked);
     }
 }

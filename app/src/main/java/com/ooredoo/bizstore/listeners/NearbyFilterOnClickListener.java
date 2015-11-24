@@ -105,12 +105,13 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
 
             case R.id.filter:
 
+                activity.findViewById(R.id.distance_layout).setVisibility(View.VISIBLE);
                 ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_highest_discount)).setChecked(activity.doApplyDiscount);
 
                 activity.drawerLayout.openDrawer(GravityCompat.END);
 
                 if(category > 0) {
-                    if(category == CategoryUtils.CT_TOP || category == CategoryUtils.CT_TRAVEL) {
+                    if(category == CategoryUtils.CT_TRAVEL) {
                         //There are no sub categories in TOP/TRAVEL categories
                         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
                     } else {
@@ -130,12 +131,11 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
             case R.id.done:
 
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
+                activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
 
-                String subCategories = CategoryUtils.getSelectedSubCategories(category);
-                DealsTask.subCategories = subCategories;
-                ShoppingTask.subCategories = subCategories;
-
-                Logger.print("SELECTION: "+ subCategories);
+                DealsTask.isMultipleCategoriesFilter = true;
+                DealsTask.categories = CategoryUtils.getSelectedSubCategories(CategoryUtils.CT_NEARBY);
+                Logger.print("SELECTION:: " + DealsTask.categories);
 
                 onFilterChangeListener.onFilterChange();
 
