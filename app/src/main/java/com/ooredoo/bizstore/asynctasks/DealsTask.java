@@ -94,7 +94,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
     protected void onPreExecute() {
         super.onPreExecute();
 
-       // homeActivity.showLoader();
+        // homeActivity.showLoader();
 
         if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
@@ -134,7 +134,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                 Logger.logI("DEALS: " + category, result);
 
-               // adapter.clearData();
+                // adapter.clearData();
 
                 Gson gson = new Gson();
 
@@ -178,26 +178,26 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                     dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
                 }
             } else
-                if(sortColumn.equals("views"))
+            if(sortColumn.equals("views"))
+            {
+                Gson gson = new Gson();
+
+                BrandResponse brand = gson.fromJson(result, BrandResponse.class);
+
+                if(brand.resultCode != - 1)
                 {
-                    Gson gson = new Gson();
-
-                    BrandResponse brand = gson.fromJson(result, BrandResponse.class);
-
-                    if(brand.resultCode != - 1)
+                    if(brand.brands != null)
                     {
-                        if(brand.brands != null)
-                        {
-                           // adapter.clearData();
-                            adapter.setBrandsList(brand.brands);
-                            adapter.notifyDataSetChanged();
-                        }
-                    }
-                    else
-                    {
-                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                        // adapter.clearData();
+                        adapter.setBrandsList(brand.brands);
+                        adapter.notifyDataSetChanged();
                     }
                 }
+                else
+                {
+                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                }
+            }
 
         } else {
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
@@ -225,29 +225,26 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         {
             params.put("nearby", "true");
 
-           // HomeActivity.lat = 25.283982;
-           // HomeActivity.lng = 51.563376;
+            // HomeActivity.lat = 25.283982;
+            // HomeActivity.lng = 51.563376;
 
             params.put("lat", String.valueOf(HomeActivity.lat));
             params.put("lng", String.valueOf(HomeActivity.lng));
         }
         else
         {
-            if(category.equals("top_deals"))
+            /*if(sortColumn.equals("views"))
             {
+                category =
                 params.put(CATEGORY, "top_brands");
             }
             else
             {
                 params.put(CATEGORY, category);
-            }
+            }*/
 
-
-        if(isNotNullOrEmpty(subCategories) && (category.equals("nearby") || category.equals("top_deals"))) {
-            Logger.print("Filter: Top_deals->" + subCategories);
-            params.put(CATEGORY, subCategories);
-        } else {
             params.put(CATEGORY, category);
+
         }
 
         Logger.print("Sort by: " + sortColumn);
@@ -258,8 +255,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             if(sortColumn.equals("views"))
                 isFilterEnabled = true;
             sortColumns = sortColumn;
-
-
 
             if(category.equals("nearby") || sortColumn.equals("createdate"))
             {
@@ -272,7 +267,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             }
         }
 
-        if(!(category.equals("nearby") || category.equals("top_deals")) && isNotNullOrEmpty(subCategories)) {
+        if(isNotNullOrEmpty(subCategories)) {
             isFilterEnabled = true;
             params.put("subcategories", subCategories);
         }
@@ -303,9 +298,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
-
-        Logger.logI("DealsTask", "Filter: " + isFilterEnabled + ", Categories: " + category + ", SubCategories: " + subCategories);
-        Logger.logI("DealsTask", "Url: " + url.toString());
 
         Logger.print("getDeals() URL:" + url.toString());
 

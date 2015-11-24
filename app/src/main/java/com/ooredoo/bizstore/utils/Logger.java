@@ -45,7 +45,8 @@ public class Logger
     {
         if(isNotNullOrEmpty(msg) && enabled)
         {
-            Log.i(tag, msg);
+            System.out.println(tag + ": " + msg);
+           // Log.i(tag, msg);
         }
     }
 

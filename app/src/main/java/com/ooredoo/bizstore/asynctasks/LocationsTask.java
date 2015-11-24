@@ -102,7 +102,8 @@ public class LocationsTask extends BaseAsyncTask<String, Void, String>
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
         params.put(ID,  id);
-        params.put(TYPE, type);
+       // params.put(TYPE, type);
+        params.put(TYPE, "business");
 
         String query = createQuery(params);
 

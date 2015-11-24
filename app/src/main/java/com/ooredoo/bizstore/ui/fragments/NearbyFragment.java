@@ -12,12 +12,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -30,6 +32,7 @@ import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.NearbyFilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -44,12 +47,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
-import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 public class NearbyFragment extends Fragment implements OnFilterChangeListener,
-                                                               OnDealsTaskFinishedListener,
-                                                               OnSubCategorySelectedListener,
-                                                               SwipeRefreshLayout.OnRefreshListener {
+        OnDealsTaskFinishedListener,
+        OnSubCategorySelectedListener,
+        SwipeRefreshLayout.OnRefreshListener {
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -94,7 +96,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         {
             fetchAndDisplayFoodAndDining(progressBar);
         }
-       else
+        else
         {
             tvEmptyView.setText(R.string.error_no_location);
             listView.setEmptyView(tvEmptyView);
@@ -205,7 +207,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-      // mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        // mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 
         adapter.setMapView(mapView);
 
@@ -235,27 +237,22 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         clickListener.setLayout(rlHeader);
     }
 
-    public static boolean isMultipleCategoriesFilter = false;
-    public static String categories = "";
-
     private void fetchAndDisplayFoodAndDining(ProgressBar progressBar) {
         DealsTask dealsTask = new DealsTask(activity, adapter,
-                                            progressBar, ivBanner,
-                                            this);
+                progressBar, ivBanner,
+                this);
 
-        Logger.logI("Filter: " + categories, String.valueOf(isMultipleCategoriesFilter));
-        if(isNotNullOrEmpty(categories) && isMultipleCategoriesFilter) {
-            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, categories);
-        } else {
-            String cache = dealsTask.getCache("nearby");
+        String cache = dealsTask.getCache("nearby");
 
-            cache = null;
+        cache = null;
 
-            if(cache != null && !isRefreshed) {
-                dealsTask.setData(cache);
-            } else {
-                dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "nearby");
-            }
+        if(cache != null && !isRefreshed)
+        {
+            dealsTask.setData(cache);
+        }
+        else
+        {
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "nearby");
         }
     }
 
@@ -277,7 +274,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
             swipeRefreshLayout.setEnabled(false);
         }
 
-       adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
 
         fetchAndDisplayFoodAndDining(progressBar);
     }
@@ -313,7 +310,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onHaveDeals()
     {
-       ivBanner.setImageResource(R.drawable.nearby_banner);
+        ivBanner.setImageResource(R.drawable.nearby_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
     }
@@ -382,7 +379,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     public void onDestroy() {
         super.onDestroy();
         if(mapView != null)
-        mapView.onDestroy();
+            mapView.onDestroy();
     }
 
     @Override
