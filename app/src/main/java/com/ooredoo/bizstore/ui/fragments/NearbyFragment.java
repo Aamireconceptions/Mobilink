@@ -182,9 +182,6 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
             }
         });
 
-
-
-
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
@@ -219,7 +216,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
             googleMap = mapFragment.getMap();
         }*/
 
-        listView = (ListView) v.findViewById(R.id.list_view);
+        listView = (ListView) v.findViewById(R.id.nearby_list_view);
         listView.addHeaderView(ivBanner);
         listView.addHeaderView(rlHeader);
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
@@ -252,6 +249,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         }
         else
         {
+            Logger.print("NearbyTask Called");
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "nearby");
         }
     }
@@ -259,7 +257,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onFilterChange()
     {
-        Logger.print("FoodAndDiningFragment onFilterChange");
+        Logger.print("NearbyFragment onFilterChange");
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

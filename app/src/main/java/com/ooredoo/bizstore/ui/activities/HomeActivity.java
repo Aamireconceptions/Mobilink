@@ -402,7 +402,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private void setupTabs() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
-
         //tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
@@ -846,7 +845,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     @Override
     public void onFilterChange() {
-        Logger.print("HomeActivity onFilterChange");
+        Logger.print("HomeActivity onFilterChange Fragment: "+currentFragment.getClass().getName());
 
         ((OnFilterChangeListener) currentFragment).onFilterChange();
     }
@@ -1037,6 +1036,26 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             pb.clearAnimation();
             loaderItem.setVisible(false);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+            return;
+        }
+
+        if(drawerLayout.isDrawerOpen(GravityCompat.END))
+        {
+            drawerLayout.closeDrawer(GravityCompat.END);
+            return;
+        }
+
+        super.onBackPressed();
     }
 
     @Override

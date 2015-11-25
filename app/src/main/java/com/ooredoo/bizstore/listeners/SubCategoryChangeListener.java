@@ -54,7 +54,7 @@ public class SubCategoryChangeListener implements CheckBox.OnCheckedChangeListen
         ((CheckBox) activity.findViewById(R.id.cb_sports_clothing)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_sports_equipment)).setOnCheckedChangeListener(this);
 
-        ((CheckBox) activity.findViewById(R.id.cb_top_deals)).setOnCheckedChangeListener(this);
+        //((CheckBox) activity.findViewById(R.id.cb_top_deals)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_food_dining)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_shopping)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_electronics)).setOnCheckedChangeListener(this);
@@ -83,7 +83,7 @@ public class SubCategoryChangeListener implements CheckBox.OnCheckedChangeListen
         int checkBoxId = buttonView.getId();
         SubCategory subCategory = getSubCategoryByCheckboxId(checkBoxId);
         Logger.logI("SubCategoryChangeListener: CHECK", buttonView.toString());
-        Logger.logI("SubCategoryChangeListener: SUB_CATEGORY", subCategory.title);
+        Logger.logI("SubCategoryChangeListener: SUB_CATEGORY:", subCategory.parent + ":" + subCategory.title);
         updateSubCategorySelection(checkBoxId, isChecked);
     }
 }

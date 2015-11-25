@@ -200,6 +200,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             }
 
         } else {
+
+            adapter.clearData();
+            adapter.notifyDataSetChanged();
+
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
         }
     }

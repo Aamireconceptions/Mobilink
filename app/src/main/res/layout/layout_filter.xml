@@ -346,7 +346,7 @@
                 android:textAllCaps="true"
                 android:text="@string/sub_categories"/>
 
-            <CheckBox
+            <!--<CheckBox
                 android:id="@+id/cb_top_deals"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -357,7 +357,7 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/top_deals"/>
+                android:text="@string/top_deals"/>-->
 
             <CheckBox
                 android:id="@+id/cb_food_dining"

@@ -55,8 +55,12 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
 
         if(fragment != null)
         {
-            Logger.print("frag not null: "+fragment);
+            Logger.print("frag not null: "+fragment.getClass().getName());
             homeActivity.setCurrentFragment(fragment);
+        }
+        else
+        {
+            Logger.print("frag was null");
         }
     }
 

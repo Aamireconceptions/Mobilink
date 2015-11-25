@@ -100,7 +100,9 @@ dealofDayCalled = false;
     boolean dealofDayCalled = false;
     private void init(View v) {
         activity = (HomeActivity) getActivity();
-        activity.setCurrentFragment(this);
+
+        // This was killing the whole thing!
+        //activity.setCurrentFragment(this);
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
@@ -364,6 +366,8 @@ dealofDayCalled = false;
     }
 
     private void initAndLoadDealsOfTheDay() {
+
+        Logger.print("DealOfDay Called");
         DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null, this);
 
         String cache = dealsTask.getCache("dealofday");

@@ -356,8 +356,9 @@ packageName = getPackageName();
                 tvDiscount.setVisibility(View.VISIBLE);
             }
 
+           // deal.location = "doha";
             ((TextView) header.findViewById(R.id.city)).setText(deal.location);
-            ((TextView) header.findViewById(R.id.city)).setText("doha");
+            //((TextView) header.findViewById(R.id.city)).setText("doha");
 
             Logger.print("businessId Deal,"+deal.businessId);
 
@@ -510,11 +511,18 @@ packageName = getPackageName();
         {
             for(int i = 0; i<=genericDeal.locations.size() - 1; i++)
             {
-                popupMenu.getMenu().add(1, genericDeal.locations.get(i).id, 0, genericDeal.locations.get(i).title);
-
+                if(deal.location != null && !deal.location.equalsIgnoreCase(genericDeal.locations.get(i).title))
+                {
+                    popupMenu.getMenu().add(1, genericDeal.locations.get(i).id, 0, genericDeal.locations.get(i).title);
+                }
             }
         }
         else
+        {
+            tvLocations.setVisibility(View.GONE);
+        }
+
+        if(popupMenu.getMenu().size() == 0)
         {
             tvLocations.setVisibility(View.GONE);
         }

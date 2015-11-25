@@ -96,32 +96,34 @@ public class CategoryUtils {
         /* SPORTS & FITNESS */
             subCategories.add(new SubCategory(33, R.id.cb_sports_clothing, activity.getString(R.string.Clothing), "sports_clothing", CT_SPORTS, false, false));
             subCategories.add(new SubCategory(34, R.id.cb_sports_equipment, activity.getString(R.string.Equipment), "sports_equipment", CT_SPORTS, false, false));
-        }
+
 
         /* NEAR BY */
-        subCategories.add(new SubCategory(35, R.id.cb_top_deals, activity.getString(R.string.top_deals), "top_deals", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(36, R.id.cb_food_dining, activity.getString(R.string.food_dining), "food", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(37, R.id.cb_shopping, activity.getString(R.string.shopping), "shopping", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(38, R.id.cb_electronics, activity.getString(R.string.electronics), "electronics", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(39, R.id.cb_hotels_spa, activity.getString(R.string.hotels_spa), "hotels_spas", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(40, R.id.cb_markets_malls, activity.getString(R.string.markets_malls), "malls", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(41, R.id.cb_automotive, activity.getString(R.string.automotive), "automotive", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(42, R.id.cb_travel_tours, activity.getString(R.string.travel_tours), "travel", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(43, R.id.cb_entertainment, activity.getString(R.string.entertainment), "entertainment", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(44, R.id.cb_jewelry, activity.getString(R.string.jewelry_exchange), "jewelry", CT_NEARBY, false, false));
-        subCategories.add(new SubCategory(45, R.id.cb_sports_fitness, activity.getString(R.string.sports_fitness), "sports_fitness", CT_NEARBY, false, false));
+            //subCategories.add(new SubCategory(35, R.id.cb_top_deals, activity.getString(R.string.top_deals), "top_deals", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(36, R.id.cb_food_dining, activity.getString(R.string.food_dining), "food", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(37, R.id.cb_shopping, activity.getString(R.string.shopping), "shopping", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(38, R.id.cb_electronics, activity.getString(R.string.electronics), "electronics", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(39, R.id.cb_hotels_spa, activity.getString(R.string.hotels_spa), "hotels_spas", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(40, R.id.cb_markets_malls, activity.getString(R.string.markets_malls), "malls", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(41, R.id.cb_automotive, activity.getString(R.string.automotive), "automotive", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(42, R.id.cb_travel_tours, activity.getString(R.string.travel_tours), "travel", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(43, R.id.cb_entertainment, activity.getString(R.string.entertainment), "entertainment", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(44, R.id.cb_jewelry, activity.getString(R.string.jewelry_exchange), "jewelry", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(45, R.id.cb_sports_fitness, activity.getString(R.string.sports_fitness), "sports_fitness", CT_NEARBY, false, false));
 
         /* TOP */
-        subCategories.add(new SubCategory(46, R.id.cb_food_dining1, activity.getString(R.string.food_dining), "food", CT_TOP, false, false));
-        subCategories.add(new SubCategory(47, R.id.cb_shopping1, activity.getString(R.string.shopping), "shopping", CT_TOP, false, false));
-        subCategories.add(new SubCategory(48, R.id.cb_electronics1, activity.getString(R.string.electronics), "electronics", CT_TOP, false, false));
-        subCategories.add(new SubCategory(49, R.id.cb_hotels_spa1, activity.getString(R.string.hotels_spa), "hotels_spas", CT_TOP, false, false));
-        subCategories.add(new SubCategory(50, R.id.cb_markets_malls1, activity.getString(R.string.markets_malls), "malls", CT_TOP, false, false));
-        subCategories.add(new SubCategory(51, R.id.cb_automotive1, activity.getString(R.string.automotive), "automotive", CT_TOP, false, false));
-        subCategories.add(new SubCategory(52, R.id.cb_travel_tours1, activity.getString(R.string.travel_tours), "travel", CT_TOP, false, false));
-        subCategories.add(new SubCategory(53, R.id.cb_entertainment1, activity.getString(R.string.entertainment), "entertainment", CT_TOP, false, false));
-        subCategories.add(new SubCategory(54, R.id.cb_jewelry1, activity.getString(R.string.jewelry_exchange), "jewelry", CT_TOP, false, false));
-        subCategories.add(new SubCategory(55, R.id.cb_sports_fitness1, activity.getString(R.string.sports_fitness), "sports_fitness", CT_TOP, false, false));
+            subCategories.add(new SubCategory(46, R.id.cb_food_dining1, activity.getString(R.string.food_dining), "food", CT_TOP, false, false));
+            subCategories.add(new SubCategory(47, R.id.cb_shopping1, activity.getString(R.string.shopping), "shopping", CT_TOP, false, false));
+            subCategories.add(new SubCategory(48, R.id.cb_electronics1, activity.getString(R.string.electronics), "electronics", CT_TOP, false, false));
+            subCategories.add(new SubCategory(49, R.id.cb_hotels_spa1, activity.getString(R.string.hotels_spa), "hotels_spas", CT_TOP, false, false));
+            subCategories.add(new SubCategory(50, R.id.cb_markets_malls1, activity.getString(R.string.markets_malls), "malls", CT_TOP, false, false));
+            subCategories.add(new SubCategory(51, R.id.cb_automotive1, activity.getString(R.string.automotive), "automotive", CT_TOP, false, false));
+            subCategories.add(new SubCategory(52, R.id.cb_travel_tours1, activity.getString(R.string.travel_tours), "travel", CT_TOP, false, false));
+            subCategories.add(new SubCategory(53, R.id.cb_entertainment1, activity.getString(R.string.entertainment), "entertainment", CT_TOP, false, false));
+            subCategories.add(new SubCategory(54, R.id.cb_jewelry1, activity.getString(R.string.jewelry_exchange), "jewelry", CT_TOP, false, false));
+            subCategories.add(new SubCategory(55, R.id.cb_sports_fitness1, activity.getString(R.string.sports_fitness), "sports_fitness", CT_TOP, false, false));
+        }
+
     }
 
     public static synchronized void showSubCategories(Activity activity, final int category) {
@@ -130,7 +132,7 @@ public class CategoryUtils {
         for(SubCategory sc : subCategories) {
             if(sc.parent == category) {
                 sc.isVisible = true;
-                Logger.logI("SUB CATEGORY: " + sc.isSelected, sc.title);
+                Logger.logI("SUB CATEGORY: " + sc.parent +":" + sc.isSelected, sc.title);
                 CheckBox checkBox = (CheckBox) activity.findViewById(sc.checkBoxId);
                 checkBox.setText(sc.title);
                 checkBox.setChecked(sc.isSelected);
