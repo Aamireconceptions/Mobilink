@@ -148,6 +148,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
+        tvEmptyView.setText("");
+
         if(DealsTask.sortColumn.equals("createdate"))
         {
             adapter.setListingType("deals");

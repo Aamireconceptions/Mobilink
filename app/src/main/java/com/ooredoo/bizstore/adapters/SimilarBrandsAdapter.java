@@ -219,8 +219,6 @@ public class SimilarBrandsAdapter extends BaseAdapter
         thread.start();
     }
 
-
-
     private static class Holder
     {
         ImageView ivThumbnail;

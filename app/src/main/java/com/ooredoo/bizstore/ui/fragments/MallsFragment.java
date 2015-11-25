@@ -146,6 +146,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
+        tvEmptyView.setText("");
+
         if(DealsTask.sortColumn.equals("createdate"))
         {
             adapter.setListingType("deals");

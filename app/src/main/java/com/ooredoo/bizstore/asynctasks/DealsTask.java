@@ -130,7 +130,9 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         if (result != null) {
             if (sortColumn.equals("createdate") || category.equals("nearby")) {
                 subCategories = "";
-                sortColumn = "createdate";
+
+                //This was a criminal act
+                //sortColumn = "createdate";
 
                 Logger.logI("DEALS: " + category, result);
 
@@ -165,10 +167,14 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                                 }
                             }
                         } else {
+                            adapter.clearData();
+                            adapter.notifyDataSetChanged();
                             dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                         }
                         adapter.notifyDataSetChanged();
                     } else {
+                        adapter.clearData();
+                        adapter.notifyDataSetChanged();
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
 
@@ -207,7 +213,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
         }
     }
-
 
     private String getDeals(String category) throws IOException {
         String result;

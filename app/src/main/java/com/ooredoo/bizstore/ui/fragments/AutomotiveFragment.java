@@ -145,6 +145,8 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
+        tvEmptyView.setText("");
+
         if(DealsTask.sortColumn.equals("createdate"))
         {
             adapter.setListingType("deals");

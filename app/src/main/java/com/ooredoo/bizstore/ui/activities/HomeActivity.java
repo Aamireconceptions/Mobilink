@@ -841,6 +841,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void setCurrentFragment(Fragment currentFragment) {
         this.currentFragment = currentFragment;
+
+
     }
 
     @Override

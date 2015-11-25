@@ -32,6 +32,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 import com.ooredoo.bizstore.views.HeaderGridView;
@@ -156,7 +157,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onResume() {
         super.onResume();
-
+        Logger.print("Testing: ShoppingOnResume");
 
     }
 
@@ -200,6 +201,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         adapter.clearData();
         adapter.notifyDataSetChanged();
+        tvEmptyView.setText("");
 
         if(ShoppingTask.sortColumn.equals("createdate"))
         {

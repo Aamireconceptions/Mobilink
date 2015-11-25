@@ -146,6 +146,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
         adapter.clearData();
         adapter.notifyDataSetChanged();
+        tvEmptyView.setText("");
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

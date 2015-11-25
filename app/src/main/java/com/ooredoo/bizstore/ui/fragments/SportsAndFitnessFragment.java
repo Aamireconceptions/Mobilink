@@ -146,7 +146,6 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         {
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "sports_fitness");
         }
-
     }
 
     @Override
@@ -167,9 +166,10 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     @Override
     public void onRefreshCompleted() {
-
         adapter.clearData();
         adapter.notifyDataSetChanged();
+
+        tvEmptyView.setText("");
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

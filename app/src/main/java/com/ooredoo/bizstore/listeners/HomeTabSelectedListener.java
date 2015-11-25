@@ -72,11 +72,11 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
         //DealsTask.categories = "";
         //NearbyFragment.isMultipleCategoriesFilter = false;
         //DealsTask.isMultipleCategoriesFilter = false;
+
         homeActivity.resetFilters();
     }
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
-
     }
 }

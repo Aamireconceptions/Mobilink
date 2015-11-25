@@ -119,7 +119,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
 
-
         //gridView = (GridView) v.findViewById(R.id.grid_view)
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -218,6 +217,13 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         {
             isCreated = false;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Logger.print("Testing: FoodOnResume");
     }
 
     @Override

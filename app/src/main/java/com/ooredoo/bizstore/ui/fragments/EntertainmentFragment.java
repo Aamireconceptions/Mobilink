@@ -157,6 +157,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
+        tvEmptyView.setText("");
+
         if(DealsTask.sortColumn.equals("createdate"))
         {
             adapter.setListingType("deals");

@@ -284,8 +284,6 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         mapView.onResume();
     }
 
-
-
     @Override
     public void onRefresh()
     {

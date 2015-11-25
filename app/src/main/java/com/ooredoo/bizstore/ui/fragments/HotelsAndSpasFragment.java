@@ -153,6 +153,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     public void onFilterChange() {
         adapter.clearData();
         adapter.notifyDataSetChanged();
+        tvEmptyView.setText("");
 
         if(DealsTask.sortColumn.equals("createdate"))
         {
