@@ -253,5 +253,9 @@
     <string name="times">times</string>
     <string name="business_has_been_viewed">This business has been viewed</string>
     <string name="similar_brands">Similar Brands</string>
+    <string name="all">All</string>
+    <string name="sub">Sub</string>
+    <string name="sort">Sort</string>
+    <string name="by">By</string>
 
 </resources>

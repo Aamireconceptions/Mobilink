@@ -174,6 +174,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         memoryCache.remove(adapter.deals);
 
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_FOOD);
+
         isRefreshed = true;
 
         fetchAndDisplayFoodAndDining(null);
@@ -192,6 +196,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         ivBanner.setImageResource(R.drawable.food_dinning_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

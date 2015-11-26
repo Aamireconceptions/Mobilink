@@ -115,6 +115,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
 
             holder.ivThumbnail = (ImageView) grid.findViewById(R.id.image_view);
             holder.tvTitle = (TextView) grid.findViewById(R.id.text_view);
+            holder.tvBrandText = (TextView) grid.findViewById(R.id.brand_txt);
             holder.progressBar = (ProgressBar) grid.findViewById(R.id.progressBar);
 
             grid.setTag(holder);
@@ -153,6 +154,12 @@ public class SimilarBrandsAdapter extends BaseAdapter
         else
         {
             holder.ivThumbnail.setImageBitmap(null);
+            if(brand.title != null && !brand.title.isEmpty())
+            {
+                holder.tvBrandText.setBackgroundColor(brand.color);
+                holder.tvBrandText.setText(String.valueOf(brand.title.charAt(0)));
+            }
+
             holder.progressBar.setVisibility(View.GONE);
         }
 
@@ -223,7 +230,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
     {
         ImageView ivThumbnail;
 
-        TextView tvTitle;
+        TextView tvTitle, tvBrandText;
 
         ProgressBar progressBar;
     }

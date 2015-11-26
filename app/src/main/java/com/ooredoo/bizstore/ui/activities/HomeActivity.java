@@ -21,7 +21,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -140,7 +143,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public boolean doApplyRating = true;
 
-    public String ratingFilter;
+    public String ratingFilter, distanceFilter;
 
     public int minDiscount = 0, maxDiscount = 0;
 
@@ -467,6 +470,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         TextView tvBusinessAndDirectory = (TextView) findViewById(R.id.business_directory_checkbox);
         tvBusinessAndDirectory.setOnClickListener(clickListener);*/
 
+        String sort = getString(R.string.sort).toUpperCase();
+        String by = getString(R.string.by).toUpperCase();
+
+        TextView tvSortBy = (TextView) findViewById(R.id.sort_by);
+        tvSortBy.setText(sort + " " + by, TextView.BufferType.SPANNABLE);
+
+        Spannable spannable = (Spannable) tvSortBy.getText();
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)),
+                0, sort.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         TextView tvRating = (TextView) findViewById(R.id.rating_checkbox);
         tvRating.setOnClickListener(clickListener);
 
@@ -484,6 +497,21 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         tvRating5 = (TextView) findViewById(R.id.rating_5);
         tvRating5.setOnClickListener(clickListener);
+
+        TextView tvDistance0_5 = (TextView) findViewById(R.id._0_5);
+        tvDistance0_5.setOnClickListener(clickListener);
+
+        TextView tvDistance2 = (TextView) findViewById(R.id._2);
+        tvDistance2.setOnClickListener(clickListener);
+
+        TextView tvDistance10 = (TextView) findViewById(R.id._10);
+        tvDistance10.setOnClickListener(clickListener);
+
+        TextView tvDistance15 = (TextView) findViewById(R.id._15);
+        tvDistance15.setOnClickListener(clickListener);
+
+        TextView tvDistance20 = (TextView) findViewById(R.id._20);
+        tvDistance20.setOnClickListener(clickListener);
 
         TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
         tvDiscount.setOnClickListener(clickListener);
@@ -510,6 +538,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         CheckBox discountCheckBox = (CheckBox) findViewById(R.id.cb_highest_discount);
         discountCheckBox.setChecked(doApplyDiscount);
         discountCheckBox.setText(getString(R.string.sort_discount));
+
+        CategoryUtils.resetCheckboxes();
     }
 
     private void checkIfGpsEnabled()

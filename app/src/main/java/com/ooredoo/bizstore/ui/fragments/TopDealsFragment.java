@@ -167,6 +167,12 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     memoryCache.remove(adapter.deals);
 
+        activity.resetFilters();
+
+        DealsTask.subCategories = null;
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_TOP);
+
     isRefreshed = true;
     loadTopDeals(null);
     isRefreshed = false;
@@ -182,6 +188,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         ivBanner.setImageResource(R.drawable.top_deals_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

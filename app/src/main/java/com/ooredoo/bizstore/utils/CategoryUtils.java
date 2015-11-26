@@ -254,4 +254,12 @@ public class CategoryUtils {
         }
         return selectedSubCategories;
     }
+
+    public static void resetCheckboxes()
+    {
+        for(SubCategory s : subCategories)
+        {
+            s.isSelected = false;
+        }
+    }
 }

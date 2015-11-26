@@ -30,6 +30,7 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -237,6 +238,12 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         diskCache.remove(adapter.deals);
 
+        activity.resetFilters();
+
+        ShoppingTask.subCategories = null;
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_SHOPPING);
+
         isRefreshed = true;
         loadDeals(null);
         isRefreshed = false;
@@ -253,6 +260,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         rlHeader.setVisibility(View.VISIBLE);
 
         ivBanner.setImageResource(R.drawable.shopping_banner);
+
+        tvEmptyView.setText("");
     }
 
     @Override

@@ -406,7 +406,9 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 }
             });
             gridView.setNumColumns(3);
-            gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._10sdp));
+            gridView.setPadding((int) resources.getDimension(R.dimen._10sdp), (int) resources.getDimension(R.dimen._10sdp),
+                    (int) resources.getDimension(R.dimen._10sdp), (int) resources.getDimension(R.dimen._10sdp));
+            gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._8sdp));
             gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._10sdp));
 
             gridView.setGravity(Gravity.CENTER_HORIZONTAL);

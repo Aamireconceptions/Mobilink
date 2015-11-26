@@ -162,6 +162,10 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
+
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_TRAVEL);
         isRefreshed = true;
         fetchAndDisplayTravel(null);
         isRefreshed = false;
@@ -177,6 +181,8 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
         ivBanner.setImageResource(R.drawable.travel_tour_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

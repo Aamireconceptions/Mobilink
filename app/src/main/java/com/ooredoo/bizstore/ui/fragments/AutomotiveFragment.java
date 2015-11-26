@@ -166,6 +166,10 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
         memoryCache.remove(adapter.deals);
 
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_AUTOMOTIVE);
+
         isRefreshed = true;
         fetchAndDisplayAutomotive(null);
         isRefreshed = false;
@@ -181,6 +185,8 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
         ivBanner.setImageResource(R.drawable.automotive_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

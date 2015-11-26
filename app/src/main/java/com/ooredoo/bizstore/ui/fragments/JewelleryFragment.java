@@ -167,6 +167,10 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
+
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_JEWELLERY);
         isRefreshed = true;
         fetchAndDisplayJewelry(null);
         isRefreshed = false;
@@ -182,6 +186,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         ivBanner.setImageResource(R.drawable.jewellery_exchange_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

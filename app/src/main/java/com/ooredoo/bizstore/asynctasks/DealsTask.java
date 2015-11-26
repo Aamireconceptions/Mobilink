@@ -192,11 +192,19 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                 if(brand.resultCode != - 1)
                 {
+                    dealsTaskFinishedListener.onHaveDeals();
                     if(brand.brands != null)
                     {
                         // adapter.clearData();
                         adapter.setBrandsList(brand.brands);
                         adapter.notifyDataSetChanged();
+                    }
+                    else
+                    {
+                        adapter.clearData();;
+                        adapter.notifyDataSetChanged();
+
+                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
                 }
                 else
@@ -232,6 +240,15 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         if(category.equals("nearby"))
         {
+            if(homeActivity.distanceFilter != null)
+            {
+                float distance = Float.parseFloat(homeActivity.distanceFilter);
+
+                distance = distance * 1.60934f;
+
+                params.put("distance", String.valueOf(distance));
+            }
+
             params.put("nearby", "true");
 
             // HomeActivity.lat = 25.283982;

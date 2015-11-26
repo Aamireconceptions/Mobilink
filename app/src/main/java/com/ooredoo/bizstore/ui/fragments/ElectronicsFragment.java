@@ -166,6 +166,11 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
+
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_ELECTRONICS);
+
         isRefreshed = true;
         fetchAndDisplayElectronics(null);
         isRefreshed = false;
@@ -181,6 +186,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         ivBanner.setImageResource(R.drawable.electronics_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

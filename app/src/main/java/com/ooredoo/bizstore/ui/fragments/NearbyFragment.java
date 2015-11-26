@@ -30,6 +30,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
+import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.NearbyFilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
@@ -228,9 +229,8 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
-        NearbyFilterOnClickListener clickListener = new NearbyFilterOnClickListener(activity,
-                CategoryUtils.CT_NEARBY,
-                listView, mapFragment);
+        FilterOnClickListener clickListener = new FilterOnClickListener(activity,
+                CategoryUtils.CT_NEARBY);
         clickListener.setLayout(rlHeader);
     }
 
@@ -291,6 +291,10 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         memoryCache.remove(adapter.deals);
 
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_NEARBY);
+
         isRefreshed = true;
 
         fetchAndDisplayFoodAndDining(null);
@@ -309,6 +313,8 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         ivBanner.setImageResource(R.drawable.nearby_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

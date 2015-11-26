@@ -167,6 +167,10 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
         memoryCache.remove(adapter.deals);
 
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_MALLS);
+
         isRefreshed = true;
         fetchAndDisplayMalls(null);
         isRefreshed = false;
@@ -182,6 +186,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         ivBanner.setImageResource(R.drawable.market_malls_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

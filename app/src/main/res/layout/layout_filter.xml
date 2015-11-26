@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
-            android:background="@drawable/filter_heading_bg"
+            android:background="@drawable/heading_bg"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_10sdp"
             android:paddingEnd="@dimen/_16sdp"
@@ -102,20 +102,40 @@
             android:paddingTop="@dimen/_10sdp"
             android:text="@string/sort_by"/>
 
+        <CheckBox
+            android:id="@+id/cb_highest_discount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sort_by"
+            android:button="@drawable/checkbox_button"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_12sdp"
+
+            android:textColor="@color/hex808080"
+            android:text="@string/sort_discount"/>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/cb_highest_discount"
+            android:background="@color/grey"/>
+
         <RelativeLayout
             android:id="@+id/distance_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sort_by"
-            android:padding="@dimen/_16sdp"
-            android:visibility="gone">
+            android:layout_below="@+id/cb_highest_discount"
+            android:padding="@dimen/_14sdp"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/distance_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_8sdp"
-                android:drawableStart="@drawable/checkbox_selector"
+
                 android:gravity="center_vertical"
                 android:text="@string/distance"/>
 
@@ -133,42 +153,108 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mi"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/red_border">
 
-                <Button
+                <!--<Button
                     android:id="@+id/_0.5"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_0.5"/>
+                    android:text="@string/_0.5"/>-->
 
-                <Button
+                <TextView
+                    android:id="@+id/_0.5"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rating_selector"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:text="@string/_0.5"
+                    android:textColor="@color/black_white_selector"/>
+
+                <TextView
                     android:id="@+id/_2"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_2"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:text="@string/_2"
+                    android:textColor="@color/black_white_selector"/>
 
-                <Button
+                <!--<Button
+                    android:id="@+id/_2"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_2"/>-->
+
+                <TextView
                     android:id="@+id/_10"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_10"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:text="@string/_10"
+                    android:textColor="@color/black_white_selector"/>
 
-                <Button
+               <!-- <Button
+                    android:id="@+id/_10"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_10"/>-->
+
+                <TextView
                     android:id="@+id/_15"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_15"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:text="@string/_15"
+                    android:textColor="@color/black_white_selector"/>
 
-                <Button
+                <!--<Button
+                    android:id="@+id/_15"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_15"/>-->
+
+                <TextView
                     android:id="@+id/_20"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_20"/>
+                    android:background="@drawable/rating_selector"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:text="@string/_20"
+                    android:textColor="@color/black_white_selector"/>
+
+                <!--<Button
+                    android:id="@+id/_20"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_20"/>-->
 
             </LinearLayout>
 
@@ -186,9 +272,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/line2"
-            android:padding="@dimen/_16sdp">
+            android:padding="@dimen/_14sdp">
 
-            <CheckBox
+            <!--<CheckBox
                 android:id="@+id/cb_highest_discount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -197,15 +283,15 @@
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_8sdp"
                 android:textColor="@color/hex808080"
-                android:text="@string/sort_discount"/>
+                android:text="@string/sort_discount"/>-->
 
             <TextView
                 android:id="@+id/rating_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cb_highest_discount"
+
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="@dimen/_20sdp"
+
                 android:drawablePadding="@dimen/_8sdp"
                 android:gravity="center_vertical"
                 android:text="@string/rating"/>
@@ -343,7 +429,7 @@
                 android:paddingTop="@dimen/_4sdp"
                 android:textSize="16sp"
                 android:textStyle="normal"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:text="@string/sub_categories"/>
 
             <!--<CheckBox

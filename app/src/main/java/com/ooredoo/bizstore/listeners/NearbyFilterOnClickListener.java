@@ -24,7 +24,7 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
 {
     private HomeActivity activity;
 
-    private View lastRatingSelected;
+    private View lastRatingSelected, lastDistanceSelected;
 
     private View lastButtonSelected;
 
@@ -36,7 +36,9 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
 
     private View layout;
 
-    private  ListView listView; MapFragment mapFragment;
+    private  ListView listView;
+
+    private MapFragment mapFragment;
     public NearbyFilterOnClickListener(HomeActivity activity, int category, ListView listView, MapFragment mapFragment)
     {
         this.activity = activity;
@@ -110,6 +112,14 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
                 activity.drawerLayout.openDrawer(GravityCompat.END);
 
                 if(category > 0) {
+                  /*  if(category == CategoryUtils.CT_NEARBY) {
+                        activity.findViewById(R.id.distance_layout).setVisibility(View.VISIBLE);
+                    } else {
+                        activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
+                    }*/
+                    activity.findViewById(R.id.line1).setVisibility(View.VISIBLE);
+                    activity.findViewById(R.id.distance_layout).setVisibility(View.VISIBLE);
+
                     if(category == CategoryUtils.CT_TOP || category == CategoryUtils.CT_TRAVEL) {
                         //There are no sub categories in TOP/TRAVEL categories
                         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
@@ -210,6 +220,47 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
                 Logger.logI("DISCOUNT_FILTER", String.valueOf(activity.doApplyDiscount));
 
                 break;
+
+            case R.id._0_5:
+
+                activity.distanceFilter = "0.5";
+
+                setDistanceSelected(v);
+
+                break;
+
+            case R.id._2:
+
+                activity.distanceFilter = "2";
+
+                setDistanceSelected(v);
+
+                break;
+
+            case R.id._10:
+
+                activity.distanceFilter = "10";
+
+                setDistanceSelected(v);
+
+                break;
+
+            case R.id._15:
+
+                activity.distanceFilter = "15";
+
+                setDistanceSelected(v);
+
+                break;
+
+            case R.id._20:
+
+                activity.distanceFilter = "20";
+
+                setDistanceSelected(v);
+
+                break;
+
         }
     }
 
@@ -245,6 +296,26 @@ public class NearbyFilterOnClickListener implements View.OnClickListener
         v.setSelected(isRatingEnabled);
 
         lastRatingSelected = v;
+    }
+
+    public void setDistanceSelected(View v) {
+        // activity.setRatingEnabled(true);
+
+        boolean isDistanceEnabled = !v.isSelected();
+
+        Logger.logI("DISTANCE_ENABLED", v.getId() + "," + isDistanceEnabled);
+
+        if(lastDistanceSelected != null) {
+            lastDistanceSelected.setSelected(false);
+        }
+
+        if(!isDistanceEnabled) {
+            activity.distanceFilter = null;
+        }
+
+        v.setSelected(isDistanceEnabled);
+
+        lastDistanceSelected = v;
     }
 
     private void setCheckboxSelected(View v)

@@ -159,6 +159,10 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
+
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_SPORTS);
         isRefreshed = true;
         fetchAndDisplaySportsAndFitness(null);
         isRefreshed = false;
@@ -187,6 +191,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         ivBanner.setImageResource(R.drawable.sports_fitness_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

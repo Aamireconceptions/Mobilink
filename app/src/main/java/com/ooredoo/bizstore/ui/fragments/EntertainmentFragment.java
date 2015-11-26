@@ -177,6 +177,10 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
         memoryCache.remove(adapter.deals);
 
+        activity.resetFilters();
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_ENTERTAINMENT);
+
         isRefreshed = true;
         fetchAndDisplayEntertainment(null);
         isRefreshed = false;
@@ -192,6 +196,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         ivBanner.setImageResource(R.drawable.entertainment_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
+
+        tvEmptyView.setText("");
     }
 
     @Override

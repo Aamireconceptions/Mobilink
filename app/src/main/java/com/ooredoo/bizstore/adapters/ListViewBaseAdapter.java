@@ -543,6 +543,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     }
                 });*/
 
+                googleMap.clear();
                 populateMap(deals);
 
                 return mapLayout;
