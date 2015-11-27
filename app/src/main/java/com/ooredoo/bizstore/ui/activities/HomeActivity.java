@@ -455,6 +455,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     }
 
+    TextView tvDistance0_5, tvDistance2, tvDistance10, tvDistance15, tvDistance20;
+
     private void initFilter() {
         FilterOnClickListener clickListener = new FilterOnClickListener(this, 0);
 
@@ -498,19 +500,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvRating5 = (TextView) findViewById(R.id.rating_5);
         tvRating5.setOnClickListener(clickListener);
 
-        TextView tvDistance0_5 = (TextView) findViewById(R.id._0_5);
+        tvDistance0_5 = (TextView) findViewById(R.id._0_5);
         tvDistance0_5.setOnClickListener(clickListener);
 
-        TextView tvDistance2 = (TextView) findViewById(R.id._2);
+        tvDistance2 = (TextView) findViewById(R.id._2);
         tvDistance2.setOnClickListener(clickListener);
 
-        TextView tvDistance10 = (TextView) findViewById(R.id._10);
+        tvDistance10 = (TextView) findViewById(R.id._10);
         tvDistance10.setOnClickListener(clickListener);
 
-        TextView tvDistance15 = (TextView) findViewById(R.id._15);
+        tvDistance15 = (TextView) findViewById(R.id._15);
         tvDistance15.setOnClickListener(clickListener);
 
-        TextView tvDistance20 = (TextView) findViewById(R.id._20);
+        tvDistance20 = (TextView) findViewById(R.id._20);
         tvDistance20.setOnClickListener(clickListener);
 
         TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
@@ -536,8 +538,20 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvRating4.setSelected(false);
         tvRating5.setSelected(false);
         CheckBox discountCheckBox = (CheckBox) findViewById(R.id.cb_highest_discount);
+        doApplyDiscount = false;
         discountCheckBox.setChecked(doApplyDiscount);
         discountCheckBox.setText(getString(R.string.sort_discount));
+
+        doApplyRating = false;
+        ratingFilter = null;
+
+        distanceFilter = null;
+
+        tvDistance0_5.setSelected(false);
+        tvDistance2.setSelected(false);
+        tvDistance10.setSelected(false);
+        tvDistance15.setSelected(false);
+        tvDistance20.setSelected(false);
 
         CategoryUtils.resetCheckboxes();
     }

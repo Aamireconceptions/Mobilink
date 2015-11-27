@@ -2,15 +2,19 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,14 +22,23 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -36,13 +49,19 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.CategoryUtils;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +81,8 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     private ImageView ivBanner;
 
     private RelativeLayout rlHeader;
+
+    private LinearLayout llLocationEmptyView;
 
     private TextView tvEmptyView;
 
@@ -86,9 +107,17 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     }
 
     ViewGroup parent;
+
+    Resources resources;
+
+RelativeLayout rlParent;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parent = container;
+
+
+
+        //isMap = false;
         View v = inflater.inflate(R.layout.fragment_nearby, container, false);
 
         init(v, inflater, savedInstanceState);
@@ -99,11 +128,13 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         }
         else
         {
-            tvEmptyView.setText(R.string.error_no_location);
-            listView.setEmptyView(tvEmptyView);
+            //tvEmptyView.setText(R.string.error_no_location);
+            listView.setEmptyView(llLocationEmptyView);
         }
 
         isCreated = true;
+
+        rlParent = (RelativeLayout) v.findViewById(R.id.map_frame);
 
         return v;
     }
@@ -112,42 +143,67 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     MapFragment mapFragment;
 
     MapView mapView;
+
+    LayoutInflater inflater;
+
+    private int reqWidth, reqHeight;
+
+    BitmapProcessor bitmapProcessor;
+
     private void init(View v, LayoutInflater inflater, Bundle savedInstanceState)
     {
+        this.inflater = inflater;
+
         activity = (HomeActivity) getActivity();
 
-        RelativeLayout linearLayout = (RelativeLayout) inflater.inflate(R.layout.layout_map, null, false);
+        resources = activity.getResources();
 
-        ImageView imageView =  (ImageView) linearLayout.findViewById(R.id.dummy);
+        /*reqWidth = resources.getDisplayMetrics().widthPixels;
 
-        imageView.setOnTouchListener(new View.OnTouchListener() {
+        reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._105sdp)
+                / resources.getDisplayMetrics().density);*/
+
+        bitmapProcessor = new BitmapProcessor();
+
+
+       mapView = (MapView) inflater.inflate(R.layout.layout_map, null, false);
+
+        //ImageView imageView =  (ImageView) linearLayout.findViewById(R.id.dummy);
+
+        /*imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
                 if(event.getAction() == MotionEvent.ACTION_DOWN)
                 {
                     Logger.print("down");
-                    listView.setScrollContainer(false);
+                   // listView.setScrollContainer(false);
 
                     return true;
                 }
 
                 if(event.getAction() == MotionEvent.ACTION_UP)
                 {Logger.print("up");
-                    listView.setScrollContainer(true);
+                   // listView.setScrollContainer(true);
 
                     return true;
                 }
 
                 return false;
             }
-        });
+        });*/
 
-        mapView = (MapView) linearLayout.findViewById(R.id.mapView);
+       // mapView = (MapView) linearLayout.findViewById(R.id.mapView);
+      /*  mapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
 
+
+                return false;
+            }
+        });*/
 
         mapView.onCreate(savedInstanceState);
-
 
         try
         {
@@ -162,7 +218,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        googleMap.getUiSettings().setMapToolbarEnabled(true);
+        //googleMap.getUiSettings().setMapToolbarEnabled(true);
         googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -185,7 +241,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.nearby_list_view, R.id.empty_view, R.id.location_empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         /* ivBanner = (ImageView) v.findViewById(R.id.banner);
@@ -201,25 +257,51 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
         adapter.setListingType("deals");
-        adapter.setMapLayout(linearLayout);
+        //adapter.setMapLayout(linearLayout);
+
+        llLocationEmptyView = (LinearLayout) v.findViewById(R.id.location_empty_view);
+
+        v.findViewById(R.id.enable_location).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+
+                activity.startActivity(intent);
+            }
+        });
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         // mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 
-        adapter.setMapView(mapView);
+       // adapter.setMapView(mapView);
 
         adapter.setGenericDealHashMap(genericDealHashMap);
 
-        adapter.setGoogleMap(googleMap);
+        //adapter.setGoogleMap(googleMap);
         /*if(mapFragment != null)
         {
             googleMap = mapFragment.getMap();
         }*/
 
         listView = (ListView) v.findViewById(R.id.nearby_list_view);
-        listView.addHeaderView(ivBanner);
-        listView.addHeaderView(rlHeader);
+       // listView.addHeaderView(ivBanner);
+       // listView.addHeaderView(rlHeader);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+
+                    //return false;
+
+
+                return false;
+            }
+        });
+
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -231,13 +313,51 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity,
                 CategoryUtils.CT_NEARBY);
-        clickListener.setLayout(rlHeader);
+        clickListener.setLayout(v);
+
+        initMarker();
     }
 
+    ImageView markerImageView;
+    TextView tvBrandText;
+    FrameLayout linearLayout;
+    void initMarker()
+    {
+        linearLayout = (FrameLayout) inflater.inflate(R.layout.marker, null);
+
+        markerImageView = (ImageView) linearLayout.findViewById(R.id.brand_icon);
+
+        tvBrandText = (TextView) linearLayout.findViewById(R.id.brand_text);
+        //imageView.setImageBitmap(bitmap);
+
+        //linearLayout.setDrawingCacheEnabled(true);
+
+        linearLayout.measure(View.MeasureSpec.makeMeasureSpec((int) resources.getDimension(R.dimen._35sdp), View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec((int) resources.getDimension(R.dimen._45sdp), View.MeasureSpec.EXACTLY));
+
+        linearLayout.layout(0, 0, linearLayout.getMeasuredWidth(), linearLayout.getMeasuredHeight());
+
+        //linearLayout.buildDrawingCache();
+    }
+
+    DealsTask dealsTask;
+
     private void fetchAndDisplayFoodAndDining(ProgressBar progressBar) {
-        DealsTask dealsTask = new DealsTask(activity, adapter,
+        dealsTask = new DealsTask(activity, adapter,
                 progressBar, ivBanner,
                 this);
+
+        dealsTask.setNearbyFragment(this);
+        dealsTask.category = "nearby";
+
+        if(DealsTask.sortColumn.equals("views"))
+        {
+            dealsTask.setType("map");
+        }
+        else
+        {
+            dealsTask.setType(null);
+        }
 
         String cache = dealsTask.getCache("nearby");
 
@@ -254,6 +374,7 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         }
     }
 
+    //public static boolean isMap = false;
     @Override
     public void onFilterChange()
     {
@@ -261,18 +382,49 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
 
         if(DealsTask.sortColumn.equals("createdate"))
         {
-            adapter.setListingType("deals");
+           // adapter.setListingType("deals");
 
-            swipeRefreshLayout.setEnabled(true);
+            //isMap = false;
+
+           // swipeRefreshLayout.setEnabled(true);
+
+
+            listView.setVisibility(View.VISIBLE);
+
+
+            //mapView.setVisibility(View.INVISIBLE);
+
+            rlParent.removeView(mapView);
+
+            rlParent.setVisibility(View.GONE);
         }
         else
         {
-            adapter.setListingType("map");
 
-            swipeRefreshLayout.setEnabled(false);
+            listView.setVisibility(View.GONE);
+
+            rlParent.setVisibility(View.VISIBLE);
+
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.MATCH_PARENT);
+
+            params.addRule(RelativeLayout.BELOW, R.id.header);
+            params.topMargin = (int) resources.getDimension(R.dimen._8sdp);
+
+            if(rlParent != mapView.getParent())
+            {
+                rlParent.addView(mapView);
+            }
+
+           // mapView.setVisibility(View.VISIBLE);
+            //adapter.setListingType("map");
+
+            //isMap = true;
+
+           // swipeRefreshLayout.setEnabled(false);
         }
 
-        adapter.notifyDataSetChanged();
+       // adapter.notifyDataSetChanged();
 
         fetchAndDisplayFoodAndDining(progressBar);
     }
@@ -310,18 +462,18 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onHaveDeals()
     {
-        ivBanner.setImageResource(R.drawable.nearby_banner);
+        //ivBanner.setImageResource(R.drawable.nearby_banner);
 
-        rlHeader.setVisibility(View.VISIBLE);
+        //rlHeader.setVisibility(View.VISIBLE);
 
         tvEmptyView.setText("");
     }
 
     @Override
     public void onNoDeals(int stringResId) {
-        ivBanner.setImageDrawable(null);
+        //ivBanner.setImageDrawable(null);
 
-        rlHeader.setVisibility(View.GONE);
+        //rlHeader.setVisibility(View.GONE);
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
@@ -399,5 +551,190 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         }*/
 
         super.onDestroyView();
+    }
+
+    public void populateMap(List<GenericDeal> deals)
+    {
+        googleMap.clear();
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for(final GenericDeal deal : deals)
+        {
+            //Image image = deal.image;
+
+            String businessLogoUrl = deal.businessLogo;
+
+            builder.include(new LatLng(deal.latitude, deal.longitude));
+
+            if(businessLogoUrl != null) {
+                final String url = BaseAsyncTask.IMAGE_BASE_URL + businessLogoUrl;
+
+                Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+                if (bitmap == null) {
+                    bitmap = diskCache.getBitmapFromDiskCache(url);
+                }
+
+                if (bitmap != null) {
+                    addMarker(bitmap, deal);
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final Bitmap bitmap = downloadBitmap(url, String.valueOf((int) resources.getDimension(R.dimen._60sdp)),
+                                    String.valueOf((int) resources.getDimension(R.dimen._60sdp)));
+
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    addMarker(bitmap, deal);
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            }
+            else
+            {
+                addMarker(null, deal);
+            }
+        }
+
+        if(deals.size() > 0)
+        {
+            builder.include(new LatLng(HomeActivity.lat, HomeActivity.lng));
+
+            LatLngBounds bounds = builder.build();
+
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, resources.getDisplayMetrics().widthPixels,
+                    resources.getDisplayMetrics().heightPixels - (int) resources.getDimension(R.dimen._140sdp), 150);
+
+            googleMap.animateCamera(cameraUpdate);
+        }
+
+    }
+    private void addMarker(Bitmap bitmap, GenericDeal deal)
+    {
+        linearLayout.setDrawingCacheEnabled(true);
+
+        if(bitmap != null)
+        {
+            tvBrandText.setVisibility(View.GONE);
+            markerImageView.setVisibility(View.VISIBLE);
+            markerImageView.setImageBitmap(bitmap);
+
+            bitmap = linearLayout.getDrawingCache();
+
+            if(bitmap != null)
+            {
+                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
+
+                MarkerOptions options = new MarkerOptions()
+                        .title(deal.title)
+                        .snippet(deal.description)
+                        .position(new LatLng(deal.latitude, deal.longitude))
+                        .icon(bd);
+
+                Marker marker = googleMap.addMarker(options);
+                genericDealHashMap.put(marker.getId(), deal);
+
+                linearLayout.setDrawingCacheEnabled(false);
+            }
+
+
+        }
+        else
+        {
+            markerImageView.setVisibility(View.GONE);
+
+            tvBrandText.setVisibility(View.VISIBLE);
+            if(deal.businessName != null && !deal.businessName.isEmpty())
+            {
+                tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
+            }
+            else
+            if(deal.title != null && !deal.title.isEmpty())
+            {
+                tvBrandText.setText(String.valueOf(deal.title.charAt(0)));
+            }
+
+
+            bitmap = linearLayout.getDrawingCache();
+
+            if(bitmap != null)
+            {
+                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
+
+                MarkerOptions options = new MarkerOptions()
+                        .title(deal.title)
+                        .snippet(deal.description)
+                        .position(new LatLng(deal.latitude, deal.longitude))
+                        .icon(bd);
+
+                Marker marker = googleMap.addMarker(options);
+                genericDealHashMap.put(marker.getId(), deal);
+
+                linearLayout.setDrawingCacheEnabled(false);
+            }
+        }
+    }
+
+    public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
+    {
+        try
+        {
+            if(memoryCache.getBitmapFromCache(imgUrl) != null)
+            {
+                return memoryCache.getBitmapFromCache(imgUrl);
+                /*Logger.print("Already downloaded. Cancelling task");
+
+                cancel(true);*/
+            }
+
+            Bitmap b = diskCache.getBitmapFromDiskCache(imgUrl);
+            if(b != null)
+            {
+                return b;
+            }
+
+            if(BizStore.forceStopTasks)
+            {
+                Logger.print("Force stopped bitmap download task");
+
+                return null;
+            }
+
+            Logger.print("Bitmap Url: " + imgUrl);
+            URL url = new URL(imgUrl);
+
+            InputStream inputStream = url.openStream();
+
+           /* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
+            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*/
+
+            int width = Integer.parseInt(reqWidth);
+
+            int height = Integer.parseInt(reqHeight);
+
+            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
+
+            if(bitmap != null)
+            {
+                diskCache.addBitmapToDiskCache(imgUrl, bitmap);
+                memoryCache.addBitmapToCache(imgUrl, bitmap);
+            }
+
+            return bitmap;
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

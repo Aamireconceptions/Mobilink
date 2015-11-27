@@ -257,5 +257,8 @@
     <string name="sub">Sub</string>
     <string name="sort">Sort</string>
     <string name="by">By</string>
+    <string name="enable_location">Enable Location Services</string>
+    <string name="turn_location_on">Please turn location services on to view your nearby deals</string>
+    <string name="btn_enable_loc">Enable Location</string>
 
 </resources>

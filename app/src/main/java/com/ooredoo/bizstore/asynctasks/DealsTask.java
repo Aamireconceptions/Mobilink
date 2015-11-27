@@ -19,6 +19,7 @@ import com.ooredoo.bizstore.model.BrandResponse;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -111,11 +112,19 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         return null;
     }
 
+
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
         setData(result);
+    }
+
+    public String type;
+
+    public void setType(String type)
+    {
+        this.type = type;
     }
 
     public void setData(String result) {
@@ -128,7 +137,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         //adapter.clearData();
 
         if (result != null) {
-            if (sortColumn.equals("createdate") || category.equals("nearby")) {
+            if (sortColumn.equals("createdate") || category.equals("nearby")
+                    || (category.equals("nearby") && sortColumn.equals("views"))) {
                 subCategories = "";
 
                 //This was a criminal act
@@ -148,9 +158,22 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                         List<GenericDeal> deals = response.deals;
 
+                        if(type != null && type.equals("map"))
+                        {
+                            if(deals != null)
+                            {
+                                nearbyFragment.populateMap(deals);
+
+                                dealsTaskFinishedListener.onHaveDeals();
+                            }
+                        }
+                        else
                         if (deals != null) {
                             //adapter.clearData();
+
                             adapter.setData(deals);
+
+                            dealsTaskFinishedListener.onHaveDeals();
 
                             String bannerUrl = response.topBannerUrl;
 
@@ -193,6 +216,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                 if(brand.resultCode != - 1)
                 {
                     dealsTaskFinishedListener.onHaveDeals();
+
                     if(brand.brands != null)
                     {
                         // adapter.clearData();
@@ -206,6 +230,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
+
+
                 }
                 else
                 {
@@ -298,7 +324,12 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             params.put("subcategories", subCategories);
         }
 
-        if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
+        /*if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
+            isFilterEnabled = true;
+            params.put("rating", homeActivity.ratingFilter);
+        }*/
+
+        if(homeActivity.ratingFilter != null) {
             isFilterEnabled = true;
             params.put("rating", homeActivity.ratingFilter);
         }
@@ -380,4 +411,12 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         return result;
     }
+
+    NearbyFragment nearbyFragment;
+
+    public void setNearbyFragment(NearbyFragment nearbyFragment)
+    {
+        this.nearbyFragment = nearbyFragment;
+    }
+
 }

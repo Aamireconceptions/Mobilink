@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+
     android:orientation="vertical">
+
+
+
 
 
     <!--<android.support.design.widget.CoordinatorLayout
@@ -32,29 +36,29 @@
 
     <!-- </android.support.design.widget.AppBarLayout>-->
 
+    <include layout="@layout/layout_filter_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp" />
+
+
     <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
+        android:layout_below="@+id/header"
+        android:layout_marginTop="@dimen/_8sdp"
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
-
             android:paddingBottom="@dimen/_8sdp"
             >
-
-            <!--<com.google.android.gms.maps.MapView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/mapView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />-->
 
             <ListView
                 android:id="@+id/nearby_list_view"
@@ -64,6 +68,50 @@
                 android:divider="@null"
                 android:dividerHeight="@dimen/_8sdp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/location_empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:drawableTop="@drawable/cityselection_icon"
+                android:drawablePadding="@dimen/_16sdp"
+                android:text="@string/enable_location"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:visibility="visible"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/turn_location_on"
+                    android:textSize="18sp"/>
+
+                <Button
+                    android:id="@+id/enable_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:textColor="@color/white"
+                    android:text="@string/btn_enable_loc"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:background="@drawable/btn_red"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/empty_view"
@@ -77,11 +125,26 @@
 
         </FrameLayout>
 
+
+
     </com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>
 
     <!--</android.support.design.widget.CoordinatorLayout>-->
-
-
+  <!--  <com.google.android.gms.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:visibility="gone"/>-->
+    <RelativeLayout
+        android:id="@+id/map_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:clickable="true"
+        android:layout_below="@+id/header"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
