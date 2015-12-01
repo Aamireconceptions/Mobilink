@@ -1,9 +1,11 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +49,7 @@ import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.NearbyFilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.model.Location;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
@@ -136,10 +139,12 @@ RelativeLayout rlParent;
 
         rlParent = (RelativeLayout) v.findViewById(R.id.map_frame);
 
+        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+
         return v;
     }
 
-    GoogleMap googleMap;
+    public GoogleMap googleMap;
     MapFragment mapFragment;
 
     MapView mapView;
@@ -148,6 +153,7 @@ RelativeLayout rlParent;
 
     private int reqWidth, reqHeight;
 
+    LocationManager locationManager;
     BitmapProcessor bitmapProcessor;
 
     private void init(View v, LayoutInflater inflater, Bundle savedInstanceState)
@@ -241,7 +247,8 @@ RelativeLayout rlParent;
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.nearby_list_view, R.id.empty_view, R.id.location_empty_view);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.nearby_list_view, R.id.empty_view,
+                R.id.scrollView);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         /* ivBanner = (ImageView) v.findViewById(R.id.banner);
@@ -267,7 +274,7 @@ RelativeLayout rlParent;
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 
-                activity.startActivity(intent);
+                NearbyFragment.this.startActivityForResult(intent, 10);
             }
         });
 
@@ -380,6 +387,17 @@ RelativeLayout rlParent;
     {
         Logger.print("NearbyFragment onFilterChange");
 
+
+
+        if(HomeActivity.lat == 0 && HomeActivity.lng == 0)
+        {
+            return;
+        }
+
+        listView.setEmptyView(null);
+        llLocationEmptyView.setVisibility(View.GONE);
+        tvEmptyView.setVisibility(View.GONE);
+
         if(DealsTask.sortColumn.equals("createdate"))
         {
            // adapter.setListingType("deals");
@@ -434,12 +452,37 @@ RelativeLayout rlParent;
         super.onResume();
 
         mapView.onResume();
+
+
     }
 
     @Override
     public void onRefresh()
     {
-        diskCache.remove(adapter.deals);
+        if(HomeActivity.lat !=0 && HomeActivity.lng != 0)
+        {
+            diskCache.remove(adapter.deals);
+
+            memoryCache.remove(adapter.deals);
+
+            activity.resetFilters();
+
+            CategoryUtils.showSubCategories(activity, CategoryUtils.CT_NEARBY);
+
+            isRefreshed = true;
+
+            fetchAndDisplayFoodAndDining(null);
+
+            isRefreshed = false;
+        }
+        else
+        {
+            //tvEmptyView.setText(R.string.error_no_location);
+            listView.setEmptyView(llLocationEmptyView);
+
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        /*diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
 
@@ -451,7 +494,7 @@ RelativeLayout rlParent;
 
         fetchAndDisplayFoodAndDining(null);
 
-        isRefreshed = false;
+        isRefreshed = false;*/
     }
 
     @Override
@@ -527,6 +570,22 @@ RelativeLayout rlParent;
 
             adapter.notifyDataSetChanged();
         }
+
+        if(requestCode == 10)
+        {
+            if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                    || (HomeActivity.lat != 0 && HomeActivity.lng != 0))
+            {
+                llLocationEmptyView.setVisibility(View.GONE);
+                listView.setEmptyView(null);
+            }
+            else
+            {
+                llLocationEmptyView.setVisibility(View.VISIBLE);
+                listView.setEmptyView(llLocationEmptyView);
+            }
+        }
+
     }
 
     @Override
@@ -737,4 +796,5 @@ RelativeLayout rlParent;
 
         return null;
     }
+
 }

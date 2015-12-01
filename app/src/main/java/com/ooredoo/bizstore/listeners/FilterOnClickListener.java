@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -79,6 +80,11 @@ public class FilterOnClickListener implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.new_deals:
 
+                if(category == CategoryUtils.CT_NEARBY && HomeActivity.lat == 0 && HomeActivity.lat == 0)
+                {
+                    return;
+                }
+
                 setButtonSelected(v);
 
                 DealsTask.sortColumn = "createdate";
@@ -89,6 +95,11 @@ public class FilterOnClickListener implements View.OnClickListener {
                 break;
 
             case R.id.popular_deals:
+
+                if(category == CategoryUtils.CT_NEARBY && HomeActivity.lat == 0 && HomeActivity.lat == 0)
+                {
+                    return;
+                }
 
                 setButtonSelected(v);
 

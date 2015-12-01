@@ -133,7 +133,7 @@
                         android:paddingEnd="@dimen/_6sdp"
                         android:paddingStart="@dimen/_6sdp"
                         android:scrollbars="none"
-                        android:verticalSpacing="@dimen/_6sdp"/>
+                        android:verticalSpacing="@dimen/_4sdp"/>
 
                 </LinearLayout>
 
@@ -141,6 +141,8 @@
                     android:id="@+id/lv_search_results"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:background="@color/white"
                     android:divider="@color/white"
                     android:dividerHeight="@dimen/_6sdp"

@@ -32,6 +32,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.GetCodeTask;
@@ -409,8 +410,12 @@ packageName = getPackageName();
                // rlBrandLogo.setVisibility(View.GONE);
 
                 TextView tvBrandTxt = (TextView) header.findViewById(R.id.brand_txt);
-                tvBrandTxt.setBackgroundColor(deal.color);
-                tvBrandTxt.setText(String.valueOf(deal.businessName.charAt(0)));
+
+                if(deal.businessName != null && !deal.businessName.isEmpty())
+                {
+                    tvBrandTxt.setBackgroundColor(deal.color);
+                    tvBrandTxt.setText(String.valueOf(deal.businessName.charAt(0)));
+                }
             }
 
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
@@ -650,7 +655,7 @@ packageName = getPackageName();
                 {
                             DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
+                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask(imageView, progressBar);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
 

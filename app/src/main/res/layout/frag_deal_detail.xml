@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_4sdp"
-
+                android:textColor="@color/black"
                  />
     
             <RelativeLayout

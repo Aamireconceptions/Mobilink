@@ -6,9 +6,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
-import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -17,9 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author  Babar
  * @since 18-Jun-15.
  */
-public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
+public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 {
     private ImageView imageView;
 
@@ -47,7 +43,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     public static ConcurrentHashMap<String, String> downloadingPool = new ConcurrentHashMap<>();
 
-    public BitmapDownloadTask(ImageView imageView, ProgressBar progressBar)
+    public BitmapForceDownloadTask(ImageView imageView, ProgressBar progressBar)
     {
         this.imageView = imageView;
 
@@ -79,28 +75,6 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         showProgress(View.GONE);
 
-
-/*
-            Iterator<String> iterator = downloadingPool.iterator();
-
-            while (iterator.hasNext()) {
-
-                String str = iterator.next();
-
-
-                if (str.equals(imgUrl)) ;
-                {
-                    // downloadingPool.remove(imgUrl)
-                    iterator.remove();
-
-                    Logger.print("x3 " + imgUrl + " removed from pool");
-                }
-            }*/
-
-        downloadingPool.remove(imgUrl);
-
-
-
         if(bitmap != null)
         {
             Logger.print("x3 Downloaded: " + imgUrl);
@@ -115,12 +89,6 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         }
     }
 
-    @Override
-    protected void onCancelled() {
-        super.onCancelled();
-
-        Logger.print("onCacelled");
-    }
 
     boolean writing = false;
     public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
@@ -131,72 +99,11 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             {
                 Logger.print("Already downloaded. Cancelling task");
 
-                cancel(true);
+                return memoryCache.getBitmapFromCache(imgUrl);
             }
 
-            if(BizStore.forceStopTasks)
-            {
-                Logger.print("Force stopped bitmap download task");
 
-                return null;
-            }
-
-           /* synchronized(this)
-            {
-                String pool[] = new String[downloadingPool.size()];
-
-                downloadingPool.toArray(pool);
-
-                for(String url : pool)
-                {
-                    if(url != null && url.equals(imgUrl))
-                    {
-                        Logger.print("x3 Image Download alreay in progress");
-                        cancel(true);
-                    }
-                }
-            }*/
-          /*  String pool[] = new String[downloadingPool.size()];
-
-            downloadingPool.toArray(pool);
-
-            for(String url : pool)
-            {
-                if(url != null && url.equals(imgUrl))
-                {
-                    Logger.print("x3 Image Download alreay in progress");
-                    cancel(true);
-                }
-            }*/
-
-            Iterator it = downloadingPool.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                System.out.println(pair.getKey() + " = " + pair.getValue());
-
-                if(pair.getKey().equals(imgUrl))
-                {
-                    Logger.print("x3 Image Download alreay in progress");
-
-                    cancel(true);
-                }
-            }
-
-            if(isCancelled())
-            {
-                Logger.print("isCancelled: true");
-
-                return null;
-            }
-
-            Logger.print("x3 " + imgUrl + " added to pool");
-
-           // downloadingPool.add(imgUrl);
-
-            downloadingPool.put(imgUrl, imgUrl);
-
-
-            Logger.print("Bitmap Url: " + imgUrl);
+            Logger.print("Force Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);
 
             InputStream inputStream = openStream();

@@ -252,7 +252,7 @@
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
                     android:text=""
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/red"/>
 
                 <TextView
                     android:id="@+id/locations"
@@ -418,7 +418,8 @@
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
                     android:text="@string/description"
-                    android:textColor="@color/black"/>
+
+                    android:textColor="@color/red"/>
 
                 <TextView
                     android:id="@+id/description_arrow"
@@ -466,7 +467,7 @@
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
                     android:text="menu"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/red"/>
 
                 <TextView
                     android:id="@+id/menu_arrow"

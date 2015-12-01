@@ -47,25 +47,25 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 switch(id) {
                     case R.id.entertainment:
 
-                        mActivity.selectTab(9);
+                        mActivity.selectTab(10);
 
                         break;
 
                     case R.id.shopping:
 
-                        mActivity.selectTab(3);
+                        mActivity.selectTab(4);
 
                         break;
 
                     case R.id.electronics:
 
-                        mActivity.selectTab(4);
+                        mActivity.selectTab(5);
 
                         break;
 
                     case R.id.restaurants:
 
-                        mActivity.selectTab(2);
+                        mActivity.selectTab(3);
 
                         break;
                 }
@@ -81,7 +81,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
                 processSubCategory(subCategory);
 
-                mActivity.selectTab(5);
+                mActivity.selectTab(6);
             }
 
             if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities) {
@@ -89,7 +89,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 EntertainmentFragment.subCategory = "entertainment_" + subCategory;
                 String subCategoryName = getEntertainmentSubCategory(id);
                 processSubCategory(subCategoryName);
-                mActivity.selectTab(9);
+                mActivity.selectTab(10);
             }
 
             onFilterChangeListener.onFilterChange();

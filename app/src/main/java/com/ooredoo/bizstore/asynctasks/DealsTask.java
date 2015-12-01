@@ -160,6 +160,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                         if(type != null && type.equals("map"))
                         {
+
+
                             if(deals != null)
                             {
                                 nearbyFragment.populateMap(deals);
@@ -196,6 +198,11 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                         }
                         adapter.notifyDataSetChanged();
                     } else {
+                        if(nearbyFragment != null && nearbyFragment.googleMap != null)
+                        {
+                            nearbyFragment.googleMap.clear();
+                        }
+
                         adapter.clearData();
                         adapter.notifyDataSetChanged();
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);

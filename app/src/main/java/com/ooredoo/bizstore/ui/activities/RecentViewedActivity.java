@@ -21,6 +21,7 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.RecentItem;
 import com.ooredoo.bizstore.model.SearchResult;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.List;
 
@@ -211,7 +212,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.brandAddress = deal.brandAddress;
             rd.location = deal.location;
 
-            Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
+            Logger.logI("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();
         }
     }

@@ -68,6 +68,13 @@ public class GenericDeal implements Serializable{
         image.detailBannerUrl = recentItem.detailBanner;
         this.image = image;
 
+        this.businessId = (int) recentItem.businessId;
+        this.businessLogo = recentItem.businessLogo;
+        this.businessName = recentItem.businessName;
+        this.latitude = recentItem.latitude;
+        this.longitude = recentItem.longitude;
+       // this.color = recentItem.color;
+        //this.locations = recentItem.locations;
         //this.endDate = recentItem.endDate;
        // Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }

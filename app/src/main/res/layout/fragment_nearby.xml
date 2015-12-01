@@ -71,40 +71,45 @@
 
 
 
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingTop="@dimen/_5sdp">
 
             <LinearLayout
                 android:id="@+id/location_empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:visibility="gone">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
                 android:drawableTop="@drawable/cityselection_icon"
-                android:drawablePadding="@dimen/_16sdp"
+                android:drawablePadding="@dimen/_8sdp"
                 android:text="@string/enable_location"
-                android:textSize="20sp"
-                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:visibility="visible"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_1sdp"
                     android:gravity="center_horizontal"
                     android:text="@string/turn_location_on"
-                    android:textSize="18sp"/>
+                    android:textSize="12sp"
+                    android:textColor="@color/slight_grey"/>
 
                 <Button
                     android:id="@+id/enable_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_width="@dimen/_230sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:textColor="@color/white"
                     android:text="@string/btn_enable_loc"
                     android:textStyle="bold"
@@ -112,6 +117,8 @@
                     android:background="@drawable/btn_red"/>
 
             </LinearLayout>
+
+            </ScrollView>
 
             <TextView
                 android:id="@+id/empty_view"

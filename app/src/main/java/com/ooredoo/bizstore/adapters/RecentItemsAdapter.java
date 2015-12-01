@@ -308,8 +308,6 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
             }
         }
 
-
-
         if((recentItem.latitude != 0 && recentItem.longitude != 0)
                 && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
         {
@@ -351,10 +349,15 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
         else
         {
             holder.tvBrandText.setVisibility(View.VISIBLE);
+
+            if(recentItem.color == 0)
+            {
+                recentItem.color = Color.parseColor(getColorCode());
+            }
             if(recentItem.businessName != null)
             {
                 holder.tvBrandText.setText(String.valueOf(recentItem.businessName.charAt(0)));
-                holder.tvBrandText.setBackgroundColor(Color.parseColor(getColorCode()));
+                holder.tvBrandText.setBackgroundColor(recentItem.color);
             }
 
             holder.ivBrand.setImageBitmap(null);
@@ -371,10 +374,12 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
 
         if(recentItem.discount == 0) {
             holder.tvDiscount.setVisibility(View.GONE);
+            holder.ivDiscountTag.setVisibility(View.GONE);
         }
         else
         {
             holder.tvDiscount.setVisibility(View.VISIBLE);
+            holder.ivDiscountTag.setVisibility(View.VISIBLE);
         }
         holder.tvDiscount.setText(valueOf(recentItem.discount) + "%\n"+context.getString(R.string.off));
 

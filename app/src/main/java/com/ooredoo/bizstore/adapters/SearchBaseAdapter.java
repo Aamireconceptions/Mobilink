@@ -77,7 +77,6 @@ public class SearchBaseAdapter extends BaseAdapter {
     public boolean doAnimate = true;
 
 
-
     public SearchBaseAdapter(Context context, int layoutResId, List<SearchResult> deals) {
         this.context = context;
 

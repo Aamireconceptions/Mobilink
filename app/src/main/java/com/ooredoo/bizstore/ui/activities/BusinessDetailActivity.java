@@ -36,6 +36,7 @@ import com.ooredoo.bizstore.adapters.Gallery;
 import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BusinessDetailTask;
 import com.ooredoo.bizstore.asynctasks.BusinessMiscTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
@@ -640,7 +641,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
+                                    BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask(imageView, progressBar);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
                                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,

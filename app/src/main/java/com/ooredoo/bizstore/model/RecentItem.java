@@ -89,6 +89,11 @@ public class RecentItem extends Model {
     @Column(name = "location")
     public String location;
 
+    public int color = 0;
+
+    /*@Column(name = "locations")
+    public List<Location> locations;*/
+
     public RecentItem() {
     }
 
