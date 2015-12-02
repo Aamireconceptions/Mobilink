@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -143,11 +144,15 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
                     else
                     {
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+
+                       // Toast.makeText(homeActivity, R.string.error_no_data, Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (JsonSyntaxException e)
                 {
                     dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
+
+                    //Toast.makeText(homeActivity, R.string.error_server_down, Toast.LENGTH_SHORT).show();
                 }
 
                 adapter.notifyDataSetChanged();

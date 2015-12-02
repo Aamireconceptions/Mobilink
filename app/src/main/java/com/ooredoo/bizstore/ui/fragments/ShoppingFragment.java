@@ -266,9 +266,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onNoDeals(int stringResId) {
-        rlHeader.setVisibility(View.GONE);
+        //rlHeader.setVisibility(View.GONE);
 
-        ivBanner.setImageBitmap(null);
+        //ivBanner.setImageBitmap(null);
+        ivBanner.setImageResource(R.drawable.shopping_banner);
+
 
         tvEmptyView.setText(stringResId);
         gridView.setEmptyView(tvEmptyView);
