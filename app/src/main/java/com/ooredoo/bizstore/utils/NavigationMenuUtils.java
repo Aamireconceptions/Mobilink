@@ -185,12 +185,23 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
+        int width = (int) Converter.convertDpToPixels(75);
+        int height = (int) Converter.convertDpToPixels(75);
+
         if(bitmap != null) {
+
+            Logger.print("profile before: "+bitmap.getWidth()+", "+bitmap.getHeight());
+
+           // BitmapProcessor bitmapProcessor = new BitmapProcessor();
+           // bitmap = bitmapProcessor.downsizeBitmap(bitmap, width, height);
+
+            //Logger.print("profile after: "+bitmap.getWidth()+", "+bitmap.getHeight());
+
             profilePicture.setImageBitmap(bitmap);
         } else {
            // ExecutorService executorService = Executors.newSingleThreadExecutor();
-            int width = (int) Converter.convertDpToPixels(100);
-            int height = width;
+            //int width = (int) Converter.convertDpToPixels(100);
+            //int height = width;
             ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
             ProfilePicDownloadTask bitmapTask = new ProfilePicDownloadTask(profilePicture, progressBar);
             bitmapTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));

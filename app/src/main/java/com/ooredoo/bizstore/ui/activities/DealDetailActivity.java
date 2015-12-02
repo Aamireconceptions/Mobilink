@@ -592,6 +592,12 @@ packageName = getPackageName();
         }
 
         RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
+        rlAddress.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startDirections();
+            }
+        });
 
         TextView tvAddress= (TextView) header.findViewById(R.id.address);
 

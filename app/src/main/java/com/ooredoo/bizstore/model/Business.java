@@ -111,6 +111,7 @@ public class Business  implements Serializable{
         this.location = result.location;
         this.description = result.description;
          this.image = result.image;
+        this.timing = result.timing;
 
         this.businessId = result.businessId;
         this.businessLogo = result.businessLogo;

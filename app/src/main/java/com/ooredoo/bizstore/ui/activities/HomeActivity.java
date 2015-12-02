@@ -1121,6 +1121,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         locationManager.removeUpdates(this);
 
+        AppData.searchSuggestions = null;
+
         //timer.cancel();
     }
 

@@ -203,4 +203,9 @@ public class BitmapProcessor
 
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
+
+    public Bitmap downsizeBitmap(Bitmap bitmap, int width, int height)
+    {
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height);
+    }
 }

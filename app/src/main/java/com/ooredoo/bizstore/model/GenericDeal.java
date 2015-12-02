@@ -93,6 +93,7 @@ public class GenericDeal implements Serializable{
         this.description = result.description;
         this.endDate = result.endDate;
         this.image = result.image;
+        this.timing = result.timing;
 
         this.businessId = result.businessId;
         this.businessLogo = result.businessLogo;
