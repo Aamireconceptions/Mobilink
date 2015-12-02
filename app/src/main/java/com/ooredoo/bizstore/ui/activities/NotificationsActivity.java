@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
@@ -31,6 +32,8 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         layoutResId = R.layout.activity_my_notifications;
     }
 
+    RelativeLayout rlSelectAll;
+
     @Override
     public void init() {
         setupToolbar();
@@ -41,14 +44,28 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         mAdapter = new NotificationsAdapter(this, R.layout.list_item_notification, notifications);
         mListView.setAdapter(mAdapter);
 
-        findViewById(R.id.rl_select_all).setOnClickListener(this);
+        rlSelectAll = (RelativeLayout) findViewById(R.id.rl_select_all);
+        rlSelectAll.setOnClickListener(this);
+
+        cbSelectAll = (CheckBox) findViewById(R.id.cb_select_all);
+        cbSelectAll.setChecked(true);
+        List<Notification> n = new Select().all().from(Notification.class).execute();
+        if(n != null && n.size() > 0) {
+            for(Notification notification : n) {
+                if (!notification.enabled) {
+                    cbSelectAll.setChecked(false);
+                }
+            }
+
+        }
     }
 
+    CheckBox cbSelectAll;
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.rl_select_all) {
-            CheckBox cbSelectAll = (CheckBox) findViewById(R.id.cb_select_all);
+
             boolean checkAll = !cbSelectAll.isChecked();
             cbSelectAll.setChecked(checkAll);
             for(Notification notification : notifications) {
@@ -84,6 +101,14 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
     }
 
     public void saveNotification(Notification notification) {
+
+       /* if(!notification.enabled)
+        {
+            cbSelectAll.setChecked(false);
+        }*/
+
+
+
         if(notification != null && notification.id > 0) {
             List<Notification> notifications = new Select().all().from(Notification.class).where("notificationId=" + notification.id).execute();
             if(notifications == null || notifications.size() == 0) {
@@ -98,6 +123,18 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
                 Log.i("UPDATE", "EXISTING---" + n.toString());
                 n.save();
             }
+        }
+
+        cbSelectAll.setChecked(true);
+
+        List<Notification> n = new Select().all().from(Notification.class).execute();
+        if(n != null && n.size() > 0) {
+            for(Notification notification1 : n) {
+                if (!notification1.enabled) {
+                    cbSelectAll.setChecked(false);
+                }
+            }
+
         }
     }
 }

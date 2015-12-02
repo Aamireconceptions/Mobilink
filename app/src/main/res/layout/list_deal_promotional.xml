@@ -99,8 +99,8 @@
         <ImageView
             android:id="@+id/promotional_banner"
             android:layout_width="match_parent"
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp"
+            android:paddingTop="0.8dp"
+            android:paddingBottom="0.8dp"
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
             android:src="@drawable/deal_banner"
