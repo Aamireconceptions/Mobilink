@@ -123,9 +123,11 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
+    DealsTask dealsTask;
+
     private void fetchAndDisplayAutomotive(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("automotive");
 //cache = null;
@@ -146,6 +148,8 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
         adapter.notifyDataSetChanged();
 
         tvEmptyView.setText("");
+
+        dealsTask.cancel(true);
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

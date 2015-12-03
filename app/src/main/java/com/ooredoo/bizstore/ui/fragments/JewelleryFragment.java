@@ -126,9 +126,11 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
+    DealsTask dealsTask;
+
     private void fetchAndDisplayJewelry(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("jewelry");
 
@@ -149,6 +151,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         adapter.notifyDataSetChanged();
 
         tvEmptyView.setText("");
+
+        dealsTask.cancel(true);
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

@@ -105,8 +105,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     @Override
     public void init() {
         setupToolbar();
-        initViews();
+
         handleIntentFilter();
+
+        initViews();
     }
 
     @Override
@@ -130,11 +132,14 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 String paramId = uri.getQueryParameter("id");
 
                 Logger.print("Extras: " + paramId);
-                id = intent.getIntExtra(AppConstant.ID, 0);
+
                 getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
-                getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
-                initViews();
+
+                //initViews();
             }
+
+            id = intent.getIntExtra(AppConstant.ID, 0);
+            getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
         }
     }
 
@@ -142,7 +147,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     SnackBarUtils snackBarUtils;
     TextView tvLocations;
     private void initViews() {
-        id = intent.getIntExtra(AppConstant.ID, -1);
+        /*if(intent.getIntExtra(AppConstant.ID, -1) != -1)
+        {
+            id = intent.getIntExtra(AppConstant.ID, -1);
+        }*/
 
         Logger.print("businessId business, "+ id);
 
@@ -155,6 +163,13 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         packageName = getPackageName();
         src = (Business) intent.getSerializableExtra("business");
+
+        if(src != null) {
+
+            id = src.id;
+
+            Logger.logI("DETAIL_ID", valueOf(id));
+        }
 
         category = intent.getStringExtra(CATEGORY);
 
@@ -199,7 +214,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
-        if(src == null && id != -1)
+        if(src == null)
         {
             BusinessDetailTask detailTask = new BusinessDetailTask(this, null, snackBarUtils);
             detailTask.execute(String.valueOf(id));
@@ -522,6 +537,12 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
 
         RelativeLayout rlAddress = (RelativeLayout) header.findViewById(R.id.address_layout);
+        rlAddress.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startDirections();
+            }
+        });
 
         TextView tvAddress= (TextView) header.findViewById(R.id.address);
 

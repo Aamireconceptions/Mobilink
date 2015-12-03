@@ -127,9 +127,11 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
+    DealsTask dealsTask;
+
     private void fetchAndDisplaySportsAndFitness(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
@@ -151,6 +153,22 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     @Override
     public void onFilterChange()
     {
+        dealsTask.cancel(true);
+
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+
+        tvEmptyView.setText("");
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
+            adapter.setListingType("brands");
+        }
+
         fetchAndDisplaySportsAndFitness(progressBar);
     }
 
@@ -170,19 +188,6 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     @Override
     public void onRefreshCompleted() {
-        adapter.clearData();
-        adapter.notifyDataSetChanged();
-
-        tvEmptyView.setText("");
-
-        if(DealsTask.sortColumn.equals("createdate"))
-        {
-            adapter.setListingType("deals");
-        }
-        else
-        {
-            adapter.setListingType("brands");
-        }
         swipeRefreshLayout.setRefreshing(false);
     }
 

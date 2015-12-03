@@ -118,14 +118,14 @@ RelativeLayout rlParent;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parent = container;
 
-
-
-        //isMap = false;
         View v = inflater.inflate(R.layout.fragment_nearby, container, false);
 
         init(v, inflater, savedInstanceState);
 
-        if(HomeActivity.lat !=0 && HomeActivity.lng != 0)
+        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
             fetchAndDisplayFoodAndDining(progressBar);
         }
@@ -139,7 +139,7 @@ RelativeLayout rlParent;
 
         rlParent = (RelativeLayout) v.findViewById(R.id.map_frame);
 
-        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+
 
         return v;
     }
@@ -573,8 +573,7 @@ RelativeLayout rlParent;
 
         if(requestCode == 10)
         {
-            if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                    || (HomeActivity.lat != 0 && HomeActivity.lng != 0))
+            if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
             {
                 llLocationEmptyView.setVisibility(View.GONE);
                 listView.setEmptyView(null);

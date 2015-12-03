@@ -94,7 +94,13 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
 
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
+
+                Toast.makeText(mActivity, R.string.error_server_down, LENGTH_SHORT).show();
             }
+        }
+        else
+        {
+            Toast.makeText(mActivity, R.string.error_no_internet, LENGTH_SHORT).show();
         }
     }
 

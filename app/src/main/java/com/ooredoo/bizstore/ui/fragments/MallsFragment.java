@@ -123,9 +123,11 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
+    DealsTask dealsTask;
+
     private void fetchAndDisplayMalls(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("malls");
 
@@ -147,6 +149,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         adapter.notifyDataSetChanged();
 
         tvEmptyView.setText("");
+
+        dealsTask.cancel(true);
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

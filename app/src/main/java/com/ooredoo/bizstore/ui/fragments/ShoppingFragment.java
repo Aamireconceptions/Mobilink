@@ -133,7 +133,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         gridView.addHeaderView(ivBanner);
         gridView.addHeaderView(rlHeader);
 
-       // gridView.setEmptyView(tvEmptyView);
+        //gridView.setEmptyView(tvEmptyView);
         dealGridOnItemClickListener = new DealGridOnItemClickListener(activity, adapter, this);
         gridView.setOnItemClickListener(dealGridOnItemClickListener);
         gridView.setAdapter(adapter);
@@ -173,11 +173,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
     }
 
-
+    ShoppingTask shoppingTask;
 
     private void loadDeals(ProgressBar progressBar)
     {
-        ShoppingTask shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
+        shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
 
         String cache = shoppingTask.getCache("shopping");
 
@@ -200,9 +200,18 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onFilterChange() {
 
+
+        if(brandsAdapter!= null)
+        {
+            brandsAdapter.clearData();
+            brandsAdapter.notifyDataSetChanged();
+        }
         adapter.clearData();
+
         adapter.notifyDataSetChanged();
         tvEmptyView.setText("");
+
+        shoppingTask.cancel(true);
 
         if(ShoppingTask.sortColumn.equals("createdate"))
         {
@@ -219,17 +228,18 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             gridView.setNumColumns(3);
             adapter.setListingType("brands");
 
-            gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._8sdp));
-            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._10sdp));
+            gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._22sdp));
+            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._16sdp));
         }
 
         loadDeals(progressBar);
     }
 
+    SimilarBrandsAdapter brandsAdapter;
     public void showBrands(List<Brand> brands)
     {
-        SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(activity, R.layout.grid_brand, brands);
-        gridView.setAdapter(adapter);
+        brandsAdapter = new SimilarBrandsAdapter(activity, R.layout.grid_brand, brands);
+        gridView.setAdapter(brandsAdapter);
     }
 
     @Override
@@ -266,14 +276,14 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onNoDeals(int stringResId) {
-        //rlHeader.setVisibility(View.GONE);
+        rlHeader.setVisibility(View.GONE);
 
-        //ivBanner.setImageBitmap(null);
-        ivBanner.setImageResource(R.drawable.shopping_banner);
+        ivBanner.setImageBitmap(null);
+        //ivBanner.setImageResource(R.drawable.shopping_banner);
 
-
+        tvEmptyView.setVisibility(View.VISIBLE);
         tvEmptyView.setText(stringResId);
-        gridView.setEmptyView(tvEmptyView);
+        //gridView.setEmptyView(tvEmptyView);
     }
 
     @Override

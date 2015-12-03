@@ -8,14 +8,13 @@
 
     <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/header">
 
         <FrameLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:clickable="true">
 
             <!--<GridView
@@ -32,11 +31,11 @@
 
             <com.ooredoo.bizstore.views.HeaderGridView
                 android:id="@+id/shopping_gridview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/header"
+                android:layout_gravity="center_horizontal"
                 android:horizontalSpacing="@dimen/_6sdp"
-
                 android:layoutDirection="locale"
                 android:numColumns="2"
                 android:paddingEnd="@dimen/_6sdp"
@@ -47,12 +46,13 @@
 
             <TextView
                 android:id="@+id/empty_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:layout_gravity="center"
+                android:paddingBottom="@dimen/_80sdp"
                 android:text="Oops nothing found :("
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:visibility="gone"/>
 
         </FrameLayout>

@@ -327,7 +327,7 @@
                    android:src="@drawable/ic_next_arrow"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                   android:visibility="gone"/>
+                   android:visibility="visible"/>
 
 
 

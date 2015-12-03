@@ -82,6 +82,8 @@ public class GridViewBaseAdapter extends BaseAdapter
     public void clearData()
     {
         deals.clear();
+
+        //brands.clear();
     }
 
     @Override

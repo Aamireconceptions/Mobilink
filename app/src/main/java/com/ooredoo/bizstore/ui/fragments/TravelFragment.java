@@ -120,9 +120,11 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
+    DealsTask dealsTask;
+
     private void fetchAndDisplayTravel(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("travel");
 
@@ -143,6 +145,8 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
         adapter.notifyDataSetChanged();
 
         tvEmptyView.setText("");
+
+        dealsTask.cancel(true);
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

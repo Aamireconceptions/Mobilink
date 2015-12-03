@@ -87,7 +87,7 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         {
             activity.onNoData();
 
-            Toast.makeText(activity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(activity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         }
     }
 

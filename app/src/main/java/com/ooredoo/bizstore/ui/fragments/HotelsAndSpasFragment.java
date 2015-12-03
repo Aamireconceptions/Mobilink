@@ -128,9 +128,10 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
+    DealsTask dealsTask;
     private void fetchAndDisplayHotelsAndSpas(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
             DealsTask.subCategories = subCategory;
@@ -154,6 +155,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         adapter.clearData();
         adapter.notifyDataSetChanged();
         tvEmptyView.setText("");
+
+        dealsTask.cancel(true);
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

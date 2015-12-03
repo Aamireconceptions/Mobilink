@@ -125,9 +125,10 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
+    DealsTask dealsTask;
     private void fetchAndDisplayElectronics(ProgressBar progressBar)
     {
-        DealsTask dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("electronics");
 
@@ -147,6 +148,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         adapter.clearData();
         adapter.notifyDataSetChanged();
         tvEmptyView.setText("");
+
+        dealsTask.cancel(true);
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

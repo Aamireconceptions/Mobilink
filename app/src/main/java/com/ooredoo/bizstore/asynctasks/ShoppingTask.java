@@ -278,7 +278,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
                 updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
             }*/
 
-        if(!isFilterEnabled)
+        if(!isFilterEnabled && !result.contains("No item Found"))
         {
             updateVal(homeActivity, KEY, result);
             updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());

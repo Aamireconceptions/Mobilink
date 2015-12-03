@@ -148,6 +148,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         tvEmptyView.setText("");
 
+        dealsTask.cancel(true);
+
         if(DealsTask.sortColumn.equals("createdate"))
         {
             adapter.setListingType("deals");

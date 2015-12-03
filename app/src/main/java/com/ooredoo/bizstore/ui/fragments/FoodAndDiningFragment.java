@@ -131,8 +131,9 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
+    DealsTask dealsTask;
     private void fetchAndDisplayFoodAndDining(ProgressBar progressBar) {
-        DealsTask dealsTask = new DealsTask(activity, adapter,
+        dealsTask = new DealsTask(activity, adapter,
                                             progressBar, ivBanner,
                                             this);
 
@@ -155,6 +156,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         adapter.clearData();
         adapter.notifyDataSetChanged();
+
+        dealsTask.cancel(true);
 
         if(DealsTask.sortColumn.equals("createdate"))
         {

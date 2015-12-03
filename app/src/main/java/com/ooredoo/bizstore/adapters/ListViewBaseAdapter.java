@@ -874,7 +874,7 @@ return null;
         }
     }
 
-    public String getColorCode()
+    public static String getColorCode()
     {
         int min = 1;
         int max = 8;

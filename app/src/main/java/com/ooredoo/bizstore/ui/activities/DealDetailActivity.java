@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -413,6 +414,10 @@ packageName = getPackageName();
 
                 if(deal.businessName != null && !deal.businessName.isEmpty())
                 {
+                    if(deal.color == 0)
+                    {
+                        deal.color = Color.parseColor(ListViewBaseAdapter.getColorCode());
+                    }
                     tvBrandTxt.setBackgroundColor(deal.color);
                     tvBrandTxt.setText(String.valueOf(deal.businessName.charAt(0)));
                 }
@@ -512,13 +517,13 @@ packageName = getPackageName();
 
         //String[] locations = new String[genericDeal.locations.size()];
 
-        if(genericDeal.locations != null)
+        if(deal.locations != null)
         {
-            for(int i = 0; i<=genericDeal.locations.size() - 1; i++)
+            for(int i = 0; i<=deal.locations.size() - 1; i++)
             {
-                if(deal.location != null && !deal.location.equalsIgnoreCase(genericDeal.locations.get(i).title))
+                if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
                 {
-                    popupMenu.getMenu().add(1, genericDeal.locations.get(i).id, 0, genericDeal.locations.get(i).title);
+                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
                 }
             }
         }
@@ -659,15 +664,20 @@ packageName = getPackageName();
                 }
                 else
                 {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
                             BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask(imageView, progressBar);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
-
                             bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                     url, String.valueOf(displayMetrics.widthPixels),
                                     String.valueOf(displayMetrics.heightPixels / 2));
+                        }
+                    });
+
                 }
             }
         });

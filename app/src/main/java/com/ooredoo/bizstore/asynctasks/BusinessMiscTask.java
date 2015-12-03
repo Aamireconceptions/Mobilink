@@ -94,7 +94,7 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
         }
         else
         {
-            snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
+           // snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
     }
 

@@ -31,6 +31,8 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
     @Override
     public void onTabSelected(TabLayout.Tab tab)
     {
+        homeActivity.resetFilters();
+
        Logger.print("Tab Selected:" + tab.getPosition());
 
         viewPager.setCurrentItem(tab.getPosition());
@@ -73,7 +75,7 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
         //NearbyFragment.isMultipleCategoriesFilter = false;
         //DealsTask.isMultipleCategoriesFilter = false;
 
-        homeActivity.resetFilters();
+       // homeActivity.resetFilters();
     }
 
     @Override
