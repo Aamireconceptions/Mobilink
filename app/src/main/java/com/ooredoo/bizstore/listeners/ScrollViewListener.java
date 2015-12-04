@@ -4,16 +4,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.view.View;
+import android.widget.AbsListView;
 
 import com.ooredoo.bizstore.utils.AlphaForeGroundColorSpan;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
 /**
  * @author Pehlaj Rai
  * @since 6/26/2015.
  */
-public class ScrollViewListener implements ScrollViewHelper.OnScrollViewListener {
+public class ScrollViewListener  {
     ColorDrawable cd = new ColorDrawable(ColorUtils.RED);
     ActionBar actionBar;
     private AlphaForeGroundColorSpan mAlphaForegroundColorSpan;
@@ -29,10 +32,32 @@ public class ScrollViewListener implements ScrollViewHelper.OnScrollViewListener
         cd.setAlpha(0);
     }
 
-    @Override
-    public void onScrollChanged(ScrollViewHelper v, int l, int t, int oldl, int oldt) {
+    public void setTitle(String title)
+    {
+        mSpannableString = new SpannableString(title);
+    }
+
+
+
+   /* public void onScrollChanged(ScrollViewHelper v, int l, int t, int oldl, int oldt) {
         setTitleAlpha(scrollOffset - getAlphaforActionBar(v.getScrollY()));
         cd.setAlpha(getAlphaforActionBar(v.getScrollY()));
+    }*/
+
+    public void onScrollChanged(View v) {
+
+       // View v = av.getChildAt(0);
+
+        if(v != null) {
+
+
+                setTitleAlpha(scrollOffset - getAlphaforActionBar(-v.getTop()));
+                cd.setAlpha(getAlphaforActionBar(-v.getTop()));
+
+                Logger.print("onScroll Alpha: " + v.getTop());
+
+        }
+
     }
 
     private int getAlphaforActionBar(int scrollY) {

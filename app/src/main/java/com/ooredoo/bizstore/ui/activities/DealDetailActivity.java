@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,12 +41,14 @@ import com.ooredoo.bizstore.asynctasks.GetCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.LocationsTask;
 import com.ooredoo.bizstore.interfaces.LocationNotifies;
+import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.ScrollViewHelper;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
@@ -75,7 +78,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
    // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
-    //ScrollViewHelper scrollViewHelper;
+    ScrollViewHelper scrollViewHelper;
 
     private Button btGetCode;
 
@@ -114,11 +117,22 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
         diskCache.requestInit(this);
 
+        header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
+
         setupToolbar();
 
         handleIntentFilter();
 
         initViews();
+    }
+
+
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mActionBar = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setShowHideAnimationEnabled(false);
     }
 
     @Override
@@ -173,15 +187,13 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     ListViewBaseAdapter similarAdapter, nearbyAdapter;
 
     List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
+    ScrollViewListener mOnScrollViewListener;
     private void initViews()
     {
-
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
-
-
         //  id = intent.getIntExtra(AppConstant.ID, 0);
-packageName = getPackageName();
+        packageName = getPackageName();
         if(genericDeal != null) {
 
             id = genericDeal.id;
@@ -189,13 +201,37 @@ packageName = getPackageName();
             Logger.logI("DETAIL_ID", valueOf(id));
         }
 
-        header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
 
+        scrollViewHelper = new ScrollViewHelper(this);
+       // scrollViewHelper = (ScrollViewHelper) header.findViewById(R.id.scrollViewHelper);
+        //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+
+        mOnScrollViewListener = new ScrollViewListener(mActionBar);
         llSimilarNearby = (LinearLayout) header.findViewById(R.id.similar_nearby);
 
         listView = (ListView) findViewById(R.id.list_view);
         listView.addHeaderView(header);
         listView.setAdapter(null);
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (mOnScrollViewListener != null) {
+
+                }
+                //mOnScrollViewListener.onScrollChanged( view);
+                //super.onScrollChanged(l, t, oldl, oldt);
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                mOnScrollViewListener.onScrollChanged( header);
+            }
+
+
+        });
+
 
         TextView tvEmptyView = (TextView) findViewById(R.id.empty_view);
         //listView.setEmptyView(tvEmptyView);
@@ -291,6 +327,9 @@ packageName = getPackageName();
     LinearLayout llDirections;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
+
+            mOnScrollViewListener.setTitle(deal.title);
+
             src = new Deal(deal);
             src.id = deal.id;
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "deals", id);
@@ -312,7 +351,8 @@ packageName = getPackageName();
                 }
             });
 
-            //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
+
+
 
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
                 deal.category = deal.category.replace(".", ",");
@@ -967,13 +1007,6 @@ packageName = getPackageName();
         finish();
     }
 
-    private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setShowHideAnimationEnabled(false);
-    }
 
    public void onHaveData()
    {

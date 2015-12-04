@@ -7,6 +7,14 @@
 
     android:background="@color/white">
 
+    <ExpandableListView
+        android:id="@+id/expandable_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:groupIndicator="@null"
+        android:headerDividersEnabled="false" />
+
     <RelativeLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
@@ -31,14 +39,6 @@
             android:src="@drawable/favorite_selector"/>
 
     </RelativeLayout>
-    <ExpandableListView
-        android:id="@+id/expandable_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:groupIndicator="@null"
-        android:headerDividersEnabled="false"
-        android:layout_below="@+id/toolbar_layout"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

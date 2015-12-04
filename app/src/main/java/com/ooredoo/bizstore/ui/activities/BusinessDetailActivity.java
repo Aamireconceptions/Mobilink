@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -97,6 +98,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     static String packageName;
 
+    ScrollViewListener scrollViewListener;
+
     public BusinessDetailActivity() {
         super();
         layoutResId = R.layout.business_detail_activity;
@@ -158,7 +161,20 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         header = layoutInflater.inflate(R.layout.fragment_business_details, null);
 
+        scrollViewListener = new ScrollViewListener(mActionBar);
+
         expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
+        expandableListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                scrollViewListener.onScrollChanged(header);
+            }
+        });
         expandableListView.addHeaderView(header);
 
         packageName = getPackageName();
@@ -250,7 +266,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     int color;
     public void populateData(final Business business) {
         if(business != null) {
-
+            scrollViewListener.setTitle(business.title);
             color = getIntent().getIntExtra("color", -1);
 
             id = business.id;

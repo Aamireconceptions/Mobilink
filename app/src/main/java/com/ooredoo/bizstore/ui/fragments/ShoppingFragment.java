@@ -229,7 +229,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             adapter.setListingType("brands");
 
             gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._22sdp));
-            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._16sdp));
+            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));
         }
 
         loadDeals(progressBar);
