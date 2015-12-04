@@ -159,7 +159,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onResume() {
         super.onResume();
         Logger.print("Testing: ShoppingOnResume");
-
     }
 
     @Override
@@ -199,8 +198,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onFilterChange() {
-
-
         if(brandsAdapter!= null)
         {
             brandsAdapter.clearData();

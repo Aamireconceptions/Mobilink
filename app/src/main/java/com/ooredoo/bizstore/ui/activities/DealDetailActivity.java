@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,11 +34,10 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
-import com.ooredoo.bizstore.asynctasks.GetCodeTask;
+import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.LocationsTask;
 import com.ooredoo.bizstore.interfaces.LocationNotifies;
@@ -74,6 +74,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     public String category;
     static String packageName;
     public boolean showBanner = false;
+private EditText etMerchantCode;
+
+    RelativeLayout rlMerchandCode;
 
    // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
@@ -82,7 +85,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
     private Button btGetCode;
 
-    private ImageView ivLine;
+    private ImageView ivLine, ivVerifyMerchantCode;
 
     private LinearLayout llVoucherCode;
 
@@ -191,6 +194,16 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     private void initViews()
     {
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
+
+        ivVerifyMerchantCode = (ImageView) header.findViewById(R.id.verify_merchant_code);
+        ivVerifyMerchantCode.setOnClickListener(this);
+
+        rlMerchandCode = (RelativeLayout) header.findViewById(R.id.merchant_code_layout);
+
+        etMerchantCode = (EditText) header.findViewById(R.id.merchant_code_field);
+        etMerchantCode.setMaxWidth(etMerchantCode.getWidth());
+
+        Logger.print("etMerchant Code width:"+etMerchantCode.getWidth());
 
         //  id = intent.getIntExtra(AppConstant.ID, 0);
         packageName = getPackageName();
@@ -775,8 +788,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
         else
         if(viewId == R.id.get_code)
         {
-            GetCodeTask getCodeTask = new GetCodeTask(this, snackBarUtils);
-            getCodeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
+            v.setVisibility(View.GONE);
+
+            rlMerchandCode.setVisibility(View.VISIBLE);
+
+            etMerchantCode.requestFocus();
         }
         else
             if(viewId == R.id.similar_deals)
@@ -865,6 +881,24 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
                 {
                     startDirections();
                 }
+            else
+                    if(viewId == R.id.verify_merchant_code)
+                    {
+                        String code = etMerchantCode.getText().toString().trim();
+
+                        if(!code.isEmpty())
+                        {
+                            VerifyMerchantCodeTask verifyMerchantCodeTask =
+                                    new VerifyMerchantCodeTask(this, snackBarUtils);
+                            verifyMerchantCodeTask
+                                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id), code);
+                        }
+                        else
+                        {
+                            Toast.makeText(this, R.string.error_empty_voucher, Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
     }
 
     private void setSelected(View v)
@@ -881,7 +915,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
     public void showCode(String code)
     {
-        btGetCode.setVisibility(View.GONE);
+        rlMerchandCode.setVisibility(View.GONE);
+        /*btGetCode.setVisibility(View.GONE);
 
         ivLine.setVisibility(View.VISIBLE);
 
@@ -891,7 +926,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
         tvNote.setVisibility(View.VISIBLE);
 
-        genericDeal.voucher = code;
+        genericDeal.voucher = code;*/
     }
 
     public static void shareDeal(Activity activity, long dealId) {

@@ -25,7 +25,7 @@
 
             android:drawableTop="@drawable/tickets"
             android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/movie_tickets"
+            android:text="@string/cinemas"
             android:textColor="@color/home_category_item"/>
 
         <!-- <ImageView

@@ -80,7 +80,7 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
             {
                 DialogUtils.dismissPasswordDialog();
 
-                DialogUtils.createAlertDialog(activity).show();
+                DialogUtils.createAlertDialog(activity, 0, 0).show();
             }
         }
         else

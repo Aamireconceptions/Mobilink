@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
@@ -225,12 +226,31 @@ public class DialogUtils {
         FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
     }
 
-    public static Dialog createAlertDialog(Context context)
+    public static Dialog createAlertDialog(Context context, int titleResId, int infoResId)
     {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.alert_dialog, null);
+
+        if(titleResId != 0)
+        {
+            TextView textView = (TextView) view.findViewById(R.id.title);
+            textView.setText(titleResId);
+            textView.setVisibility(View.VISIBLE);
+        }
+
+        if(infoResId != 0)
+        {
+            TextView textView = (TextView) view.findViewById(R.id.info);
+            textView.setText(infoResId);
+        }
+
+
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable((new ColorDrawable(android.graphics.Color.TRANSPARENT)));
-        dialog.setContentView(R.layout.alert_dialog);
+        dialog.setContentView(view);
+        //dialog.setContentView(R.layout.alert_dialog);
 
 
         dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.text.InputType;
+import android.widget.TextView;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.AppData;
@@ -18,6 +21,14 @@ import java.util.HashMap;
 public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
 
     private final static String SERVICE_NAME = "/viewprofile?";
+
+    TextView tvName;
+
+    public AccountDetailsTask(TextView tvName) {
+        super();
+        this.tvName = tvName;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -46,6 +57,9 @@ public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
                 if(userAccount != null) {
                     AppData.userAccount.name = userAccount.name;
                     AppData.userAccount.picture = SERVER_URL + userAccount.picture;
+
+                    tvName.setText(userAccount.name);
+                    //tvName.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
                 }
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();

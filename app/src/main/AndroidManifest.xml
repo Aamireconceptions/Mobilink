@@ -93,7 +93,7 @@
             android:name=".ui.activities.DealDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/app_name"
-
+            android:windowSoftInputMode="adjustPan"
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>

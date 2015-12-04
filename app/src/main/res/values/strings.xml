@@ -88,7 +88,7 @@
     <string name="share_app_note">Share this app with your friends and family!</string>
     <string name="enter_number">Please provide your phone number.</string>
     <string name="sharing_msg">Sharing Message</string>
-    <string name="share_with_friends_txt">"Hi,\n\n I just found this great app for you called Ooredoo BizStore. You can find businesses and enjoy the best deals &amp; discounts in your town.\n\nSend SUB to 92806 to download the application"</string>
+    <string name="share_with_friends_txt">"Hi,\n\n I just found this great app for you called Ooredoo BizStore. You can enjoy the best deals &amp; discounts in your town.\n\nSend SUB to 92806 to download the application"</string>
     <string name="share_now">Share Now</string>
     <string name="Preview">Preview</string>
     <string name="description">Description</string>
@@ -124,18 +124,18 @@
     <string name="redeem_until">Redeem Discount Until</string>
     <string name="get_discount_voucher">Get discount voucher</string>
     <string name="getting_vocher">Getting Voucher</string>
-    <string name="help_question1">What is Ooredoo BizStore?</string>
-    <string name="help_answer1"><![CDATA[Ooredoo BizStore is an SMS/Mobile Application based service which provides a platform to view best Deals & Discounts in Qatar. With major brands on-board ranging from fashion & lifestyle to health & fitness, shopping, restaurants, travelling and much more, BizStore has it All! BizStore also offers a variety of Exclusive Deals to the users who can later avail them from the respective stores/outlets.]]></string>
-    <string name="help_question2">What do I get from Ooredoo BizStore?</string>
-    <string name="help_answer2"><![CDATA[Ooredoo BizStore users can search address and contact details of businesses of their liking. The user also has multiple options to choose from based on which user will get latest deals, discounts & updates. The categories are:\n\t\t\t1.\tTop Deals\n\t\t\t2.\tTop Malls\n\t\t\t3.\tRestaurants and Deals\n\t\t\t4.\tShopping and specialty stores\n\t\t\t5.\tEducation\n\t\t\t6.\tLifestyle & Fashion\n\t\t\t7.\tEntertainment and Recreation]]></string>
-    <string name="help_question3">How can I subscribe in Ooredoo BizStore?</string>
-    <string name="help_answer3">User can subscribe to Ooredoo BizStore via following two mechanisms:</string>
+    <string name="help_question1">What is Ooredoo BizStore Application?</string>
+    <string name="help_answer1"><![CDATA[Ooredoo BizStore Application is an SMS/Mobile Application based service which provides a platform to view best Deals & Discounts in Qatar. With major brands on-board ranging from fashion & lifestyle to health & fitness, shopping, restaurants, travelling and much more, BizStore has it All! BizStore also offers a variety of Exclusive Deals to the users who can later avail them from the respective stores/outlets.]]></string>
+    <string name="help_question2">What do I get from Ooredoo BizStore Application?</string>
+    <string name="help_answer2"><![CDATA[Ooredoo BizStore Application users can search address and contact details of businesses of their liking. The user also has multiple options to choose from based on which user will get latest deals, discounts & updates. The categories are:\n\t\t\t1.\tTop Deals\n\t\t\t2.\tTop Malls\n\t\t\t3.\tRestaurants and Deals\n\t\t\t4.\tShopping and specialty stores\n\t\t\t5.\tEducation\n\t\t\t6.\tLifestyle & Fashion\n\t\t\t7.\tEntertainment and Recreation]]></string>
+    <string name="help_question3">How can I subscribe in Ooredoo BizStore Application?</string>
+    <string name="help_answer3">User can subscribe to Ooredoo BizStore Application via following two mechanisms:</string>
     <string name="help_answer3a">1. User can send SUB to 92806 for SMS Service</string>
     <string name="help_answer3b">2. Once the user is subscribed through the SMS medium and logs in to the Application, he will be charged at 9QAR/Week</string>
-    <string name="help_question4">How will I know that I am subscribed to Ooredoo BizStore?</string>
+    <string name="help_question4">How will I know that I am subscribed to Ooredoo BizStore Application?</string>
     <string name="help_answer4">User will get regular notifications regarding service subscription and their renewal status.</string>
-    <string name="help_question5">How can I unsubscribe from Ooredoo BizStore?</string>
-    <string name="help_answer5">For unsubscribing from Ooredoo BizStore, the user sends UNSUB to 92806. User will be presented with two options:</string>
+    <string name="help_question5">How can I unsubscribe from Ooredoo BizStore Application?</string>
+    <string name="help_answer5">For unsubscribing from Ooredoo BizStore Application, the user sends UNSUB to 92806. User will be presented with two options:</string>
     <string name="help_answer5a">1. To stop category notifications</string>
     <string name="help_answer5b">2. To unsubscribe from the complete service</string>
     <string name="help_question6">What are the complete Service charges?</string>
@@ -260,5 +260,11 @@
     <string name="enable_location">Enable Location Services</string>
     <string name="turn_location_on">Please turn location services on to view your nearby deals</string>
     <string name="btn_enable_loc">Enable Location</string>
+    <string name="error_empty_voucher">Please enter merchant code</string>
+    <string name="success_redeemed">Successfully Redeemed</string>
+    <string name="error_max_availed">You have availed maximum number of Vouchers against this deal</string>
+    <string name="discount_redeemed">Discount Redeemed</string>
+    <string name="enter_merchant_code">ENTER MERCHANT CODE</string>
+    <string name="error_invalid_merchant_code">Invalid merchant code</string>
 
 </resources>

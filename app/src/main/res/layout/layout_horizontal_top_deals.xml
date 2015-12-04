@@ -88,7 +88,7 @@
 
             android:drawableTop="@drawable/restaurants"
             android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/restaurants"
+            android:text="@string/food_dining"
             android:textColor="@color/home_category_item"/>
 
     </LinearLayout>

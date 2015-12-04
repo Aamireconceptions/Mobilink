@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Dialog;
 import android.support.design.widget.Snackbar;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 /**
  * Created by Babar on 25-Jun-15.
  */
-public class GetCodeTask extends BaseAsyncTask<String, Void, String>
+public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 {
     private DealDetailActivity detailActivity;
 
@@ -28,9 +29,9 @@ public class GetCodeTask extends BaseAsyncTask<String, Void, String>
 
     private Dialog dialog;
 
-    private final static String SERVICE_NAME = "/getvoucher?";
+    private final static String SERVICE_NAME = "/redeemdiscount?";
 
-    public GetCodeTask(DealDetailActivity detailActivity, SnackBarUtils snackBarUtils)
+    public VerifyMerchantCodeTask(DealDetailActivity detailActivity, SnackBarUtils snackBarUtils)
     {
         this.detailActivity = detailActivity;
 
@@ -42,7 +43,7 @@ public class GetCodeTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPreExecute();
 
-        dialog = DialogUtils.createCustomLoader(detailActivity, detailActivity.getString(R.string.getting_vocher));
+        dialog = DialogUtils.createCustomLoader(detailActivity, detailActivity.getString(R.string.please_wait));
         dialog.show();
     }
 
@@ -51,7 +52,7 @@ public class GetCodeTask extends BaseAsyncTask<String, Void, String>
     {
         try
         {
-            return getCode(params[0]);
+            return getCode(params[0], params[1]);
         }
         catch (IOException e)
         {
@@ -77,7 +78,37 @@ public class GetCodeTask extends BaseAsyncTask<String, Void, String>
 
                 if (voucher.resultCode != -1)
                 {
-                    detailActivity.showCode(voucher.code);
+                    //detailActivity.showCode(voucher.code);
+
+                    if(voucher.resultCode == 0)
+                    {
+                        final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
+                                R.string.success_redeemed);
+                        dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v) {
+
+                                detailActivity.showCode(null);
+                                dialog.dismiss();
+
+                            }
+                        });
+
+                        dialog.show();
+                    }
+                    else
+                        if(voucher.resultCode == 1)
+                        {
+
+                        }
+
+                }
+                else
+                {
+                    Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
+                            R.string.error_invalid_merchant_code);
+                    dialog.show();
                 }
             }
             catch (JsonSyntaxException e)
@@ -95,13 +126,14 @@ public class GetCodeTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
-    private String getCode(String id) throws IOException
+    private String getCode(String id, String code) throws IOException
     {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
         params.put("deal", id);
+        params.put("merchant", code);
 
         String query = createQuery(params);
 
