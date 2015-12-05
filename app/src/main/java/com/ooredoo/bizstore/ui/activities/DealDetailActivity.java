@@ -115,6 +115,8 @@ private EditText etMerchantCode;
         layoutResId = R.layout.deal_detail_activity;
     }
 
+    TextView tvVoucherClaimed;
+
     @Override
     public void init() {
 
@@ -195,6 +197,8 @@ private EditText etMerchantCode;
     {
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
+        tvVoucherClaimed = (TextView) header.findViewById(R.id.vouchers_claimed);
+
         ivVerifyMerchantCode = (ImageView) header.findViewById(R.id.verify_merchant_code);
         ivVerifyMerchantCode.setOnClickListener(this);
 
@@ -202,6 +206,7 @@ private EditText etMerchantCode;
 
         etMerchantCode = (EditText) header.findViewById(R.id.merchant_code_field);
         etMerchantCode.setMaxWidth(etMerchantCode.getWidth());
+        etMerchantCode.setMaxLines(4);
 
         Logger.print("etMerchant Code width:"+etMerchantCode.getWidth());
 
@@ -339,6 +344,8 @@ private EditText etMerchantCode;
     ProgressBar progressBar;
     LinearLayout llDirections;
     TextView tvCity;
+
+    RelativeLayout rlVoucher;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
 
@@ -397,7 +404,7 @@ private EditText etMerchantCode;
             });
             tvView.setText(valueOf(deal.views));
 
-            RelativeLayout rlVoucher = (RelativeLayout) header.findViewById(R.id.voucher_layout);
+            rlVoucher = (RelativeLayout) header.findViewById(R.id.voucher_layout);
 
             if(deal.discount == 0) {
                 rlVoucher.setVisibility(View.GONE);
@@ -922,9 +929,36 @@ private EditText etMerchantCode;
         lastSelected = v;
     }
 
-    public void showCode(String code)
+    public void showCode(int voucherClaimed, boolean hide)
     {
-        rlMerchandCode.setVisibility(View.GONE);
+        if(hide)
+        {
+            rlMerchandCode.setVisibility(View.GONE);
+        }
+
+       // voucherClaimed += 1;
+
+        if(voucherClaimed >= genericDeal.vouchers_max_allowed)
+        {
+            rlVoucher.setVisibility(View.GONE);
+        }
+        else
+        {
+            tvVoucherClaimed.setVisibility(View.VISIBLE);
+
+            /*tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
+                    + " number of times "
+                    + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");*/
+        }
+
+        tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
+                + " number of times "
+                + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");
+
+       /* tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
+                + " number of times "
+                + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");
+*/
         /*btGetCode.setVisibility(View.GONE);
 
         ivLine.setVisibility(View.VISIBLE);
@@ -1052,7 +1086,7 @@ private EditText etMerchantCode;
     }
 
 
-   public void onHaveData()
+    public void onHaveData(GenericDeal genericDeal)
    {
        llSimilarNearby.setVisibility(View.VISIBLE);
 
@@ -1062,6 +1096,31 @@ private EditText etMerchantCode;
       btSimilarDeals.setSelected(true);
 
       lastSelected = btSimilarDeals;
+
+       this.genericDeal = genericDeal;
+
+       if(genericDeal.vouchers_claimed == 0)
+       {
+           tvVoucherClaimed.setVisibility(View.VISIBLE);
+           tvVoucherClaimed.setText("Dear user, you haven't availed this discount yet!");
+
+           return;
+       }
+
+       if(genericDeal.vouchers_claimed >= genericDeal.vouchers_max_allowed)
+       {
+           //rlVoucher.setVisibility(View.GONE);
+       }
+       else
+       {
+           tvVoucherClaimed.setVisibility(View.VISIBLE);
+
+           tvVoucherClaimed.setText("Dear user, you have availed the discount " + genericDeal.vouchers_claimed
+                   + " number of times "
+                   + (genericDeal.vouchers_max_allowed - genericDeal.vouchers_claimed) + " attempts are still pending");
+       }
+
+
 //
       // similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
        //similarAdapter.setListingType("deals");

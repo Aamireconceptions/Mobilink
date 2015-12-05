@@ -12,4 +12,6 @@ public class Voucher
 
     @SerializedName("voucher")
     public String code;
+
+    public int vouchers_claimed;
 }

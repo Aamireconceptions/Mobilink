@@ -74,12 +74,11 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
             Gson gson = new Gson();
 
             try {
-                Voucher voucher = gson.fromJson(result, Voucher.class);
+               final Voucher voucher = gson.fromJson(result, Voucher.class);
 
                 if (voucher.resultCode != -1)
                 {
                     //detailActivity.showCode(voucher.code);
-
                     if(voucher.resultCode == 0)
                     {
                         final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
@@ -89,9 +88,8 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                             @Override
                             public void onClick(View v) {
 
-                                detailActivity.showCode(null);
+                                detailActivity.showCode(voucher.vouchers_claimed, false);
                                 dialog.dismiss();
-
                             }
                         });
 
@@ -100,9 +98,20 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                     else
                         if(voucher.resultCode == 1)
                         {
+                            final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
+                                    R.string.error_max_availed);
+                            dialog.show();
+
+                            dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    detailActivity.showCode(voucher.vouchers_claimed, true);
+                                    dialog.dismiss();
+                                }
+                            });
 
                         }
-
                 }
                 else
                 {

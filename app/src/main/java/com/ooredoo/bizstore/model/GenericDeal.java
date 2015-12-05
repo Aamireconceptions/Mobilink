@@ -18,6 +18,8 @@ public class GenericDeal implements Serializable{
 
     public String title, category, contact, address, location,  brandAddress, timing;
 
+    public int vouchers_claimed, vouchers_max_allowed;
+
     public List<Location> locations;
 
     @SerializedName("images")
@@ -107,6 +109,8 @@ public class GenericDeal implements Serializable{
         this.image = result.image;
 
         this.color = result.color;
+
+        this.location = result.location;
 
         this.locations = result.locations;
 

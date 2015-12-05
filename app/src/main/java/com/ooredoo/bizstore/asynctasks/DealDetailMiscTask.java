@@ -76,7 +76,7 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
                 similarDeals.addAll(dealMisc.genericDeal.similarDeals);
                 nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
 
-                activity.onHaveData();
+                activity.onHaveData(dealMisc.genericDeal);
             }
             catch (JsonSyntaxException e)
             {
