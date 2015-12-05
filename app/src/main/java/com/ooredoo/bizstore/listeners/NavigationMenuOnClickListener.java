@@ -80,6 +80,8 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
 
         clearRecentItems();
 
+       // AppData.searchSuggestions = null;
+
         AppData.popularSearches.list = new ArrayList<>();
 
         Favorite.clearFavorites();

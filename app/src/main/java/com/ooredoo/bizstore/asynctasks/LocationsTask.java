@@ -50,11 +50,14 @@ public class LocationsTask extends BaseAsyncTask<String, Void, String>
         dialog.show();
     }
 
+    String selectedLoc;
     @Override
     protected String doInBackground(String... params)
     {
         try
         {
+            selectedLoc = params[2];
+
             return getLocations(params[0], params[1]);
         } catch (IOException e) {
             e.printStackTrace();
@@ -80,7 +83,7 @@ public class LocationsTask extends BaseAsyncTask<String, Void, String>
 
                 if(response.resultCode != -1)
                 {
-                    locationNotifies.onUpdated(response.locationData);
+                    locationNotifies.onUpdated(response.locationData, selectedLoc);
                 }
             }
             catch (JsonSyntaxException e)

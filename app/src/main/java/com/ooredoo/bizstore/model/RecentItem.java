@@ -89,6 +89,9 @@ public class RecentItem extends Model {
     @Column(name = "location")
     public String location;
 
+    @Column(name = "end_date")
+    public String endDate;
+
     public int color = 0;
 
     /*@Column(name = "locations")

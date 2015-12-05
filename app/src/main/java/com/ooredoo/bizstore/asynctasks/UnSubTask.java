@@ -79,7 +79,7 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
         params.put(OS, ANDROID);
         params.put("msisdn", msisdn);
 
-        setServiceUrl("unsubscribe", params);
+        setServiceUrl("signout", params);
 
         result = getJson();
 

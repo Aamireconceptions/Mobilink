@@ -39,7 +39,6 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
         this.progressBar = progressBar;
 
         this.snackBarUtils = snackBarUtils;
-
     }
 
     @Override

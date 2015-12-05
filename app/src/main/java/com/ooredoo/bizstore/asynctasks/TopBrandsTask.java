@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.model.BrandResponse;
@@ -80,18 +81,25 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
             Gson gson = new Gson();
 
-            BrandResponse brand = gson.fromJson(result, BrandResponse.class);
+            try {
+                BrandResponse brand = gson.fromJson(result, BrandResponse.class);
 
-            if(brand.resultCode != - 1)
-            {
-                adapter.setData(brand.brands);
+                if (brand.resultCode != -1) {
+                    adapter.setData(brand.brands);
 
-                if(BizStore.getLanguage().equals("ar"))
-                {
-                    adapter.notifyDataSetChanged();
+                    if (BizStore.getLanguage().equals("ar")) {
+                        adapter.notifyDataSetChanged();
 
-                    viewPager.setCurrentItem(brand.brands.size() - 1);
+                        viewPager.setCurrentItem(brand.brands.size() - 1);
+                    }
+
+                    updateVal(activity, KEY, result);
+                    updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
                 }
+            }
+            catch (JsonSyntaxException e)
+            {
+                e.printStackTrace();
             }
 
         } else {
@@ -116,8 +124,8 @@ public class TopBrandsTask extends BaseAsyncTask<String, Void, String> {
 
         result = getJson(url);
 
-        updateVal(activity, KEY, result);
-        updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
+       /* updateVal(activity, KEY, result);
+        updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());*/
 
         Logger.print("getTopBrands:" + result);
 

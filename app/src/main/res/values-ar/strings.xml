@@ -255,4 +255,7 @@
     <string name="sub">الفرعية</string>
     <string name="sort">فرز</string>
     <string name="by">بواسطة</string>
+    <string name="error_no_nearby_deals">لا عروض القريبة متاح!</string>
+    <string name="error_your_loc_not_avaliable">الموقع الخاص بك هو غير متوفر!</string>
+    <string name="enter_merchant_code">الكود ميرشانت</string>
 </resources>

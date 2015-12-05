@@ -14,9 +14,11 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -175,6 +177,10 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         //activity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], id);
 
         genericDeal.views = ++genericDeal.views;
+
+        Deal recentDeal = new Deal(genericDeal);
+        RecentViewedActivity.addToRecentViewed(recentDeal);
+
         activity.showDealDetailActivity(DEAL_CATEGORIES[0], genericDeal );
     }
 }

@@ -180,6 +180,19 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.rating = result.rating;
             rd.category = "";
             rd.discount = result.discount;
+
+            rd.address = result.address;
+            rd.contact = result.contact;
+
+     /*       rd.detailBanner = result.detailBanner;
+            rd.latitude = result.lat;
+            rd.longitude = result.lng;*/
+            rd.businessLogo = result.businessLogo;
+            rd.businessName = result.businessName;
+           // rd.brandAddress = result.brandAddress;
+            rd.location = result.location;
+            rd.businessId = result.businessId;
+            rd.endDate = result.endDate;
             Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();
         }
@@ -211,6 +224,8 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.businessName = deal.businessName;
             rd.brandAddress = deal.brandAddress;
             rd.location = deal.location;
+            rd.businessId = deal.businessId;
+            rd.endDate = deal.endDate;
 
             Logger.logI("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();

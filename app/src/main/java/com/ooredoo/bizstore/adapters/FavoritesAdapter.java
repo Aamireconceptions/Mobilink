@@ -207,8 +207,13 @@ public class FavoritesAdapter extends BaseAdapter {
             holder.tvBrandText.setVisibility(View.VISIBLE);
             if(fav.businessName != null)
             {
+                if(fav.color == 0)
+                {
+                    fav.color = Color.parseColor(getColorCode());
+                }
+
                 holder.tvBrandText.setText(String.valueOf(fav.businessName.charAt(0)));
-                holder.tvBrandText.setBackgroundColor(Color.parseColor(getColorCode()));
+                holder.tvBrandText.setBackgroundColor(fav.color);
             }
 
             holder.ivBrand.setImageBitmap(null);

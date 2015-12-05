@@ -15,7 +15,7 @@
     <string name="WEEKLY_PLAN">WEEKLY PLAN</string>
     <string name="SUBSCRIPTION_PLANS">SUBSCRIPTION PLAN</string>
     <string name="sms_charges">BizStore app will send a one time sms message to verify your phone number. Carrier SMS charges may apply.</string>
-    <string name="num_confirm_text">Please confirm your country code and enter your phone number.</string>
+    <string name="num_confirm_text">Please enter your Qatar Ooredoo Number.</string>
     <string name="NEXT">NEXT</string>
     <string name="SIGNUP">SIGNUP</string>
     <string name="SUBSCRIBE">SUBSCRIBE</string>
@@ -86,9 +86,9 @@
     <string name="is_arabic">true</string>
     <string name="apply">Apply</string>
     <string name="share_app_note">Share this app with your friends and family!</string>
-    <string name="enter_number">Please provide your phone number.</string>
+    <string name="enter_number">Please provide phone number.</string>
     <string name="sharing_msg">Sharing Message</string>
-    <string name="share_with_friends_txt">"Hi,\n\n I just found this great app for you called Ooredoo BizStore. You can enjoy the best deals &amp; discounts in your town.\n\nSend SUB to 92806 to download the application"</string>
+    <string name="share_with_friends_txt">"Hi,\n\nI just found this great app for you called Ooredoo BizStore. You can enjoy the best deals &amp; discounts in your town.\n\nSend SUB to 92806 to download the application."</string>
     <string name="share_now">Share Now</string>
     <string name="Preview">Preview</string>
     <string name="description">Description</string>
@@ -131,7 +131,7 @@
     <string name="help_question3">How can I subscribe in Ooredoo BizStore Application?</string>
     <string name="help_answer3">User can subscribe to Ooredoo BizStore Application via following two mechanisms:</string>
     <string name="help_answer3a">1. User can send SUB to 92806 for SMS Service</string>
-    <string name="help_answer3b">2. Once the user is subscribed through the SMS medium and logs in to the Application, he will be charged at 9QAR/Week</string>
+    <string name="help_answer3b">2. The user can subscribe BizStore service direct from Application through Signup process.</string>
     <string name="help_question4">How will I know that I am subscribed to Ooredoo BizStore Application?</string>
     <string name="help_answer4">User will get regular notifications regarding service subscription and their renewal status.</string>
     <string name="help_question5">How can I unsubscribe from Ooredoo BizStore Application?</string>
@@ -182,7 +182,7 @@
     <string name="Equipment">Equipment</string>
     <string name="error_invalid_num">Please provide valid phone number.</string>
     <string name="error_invalid_verification_code">Please copy passcode from your SMS and try again.</string>
-    <string name="copyrights_text">Copyright 2015 Ooredoo BizStore\nAll rights reserved.</string>
+    <string name="copyrights_text">Copyright 2015 Ooredoo BizStore Application\nAll rights reserved.</string>
     <string name="Clear_All">Clear All</string>
     <string name="error_server_down">The connection to server is down, please check back soon!</string>
     <string name="skip">Skip</string>
@@ -267,5 +267,7 @@
     <string name="enter_merchant_code">ENTER MERCHANT CODE</string>
     <string name="error_invalid_merchant_code">Invalid merchant code</string>
     <string name="error_no_loc">Waiting for location. Please try again later!</string>
+    <string name="error_no_nearby_deals">No Nearby Deals Available!</string>
+    <string name="error_your_loc_not_avaliable">Your location is not available!</string>
 
 </resources>

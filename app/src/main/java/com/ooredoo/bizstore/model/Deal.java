@@ -86,6 +86,11 @@ public class Deal extends Model {
     @Column(name = "location")
     public String location;
 
+    @Column(name = "end_date")
+    public String endDate;
+
+    public List<Location> locations;
+
     public Deal() {
     }
 
@@ -118,6 +123,9 @@ public class Deal extends Model {
         this.businessLogo = deal.businessLogo;
         this.businessName = deal.businessName;
         this.location = deal.location;
+        this.businessId = deal.businessId;
+        this.endDate = deal.endDate;
+        this.locations = deal.locations;
 
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }

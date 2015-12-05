@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -33,10 +32,8 @@ import android.widget.Toast;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.BusinessAdapter;
-import com.ooredoo.bizstore.adapters.Gallery;
 import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BusinessDetailTask;
 import com.ooredoo.bizstore.asynctasks.BusinessMiscTask;
@@ -47,8 +44,6 @@ import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Home;
-import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Menu;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -58,7 +53,6 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -222,7 +216,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 Logger.print("menuId: " + id);
 
                 LocationsTask locationsTask = new LocationsTask(BusinessDetailActivity.this);
-                locationsTask.execute(String.valueOf(id), "deals");
+                locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
 
                 return false;
             }
@@ -263,6 +257,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     RelativeLayout rlMenu;
     PopupMenu popupMenu;
     LinearLayout llDirections;
+    TextView tvCity;
     int color;
     public void populateData(final Business business) {
         if(business != null) {
@@ -420,7 +415,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             ((TextView) header.findViewById(R.id.tv_title)).setText(business.title);
             ((TextView) header.findViewById(R.id.phone)).setText(business.contact);
             ((TextView) header.findViewById(R.id.address)).setText(business.address);
-            ((TextView) header.findViewById(R.id.city)).setText(business.location);
+            tvCity = ((TextView) header.findViewById(R.id.city));
+            tvCity.setText(business.location);
             TextView tvType = (TextView) header.findViewById(R.id.type);
             if(business.type != null)
             {
@@ -487,7 +483,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         {
             for(int i = 0; i<=business.locations.size() - 1; i++)
             {
-                popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
+                if(business.location != null && !business.location.equalsIgnoreCase(business.locations.get(i).title))
+                {
+                    popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
+                }
             }
         }
         else
@@ -496,7 +495,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
 
 
-        updateOutlet(business);
+        updateOutlet(business, null);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
 
@@ -504,8 +503,13 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         businessMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
     }
 
-    private void updateOutlet(Business business)
+    private void updateOutlet(Business business, String value)
     {
+        if(value != null)
+        {
+            tvCity.setText(value);
+        }
+
         RelativeLayout rlPhone = (RelativeLayout) header.findViewById(R.id.phone_layout);
 
         TextView tvPhone= (TextView) header.findViewById(R.id.phone);
@@ -912,7 +916,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     }
 
     @Override
-    public void onUpdated(GenericDeal deal) {
-        updateOutlet(new Business(deal));
+    public void onUpdated(GenericDeal deal, String value) {
+        updateOutlet(new Business(deal), value);
     }
 }

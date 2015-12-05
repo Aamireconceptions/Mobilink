@@ -73,6 +73,9 @@ public class GenericDeal implements Serializable{
         this.businessName = recentItem.businessName;
         this.latitude = recentItem.latitude;
         this.longitude = recentItem.longitude;
+        this.location = recentItem.location;
+        this.endDate = recentItem.endDate;
+
        // this.color = recentItem.color;
         //this.locations = recentItem.locations;
         //this.endDate = recentItem.endDate;
@@ -155,6 +158,17 @@ public class GenericDeal implements Serializable{
         //this.isFav = result.isFavorite;
         this.description = fav.description;
         //this.endDate = fav.endDate;
+
+        this.timing = fav.timing;
+
+        this.businessId = (int) fav.businessId;
+        this.businessLogo = fav.businessLogo;
+        this.businessName = fav.businessName;
+        this.latitude = fav.lat;
+        this.longitude = fav.lng;
+        this.endDate = fav.endDate;
+        this.location = fav.location;
+
 
         // Logger.logI("DEAL: " + result.id, String.valueOf(deal.isFavorite));
     }

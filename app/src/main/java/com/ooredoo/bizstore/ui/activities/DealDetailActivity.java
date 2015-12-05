@@ -285,7 +285,7 @@ private EditText etMerchantCode;
                 Logger.print("menuId: "+id);
 
                 LocationsTask locationsTask = new LocationsTask(DealDetailActivity.this);
-                locationsTask.execute(String.valueOf(id), "deals");
+                locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
 
                 return false;
             }
@@ -338,6 +338,7 @@ private EditText etMerchantCode;
     ImageView ivDetail;
     ProgressBar progressBar;
     LinearLayout llDirections;
+    TextView tvCity;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
 
@@ -412,7 +413,8 @@ private EditText etMerchantCode;
             }
 
            // deal.location = "doha";
-            ((TextView) header.findViewById(R.id.city)).setText(deal.location);
+           tvCity =  ((TextView) header.findViewById(R.id.city));
+           tvCity.setText(deal.location);
             //((TextView) header.findViewById(R.id.city)).setText("doha");
 
             Logger.print("businessId Deal,"+deal.businessId);
@@ -574,6 +576,10 @@ private EditText etMerchantCode;
         {
             for(int i = 0; i<=deal.locations.size() - 1; i++)
             {
+                /*if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
+                {
+                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
+                }*/
                 if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
                 {
                     popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
@@ -593,7 +599,7 @@ private EditText etMerchantCode;
        /* ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, locations);
         spinner.setAdapter(spinnerAdapter);*/
 
-        updateOutlet(deal);
+        updateOutlet(deal, null);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
 
@@ -601,8 +607,11 @@ private EditText etMerchantCode;
         detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id));
     }
 
-    private void updateOutlet(GenericDeal deal)
+    private void updateOutlet(GenericDeal deal, String selectedLoc)
     {
+        if(selectedLoc != null)
+        tvCity.setText(selectedLoc);
+
         RelativeLayout rlPhone = (RelativeLayout) findViewById(R.id.phone_layout);
 
         TextView tvPhone= (TextView) header.findViewById(R.id.phone);
@@ -866,13 +875,13 @@ private EditText etMerchantCode;
                         }
                         else
                         {
-                            Toast.makeText(this, "No Nearby Deals Available!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, R.string.error_no_nearby_deals, Toast.LENGTH_SHORT).show();
                         }
 
                     }
                     else
                     {
-                        Toast.makeText(this, "Your location is not available!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.error_your_loc_not_avaliable, Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -1069,7 +1078,7 @@ private EditText etMerchantCode;
 
 
     @Override
-    public void onUpdated(GenericDeal deal) {
-        updateOutlet(deal);
+    public void onUpdated(GenericDeal deal, String value) {
+        updateOutlet(deal, value);
     }
 }

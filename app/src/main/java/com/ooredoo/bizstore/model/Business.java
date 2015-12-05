@@ -79,6 +79,13 @@ public class Business  implements Serializable{
 
         this.image = image;
 
+        this.location = recentItem.location;
+        this.businessId = (int) recentItem.businessId;
+        this.businessLogo = recentItem.businessLogo;
+        this.latitude = recentItem.latitude;
+        this.longitude = recentItem.longitude;
+
+
         //this.image = recentItem.image;
     }
 
@@ -95,6 +102,8 @@ public class Business  implements Serializable{
         this.businessLogo = brand.businessLogo;
         this.latitude = brand.latitude;
         this.longitude = brand.longitude;
+        this.businessId = brand.businessId;
+        this.locations = brand.locations;
 
         this.image = brand.image;
 
@@ -132,7 +141,7 @@ public class Business  implements Serializable{
         this.rating = fav.rating;
         this.contact = fav.contact;
         this.address = fav.address;
-       // this.location = fav.location;
+       this.location = fav.location;
         this.description = fav.description;
 
         Image image = new Image();
@@ -140,6 +149,14 @@ public class Business  implements Serializable{
         image.detailBannerUrl = fav.detailBanner;
 
         this.image = image;
+
+        this.timing = fav.timing;
+
+        this.businessId = (int) fav.businessId;
+        this.businessLogo = fav.businessLogo;
+        this.latitude = fav.lat;
+        this.longitude = fav.lng;
+       // this.color = fav.color;
 
         //this.image = fav.image;
     }

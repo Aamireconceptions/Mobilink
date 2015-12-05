@@ -214,6 +214,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="0dp"
+                    android:layout_marginBottom="15dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:text="@string/help_answer5b"
@@ -221,7 +222,7 @@
                     android:textSize="14sp"
                     android:textStyle="normal"/>
 
-                <View
+                <!--<View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
@@ -294,7 +295,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/grey"/>
+                    android:background="@color/grey"/>-->
 
             </LinearLayout>
 

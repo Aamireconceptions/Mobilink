@@ -996,7 +996,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                     List<String> filterResults = new ArrayList<>();
                     if(AppData.searchSuggestions != null) {
                         for(String suggestion : AppData.searchSuggestions.list) {
-                            if(suggestion.contains(filter)) {
+                            if(suggestion != null && suggestion.contains(filter)) {
                                 filterResults.add(suggestion);
                             }
                         }

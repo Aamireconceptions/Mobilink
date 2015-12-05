@@ -7,5 +7,5 @@ import com.ooredoo.bizstore.model.GenericDeal;
  */
 public interface LocationNotifies
 {
-    void onUpdated(GenericDeal deal);
+    void onUpdated(GenericDeal deal, String value);
 }

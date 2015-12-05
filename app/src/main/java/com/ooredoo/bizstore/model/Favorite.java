@@ -91,6 +91,15 @@ public class Favorite extends Model {
     @Column(name = "location")
     public String location;
 
+    @Column(name = "timing")
+    public String timing;
+
+    public int color;
+
+    @Column(name = "end_date")
+    public String endDate;
+
+
     public Favorite() {
     }
 
@@ -123,41 +132,13 @@ public class Favorite extends Model {
         this.businessLogo = deal.businessLogo;
         this.businessName = deal.businessName;
         this.location = deal.location;
+        this.businessId = deal.businessId;
+        this.timing = deal.timing;
+        this.endDate = deal.endDate;
+        this.location = deal.location;
 
         this.isFav = true;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
-    }
-
-    public Favorite(SearchResult result) {
-        this.id = result.id;
-        this.title = result.title;
-        this.views = result.views;
-        this.rating = result.rating;
-        this.contact = result.contact;
-        this.address = result.address;
-        this.isFavorite = result.isFav;
-        this.discount = result.discount;
-        this.category = result.category;
-        this.description = result.description;
-        this.banner = result.image != null ? result.image.bannerUrl : null;
-        this.detailBanner = result.image != null ? result.image.detailBannerUrl : null;
-
-        this.isFav = true;
-        Logger.logI("DEAL: " + result.id, String.valueOf(result.isFav));
-    }
-
-    public Favorite(RecentDeal deal) {
-        this.id = deal.id;
-        this.title = deal.title;
-        this.views = deal.views;
-        this.rating = deal.rating;
-        this.address = deal.address;
-        this.contact = deal.contact;
-        this.discount = deal.discount;
-        this.category = deal.category;
-        this.isFavorite = deal.isFavorite;
-        this.description = deal.description;
-        Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
     }
 
     public Favorite(Business business) {
@@ -180,9 +161,47 @@ public class Favorite extends Model {
         this.businessLogo = business.businessLogo;
         this.businessName = business.title;
         this.location = business.location;
+        this.businessId = business.businessId;
 
         Logger.logI("FAV_BUSINESS: " + business.id, String.valueOf(business.isFavorite));
     }
+
+    public Favorite(SearchResult result) {
+        this.id = result.id;
+        this.title = result.title;
+        this.views = result.views;
+        this.rating = result.rating;
+        this.contact = result.contact;
+        this.address = result.address;
+        this.isFavorite = result.isFav;
+        this.discount = result.discount;
+        this.category = result.category;
+        this.description = result.description;
+        this.banner = result.image != null ? result.image.bannerUrl : null;
+        this.detailBanner = result.image != null ? result.image.detailBannerUrl : null;
+
+
+        this.isFav = true;
+        Logger.logI("DEAL: " + result.id, String.valueOf(result.isFav));
+    }
+
+    public Favorite(RecentDeal deal) {
+        this.id = deal.id;
+        this.title = deal.title;
+        this.views = deal.views;
+        this.rating = deal.rating;
+        this.address = deal.address;
+        this.contact = deal.contact;
+        this.discount = deal.discount;
+        this.category = deal.category;
+        this.isFavorite = deal.isFavorite;
+        this.description = deal.description;
+
+
+        Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFavorite));
+    }
+
+
 
     public static void clearFavorites() {
         List<Favorite> favorites = new Select().all().from(Favorite.class).execute();
@@ -244,6 +263,8 @@ public class Favorite extends Model {
             fav.brandAddress = favorite.brandAddress;
             fav.businessName = favorite.businessName;
             fav.location = favorite.location;
+            fav.businessId = favorite.businessId;
+            fav.endDate = favorite.endDate;
 
             Log.i("UPDATE_FAV_DEAL: " + favorite.id, "---" + favorite.isFavorite);
             fav.save();

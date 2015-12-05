@@ -29,6 +29,8 @@ public class Brand implements Serializable
 
     public boolean isFavorite;
 
+    public List<Location> locations;
+
     @SerializedName("images")
     public Image image;
 }

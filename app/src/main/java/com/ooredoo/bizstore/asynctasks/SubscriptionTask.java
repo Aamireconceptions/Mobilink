@@ -26,7 +26,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
     private SignUpFragment signUpFragment;
 
-    private String SERVICE_NAME = "/subscribe?";
+    private String SERVICE_NAME = "/signup?";
 
     public SubscriptionTask(SignUpFragment signUpFragment) {
         this.signUpFragment = signUpFragment;

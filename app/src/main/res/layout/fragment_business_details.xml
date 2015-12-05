@@ -43,8 +43,8 @@
 
                 <RelativeLayout
                     android:id="@+id/brand_logo_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/business_border">
@@ -54,7 +54,6 @@
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
                         android:padding="@dimen/_2sdp"
-                        android:background="@drawable/business_border"
                         android:scaleType="fitXY"
 
                         />
@@ -247,10 +246,12 @@
 
                 <TextView
                     android:id="@+id/city"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
+                    android:layout_toStartOf="@+id/locations"
+                    android:layout_marginEnd="@dimen/_4sdp"
                     android:text=""
                     android:textColor="@color/red"/>
 
