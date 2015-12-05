@@ -1,6 +1,8 @@
 package com.ooredoo.bizstore.listeners;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.support.v4.view.GravityCompat;
 import android.text.Html;
 
@@ -43,6 +45,8 @@ public class FilterOnClickListener implements View.OnClickListener {
 
     private int category;
 
+    LocationManager locationManager;
+
     private View layout;
 
     public FilterOnClickListener(HomeActivity activity, int category) {
@@ -51,6 +55,8 @@ public class FilterOnClickListener implements View.OnClickListener {
         this.category = category;
 
         onFilterChangeListener = activity;
+
+        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
     }
 
     Button btList, btMap;
@@ -80,10 +86,10 @@ public class FilterOnClickListener implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.new_deals:
 
-                if(category == CategoryUtils.CT_NEARBY && HomeActivity.lat == 0 && HomeActivity.lat == 0)
+               /* if(category == CategoryUtils.CT_NEARBY && HomeActivity.lat == 0 && HomeActivity.lat == 0)
                 {
                     return;
-                }
+                }*/
 
                 setButtonSelected(v);
 
@@ -96,7 +102,9 @@ public class FilterOnClickListener implements View.OnClickListener {
 
             case R.id.popular_deals:
 
-                if(category == CategoryUtils.CT_NEARBY && HomeActivity.lat == 0 && HomeActivity.lat == 0)
+                if(category == CategoryUtils.CT_NEARBY &&
+                        (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                                && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
                 {
                     return;
                 }
@@ -325,6 +333,15 @@ public class FilterOnClickListener implements View.OnClickListener {
         v.setSelected(isRatingEnabled);
 
         lastRatingSelected = v;
+
+        if(v.isSelected())
+        {
+            activity.doApplyRating = true;
+        }
+        else
+        {
+            activity.doApplyRating = false;
+        }
     }
 
     public void setDistanceSelected(View v) {

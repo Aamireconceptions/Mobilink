@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:paddingBottom="@dimen/_8sdp"
+
             >
 
             <ListView
@@ -54,7 +54,9 @@
                 android:layout_height="match_parent"
                 android:scrollbars="none"
                 android:divider="@null"
-                android:dividerHeight="@dimen/_8sdp"
+                android:dividerHeight="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:clipToPadding="false"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             <!--<GridView

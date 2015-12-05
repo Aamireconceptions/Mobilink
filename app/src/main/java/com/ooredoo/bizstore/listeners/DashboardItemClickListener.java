@@ -84,9 +84,9 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
                 HotelsAndSpasFragment.subCategory = "hotels_" + subCategory;
 
-                processSubCategory(subCategory);
-
                 mActivity.selectTab(6);
+
+                processSubCategory(subCategory);
             }
 
             if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities) {

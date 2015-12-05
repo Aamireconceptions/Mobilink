@@ -218,7 +218,7 @@
     <string name="discounts_on_fav_brands">Discounts On Your Favorite Brands</string>
     <string name="movies_cinemas_more">Movies, Cinemas &amp; Much More</string>
     <string name="subscription_charges">You will be charged QAR <b>9</b>/week</string>
-    <string name="subscription_terms_services">By Subscribing you Agree with our <u><b>Terms &amp; Services</b></u></string>
+    <string name="subscription_terms_services"><![CDATA[By Subscribing you Agree with our <u><b>Terms &amp; Services</b></u>]]></string>
     <string name="rate_deal">Rate this deal</string>
     <string name="discount_voucher">Discount Voucher :</string>
     <string name="showing">Showing</string>
@@ -266,5 +266,6 @@
     <string name="discount_redeemed">Discount Redeemed</string>
     <string name="enter_merchant_code">ENTER MERCHANT CODE</string>
     <string name="error_invalid_merchant_code">Invalid merchant code</string>
+    <string name="error_no_loc">Waiting for location. Please try again later!</string>
 
 </resources>

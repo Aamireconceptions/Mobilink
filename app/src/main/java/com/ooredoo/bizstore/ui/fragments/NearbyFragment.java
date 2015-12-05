@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -48,6 +49,7 @@ import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.NearbyFilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Location;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
@@ -84,6 +86,8 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
     private ImageView ivBanner;
 
     private RelativeLayout rlHeader;
+
+    private ScrollView scrollView;
 
     private LinearLayout llLocationEmptyView;
 
@@ -132,6 +136,7 @@ RelativeLayout rlParent;
         else
         {
             //tvEmptyView.setText(R.string.error_no_location);
+            scrollView.setVisibility(View.VISIBLE);
             listView.setEmptyView(llLocationEmptyView);
         }
 
@@ -266,6 +271,8 @@ RelativeLayout rlParent;
         adapter.setListingType("deals");
         //adapter.setMapLayout(linearLayout);
 
+        scrollView = (ScrollView) v.findViewById(R.id.scrollView);
+
         llLocationEmptyView = (LinearLayout) v.findViewById(R.id.location_empty_view);
 
         v.findViewById(R.id.enable_location).setOnClickListener(new View.OnClickListener() {
@@ -377,7 +384,15 @@ RelativeLayout rlParent;
         else
         {
             Logger.print("NearbyTask Called");
-            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "nearby");
+
+            if(HomeActivity.lat != 0 && HomeActivity.lng != 0)
+            {
+                dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "nearby");
+            }
+            else
+            {
+                onNoDeals(R.string.error_no_loc);
+            }
         }
     }
 
@@ -387,15 +402,14 @@ RelativeLayout rlParent;
     {
         Logger.print("NearbyFragment onFilterChange");
 
-
-
-        if(HomeActivity.lat == 0 && HomeActivity.lng == 0)
+       /* if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+            !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
             return;
-        }
+        }*/
 
         listView.setEmptyView(null);
-        llLocationEmptyView.setVisibility(View.GONE);
+        scrollView.setVisibility(View.GONE);
         tvEmptyView.setVisibility(View.GONE);
 
         if(DealsTask.sortColumn.equals("createdate"))
@@ -459,7 +473,8 @@ RelativeLayout rlParent;
     @Override
     public void onRefresh()
     {
-        if(HomeActivity.lat !=0 && HomeActivity.lng != 0)
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
             diskCache.remove(adapter.deals);
 
@@ -478,6 +493,10 @@ RelativeLayout rlParent;
         else
         {
             //tvEmptyView.setText(R.string.error_no_location);
+            adapter.clearData();;
+            adapter.notifyDataSetChanged();
+
+            scrollView.setVisibility(View.VISIBLE);
             listView.setEmptyView(llLocationEmptyView);
 
             swipeRefreshLayout.setRefreshing(false);
@@ -575,12 +594,14 @@ RelativeLayout rlParent;
         {
             if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
             {
-                llLocationEmptyView.setVisibility(View.GONE);
+                scrollView.setVisibility(View.GONE);
                 listView.setEmptyView(null);
+
+                fetchAndDisplayFoodAndDining(progressBar);
             }
             else
             {
-                llLocationEmptyView.setVisibility(View.VISIBLE);
+                scrollView.setVisibility(View.VISIBLE);
                 listView.setEmptyView(llLocationEmptyView);
             }
         }

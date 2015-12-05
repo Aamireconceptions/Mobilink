@@ -41,6 +41,7 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
+                android:clipToPadding="false"
                 android:scrollbars="none"
                 android:verticalSpacing="@dimen/_6sdp"/>
 

@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-    android:paddingBottom="@dimen/_8sdp"
+
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -14,6 +14,8 @@
             android:id="@+id/home_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_8sdp"
+            android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="@dimen/_8sdp"
             android:scrollbars="none"/>

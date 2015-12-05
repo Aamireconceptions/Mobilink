@@ -60,7 +60,7 @@ public class SMSReceiver extends BroadcastReceiver
 
                                 DialogUtils.etCode.setText(code);
 
-                                DialogUtils.processVerificationCode();
+                               // DialogUtils.processVerificationCode();
                             }
 
                         }

@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.listeners;
 
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
@@ -25,12 +26,17 @@ public class DrawerChangeListener implements DrawerLayout.DrawerListener {
     public void onDrawerOpened(View view) {
         homeActivity.hideSearchPopup();
         homeActivity.hideSearchResults();
+
+        if(homeActivity.drawerLayout.isDrawerOpen(GravityCompat.END))
+        {
+            homeActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
+        }
     }
 
     @Override
     public void onDrawerClosed(View view)
     {
-
+        homeActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
     }
 
     @Override

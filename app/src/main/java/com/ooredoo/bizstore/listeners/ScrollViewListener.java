@@ -54,7 +54,7 @@ public class ScrollViewListener  {
                 setTitleAlpha(scrollOffset - getAlphaforActionBar(-v.getTop()));
                 cd.setAlpha(getAlphaforActionBar(-v.getTop()));
 
-                Logger.print("onScroll Alpha: " + v.getTop());
+               // Logger.print("onScroll Alpha: " + v.getTop());
 
         }
 
