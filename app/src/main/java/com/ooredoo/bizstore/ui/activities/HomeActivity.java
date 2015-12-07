@@ -181,6 +181,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private long time = 15 * 60 * 1000;
 
+    public static TextView tvName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,7 +225,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         new SearchKeywordsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        new AccountDetailsTask(((TextView)findViewById(R.id.name))).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
+        tvName = (TextView) findViewById(R.id.name);
+
+        new AccountDetailsTask(tvName).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
 
         BizStore.forceStopTasks = false;
 
@@ -879,14 +882,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         startActivity(intent);
     }
 
-
-
     private Fragment currentFragment;
 
     public void setCurrentFragment(Fragment currentFragment) {
         this.currentFragment = currentFragment;
-
-
     }
 
     @Override
@@ -1098,6 +1097,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(drawerLayout.isDrawerOpen(GravityCompat.END))
         {
             drawerLayout.closeDrawer(GravityCompat.END);
+            return;
+        }
+
+        if(isSearchEnabled)
+        {
             return;
         }
 

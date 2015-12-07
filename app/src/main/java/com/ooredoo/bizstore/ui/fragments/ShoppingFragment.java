@@ -125,7 +125,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
         {
             if(BizStore.getLanguage().equals("ar"))
-                gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._6sdp));
+                gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._3sdp));
             else
                 gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
         }
@@ -216,8 +216,16 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             gridView.setNumColumns(2);
             adapter.setListingType("deals");
 
-            gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._6sdp));
-            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));
+            /*gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._6sdp));
+            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));*/
+
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            {
+                if(BizStore.getLanguage().equals("ar"))
+                    gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._6sdp));
+                else
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
+            }
         }
         else
         {
@@ -225,8 +233,16 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             gridView.setNumColumns(3);
             adapter.setListingType("brands");
 
-            gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._22sdp));
-            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));
+          /*  gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._22sdp));
+            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));*/
+
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            {
+                if(BizStore.getLanguage().equals("ar"))
+                    gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._6sdp));
+                else
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
+            }
         }
 
         loadDeals(progressBar);

@@ -205,16 +205,20 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                     ivEdit.setImageResource(R.drawable.ic_edit_white);
                     updateVal(this, NAME, name);
                     UpdateAccountTask uploadTask = new UpdateAccountTask(this, name, null);
-                    uploadTask.execute();
-                } else {
+                    uploadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+                    etName.setCursorVisible(false);
+
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etName.getWindowToken(), 0);
+                }
+                else
+                {
                     String msg = getString(R.string.provide_name);
                     Snackbar.make(etName, msg, Snackbar.LENGTH_SHORT).show();
                 }
 
-                etName.setCursorVisible(false);
 
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(etName.getWindowToken(), 0);
                // etName.setFocusable(false);
             }
 
@@ -411,7 +415,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     public void uploadImageToServer(String path) {
         Logger.print("IMG_PATH: " + path);
         UpdateAccountTask uploadTask = new UpdateAccountTask(this, null, path);
-        uploadTask.execute();
+        uploadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void setupToolbar() {

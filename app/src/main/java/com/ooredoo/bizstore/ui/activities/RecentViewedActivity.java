@@ -193,6 +193,11 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.location = result.location;
             rd.businessId = result.businessId;
             rd.endDate = result.endDate;
+            if(result.type.equals("business"))
+            {
+                rd.isBusiness = true;
+            }
+
             Log.i("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();
         }

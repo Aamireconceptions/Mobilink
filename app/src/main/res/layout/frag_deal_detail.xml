@@ -317,11 +317,12 @@
                         android:singleLine="true"
                         android:gravity="center"
                         android:textSize="14sp"
-                        android:inputType="textCapCharacters"
+                        android:inputType="textPassword"
                         android:textColor="@color/red"
                         android:textStyle="bold"
                         android:layout_centerHorizontal="true"
                         android:maxLength="4"
+
                         android:hint="@string/enter_merchant_code"
                         android:background="@drawable/code_field"/>
 
@@ -373,6 +374,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
+                    android:singleLine="true"
                     android:layout_toStartOf="@+id/locations"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:textColor="@color/red"/>

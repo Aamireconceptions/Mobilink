@@ -36,14 +36,14 @@
                 android:layout_below="@+id/header"
                 android:layout_gravity="center_horizontal"
                 android:horizontalSpacing="@dimen/_6sdp"
+                android:verticalSpacing="@dimen/_6sdp"
                 android:layoutDirection="locale"
                 android:numColumns="2"
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:clipToPadding="false"
-                android:scrollbars="none"
-                android:verticalSpacing="@dimen/_6sdp"/>
+                android:scrollbars="none" />
 
             <TextView
                 android:id="@+id/empty_view"

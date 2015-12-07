@@ -156,7 +156,6 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             textView.setBackgroundColor(resources.getColor(R.color.orange));
         }
 
-
         return convertView;
     }
 

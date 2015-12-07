@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.content.Context;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -9,9 +8,9 @@ import android.widget.Toast;
 import com.ooredoo.bizstore.AppData;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -35,6 +34,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 
 /**
  * @author Pehlaj Rai
@@ -96,7 +96,16 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
                 JSONObject response = new JSONObject(result);
                 int resultCode = response.has("result") ? response.getInt("result") : -1;
                 if(resultCode == 0) {
-                    AppData.userAccount.name = name;
+
+                    if(response.has("name"))
+                    {
+                        AppData.userAccount.name = response.getString("name");
+                    }
+
+                    if(HomeActivity.tvName != null && !isNullOrEmpty(AppData.userAccount.name))
+                    {
+                        HomeActivity.tvName.setText(AppData.userAccount.name);
+                    }
                 }
                 String path = response.has("image") ? response.getString("image") : "";
                 Logger.logI("UPLOADED_IMG_PATH", path);

@@ -250,6 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
+                    android:singleLine="true"
                     android:layout_toStartOf="@+id/locations"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:text=""

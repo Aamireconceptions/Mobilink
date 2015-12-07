@@ -48,8 +48,8 @@
     <string name="deals_discount">عروض و خصومات</string>
     <string name="business_directory">عروض و خصومات</string>
     <string name="sort_by">التصنيف حسب</string>
-    <string name="distance">Distance</string>
-    <string name="mi">(mi)</string>
+    <string name="distance">المسافات</string>
+    <string name="mi">(ميل)</string>
     <string name="_0.5">0.5</string>
     <string name="_1">1</string>
     <string name="_2">2</string>

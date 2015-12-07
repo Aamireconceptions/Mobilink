@@ -933,7 +933,12 @@ private EditText etMerchantCode;
     {
         if(hide)
         {
+            //rlMerchandCode.setVisibility(View.GONE);
+
+            etMerchantCode.setText("");
             rlMerchandCode.setVisibility(View.GONE);
+
+            btGetCode.setVisibility(View.VISIBLE);
         }
 
        // voucherClaimed += 1;
@@ -1098,6 +1103,11 @@ private EditText etMerchantCode;
       lastSelected = btSimilarDeals;
 
        this.genericDeal = genericDeal;
+
+       if(genericDeal.discount == 0)
+       {
+           return;
+       }
 
        if(genericDeal.vouchers_claimed == 0)
        {
