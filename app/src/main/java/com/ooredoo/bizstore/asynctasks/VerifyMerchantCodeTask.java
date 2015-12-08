@@ -154,6 +154,5 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
         Logger.print("getCode: "+result);
 
         return result;
-
     }
 }
