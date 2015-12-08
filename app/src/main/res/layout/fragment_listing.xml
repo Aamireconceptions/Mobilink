@@ -76,10 +76,12 @@
                 android:id="@+id/empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
                 android:text="@string/error_no_data"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:visibility="gone"/>
 
         </FrameLayout>

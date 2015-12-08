@@ -355,7 +355,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:gravity="center_horizontal"
-                android:text="Dea suer askdsad "
                 android:textColor="@color/black"
                 android:visibility="gone"/>
 

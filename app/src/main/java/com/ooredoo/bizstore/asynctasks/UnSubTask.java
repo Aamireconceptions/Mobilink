@@ -59,6 +59,8 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
             activity.finish();
 
             activity.startActivity(new Intent(activity, MainActivity.class));
+
+            Toast.makeText(activity, R.string.un_sub_success, Toast.LENGTH_SHORT).show();
         }
         else
         {

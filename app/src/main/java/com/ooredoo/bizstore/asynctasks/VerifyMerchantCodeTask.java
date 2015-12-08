@@ -88,7 +88,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                             @Override
                             public void onClick(View v) {
 
-                                detailActivity.showCode(voucher.vouchers_claimed, true);
+                                detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
                                 dialog.dismiss();
                             }
                         });
@@ -106,11 +106,10 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 @Override
                                 public void onClick(View v) {
 
-                                    detailActivity.showCode(voucher.vouchers_claimed, true);
+                                    detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
                                     dialog.dismiss();
                                 }
                             });
-
                         }
                 }
                 else

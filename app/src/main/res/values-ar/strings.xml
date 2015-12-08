@@ -78,8 +78,8 @@
     <string name="jokes">نكت</string>
     <string name="new_deals">العروض الجديدة</string>
     <string name="popular_deals">العروض الرائجة</string>
-    <string name="error_search_term">يرجى تقديم مصطلح البحث</string>
-    <string name="error_no_internet">الاتصال بشبكة الانترنت هو أسفل، يرجى المحاولة مرة أخرى!</string>
+    <string name="error_search_term">الرجاء إدخال عنصر البحث.</string>
+    <string name="error_no_internet">لا يوجد اتصال بالإنترنت. الرجاء توصيل حهازك بالإنترنت.</string>
     <string name="rate_us">قيمنا على بلاي ستور.</string>
     <string name="English">English</string>
     <string name="arabic">العربية</string>
@@ -189,7 +189,7 @@
     <string name="provide_name">اسمك</string>
     <string name="select_pic">صورتك</string>
     <string name="no_fav_item">دلو المفضل هو فارغ.</string>
-    <string name="no_recent_item">هل لا ينظر أي صفقة أو الأعمال، دعونا التحقق من ذلك!ً</string>
+    <string name="no_recent_item">لم تقم بمشاهدة أي من العروض أو الأعمال.ً</string>
     <string name="available">متوفر</string>
     <string name="provide_valid_verification">الرجاء إدخال رقم التأكيد</string>
     <string name="getting_vocher">الحصول على الكوبون</string>
@@ -228,7 +228,7 @@
     <string name="subscribing">اشتراك</string>
     <string name="unsubscribing">إلغاء الاشتراك</string>
     <string name="invalid_phone_num">عزيزي المستخدم، كنت قد قدمت رقم الهاتف غير صالح</string>
-    <string name="profile_update">تم تحديث إعدادات ملف التعريف بنجاح.</string>
+    <string name="profile_update">تم تحديث إعدادات حسابك بنجاح.</string>
     <string name="cinemas"> دور السينما</string>
     <string name="apply">تطبيق</string>
     <string name="rating_success">  أشكركم على التصنيف</string>
@@ -258,4 +258,9 @@
     <string name="error_no_nearby_deals">لا عروض القريبة متاح!</string>
     <string name="error_your_loc_not_avaliable">الموقع الخاص بك هو غير متوفر!</string>
     <string name="enter_merchant_code">الكود ميرشانت</string>
+    <string name="discount_not_availed">عزيزي المستخدم، لم تكن قد استفاد هذا الخصم حتى الآن!</string>
+    <string name="error_max_availed">عزيزي العميل، لقد استنفذت عملية إستبدال هذا العرض.</string>
+    <string name="error_invalid_merchant_code">رمز خاطئ. الرجاء إعادة إدخال الرمز مرة أخرى.</string>
+    <string name="error_no_location">تحديد موقعك غير متوفر، الرجاء تفعيله.</string>
+    <string name="un_sub_success">عزيزي العميل، تم إلغاء إشتراكك من Ooredoo بيزستور بنجاح!</string>
 </resources>

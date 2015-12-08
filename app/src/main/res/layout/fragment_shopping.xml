@@ -50,10 +50,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
                 android:layout_gravity="center"
                 android:paddingBottom="@dimen/_80sdp"
                 android:text="Oops nothing found :("
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:visibility="gone"/>
 
         </FrameLayout>

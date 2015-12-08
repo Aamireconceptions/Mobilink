@@ -929,7 +929,7 @@ private EditText etMerchantCode;
         lastSelected = v;
     }
 
-    public void showCode(int voucherClaimed, boolean hide)
+    public void showCode(int voucherClaimed, int maxAllowed, boolean hide)
     {
         if(hide)
         {
@@ -943,9 +943,15 @@ private EditText etMerchantCode;
 
        // voucherClaimed += 1;
 
-        if(voucherClaimed >= genericDeal.vouchers_max_allowed)
+        tvVoucherClaimed.setVisibility(View.VISIBLE);
+
+        if(voucherClaimed >= maxAllowed)
         {
             rlVoucher.setVisibility(View.GONE);
+
+            tvVoucherClaimed.setText("Dear user, you have availed maximum attempts. Thanks for your interest!");
+
+            return;
         }
         else
         {
@@ -1112,7 +1118,7 @@ private EditText etMerchantCode;
        if(genericDeal.vouchers_claimed == 0)
        {
            tvVoucherClaimed.setVisibility(View.VISIBLE);
-           tvVoucherClaimed.setText("Dear user, you haven't availed this discount yet!");
+           tvVoucherClaimed.setText(R.string.discount_not_availed);
 
            return;
        }

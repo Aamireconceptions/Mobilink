@@ -79,7 +79,7 @@
     <string name="new_deals">New Deals</string>
     <string name="popular_deals">Popular Deals</string>
     <string name="error_search_term">Please enter search item</string>
-    <string name="error_no_internet">The internet connection is down, please try again!</string>
+    <string name="error_no_internet">No internet connection. Please connect your device to internet.</string>
     <string name="rate_us">Rate Us on Playstore</string>
     <string name="English">English</string>
     <string name="arabic">العربية</string>
@@ -236,7 +236,7 @@
     <string name="cinemas">Cinemas</string>
     <string name="rating_success">Thank you for rating!</string>
     <string name="nearby">Nearby Deals</string>
-    <string name="error_no_location">Location not available, Please turn location on!</string>
+    <string name="error_no_location">Location not available, lets enable it!</string>
     <string name="list">List</string>
     <string name="map">Map</string>
     <string name="brands">Brands</string>
@@ -262,12 +262,14 @@
     <string name="btn_enable_loc">Enable Location</string>
     <string name="error_empty_voucher">Please enter merchant code</string>
     <string name="success_redeemed">Successfully Redeemed</string>
-    <string name="error_max_availed">You have availed maximum number of Vouchers against this deal</string>
+    <string name="error_max_availed">Dear Subscriber, You have redeemed the deal maximum number of times.</string>
     <string name="discount_redeemed">Discount Redeemed</string>
     <string name="enter_merchant_code">ENTER MERCHANT CODE</string>
-    <string name="error_invalid_merchant_code">Invalid merchant code</string>
+    <string name="error_invalid_merchant_code">Invalid code. Please re-enter code.</string>
     <string name="error_no_loc">Waiting for location. Please try again later!</string>
     <string name="error_no_nearby_deals">No Nearby Deals Available!</string>
     <string name="error_your_loc_not_avaliable">Your location is not available!</string>
+    <string name="discount_not_availed">Dear user, you haven\'t availed this discount yet!</string>
+    <string name="un_sub_success">Dear User, you have successfully unsubscribed from Ooredoo BizStore!</string>
 
 </resources>

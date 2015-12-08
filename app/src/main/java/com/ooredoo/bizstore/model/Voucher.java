@@ -14,4 +14,6 @@ public class Voucher
     public String code;
 
     public int vouchers_claimed;
+
+    public int max_allowed;
 }
