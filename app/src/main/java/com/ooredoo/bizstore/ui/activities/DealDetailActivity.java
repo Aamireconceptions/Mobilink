@@ -652,10 +652,7 @@ private EditText etMerchantCode;
 
             TextView tvDirections = (TextView) header.findViewById(R.id.directions);
 
-            tvDirections.setText(String.format("%.1f",genericDeal.distance / 1000) + "km");
-            tvDirections.setOnClickListener(this);
-
-            TextView tvDistance= (TextView) findViewById(R.id.distance);
+            TextView tvDistance = (TextView) findViewById(R.id.distance);
             tvDistance.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -665,6 +662,16 @@ private EditText etMerchantCode;
             });
 
             tvDistance.setText(String.format("%.1f", genericDeal.distance / 1000) + " " + getString(R.string.km_away));
+
+            if(genericDeal.distance != 0) {
+                tvDirections.setText(String.format("%.1f", genericDeal.distance / 1000) + "km");
+                tvDirections.setOnClickListener(this);
+            }
+            else {
+                llDirections.setVisibility(View.GONE);
+
+                rlDistance.setVisibility(View.GONE);
+            }
         }
 
         RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);

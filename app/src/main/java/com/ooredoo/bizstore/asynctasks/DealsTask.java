@@ -291,7 +291,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             {
                 float distance = Float.parseFloat(homeActivity.distanceFilter);
 
-                distance = distance * 1.60934f;
+                //distance = distance * 1.60934f;
 
                 params.put("distance", String.valueOf(distance));
             }

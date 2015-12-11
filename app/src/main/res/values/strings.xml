@@ -50,6 +50,7 @@
     <string name="sort_by">Sort By</string>
     <string name="distance">Distance</string>
     <string name="mi">(mi)</string>
+    <string name="km_bracket">(km)</string>
     <string name="_0.5">0.5</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
