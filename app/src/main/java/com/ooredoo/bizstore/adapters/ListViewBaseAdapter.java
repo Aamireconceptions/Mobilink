@@ -45,6 +45,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Deal;
@@ -456,12 +457,31 @@ public class ListViewBaseAdapter extends BaseAdapter {
             if((deal.latitude != 0 && deal.longitude != 0)
                     && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
             {
-                holder.tvDirections.setVisibility(View.VISIBLE);
-                float results[] = new float[3];
-                Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
-                        results);
 
-                holder.tvDirections.setText(String.format("%.1f",(results[0] / 1000)) + " " + context.getString(R.string.km));
+                /*float results[] = new float[3];
+                Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
+                        results);*/
+
+                if(deal.distance != 0)
+                {
+                    holder.tvDirections.setVisibility(View.VISIBLE);
+
+                    holder.tvDirections.setText(String.format("%.1f",(deal.distance / 1000))
+                            + " " + context.getString(R.string.km));
+                }
+                else
+                {
+                    holder.tvDirections.setVisibility(View.GONE);
+
+                    String origin = HomeActivity.lat + "," + HomeActivity.lng;
+                    String destination = deal.latitude + "," + deal.longitude;
+
+
+
+                    CalculateDistanceTask calculateDistanceTask = new CalculateDistanceTask(deal, this);
+                    calculateDistanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                            origin, destination);
+                }
             }
             else
             {

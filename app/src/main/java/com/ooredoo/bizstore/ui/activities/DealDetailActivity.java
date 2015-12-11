@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.ui.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -643,14 +645,14 @@ private EditText etMerchantCode;
         }
         else
         {
-            float results[] = new float[3];
+            /*float results[] = new float[3];
             Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
                     deal.latitude, deal.longitude,
-                    results);
+                    results);*/
 
             TextView tvDirections = (TextView) header.findViewById(R.id.directions);
 
-            tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
+            tvDirections.setText(String.format("%.1f",genericDeal.distance / 1000) + "km");
             tvDirections.setOnClickListener(this);
 
             TextView tvDistance= (TextView) findViewById(R.id.distance);
@@ -662,7 +664,7 @@ private EditText etMerchantCode;
                 }
             });
 
-            tvDistance.setText(String.format("%.2f", results[0]) + " " + getString(R.string.km_away));
+            tvDistance.setText(String.format("%.1f", genericDeal.distance / 1000) + " " + getString(R.string.km_away));
         }
 
         RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
@@ -809,6 +811,9 @@ private EditText etMerchantCode;
             rlMerchandCode.setVisibility(View.VISIBLE);
 
             etMerchantCode.requestFocus();
+
+            InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.toggleSoftInputFromWindow(etMerchantCode.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
         }
         else
             if(viewId == R.id.similar_deals)

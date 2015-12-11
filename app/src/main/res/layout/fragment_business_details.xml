@@ -130,7 +130,8 @@
                     android:gravity="center_vertical"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:background="#33ffffff">
+                    android:background="#33ffffff"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/directions"
@@ -140,7 +141,8 @@
                         android:drawablePadding="@dimen/_4sdp"
                         android:gravity="center_horizontal"
                         android:drawableTop="@drawable/ic_directions_big"
-                        android:text=""/>
+                        android:text=""
+                        android:visibility="visible"/>
 
                 </LinearLayout>
 
@@ -344,7 +346,8 @@
                 android:paddingEnd="@dimen/_10sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
-                android:background="@drawable/layer_list">
+                android:background="@drawable/layer_list"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/distance"
@@ -357,7 +360,8 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:text=""
 
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:visibility="visible"/>
 
                 <ImageView
                     android:id="@+id/distance_arrow"

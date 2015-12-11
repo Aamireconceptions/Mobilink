@@ -46,6 +46,8 @@ public class Business  implements Serializable{
 
     public int businessId;
 
+    public double distance;
+
     public Business(Mall mall)
     {
         this.id = mall.id;

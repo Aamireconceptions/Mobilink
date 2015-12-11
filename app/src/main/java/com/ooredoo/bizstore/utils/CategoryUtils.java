@@ -128,7 +128,7 @@ public class CategoryUtils {
 
     public static synchronized void showSubCategories(Activity activity, final int category) {
         setUpSubCategories(activity);
-        Logger.logE("showSubCategories", String.valueOf(category));
+        Logger.logI("showSubCategories", String.valueOf(category));
         for(SubCategory sc : subCategories) {
             if(sc.parent == category) {
                 sc.isVisible = true;

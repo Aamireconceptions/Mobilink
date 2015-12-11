@@ -22,6 +22,8 @@ public class GenericDeal implements Serializable{
 
     public List<Location> locations;
 
+    public double distance;
+
     @SerializedName("images")
     public Image image;
 

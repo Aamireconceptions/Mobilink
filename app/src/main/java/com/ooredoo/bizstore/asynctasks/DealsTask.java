@@ -160,13 +160,19 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                         if(type != null && type.equals("map"))
                         {
-
-
                             if(deals != null)
                             {
-                                nearbyFragment.populateMap(deals);
+                                if(deals.size() > 0)
+                                {
+                                    nearbyFragment.populateMap(deals);
 
-                                dealsTaskFinishedListener.onHaveDeals();
+                                    dealsTaskFinishedListener.onHaveDeals();
+                                }
+                                else
+                                {
+                                    dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                                }
+
                             }
                         }
                         else
@@ -227,8 +233,16 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                     if(brand.brands != null)
                     {
                         // adapter.clearData();
-                        adapter.setBrandsList(brand.brands);
-                        adapter.notifyDataSetChanged();
+
+                        if(brand.brands.size() > 0)
+                        {
+                            adapter.setBrandsList(brand.brands);
+                            adapter.notifyDataSetChanged();
+                        }
+                        else
+                        {
+                            dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                        }
                     }
                     else
                     {
@@ -369,7 +383,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
 
-        if(!isFilterEnabled && !result.contains("No item Found"))
+        if(!isFilterEnabled && !result.contains("No item Found"));
         {
             updateVal(homeActivity, KEY, result);
             updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());

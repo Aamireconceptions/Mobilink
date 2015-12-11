@@ -37,6 +37,7 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BusinessDetailTask;
 import com.ooredoo.bizstore.asynctasks.BusinessMiscTask;
+import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.LocationsTask;
 import com.ooredoo.bizstore.interfaces.LocationNotifies;
@@ -534,14 +535,16 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
         else
         {
-            float results[] = new float[3];
+            /*float results[] = new float[3];
             Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
                     business.latitude, business.longitude,
-                    results);
+                    results);*/
 
             TextView tvDirections = (TextView) header.findViewById(R.id.directions);
 
-            tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
+
+
+            //tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
             tvDirections.setOnClickListener(this);
 
             TextView tvDistance= (TextView) header.findViewById(R.id.distance);
@@ -553,7 +556,15 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 }
             });
 
-            tvDistance.setText(String.format("%.2f", results[0] / 1000) + " " + getString(R.string.km_away));
+            String origin = HomeActivity.lat + "," + HomeActivity.lng;
+            String destination = business.latitude + "," + business.longitude;
+
+
+            CalculateDistanceTask calculateDistanceTask = new CalculateDistanceTask(this, business, tvDistance, tvDirections,
+                    rlDistance, llDirections);
+            calculateDistanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
+
+            //tvDistance.setText(String.format("%.1f", results[0] / 1000) + " " + getString(R.string.km_away));
         }
 
         RelativeLayout rlAddress = (RelativeLayout) header.findViewById(R.id.address_layout);

@@ -81,15 +81,19 @@ public class FilterOnClickListener implements View.OnClickListener {
         ivFilter.setOnClickListener(this);
     }
 
+    static int saveCategory;
+
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.new_deals:
 
-               /* if(category == CategoryUtils.CT_NEARBY && HomeActivity.lat == 0 && HomeActivity.lat == 0)
+                if(category == CategoryUtils.CT_NEARBY &&
+                        (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                                && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
                 {
                     return;
-                }*/
+                }
 
                 setButtonSelected(v);
 
@@ -119,6 +123,17 @@ public class FilterOnClickListener implements View.OnClickListener {
                 break;
 
             case R.id.filter:
+
+               // saveCategory = category;
+
+               // Logger.print("CAT: "+saveCategory);
+
+                if(category == CategoryUtils.CT_NEARBY &&
+                        (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                                && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
+                {
+                    return;
+                }
 
                 Logger.print("FilterOnClickListener: CATEGORY -> Filter: " + String.valueOf(category));
 
@@ -181,9 +196,15 @@ public class FilterOnClickListener implements View.OnClickListener {
 
             case R.id.done:
 
-                Logger.print("FilterOnClickListener: CATEGORY -> Apply Filter: " + String.valueOf(category));
+                //Logger.print("CAT: "+saveCategory);
 
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
+
+
+
+                Logger.print("FilterOnClickListener: CATEGORY -> Apply Filter: " + String.valueOf(category));
+
+
                 String subCategories = CategoryUtils.getSelectedSubCategories(category);
                 DealsTask.subCategories = subCategories;
                 ShoppingTask.subCategories = subCategories;
