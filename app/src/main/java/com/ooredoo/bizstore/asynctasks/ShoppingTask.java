@@ -130,16 +130,19 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
                 {
                     Response response = gson.fromJson(result, Response.class);
 
-                    if(response.resultCode != -1)
+                    if(response.resultCode != -1 && response.deals != null && response.deals.size() > 0)
                     {
                         dealsTaskFinishedListener.onHaveDeals();
 
                         List<GenericDeal> deals = new ArrayList<>();
 
-                        if(response.deals != null)
+                        if(response.deals != null) {
                             deals = response.deals;
+                        }
 
                         adapter.setData(deals);
+
+                        adapter.notifyDataSetChanged();
                     }
                     else
                     {
@@ -187,7 +190,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         {
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
 
-            snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
+           // snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
 
     }

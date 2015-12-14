@@ -159,6 +159,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onFilterChange()
     {
+        isRefreshed = true;
+
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
@@ -176,6 +178,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         }
 
         fetchAndDisplayEntertainment(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

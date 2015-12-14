@@ -283,9 +283,9 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 break;
 
-            case R.id._0_5:
+            case R.id._1:
 
-                activity.distanceFilter = "0.5";
+                activity.distanceFilter = "1";
 
                 setDistanceSelected(v);
 

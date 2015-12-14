@@ -145,6 +145,7 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onFilterChange()
     {
+        isRefreshed = true;
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
@@ -162,6 +163,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         }
 
         fetchAndDisplayMalls(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

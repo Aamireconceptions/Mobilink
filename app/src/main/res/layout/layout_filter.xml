@@ -164,7 +164,7 @@
                     android:text="@string/_0.5"/>-->
 
                 <TextView
-                    android:id="@+id/_0.5"
+                    android:id="@+id/_1"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -173,7 +173,7 @@
                     android:gravity="center"
                     android:paddingBottom="@dimen/_12sdp"
                     android:paddingTop="@dimen/_12sdp"
-                    android:text="@string/_0.5"
+                    android:text="@string/_1"
                     android:textColor="@color/black_white_selector"/>
 
                 <TextView

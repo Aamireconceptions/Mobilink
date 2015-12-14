@@ -198,6 +198,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onFilterChange() {
+
+        isRefreshed = true;
+
         if(brandsAdapter!= null)
         {
             brandsAdapter.clearData();
@@ -246,6 +249,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         }
 
         loadDeals(progressBar);
+
+        isRefreshed = false;
     }
 
     SimilarBrandsAdapter brandsAdapter;

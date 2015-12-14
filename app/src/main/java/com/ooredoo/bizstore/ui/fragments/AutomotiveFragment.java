@@ -143,7 +143,7 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
     @Override
     public void onFilterChange() {
-
+        isRefreshed = true;
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
@@ -161,6 +161,8 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
         }
 
         fetchAndDisplayAutomotive(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

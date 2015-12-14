@@ -37,6 +37,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
+import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
@@ -239,6 +240,12 @@ private EditText etMerchantCode;
                 if (mOnScrollViewListener != null) {
 
                 }
+
+                View currentFcous = getCurrentFocus();
+                if(currentFcous != null)
+                {
+                    currentFcous.clearFocus();
+                }
                 //mOnScrollViewListener.onScrollChanged( view);
                 //super.onScrollChanged(l, t, oldl, oldt);
 
@@ -408,7 +415,7 @@ private EditText etMerchantCode;
 
             rlVoucher = (RelativeLayout) header.findViewById(R.id.voucher_layout);
 
-            if(deal.discount == 0) {
+            if(deal.is_exclusive == 0) {
                 rlVoucher.setVisibility(View.GONE);
                 tvDiscount.setVisibility(View.GONE);
 
@@ -419,6 +426,11 @@ private EditText etMerchantCode;
             {
                 rlVoucher.setVisibility(View.VISIBLE);
                 tvDiscount.setVisibility(View.VISIBLE);
+            }
+
+            if(deal.discount == 0)
+            {
+                tvDiscount.setVisibility(View.GONE);
             }
 
            // deal.location = "doha";
@@ -565,6 +577,8 @@ private EditText etMerchantCode;
                // header.findViewById(R.id.voucher_frame).setVisibility(View.VISIBLE);
             }
 
+
+
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
@@ -650,6 +664,9 @@ private EditText etMerchantCode;
                     deal.latitude, deal.longitude,
                     results);*/
 
+            genericDeal.latitude = deal.latitude;
+            genericDeal.longitude = deal.longitude;
+
             TextView tvDirections = (TextView) header.findViewById(R.id.directions);
 
             TextView tvDistance = (TextView) findViewById(R.id.distance);
@@ -661,16 +678,25 @@ private EditText etMerchantCode;
                 }
             });
 
-            tvDistance.setText(String.format("%.1f", genericDeal.distance / 1000) + " " + getString(R.string.km_away));
+            String origin = HomeActivity.lat + "," + HomeActivity.lng;
+            String destination = deal.latitude + "," + deal.longitude;
+
+            CalculateDistanceTask distanceTask = new CalculateDistanceTask(this, deal,
+                    tvDistance, tvDirections, rlDistance, llDirections);
+            distanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
+
+
 
             if(genericDeal.distance != 0) {
+                tvDistance.setText(String.format("%.1f", genericDeal.distance / 1000) + " " + getString(R.string.km_away));
+
                 tvDirections.setText(String.format("%.1f", genericDeal.distance / 1000) + "km");
                 tvDirections.setOnClickListener(this);
             }
             else {
-                llDirections.setVisibility(View.GONE);
+               // llDirections.setVisibility(View.GONE);
 
-                rlDistance.setVisibility(View.GONE);
+                //rlDistance.setVisibility(View.GONE);
             }
         }
 
@@ -961,7 +987,7 @@ private EditText etMerchantCode;
         {
             rlVoucher.setVisibility(View.GONE);
 
-            tvVoucherClaimed.setText("Dear user, you have availed maximum attempts. Thanks for your interest!");
+            tvVoucherClaimed.setText("Dear user, you have already availed this discount " + maxAllowed + " times.");
 
             return;
         }
@@ -974,9 +1000,9 @@ private EditText etMerchantCode;
                     + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");*/
         }
 
-        tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
-                + " number of times "
-                + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");
+        tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
+                + ", you have availed "
+                + (genericDeal.vouchers_max_allowed - voucherClaimed) + " deals.");
 
        /* tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
                 + " number of times "
@@ -1143,9 +1169,9 @@ private EditText etMerchantCode;
        {
            tvVoucherClaimed.setVisibility(View.VISIBLE);
 
-           tvVoucherClaimed.setText("Dear user, you have availed the discount " + genericDeal.vouchers_claimed
-                   + " number of times "
-                   + (genericDeal.vouchers_max_allowed - genericDeal.vouchers_claimed) + " attempts are still pending");
+           tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
+                   + ", you have availed "
+                   + (genericDeal.vouchers_max_allowed - genericDeal.vouchers_claimed) + " deals.");
        }
 
 

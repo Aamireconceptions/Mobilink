@@ -145,6 +145,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     @Override
     public void onFilterChange() {
 
+        isRefreshed = true;
+
         adapter.clearData();
         adapter.notifyDataSetChanged();
         tvEmptyView.setText("");
@@ -161,6 +163,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         }
 
         fetchAndDisplayElectronics(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

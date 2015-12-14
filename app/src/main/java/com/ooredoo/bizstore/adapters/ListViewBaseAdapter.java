@@ -45,6 +45,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
@@ -72,7 +73,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
@@ -826,9 +829,24 @@ return null;
                            // holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                            // holder.progressBar.setVisibility(View.VISIBLE);
 
+                            Iterator it = BitmapDownloadTask.downloadingPool.entrySet().iterator();
+
+                            while (it.hasNext()) {
+                                Map.Entry pair = (Map.Entry)it.next();
+                                System.out.println(pair.getKey() + " = " + pair.getValue());
+
+                                if(pair.getKey().equals(url))
+                                {
+                                    Logger.print("Adapter not downloading the bitmap");
+
+                                    return;
+                                }
+                            }
+
+                            Logger.print("Adapter executing");
+
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                     new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
-
                             bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
                                             String.valueOf(reqWidth), String.valueOf(reqHeight));
                         }

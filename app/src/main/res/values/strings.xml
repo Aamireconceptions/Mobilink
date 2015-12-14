@@ -265,8 +265,9 @@
     <string name="success_redeemed">Successfully Redeemed</string>
     <string name="error_max_availed">Dear Subscriber, You have redeemed the deal maximum number of times.</string>
     <string name="discount_redeemed">Discount Redeemed</string>
+    <string name="error_discount_redeemed">Invalid Code</string>
     <string name="enter_merchant_code">ENTER MERCHANT CODE</string>
-    <string name="error_invalid_merchant_code">Invalid code. Please re-enter code.</string>
+    <string name="error_invalid_merchant_code">Please re-enter merchant code.</string>
     <string name="error_no_loc">Waiting for location. Please try again later!</string>
     <string name="error_no_nearby_deals">No Nearby Deals Available!</string>
     <string name="error_your_loc_not_avaliable">Your location is not available!</string>

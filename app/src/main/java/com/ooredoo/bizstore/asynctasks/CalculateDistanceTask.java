@@ -34,6 +34,9 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
     private BaseAdapter adapter;
 
     private Context context;
+
+    private GenericDeal deal;
+
     private Business business;
 
     private TextView tvDistance, tvDirections;
@@ -55,6 +58,22 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
         this.context = context;
 
         this.business = business;
+
+        this.tvDistance = tvDistance;
+
+        this.tvDirections = tvDirections;
+
+        this.rlDistance = rlDistance;
+
+        this.llDirections = llDirections;
+    }
+
+    public CalculateDistanceTask(Context context, GenericDeal deal, TextView tvDistance,
+                                 TextView tvDirections, RelativeLayout rlDistance, LinearLayout llDirections)
+    {
+        this.context = context;
+
+        this.deal = deal;
 
         this.tvDistance = tvDistance;
 
@@ -115,6 +134,18 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
                     rlDistance.setVisibility(View.VISIBLE);
                 }
 
+                if(deal != null)
+                {
+                    deal.distance = distance;
+
+                    tvDirections.setText(String.format("%.1f", distance / 1000) + " " +context.getString(R.string.km));
+                    llDirections.setVisibility(View.VISIBLE);
+
+                    tvDistance.setText(String.format("%.1f", distance / 1000) + " " + context.getString(R.string.km_away));
+                    rlDistance.setVisibility(View.VISIBLE);
+
+                }
+
 
 
                 if(adapter != null){adapter.notifyDataSetChanged();}
@@ -123,6 +154,9 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
             catch (JSONException e)
             {
                 e.printStackTrace();
+
+                if(rlDistance != null) rlDistance.setVisibility(View.GONE);
+                if(llDirections != null) llDirections.setVisibility(View.GONE);
             }
         }
     }

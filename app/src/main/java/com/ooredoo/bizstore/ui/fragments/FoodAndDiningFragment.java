@@ -152,6 +152,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onFilterChange()
     {
+        isRefreshed = true;
         Logger.print("FoodAndDiningFragment onFilterChange");
 
         adapter.clearData();
@@ -168,6 +169,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
             adapter.setListingType("brands");
         }
         fetchAndDisplayFoodAndDining(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

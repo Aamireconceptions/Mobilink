@@ -503,7 +503,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvRating5 = (TextView) findViewById(R.id.rating_5);
         tvRating5.setOnClickListener(clickListener);
 
-        tvDistance0_5 = (TextView) findViewById(R.id._0_5);
+        tvDistance0_5 = (TextView) findViewById(R.id._1);
         tvDistance0_5.setOnClickListener(clickListener);
 
         tvDistance2 = (TextView) findViewById(R.id._2);

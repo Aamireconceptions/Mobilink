@@ -147,6 +147,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     @Override
     public void onFilterChange()
     {
+        isRefreshed = true;
+
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
@@ -164,6 +166,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
         }
 
         fetchAndDisplayJewelry(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

@@ -489,11 +489,18 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                     popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
                 }
             }
+
+            if(business.locations.size() == 1 && business.location.equals(business.locations.get(0).title))
+            {
+                tvLocations.setVisibility(View.GONE);
+            }
         }
         else
         {
             tvLocations.setVisibility(View.GONE);
         }
+
+
 
 
         updateOutlet(business, null);
@@ -903,14 +910,48 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         String src = null, dest = null;
 
-        src = "saddr=" + mLat + "," + mLong + "&";
+       // src = "saddr=" + mLat + "," + mLong + "&";
 
-        dest = "daddr="+mBusiness.latitude + "," + mBusiness.longitude;
+       // dest = "daddr="+mBusiness.latitude + "," + mBusiness.longitude;
+
+        if(mLat != 0 && mLong != 0)
+        {
+            src = "saddr=" + mLat + "," + mLong + "&";
+        }
+
+        if(mBusiness.latitude != 0 && mBusiness.longitude != 0)
+        {
+            dest = "daddr="+mBusiness.latitude + "," + mBusiness.longitude;
+        }
 
         String uri = "http://maps.google.com/maps?";
 
-        uri += src;
-        uri += dest;
+       // uri += src;
+       // uri += dest;
+
+        if(src != null)
+        {
+            uri += src;
+        }
+
+        if(dest != null)
+        {
+            uri += dest;
+        }
+
+        if(src == null)
+        {
+            Toast.makeText(this, "Location not available. Please enable location services!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        if(dest == null)
+        {
+            Toast.makeText(this, "Business location is not available!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
 
         System.out.println("Directions URI:"+uri);
 

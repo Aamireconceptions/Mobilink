@@ -177,7 +177,7 @@ public class DialogUtils {
 
         });
 
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         //builder.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();

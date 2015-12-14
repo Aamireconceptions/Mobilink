@@ -153,7 +153,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                 try {
                     Response response = gson.fromJson(result, Response.class);
 
-                    if (response.resultCode != -1) {
+                    if (response.resultCode != -1 && response.deals != null && response.deals.size() > 0) {
                         dealsTaskFinishedListener.onHaveDeals();
 
                         List<GenericDeal> deals = response.deals;
@@ -226,7 +226,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                 BrandResponse brand = gson.fromJson(result, BrandResponse.class);
 
-                if(brand.resultCode != - 1)
+                if(brand.resultCode != - 1 && brand.brands != null && brand.brands.size() > 0)
                 {
                     dealsTaskFinishedListener.onHaveDeals();
 
@@ -269,6 +269,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
+    String typeInService = "deals";
     private String getDeals(String category) throws IOException {
         String result;
 
@@ -326,17 +327,24 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         String sortColumns = "";
         if(isNotNullOrEmpty(sortColumn)) {
             if(sortColumn.equals("views"))
+            {
                 isFilterEnabled = true;
+            }
+
             sortColumns = sortColumn;
 
             if(category.equals("nearby") || sortColumn.equals("createdate"))
             {
                 params.put("type", "deals");
 
+                typeInService = "deals";
+
             }
             else
             {
                 params.put("type", "business");
+
+                typeInService = "business";
             }
         }
 
@@ -383,8 +391,14 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         Logger.logI("DEALS_FILTER->" + isFilterEnabled, category);
 
-        if(!isFilterEnabled && !result.contains("No item Found"));
+        if(isCancelled())
         {
+            return null;
+        }
+
+        if(!isFilterEnabled && !result.contains("No item Found"))
+        {
+            Logger.print("Caching: True");
             updateVal(homeActivity, KEY, result);
             updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
         }
@@ -417,7 +431,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         }
 
         if(homeActivity.doApplyDiscount) {
-
             isFilterEnabled = true;
         }
 

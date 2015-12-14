@@ -23,6 +23,7 @@ import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -143,6 +144,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onFilterChange() {
 
+        isRefreshed = true;
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
@@ -160,6 +162,8 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         }
 
         loadTopDeals(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

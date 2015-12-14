@@ -114,7 +114,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                 }
                 else
                 {
-                    Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
+                    Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.error_discount_redeemed,
                             R.string.error_invalid_merchant_code);
                     dialog.show();
                 }

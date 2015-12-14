@@ -141,6 +141,7 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onFilterChange()
     {
+        isRefreshed = true;
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
@@ -158,6 +159,8 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
         }
 
         fetchAndDisplayTravel(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

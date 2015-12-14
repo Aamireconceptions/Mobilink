@@ -152,6 +152,7 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
 
     @Override
     public void onFilterChange() {
+        isRefreshed = true;
         adapter.clearData();
         adapter.notifyDataSetChanged();
         tvEmptyView.setText("");
@@ -168,6 +169,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         }
 
         fetchAndDisplayHotelsAndSpas(progressBar);
+
+        isRefreshed = false;
     }
 
     @Override

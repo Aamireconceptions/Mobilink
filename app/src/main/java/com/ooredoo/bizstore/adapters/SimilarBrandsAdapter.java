@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
@@ -28,7 +29,9 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
@@ -211,6 +214,20 @@ public class SimilarBrandsAdapter extends BaseAdapter
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
+                            Iterator it = BitmapDownloadTask.downloadingPool.entrySet().iterator();
+
+                            while (it.hasNext()) {
+                                Map.Entry pair = (Map.Entry)it.next();
+                                System.out.println(pair.getKey() + " = " + pair.getValue());
+
+                                if(pair.getKey().equals(url))
+                                {
+                                    Logger.print("Adapter not downloading the bitmap");
+
+                                    return;
+                                }
+                            }
 
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                     new BaseAdapterBitmapDownloadTask(SimilarBrandsAdapter.this);
