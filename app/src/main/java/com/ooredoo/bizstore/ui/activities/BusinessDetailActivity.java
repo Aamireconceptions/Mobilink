@@ -9,10 +9,12 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -525,7 +527,15 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         if(business.contact != null && !business.contact.isEmpty())
         {
             rlPhone.setVisibility(View.VISIBLE);
-            tvPhone.setText(business.contact);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                tvPhone.setText(PhoneNumberUtils.formatNumber(business.contact, null));
+            }
+            else
+            {
+                tvPhone.setText(PhoneNumberUtils.formatNumber(business.contact));
+            }
         }
         else
         {

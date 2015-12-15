@@ -9,6 +9,9 @@ import android.widget.Toast;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.DialogUtils;
+import com.ooredoo.bizstore.utils.Logger;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,13 +45,13 @@ public class ContactTask extends AsyncTask<String, Void, String>
         dialog.show();;;
     }
 
-    private static final String SERVICE_NAME = "/contact_us?";
+    private static final String SERVICE_NAME = "/sendfeedback?";
     @Override
     protected String doInBackground(String... params) {
 
         try
         {
-            sendMessage(params[0]);
+            return sendMessage(params[0]);
         }
         catch (IOException e)
         {
@@ -69,7 +72,7 @@ public class ContactTask extends AsyncTask<String, Void, String>
         {
             try
             {
-                if(result.equals("success"))
+                if(new JSONObject(result).getInt("result") == 0)
                 {
                     Toast.makeText(context, "Thanks for contacting us", Toast.LENGTH_SHORT).show();
                 }
@@ -94,7 +97,7 @@ public class ContactTask extends AsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(BaseAsyncTask.OS, BaseAsyncTask.ANDROID);
-        params.put("message", message);
+        params.put("feedback", message);
 
         String query;
 
@@ -120,7 +123,9 @@ public class ContactTask extends AsyncTask<String, Void, String>
 
         query = stringBuilder.toString();
 
-        URL url = new URL(BaseAsyncTask.BASE_URL + SERVICE_NAME + query);
+        URL url = new URL(BaseAsyncTask.BASE_URL +BizStore.getLanguage() + SERVICE_NAME + query);
+
+        Logger.print("ContactUs URL:"+url);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty(BaseAsyncTask.HTTP_X_USERNAME, BizStore.username);
@@ -144,6 +149,8 @@ public class ContactTask extends AsyncTask<String, Void, String>
             }
 
             result = builder.toString();
+
+            Logger.print("ContactUs: "+result);
 
             return result;
         }

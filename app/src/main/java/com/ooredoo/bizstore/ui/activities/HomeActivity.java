@@ -1127,6 +1127,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         AppData.searchSuggestions = null;
 
+        BitmapDownloadTask.downloadingPool.clear();
+
         //timer.cancel();
     }
 

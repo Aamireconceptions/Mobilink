@@ -77,6 +77,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.RejectedExecutionException;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
@@ -476,14 +477,24 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 {
                     holder.tvDirections.setVisibility(View.GONE);
 
+                    boolean isZero = false;
+
+                    if(deal.distanceStatus != null && ((deal.distanceStatus.equals("ZERO_RESULTS"))))
+                    {
+                        isZero = true;
+                    }
+
                     String origin = HomeActivity.lat + "," + HomeActivity.lng;
                     String destination = deal.latitude + "," + deal.longitude;
 
+                    if(!isZero) {
+                        if (CalculateDistanceTask.distancePool.get(deal.id) == null && deal.distance == 0) {
+                            CalculateDistanceTask calculateDistanceTask = new CalculateDistanceTask(deal, this);
+                            calculateDistanceTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,
+                                    origin, destination);
 
-
-                    CalculateDistanceTask calculateDistanceTask = new CalculateDistanceTask(deal, this);
-                    calculateDistanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                            origin, destination);
+                        }
+                    }
                 }
             }
             else
@@ -829,7 +840,7 @@ return null;
                            // holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                            // holder.progressBar.setVisibility(View.VISIBLE);
 
-                            Iterator it = BitmapDownloadTask.downloadingPool.entrySet().iterator();
+                            /*Iterator it = BitmapDownloadTask.downloadingPool.entrySet().iterator();
 
                             while (it.hasNext()) {
                                 Map.Entry pair = (Map.Entry)it.next();
@@ -841,14 +852,24 @@ return null;
 
                                     return;
                                 }
+                            }*/
+
+                            if(BitmapDownloadTask.downloadingPool.get(url) == null || memoryCache.getBitmapFromCache(url) == null)
+                            {
+                                Logger.print("Adapter executing");
+
+                                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                                            new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
+                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
+                                            String.valueOf(reqWidth), String.valueOf(reqHeight));
+                            }
+                            else
+                            {
+                                Logger.print("Adapter returning");
                             }
 
-                            Logger.print("Adapter executing");
 
-                            BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                                    new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
-                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                            String.valueOf(reqWidth), String.valueOf(reqHeight));
+
                         }
                     });
 

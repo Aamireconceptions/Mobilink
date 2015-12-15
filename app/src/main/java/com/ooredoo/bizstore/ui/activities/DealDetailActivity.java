@@ -10,9 +10,11 @@ import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -33,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -56,6 +59,7 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -643,7 +647,14 @@ private EditText etMerchantCode;
         if(deal.contact != null && !deal.contact.isEmpty())
         {
             rlPhone.setVisibility(View.VISIBLE);
-            tvPhone.setText(deal.contact);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact, null));
+            }
+            else
+            {
+                tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact));
+            }
         }
         else
         {

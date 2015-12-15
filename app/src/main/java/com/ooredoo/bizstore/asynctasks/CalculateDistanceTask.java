@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 /**
  * Created by Babar on 11-Dec-15.
@@ -39,15 +40,20 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
 
     private Business business;
 
+    public static HashMap<String, String> distancePool = new HashMap<>();
+
     private TextView tvDistance, tvDirections;
 
     private String MATRIX_API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?";
 
+    String id;
     public CalculateDistanceTask(GenericDeal genericDeal, BaseAdapter adapter)
     {
         this.genericDeal = genericDeal;
 
         this.adapter = adapter;
+
+        id = String.valueOf(genericDeal.id);
     }
 
     RelativeLayout rlDistance; LinearLayout llDirections;
@@ -66,6 +72,8 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
         this.rlDistance = rlDistance;
 
         this.llDirections = llDirections;
+
+        id = String.valueOf(business.id);
     }
 
     public CalculateDistanceTask(Context context, GenericDeal deal, TextView tvDistance,
@@ -82,6 +90,8 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
         this.rlDistance = rlDistance;
 
         this.llDirections = llDirections;
+
+        id = String.valueOf(deal.id);
     }
 
     @Override
@@ -103,6 +113,7 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
+        distancePool.remove(id);
         if(result != null)
         {
             try
@@ -115,13 +126,33 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
 
                 JSONArray elements = rowObj.getJSONArray("elements");
 
-                JSONObject distanceObj = elements.getJSONObject(0).getJSONObject("distance");
+                JSONObject elementObj = elements.getJSONObject(0);
+
+                if(genericDeal != null)
+                {
+                    if(elementObj.has("status"))
+                    {
+                        String status = elementObj.getString("status");
+
+                        if(status.equalsIgnoreCase("ZERO_RESULTS"))
+                        {
+                            genericDeal.distanceStatus = "ZERO_RESULTS";
+                        }
+                    }
+                }
+
+                JSONObject distanceObj = elementObj.getJSONObject("distance");
 
                 double distance = distanceObj.getDouble("value");
 
                 Logger.print("Distance = "+distance / 1000 + " km");
 
-                if(genericDeal!= null){genericDeal.distance = distance;}
+                if(genericDeal!= null)
+                {
+                    genericDeal.distance = distance;
+
+
+                }
 
                 if(business != null)
                 {
@@ -173,6 +204,8 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
+
+        distancePool.put(id, id);
 
         InputStream inputStream = connection.getInputStream();
 

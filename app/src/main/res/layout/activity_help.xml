@@ -241,15 +241,17 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:inputType="textCapSentences"
                         android:hint="@string/your_message" />
 
                     <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
                         android:textColor="@color/white"
                         android:text="@string/send"
-                        android:onClick="send"/>
+                        android:onClick="send"
+                        android:background="@drawable/btn_red_rounded"/>
 
                 </LinearLayout>
                 <!--

@@ -169,7 +169,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 }
             }*/
 
-            Iterator it = downloadingPool.entrySet().iterator();
+            /*Iterator it = downloadingPool.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
                 System.out.println(pair.getKey() + " = " + pair.getValue());
@@ -180,6 +180,13 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
                     cancel(true);
                 }
+            }*/
+
+            if(downloadingPool.get(imgUrl) != null)
+            {
+                Logger.print("x3 Image Download alreay in progress");
+
+                cancel(true);
             }
 
             if(isCancelled())
