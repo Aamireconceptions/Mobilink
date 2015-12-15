@@ -70,7 +70,7 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
         if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         if(result != null) {
-            Business business;
+            Business business = null;
 
             Gson gson = new Gson();
 
@@ -78,10 +78,15 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
             try {
                 BusinessDetail businessDetail = gson.fromJson(result, BusinessDetail.class);
 
-                business = businessDetail.src;
-
                 if(businessDetail.resultCode != -1) {
-                    if(business != null) {
+
+                    if(businessDetail.src != null)
+                    {
+                        business = businessDetail.src;
+                    }
+
+                    if(business != null)
+                    {
                         Logger.print("title:" + business.title);
                         detailActivity.populateMisc(business);
                     }

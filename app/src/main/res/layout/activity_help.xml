@@ -222,12 +222,37 @@
                     android:textSize="14sp"
                     android:textStyle="normal"/>
 
-                <!--<View
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/grey"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/your_message"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/your_message" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:textColor="@color/white"
+                        android:text="@string/send"
+                        android:onClick="send"/>
+
+                </LinearLayout>
+                <!--
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

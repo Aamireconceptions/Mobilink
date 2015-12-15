@@ -381,7 +381,8 @@ private EditText etMerchantCode;
                 }
             });
 
-
+            TextView tvCategory = (TextView) findViewById(R.id.cat);
+            tvCategory.setText(deal.category);
 
 
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {

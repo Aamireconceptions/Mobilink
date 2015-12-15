@@ -97,6 +97,7 @@
     <string name="Address">Address</string>
     <string name="Contact_Information">Contact Information</string>
     <string name="Category">Category</string>
+    <string name="Category_2">Category:</string>
     <string name="Unsubscribe_Bizstore">Unsubscribe BizStore</string>
     <string name="No">No</string>
     <string name="Yes">Yes</string>
@@ -273,5 +274,7 @@
     <string name="error_your_loc_not_avaliable">Your location is not available!</string>
     <string name="discount_not_availed">Dear user, you haven\'t availed this discount yet!</string>
     <string name="un_sub_success">Dear User, you have successfully unsubscribed from Ooredoo BizStore!</string>
+    <string name="your_message">Your Message</string>
+    <string name="send">Send</string>
 
 </resources>
