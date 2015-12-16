@@ -477,7 +477,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 {
                     holder.tvDirections.setVisibility(View.GONE);
 
-                    boolean isZero = false;
+                    /*boolean isZero = false;
 
                     if(deal.distanceStatus != null && ((deal.distanceStatus.equals("ZERO_RESULTS"))))
                     {
@@ -494,7 +494,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                                     origin, destination);
 
                         }
-                    }
+                    }*/
                 }
             }
             else
@@ -860,16 +860,13 @@ return null;
 
                                     BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                             new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
-                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
+                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
                                             String.valueOf(reqWidth), String.valueOf(reqHeight));
                             }
                             else
                             {
                                 Logger.print("Adapter returning");
                             }
-
-
-
                         }
                     });
 

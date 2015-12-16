@@ -52,7 +52,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
     {
         try
         {
-            return getCode(params[0], params[1]);
+            return getCode(params[0], params[1],params[2]);
         }
         catch (IOException e)
         {
@@ -134,7 +134,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
-    private String getCode(String id, String code) throws IOException
+    private String getCode(String id, String code, String businessId) throws IOException
     {
         String result;
 
@@ -142,6 +142,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
         params.put(OS, ANDROID);
         params.put("deal", id);
         params.put("merchant", code);
+        params.put("businessDetail", businessId);
 
         String query = createQuery(params);
 

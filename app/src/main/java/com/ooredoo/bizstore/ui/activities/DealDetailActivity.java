@@ -238,15 +238,19 @@ private EditText etMerchantCode;
         listView = (ListView) findViewById(R.id.list_view);
         listView.addHeaderView(header);
         listView.setAdapter(null);
-        listView.setOnTouchListener(new View.OnTouchListener() {
+        header.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                View view = getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    View view = getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
                 }
+
                 return false;
             }
         });
@@ -372,8 +376,11 @@ private EditText etMerchantCode;
     TextView tvCity;
 
     RelativeLayout rlVoucher;
+    GenericDeal mDeal;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
+
+            mDeal = deal;
 
             mOnScrollViewListener.setTitle(deal.title);
 
@@ -667,14 +674,7 @@ private EditText etMerchantCode;
         if(deal.contact != null && !deal.contact.isEmpty())
         {
             rlPhone.setVisibility(View.VISIBLE);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
-                tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact, null));
-            }
-            else
-            {
-                tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact));
-            }
+            tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact));
         }
         else
         {
@@ -977,7 +977,8 @@ private EditText etMerchantCode;
                             VerifyMerchantCodeTask verifyMerchantCodeTask =
                                     new VerifyMerchantCodeTask(this, snackBarUtils);
                             verifyMerchantCodeTask
-                                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id), code);
+                                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                            String.valueOf(id), code, String.valueOf(mDeal.businessId));
                         }
                         else
                         {
@@ -1034,7 +1035,7 @@ private EditText etMerchantCode;
 
         tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
                 + ", you have availed "
-                + (genericDeal.vouchers_max_allowed - voucherClaimed) + " deals.");
+                + ( voucherClaimed) + " deals.");
 
        /* tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
                 + " number of times "
@@ -1180,7 +1181,7 @@ private EditText etMerchantCode;
 
        this.genericDeal = genericDeal;
 
-       if(genericDeal.discount == 0)
+       if(genericDeal.is_exclusive == 0)
        {
            return;
        }
@@ -1203,9 +1204,8 @@ private EditText etMerchantCode;
 
            tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
                    + ", you have availed "
-                   + (genericDeal.vouchers_max_allowed - genericDeal.vouchers_claimed) + " deals.");
+                   + (genericDeal.vouchers_claimed) + " deals.");
        }
-
 
 //
       // similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
@@ -1218,9 +1218,6 @@ private EditText etMerchantCode;
     {
         llSimilarNearby.setVisibility(View.GONE);
     }
-
-
-
 
     @Override
     public void onUpdated(GenericDeal deal, String value) {
