@@ -35,6 +35,10 @@ import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
+
 public class TopDealsFragment extends Fragment implements OnFilterChangeListener,
                                                           OnDealsTaskFinishedListener,
                                                           OnSubCategorySelectedListener,
@@ -173,11 +177,17 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     memoryCache.remove(adapter.deals);
 
-        activity.resetFilters();
+        final String KEY = PREFIX_DEALS.concat("top_deals");
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
 
-        DealsTask.subCategories = null;
+        clearCache(activity, KEY);
+        clearCache(activity, UPDATE_KEY);
 
-        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_TOP);
+    activity.resetFilters();
+
+    DealsTask.subCategories = null;
+
+    CategoryUtils.showSubCategories(activity, CategoryUtils.CT_TOP);
 
     isRefreshed = true;
     loadTopDeals(null);

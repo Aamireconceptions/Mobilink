@@ -44,6 +44,8 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.CategoryUtils.CT_SHOPPING;
 import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 
 /**
  * @author Babar
@@ -266,6 +268,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         diskCache.remove(adapter.deals);
 
+        final String KEY = PREFIX_DEALS.concat("shopping");
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+        clearCache(activity, KEY);
+        clearCache(activity, UPDATE_KEY);
         activity.resetFilters();
 
         ShoppingTask.subCategories = null;

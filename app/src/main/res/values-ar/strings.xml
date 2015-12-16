@@ -216,8 +216,8 @@
     <string name="movies_cinemas_more"><![CDATA[أفلام، سينما و المزيد]]></string>
     <string name="subscription_charges">سيتم إحتساب 9 ريال قطري أسبوعيا</string>
     <string name="subscription_terms_services"><![CDATA[في حال الإشتراك فقد قمت بالموافقة على <u>البنود و الخدمات</u>]]></string>
-    <string name="error_no_search_item_found">No search item found.</string>
-    <string name="error_no_data">عذرا لم يتم العثور على البحث</string>
+    <string name="error_no_search_item_found">العثور على أي عنصر البحث.</string>
+    <string name="error_no_data">سيتم البيانات قريبا!</string>
     <string name="rate_deal">قيم هذا العرض</string>
     <string name="discount_voucher">القسيمة الخصم :</string>
     <string name="showing">عرض</string>
@@ -256,7 +256,7 @@
     <string name="sub">الفرعية</string>
     <string name="sort">فرز</string>
     <string name="by">بواسطة</string>
-    <string name="error_no_nearby_deals">لا عروض القريبة متاح!</string>
+    <string name="error_no_nearby_deals">لاتوجد بيانات</string>
     <string name="error_your_loc_not_avaliable">الموقع الخاص بك هو غير متوفر!</string>
     <string name="enter_merchant_code">الكود ميرشانت</string>
     <string name="discount_not_availed">عزيزي المستخدم، لم تكن قد استفاد هذا الخصم حتى الآن!</string>
@@ -264,4 +264,7 @@
     <string name="error_invalid_merchant_code">رمز خاطئ. الرجاء إعادة إدخال الرمز مرة أخرى.</string>
     <string name="error_no_location">تحديد موقعك غير متوفر، الرجاء تفعيله.</string>
     <string name="un_sub_success">عزيزي العميل، تم إلغاء إشتراكك من Ooredoo بيزستور بنجاح!</string>
+    <string name="enable_location">تمكين خدمات الموقع</string>
+    <string name="btn_enable_loc">تمكين الموقع</string>
+    <string name="loc_not_available">الموقع غير متوفر! دعونا تمكينه.</string>
 </resources>

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.HelpActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -30,12 +32,17 @@ public class ContactTask extends AsyncTask<String, Void, String>
 {
     private Context context;
 
+    EditText etHelp;
+
     private Dialog dialog;
 
-    public ContactTask(Context context)
+    public ContactTask(Context context, EditText etHelp)
     {
         this.context = context;
+        this.etHelp = etHelp;
     }
+
+
 
     @Override
     protected void onPreExecute() {
@@ -74,6 +81,7 @@ public class ContactTask extends AsyncTask<String, Void, String>
             {
                 if(new JSONObject(result).getInt("result") == 0)
                 {
+                    etHelp.setText("");
                     Toast.makeText(context, "Thanks for contacting us", Toast.LENGTH_SHORT).show();
                 }
 

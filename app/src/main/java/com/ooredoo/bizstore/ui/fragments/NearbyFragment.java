@@ -66,6 +66,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 
 public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         OnDealsTaskFinishedListener,
@@ -125,7 +127,7 @@ RelativeLayout rlParent;
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
-            fetchAndDisplayFoodAndDining(progressBar);
+            fetchAndDisplayNearby(progressBar);
         }
         else
         {
@@ -350,7 +352,7 @@ RelativeLayout rlParent;
 
     DealsTask dealsTask;
 
-    private void fetchAndDisplayFoodAndDining(ProgressBar progressBar) {
+    private void fetchAndDisplayNearby(ProgressBar progressBar) {
         dealsTask = new DealsTask(activity, adapter,
                 progressBar, ivBanner,
                 this);
@@ -452,7 +454,7 @@ RelativeLayout rlParent;
 
        // adapter.notifyDataSetChanged();
 
-        fetchAndDisplayFoodAndDining(progressBar);
+        fetchAndDisplayNearby(progressBar);
     }
 
     @Override
@@ -474,13 +476,19 @@ RelativeLayout rlParent;
 
             memoryCache.remove(adapter.deals);
 
+            final String KEY = PREFIX_DEALS.concat("nearby");
+            final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+            clearCache(activity, KEY);
+            clearCache(activity, UPDATE_KEY);
+
             activity.resetFilters();
 
             CategoryUtils.showSubCategories(activity, CategoryUtils.CT_NEARBY);
 
             isRefreshed = true;
 
-            fetchAndDisplayFoodAndDining(null);
+            fetchAndDisplayNearby(null);
 
             isRefreshed = false;
         }
@@ -591,7 +599,7 @@ RelativeLayout rlParent;
                 scrollView.setVisibility(View.GONE);
                 listView.setEmptyView(null);
 
-                fetchAndDisplayFoodAndDining(progressBar);
+                fetchAndDisplayNearby(progressBar);
             }
             else
             {

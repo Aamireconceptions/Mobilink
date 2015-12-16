@@ -15,7 +15,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textColor="@android:color/secondary_text_light"
-            android:text="Location not available! Let's enable it."
+            android:text="@string/loc_not_available"
             android:textSize="16sp"/>
 
         <Button

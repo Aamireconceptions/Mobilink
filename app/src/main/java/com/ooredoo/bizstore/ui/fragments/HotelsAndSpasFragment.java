@@ -34,6 +34,8 @@ import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeListener,
@@ -179,6 +181,12 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
+
+        final String KEY = PREFIX_DEALS.concat("hotels_spas");
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+        clearCache(activity, KEY);
+        clearCache(activity, UPDATE_KEY);
 
         activity.resetFilters();
 

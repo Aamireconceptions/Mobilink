@@ -18,6 +18,7 @@ import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -237,6 +238,18 @@ private EditText etMerchantCode;
         listView = (ListView) findViewById(R.id.list_view);
         listView.addHeaderView(header);
         listView.setAdapter(null);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                View view = getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -610,8 +623,15 @@ private EditText etMerchantCode;
                 }*/
                 if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
                 {
-                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
+
                 }
+
+                popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
+            }
+
+            if(deal.locations.size() == 1 && deal.location.equals(deal.locations.get(0).title))
+            {
+                tvLocations.setVisibility(View.GONE);
             }
         }
         else

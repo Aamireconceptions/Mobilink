@@ -222,6 +222,18 @@
                     android:textSize="14sp"
                     android:textStyle="normal"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginTop="12dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="Your Feedback"
+                    android:textColor="@color/red"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -241,7 +253,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="textCapSentences"
+                        android:minLines="3"
+                        android:gravity="top"
+                        android:inputType="textCapSentences|textMultiLine"
                         android:hint="@string/your_message" />
 
                     <Button

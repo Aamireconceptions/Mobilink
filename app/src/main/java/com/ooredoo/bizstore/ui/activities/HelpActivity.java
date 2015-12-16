@@ -37,7 +37,7 @@ public class HelpActivity extends BaseActivity {
 
         if(!message.isEmpty())
         {
-            ContactTask contactTask = new ContactTask(this);
+            ContactTask contactTask = new ContactTask(this, etHelp);
             contactTask.execute(message);
         }
     }

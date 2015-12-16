@@ -140,6 +140,17 @@ public class SharedPrefUtils {
         return tmp;
     }
 
+    public static void clearCache(Activity activity, String Key)
+    {
+        sharedPreferences = getSharedPreferences(activity);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.remove(Key);
+        editor.commit();
+    }
+
+
     public static SharedPreferences getSharedPreferences(Activity activity) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             return activity.getSharedPreferences(MyPREFERENCES, MODE_PRIVATE | Context.MODE_MULTI_PROCESS);

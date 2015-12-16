@@ -34,6 +34,9 @@ import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
+
 public class MallsFragment extends Fragment implements OnFilterChangeListener,
                                                        OnDealsTaskFinishedListener,
                                                        OnSubCategorySelectedListener,
@@ -173,6 +176,12 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
+
+        final String KEY = PREFIX_DEALS.concat("malls");
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+        clearCache(activity, KEY);
+        clearCache(activity, UPDATE_KEY);
 
         activity.resetFilters();
 
