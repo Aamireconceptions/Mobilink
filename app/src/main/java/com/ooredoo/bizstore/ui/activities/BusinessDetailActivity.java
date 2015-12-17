@@ -465,8 +465,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             {
                 String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + detailImageUrl;
 
-
-
                bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
                 if(bitmap != null)
@@ -505,8 +503,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
 
 
-
-
         updateOutlet(business, null);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
@@ -530,7 +526,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         {
             rlPhone.setVisibility(View.VISIBLE);
 
-            tvPhone.setText(PhoneNumberUtils.formatNumber(business.contact));
+            tvPhone.setText(PhoneNumberUtils.formatNumber(business.contact.contains("+")
+                    ? business.contact : "+"+business.contact));
         }
         else
         {

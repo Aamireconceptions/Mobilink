@@ -408,7 +408,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             gridView.setPadding((int) resources.getDimension(R.dimen._10sdp), (int) resources.getDimension(R.dimen._10sdp),
                     (int) resources.getDimension(R.dimen._10sdp), (int) resources.getDimension(R.dimen._10sdp));
             gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._8sdp));
-            gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._10sdp));
+            gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._12sdp));
 
             gridView.setGravity(Gravity.CENTER_HORIZONTAL);
 

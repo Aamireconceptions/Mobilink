@@ -140,8 +140,6 @@ RelativeLayout rlParent;
 
         rlParent = (RelativeLayout) v.findViewById(R.id.map_frame);
 
-
-
         return v;
     }
 

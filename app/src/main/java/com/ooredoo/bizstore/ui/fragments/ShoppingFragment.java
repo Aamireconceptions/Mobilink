@@ -108,14 +108,14 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.shopping_gridview, R.id.empty_view);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.shopping_gridview);
         swipeRefreshLayout.setOnRefreshListener(this);
 
        // rlHeader = (RelativeLayout) v.findViewById(R.id.header);
 
-        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_shopping_header, null);
+        //rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
-        ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
+        //ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
         adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
         adapter.setListingType("deals");
@@ -132,8 +132,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
                 gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
         }
 
-        gridView.addHeaderView(ivBanner);
-        gridView.addHeaderView(rlHeader);
+        //gridView.addHeaderView(ivBanner);
+        //gridView.addHeaderView(rlHeader);
 
         //gridView.setEmptyView(tvEmptyView);
         dealGridOnItemClickListener = new DealGridOnItemClickListener(activity, adapter, this);
@@ -148,7 +148,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CT_SHOPPING);
-        clickListener.setLayout(rlHeader);
+        clickListener.setLayout(v);
 
         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
 
@@ -244,9 +244,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             {
                 if(BizStore.getLanguage().equals("ar"))
-                    gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._6sdp));
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus4sdp));
                 else
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));
             }
         }
 
@@ -292,18 +292,18 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onHaveDeals()
     {
-        rlHeader.setVisibility(View.VISIBLE);
+        //rlHeader.setVisibility(View.VISIBLE);
 
-        ivBanner.setImageResource(R.drawable.shopping_banner);
+        //ivBanner.setImageResource(R.drawable.shopping_banner);
 
         tvEmptyView.setText("");
     }
 
     @Override
     public void onNoDeals(int stringResId) {
-        rlHeader.setVisibility(View.GONE);
+       // rlHeader.setVisibility(View.GONE);
 
-        ivBanner.setImageBitmap(null);
+      //  ivBanner.setImageBitmap(null);
         //ivBanner.setImageResource(R.drawable.shopping_banner);
 
         tvEmptyView.setVisibility(View.VISIBLE);

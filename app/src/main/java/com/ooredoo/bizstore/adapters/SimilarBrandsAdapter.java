@@ -130,12 +130,8 @@ public class SimilarBrandsAdapter extends BaseAdapter
 
         final Brand brand = getItem(position);
 
-        if(brand.color == 0)
-        {
-            brand.color = Color.parseColor(getColorCode());
-        }
-
         String brandLogo = brand.businessLogo;
+
         if(brandLogo != null && !brandLogo.isEmpty())
         {
             brandLogo = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
@@ -145,6 +141,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
             if(bitmap != null)
             {
                 holder.ivThumbnail.setImageBitmap(bitmap);
+                holder.tvBrandText.setVisibility(View.GONE);
                 holder.progressBar.setVisibility(View.GONE);
             }
             else
@@ -159,6 +156,11 @@ public class SimilarBrandsAdapter extends BaseAdapter
             holder.ivThumbnail.setImageBitmap(null);
             if(brand.title != null && !brand.title.isEmpty())
             {
+                if(brand.color == 0)
+                {
+                    brand.color = Color.parseColor(getColorCode());
+                }
+                holder.tvBrandText.setVisibility(View.VISIBLE);
                 holder.tvBrandText.setBackgroundColor(brand.color);
                 holder.tvBrandText.setText(String.valueOf(brand.title.charAt(0)));
             }

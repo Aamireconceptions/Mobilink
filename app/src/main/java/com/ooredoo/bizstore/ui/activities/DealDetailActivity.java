@@ -674,7 +674,8 @@ private EditText etMerchantCode;
         if(deal.contact != null && !deal.contact.isEmpty())
         {
             rlPhone.setVisibility(View.VISIBLE);
-            tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact));
+            tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact.contains("+")
+                    ? deal.contact : "+" + deal.contact));
         }
         else
         {
