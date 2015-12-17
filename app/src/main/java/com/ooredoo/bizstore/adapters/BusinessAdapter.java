@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -382,10 +384,12 @@ public class BusinessAdapter extends BaseExpandableListAdapter
         {
            // Brand brand = (Brand) getChild(groupPosition, childPosition);
 
-            SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand, (List<Brand>) childList.get(groupPosition));
+            SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand,
+                    (List<Brand>) childList.get(groupPosition));
 
            // GridView gridView = (GridView) layoutInflater.inflate(R.layout.grid_view, parent, false);
             NonScrollableGridView gridView = new NonScrollableGridView(context, null);
+
 
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -405,10 +409,18 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 }
             });
             gridView.setNumColumns(3);
-            gridView.setPadding((int) resources.getDimension(R.dimen._10sdp), (int) resources.getDimension(R.dimen._10sdp),
-                    (int) resources.getDimension(R.dimen._10sdp), (int) resources.getDimension(R.dimen._10sdp));
-            gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._8sdp));
+            gridView.setPadding((int) resources.getDimension(R.dimen._9sdp), (int) resources.getDimension(R.dimen._9sdp),
+                    (int) resources.getDimension(R.dimen._9sdp), (int) resources.getDimension(R.dimen._9sdp));
+            //gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._8sdp));
             gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._12sdp));
+
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            {
+                if(BizStore.getLanguage().equals("ar"))
+                    gridView.setHorizontalSpacing((int) context.getResources().getDimension(R.dimen._minus1sdp));
+              /*  else
+                    gridView.setHorizontalSpacing((int) context.getResources().getDimension(R.dimen._8sdp));*/
+            }
 
             gridView.setGravity(Gravity.CENTER_HORIZONTAL);
 

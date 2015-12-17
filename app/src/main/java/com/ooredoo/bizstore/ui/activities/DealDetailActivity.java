@@ -718,8 +718,6 @@ private EditText etMerchantCode;
                     tvDistance, tvDirections, rlDistance, llDirections);
             distanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
 
-
-
             if(genericDeal.distance != 0) {
                 tvDistance.setText(String.format("%.1f", genericDeal.distance / 1000) + " " + getString(R.string.km_away));
 
@@ -771,8 +769,6 @@ private EditText etMerchantCode;
   // Bitmap bitmap;
     private void fallBackToDiskCache(final String url, final ImageView imageView)
     {
-
-
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run()
@@ -797,7 +793,6 @@ private EditText etMerchantCode;
                             imageView.setImageBitmap(bitmap);
                         }
                     });
-
                 }
                 else
                 {
@@ -837,6 +832,7 @@ private EditText etMerchantCode;
     }
 
     View lastSelected = null;
+
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -1195,7 +1191,13 @@ private EditText etMerchantCode;
            return;
        }
 
-       if(genericDeal.vouchers_claimed >= genericDeal.vouchers_max_allowed)
+       tvVoucherClaimed.setVisibility(View.VISIBLE);
+
+       tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
+               + ", you have availed "
+               + (genericDeal.vouchers_claimed) + " deals.");
+
+      /* if(genericDeal.vouchers_claimed >= genericDeal.vouchers_max_allowed)
        {
            //rlVoucher.setVisibility(View.GONE);
        }
@@ -1206,7 +1208,7 @@ private EditText etMerchantCode;
            tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
                    + ", you have availed "
                    + (genericDeal.vouchers_claimed) + " deals.");
-       }
+       }*/
 
 //
       // similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);

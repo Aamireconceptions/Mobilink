@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,9 +128,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
         {
             if(BizStore.getLanguage().equals("ar"))
-                gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._3sdp));
-            else
-                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
+                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus3sdp));
+           /* else
+                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));*/
         }
 
         //gridView.addHeaderView(ivBanner);
@@ -163,16 +164,19 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         Logger.print("Testing: ShoppingOnResume");
     }
 
-    @Override
+    /*@Override
     public void onConfigurationChanged(Configuration newConfig)
     {
         super.onConfigurationChanged(newConfig);
 
-        if(newConfig.getLayoutDirection() == Configuration.SCREENLAYOUT_LAYOUTDIR_RTL)
-            gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._6sdp));
-        else
-            gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
-    }
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+        {
+            if(BizStore.getLanguage().equals("ar"))
+                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus1sdp));
+            else
+                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));
+        }
+    }*/
 
     ShoppingTask shoppingTask;
 
@@ -227,16 +231,18 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             {
                 if(BizStore.getLanguage().equals("ar"))
-                    gridView.setHorizontalSpacing((int) -activity.getResources().getDimension(R.dimen._6sdp));
-                else
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus3sdp));
+/*                else
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));*/
             }
         }
         else
         {
-
             gridView.setNumColumns(3);
+
             adapter.setListingType("brands");
+
+
 
           /*  gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._22sdp));
             gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));*/
@@ -244,9 +250,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             {
                 if(BizStore.getLanguage().equals("ar"))
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus4sdp));
-                else
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus1sdp));
+   /*             else
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));*/
             }
         }
 
@@ -264,6 +270,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onRefresh() {
+        tvEmptyView.setText("");
         memoryCache.remove(adapter.deals);
 
         diskCache.remove(adapter.deals);

@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.BusinessAdapter;
 import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
@@ -161,6 +162,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         scrollViewListener = new ScrollViewListener(mActionBar);
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
+
+
         expandableListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {

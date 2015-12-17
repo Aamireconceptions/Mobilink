@@ -118,6 +118,8 @@ public class GenericDeal implements Serializable{
 
         this.locations = result.locations;
 
+        this.is_exclusive = result.is_exclusive;
+
        // Logger.logI("DEAL: " + result.id, String.valueOf(deal.isFavorite));
     }
 
