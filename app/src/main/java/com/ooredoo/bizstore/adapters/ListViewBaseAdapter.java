@@ -859,7 +859,7 @@ return null;
 
                                     BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                             new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
-                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
+                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
                                             String.valueOf(reqWidth), String.valueOf(reqHeight));
                             }
                             else

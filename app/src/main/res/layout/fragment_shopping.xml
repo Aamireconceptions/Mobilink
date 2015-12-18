@@ -61,6 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:drawableTop="@drawable/shopping_bag_big"
+        android:drawablePadding="@dimen/_4sdp"
         android:layout_centerInParent="true"
         android:paddingStart="@dimen/_12sdp"
         android:paddingEnd="@dimen/_12sdp"
