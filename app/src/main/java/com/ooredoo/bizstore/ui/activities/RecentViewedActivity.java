@@ -43,10 +43,16 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         init();
     }
 
+    MenuItem miClear;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_recent_viewed, menu);
+        if(recentItems.size() > 0)
+        {
+            getMenuInflater().inflate(R.menu.menu_recent_viewed, menu);
+
+            miClear = menu.findItem(R.id.clear);
+        }
 
         return super.onCreateOptionsMenu(menu);
 
@@ -63,10 +69,12 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         return super.onOptionsItemSelected(item);
     }
 
+    List<RecentItem> recentItems;
+
     private void init() {
         setupToolbar();
 
-        List<RecentItem> recentItems = new Select().all().from(RecentItem.class).orderBy("id DESC").execute();
+        recentItems = new Select().all().from(RecentItem.class).orderBy("id DESC").execute();
 
         mListView = (ListView) findViewById(R.id.list_view);
 
@@ -122,6 +130,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
 
     public void clearRecentDeals() {
         clearRecentItems();
+        miClear.setVisible(false);
         mAdapter.clear();
         toggleEmptyView(0); //0 => NO_RECENT_VIEWED
     }

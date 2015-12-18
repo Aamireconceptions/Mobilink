@@ -91,7 +91,11 @@ public class FavoritesAdapter extends BaseAdapter {
         this.category = category;
     }
 
-
+    public void clear()
+    {
+        favorites.clear();
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {

@@ -681,8 +681,6 @@ return null;
 
                 linearLayout.setDrawingCacheEnabled(false);
             }
-
-
         }
         else
         {
@@ -854,13 +852,14 @@ return null;
                                 }
                             }*/
 
-                            if(BitmapDownloadTask.downloadingPool.get(url) == null || memoryCache.getBitmapFromCache(url) == null)
+                            if(BitmapDownloadTask.downloadingPool.get(url) == null)
                             {
-                                Logger.print("Adapter executing");
+                                Logger.print("Adapter executing:"+url);
+
 
                                     BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                             new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
-                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
                                             String.valueOf(reqWidth), String.valueOf(reqHeight));
                             }
                             else

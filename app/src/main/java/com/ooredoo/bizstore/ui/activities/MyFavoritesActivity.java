@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -52,15 +55,17 @@ public class MyFavoritesActivity extends AppCompatActivity {
         showFavs();
     }
 
+    FavoritesAdapter adapter;
+    List<Favorite> favorites;
     public void showFavs()
     {
         Select select = new Select();
 
-        List<Favorite> favorites = select.all().from(Favorite.class).where("isFavorite = 1 AND isBusiness = "+isBusiness)
+       favorites = select.all().from(Favorite.class).where("isFavorite = 1 AND isBusiness = "+isBusiness)
                 .orderBy("id DESC").execute();
 
         //FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.favorite_item, favorites);
-        FavoritesAdapter adapter = new FavoritesAdapter(this, R.layout.list_deal_promotional, favorites);
+        adapter = new FavoritesAdapter(this, R.layout.list_deal_promotional, favorites);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
@@ -84,5 +89,42 @@ public class MyFavoritesActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.my_favorites));
+    }
+
+    MenuItem miClear;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        if(favorites.size() > 0)
+        {
+            getMenuInflater().inflate(R.menu.menu_recent_viewed, menu);
+
+            miClear = menu.findItem(R.id.clear);
+        }
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.clear:
+
+                Delete delete = new Delete();
+                delete.from(Favorite.class).execute();
+
+                miClear.setVisible(false);
+
+                adapter.clear();
+
+                toggleEmptyView(favorites.size());
+
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

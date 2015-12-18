@@ -39,7 +39,6 @@ public class BaseAdapterBitmapDownloadTask extends BitmapDownloadTask
 
         if(bitmap != null)
         {
-
 //            if(adapter instanceof ListViewBaseAdapter)
 //            {
 //                ((ListViewBaseAdapter) adapter).doAnimate = false;

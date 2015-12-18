@@ -202,7 +202,6 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             downloadingPool.put(imgUrl, imgUrl);
 
-
             Logger.print("Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);
 

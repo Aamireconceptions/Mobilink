@@ -61,6 +61,7 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.pager_indicator);
         circlePageIndicator.setViewPager(viewPager);
         circlePageIndicator.setFillColor(activity.getResources().getColor(R.color.black));
+        circlePageIndicator.setStrokeColor(activity.getResources().getColor(R.color.black));
 
         tvSkip = (TextView) v.findViewById(R.id.skip);
         tvSkip.setOnClickListener(this);
