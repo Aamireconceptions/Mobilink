@@ -477,7 +477,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 {
                     holder.tvDirections.setVisibility(View.GONE);
 
-                    /*boolean isZero = false;
+                    boolean isZero = false;
 
                     if(deal.distanceStatus != null && ((deal.distanceStatus.equals("ZERO_RESULTS"))))
                     {
@@ -489,12 +489,15 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                     if(!isZero) {
                         if (CalculateDistanceTask.distancePool.get(deal.id) == null && deal.distance == 0) {
-                            CalculateDistanceTask calculateDistanceTask = new CalculateDistanceTask(deal, this);
-                            calculateDistanceTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,
-                                    origin, destination);
 
+                            if(calculateDistanceTask.getStatus() != AsyncTask.Status.RUNNING)
+                            {
+                                calculateDistanceTask = new CalculateDistanceTask(deal, this);
+                                calculateDistanceTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,
+                                        origin, destination);
+                            }
                         }
-                    }*/
+                    }
                 }
             }
             else
@@ -588,6 +591,7 @@ return null;
 
     }
 
+    CalculateDistanceTask calculateDistanceTask = new CalculateDistanceTask(null,null);
 
 
     RelativeLayout mapLayout;

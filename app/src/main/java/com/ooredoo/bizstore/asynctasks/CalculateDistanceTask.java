@@ -53,7 +53,10 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
 
         this.adapter = adapter;
 
-        id = String.valueOf(genericDeal.id);
+        if(genericDeal != null)
+        {
+            id = String.valueOf(genericDeal.id);
+        }
     }
 
     RelativeLayout rlDistance; LinearLayout llDirections;
@@ -114,6 +117,7 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
         super.onPostExecute(result);
 
         distancePool.remove(id);
+        Logger.print("DistancePool: Removing: " + id);
         if(result != null)
         {
             try
@@ -205,6 +209,7 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
 
+        Logger.print("DistancePool: Putting: "+id);
         distancePool.put(id, id);
 
         InputStream inputStream = connection.getInputStream();

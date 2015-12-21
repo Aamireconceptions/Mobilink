@@ -68,11 +68,21 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
         if(result != null) {
             try {
+
+
+
                 Subscription subscription = new Gson().fromJson(result, Subscription.class);
 
-                signUpFragment.processSubscription(subscription);
+                if(subscription.resultCode == 1 && subscription.desc.equals("In-valid User"))
+                {
+                    Toast.makeText(context, context.getString(R.string.error_invalid_num), Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    signUpFragment.processSubscription(subscription);
 
-                //DialogUtils.processVerificationCode();
+                    //DialogUtils.processVerificationCode();
+                }
 
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();

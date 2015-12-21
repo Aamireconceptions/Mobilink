@@ -189,7 +189,13 @@ public class DialogUtils {
 
        // etCode.setText(BizStore.password);
 
-        String code = etCode.getText().toString();
+        String code = etCode.getText().toString().trim();
+
+        if(!code.isEmpty())
+        {
+            BizStore.password = code;
+        }
+
         if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN && code.equals(password)) {
 
             SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
