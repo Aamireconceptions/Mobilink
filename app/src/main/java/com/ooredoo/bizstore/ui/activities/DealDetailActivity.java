@@ -201,9 +201,15 @@ private EditText etMerchantCode;
 
     List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
     ScrollViewListener mOnScrollViewListener;
+    LinearLayout llHead;
+    TextView tvHeadTitle, tvHeadDescription;
     private void initViews()
     {
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
+
+        llHead = (LinearLayout) header.findViewById(R.id.head);
+        tvHeadTitle = (TextView) header.findViewById(R.id.head_title);
+        tvHeadDescription = (TextView) header.findViewById(R.id.head_description);
 
         tvVoucherClaimed = (TextView) header.findViewById(R.id.vouchers_claimed);
 
@@ -367,6 +373,8 @@ private EditText etMerchantCode;
         {
             populateData(genericDeal);
         }
+
+
     }
 
     Button btSimilarDeals;
@@ -377,6 +385,7 @@ private EditText etMerchantCode;
 
     RelativeLayout rlVoucher;
     GenericDeal mDeal;
+
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
 
@@ -407,6 +416,22 @@ private EditText etMerchantCode;
 
             TextView tvCategory = (TextView) findViewById(R.id.cat);
             tvCategory.setText(deal.category);
+
+            if(deal.how_works != null && !deal.how_works.isEmpty())
+            {
+                TextView tvHTWNote = (TextView) header.findViewById(R.id.how_this_work_note);
+
+                tvHTWNote.setVisibility(View.VISIBLE);
+                tvHTWNote.setOnClickListener(this);
+            }
+
+            if(deal.terms_services != null && !deal.terms_services.isEmpty())
+            {
+                TextView tvTermsServices = (TextView) header.findViewById(R.id.tos_note);
+
+                tvTermsServices.setVisibility(View.VISIBLE);
+                tvTermsServices.setOnClickListener(this);
+            }
 
 
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
@@ -719,6 +744,8 @@ private EditText etMerchantCode;
             distanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
 
             if(genericDeal.distance != 0) {
+                llDirections.setVisibility(View.VISIBLE);
+                rlDistance.setVisibility(View.VISIBLE);
                 tvDistance.setText(String.format("%.1f", genericDeal.distance / 1000) + " " + getString(R.string.km_away));
 
                 tvDirections.setText(String.format("%.1f", genericDeal.distance / 1000) + "km");
@@ -983,6 +1010,22 @@ private EditText etMerchantCode;
                         }
 
                     }
+        else
+                        if(viewId == R.id.how_this_work_note)
+                        {
+                            llHead.setVisibility(View.VISIBLE);
+
+                            tvHeadTitle.setText(R.string.how_this_works);
+                            tvHeadDescription.setText(mDeal.how_works);
+                        }
+        else
+                            if(viewId == R.id.tos_note)
+                            {
+                                llHead.setVisibility(View.VISIBLE);
+
+                                tvHeadTitle.setText(R.string.tos);
+                                tvHeadDescription.setText(mDeal.terms_services);
+                            }
     }
 
     private void setSelected(View v)

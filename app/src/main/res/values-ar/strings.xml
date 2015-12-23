@@ -267,4 +267,8 @@
     <string name="enable_location">تمكين خدمات الموقع</string>
     <string name="btn_enable_loc">تمكين الموقع</string>
     <string name="loc_not_available">الموقع غير متوفر! دعونا تمكينه.</string>
+    <string name="tos">البنود و شروط هذه الصفقة</string>
+    <string name="how_this_works">كيف يعمل هذا؟</string>
+    <string name="how_this_works_note"><u>كيف يعمل هذا؟</u></string>
+    <string name="tos_note"><u>البنود و شروط هذه الصفقة</u></string>
 </resources>

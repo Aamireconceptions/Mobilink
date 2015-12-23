@@ -96,7 +96,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAllCaps="true"
-                        android:text="French Aloo"
                         android:maxLines="2"
                         android:textColor="#F7F7F7"
                         android:textSize="20sp"
@@ -141,7 +140,8 @@
                     android:gravity="center_vertical"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:background="#33ffffff">
+                    android:background="#33ffffff"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/directions"
@@ -245,10 +245,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingTop="@dimen/_16sdp"
-            android:paddingBottom="@dimen/_8sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_12sdp"
+            android:paddingTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp"
             android:orientation="vertical">
 
             <TextView
@@ -337,17 +337,11 @@
 
                 </RelativeLayout>
 
-                <!--<TextView
-                    android:id="@+id/get_code_note"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/get_code"
-                    android:text="How this works?"
-                    android:textSize="12sp"/>-->
+
 
             </RelativeLayout>
+
+
 
             <TextView
                 android:id="@+id/vouchers_claimed"
@@ -358,11 +352,75 @@
                 android:textColor="@color/black"
                 android:visibility="gone"/>
 
+            <TextView
+                android:id="@+id/how_this_work_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_gravity="center_horizontal"
+
+                android:text="@string/how_this_works_note"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tos_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_gravity="center_horizontal"
+
+                android:text="@string/tos_note"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:paddingStart="@dimen/_18sdp"
+                android:paddingEnd="@dimen/_18sdp"
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:background="@color/grey"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/head_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/head_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:background="@drawable/subheading_bg">
@@ -478,7 +536,8 @@
                 android:paddingEnd="@dimen/_10sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
-                android:background="@drawable/layer_list">
+                android:background="@drawable/layer_list"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/distance"

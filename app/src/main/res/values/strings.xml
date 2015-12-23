@@ -190,12 +190,10 @@
     <string name="skip">Skip</string>
     <string name="All">All</string>
     <string name="hot_deals">Hot Deals</string>
-
     <string name="provide_name">Your Name</string>
     <string name="select_pic">Please select picture</string>
     <string name="no_fav_item">Favorite bucket is empty.</string>
     <string name="no_recent_item">You haven’t viewed any Deal or Business.</string>
-
     <string name="notification_text">You can select your favorite categories and receive notifications on the go!</string>
     <string name="slide_1_text_1">LATEST DEALS &amp; DISCOUNTS</string>
     <string name="slide_1_text_2">ON YOUR FAVORITE</string>
@@ -277,5 +275,10 @@
     <string name="your_message">Your Message</string>
     <string name="send">Send</string>
     <string name="loc_not_available">Location not available! Let\'s enable it.</string>
+    <string name="tos">Terms &amp; Conditions for this deal</string>
+    <string name="how_this_works">How this works?</string>
+    <string name="how_this_works_note"><u>How this works?</u></string>
+    <string name="tos_note"><u>Terms &amp; Conditions for this deal</u></string>
+
 
 </resources>
