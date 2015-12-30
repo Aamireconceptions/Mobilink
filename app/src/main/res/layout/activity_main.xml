@@ -29,20 +29,21 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layoutDirection="ltr"
+android:gravity="bottom"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_14sdp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/random">
 
         <Button
             android:id="@+id/btn_lang_english"
             android:layout_width="115dp"
             android:layout_height="@dimen/_35sdp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="0dp"
+
+
 
             android:background="@drawable/lang_left_selector"
             android:text="@string/English"
@@ -53,10 +54,6 @@
             android:id="@+id/btn_lang_arabic"
             android:layout_width="115dp"
             android:layout_height="@dimen/_35sdp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="0dp"
-            android:layout_toEndOf="@+id/btn_lang_english"
             android:background="@drawable/lang_right_selector"
             android:text="@string/arabic"
             android:textAllCaps="false"

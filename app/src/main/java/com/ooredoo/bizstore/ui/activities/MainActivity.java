@@ -34,8 +34,8 @@ public class MainActivity extends BaseActivity {
 
         boolean isArabicLang = StringUtils.isNotNullOrEmpty(lang) && lang.equals("ar");
 
-        btnArabicLang.setSelected(isArabicLang);
-        btnEnglishLang.setSelected(!isArabicLang);
+        //btnArabicLang.setSelected(isArabicLang);
+       // btnEnglishLang.setSelected(!isArabicLang);
     }
 
     @Override

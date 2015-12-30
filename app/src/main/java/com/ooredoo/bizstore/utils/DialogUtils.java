@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -144,6 +145,7 @@ public class DialogUtils {
 
     public static EditText etCode;
     static Dialog dialog;
+    public static ProgressBar progressBar;
     public static void showVerificationCodeDialog(final Activity activity) {
 
         DialogUtils.activity = activity;
@@ -155,6 +157,8 @@ public class DialogUtils {
         final View view = inflater.inflate(R.layout.dialog_verification_code, null);
 
         etCode = (EditText) view.findViewById(R.id.et_code);
+
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         builder.setView(view);
 

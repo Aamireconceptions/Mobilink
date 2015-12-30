@@ -30,7 +30,6 @@
             android:layout_height="wrap_content">
 
 
-
             <ImageView
                 android:id="@+id/detail_img"
                 android:layout_width="match_parent"
@@ -141,7 +140,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:background="#33ffffff"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/directions"
@@ -156,8 +155,6 @@
                 </LinearLayout>
 
             </RelativeLayout>
-
-
 
 
         </RelativeLayout>
@@ -276,7 +273,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_6sdp">
+                android:layout_marginTop="@dimen/_6sdp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/code_field_note"

@@ -254,6 +254,8 @@ private EditText etMerchantCode;
                     if (view != null) {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+                        etMerchantCode.clearFocus();
                     }
                 }
 
@@ -1060,7 +1062,7 @@ private EditText etMerchantCode;
         {
             rlVoucher.setVisibility(View.GONE);
 
-            tvVoucherClaimed.setText("Dear user, you have already availed this discount " + maxAllowed + " times.");
+            tvVoucherClaimed.setText("Dear user, you have already availed this discount " + maxAllowed + " time(s).");
 
             return;
         }
@@ -1075,7 +1077,7 @@ private EditText etMerchantCode;
 
         tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
                 + ", you have availed "
-                + ( voucherClaimed) + " deals.");
+                + ( voucherClaimed) + " deal(s).");
 
        /* tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
                 + " number of times "
@@ -1102,7 +1104,7 @@ private EditText etMerchantCode;
 
         Logger.print("Uri: " + uri);
 
-        uri = "View this awesome deal on BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
+        uri = "View this awesome deal on Ooredoo BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
         "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);
@@ -1234,11 +1236,16 @@ private EditText etMerchantCode;
            return;
        }
 
+       if(genericDeal.vouchers_claimed == genericDeal.vouchers_max_allowed)
+       {
+           rlVoucher.setVisibility(View.GONE);
+       }
+
        tvVoucherClaimed.setVisibility(View.VISIBLE);
 
        tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
                + ", you have availed "
-               + (genericDeal.vouchers_claimed) + " deals.");
+               + (genericDeal.vouchers_claimed) + " deal(s).");
 
       /* if(genericDeal.vouchers_claimed >= genericDeal.vouchers_max_allowed)
        {

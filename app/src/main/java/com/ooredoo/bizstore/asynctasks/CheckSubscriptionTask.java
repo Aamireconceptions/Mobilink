@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.PASSWORD;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 
 /**
@@ -79,6 +80,8 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
+        params.put(MSISDN, BizStore.username);
+        params.put("password", BizStore.password);
 
         String query = createQuery(params);
 

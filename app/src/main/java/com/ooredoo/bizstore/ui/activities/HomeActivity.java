@@ -179,7 +179,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private HomeActivity activity = this;
 
-    private long time = 15 * 60 * 1000;
+    private long time = 10 * 60 * 1000;
 
     public static TextView tvName;
     @Override
@@ -232,7 +232,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         BizStore.forceStopTasks = false;
 
         checkIfGpsEnabled();
-        // startSubscriptionCheck();
+        startSubscriptionCheck();
     }
 
     Timer timer;

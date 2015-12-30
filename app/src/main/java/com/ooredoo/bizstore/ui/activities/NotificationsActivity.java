@@ -87,7 +87,7 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
 
     public void initNotificationsData() {
         notifications = new ArrayList<>();
-        notifications.add(new Notification(1, false, R.drawable.ic_top_deals, getString(R.string.top_deals)));
+        notifications.add(new Notification(1, true, R.drawable.ic_top_deals, getString(R.string.top_deals)));
         notifications.add(new Notification(2, false, R.drawable.ic_food_dining, getString(R.string.food_dining)));
         notifications.add(new Notification(3, false, R.drawable.ic_shopping, getString(R.string.shopping)));
         notifications.add(new Notification(4, false, R.drawable.ic_electronics, getString(R.string.electronics)));
@@ -106,8 +106,6 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         {
             cbSelectAll.setChecked(false);
         }*/
-
-
 
         if(notification != null && notification.id > 0) {
             List<Notification> notifications = new Select().all().from(Notification.class).where("notificationId=" + notification.id).execute();

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
+import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -59,10 +60,10 @@ public class SMSReceiver extends BroadcastReceiver
                                 BizStore.password = code;
 
                                 DialogUtils.etCode.setText(code);
+                                DialogUtils.progressBar.setVisibility(View.GONE);
 
                                // DialogUtils.processVerificationCode();
                             }
-
                         }
 
                     }

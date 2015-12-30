@@ -26,10 +26,9 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static String username = "66703202";
 
-
     //public static String password = "d5pF55dZ";
 
-    public static String password = "exYOXKSL";
+    public static String password = "6BtyfQm9";
 
     private final static String DEFAULT = "DEFAULT";
     private final static String MONOSPACE = "MONOSPACE";

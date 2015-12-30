@@ -26,4 +26,5 @@ public class Image implements Serializable
 
     @SerializedName("detail")
     public String detailBannerUrl;
+
 }

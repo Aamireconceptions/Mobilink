@@ -47,6 +47,8 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -265,10 +267,28 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         Log.i("camera", "startCameraActivity()");
         File file = new File(path);
         Uri outputFileUri = Uri.fromFile(file);
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+        /*Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, 1);
+        intent.putExtra("return-data", true);*/
+
+        /*List<Intent> cameraIntent = new ArrayList<Intent>();
+        Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)*/
+
+        Intent pickIntent = new Intent();
+        pickIntent.setType("image");
+        pickIntent.setAction(Intent.ACTION_GET_CONTENT);
+        //pickIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+
+        String pickTitle = "Select or take picture";
+
+        Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {takePhotoIntent});
+
+        startActivityForResult(chooserIntent, 1);
     }
 
     Bitmap bitmap;
@@ -332,6 +352,21 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
         if(resultCode == RESULT_OK)
         {
+            if(intent != null)
+            {
+
+                String action = intent.getAction();
+
+                Logger.print("XYZ: "+action);
+
+                if(action == null)
+                {
+                    path = intent.getData().getPath();
+
+                    Logger.print("action was null; "+path);
+                }
+            }
+
             Resources res= getResources();
 
             try {

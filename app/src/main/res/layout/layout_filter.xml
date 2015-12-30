@@ -1,12 +1,13 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:fillViewport="true">
+            android:fillViewport="true">-->
 
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
         android:background="@color/white">
 
         <RelativeLayout
@@ -46,11 +47,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:gravity="center"
                 android:padding="@dimen/_4sdp"
                 android:text="@string/apply"
-
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:background="@drawable/white_btn"/>
 
         </RelativeLayout>
 
@@ -89,11 +91,23 @@
             android:padding="@dimen/_16sdp"
             android:text="@string/business_directory"/>-->
 
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
         <TextView
             android:id="@+id/sort_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header"
+
             android:background="@drawable/heading_bg"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_10sdp"
@@ -1150,5 +1164,5 @@
         </LinearLayout>
 
     </RelativeLayout>
-
-</ScrollView>
+            </ScrollView>
+</RelativeLayout>

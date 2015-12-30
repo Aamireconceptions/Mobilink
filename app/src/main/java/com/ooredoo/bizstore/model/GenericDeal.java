@@ -26,6 +26,8 @@ public class GenericDeal implements Serializable{
 
     public String distanceStatus, how_works, terms_services;
 
+   public boolean isBannerDisplayed, isLogoDisplayed, isDetailDisplayed;
+
     @SerializedName("images")
     public Image image;
 

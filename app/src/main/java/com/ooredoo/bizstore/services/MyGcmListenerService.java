@@ -5,15 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 
+import com.activeandroid.query.Select;
 import com.google.android.gms.gcm.GcmListenerService;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapNotificationTask;
+import com.ooredoo.bizstore.model.Notification;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Created by Babar on 31-Jul-15.
@@ -41,24 +45,33 @@ public class MyGcmListenerService extends GcmListenerService
 
             String desc = jsonObject.getString("description");
 
-            String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
+            String category = jsonObject.getString("category");
 
-            String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
+            List<Notification> notifications = new Select().from(Notification.class).execute();
 
-            String reqHeight = String.valueOf((int) Converter.convertDpToPixels(256));
+            for(Notification notification : notifications)
+            {
+                if(category.contains(notification.title))
+                {
+                    String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
 
-            Logger.print("gcm width:"+reqWidth);
+                    String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
 
-            BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
-                                                                                       title, desc);
-            bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight);
+                    String reqHeight = String.valueOf((int) Converter.convertDpToPixels(256));
+
+                    Logger.print("gcm width:"+reqWidth);
+
+                    BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
+                            title, desc);
+                    bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight);
+
+                    return;
+                }
+            }
         }
         catch (JSONException e)
         {
             e.printStackTrace();
         }
-
-
-
     }
 }

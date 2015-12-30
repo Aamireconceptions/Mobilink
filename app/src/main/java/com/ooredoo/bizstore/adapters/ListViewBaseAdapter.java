@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -319,6 +320,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     holder.tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
                     holder.tvBrandText.setBackgroundColor(deal.color);
                 }
+                else
+                {
+                    holder.tvBrandText.setVisibility(View.GONE);
+                }
 
                 holder.ivBrand.setImageBitmap(null);
             }
@@ -406,6 +411,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                 if(bitmap != null)
                 {
+                    if(!deal.isBannerDisplayed)
+                    {
+                        deal.isBannerDisplayed = true;
+                    }
+
                     holder.ivPromotional.setImageBitmap(bitmap);
                     holder.progressBar.setVisibility(View.GONE);
                 }
@@ -544,8 +554,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     }
                 });
                 gridView.setNumColumns(3);
-                gridView.setHorizontalSpacing(-(int) resources.getDimension(R.dimen._4sdp));
+               // gridView.setHorizontalSpacing(-(int) resources.getDimension(R.dimen._4sdp));
                 gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._10sdp));
+
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                {
+                    if(BizStore.getLanguage().equals("ar"))
+                        gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus1sdp));
+   /*             else
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));*/
+                }
                // gridView.setHorizontalSpacing(-(int) resources.getDimension(R.dimen._5sdp));
                 //gridView.setVerticalSpacing(-(int) resources.getDimension(R.dimen._5sdp));
 

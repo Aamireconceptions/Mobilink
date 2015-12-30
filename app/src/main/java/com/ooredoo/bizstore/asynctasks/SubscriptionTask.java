@@ -121,7 +121,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
        // result = getJson();
 
-        Logger.print("Subscribe: " + result);
+        Logger.print("SubscrAibe: " + result);
 
         return result;
     }

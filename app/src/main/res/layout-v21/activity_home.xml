@@ -66,10 +66,10 @@
                             app:tabTextAppearance="@android:style/TextAppearance.DeviceDefault.Small"
                             app:tabTextColor="@color/tab_text_color"/>
 
-                        <ImageView
+                        <!--<ImageView
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:src="@drawable/tabs_overlay"/>
+                            android:src="@drawable/tabs_overlay"/>-->
 
                         <LinearLayout
                             android:id="@+id/layout_search"
