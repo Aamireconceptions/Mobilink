@@ -49,23 +49,28 @@ public class MyGcmListenerService extends GcmListenerService
 
             List<Notification> notifications = new Select().from(Notification.class).execute();
 
-            for(Notification notification : notifications)
-            {
-                if(category.contains(notification.title))
-                {
-                    String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
+            Logger.print("GCM: category: "+category);
+            for(Notification notification : notifications) {
 
-                    String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
+                if (notification.enabled) {
 
-                    String reqHeight = String.valueOf((int) Converter.convertDpToPixels(256));
+                    Logger.print("GCM my preference: " + notification.category);
 
-                    Logger.print("gcm width:"+reqWidth);
+                    if (category.contains(notification.category)) {
+                        String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
 
-                    BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
-                            title, desc);
-                    bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight);
+                        String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
 
-                    return;
+                        String reqHeight = String.valueOf((int) Converter.convertDpToPixels(256));
+
+                        Logger.print("gcm width:" + reqWidth);
+
+                        BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
+                                title, desc);
+                        bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight);
+
+                        return;
+                    }
                 }
             }
         }

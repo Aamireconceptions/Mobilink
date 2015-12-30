@@ -258,7 +258,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             else
             {
                 tvBrandText.setVisibility(View.VISIBLE);
-                if(deal.businessName != null)
+                if(deal.businessName != null && !deal.businessName.isEmpty())
                 {
                     if(deal.color == 0)
                     {

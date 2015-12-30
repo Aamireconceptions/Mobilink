@@ -391,6 +391,8 @@ private EditText etMerchantCode;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
 
+            genericDeal = deal;
+
             mDeal = deal;
 
             mOnScrollViewListener.setTitle(deal.title);
@@ -514,8 +516,6 @@ private EditText etMerchantCode;
             }*/
 
             Logger.print("BrandLogo: " + brandLogo);
-
-
 
            // RelativeLayout rlBrandLogo = (RelativeLayout) findViewById(R.id.brand_logo_layout);
 
@@ -709,6 +709,8 @@ private EditText etMerchantCode;
             rlPhone.setVisibility(View.GONE);
         }
 
+        ImageView ivArrow = (ImageView) findViewById(R.id.address_arrow);
+
         RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
 
         if((deal.latitude == 0 && deal.longitude == 0)
@@ -716,6 +718,8 @@ private EditText etMerchantCode;
         {
             llDirections.setVisibility(View.GONE);
             rlDistance.setVisibility(View.GONE);
+
+            ivArrow.setVisibility(View.GONE);
         }
         else
         {
@@ -723,6 +727,8 @@ private EditText etMerchantCode;
             Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
                     deal.latitude, deal.longitude,
                     results);*/
+
+            ivArrow.setVisibility(View.VISIBLE);
 
             genericDeal.latitude = deal.latitude;
             genericDeal.longitude = deal.longitude;
@@ -774,10 +780,14 @@ private EditText etMerchantCode;
         {
             rlAddress.setVisibility(View.VISIBLE);
             tvAddress.setText(deal.address);
+
+
         }
         else
         {
             rlAddress.setVisibility(View.GONE);
+
+
         }
 
         RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
@@ -851,6 +861,9 @@ private EditText etMerchantCode;
         switch (item.getItemId())
         {
             case android.R.id.home:
+
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
 
                 sendResult();
 
@@ -1150,7 +1163,7 @@ private EditText etMerchantCode;
 
         if(dest == null)
         {
-            Toast.makeText(this, "Deal location is not available!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.deal_loc_not_availabe, Toast.LENGTH_SHORT).show();
 
             return;
         }
@@ -1276,4 +1289,6 @@ private EditText etMerchantCode;
     public void onUpdated(GenericDeal deal, String value) {
         updateOutlet(deal, value);
     }
+
+
 }

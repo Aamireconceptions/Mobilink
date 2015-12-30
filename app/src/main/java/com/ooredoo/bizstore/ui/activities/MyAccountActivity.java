@@ -276,7 +276,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)*/
 
         Intent pickIntent = new Intent();
-        pickIntent.setType("image");
+        pickIntent.setType("image/*");
         pickIntent.setAction(Intent.ACTION_GET_CONTENT);
         //pickIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
@@ -354,14 +354,13 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         {
             if(intent != null)
             {
-
                 String action = intent.getAction();
 
                 Logger.print("XYZ: "+action);
 
                 if(action == null)
                 {
-                    path = intent.getData().getPath();
+                    path = getPath(intent.getData());
 
                     Logger.print("action was null; "+path);
                 }
@@ -380,12 +379,10 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 FileUtils.saveBitmap(bitmap, path);
 
                 ivProfilePic.setImageBitmap(bitmap);
-                profilePicture.setImageBitmap(bitmap);
+                //profilePicture.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
         else
         {
@@ -404,6 +401,26 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 processImage();
                 break;
         }*/
+    }
+
+    public String getPath(Uri uri) {
+        // just some safety built in
+        if( uri == null ) {
+            // TODO perform some logging or show user feedback
+            return null;
+        }
+        // try to retrieve the image from the media store first
+        // this will only work for images selected from gallery
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if( cursor != null ){
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        // this is our fallback here
+        return uri.getPath();
     }
 
     private void processImage() {

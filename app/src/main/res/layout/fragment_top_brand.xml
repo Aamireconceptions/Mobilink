@@ -1,15 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-    android:gravity="center"
+                android:gravity="center"
                 android:paddingBottom="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_6sdp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="@dimen/_95sdp"
+        android:layout_height="@dimen/_95sdp">
 
     <ImageView
         android:id="@+id/image_view"

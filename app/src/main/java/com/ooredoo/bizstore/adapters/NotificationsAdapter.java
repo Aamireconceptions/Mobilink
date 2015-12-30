@@ -15,6 +15,7 @@ import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Notification;
 import com.ooredoo.bizstore.ui.activities.NotificationsActivity;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
         List<Notification> n = new Select().all().from(Notification.class).where("notificationId=" + notification.id).execute();
         if(n != null && n.size() > 0) {
             notification.enabled = n.get(0).enabled;
-            Log.i("ENABLED: " + notification.id, position + " - " + notification.enabled);
+            Logger.logI("ENABLED: " + notification.id, position + " - " + notification.enabled);
         }
 
         holder.checkBox.setOnCheckedChangeListener(new CheckBoxChangeListener(position));

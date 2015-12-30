@@ -216,7 +216,7 @@ public class SearchBaseAdapter extends BaseAdapter {
         else
         {
             holder.tvBrandText.setVisibility(View.VISIBLE);
-            if(deal.businessName != null)
+            if(deal.businessName != null && !deal.businessName.isEmpty())
             {
                 if(deal.color == 0)
                 {

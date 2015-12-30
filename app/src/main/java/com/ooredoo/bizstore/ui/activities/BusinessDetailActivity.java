@@ -530,7 +530,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             rlPhone.setVisibility(View.VISIBLE);
 
             tvPhone.setText(PhoneNumberUtils.formatNumber(business.contact.contains("+")
-                    ? business.contact : "+"+business.contact));
+                    ? business.contact : "+" + business.contact));
         }
         else
         {
@@ -539,11 +539,15 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         RelativeLayout rlDistance = (RelativeLayout) header.findViewById(R.id.distance_layout);
 
+        ImageView ivArrow = (ImageView) findViewById(R.id.address_arrow);
+
         if((business.latitude == 0 && business.longitude == 0)
                 || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
         {
             llDirections.setVisibility(View.GONE);
             rlDistance.setVisibility(View.GONE);
+
+            ivArrow.setVisibility(View.GONE);
         }
         else
         {
@@ -554,7 +558,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
             TextView tvDirections = (TextView) header.findViewById(R.id.directions);
 
-
+            ivArrow.setVisibility(View.VISIBLE);
 
             //tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
             tvDirections.setOnClickListener(this);
@@ -579,6 +583,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             //tvDistance.setText(String.format("%.1f", results[0] / 1000) + " " + getString(R.string.km_away));
         }
 
+
+
         RelativeLayout rlAddress = (RelativeLayout) header.findViewById(R.id.address_layout);
         rlAddress.setOnClickListener(new OnClickListener() {
             @Override
@@ -593,10 +599,14 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         {
             rlAddress.setVisibility(View.VISIBLE);
             tvAddress.setText(business.address);
+
+
         }
         else
         {
             rlAddress.setVisibility(View.GONE);
+
+
         }
 
         RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
@@ -953,7 +963,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         if(dest == null)
         {
-            Toast.makeText(this, "Business location is not available!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.business_loc_not_available, Toast.LENGTH_SHORT).show();
 
             return;
         }

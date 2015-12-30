@@ -5,7 +5,7 @@
                 android:background="@drawable/bg_signup"
                 tools:context=".MainActivity">
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -25,26 +25,22 @@
         android:text="@string/SIGNUP"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:visibility="gone"/>
+        android:visibility="gone"/>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layoutDirection="ltr"
-android:gravity="bottom"
+        android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_14sdp"
-        android:orientation="horizontal"
-        android:background="@color/random">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_lang_english"
             android:layout_width="115dp"
             android:layout_height="@dimen/_35sdp"
-
-
-
             android:background="@drawable/lang_left_selector"
             android:text="@string/English"
             android:textAllCaps="false"

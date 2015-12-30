@@ -20,6 +20,9 @@ public class Notification extends Model {
     @Column(name = "title")
     public String title;
 
+    @Column(name = "category")
+    public String category;
+
     @Column(name = "isEnabled")
     public boolean enabled;
 
@@ -27,11 +30,12 @@ public class Notification extends Model {
 
     }
 
-    public Notification(long id, boolean enabled, int icon, String title) {
+    public Notification(long id, boolean enabled, int icon, String title, String category) {
         this.id = id;
         this.icon = icon;
         this.title = title;
         this.enabled = enabled;
+        this.category = category;
     }
 
     @Override

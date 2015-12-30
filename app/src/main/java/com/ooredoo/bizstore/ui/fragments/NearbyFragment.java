@@ -605,7 +605,6 @@ RelativeLayout rlParent;
                 listView.setEmptyView(llLocationEmptyView);
             }
         }
-
     }
 
     @Override
@@ -719,8 +718,6 @@ RelativeLayout rlParent;
 
                 linearLayout.setDrawingCacheEnabled(false);
             }
-
-
         }
         else
         {
@@ -736,7 +733,6 @@ RelativeLayout rlParent;
             {
                 tvBrandText.setText(String.valueOf(deal.title.charAt(0)));
             }
-
 
             bitmap = linearLayout.getDrawingCache();
 
@@ -816,5 +812,4 @@ RelativeLayout rlParent;
 
         return null;
     }
-
 }
