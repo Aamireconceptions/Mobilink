@@ -91,7 +91,8 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
 
     private void rateUsOnPlayStore() {
         Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse("market://details?id=com.econceptions.ufone.foodcourt"));//TODO replace package name -> + activity.getPackageName()));
+
+        i.setData(Uri.parse("market://details?id="+activity.getPackageName()));//TODO replace package name -> + activity.getPackageName()));
         activity.startActivity(i);
     }
 }

@@ -127,6 +127,8 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
 
     private void fetchAndDisplayTravel(ProgressBar progressBar)
     {
+        tvEmptyView.setVisibility(View.GONE);
+
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("travel");

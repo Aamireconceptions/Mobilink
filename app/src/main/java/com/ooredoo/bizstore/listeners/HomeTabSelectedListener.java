@@ -15,7 +15,7 @@ import com.ooredoo.bizstore.utils.Logger;
  * @author  Babar
  * @since 11-Jun-15.
  */
-public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
+public class HomeTabSelectedListener extends TabLayout.ViewPagerOnTabSelectedListener
 {
     private HomeActivity homeActivity;
 
@@ -23,6 +23,7 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
 
     public HomeTabSelectedListener(HomeActivity homeActivity, ViewPager viewPager)
     {
+        super(viewPager);
         this.homeActivity = homeActivity;
 
         this.viewPager = viewPager;
@@ -31,11 +32,13 @@ public class HomeTabSelectedListener implements TabLayout.OnTabSelectedListener
     @Override
     public void onTabSelected(TabLayout.Tab tab)
     {
+       super.onTabSelected(tab);
+
         homeActivity.resetFilters();
 
        Logger.print("Tab Selected:" + tab.getPosition());
 
-        viewPager.setCurrentItem(tab.getPosition());
+       // viewPager.setCurrentItem(tab.getPosition());
 
         DealsTask.sortColumn = "createdate";
         DealsTask.subCategories = "";

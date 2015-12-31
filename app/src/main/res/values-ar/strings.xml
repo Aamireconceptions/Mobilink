@@ -280,4 +280,5 @@
     <string name="error_no_loc">تنتظر الموقع. الرجاء معاودة المحاولة في وقت لاحق!</string>
     <string name="send">إرسال</string>
     <string name="your_message">رسالتك</string>
+    <string name="searching">البحث</string>
 </resources>

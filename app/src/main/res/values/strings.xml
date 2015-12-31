@@ -281,6 +281,6 @@
     <string name="tos_note"><u>Terms &amp; Conditions for this deal</u></string>
     <string name="deal_loc_not_availabe">Deal location is not available!</string>
     <string name="business_loc_not_available">Business location is not available!</string>
-
+    <string name="searching">Searching</string>
 
 </resources>

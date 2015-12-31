@@ -130,6 +130,8 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
 
     private void fetchAndDisplayAutomotive(ProgressBar progressBar)
     {
+        tvEmptyView.setVisibility(View.GONE);
+
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("automotive");

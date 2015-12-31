@@ -100,7 +100,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
             }
 
-            onFilterChangeListener.onFilterChange();
+            //onFilterChangeListener.onFilterChange();
         }
     }
 

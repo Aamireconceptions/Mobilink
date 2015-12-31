@@ -182,6 +182,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private void loadDeals(ProgressBar progressBar)
     {
+        tvEmptyView.setVisibility(View.GONE);
+
         shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
 
         String cache = shoppingTask.getCache("shopping");

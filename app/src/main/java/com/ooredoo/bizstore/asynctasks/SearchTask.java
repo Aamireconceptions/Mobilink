@@ -38,7 +38,7 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        dialog = createCustomLoader(mActivity, "Searching...");
+        dialog = createCustomLoader(mActivity, mActivity.getString(R.string.searching));
     }
 
     @Override

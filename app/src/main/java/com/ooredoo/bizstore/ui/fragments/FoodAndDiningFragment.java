@@ -136,6 +136,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     DealsTask dealsTask;
     private void fetchAndDisplayFoodAndDining(ProgressBar progressBar) {
+
+        tvEmptyView.setVisibility(View.GONE);
         dealsTask = new DealsTask(activity, adapter,
                                             progressBar, ivBanner,
                                             this);

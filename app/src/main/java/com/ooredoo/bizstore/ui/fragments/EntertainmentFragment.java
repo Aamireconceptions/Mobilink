@@ -139,6 +139,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
     private void fetchAndDisplayEntertainment(ProgressBar progressBar)
     {
+        tvEmptyView.setVisibility(View.GONE);
+
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {

@@ -81,11 +81,14 @@ public class PopularSearchesGridAdapter extends BaseAdapter {
     }
 
     protected void setClickListener(KeywordSearch keywordSearch) {
-        Results results = new Results();
+        /*Results results = new Results();
         results.list = keywordSearch.results;
         AppData.searchResults = results;
         HomeActivity homeActivity = (HomeActivity) context;
-        homeActivity.setupSearchResults(keywordSearch.title, keywordSearch.results, true);
+        homeActivity.setupSearchResults(keywordSearch.title, keywordSearch.results, true);*/
+
+        HomeActivity homeActivity = (HomeActivity) context;
+        homeActivity.performSearch(keywordSearch.title);
     }
 
     private static class Holder {

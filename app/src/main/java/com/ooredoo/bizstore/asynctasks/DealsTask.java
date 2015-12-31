@@ -81,14 +81,16 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         memoryCache = MemoryCache.getInstance();
 
-        Resources res = homeActivity.getResources();
+        if(homeActivity != null) {
+            Resources res = homeActivity.getResources();
 
-        DisplayMetrics displayMetrics = res.getDisplayMetrics();
+            DisplayMetrics displayMetrics = res.getDisplayMetrics();
 
-        reqWidth = displayMetrics.widthPixels;
+            reqWidth = displayMetrics.widthPixels;
 
-        reqHeight = (int) Converter.convertDpToPixels(res.getDimension(R.dimen._160sdp)
-                / displayMetrics.density);
+            reqHeight = (int) Converter.convertDpToPixels(res.getDimension(R.dimen._160sdp)
+                    / displayMetrics.density);
+        }
     }
 
     @Override
@@ -393,6 +395,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         if(isCancelled())
         {
+            Logger.print("Culprit Cancelled");
             return null;
         }
 

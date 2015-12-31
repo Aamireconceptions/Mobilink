@@ -80,6 +80,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.KeywordSearch;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
+import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -410,7 +411,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         //tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 
-        tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
+      // tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
+
         tabLayout.addTab(tabLayout.newTab());
 
         tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
@@ -420,7 +422,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private void setupPager() {
         viewPager.setAdapter(null);
         viewPager.setAdapter(homePagerAdapter);
-        viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout));
+       //viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout, this));
+
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
+
         //viewPager.setOffscreenPageLimit(11);Dea
        /* if(BizStore.getLanguage().equals("ar"))
         {
@@ -765,7 +772,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void selectTab(int tabPosition) {
-        viewPager.setCurrentItem(tabPosition, true);
+
+       //viewPager.setCurrentItem(tabPosition, true);
+
+        tabLayout.getTabAt(tabPosition).select();
     }
 
     @Override
@@ -785,6 +795,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         SharedPrefUtils.updateVal(this, "lat", (float) lat);
         SharedPrefUtils.updateVal(this, "lng", (float) lng);
+
+       Fragment nearbyFragment = getFragmentManager().findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + 1);
+
+        if(nearbyFragment != null)
+        {
+            ((NearbyFragment) nearbyFragment).onLocationFound();
+        }
     }
 
     @Override
@@ -1017,16 +1034,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         int viewId = v.getId();
         if(viewId == R.id.ac_search) {
             if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                performSearch((AutoCompleteTextView) v);
+                //performSearch(acSearch.getText().toString().trim());
                 return true;
             }
         }
         return false;
     }
 
-    private void performSearch(AutoCompleteTextView v) {
+    public void performSearch(String keyword) {
         if(hasInternetConnection(this)) {
-            String keyword = v.getText().toString();
+            //String keyword = v.getText().toString();
             if(isNotNullOrEmpty(keyword)) {
                 Logger.print("SEARCH_KEYWORD: " + keyword);
                 executeSearchTask(keyword);
@@ -1041,7 +1058,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if((actionId & EditorInfo.IME_MASK_ACTION) == EditorInfo.IME_ACTION_SEARCH) {
-            performSearch((AutoCompleteTextView) v);
+            performSearch(acSearch.getText().toString().trim());
             return true;
         }
         return false;

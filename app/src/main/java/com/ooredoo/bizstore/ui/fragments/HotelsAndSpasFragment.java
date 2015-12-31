@@ -27,6 +27,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
@@ -130,9 +131,11 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
 
-    DealsTask dealsTask;
+    DealsTask dealsTask = new DealsTask(null, null, null, null, null);
     private void fetchAndDisplayHotelsAndSpas(ProgressBar progressBar)
     {
+        tvEmptyView.setVisibility(View.GONE);
+
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
@@ -148,6 +151,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
         }
         else
         {
+            Logger.print("Culprit");
+
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "hotels_spas");
         }
     }

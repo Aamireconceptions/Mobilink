@@ -130,6 +130,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
     private void fetchAndDisplayMalls(ProgressBar progressBar)
     {
+        tvEmptyView.setVisibility(View.GONE);
+
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         String cache = dealsTask.getCache("malls");

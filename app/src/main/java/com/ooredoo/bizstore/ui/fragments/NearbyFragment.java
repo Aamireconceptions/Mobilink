@@ -351,6 +351,9 @@ RelativeLayout rlParent;
     DealsTask dealsTask;
 
     private void fetchAndDisplayNearby(ProgressBar progressBar) {
+
+        tvEmptyView.setVisibility(View.GONE);
+
         dealsTask = new DealsTask(activity, adapter,
                 progressBar, ivBanner,
                 this);
@@ -515,6 +518,17 @@ RelativeLayout rlParent;
 
         isRefreshed = false;*/
     }
+
+    public void onLocationFound()
+    {
+        if(tvEmptyView != null)
+        {
+            tvEmptyView.setText("");
+
+            fetchAndDisplayNearby(progressBar);
+        }
+    }
+
 
     @Override
     public void onRefreshCompleted() {

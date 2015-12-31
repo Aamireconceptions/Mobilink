@@ -133,6 +133,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
 
     private void fetchAndDisplaySportsAndFitness(ProgressBar progressBar)
     {
+        tvEmptyView.setVisibility(View.GONE);
+
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
         if(isNotNullOrEmpty(subCategory)) {
