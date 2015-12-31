@@ -282,5 +282,7 @@
     <string name="deal_loc_not_availabe">Deal location is not available!</string>
     <string name="business_loc_not_available">Business location is not available!</string>
     <string name="searching">Searching</string>
+    <string name="your_feedback">Your Feedback</string>
+    <string name="thanks_contact">Thank you for contacting us.</string>
 
 </resources>

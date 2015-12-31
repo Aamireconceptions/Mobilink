@@ -87,11 +87,12 @@
     <string name="share_app_note">شارك التطبيق مع الأصدقاء و الأقارب</string>
     <string name="enter_number">يرجى تقديم رقم هاتفك.</string>
     <string name="sharing_msg">رسالة المشاركة</string>
-    <string name="share_with_friends_txt">وجدت هذا التطبيق الرائع اسمه Ooredoo بيزستور. يمكنك أن تجد من خلاله أفضل العروض و الخصومات في المدينة. أرسل SUB BIZ إلى 92806 للتسجيل في خدمة الرسائل النصية.
- لتحميل تطبيق Ooredoo بيزستور على جهاز أندرويد:
+    <string name="share_with_friends_txt">وجدت هذا التطبيق الرائع اسمه Ooredoo Bizstore. يمكنك أن تجد من خلاله أفضل العروض والخصومات في المدينة. أرسل SUB BIZ إلى 92806 للتسجيل في خدمة الرسائل النصية مقابل 3 ريال قطري/أسبوعياً.
+ لتحميل تطبيق Ooredoo Bizstore على جهاز أندرويد مقابل 9 ريال قطري/أسبوعياً:
  [Link]
- لتحميل تطبيق Ooredoo بيزستور على جهاز iOS:
- [Link]</string>
+ لتحميل تطبيق Ooredoo Bizstore على جهاز iOS:
+ [Link]
+</string>
     <string name="share_now">شارك الآن</string>
     <string name="Preview">عرض</string>
     <string name="description">تفاصيل</string>
@@ -281,4 +282,6 @@
     <string name="send">إرسال</string>
     <string name="your_message">رسالتك</string>
     <string name="searching">البحث</string>
+    <string name="your_feedback">ردود الفعل الخاصة بك</string>
+    <string name="thanks_contact">شكر لتواصلك معنا.</string>
 </resources>

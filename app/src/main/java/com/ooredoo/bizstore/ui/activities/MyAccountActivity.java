@@ -10,8 +10,10 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.os.SystemClock;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -403,24 +405,44 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         }*/
     }
 
-    public String getPath(Uri uri) {
-        // just some safety built in
+
+    private String getPath(Uri uri) {
         if( uri == null ) {
-            // TODO perform some logging or show user feedback
             return null;
         }
-        // try to retrieve the image from the media store first
-        // this will only work for images selected from gallery
+
         String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        if( cursor != null ){
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
+
+        Cursor cursor;
+        if(Build.VERSION.SDK_INT >19)
+        {
+            // Will return "image:x*"
+            String wholeID = DocumentsContract.getDocumentId(uri);
+            // Split at colon, use second item in the array
+            String id = wholeID.split(":")[1];
+            // where id is equal to
+            String sel = MediaStore.Images.Media._ID + "=?";
+
+            cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    projection, sel, new String[]{ id }, null);
         }
-        // this is our fallback here
-        return uri.getPath();
+        else
+        {
+            cursor = getContentResolver().query(uri, projection, null, null, null);
+        }
+        String path = null;
+        try
+        {
+            int column_index = cursor
+                    .getColumnIndex(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            path = cursor.getString(column_index).toString();
+            cursor.close();
+        }
+        catch(NullPointerException e) {
+
+        }
+        return path;
     }
 
     private void processImage() {

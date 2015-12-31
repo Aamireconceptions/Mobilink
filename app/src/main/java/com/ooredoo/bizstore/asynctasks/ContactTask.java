@@ -82,7 +82,7 @@ public class ContactTask extends AsyncTask<String, Void, String>
                 if(new JSONObject(result).getInt("result") == 0)
                 {
                     etHelp.setText("");
-                    Toast.makeText(context, "Thanks for contacting us", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.thanks_contact, Toast.LENGTH_SHORT).show();
                 }
 
             }

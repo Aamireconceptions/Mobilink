@@ -229,7 +229,7 @@
                     android:layout_marginTop="12dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:text="Your Feedback"
+                    android:text="@string/your_feedback"
                     android:textColor="@color/red"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
