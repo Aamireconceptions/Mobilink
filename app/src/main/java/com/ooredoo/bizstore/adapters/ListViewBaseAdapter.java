@@ -60,6 +60,7 @@ import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
+import com.ooredoo.bizstore.utils.AnimationUtils;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -411,12 +412,14 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                 if(bitmap != null)
                 {
+                    holder.ivPromotional.setImageBitmap(bitmap);
+
                     if(!deal.isBannerDisplayed)
                     {
+                        AnimationUtils.fadeIn(holder.ivPromotional);
                         deal.isBannerDisplayed = true;
                     }
 
-                    holder.ivPromotional.setImageBitmap(bitmap);
                     holder.progressBar.setVisibility(View.GONE);
                 }
                 else

@@ -937,8 +937,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             results = new ArrayList<>();
 
         if(!isKeywordSearch && results.size() > 0) {
-            SearchItem searchItem = new SearchItem(0, keyword, results.size());
-            SearchItem.addToRecentSearches(searchItem);
+           // SearchItem searchItem = new SearchItem(0, keyword, results.size());
+            //SearchItem.addToRecentSearches(searchItem);
         }
 
         hideSearchPopup();
