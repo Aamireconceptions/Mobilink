@@ -147,7 +147,7 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
             byte[] bytes = getImageBytes(imagePath);
 
             encoded_image = Base64.encodeToString(bytes, Base64.DEFAULT);
-            Logger.logI("Base64 Image", encoded_image);
+            //Logger.logI("Base64 Image", encoded_image);
         }
 
         if(isNotNullOrEmpty(name)) {

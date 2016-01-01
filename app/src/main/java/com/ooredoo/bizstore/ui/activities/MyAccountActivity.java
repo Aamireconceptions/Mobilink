@@ -238,6 +238,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             } else {
                 if(hasUserSelectedPic) {
                     uploadImageToServer(path);
+                    canEditDp = true;
                 } else {
                     String msg = getString(R.string.select_pic);
                     makeText(getApplicationContext(), msg, LENGTH_SHORT).show();

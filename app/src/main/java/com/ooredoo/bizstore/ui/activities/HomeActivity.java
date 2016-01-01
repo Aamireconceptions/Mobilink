@@ -1148,5 +1148,4 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         //timer.cancel();
     }
-
 }

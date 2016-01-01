@@ -253,7 +253,6 @@ dealofDayCalled = false;
         {
             promoTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-
     }
 
     private FeaturedStatePagerAdapter featuredAdapter;
@@ -495,7 +494,6 @@ dealofDayCalled = false;
             listAdapter.genericDeal.views = views;
 
             listAdapter.notifyDataSetChanged();
-
         }
     }
 }
