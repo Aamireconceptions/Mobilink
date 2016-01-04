@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.ui.fragments.SlideFragment;
 
 /**
@@ -22,7 +23,8 @@ public class DemoPagerAdapter extends FragmentPagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        return SlideFragment.newInstance(position);
+        return BizStore.getLanguage().equals("en") ? SlideFragment.newInstance(position)
+                : SlideFragment.newInstance((SLIDE_COUNT - 1) - position);
     }
 
     @Override

@@ -23,6 +23,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+        boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
+        if(check) {
+            startActivity(HomeActivity.class);
+        }
         btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
 
         FontUtils.setFont(this, BizStore.ARABIC_DEFAULT_FONT, btnArabicLang);
@@ -34,8 +38,8 @@ public class MainActivity extends BaseActivity {
 
         boolean isArabicLang = StringUtils.isNotNullOrEmpty(lang) && lang.equals("ar");
 
-        //btnArabicLang.setSelected(isArabicLang);
-       // btnEnglishLang.setSelected(!isArabicLang);
+        btnArabicLang.setSelected(isArabicLang);
+        btnEnglishLang.setSelected(!isArabicLang);
     }
 
     @Override
@@ -61,9 +65,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
+      /*  boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
         if(check) {
             startActivity(HomeActivity.class);
-        }
+        }*/
     }
 }

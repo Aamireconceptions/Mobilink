@@ -33,6 +33,7 @@ import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -303,8 +304,16 @@ public class SearchBaseAdapter extends BaseAdapter {
 
             if(bitmap != null)
             {
-                holder.ivPromotional.setImageBitmap(bitmap);
                 holder.progressBar.setVisibility(View.GONE);
+
+                holder.ivPromotional.setImageBitmap(bitmap);
+
+                if(!deal.isBannerDisplayed)
+                {
+                    deal.isBannerDisplayed = true;
+
+                    AnimatorUtils.fadeIn(holder.ivPromotional);
+                }
             }
             else
             {

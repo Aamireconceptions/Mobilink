@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -17,12 +16,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -34,7 +31,6 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -53,14 +49,11 @@ import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Home;
-import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
-import com.ooredoo.bizstore.utils.AnimUtils;
-import com.ooredoo.bizstore.utils.AnimationUtils;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -75,11 +68,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.RejectedExecutionException;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
@@ -232,6 +222,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
         return 0;
     }
 
+    int lastPosition = -1;
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -274,6 +266,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
             } else {
                 holder = (Holder) row.getTag();
             }
+
+
+
+            if(position > lastPosition)
+            {
+                AnimatorUtils.slideUp(context, row);
+            }
+
+            lastPosition = position;
+
 
             //holder.tvBrandName.setText(genericDeal.brandName);
             //holder.tvBrandAddress.setText(genericDeal.brandAddress);
@@ -417,7 +419,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                     if(!deal.isBannerDisplayed)
                     {
-                        AnimationUtils.fadeIn(holder.ivPromotional);
+                        AnimatorUtils.fadeIn(holder.ivPromotional);
                         deal.isBannerDisplayed = true;
                     }
                 }

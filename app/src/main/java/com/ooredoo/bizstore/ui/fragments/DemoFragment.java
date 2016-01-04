@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.DemoPagerAdapter;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
@@ -56,6 +57,11 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
 
+        if(BizStore.getLanguage().equals("ar"))
+        {
+            viewPager.setCurrentItem(adapter.getCount() - 1);
+        }
+
         viewPager.addOnPageChangeListener(this);
 
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator) v.findViewById(R.id.pager_indicator);
@@ -89,7 +95,8 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
 
     @Override
     public void onPageSelected(int position) {
-        boolean isLastSlide = position == SLIDE_COUNT - 1;
+        boolean isLastSlide = BizStore.getLanguage().equals("en") ? position == SLIDE_COUNT - 1
+                : position == 0;
         tvSkip.setText(isLastSlide ? R.string.NEXT : R.string.skip);
     }
 

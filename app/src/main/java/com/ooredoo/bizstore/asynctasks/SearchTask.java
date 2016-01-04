@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Results;
+import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
@@ -79,6 +80,9 @@ public class SearchTask extends BaseAsyncTask<String, Void, String> {
                 }
 
                 if(searchResults.list.size() > 0) {
+                     SearchItem searchItem = new SearchItem(0, keyword, results.size());
+                    SearchItem.addToRecentSearches(searchItem);
+
                     mActivity.setupSearchResults(keyword, results, false);
                     BaseFragment.hideKeyboard(mActivity);
                 } else {

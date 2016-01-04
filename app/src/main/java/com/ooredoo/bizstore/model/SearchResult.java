@@ -30,4 +30,6 @@ public class SearchResult {
     public Image image;
 
     public List<Location> locations;
+
+    public boolean isBannerDisplayed;
 }

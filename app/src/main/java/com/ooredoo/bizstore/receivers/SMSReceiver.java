@@ -53,16 +53,31 @@ public class SMSReceiver extends BroadcastReceiver
 
                             //Toast.makeText(context, "SMS RECEIVED", Toast.LENGTH_SHORT).show();
 
-                            if(msgBody.contains("Password for Bizstore App is"))
+                            if(BizStore.getLanguage().equals("en")) {
+                                if (msgBody.contains("Password for Bizstore App is")) {
+                                    String code = msgBody.substring(msgBody.length() - 8);
+
+                                    BizStore.password = code;
+
+                                    DialogUtils.etCode.setText(code);
+                                    DialogUtils.etCode.setSelection(code.length());
+                                    DialogUtils.progressBar.setVisibility(View.GONE);
+
+                                    // DialogUtils.processVerificationCode();
+                                }
+                            }
+                            else
                             {
-                                String code = msgBody.substring(msgBody.length() - 8);
+                                if (msgBody.contains("كلمة المرور لتطبيق Bizstore هي")) {
+                                    String code = msgBody.substring(msgBody.length() - 8);
 
-                                BizStore.password = code;
+                                    BizStore.password = code;
 
-                                DialogUtils.etCode.setText(code);
-                                DialogUtils.progressBar.setVisibility(View.GONE);
+                                    DialogUtils.etCode.setText(code);
+                                    DialogUtils.progressBar.setVisibility(View.GONE);
 
-                               // DialogUtils.processVerificationCode();
+                                    // DialogUtils.processVerificationCode();
+                                }
                             }
                         }
 

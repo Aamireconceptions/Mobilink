@@ -2,7 +2,6 @@ package com.ooredoo.bizstore.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -20,12 +19,8 @@ import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Brand;
-import com.ooredoo.bizstore.model.Business;
-import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Image;
-import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
-import com.ooredoo.bizstore.utils.AnimationUtils;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -35,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
 
 /**
@@ -149,7 +143,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
                 if(!brand.isLogoDisplayed)
                 {
                     brand.isLogoDisplayed = true;
-                    AnimationUtils.fadeIn(holder.ivThumbnail);
+                    AnimatorUtils.fadeIn(holder.ivThumbnail);
                 }
             }
             else
