@@ -33,4 +33,6 @@ public class Brand implements Serializable
 
     @SerializedName("images")
     public Image image;
+
+    public boolean isLogoDisplayed;
 }

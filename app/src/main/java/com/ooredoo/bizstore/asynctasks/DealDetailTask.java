@@ -45,7 +45,7 @@ public class DealDetailTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        dialog = DialogUtils.createCustomLoader(detailActivity, "Loading...");
+        dialog = DialogUtils.createCustomLoader(detailActivity, detailActivity.getString(R.string.please_wait));
         if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
 

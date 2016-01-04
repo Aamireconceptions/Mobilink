@@ -614,7 +614,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
@@ -943,6 +942,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         hideSearchPopup();
         HomeActivity.isShowResults = true;
+       // results = getDeals();
         populateSearchResults(results);
 
         findViewById(R.id.layout_popular_searches).setAlpha(MAX_ALPHA);
@@ -957,6 +957,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchBusinesses.setText(getBusinessCount() + " " + getString(R.string.businesses));
 
         isSearchTextWatcherEnabled = true;
+
+
     }
 
     private int getDealsCount() {

@@ -85,7 +85,8 @@ public class PopularSearchesGridAdapter extends BaseAdapter {
         results.list = keywordSearch.results;
         AppData.searchResults = results;
         HomeActivity homeActivity = (HomeActivity) context;
-        homeActivity.setupSearchResults(keywordSearch.title, keywordSearch.results, true);
+        homeActivity.searchDeals.performClick();
+        //homeActivity.setupSearchResults(keywordSearch.title, keywordSearch.results, true);
 
       /*  HomeActivity homeActivity = (HomeActivity) context;
         homeActivity.performSearch(keywordSearch.title);*/

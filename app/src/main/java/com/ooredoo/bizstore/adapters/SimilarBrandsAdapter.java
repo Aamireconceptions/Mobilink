@@ -25,6 +25,7 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
+import com.ooredoo.bizstore.utils.AnimationUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -140,14 +141,22 @@ public class SimilarBrandsAdapter extends BaseAdapter
 
             if(bitmap != null)
             {
-                holder.ivThumbnail.setImageBitmap(bitmap);
                 holder.tvBrandText.setVisibility(View.GONE);
                 holder.progressBar.setVisibility(View.GONE);
+
+                holder.ivThumbnail.setImageBitmap(bitmap);
+
+                if(!brand.isLogoDisplayed)
+                {
+                    brand.isLogoDisplayed = true;
+                    AnimationUtils.fadeIn(holder.ivThumbnail);
+                }
             }
             else
             {
                 holder.ivThumbnail.setImageBitmap(null);
                 holder.progressBar.setVisibility(View.VISIBLE);
+
                 fallBackToDiskCache(brandLogo);
             }
         }

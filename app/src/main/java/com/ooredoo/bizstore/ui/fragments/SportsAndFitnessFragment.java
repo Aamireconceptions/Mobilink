@@ -27,6 +27,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
@@ -77,6 +78,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        Logger.print("SPORTS");
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
         init(v, inflater);

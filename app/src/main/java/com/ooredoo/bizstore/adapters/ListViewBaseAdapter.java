@@ -412,6 +412,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                 if(bitmap != null)
                 {
+                    holder.progressBar.setVisibility(View.GONE);
                     holder.ivPromotional.setImageBitmap(bitmap);
 
                     if(!deal.isBannerDisplayed)
@@ -419,8 +420,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
                         AnimationUtils.fadeIn(holder.ivPromotional);
                         deal.isBannerDisplayed = true;
                     }
-
-                    holder.progressBar.setVisibility(View.GONE);
                 }
                 else
                 {
