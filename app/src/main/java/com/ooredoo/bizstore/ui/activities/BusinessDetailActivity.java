@@ -49,6 +49,7 @@ import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Menu;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -473,6 +474,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 if(bitmap != null)
                 {
                     ivDetail.setImageBitmap(bitmap);
+
+                    AnimatorUtils.expandAndFadeIn(ivDetail);
                 }
                 else
                 {
@@ -701,6 +704,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                         @Override
                         public void run() {
                             imageView.setImageBitmap(bitmap);
+
+                            AnimatorUtils.expandAndFadeIn(imageView);
                         }
                     });
 

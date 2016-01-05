@@ -3,12 +3,16 @@ package com.ooredoo.bizstore.asynctasks;
 import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -24,6 +28,9 @@ import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NetworkUtils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -153,7 +160,28 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                 Gson gson = new Gson();
 
                 try {
-                    Response response = gson.fromJson(result, Response.class);
+                    JsonElement jsonElement = gson.fromJson(result, JsonElement.class);
+                    JsonObject jsonObject = jsonElement.getAsJsonObject();
+                    if(jsonObject.get("result").getAsInt() != -1) {
+                        JsonArray jsonArray = jsonObject.getAsJsonArray("results");
+                        for (int i = 0; i < jsonArray.size(); i++) {
+                            JsonObject object = jsonArray.get(i).getAsJsonObject();
+
+                            JsonElement je = object.get("businessLogo");
+
+                            if (je != null) {
+                                if (je.toString().equals("null")) {
+                                    object.addProperty("color", Color.parseColor(ListViewBaseAdapter.getColorCode()));
+                                }
+                            } else {
+                                object.addProperty("color", Color.parseColor(ListViewBaseAdapter.getColorCode()));
+                            }
+                        }
+                    }
+
+                    Logger.print("Testing :"+jsonElement.toString());
+
+                    Response response = gson.fromJson(jsonElement, Response.class);
 
                     if (response.resultCode != -1 && response.deals != null && response.deals.size() > 0) {
                         dealsTaskFinishedListener.onHaveDeals();
@@ -174,7 +202,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                                 {
                                     dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                                 }
-
                             }
                         }
                         else
@@ -185,7 +212,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                             dealsTaskFinishedListener.onHaveDeals();
 
-                            String bannerUrl = response.topBannerUrl;
+                            /*String bannerUrl = response.topBannerUrl;
 
                             if (bannerUrl != null) {
                                 String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
@@ -198,7 +225,7 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                                     BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner, null);
                                     bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
                                 }
-                            }
+                            }*/
                         } else {
                             adapter.clearData();
                             adapter.notifyDataSetChanged();

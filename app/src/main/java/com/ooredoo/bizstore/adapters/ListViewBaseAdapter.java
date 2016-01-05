@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -267,25 +268,17 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder = (Holder) row.getTag();
             }
 
-
-
-            if(position > lastPosition)
+          /*  if(!deal.isSlidedUp && position > lastPosition)
             {
+                deal.isSlidedUp = true;
                 AnimatorUtils.slideUp(context, row);
             }
 
-            lastPosition = position;
-
-
-            //holder.tvBrandName.setText(genericDeal.brandName);
-            //holder.tvBrandAddress.setText(genericDeal.brandAddress);
-
-           // String brandLogoUrl = deal.image != null ? deal.image.logoUrl : null;
+            lastPosition = position;*/
 
             holder.tvBrandName.setText(deal.businessName);
 
             holder.tvBrandAddress.setText(deal.location);
-
 
             String brandLogoUrl = deal.businessLogo != null ? deal.businessLogo : null;
 
@@ -301,7 +294,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 if(bitmap != null)
                 {
                     holder.ivBrand.setImageBitmap(bitmap);
-                    //holder.progressBar.setVisibility(View.GONE);
                 }
                 else
                 {
@@ -312,6 +304,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
             else
             {
+                holder.ivBrand.setImageBitmap(null);
                 holder.tvBrandText.setVisibility(View.VISIBLE);
                 if(deal.businessName != null && !deal.businessName.isEmpty())
                 {
@@ -322,16 +315,15 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                     holder.tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
                     holder.tvBrandText.setBackgroundColor(deal.color);
+
                 }
                 else
                 {
                     holder.tvBrandText.setVisibility(View.GONE);
                 }
-
-                holder.ivBrand.setImageBitmap(null);
             }
 
-            if(holder.tvCategory != null)
+           /* if(holder.tvCategory != null)
             {
                 String category = deal.category;
                 holder.tvCategory.setText(category);
@@ -340,9 +332,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 if(categoryDrawable > 0) {
                     holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
                 }
-            }
+            }*/
 
-            deal.isFav = Favorite.isFavorite(deal.id);
+            //deal.isFav = Favorite.isFavorite(deal.id);
 
             // holder.ivFav.setSelected(deal.isFav);
             //  holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
@@ -357,11 +349,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
             else
             {
+                holder.tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
+
                 holder.tvDiscount.setVisibility(View.VISIBLE);
                 holder.ivDiscountTag.setVisibility(View.VISIBLE);
             }
-
-            holder.tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
 
             if(BizStore.getLanguage().equals("en"))
             {
@@ -519,7 +511,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder.tvDirections.setVisibility(View.GONE);
             }
 
-            if(doAnimate && position > 0)
+            /*if(doAnimate && position > 0)
             {
                 //AnimUtils.slideView(activity, row, prevItem < position);
             }
@@ -528,7 +520,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 doAnimate = true;
             }
 
-            prevItem = position;
+            prevItem = position;*/
 
             return row;
         }
@@ -852,7 +844,7 @@ return null;
                         @Override
                         public void run() {
                             Logger.print(" dCache fallback notifyDataSetChanged");
-                            notifyDataSetChanged();
+                           notifyDataSetChanged();
                         }
                     });
                 }

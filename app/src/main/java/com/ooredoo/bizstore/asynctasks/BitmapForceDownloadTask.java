@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -85,6 +86,8 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             {
                 imageView.setImageBitmap(bitmap);
                 imageView.setTag("loaded");
+
+                AnimatorUtils.expandAndFadeIn(imageView);
             }
         }
     }

@@ -16,7 +16,7 @@ public class GenericDeal implements Serializable{
 
     public String description, startDate, endDate, voucher, status, redeemedOn, businessLogo, businessName;
 
-    public String title, category, contact, address, location,  brandAddress, timing;
+    public String title, category, contact, address, location,  brandAddress, timing, color_code;
 
     public int vouchers_claimed, vouchers_max_allowed;
 
@@ -26,7 +26,7 @@ public class GenericDeal implements Serializable{
 
     public String distanceStatus, how_works, terms_services;
 
-   public boolean isBannerDisplayed, isLogoDisplayed, isDetailDisplayed;
+   public boolean isBannerDisplayed, isLogoDisplayed, isDetailDisplayed, isSlidedUp;
 
     @SerializedName("images")
     public Image image;

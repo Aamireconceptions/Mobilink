@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-     android:interpolator="@android:anim/linear_interpolator">
+<!--<set xmlns:android="http://schemas.android.com/apk/res/android"
+     android:interpolator="@android:anim/linear_interpolator">-->
 
     <translate
-        android:fromYDelta="100%"
-        android:toYDelta="0%"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:fromYDelta="180"
+        android:toYDelta="0"
+        android:duration="400"/>
 
-        android:duration="350"/>
-
-</set>
+<!--
+</set>-->

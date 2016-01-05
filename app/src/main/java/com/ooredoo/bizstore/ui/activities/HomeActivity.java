@@ -14,6 +14,7 @@ import android.os.SystemClock;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -413,7 +414,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
       // tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
 
-        tabLayout.addTab(tabLayout.newTab());
+       // tabLayout.addTab(tabLayout.newTab());
 
         tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
 
@@ -423,7 +424,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         viewPager.setAdapter(null);
         viewPager.setAdapter(homePagerAdapter);
        //viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout, this));
-
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));

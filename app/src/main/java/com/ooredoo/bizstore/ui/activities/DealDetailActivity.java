@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -52,6 +53,7 @@ import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -488,9 +490,18 @@ private EditText etMerchantCode;
             }
 
            // deal.location = "doha";
-           tvCity =  ((TextView) header.findViewById(R.id.city));
-           tvCity.setText(deal.location);
-            //((TextView) header.findViewById(R.id.city)).setText("doha");
+
+            RelativeLayout rlLocationHeader = (RelativeLayout) header.findViewById(R.id.location_header);
+
+            if(deal.location != null && !deal.location.isEmpty()) {
+                tvCity = ((TextView) header.findViewById(R.id.city));
+                tvCity.setText(deal.location);
+            }
+            else
+            {
+               // rlLocationHeader.setVisibility(View.GONE);
+            }
+
 
             Logger.print("businessId Deal,"+deal.businessId);
 
@@ -583,7 +594,9 @@ private EditText etMerchantCode;
 
                 if(bitmap != null)
                 {
+
                     ivDetail.setImageBitmap(bitmap);
+                    AnimatorUtils.expandAndFadeIn(ivDetail);
                 }
                 else
                 {
@@ -830,6 +843,8 @@ private EditText etMerchantCode;
                         public void run() {
                             
                             imageView.setImageBitmap(bitmap);
+
+                            AnimatorUtils.expandAndFadeIn(imageView);
                         }
                     });
                 }

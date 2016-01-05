@@ -3,10 +3,14 @@ package com.ooredoo.bizstore.utils;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -19,7 +23,10 @@ public class AnimatorUtils
     public static void fadeIn(View v)
     {
         v.setAlpha(0);
-        v.animate().alpha(1).setDuration(200);
+
+     //v.animate().alpha(0).setDuration(500);
+        v.animate().alphaBy(1).setDuration(150);
+
 
        /* ObjectAnimator fadeIn = ObjectAnimator.ofFloat(v, "alpha", 1f);
         fadeIn.setDuration(200);
@@ -28,9 +35,12 @@ public class AnimatorUtils
 
     public static void slideUp(Context context, View v) {
 
-        ObjectAnimator slideUp = (ObjectAnimator) AnimatorInflater.loadAnimator(context, R.animator.slide_up_animator);
+        /*ObjectAnimator slideUp = (ObjectAnimator) AnimatorInflater.loadAnimator(context, R.animator.slide_up_animator);
         slideUp.setTarget(v);
-        slideUp.start();
+        slideUp.start();*/
+
+        Animation slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
+        v.startAnimation(slideUp);
 
 
         //v.setY(v.getBottom() + 100);
@@ -55,4 +65,33 @@ public class AnimatorUtils
         animatorSet.playSequentially(fadeOut, fadeIn);
         animatorSet.start();*//*
     }*/
+
+    public static void expandAndFadeIn(View v)
+    {
+
+        //v.setAlpha(0);
+        //v.setScaleX(0.5f);
+        //v.setScaleY(0.5f);
+
+        //v.animate().scaleX(1f).scaleY(1f).setDuration(500);
+
+       /* ObjectAnimator fadeIn = ObjectAnimator.ofFloat(v, View.ALPHA, 0f, 1f);
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(v, "scaleX", 0f, 1f);
+
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(v, "scaleY", 0f, 1f);*/
+
+        PropertyValuesHolder fadeIn = PropertyValuesHolder.ofFloat(View.ALPHA, 0f, 1f);
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0f, 1f);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f, 1f);
+
+        ValueAnimator va = ObjectAnimator.ofPropertyValuesHolder(v, scaleX, scaleY, fadeIn);
+        va.setDuration(1000);
+        va.start();
+
+        /*AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(1000);
+        animatorSet.playTogether(fadeIn, scaleX, scaleY);
+        animatorSet.start();*/
+    }
 }
