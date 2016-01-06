@@ -51,7 +51,7 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
     protected String doInBackground(String... params)
     {
         try {
-            return getDealsMisc(params[0]);
+            return getDealsMisc(params[0], params[1]);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,10 +91,11 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         }
     }
 
-    private String getDealsMisc(String id) throws IOException {
+    private String getDealsMisc(String id, String businessId) throws IOException {
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
         params.put(ID, id);
+        params.put("businessDetail", businessId);
         params.put("type", "deals");
 
         //HomeActivity.lat = 25.283982;

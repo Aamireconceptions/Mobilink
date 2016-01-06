@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneNumberUtils;
@@ -385,6 +386,7 @@ private EditText etMerchantCode;
     ImageView ivDetail;
     ProgressBar progressBar;
     LinearLayout llDirections;
+    RelativeLayout rlHeader;
     TextView tvCity;
 
     RelativeLayout rlVoucher;
@@ -405,6 +407,8 @@ private EditText etMerchantCode;
             incrementViewsTask.execute();
 
             mActionBar.setTitle(deal.title);
+
+            rlHeader = (RelativeLayout) header.findViewById(R.id.rl_header);
 
             TextView tvBrand = (TextView) findViewById(R.id.brand_name);
             tvBrand.setText(deal.businessName);
@@ -594,14 +598,28 @@ private EditText etMerchantCode;
 
                 if(bitmap != null)
                 {
+                    Palette palette = Palette.from(bitmap).generate();
+                    if(palette != null)
+                    {
+                        Palette.Swatch swatch = palette.getVibrantSwatch();
+                        if(swatch != null)
+                        {
+                            rlHeader.setBackgroundColor(swatch.getRgb());
+                        }
+                    }
 
                     ivDetail.setImageBitmap(bitmap);
                     AnimatorUtils.expandAndFadeIn(ivDetail);
+
                 }
                 else
                 {
                     fallBackToDiskCache(imgUrl, ivDetail);
                 }
+            }
+            else
+            {
+                ivDetail.setImageResource(R.drawable.detail_temp);
             }
 
             tvDiscount.setText(discount);
@@ -699,7 +717,8 @@ private EditText etMerchantCode;
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
 
         DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, similarDeals, nearbyDeals, progressBar);
-        detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id));
+        detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id),
+                String.valueOf(deal.businessId));
     }
 
     private void updateOutlet(GenericDeal deal, String selectedLoc)
@@ -841,10 +860,20 @@ private EditText etMerchantCode;
                     {
                         @Override
                         public void run() {
-                            
-                            imageView.setImageBitmap(bitmap);
 
+                            Palette palette = Palette.from(bitmap).generate();
+                            if(palette != null)
+                            {
+                                Palette.Swatch swatch = palette.getVibrantSwatch();
+                                if(swatch != null)
+                                {
+                                    rlHeader.setBackgroundColor(swatch.getRgb());
+                                }
+                            }
+
+                            imageView.setImageBitmap(bitmap);
                             AnimatorUtils.expandAndFadeIn(imageView);
+
                         }
                     });
                 }

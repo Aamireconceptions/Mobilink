@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.graphics.Bitmap;
+import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -84,6 +85,15 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             if(imageView != null)
             {
+                /*Palette palette = Palette.from(bitmap).generate();
+
+                Palette.Swatch swatch = palette.getVibrantSwatch();
+                if(swatch != null)
+                {
+                    imageView.setImageBitmap(null);
+                    imageView.setBackgroundColor(swatch.getRgb());
+                }*/
+
                 imageView.setImageBitmap(bitmap);
                 imageView.setTag("loaded");
 

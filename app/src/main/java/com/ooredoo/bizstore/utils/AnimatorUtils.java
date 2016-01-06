@@ -33,6 +33,11 @@ public class AnimatorUtils
         fadeIn.start();*/
     }
 
+    public static void fadeOut(View v)
+    {
+        v.animate().alpha(0).setDuration(500);
+    }
+
     public static void slideUp(Context context, View v) {
 
         /*ObjectAnimator slideUp = (ObjectAnimator) AnimatorInflater.loadAnimator(context, R.animator.slide_up_animator);
@@ -82,11 +87,11 @@ public class AnimatorUtils
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(v, "scaleY", 0f, 1f);*/
 
         PropertyValuesHolder fadeIn = PropertyValuesHolder.ofFloat(View.ALPHA, 0f, 1f);
-        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0f, 1f);
-        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f, 1f);
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0.5f, 0.6f, 1f, 1.3f, 1.5f, 1.3f, 1f);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0.5f, 0.6f, 1f, 1.3f, 1.5f, 1.3f, 1f);
 
         ValueAnimator va = ObjectAnimator.ofPropertyValuesHolder(v, scaleX, scaleY, fadeIn);
-        va.setDuration(1000);
+        va.setDuration(1500);
         va.start();
 
         /*AnimatorSet animatorSet = new AnimatorSet();
