@@ -44,7 +44,7 @@
     <string name="about">عن التطبيق</string>
     <string name="un_subscribe">الغاء الاشتراك</string>
     <string name="shopping_speciality">التسوق</string>
-    <string name="type">Type</string>
+    <string name="type">اكتب</string>
     <string name="deals_discount">عروض و خصومات</string>
     <string name="business_directory">عروض و خصومات</string>
     <string name="sort_by">التصنيف حسب</string>
@@ -284,4 +284,9 @@
     <string name="searching">البحث</string>
     <string name="your_feedback">ردود الفعل الخاصة بك</string>
     <string name="thanks_contact">شكر لتواصلك معنا.</string>
+    <string name="direction_no_loc">الموقع غير متاحة. يرجى تمكين خدمات الموقع!</string>
+    <string name="error_empty_voucher">يرجى إدخال الرمز التاجر</string>
+    <string name="discount_redeemed">خصم مطفية</string>
+    <string name="success_redeemed">مطفأة بنجاح</string>
+    <string name="error_discount_redeemed">رمز غير صحيح</string>
 </resources>

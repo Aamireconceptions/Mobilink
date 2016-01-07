@@ -13,6 +13,7 @@ import com.ooredoo.bizstore.utils.Logger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Timer;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PASSWORD;
@@ -29,9 +30,13 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
 
     private HomeActivity activity;
 
-    public CheckSubscriptionTask(HomeActivity activity)
+    private Timer timer;
+
+    public CheckSubscriptionTask(HomeActivity activity, Timer timer)
     {
         this.activity = activity;
+
+        this.timer = timer;
     }
 
 
@@ -65,9 +70,12 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
             {
                 Toast.makeText(activity, "You have been Unsubscribed from the service", Toast.LENGTH_LONG).show();
 
+                timer.cancel();
+
                 updateVal(activity, LOGIN_STATUS, false);
                 activity.finish();
                 activity.startActivity(new Intent(activity, MainActivity.class));
+
             }
 
         }

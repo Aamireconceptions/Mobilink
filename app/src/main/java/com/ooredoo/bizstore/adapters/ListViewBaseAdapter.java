@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -60,7 +59,6 @@ import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.NonScrollableGridView;
 
 import java.io.IOException;
@@ -472,11 +470,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, deal.latitude, deal.longitude,
                         results);*/
 
-                if(deal.distance != 0)
+                if(deal.mDistance != 0)
                 {
                     holder.tvDirections.setVisibility(View.VISIBLE);
 
-                    holder.tvDirections.setText(String.format("%.1f",(deal.distance / 1000))
+                    holder.tvDirections.setText(String.format("%.1f",(deal.mDistance / 1000))
                             + " " + context.getString(R.string.km));
                 }
                 else
@@ -494,7 +492,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     String destination = deal.latitude + "," + deal.longitude;
 
                     if(!isZero) {
-                        if (CalculateDistanceTask.distancePool.get(deal.id) == null && deal.distance == 0) {
+                        if (CalculateDistanceTask.distancePool.get(deal.id) == null && deal.mDistance == 0) {
 
                             if(calculateDistanceTask.getStatus() != AsyncTask.Status.RUNNING)
                             {

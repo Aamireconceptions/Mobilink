@@ -83,10 +83,10 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 String subCategory = id == R.id.salons ? "salons" : id == R.id.lodging ? "lodging" : "spas";
 
                 HotelsAndSpasFragment.subCategory = "hotels_" + subCategory;
-
+                String subCategoryName = getHotelsSubCategory(id);
                 mActivity.selectTab(6);
 
-                processSubCategory(subCategory);
+                processSubCategory(subCategoryName);
             }
 
             if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities) {
@@ -102,6 +102,10 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
             //onFilterChangeListener.onFilterChange();
         }
+    }
+
+    private String getHotelsSubCategory(int id) {
+        return id == R.id.salons ? mActivity.getString(R.string.Salons) : id == R.id.lodging ? mActivity.getString(R.string.Lodging) : mActivity.getString(R.string.Spas);
     }
 
     private String getEntertainmentSubCategory(int id) {

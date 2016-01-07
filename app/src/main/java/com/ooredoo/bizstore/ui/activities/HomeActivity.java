@@ -249,7 +249,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        CheckSubscriptionTask subscriptionTask = new CheckSubscriptionTask(HomeActivity.this);
+                        CheckSubscriptionTask subscriptionTask = new CheckSubscriptionTask(HomeActivity.this, timer);
                         subscriptionTask.execute();
                     }
                 });
@@ -465,7 +465,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     }
 
-    TextView tvDistance0_5, tvDistance2, tvDistance10, tvDistance15, tvDistance20;
+    TextView tvDistance5, tvDistance10, tvDistance20, tvDistance35, tvDistance50;
 
     private void initFilter() {
         FilterOnClickListener clickListener = new FilterOnClickListener(this, 0);
@@ -510,20 +510,20 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvRating5 = (TextView) findViewById(R.id.rating_5);
         tvRating5.setOnClickListener(clickListener);
 
-        tvDistance0_5 = (TextView) findViewById(R.id._1);
-        tvDistance0_5.setOnClickListener(clickListener);
-
-        tvDistance2 = (TextView) findViewById(R.id._2);
-        tvDistance2.setOnClickListener(clickListener);
+        tvDistance5 = (TextView) findViewById(R.id._5);
+        tvDistance5.setOnClickListener(clickListener);
 
         tvDistance10 = (TextView) findViewById(R.id._10);
         tvDistance10.setOnClickListener(clickListener);
 
-        tvDistance15 = (TextView) findViewById(R.id._15);
-        tvDistance15.setOnClickListener(clickListener);
-
         tvDistance20 = (TextView) findViewById(R.id._20);
         tvDistance20.setOnClickListener(clickListener);
+
+        tvDistance35 = (TextView) findViewById(R.id._35);
+        tvDistance35.setOnClickListener(clickListener);
+
+        tvDistance50 = (TextView) findViewById(R.id._50);
+        tvDistance50.setOnClickListener(clickListener);
 
         TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
         tvDiscount.setOnClickListener(clickListener);
@@ -557,11 +557,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         distanceFilter = null;
 
-        tvDistance0_5.setSelected(false);
-        tvDistance2.setSelected(false);
+        tvDistance5.setSelected(false);
         tvDistance10.setSelected(false);
-        tvDistance15.setSelected(false);
         tvDistance20.setSelected(false);
+        tvDistance35.setSelected(false);
+        tvDistance50.setSelected(false);
 
         CategoryUtils.resetCheckboxes();
     }

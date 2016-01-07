@@ -153,7 +153,7 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
 
                 if(genericDeal!= null)
                 {
-                    genericDeal.distance = distance;
+                    genericDeal.mDistance = distance;
 
 
                 }
@@ -171,7 +171,7 @@ public class CalculateDistanceTask extends AsyncTask<String, Void, String>
 
                 if(deal != null)
                 {
-                    deal.distance = distance;
+                    deal.mDistance = distance;
 
                     tvDirections.setText(String.format("%.1f", distance / 1000) + " " +context.getString(R.string.km));
                     llDirections.setVisibility(View.VISIBLE);

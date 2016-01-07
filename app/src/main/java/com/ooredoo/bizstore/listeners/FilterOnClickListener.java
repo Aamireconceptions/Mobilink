@@ -283,17 +283,9 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 break;
 
-            case R.id._1:
+            case R.id._5:
 
-                activity.distanceFilter = "1";
-
-                setDistanceSelected(v);
-
-                break;
-
-            case R.id._2:
-
-                activity.distanceFilter = "2";
+                activity.distanceFilter = "5";
 
                 setDistanceSelected(v);
 
@@ -307,17 +299,25 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 break;
 
-            case R.id._15:
+            case R.id._20:
 
-                activity.distanceFilter = "15";
+                activity.distanceFilter = "20";
 
                 setDistanceSelected(v);
 
                 break;
 
-            case R.id._20:
+            case R.id._35:
 
-                activity.distanceFilter = "20";
+                activity.distanceFilter = "35";
+
+                setDistanceSelected(v);
+
+                break;
+
+            case R.id._50:
+
+                activity.distanceFilter = "50";
 
                 setDistanceSelected(v);
 

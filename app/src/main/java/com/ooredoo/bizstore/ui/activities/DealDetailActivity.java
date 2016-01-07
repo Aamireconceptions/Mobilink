@@ -7,12 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.v7.app.ActionBar;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneNumberUtils;
@@ -22,7 +19,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.Button;
@@ -38,7 +34,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -54,7 +49,6 @@ import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -63,7 +57,6 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -382,7 +375,7 @@ private EditText etMerchantCode;
 
     }
 
-    Button btSimilarDeals;
+    Button btSimilarDeals, btNearbyDeals;
     ImageView ivDetail;
     ProgressBar progressBar;
     LinearLayout llDirections;
@@ -598,28 +591,24 @@ private EditText etMerchantCode;
 
                 if(bitmap != null)
                 {
-                    Palette palette = Palette.from(bitmap).generate();
+                   /* Palette palette = Palette.from(bitmap).generate();
                     if(palette != null)
                     {
-                        Palette.Swatch swatch = palette.getVibrantSwatch();
+                        Palette.Swatch swatch = palette.getLightMutedSwatch();
                         if(swatch != null)
                         {
                             rlHeader.setBackgroundColor(swatch.getRgb());
                         }
-                    }
+                    }*/
 
                     ivDetail.setImageBitmap(bitmap);
-                    AnimatorUtils.expandAndFadeIn(ivDetail);
+                    //AnimatorUtils.expandAndFadeIn(ivDetail);
 
                 }
                 else
                 {
                     fallBackToDiskCache(imgUrl, ivDetail);
                 }
-            }
-            else
-            {
-                ivDetail.setImageResource(R.drawable.detail_temp);
             }
 
             tvDiscount.setText(discount);
@@ -628,7 +617,7 @@ private EditText etMerchantCode;
             btSimilarDeals.setOnClickListener(this);
            // btSimilarDeals.performClick();
 
-            Button btNearbyDeals = (Button) header.findViewById(R.id.nearby_deals);
+            btNearbyDeals = (Button) header.findViewById(R.id.nearby_deals);
             btNearbyDeals.setOnClickListener(this);
 
             //tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
@@ -783,12 +772,12 @@ private EditText etMerchantCode;
                     tvDistance, tvDirections, rlDistance, llDirections);
             distanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
 
-            if(genericDeal.distance != 0) {
+            if(genericDeal.mDistance != 0) {
                 llDirections.setVisibility(View.VISIBLE);
                 rlDistance.setVisibility(View.VISIBLE);
-                tvDistance.setText(String.format("%.1f", genericDeal.distance / 1000) + " " + getString(R.string.km_away));
+                tvDistance.setText(String.format("%.1f", genericDeal.mDistance / 1000) + " " + getString(R.string.km_away));
 
-                tvDirections.setText(String.format("%.1f", genericDeal.distance / 1000) + "km");
+                tvDirections.setText(String.format("%.1f", genericDeal.mDistance / 1000) + "km");
                 tvDirections.setOnClickListener(this);
             }
             else {
@@ -861,18 +850,18 @@ private EditText etMerchantCode;
                         @Override
                         public void run() {
 
-                            Palette palette = Palette.from(bitmap).generate();
+                           /* Palette palette = Palette.from(bitmap).generate();
                             if(palette != null)
                             {
-                                Palette.Swatch swatch = palette.getVibrantSwatch();
+                                Palette.Swatch swatch = palette.getLightMutedSwatch();
                                 if(swatch != null)
                                 {
                                     rlHeader.setBackgroundColor(swatch.getRgb());
                                 }
-                            }
+                            }*/
 
                             imageView.setImageBitmap(bitmap);
-                            AnimatorUtils.expandAndFadeIn(imageView);
+                            //AnimatorUtils.expandAndFadeIn(imageView);
 
                         }
                     });
@@ -884,7 +873,8 @@ private EditText etMerchantCode;
                         public void run() {
                             DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask(imageView, progressBar);
+                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
+                                    (imageView, progressBar, rlHeader);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
                             bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
@@ -1200,7 +1190,7 @@ private EditText etMerchantCode;
 
         if(src == null)
         {
-            Toast.makeText(this, "Location not available. Please enable location services!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.direction_no_loc, Toast.LENGTH_SHORT).show();
 
             return;
         }
@@ -1269,16 +1259,32 @@ private EditText etMerchantCode;
 
     public void onHaveData(GenericDeal genericDeal)
    {
-       llSimilarNearby.setVisibility(View.VISIBLE);
+       if(genericDeal.similarDeals.size() > 0 || genericDeal.nearbyDeals.size() > 0)
+       {
+           llSimilarNearby.setVisibility(View.VISIBLE);
 
-       commonAdapter.setData(similarDeals);
-       commonAdapter.notifyDataSetChanged();
+           if(genericDeal.similarDeals.size() > 0)
+           {
+               commonAdapter.setData(similarDeals);
+               commonAdapter.notifyDataSetChanged();
 
-      btSimilarDeals.setSelected(true);
+               btSimilarDeals.setSelected(true);
 
-      lastSelected = btSimilarDeals;
+               lastSelected = btSimilarDeals;
+
+           }
+           else {
+               btSimilarDeals.setVisibility(View.GONE);
+           }
+
+           if(genericDeal.nearbyDeals.size() < 1)
+           {
+               btNearbyDeals.setVisibility(View.GONE);
+           }
+       }
 
        this.genericDeal = genericDeal;
+
 
        if(genericDeal.is_exclusive == 0)
        {

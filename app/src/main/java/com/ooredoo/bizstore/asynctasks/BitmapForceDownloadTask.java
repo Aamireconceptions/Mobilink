@@ -5,8 +5,10 @@ import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -31,6 +33,8 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     private ProgressBar progressBar;
 
+    private RelativeLayout rlHeader;
+
     public String imgUrl;
 
     private BitmapProcessor bitmapProcessor = new BitmapProcessor();
@@ -45,11 +49,13 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     public static ConcurrentHashMap<String, String> downloadingPool = new ConcurrentHashMap<>();
 
-    public BitmapForceDownloadTask(ImageView imageView, ProgressBar progressBar)
+    public BitmapForceDownloadTask(ImageView imageView, ProgressBar progressBar, RelativeLayout rlHeader)
     {
         this.imageView = imageView;
 
         this.progressBar = progressBar;
+
+        this.rlHeader = rlHeader;
     }
 
     @Override
@@ -97,7 +103,21 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 imageView.setImageBitmap(bitmap);
                 imageView.setTag("loaded");
 
-                AnimatorUtils.expandAndFadeIn(imageView);
+                /*if(imageView.getId() == R.id.detail_img)
+                {
+                    Palette palette = Palette.from(bitmap).generate();
+
+                    if(palette != null)
+                    {
+                        Palette.Swatch swatch = palette.getLightMutedSwatch();
+                        if(swatch != null)
+                        {
+                            rlHeader.setBackgroundColor(swatch.getRgb());
+                        }
+                    }
+
+                    AnimatorUtils.expandAndFadeIn(imageView);
+                }*/
             }
         }
     }

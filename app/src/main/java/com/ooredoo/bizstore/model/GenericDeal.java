@@ -22,7 +22,7 @@ public class GenericDeal implements Serializable{
 
     public List<Location> locations;
 
-    public double distance;
+    public double mDistance;
 
     public String distanceStatus, how_works, terms_services;
 

@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneNumberUtils;
@@ -264,6 +265,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     RelativeLayout rlMenu;
     PopupMenu popupMenu;
     LinearLayout llDirections;
+    RelativeLayout rlHeader;
     TextView tvCity;
     int color;
     public void populateData(final Business business) {
@@ -310,7 +312,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
                 tvDirections.setOnClickListener(this);
 
-                TextView tvDistance= (TextView) findViewById(R.id.distance);
+                TextView tvDistance= (TextView) findViewById(R.id.mDistance);
                 tvDistance.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -438,7 +440,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(BusinessDetailActivity.this, getString(R.string.business_has_been_viewed) +" " + business.views + " "+getString(R.string.times), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BusinessDetailActivity.this, getString(R.string.business_has_been_viewed) + " " + business.views + " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -447,10 +449,12 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             tvView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(BusinessDetailActivity.this, getString(R.string.business_has_been_viewed) +" " + business.views + " "+getString(R.string.times), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BusinessDetailActivity.this, getString(R.string.business_has_been_viewed) + " " + business.views + " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
                 }
             });
            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+
+            rlHeader = (RelativeLayout) header.findViewById(R.id.rl_header);
 
             ivDetail = (ImageView) header.findViewById(R.id.detail_img);
 
@@ -473,9 +477,19 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
                 if(bitmap != null)
                 {
+                    /*Palette palette = Palette.from(bitmap).generate();
+                    if(palette != null)
+                    {
+                        Palette.Swatch swatch = palette.getLightMutedSwatch();
+                        if(swatch != null)
+                        {
+                            rlHeader.setBackgroundColor(swatch.getRgb());
+                        }
+                    }*/
+
                     ivDetail.setImageBitmap(bitmap);
 
-                    AnimatorUtils.expandAndFadeIn(ivDetail);
+                   // AnimatorUtils.expandAndFadeIn(ivDetail);
                 }
                 else
                 {
@@ -656,7 +670,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             uri += dest;
         }
 
-        System.out.println("Directions URI:"+uri);
+        System.out.println("Directions URI:" + uri);
 
         if(src == null)
         {
@@ -703,9 +717,20 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            /*Palette palette = Palette.from(bitmap).generate();
+
+                            if(palette != null)
+                            {
+                                Palette.Swatch swatch = palette.getLightMutedSwatch();
+                                if(swatch != null)
+                                {
+                                    rlHeader.setBackgroundColor(swatch.getRgb());
+                                }
+                            }*/
+
                             imageView.setImageBitmap(bitmap);
 
-                            AnimatorUtils.expandAndFadeIn(imageView);
+                           // AnimatorUtils.expandAndFadeIn(imageView);
                         }
                     });
 
@@ -720,7 +745,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask(imageView, progressBar);
+                                    BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
+                                            (imageView, progressBar, rlHeader);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
                                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
@@ -961,7 +987,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         if(src == null)
         {
-            Toast.makeText(this, "Location not available. Please enable location services!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.direction_no_loc, Toast.LENGTH_SHORT).show();
 
             return;
         }

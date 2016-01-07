@@ -36,7 +36,8 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
 
     ProgressBar progressBar;
 
-    public DealDetailMiscTask(DealDetailActivity activity, List<GenericDeal> similarDeals, List<GenericDeal> nearbyDeals, ProgressBar progressBar)
+    public DealDetailMiscTask(DealDetailActivity activity, List<GenericDeal> similarDeals,
+                              List<GenericDeal> nearbyDeals, ProgressBar progressBar)
     {
         this.activity = activity;
 
@@ -73,6 +74,7 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
                 DealMisc dealMisc = gson.fromJson(result, DealMisc.class);
 
                 similarDeals.clear();
+                nearbyDeals.clear();
                 similarDeals.addAll(dealMisc.genericDeal.similarDeals);
                 nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
 
