@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
+import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -56,6 +57,7 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
 
         if(result != null) {
             updateVal(activity, LOGIN_STATUS, false);
+
             activity.finish();
 
             activity.startActivity(new Intent(activity, MainActivity.class));

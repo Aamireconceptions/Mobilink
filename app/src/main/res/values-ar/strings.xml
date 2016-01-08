@@ -289,4 +289,5 @@
     <string name="discount_redeemed">خصم مطفية</string>
     <string name="success_redeemed">مطفأة بنجاح</string>
     <string name="error_discount_redeemed">رمز غير صحيح</string>
+    <string name="error_no_deal_redeemed">هل يتم استرداد قيمة أي صفقة حتى الآن!</string>
 </resources>

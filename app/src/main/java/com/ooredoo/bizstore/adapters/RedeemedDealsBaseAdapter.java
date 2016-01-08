@@ -117,7 +117,7 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
 
         holder.tvValidity.setText(context.getString(R.string.redeem_until) + " " + deal.endDate);
 
-        holder.tvCode.setText(deal.voucher);
+       // holder.tvCode.setText(deal.voucher);
 
         if(available)
         {

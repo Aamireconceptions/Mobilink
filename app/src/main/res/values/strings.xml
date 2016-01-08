@@ -287,5 +287,6 @@
     <string name="your_feedback">Your Feedback</string>
     <string name="thanks_contact">Thank you for contacting us.</string>
     <string name="direction_no_loc">Location not available. Please enable location services!</string>
+    <string name="error_no_deal_redeemed">You haven\'t redeemed any deal yet!</string>
 
 </resources>

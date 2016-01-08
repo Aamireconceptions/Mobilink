@@ -108,6 +108,8 @@ public class GCMRegisterTask extends BaseAsyncTask<Void, Void, String>
 
         URL url = new URL(BaseAsyncTask.BASE_URL + BizStore.getLanguage() + serviceName + query);
 
+        Logger.print("GCM URL: "+url);
+
         String json = getJson(url);
 
         return json;

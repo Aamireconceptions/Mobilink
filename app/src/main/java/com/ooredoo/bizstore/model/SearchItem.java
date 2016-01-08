@@ -1,5 +1,7 @@
 package com.ooredoo.bizstore.model;
 
+import android.database.DatabaseUtils;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -39,7 +41,8 @@ public class SearchItem extends Model {
 
     public static void addToRecentSearches(SearchItem searchItem) {
         if(searchItem != null && isNotNullOrEmpty(searchItem.keyword)) {
-            List<SearchItem> searchItems = new Select().all().from(SearchItem.class).where("keyword='" + searchItem.keyword + "'").execute();
+            String keyword = searchItem.keyword.replaceAll("'", "''");
+            List<SearchItem> searchItems = new Select().all().from(SearchItem.class).where("keyword='" + keyword + "'").execute();
             if(searchItems != null && searchItems.size() > 0) {
                 for(SearchItem item : searchItems) {
                     item.delete();

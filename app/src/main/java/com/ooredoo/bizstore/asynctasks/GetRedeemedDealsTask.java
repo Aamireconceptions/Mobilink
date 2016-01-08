@@ -116,12 +116,13 @@ public class GetRedeemedDealsTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(TYPE, type);
+        //params.put(TYPE, type);
 
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
+        Logger.print("getRedeemDeals URL: "+url);
         result = getJson(url);
 
         Logger.print("getRedeemedDeals: " + result);

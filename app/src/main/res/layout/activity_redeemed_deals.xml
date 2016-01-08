@@ -19,7 +19,7 @@
         android:background="@color/white"
         android:padding="@dimen/_8sdp"
         android:layoutDirection="ltr"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <Button
             android:id="@+id/available"
@@ -56,7 +56,9 @@
             android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:clipToPadding="false"
             android:scrollbars="none"
             android:divider="@null"
             android:dividerHeight="@dimen/_8sdp"/>
@@ -67,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center_horizontal"
-            android:text="@string/error_no_data"
+            android:text="@string/error_discount_redeemed"
             android:textSize="24sp"
             android:visibility="gone"/>
 
