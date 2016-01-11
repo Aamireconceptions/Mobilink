@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180sdp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/promo_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/feature_banner"/>
+
+
+
+        <ProgressBar
+            android:id="@+id/promo_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
+
+    </RelativeLayout>
+
+    <com.ooredoo.bizstore.ui.CirclePageIndicator
+        android:id="@+id/promo_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:padding="@dimen/_4sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_1sdp"/>
+
+
+
+    <include layout="@layout/layout_horizontal_top_deals" />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/featured_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/feature_banner"/>
+
+        <com.ooredoo.bizstore.ui.CirclePageIndicator
+            android:id="@+id/featured_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_1sdp"/>
+
+        <ProgressBar
+            android:id="@+id/featured_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/top_brands"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingStart="@dimen/_18sdp"
+        android:paddingEnd="@dimen/_18sdp"
+        android:text="Brands of the week"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+        android:typeface="serif"
+        android:textColor="@color/home_heading_text"
+        android:background="@drawable/heading_bg"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/top_brands_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp" />
+
+        <ProgressBar
+            android:id="@+id/top_brands_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
+
+    </RelativeLayout>
+
+    <include layout="@layout/layout_horizontal_hotels_spas"/>
+
+    <TextView
+        android:id="@+id/featured_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingStart="@dimen/_18sdp"
+        android:paddingEnd="@dimen/_18sdp"
+        android:text="Featured Categories"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+        android:typeface="serif"
+        android:textColor="@color/home_heading_text"
+        android:background="@drawable/heading_bg"/>
+
+    <include layout="@layout/layout_grid_featured"/>
+
+    <TextView
+        android:id="@+id/top_malls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingStart="@dimen/_18sdp"
+        android:paddingEnd="@dimen/_18sdp"
+        android:text="@string/top_malls"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+        android:typeface="serif"
+        android:textColor="@color/home_heading_text"
+        android:background="@drawable/heading_bg"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/top_malls_pager"
+            android:layout_width="match_parent"
+            android:gravity="start"
+            android:layout_height="@dimen/_130sdp" />
+
+        <ProgressBar
+            android:id="@+id/top_malls_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
+
+    </RelativeLayout>
+
+    <!--<include layout="@layout/layout_horizontal_top_malls"/>-->
+
+    <TextView
+        android:id="@+id/deals_of_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:paddingStart="@dimen/_18sdp"
+        android:paddingEnd="@dimen/_18sdp"
+        android:text="@string/deals_of_the_day"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+        android:typeface="serif"
+        android:textColor="@color/home_heading_text"
+        android:background="@drawable/heading_bg"
+        android:visibility="gone"/>
+
+</LinearLayout>
+    </ScrollView>

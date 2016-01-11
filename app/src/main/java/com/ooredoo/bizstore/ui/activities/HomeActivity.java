@@ -616,6 +616,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         super.onStart();
     }
 
+    public static MenuItem miSearch;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -624,7 +625,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         loaderItem = mMenu.findItem(R.id.action_loading);
         loaderItem.setActionView(R.layout.loader);
         loaderItem.setVisible(false);
+
+        miSearch = menu.findItem(R.id.action_search);
+
         return true;
+    }
+
+    public  void clickSearch()
+    {
+        onOptionsItemSelected(miSearch);
     }
 
     @Override

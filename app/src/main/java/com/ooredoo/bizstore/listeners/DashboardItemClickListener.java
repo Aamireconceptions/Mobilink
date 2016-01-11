@@ -43,44 +43,55 @@ public class DashboardItemClickListener implements View.OnClickListener {
         if(mActivity.isSearchEnabled) {
             mActivity.showHideSearchBar(false);
         } else {
-            if(id == R.id.entertainment || id == R.id.shopping ||
-                    id == R.id.electronics || id == R.id.restaurants) {
+
+            if(id == R.id.restaurants_layout || id == R.id.shopping_layout ||
+                    id == R.id.health_layout ) {
             /*String subCategory = id == R.id.entertainment ? "entertainment" :
                                    id == R.id.shopping ? "shopping" :
                                    id == R.id.fashion ? "fashion" :
                                                       "restaurants";*/
                 switch(id) {
-                    case R.id.entertainment:
+                    case R.id.restaurants_layout:
 
-                        mActivity.selectTab(10);
+                        mActivity.selectTab(3);
 
                         break;
 
-                    case R.id.shopping:
+                    case R.id.shopping_layout:
 
                         mActivity.selectTab(4);
 
                         break;
 
-                    case R.id.electronics:
+                    case R.id.health_layout:
 
-                        mActivity.selectTab(5);
-
-                        break;
-
-                    case R.id.restaurants:
-
-                        mActivity.selectTab(3);
+                        mActivity.selectTab(6);
 
                         break;
+
+
                 }
 
             /*TopDealsFragment.subCategory = "top_deals_" + subCategory;
             mActivity.selectTab(1);*/
             }
 
-            if(id == R.id.salons || id == R.id.lodging || id == R.id.spas) {
-                String subCategory = id == R.id.salons ? "salons" : id == R.id.lodging ? "lodging" : "spas";
+            if(id == R.id.search_layout)
+            {
+                mActivity.clickSearch();
+
+                return;
+            }
+
+            if(id == R.id.nearby_layout)
+            {
+                mActivity.selectTab(1);
+                return;
+            }
+
+
+            if(id == R.id.salons || id == R.id.salons || id == R.id.salons) {
+                String subCategory = id == R.id.salons ? "salons" : id == R.id.salons ? "lodging" : "spas";
 
                 HotelsAndSpasFragment.subCategory = "hotels_" + subCategory;
                 String subCategoryName = getHotelsSubCategory(id);
@@ -105,7 +116,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
     }
 
     private String getHotelsSubCategory(int id) {
-        return id == R.id.salons ? mActivity.getString(R.string.Salons) : id == R.id.lodging ? mActivity.getString(R.string.Lodging) : mActivity.getString(R.string.Spas);
+        return id == R.id.salons ? mActivity.getString(R.string.Salons) : id == R.id.salons ? mActivity.getString(R.string.Lodging) : mActivity.getString(R.string.Spas);
     }
 
     private String getEntertainmentSubCategory(int id) {

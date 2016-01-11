@@ -115,30 +115,29 @@ dealofDayCalled = false;
 
         LayoutInflater inflater = activity.getLayoutInflater();
 
-        View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);
+        /*View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);*/
+        View header = inflater.inflate(R.layout.layout_dashboard, null);
 
         setDashboardItemsClickListener(header);
 
-        TextView tvHotDeals = (TextView) header.findViewById(R.id.hot_deals);
+       // TextView tvHotDeals = (TextView) header.findViewById(R.id.hot_deals);
 
         String font = BizStore.getLanguage().equals("en") ? BizStore.MONOSPACE_FONT : BizStore.ARABIC_DEFAULT_FONT;
 
-        FontUtils.setFont(activity, font , tvHotDeals);
+       // FontUtils.setFont(activity, font , tvHotDeals);
 
         TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
         FontUtils.setFont(activity, font, tvTopBrands);
 
-        TextView tvFeaturedDeals = (TextView) header.findViewById(R.id.featured_deals);
-        FontUtils.setFont(activity, font, tvFeaturedDeals);
 
-        TextView tvHotelsAndSpas = (TextView) header.findViewById(R.id.hotels_spas);
-        FontUtils.setFont(activity, font, tvHotelsAndSpas);
+        TextView tvFeaturedCategories = (TextView) header.findViewById(R.id.featured_categories);
+        FontUtils.setFont(activity, font, tvFeaturedCategories);
+
 
         TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
         FontUtils.setFont(activity, font, tvTopMalls);
 
-        TextView tvEntertainment = (TextView) header.findViewById(R.id.entertainment_header);
-        FontUtils.setFont(activity, font, tvEntertainment);
+
 
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
         FontUtils.setFont(activity, font, tvDealsOfTheDay);
@@ -196,18 +195,20 @@ dealofDayCalled = false;
     private void setDashboardItemsClickListener(View parent) {
         dashboardItemClickListener = new DashboardItemClickListener(activity);
 
-        parent.findViewById(R.id.entertainment).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.shopping).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.electronics).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.restaurants).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.restaurants_layout).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.shopping_layout).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.health_layout).setOnClickListener(dashboardItemClickListener);
+
+        parent.findViewById(R.id.search_layout).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.nearby_layout).setOnClickListener(dashboardItemClickListener);
 
         parent.findViewById(R.id.salons).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.lodging).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.spas).setOnClickListener(dashboardItemClickListener);
+        //parent.findViewById(R.id.lodging).setOnClickListener(dashboardItemClickListener);
+       // parent.findViewById(R.id.spas).setOnClickListener(dashboardItemClickListener);
 
-        parent.findViewById(R.id.kids_activities).setOnClickListener(dashboardItemClickListener);
+       /* parent.findViewById(R.id.kids_activities).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.events).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.movie_tickets).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.movie_tickets).setOnClickListener(dashboardItemClickListener);*/
     }
 
     PromoStatePagerAdapter promoAdapter;

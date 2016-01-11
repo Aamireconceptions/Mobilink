@@ -9,22 +9,100 @@
         android:id="@+id/ll_top_deals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_25sdp"
-        android:paddingBottom="@dimen/_25sdp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
         android:paddingStart="@dimen/_12sdp"
         android:paddingEnd="@dimen/_12sdp"
         android:orientation="horizontal"
         android:background="@color/white">
 
-        <TextView
-            android:id="@+id/entertainment"
+        <LinearLayout
+            android:id="@+id/restaurants_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:drawableTop="@drawable/entertainment"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/entertainment"
-            android:textColor="@color/home_category_item"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restaurants"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:drawableBottom="@drawable/burger_icon"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="Hotels &amp; Deals"
+                android:textColor="@color/home_category_item"/>
+
+        </LinearLayout>
+
+
+
+        <!--<ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/horizontal_separator"/>-->
+
+        <LinearLayout
+            android:id="@+id/shopping_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shopping"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableBottom="@drawable/shopping_bag_icon"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="Brands &amp; Deals"
+                android:textColor="@color/home_category_item"/>
+
+        </LinearLayout>
+
+
+
+        <!--<ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/horizontal_separator"/>-->
+
+        <LinearLayout
+            android:id="@+id/health_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/electronics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableBottom="@drawable/make_up_icon"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="Beauty &amp; Fitness"
+                android:textColor="@color/home_category_item"/>
+
+        </LinearLayout>
+
 
         <!--<ImageView
             android:layout_width="wrap_content"
@@ -33,63 +111,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:src="@drawable/horizontal_separator"/>-->
 
-        <TextView
-            android:id="@+id/shopping"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:gravity="center"
 
-            android:drawableTop="@drawable/shopping"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/shopping"
-            android:textColor="@color/home_category_item"/>
-
-
-        <!--<ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:src="@drawable/horizontal_separator"/>-->
-
-        <TextView
-            android:id="@+id/electronics"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:gravity="center"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-
-            android:drawableTop="@drawable/electronics"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/electronics"
-            android:textColor="@color/home_category_item"/>
-
-        <!--<ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:src="@drawable/horizontal_separator"/>-->
-
-        <TextView
-            android:id="@+id/restaurants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:gravity="center"
-
-            android:drawableTop="@drawable/restaurants"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/food_dining"
-            android:textColor="@color/home_category_item"/>
 
     </LinearLayout>
 

@@ -30,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -197,8 +199,11 @@ private EditText etMerchantCode;
 
     List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
     ScrollViewListener mOnScrollViewListener;
-    LinearLayout llHead;
+    LinearLayout llHead, llDiscount;
     TextView tvHeadTitle, tvHeadDescription;
+    TableLayout tableLayout;
+    RelativeLayout rlDetails;
+
     private void initViews()
     {
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
@@ -229,6 +234,11 @@ private EditText etMerchantCode;
             Logger.logI("DETAIL_ID", valueOf(id));
         }
 
+        llDiscount = (LinearLayout) header.findViewById(R.id.discount_layout);
+
+        tableLayout = (TableLayout) header.findViewById(R.id.table);
+
+        rlDetails = (RelativeLayout) header.findViewById(R.id.ll_details);
 
         scrollViewHelper = new ScrollViewHelper(this);
        // scrollViewHelper = (ScrollViewHelper) header.findViewById(R.id.scrollViewHelper);
@@ -602,6 +612,14 @@ private EditText etMerchantCode;
                     }*/
 
                     ivDetail.setImageBitmap(bitmap);
+
+                    ivDetail.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            AnimatorUtils.startDetailAnimation(ivDetail, tableLayout, llDiscount);
+                        }
+                    });
+
                     //AnimatorUtils.expandAndFadeIn(ivDetail);
 
                 }

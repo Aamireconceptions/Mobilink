@@ -9,24 +9,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="@dimen/_25sdp"
-        android:paddingBottom="@dimen/_25sdp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
         android:paddingStart="@dimen/_12sdp"
         android:paddingEnd="@dimen/_12sdp"
         android:orientation="horizontal"
-        android:background="@color/white">
+        android:background="@color/grey">
 
-        <TextView
-            android:id="@+id/salons"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/search_layout"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:layout_height="wrap_content">
 
-            android:drawableTop="@drawable/saloons"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/Salons"
-            android:textColor="@color/home_category_item"/>
+            <ImageView
+                android:id="@+id/find_business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/find_business"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="@dimen/_6sdp"
+                android:layout_alignBottom="@+id/find_business"
+                android:layout_alignStart="@+id/find_business"
+                android:layout_alignEnd="@+id/find_business"
+                android:background="#CC000000">
+
+            <TextView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/search"
+                    android:text="addresses &amp; numbers"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
 
        <!-- <ImageView
             android:layout_width="wrap_content"
@@ -36,37 +70,51 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:src="@drawable/horizontal_separator"/>-->
 
-        <TextView
-            android:id="@+id/lodging"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/nearby_layout"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:gravity="center"
-
-            android:drawableTop="@drawable/lodging"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/Lodging"
-            android:textColor="@color/home_category_item"/>
-
-        <!--<ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_70sdp"
-            android:layout_gravity="top"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:src="@drawable/horizontal_separator"/>-->
-
-        <TextView
-            android:id="@+id/spas"
-            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_marginStart="@dimen/_12sdp">
 
-            android:drawableTop="@drawable/spas"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="@string/Spas"
-            android:textColor="@color/home_category_item"/>
+            <ImageView
+                android:id="@+id/nearby_deals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/nearby_deals"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_6sdp"
+                android:layout_alignBottom="@+id/nearby_deals"
+                android:layout_alignStart="@+id/nearby_deals"
+                android:layout_alignEnd="@+id/nearby_deals"
+                android:background="#CC000000">
+
+                <TextView
+                    android:id="@+id/deals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deals"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/deals"
+                    android:text="around you"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 

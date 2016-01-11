@@ -11,6 +11,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -98,5 +101,29 @@ public class AnimatorUtils
         animatorSet.setDuration(1000);
         animatorSet.playTogether(fadeIn, scaleX, scaleY);
         animatorSet.start();*/
+    }
+
+    public static void startDetailAnimation(ImageView imageView, TableLayout tableLayout,
+                                     LinearLayout linearLayout)
+    {
+        // Logger.print("right: "+imageView.getRight() + ", width: "+ imageView.getWidth()+ ", sum: "+(imageView.getRight() + imageView.getWidth()));
+
+        ObjectAnimator imageTranslateX = ObjectAnimator.ofFloat(imageView, "translationX",
+                imageView.getRight() + imageView.getWidth(), 0);
+
+        ObjectAnimator tableTranslateX = ObjectAnimator.ofFloat(tableLayout, "translationX",
+                tableLayout.getLeft() - tableLayout.getWidth(), 0);
+
+        ObjectAnimator discountTranslateY = ObjectAnimator.ofFloat(linearLayout, "translationY",
+                linearLayout.getTop() + linearLayout.getHeight() / 2, 0);
+
+        //ObjectAnimator translate
+        /*translateX.setDuration(1000);
+        translateX.start();*/
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(700);
+        animatorSet.playTogether(imageTranslateX, tableTranslateX, discountTranslateY);
+        animatorSet.start();
     }
 }
