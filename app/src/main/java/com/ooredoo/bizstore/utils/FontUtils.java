@@ -1,8 +1,13 @@
 package com.ooredoo.bizstore.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -70,4 +75,13 @@ public class FontUtils
 
         textView.setTypeface(typeface);
     }
+
+    public static void changeColor(TextView textView, String text, String part, int color)
+    {
+        Spannable spannable = new SpannableString(text);
+        spannable.setSpan(new ForegroundColorSpan(color), 0, part.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textView.setText(spannable);
+    }
+
 }

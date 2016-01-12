@@ -142,7 +142,7 @@ public class FeaturedFragment extends Fragment implements View.OnClickListener
 
                     final int reqWidth = resources.getDisplayMetrics().widthPixels;
 
-                    final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._100sdp)
+                    final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._105sdp)
                             /
                             resources.getDisplayMetrics().density);
 

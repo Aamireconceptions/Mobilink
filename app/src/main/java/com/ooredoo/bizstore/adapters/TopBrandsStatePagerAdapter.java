@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
 {
-    private final static float PAGE_WIDTH = 0.33f;
+    private final static float PAGE_WIDTH = 0.27f;
     public List<Brand> brands = new ArrayList<>();
 
     public TopBrandsStatePagerAdapter(FragmentManager fm, List<Brand> brands)

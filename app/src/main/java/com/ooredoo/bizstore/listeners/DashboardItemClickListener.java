@@ -100,6 +100,75 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 processSubCategory(subCategoryName);
             }
 
+            if(id == R.id.mobile_layout || id == R.id.jewellery_layout || id == R.id.sports_layout
+                    || id == R.id.salons_layout || id == R.id.cinemas_layout || id == R.id.gold_layout)
+            {
+                String subCategory, subCategoryName;
+
+
+                if(id == R.id.mobile_layout)
+                {
+
+                }
+
+                if(id == R.id.jewellery_layout)
+                {
+                    mActivity.selectTab(11);
+                }
+
+                if(id == R.id.sports_layout)
+                {
+                    mActivity.selectTab(12);
+
+                    return;
+                }
+
+                if(id == R.id.salons_layout)
+                {
+                    subCategory = "salons";
+
+                    HotelsAndSpasFragment.subCategory = "hotels_"+subCategory;
+
+                    subCategoryName = mActivity.getString(R.string.Salons);
+
+                    mActivity.selectTab(6);
+
+                    processSubCategory(subCategoryName);
+
+                    return;
+                }
+
+                if(id == R.id.cinemas_layout)
+                {
+                    subCategory = "cinemas";
+
+                    HotelsAndSpasFragment.subCategory = "hotels_"+subCategory;
+
+                    subCategoryName = mActivity.getString(R.string.Cinemas);
+
+                    mActivity.selectTab(10);
+
+                    processSubCategory(subCategoryName);
+
+                    return;
+                }
+
+                if(id == R.id.gold_layout)
+                {
+                    subCategory = "gold";
+
+                    HotelsAndSpasFragment.subCategory = "jewelry_"+subCategory;
+
+                    subCategoryName = mActivity.getString(R.string.Gold_Rate);
+
+                    mActivity.selectTab(11);
+
+                    processSubCategory(subCategoryName);
+
+                    return;
+                }
+            }
+
             if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities) {
                 String subCategory = id == R.id.events ? "events" : id == R.id.movie_tickets ? "cinemas" : "kids_activities";
                 EntertainmentFragment.subCategory = "entertainment_" + subCategory;
@@ -108,7 +177,6 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 mActivity.selectTab(10);
 
                 processSubCategory(subCategoryName);
-
             }
 
             //onFilterChangeListener.onFilterChange();

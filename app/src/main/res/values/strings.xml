@@ -288,5 +288,8 @@
     <string name="thanks_contact">Thank you for contacting us.</string>
     <string name="direction_no_loc">Location not available. Please enable location services!</string>
     <string name="error_no_deal_redeemed">You haven\'t redeemed any deal yet!</string>
+    <string name="off_the_week">of the week</string>
+    <string name="featured">Featured</string>
+    <string name="top">Top</string>
 
 </resources>

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_8sdp"
-    android:columnCount="2">
+    app:columnCount="2">
 
     <RelativeLayout
         android:id="@+id/mobile_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
+        app:layout_columnWeight="1"
         android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_6sdp"
         android:background="@drawable/featured_category_bg">
 
         <TextView
@@ -19,14 +22,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="Mobile Phones"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mobile_phone"
-            android:text="Deals &amp; Brands"/>
+            android:text="Deals &amp; Brands"
+            android:textSize="12sp"/>
 
 
         <ImageView
@@ -40,7 +44,7 @@
     <RelativeLayout
         android:id="@+id/jewellery_layout"
         android:layout_width="0dp"
-        android:layout_columnWeight="1"
+        app:layout_columnWeight="1"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:paddingStart="@dimen/_8sdp"
@@ -53,14 +57,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="Jewellery"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/jewellery"
-            android:text="Brands &amp; Deals"/>
+            android:text="Brands &amp; Deals"
+            android:textSize="12sp"/>
 
 
         <ImageView
@@ -74,7 +79,7 @@
     <RelativeLayout
         android:id="@+id/sports_layout"
         android:layout_width="0dp"
-        android:layout_columnWeight="1"
+        app:layout_columnWeight="1"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
@@ -87,14 +92,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="Sports &amp; Fitness"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sports"
-            android:text="Centers &amp; Tips"/>
+            android:text="Centers &amp; Tips"
+            android:textSize="12sp"/>
 
 
         <ImageView
@@ -108,7 +114,7 @@
     <RelativeLayout
         android:id="@+id/salons_layout"
         android:layout_width="0dp"
-        android:layout_columnWeight="1"
+        app:layout_columnWeight="1"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="@dimen/_6sdp"
@@ -122,14 +128,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="Salons"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/salons"
-            android:text="Deals &amp; Brands"/>
+            android:text="Deals &amp; Brands"
+            android:textSize="12sp"/>
 
 
         <ImageView
@@ -143,7 +150,7 @@
     <RelativeLayout
         android:id="@+id/cinemas_layout"
         android:layout_width="0dp"
-        android:layout_columnWeight="1"
+        app:layout_columnWeight="1"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
@@ -156,14 +163,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="Cinemas"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cinemas"
-            android:text="Agents &amp; Tickets"/>
+            android:text="Agents &amp; Tickets"
+            android:textSize="12sp"/>
 
 
         <ImageView
@@ -171,13 +179,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/sports_icon"/>
+            android:src="@drawable/cinemas_icon"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/gold_layout"
         android:layout_width="0dp"
-        android:layout_columnWeight="1"
+        app:layout_columnWeight="1"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="@dimen/_6sdp"
@@ -191,14 +199,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="Gold Rate"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/gold"
-            android:text="News &amp; Tips"/>
+            android:text="News &amp; Tips"
+            android:textSize="12sp"/>
 
 
         <ImageView
@@ -208,4 +217,4 @@
             android:layout_centerVertical="true"
             android:src="@drawable/gold_icon"/>
     </RelativeLayout>
-</GridLayout>
+</android.support.v7.widget.GridLayout>

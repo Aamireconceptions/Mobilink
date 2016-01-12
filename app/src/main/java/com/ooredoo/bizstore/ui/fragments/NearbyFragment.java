@@ -221,28 +221,31 @@ RelativeLayout rlParent;
 
         googleMap = mapView.getMap();
 
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        //googleMap.getUiSettings().setMapToolbarEnabled(true);
-        googleMap.setMyLocationEnabled(true);
-        googleMap.getUiSettings().setMapToolbarEnabled(false);
-        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker)
-            {
-                String id = marker.getId();
+        if(googleMap != null)
+        {
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+            //googleMap.getUiSettings().setMapToolbarEnabled(true);
+            googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMapToolbarEnabled(false);
+            googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker)
+                {
+                    String id = marker.getId();
 
-                GenericDeal genericDeal = genericDealHashMap.get(id);
+                    GenericDeal genericDeal = genericDealHashMap.get(id);
 
-                Intent intent = new Intent();
-                intent.setClass(activity, DealDetailActivity.class);
-                intent.putExtra("generic_deal", genericDeal);
-                intent.putExtra(CATEGORY, "");
+                    Intent intent = new Intent();
+                    intent.setClass(activity, DealDetailActivity.class);
+                    intent.putExtra("generic_deal", genericDeal);
+                    intent.putExtra(CATEGORY, "");
 
-                activity.startActivity(intent);
+                    activity.startActivity(intent);
 
-            }
-        });
+                }
+            });
+        }
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
@@ -647,7 +650,10 @@ RelativeLayout rlParent;
 
     public void populateMap(List<GenericDeal> deals)
     {
-        googleMap.clear();
+        if(googleMap != null)
+        {
+            googleMap.clear();
+        }
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for(final GenericDeal deal : deals)
@@ -701,7 +707,10 @@ RelativeLayout rlParent;
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, resources.getDisplayMetrics().widthPixels,
                     resources.getDisplayMetrics().heightPixels - (int) resources.getDimension(R.dimen._140sdp), 150);
 
-            googleMap.animateCamera(cameraUpdate);
+            if(googleMap != null)
+            {
+                googleMap.animateCamera(cameraUpdate);
+            }
         }
 
     }
@@ -727,10 +736,14 @@ RelativeLayout rlParent;
                         .position(new LatLng(deal.latitude, deal.longitude))
                         .icon(bd);
 
-                Marker marker = googleMap.addMarker(options);
-                genericDealHashMap.put(marker.getId(), deal);
+                if(googleMap != null)
+                {
+                    Marker marker = googleMap.addMarker(options);
+                    genericDealHashMap.put(marker.getId(), deal);
 
-                linearLayout.setDrawingCacheEnabled(false);
+                    linearLayout.setDrawingCacheEnabled(false);
+                }
+
             }
         }
         else
@@ -760,10 +773,14 @@ RelativeLayout rlParent;
                         .position(new LatLng(deal.latitude, deal.longitude))
                         .icon(bd);
 
-                Marker marker = googleMap.addMarker(options);
-                genericDealHashMap.put(marker.getId(), deal);
+                if(googleMap != null)
+                {
+                    Marker marker = googleMap.addMarker(options);
+                    genericDealHashMap.put(marker.getId(), deal);
 
-                linearLayout.setDrawingCacheEnabled(false);
+                    linearLayout.setDrawingCacheEnabled(false);
+                }
+
             }
         }
     }

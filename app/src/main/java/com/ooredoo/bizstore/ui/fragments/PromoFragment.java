@@ -150,7 +150,7 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
                     final int reqWidth = resources.getDisplayMetrics().widthPixels;
 
-                    final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._160sdp)
+                    final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._190sdp)
                             /
                             resources.getDisplayMetrics().density);
 

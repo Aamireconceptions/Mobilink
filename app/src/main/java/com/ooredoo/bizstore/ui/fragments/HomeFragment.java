@@ -129,15 +129,32 @@ dealofDayCalled = false;
         TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
         FontUtils.setFont(activity, font, tvTopBrands);
 
+        String brands = getString(R.string.brands).toUpperCase();
+        String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
+        String brandsOfTheWeek = brands + " " + ofTheWeek;
+
+        FontUtils.changeColor(tvTopBrands, brandsOfTheWeek, brands,
+                getResources().getColor(R.color.red));
 
         TextView tvFeaturedCategories = (TextView) header.findViewById(R.id.featured_categories);
         FontUtils.setFont(activity, font, tvFeaturedCategories);
 
+        String featured = getString(R.string.featured).toUpperCase();
+        String categories = getString(R.string.categories).toUpperCase();
+
+        String featuredCategories = featured + " " + categories;
+
+        FontUtils.changeColor(tvFeaturedCategories, featuredCategories, featured,
+                getResources().getColor(R.color.red));
 
         TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
         FontUtils.setFont(activity, font, tvTopMalls);
 
+        String top = getString(R.string.top).toUpperCase();
+        String malls = getString(R.string.Malls).toUpperCase();
+        String topMalls = top + " " + malls;
 
+        FontUtils.changeColor(tvTopMalls, topMalls, top, getResources().getColor(R.color.red));
 
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
         FontUtils.setFont(activity, font, tvDealsOfTheDay);
@@ -147,6 +164,7 @@ dealofDayCalled = false;
         listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         listAdapter.setCategory(ResourceUtils.TOP_DEALS);
         listAdapter.setListingType("deals");
+
 
         listView.addHeaderView(header);
         listView.setAdapter(listAdapter);
@@ -202,7 +220,12 @@ dealofDayCalled = false;
         parent.findViewById(R.id.search_layout).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.nearby_layout).setOnClickListener(dashboardItemClickListener);
 
-        parent.findViewById(R.id.salons).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.mobile_layout).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.jewellery_layout).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.sports_layout).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.salons_layout).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.cinemas_layout).setOnClickListener(dashboardItemClickListener);
+        parent.findViewById(R.id.gold_layout).setOnClickListener(dashboardItemClickListener);
         //parent.findViewById(R.id.lodging).setOnClickListener(dashboardItemClickListener);
        // parent.findViewById(R.id.spas).setOnClickListener(dashboardItemClickListener);
 
@@ -235,6 +258,7 @@ dealofDayCalled = false;
         promoIndicator = (CirclePageIndicator) v.findViewById(R.id.promo_indicator);
         promoIndicator.setViewPager(promoPager);
         promoIndicator.setVisibility(View.GONE);
+        promoIndicator.setPageColor(getResources().getColor(R.color.home_mall_title));
 
         loadPromos(pbPromo);
     }
@@ -278,6 +302,8 @@ dealofDayCalled = false;
         featuredIndicator = (CirclePageIndicator) v.findViewById(R.id.featured_indicator);
         featuredIndicator.setViewPager(featuredPager);
         featuredIndicator.setVisibility(View.GONE);
+        featuredIndicator.setAlpha(0.6f);
+        featuredIndicator.setPageColor(getResources().getColor(R.color.home_mall_title));
 
         loadFeatured(pbFeatued);
     }

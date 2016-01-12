@@ -144,6 +144,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
     ImageView markerImageView;
     TextView tvBrandText;
     FrameLayout linearLayout;
+    //public boolean isDealOfDay;
+
     void initMarker()
     {
         linearLayout = (FrameLayout) inflater.inflate(R.layout.marker, null);

@@ -1,49 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:scrollbars="none"
-    android:fillViewport="true">
+    android:fillViewport="true">-->
 
-    <LinearLayout
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp"
-        android:paddingStart="@dimen/_12sdp"
-        android:paddingEnd="@dimen/_12sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_10sdp"
         android:orientation="horizontal"
         android:background="@color/grey">
 
         <RelativeLayout
             android:id="@+id/search_layout"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/find_business"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:src="@drawable/find_business"/>
+            android:layout_width="@dimen/_142sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:background="@drawable/find_business">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:padding="@dimen/_6sdp"
-                android:layout_alignBottom="@+id/find_business"
-                android:layout_alignStart="@+id/find_business"
-                android:layout_alignEnd="@+id/find_business"
+                android:layout_alignParentBottom="true"
                 android:background="#CC000000">
 
             <TextView
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="@string/search"
+                android:textSize="12sp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
@@ -53,11 +46,20 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/search"
                     android:text="addresses &amp; numbers"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textColor="@color/white"
                     android:textAllCaps="true"/>
 
+
+
             </RelativeLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_next"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"/>
 
         </RelativeLayout>
 
@@ -72,25 +74,19 @@
 
         <RelativeLayout
             android:id="@+id/nearby_layout"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp">
+            android:layout_width="@dimen/_142sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:background="@drawable/nearby_deals">
 
-            <ImageView
-                android:id="@+id/nearby_deals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:src="@drawable/nearby_deals"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_6sdp"
-                android:layout_alignBottom="@+id/nearby_deals"
-                android:layout_alignStart="@+id/nearby_deals"
-                android:layout_alignEnd="@+id/nearby_deals"
+
+                android:layout_alignParentBottom="true"
                 android:background="#CC000000">
 
                 <TextView
@@ -99,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/deals"
                     android:textAllCaps="true"
+                    android:textSize="12sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"/>
 
@@ -107,10 +104,19 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/deals"
                     android:text="around you"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textColor="@color/white"
                     android:textAllCaps="true"/>
+
+
             </RelativeLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_next"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"/>
 
         </RelativeLayout>
 
@@ -118,4 +124,4 @@
 
     </LinearLayout>
 
-</HorizontalScrollView>
+<!--</HorizontalScrollView>-->

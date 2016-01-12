@@ -233,7 +233,8 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                         }
                         adapter.notifyDataSetChanged();
                     } else {
-                        if(nearbyFragment != null && nearbyFragment.googleMap != null)
+                        if(nearbyFragment != null && nearbyFragment.googleMap != null
+                                && nearbyFragment.googleMap != null)
                         {
                             nearbyFragment.googleMap.clear();
                         }
