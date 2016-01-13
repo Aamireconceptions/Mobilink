@@ -18,11 +18,13 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.DealOfDayAdapter;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
+import com.ooredoo.bizstore.asynctasks.DealOfDayTask;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.FeaturedTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
@@ -34,6 +36,7 @@ import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
 import com.ooredoo.bizstore.listeners.PromoOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.SliderOnTouchListener;
 import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.DOD;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
@@ -52,6 +55,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
+
 /**
  * @author Babar
  */
@@ -63,6 +69,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     private TextView tvDealsOfTheDay;
 
     private ListViewBaseAdapter listAdapter;
+
+    private DealOfDayAdapter dealOfDayAdapter;
 
     DashboardItemClickListener dashboardItemClickListener;
 
@@ -159,15 +167,17 @@ dealofDayCalled = false;
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
         FontUtils.setFont(activity, font, tvDealsOfTheDay);
 
-        List<GenericDeal> deals = new ArrayList<>();
+        List<DOD> dods = new ArrayList<>();
 
-        listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
+       /* listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         listAdapter.setCategory(ResourceUtils.TOP_DEALS);
-        listAdapter.setListingType("deals");
+        listAdapter.setListingType("deals");*/
+
+        dealOfDayAdapter = new DealOfDayAdapter(activity, R.layout.layout_deal_of_day, dods);
 
 
         listView.addHeaderView(header);
-        listView.setAdapter(listAdapter);
+        listView.setAdapter(dealOfDayAdapter);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             listView.setNestedScrollingEnabled(true);
@@ -184,11 +194,10 @@ dealofDayCalled = false;
                 final int lastItem = firstVisibleItem + visibleItemCount;
 
 
-                if (listView.getLastVisiblePosition() == listView.getAdapter().getCount() -1 &&
-                        listView.getChildAt(listView.getChildCount() - 1).getBottom() <= listView.getHeight())
-                {
+                if (listView.getLastVisiblePosition() == listView.getAdapter().getCount() - 1 &&
+                        listView.getChildAt(listView.getChildCount() - 1).getBottom() <= listView.getHeight()) {
                     //It is scrolled all the way down here
-                    if(!dealofDayCalled) {
+                    if (!dealofDayCalled) {
                         dealofDayCalled = true;
 
                         initAndLoadDealsOfTheDay();
@@ -207,7 +216,7 @@ dealofDayCalled = false;
 
         initAndLoadTopMalls(v);
 
-        //initAndLoadDealsOfTheDay();
+       // initAndLoadDealsOfTheDay();
     }
 
     private void setDashboardItemsClickListener(View parent) {
@@ -394,7 +403,7 @@ dealofDayCalled = false;
     private void initAndLoadDealsOfTheDay() {
 
         Logger.print("DealOfDay Called");
-        DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null, this);
+        /*DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null, this);
 
         String cache = dealsTask.getCache("dealofday");
 
@@ -405,6 +414,18 @@ dealofDayCalled = false;
         else
         {
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealofday");
+        }*/
+
+        DealOfDayTask dealOfDayTask = new DealOfDayTask(activity, dealOfDayAdapter, this);
+
+        String cache = dealOfDayTask.getCache("dealofday");
+
+        if(cache != null && !isRefreshed)
+        {
+            dealOfDayTask.setData(cache);
+        }
+        else {
+            dealOfDayTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealofday");
         }
     }
 
@@ -424,7 +445,6 @@ dealofDayCalled = false;
     public void onFilterChange() {
         initAndLoadDealsOfTheDay();
     }
-
 
     @Override
     public void onResume()
@@ -462,13 +482,20 @@ dealofDayCalled = false;
     public void onRefresh() {
         diskCache.remove(featuredAdapter.deals);
         diskCache.remove(promoAdapter.deals);
-        diskCache.remove(listAdapter.deals);
+
+        for(DOD dod : dealOfDayAdapter.dods)
+        {
+            diskCache.remove(dod.deals);
+
+            memoryCache.remove(dod.deals);
+        }
+
         diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
         diskCache.removeMalls(topMallsAdapter.malls);
 
         memoryCache.remove(featuredAdapter.deals);
         memoryCache.remove(promoAdapter.deals);
-        memoryCache.remove(listAdapter.deals);
+
         memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
         memoryCache.removeMalls(topMallsAdapter.malls);
 
@@ -479,6 +506,12 @@ dealofDayCalled = false;
         loadTopBrands(null);
         loadTopMalls(null);
         initAndLoadDealsOfTheDay();
+
+        final String KEY = PREFIX_DEALS.concat("dealofday");
+        final String UPDATE_KEY = KEY.concat("_UPDATE");
+
+        clearCache(activity, KEY);
+        clearCache(activity, UPDATE_KEY);
 
         isRefreshed = false;
     }

@@ -1075,7 +1075,6 @@ private EditText etMerchantCode;
                         {
                             Toast.makeText(this, R.string.error_empty_voucher, Toast.LENGTH_SHORT).show();
                         }
-
                     }
         else
                         if(viewId == R.id.how_this_work_note)
