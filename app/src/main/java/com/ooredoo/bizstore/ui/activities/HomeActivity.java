@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 
@@ -267,6 +268,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     int minTimeMillis = 10 * (60 * 1 * 1000);
     int distanceMeters = 50;
 
+    public FloatingActionButton fab;
     private void init() {
         diskCache.requestInit(this);
 
@@ -328,6 +330,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
        /* swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);*/
+
+        fab = (FloatingActionButton) findViewById(R.id.scrollToTop);
+        fab.setOnClickListener(this);
 
         setupSearchField();
 
@@ -857,6 +862,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             }
             Logger.print("SEARCH_FILTER: " + searchType);
         }
+        else
+            if(viewId == R.id.scrollToTop)
+            {
+
+            }
     }
 
     public static List<SearchResult> getBusinesses() {

@@ -8,6 +8,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -126,4 +127,32 @@ public class AnimatorUtils
         animatorSet.playTogether(imageTranslateX, tableTranslateX, discountTranslateY);
         animatorSet.start();
     }
+
+    public static void showFab(final FloatingActionButton fab)
+    {
+        fab.post(new Runnable() {
+            @Override
+            public void run() {
+                float y = fab.getY();
+
+                float yValue =  fab.getHeight() + Converter.convertDpToPixels(16);
+
+                Logger.print("fab Y," + y);
+                PropertyValuesHolder pvhTranslateY = PropertyValuesHolder.ofFloat(View.Y,
+                        y + yValue, y);
+                PropertyValuesHolder pvhFadeIn = PropertyValuesHolder.ofFloat(View.ALPHA, 0f, 1f);
+
+                ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(fab, pvhTranslateY, pvhFadeIn);
+                animator.setDuration(3000);
+                animator.start();
+            }
+        });
+    }
+
+    public void hideFab()
+    {
+
+    }
+
+
 }

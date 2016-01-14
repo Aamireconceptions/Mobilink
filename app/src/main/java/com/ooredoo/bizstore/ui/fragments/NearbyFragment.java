@@ -45,6 +45,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
+import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
@@ -297,6 +298,7 @@ RelativeLayout rlParent;
         }*/
 
         listView = (ListView) v.findViewById(R.id.nearby_list_view);
+        //listView.setOnScrollListener(new FabScrollListener(activity));
        // listView.addHeaderView(ivBanner);
        // listView.addHeaderView(rlHeader);
         listView.setOnTouchListener(new View.OnTouchListener() {

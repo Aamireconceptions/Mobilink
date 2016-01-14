@@ -22,6 +22,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
+import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -118,6 +119,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
         listView.addHeaderView(rlHeader);
+        listView.setOnScrollListener(new FabScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

@@ -100,7 +100,7 @@ public class DealOfDayTask extends AsyncTask<String, Void, String>
                         updateVal((Activity) context, UPDATE_KEY, currentTimeMillis());*/
                     }
 
-                    //adapter.setData(response.dods);
+                    adapter.setData(response.dods);
                 }
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();

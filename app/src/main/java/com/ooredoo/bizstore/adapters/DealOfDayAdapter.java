@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.widget.GridLayout;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,7 @@ public class DealOfDayAdapter extends BaseAdapter
             holder.tvCategory = (TextView) grid.findViewById(R.id.category);
 
             holder.gridLayout = (GridLayout) grid.findViewById(R.id.grid);
+            holder.gridLayout.setColumnCount(2);
 
             grid.setTag(holder);
         }
@@ -151,6 +153,7 @@ public class DealOfDayAdapter extends BaseAdapter
             else
             {
                 rlCell.setBackground(null);
+
             }
 
             holder.gridLayout.addView(rlCell);
