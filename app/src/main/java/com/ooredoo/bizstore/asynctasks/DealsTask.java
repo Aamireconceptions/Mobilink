@@ -24,6 +24,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
+import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -171,10 +172,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                             if (je != null) {
                                 if (je.toString().equals("null")) {
-                                    object.addProperty("color", Color.parseColor(ListViewBaseAdapter.getColorCode()));
+                                    object.addProperty("color", Color.parseColor(ColorUtils.getColorCode()));
                                 }
                             } else {
-                                object.addProperty("color", Color.parseColor(ListViewBaseAdapter.getColorCode()));
+                                object.addProperty("color", Color.parseColor(ColorUtils.getColorCode()));
                             }
                         }
                     }

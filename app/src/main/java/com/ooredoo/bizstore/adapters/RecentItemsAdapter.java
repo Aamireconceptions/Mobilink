@@ -34,6 +34,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyFavoritesActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
+import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -352,7 +353,7 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
 
             if(recentItem.color == 0)
             {
-                recentItem.color = Color.parseColor(getColorCode());
+                recentItem.color = Color.parseColor(ColorUtils.getColorCode());
             }
             if(recentItem.businessName != null)
             {
@@ -587,51 +588,6 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
             ((MyFavoritesActivity) context).toggleEmptyView(getCount());
         }
     }
-
-    public String getColorCode()
-    {
-        int min = 1;
-        int max = 8;
-
-        Random random = new Random();
-
-        int i = random.nextInt(max - min) + min;
-
-        Logger.print("random: "+i);
-
-        String color = null;
-        switch (i)
-        {
-            case 1:
-                color = "#90a4ae";
-                break;
-            case 2:
-                color = "#ff8a65";
-                break;
-            case 3:
-                color = "#ba68c8";
-                break;
-            case 4:
-                color = "#da4336";
-                break;
-            case 5:
-                color = "#4fc3f7";
-                break;
-            case 6:
-                color = "#ffa726";
-                break;
-            case 7:
-                color = "#aed581";
-                break;
-            case 8:
-                color = "#b39ddb";
-                break;
-        }
-
-        return color;
-    }
-
-
 
     private static class Holder {
 

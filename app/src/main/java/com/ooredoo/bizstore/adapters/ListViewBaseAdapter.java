@@ -55,6 +55,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
+import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -310,7 +311,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 {
                     if(deal.color == 0)
                     {
-                        deal.color = Color.parseColor(getColorCode());
+                        deal.color = Color.parseColor(ColorUtils.getColorCode());
                     }
 
                     holder.tvBrandText.setText(String.valueOf(deal.businessName.charAt(0)));
@@ -947,48 +948,7 @@ return null;
         }
     }
 
-    public static String getColorCode()
-    {
-        int min = 1;
-        int max = 8;
 
-        Random random = new Random();
-
-        int i = random.nextInt(max - min) + min;
-
-        Logger.print("random: "+i);
-
-        String color = null;
-        switch (i)
-        {
-            case 1:
-                color = "#90a4ae";
-                break;
-            case 2:
-                color = "#ff8a65";
-                break;
-            case 3:
-                color = "#ba68c8";
-                break;
-            case 4:
-                color = "#da4336";
-                break;
-            case 5:
-                color = "#4fc3f7";
-                break;
-            case 6:
-                color = "#ffa726";
-                break;
-            case 7:
-                color = "#aed581";
-                break;
-            case 8:
-                color = "#b39ddb";
-                break;
-        }
-
-        return color;
-    }
 
     private static class Holder {
 

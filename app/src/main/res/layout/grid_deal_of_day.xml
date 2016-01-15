@@ -2,17 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search_layout"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_130sdp"
-    android:layout_weight="1"
-    app:layout_gravity="fill_horizontal"
-    app:layout_columnWeight="1"
-    android:background="@drawable/find_business">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_26sdp"
             android:layout_alignParentBottom="true"
             android:background="#AA000000">
 
@@ -20,8 +17,6 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="@string/search"
                 android:textSize="12sp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
@@ -33,13 +28,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
                 android:singleLine="true"
-                android:text="addresses &amp; numbers"
                 android:textSize="10sp"
-                android:maxLength="12"
+                android:ellipsize="none"
                 android:textColor="@color/white"
                 android:textAllCaps="true"/>
-
-
 
         </RelativeLayout>
 

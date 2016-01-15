@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.widget.GridLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,9 @@ import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.DOD;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.util.List;
@@ -42,6 +45,8 @@ public class DealOfDayAdapter extends BaseAdapter
     private LayoutInflater layoutInflater;
 
     private Resources resources;
+
+    private DisplayMetrics displayMetrics;
 
     private Holder holder;
 
@@ -63,7 +68,7 @@ public class DealOfDayAdapter extends BaseAdapter
 
         resources = context.getResources();
 
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        displayMetrics = resources.getDisplayMetrics();
 
         reqWidth = displayMetrics.widthPixels / 2;
         reqHeight = reqWidth;
@@ -107,7 +112,6 @@ public class DealOfDayAdapter extends BaseAdapter
             holder.tvCategory = (TextView) grid.findViewById(R.id.category);
 
             holder.gridLayout = (GridLayout) grid.findViewById(R.id.grid);
-            holder.gridLayout.setColumnCount(2);
 
             grid.setTag(holder);
         }
@@ -118,18 +122,23 @@ public class DealOfDayAdapter extends BaseAdapter
 
         DOD dod = (DOD) getItem(position);
 
-        holder.tvCategory.setText(dod.category);
+        holder.gridLayout.removeAllViews();
 
-        for(GenericDeal genericDeal : dod.deals)
+
+        holder.tvCategory.setText(dod.category.toUpperCase());
+
+        for(int i = 0, r = 0, c = 0; i < dods.size(); i++, c++)
         {
+            GenericDeal genericDeal = dod.deals.get(i);
+
             RelativeLayout rlCell = (RelativeLayout)
                     layoutInflater.inflate(R.layout.grid_deal_of_day, parent, false);
 
             holder.tvTitle = (TextView) rlCell.findViewById(R.id.title);
-            holder.tvTitle.setText(genericDeal.title);
+            holder.tvTitle.setText(genericDeal.title.toUpperCase());
 
             holder.tvDescription = (TextView) rlCell.findViewById(R.id.description);
-            holder.tvDescription.setText(genericDeal.description);
+            holder.tvDescription.setText(genericDeal.description.toUpperCase());
 
             Image image = genericDeal.image;
 
@@ -156,11 +165,58 @@ public class DealOfDayAdapter extends BaseAdapter
 
             }
 
-            holder.gridLayout.addView(rlCell);
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = (displayMetrics.widthPixels - (int) Converter.convertDpToPixels(24)) / 2;
+            params.height = (int) ((displayMetrics.widthPixels - (int) Converter.convertDpToPixels(24)) / 2.2);
+
+            if(c == 2)
+            {
+                //params.topMargin = (int) Converter.convertDpToPixels(8);
+                c = 0;
+
+                r++;
+            }
+
+            if(r > 0)
+            {
+                params.topMargin = (int) Converter.convertDpToPixels(8);
+            }
+
+            if(c == 1)
+            {
+                params.leftMargin = (int) Converter.convertDpToPixels(8);
+            }
+           // params.rowSpec = GridLayout.spec(r);
+            //params.columnSpec = GridLayout.spec(c);
+
+            params.setGravity(Gravity.CENTER_HORIZONTAL);
+            Logger.print("row:"+r+", column:"+c);
+            holder.gridLayout.addView(rlCell, params);
+
+            Logger.print("Specs: "+params.width+", "+params.height);
+
+            /*if(first)
+            {
+                first = false;
+
+                holder.gridLayout.addView(rlCell, new GridLayout.LayoutParams(
+                        GridLayout.spec(0, GridLayout.CENTER),
+                        GridLayout.spec(0, GridLayout.CENTER)));
+            }
+            else
+            {
+                holder.gridLayout.addView(rlCell, new GridLayout.LayoutParams(
+                        GridLayout.spec(0, GridLayout.CENTER),
+                        GridLayout.spec(1, GridLayout.CENTER)));
+            }*/
         }
 
         return grid;
     }
+
+    boolean first = true;
+
+
 
     private void fallBackToDiskCache(final String imageUrl)
     {

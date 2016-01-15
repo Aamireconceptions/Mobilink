@@ -167,6 +167,12 @@ dealofDayCalled = false;
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
         FontUtils.setFont(activity, font, tvDealsOfTheDay);
 
+        String deals = getString(R.string.deals).toUpperCase();
+        String ofTheDay = getString(R.string.of_the_day).toUpperCase();
+        String dealsOfTheDay = deals + " " + ofTheDay;
+
+        FontUtils.changeColor(tvDealsOfTheDay, dealsOfTheDay, deals, getResources().getColor(R.color.red));
+
         List<DOD> dods = new ArrayList<>();
 
        /* listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);

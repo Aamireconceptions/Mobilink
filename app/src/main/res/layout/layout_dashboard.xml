@@ -162,7 +162,6 @@
         android:paddingEnd="@dimen/_18sdp"
         android:text="@string/deals_of_the_day"
         android:textSize="16sp"
-        android:textAllCaps="true"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
         android:background="@drawable/heading_bg"

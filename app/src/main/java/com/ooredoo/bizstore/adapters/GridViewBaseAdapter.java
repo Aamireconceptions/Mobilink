@@ -22,6 +22,7 @@ import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -150,7 +151,7 @@ public class GridViewBaseAdapter extends BaseAdapter
 
             if(deal.color == 0)
             {
-                deal.color = Color.parseColor(getColorCode());
+                deal.color = Color.parseColor(ColorUtils.getColorCode());
             }
 
             if(deal.discount == 0) {
@@ -248,7 +249,7 @@ public class GridViewBaseAdapter extends BaseAdapter
 
                 if(brand.color == 0)
                 {
-                    brand.color = Color.parseColor(getColorCode());
+                    brand.color = Color.parseColor(ColorUtils.getColorCode());
                 }
 
                 brand.isFavorite = Favorite.isFavorite(brand.id);
@@ -395,46 +396,5 @@ public class GridViewBaseAdapter extends BaseAdapter
 
     }
 
-    public String getColorCode()
-    {
-        int min = 1;
-        int max = 8;
 
-        Random random = new Random();
-
-        int i = random.nextInt(max - min) + min;
-
-        Logger.print("random: "+i);
-
-        String color = null;
-        switch (i)
-        {
-            case 1:
-                color = "#90a4ae";
-                break;
-            case 2:
-                color = "#ff8a65";
-                break;
-            case 3:
-                color = "#ba68c8";
-                break;
-            case 4:
-                color = "#da4336";
-                break;
-            case 5:
-                color = "#4fc3f7";
-                break;
-            case 6:
-                color = "#ffa726";
-                break;
-            case 7:
-                color = "#aed581";
-                break;
-            case 8:
-                color = "#b39ddb";
-                break;
-        }
-
-        return color;
-    }
 }

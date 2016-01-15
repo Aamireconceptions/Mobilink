@@ -51,6 +51,7 @@ import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
+import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -562,7 +563,7 @@ private EditText etMerchantCode;
                 {
                     if(deal.color == 0)
                     {
-                        deal.color = Color.parseColor(ListViewBaseAdapter.getColorCode());
+                        deal.color = Color.parseColor(ColorUtils.getColorCode());
                     }
                     tvBrandTxt.setBackgroundColor(deal.color);
                     tvBrandTxt.setText(String.valueOf(deal.businessName.charAt(0)));
