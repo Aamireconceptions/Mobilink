@@ -17,7 +17,7 @@ public class FabScrollListener implements AbsListView.OnScrollListener
 {
     public HomeActivity activity;
 
-    private static final int THRESHOLD = 5;
+    private static final int THRESHOLD = 3;
 
     public FabScrollListener(HomeActivity activity)
     {
@@ -39,16 +39,16 @@ public class FabScrollListener implements AbsListView.OnScrollListener
             return;
         }
 
-
-        if(firstVisibleItem > lastPosition || firstVisibleItem < THRESHOLD)
+        if(firstVisibleItem > lastPosition)
         {
             Logger.print("Going Down");
 
             if(activity.fab.getVisibility() == View.VISIBLE)
             {
-                activity.fab.setVisibility(View.GONE);
+               // activity.fab.setVisibility(View.GONE);
 
-
+                Logger.print("Animating Down");
+                AnimatorUtils.hideFab(activity.fab);
             }
         }
         else
@@ -59,10 +59,19 @@ public class FabScrollListener implements AbsListView.OnScrollListener
             {
                 if(activity.fab.getVisibility() == View.GONE)
                 {
+                    Logger.print("Animating Up");
                     activity.fab.setVisibility(View.VISIBLE);
                     AnimatorUtils.showFab(activity.fab);
                 }
             }
+            else
+            {
+                if(activity.fab.getVisibility() == View.VISIBLE)
+                {
+                    AnimatorUtils.hideFab(activity.fab);
+                }
+            }
+
         }
 
         lastPosition = firstVisibleItem;

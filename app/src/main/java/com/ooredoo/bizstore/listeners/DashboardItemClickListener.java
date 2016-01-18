@@ -9,6 +9,7 @@ import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.model.CheckHelper;
 import com.ooredoo.bizstore.model.SubCategory;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
 import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 import com.ooredoo.bizstore.utils.Logger;
@@ -105,10 +106,17 @@ public class DashboardItemClickListener implements View.OnClickListener {
             {
                 String subCategory, subCategoryName;
 
-
                 if(id == R.id.mobile_layout)
                 {
+                    subCategory = "mobile";
 
+                    ElectronicsFragment.subCategory = "electronics_"+subCategory;
+
+                    subCategoryName = mActivity.getString(R.string.Mobile_Phones_Accessories);
+
+                    mActivity.selectTab(5);
+
+                    processSubCategory(subCategoryName);
                 }
 
                 if(id == R.id.jewellery_layout)

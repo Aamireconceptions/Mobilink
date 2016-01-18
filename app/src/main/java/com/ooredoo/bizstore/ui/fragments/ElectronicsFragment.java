@@ -23,6 +23,8 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
+import com.ooredoo.bizstore.interfaces.ScrollToTop;
+import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -37,11 +39,13 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 public class ElectronicsFragment extends Fragment implements OnFilterChangeListener,
                                                              OnDealsTaskFinishedListener,
                                                              OnSubCategorySelectedListener,
-                                                             SwipeRefreshLayout.OnRefreshListener {
+                                                             SwipeRefreshLayout.OnRefreshListener,
+        ScrollToTop{
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -65,6 +69,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     private MemoryCache memoryCache = MemoryCache.getInstance();
 
     private DiskCache diskCache = DiskCache.getInstance();
+
+    public static String subCategory;
 
     public static ElectronicsFragment newInstance()
     {
@@ -120,6 +126,7 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         listView.addHeaderView(rlHeader);
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
+        listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             listView.setNestedScrollingEnabled(true);
@@ -134,6 +141,11 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
         tvEmptyView.setVisibility(View.GONE);
 
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+
+        if(isNotNullOrEmpty(subCategory)) {
+            DealsTask.subCategories = subCategory;
+            subCategory = ""; //Reset sub category filter.
+        }
 
         String cache = dealsTask.getCache("electronics");
 
@@ -257,5 +269,10 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void scroll() {
+        listView.setSelection(0);
     }
 }

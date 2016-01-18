@@ -75,7 +75,7 @@
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_18sdp"
 
-        android:textSize="16sp"
+        android:textSize="14sp"
 
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
@@ -110,7 +110,7 @@
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_18sdp"
         android:text="Featured Categories"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
         android:background="@drawable/heading_bg"/>
@@ -126,7 +126,7 @@
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_18sdp"
         android:text="@string/top_malls"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
         android:background="@drawable/heading_bg"/>
@@ -161,7 +161,7 @@
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_18sdp"
         android:text="@string/deals_of_the_day"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
         android:background="@drawable/heading_bg"

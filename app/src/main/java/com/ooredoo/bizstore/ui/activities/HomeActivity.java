@@ -70,6 +70,7 @@ import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
+import com.ooredoo.bizstore.interfaces.ScrollToTop;
 import com.ooredoo.bizstore.listeners.DiscountOnSeekChangeListener;
 import com.ooredoo.bizstore.listeners.DrawerChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
@@ -110,7 +111,9 @@ import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener, OnFilterChangeListener, TextView.OnEditorActionListener, OnSubCategorySelectedListener, LocationListener {
+public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
+        OnFilterChangeListener, TextView.OnEditorActionListener, OnSubCategorySelectedListener,
+        LocationListener {
     public static boolean rtl = false;
 
     public DrawerLayout drawerLayout;
@@ -430,7 +433,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         viewPager.setAdapter(homePagerAdapter);
        //viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout, this));
         tabLayout.setupWithViewPager(viewPager);
-
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
 
         //viewPager.setOffscreenPageLimit(11);Dea
@@ -865,7 +867,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         else
             if(viewId == R.id.scrollToTop)
             {
-
+                ((ScrollToTop) currentFragment).scroll();
             }
     }
 
@@ -1012,6 +1014,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setSearchCheckboxSelection();
         new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
     }
+
 
     public class SearchTextWatcher implements TextWatcher {
 

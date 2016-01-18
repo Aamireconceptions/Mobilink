@@ -617,7 +617,7 @@ private EditText etMerchantCode;
                     ivDetail.post(new Runnable() {
                         @Override
                         public void run() {
-                            AnimatorUtils.startDetailAnimation(ivDetail, tableLayout, llDiscount);
+                            AnimatorUtils.startDetailAnimation(rlDetails, tableLayout, llDiscount);
                         }
                     });
 

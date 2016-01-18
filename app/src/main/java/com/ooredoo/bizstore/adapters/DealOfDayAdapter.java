@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,9 +23,12 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.model.Category;
 import com.ooredoo.bizstore.model.DOD;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -124,15 +129,19 @@ public class DealOfDayAdapter extends BaseAdapter
 
         holder.gridLayout.removeAllViews();
 
-
         holder.tvCategory.setText(dod.category.toUpperCase());
 
         for(int i = 0, r = 0, c = 0; i < dods.size(); i++, c++)
         {
             GenericDeal genericDeal = dod.deals.get(i);
 
+            CellClickListener clickListener = new CellClickListener(genericDeal);
+
             RelativeLayout rlCell = (RelativeLayout)
                     layoutInflater.inflate(R.layout.grid_deal_of_day, parent, false);
+            rlCell.setOnClickListener(clickListener);
+
+            holder.progressBar = (ProgressBar) rlCell.findViewById(R.id.progressBar);
 
             holder.tvTitle = (TextView) rlCell.findViewById(R.id.title);
             holder.tvTitle.setText(genericDeal.title.toUpperCase());
@@ -150,10 +159,14 @@ public class DealOfDayAdapter extends BaseAdapter
 
                 if(bitmap != null)
                 {
+                    holder.progressBar.setVisibility(View.GONE);
+
                     rlCell.setBackground(new BitmapDrawable(resources, bitmap));
                 }
                 else
                 {
+                    holder.progressBar.setVisibility(View.VISIBLE);
+
                     rlCell.setBackground(null);
 
                     fallBackToDiskCache(imageUrl);
@@ -163,6 +176,7 @@ public class DealOfDayAdapter extends BaseAdapter
             {
                 rlCell.setBackground(null);
 
+                holder.progressBar.setVisibility(View.GONE);
             }
 
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
@@ -243,9 +257,29 @@ public class DealOfDayAdapter extends BaseAdapter
         });
     }
 
+    class CellClickListener implements View.OnClickListener
+    {
+        GenericDeal genericDeal;
+
+        CellClickListener(GenericDeal genericDeal)
+        {
+            this.genericDeal = genericDeal;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, DealDetailActivity.class);
+            intent.putExtra("generic_deal", genericDeal);
+
+            ((HomeActivity) context).startActivity(intent);
+        }
+    }
+
     public static class Holder
     {
         TextView tvCategory, tvTitle, tvDescription;
+
+        ProgressBar progressBar;
 
         GridLayout gridLayout;
     }

@@ -18,8 +18,8 @@
 
         <LinearLayout
             android:id="@+id/restaurants_layout"
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/restaurants"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -37,6 +37,7 @@
                 android:drawableBottom="@drawable/burger_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="Hotels &amp; Deals"
+                android:textSize="12sp"
                 android:textColor="@color/home_category_item"/>
 
         </LinearLayout>
@@ -50,8 +51,8 @@
 
         <LinearLayout
             android:id="@+id/shopping_layout"
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:orientation="vertical">
@@ -60,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/shopping"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -69,6 +70,7 @@
                 android:drawableBottom="@drawable/shopping_bag_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="Brands &amp; Deals"
+                android:textSize="12sp"
                 android:textColor="@color/home_category_item"/>
 
         </LinearLayout>
@@ -83,8 +85,8 @@
 
         <LinearLayout
             android:id="@+id/health_layout"
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:orientation="vertical">
@@ -93,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Health"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -103,6 +105,7 @@
                 android:drawableBottom="@drawable/make_up_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="Beauty &amp; Fitness"
+                android:textSize="12sp"
                 android:textColor="@color/home_category_item"/>
 
         </LinearLayout>

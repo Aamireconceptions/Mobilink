@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.utils;
 
+import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -8,6 +9,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.animation.Animation;
@@ -104,7 +106,7 @@ public class AnimatorUtils
         animatorSet.start();*/
     }
 
-    public static void startDetailAnimation(ImageView imageView, TableLayout tableLayout,
+    public static void startDetailAnimation(View imageView, TableLayout tableLayout,
                                      LinearLayout linearLayout)
     {
         // Logger.print("right: "+imageView.getRight() + ", width: "+ imageView.getWidth()+ ", sum: "+(imageView.getRight() + imageView.getWidth()));
@@ -124,7 +126,7 @@ public class AnimatorUtils
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(700);
-        animatorSet.playTogether(imageTranslateX, tableTranslateX, discountTranslateY);
+        animatorSet.playTogether(imageTranslateX, discountTranslateY);
         animatorSet.start();
     }
 
@@ -134,24 +136,77 @@ public class AnimatorUtils
             @Override
             public void run() {
                 float y = fab.getY();
+                float top = fab.getTop();
 
-                float yValue =  fab.getHeight() + Converter.convertDpToPixels(16);
+                float yValue = Converter.convertDpToPixels(60);
 
-                Logger.print("fab Y," + y);
+                Logger.print("fab Y," + y + ", top:" + top + " y needed:" + (top - yValue));
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    yValue += Converter.convertDpToPixels(16);
+                }
+
                 PropertyValuesHolder pvhTranslateY = PropertyValuesHolder.ofFloat(View.Y,
-                        y + yValue, y);
+                        (top - yValue));
+
                 PropertyValuesHolder pvhFadeIn = PropertyValuesHolder.ofFloat(View.ALPHA, 0f, 1f);
 
                 ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(fab, pvhTranslateY, pvhFadeIn);
-                animator.setDuration(3000);
+                animator.setDuration(300);
                 animator.start();
             }
         });
     }
 
-    public void hideFab()
-    {
+    static ObjectAnimator animator;
 
+    public static void hideFab(final FloatingActionButton fab)
+    {
+        if(animator != null && animator.isRunning())
+        {
+            return;
+        }
+
+        fab.post(new Runnable() {
+            @Override
+            public void run() {
+
+                float fabTop = fab.getTop();
+
+                float yValue = Converter.convertDpToPixels(60);
+
+                PropertyValuesHolder pvhTranslateY = PropertyValuesHolder.ofFloat(View.Y, fabTop + yValue);
+
+                PropertyValuesHolder pvhFadeOut = PropertyValuesHolder.ofFloat(View.ALPHA, 0);
+
+                animator = ObjectAnimator.ofPropertyValuesHolder(fab, pvhTranslateY, pvhFadeOut);
+                animator.setDuration(300);
+                animator.start();
+
+                animator.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        fab.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+
+            }
+        });
     }
 
 

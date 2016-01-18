@@ -22,6 +22,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
+import com.ooredoo.bizstore.interfaces.ScrollToTop;
 import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.Deal;
@@ -43,7 +44,8 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 public class TopDealsFragment extends Fragment implements OnFilterChangeListener,
                                                           OnDealsTaskFinishedListener,
                                                           OnSubCategorySelectedListener,
-                                                          SwipeRefreshLayout.OnRefreshListener {
+                                                          SwipeRefreshLayout.OnRefreshListener,
+        ScrollToTop{
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -119,9 +121,10 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
         listView.addHeaderView(rlHeader);
-        listView.setOnScrollListener(new FabScrollListener(activity));
+        //listView.setOnScrollListener(new FabScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
+        listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             listView.setNestedScrollingEnabled(true);
@@ -257,5 +260,10 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void scroll() {
+        listView.setSelection(0);
     }
 }

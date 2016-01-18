@@ -26,7 +26,9 @@ import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
+import com.ooredoo.bizstore.interfaces.ScrollToTop;
 import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
+import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -54,7 +56,8 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 public class ShoppingFragment extends Fragment implements OnFilterChangeListener,
                                                           OnDealsTaskFinishedListener,
                                                           OnSubCategorySelectedListener,
-                                                          SwipeRefreshLayout.OnRefreshListener {
+                                                          SwipeRefreshLayout.OnRefreshListener,
+        ScrollToTop{
     private HomeActivity activity;
 
     private List<GenericDeal> deals;
@@ -140,6 +143,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         dealGridOnItemClickListener = new DealGridOnItemClickListener(activity, adapter, this);
         gridView.setOnItemClickListener(dealGridOnItemClickListener);
         gridView.setAdapter(adapter);
+        gridView.setOnScrollListener(new FabScrollListener(activity));
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -357,5 +361,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void scroll() {
+        gridView.setSelection(0);
     }
 }
