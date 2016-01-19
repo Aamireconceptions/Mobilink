@@ -292,5 +292,18 @@
     <string name="featured">Featured</string>
     <string name="top">Top</string>
     <string name="of_the_day">of the day</string>
+    <string name="hotels_deals">Hotels &amp; Deals</string>
+    <string name="brands_deals">Brands &amp; Deals</string>
+    <string name="health">Health</string>
+    <string name="beauty_fitness">Beauty &amp; Fitness</string>
+    <string name="address_numbers">addresses &amp; numbers</string>
+    <string name="around_you">around you</string>
+    <string name="featured_categories">Featured Categories</string>
+    <string name="mobile">Mobile Phones</string>
+    <string name="deals_brand">Deals &amp; Brands</string>
+    <string name="jewellery">Jewellery</string>
+    <string name="centers_tips">Centers &amp; Tips</string>
+    <string name="agents_tickets">Agents &amp; Tickets</string>
+    <string name="news_tips">News &amp; Tips</string>
 
 </resources>

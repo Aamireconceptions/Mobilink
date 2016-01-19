@@ -74,9 +74,7 @@
         android:paddingBottom="@dimen/_12sdp"
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_18sdp"
-
         android:textSize="14sp"
-
         android:typeface="serif"
         android:textColor="@color/home_heading_text"
         android:background="@drawable/heading_bg"/>
@@ -109,7 +107,7 @@
         android:paddingBottom="@dimen/_12sdp"
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_18sdp"
-        android:text="Featured Categories"
+        android:text="@string/featured_categories"
         android:textSize="14sp"
         android:typeface="serif"
         android:textColor="@color/home_heading_text"

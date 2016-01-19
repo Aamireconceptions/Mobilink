@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/hsv"
     android:scrollbars="none"
     android:fillViewport="true">
 
@@ -19,7 +21,6 @@
         <LinearLayout
             android:id="@+id/restaurants_layout"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -36,7 +37,7 @@
 
                 android:drawableBottom="@drawable/burger_icon"
                 android:drawablePadding="@dimen/_4sdp"
-                android:text="Hotels &amp; Deals"
+                android:text="@string/hotels_deals"
                 android:textSize="12sp"
                 android:textColor="@color/home_category_item"/>
 
@@ -69,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:drawableBottom="@drawable/shopping_bag_icon"
                 android:drawablePadding="@dimen/_4sdp"
-                android:text="Brands &amp; Deals"
+                android:text="@string/brands_deals"
                 android:textSize="12sp"
                 android:textColor="@color/home_category_item"/>
 
@@ -94,7 +95,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Health"
+                android:text="@string/health"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
@@ -104,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:drawableBottom="@drawable/make_up_icon"
                 android:drawablePadding="@dimen/_4sdp"
-                android:text="Beauty &amp; Fitness"
+                android:text="@string/beauty_fitness"
                 android:textSize="12sp"
                 android:textColor="@color/home_category_item"/>
 

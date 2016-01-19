@@ -13,27 +13,29 @@
         android:layout_height="wrap_content"
         app:layout_columnWeight="1"
         android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_4sdp"
         android:background="@drawable/featured_category_bg">
 
         <TextView
             android:id="@+id/mobile_phone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Mobile Phones"
+            android:layout_toStartOf="@+id/ic_mobile"
+            android:text="@string/mobile"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mobile_phone"
-            android:text="Deals &amp; Brands"
+            android:text="@string/deals_brand"
+            android:layout_toStartOf="@+id/ic_mobile"
             android:textSize="12sp"/>
 
-
         <ImageView
+            android:id="@+id/ic_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -48,27 +50,30 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_4sdp"
         android:background="@drawable/featured_category_bg">
 
         <TextView
             android:id="@+id/jewellery"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Jewellery"
+            android:layout_toStartOf="@+id/ic_ring"
+            android:text="@string/jewellery"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/jewellery"
-            android:text="Brands &amp; Deals"
+            android:layout_toStartOf="@+id/ic_ring"
+            android:text="@string/brands_deals"
             android:textSize="12sp"/>
 
 
         <ImageView
+            android:id="@+id/ic_ring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -83,27 +88,30 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_4sdp"
         android:background="@drawable/featured_category_bg">
 
         <TextView
             android:id="@+id/sports"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Sports &amp; Fitness"
+            android:layout_toStartOf="@+id/ic_sports"
+            android:text="@string/sports_fitness"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sports"
-            android:text="Centers &amp; Tips"
+            android:layout_toStartOf="@+id/ic_sports"
+            android:text="@string/centers_tips"
             android:textSize="12sp"/>
 
 
         <ImageView
+            android:id="@+id/ic_sports"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -119,27 +127,30 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_4sdp"
         android:background="@drawable/featured_category_bg">
 
         <TextView
             android:id="@+id/salons"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Salons"
+            android:layout_toStartOf="@+id/ic_dryer"
+            android:text="@string/Salons"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/salons"
-            android:text="Deals &amp; Brands"
+            android:layout_toStartOf="@+id/ic_dryer"
+            android:text="@string/deals_brand"
             android:textSize="12sp"/>
 
 
         <ImageView
+            android:id="@+id/ic_dryer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -154,27 +165,30 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_4sdp"
         android:background="@drawable/featured_category_bg">
 
         <TextView
             android:id="@+id/cinemas"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Cinemas"
+            android:layout_toStartOf="@+id/ic_popcorn"
+            android:text="@string/cinemas"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cinemas"
-            android:text="Agents &amp; Tickets"
+            android:layout_toStartOf="@+id/ic_popcorn"
+            android:text="@string/agents_tickets"
             android:textSize="12sp"/>
 
 
         <ImageView
+            android:id="@+id/ic_popcorn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -190,27 +204,30 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_4sdp"
         android:background="@drawable/featured_category_bg">
 
         <TextView
             android:id="@+id/gold"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Gold Rate"
+            android:layout_toStartOf="@+id/ic_bullion"
+            android:text="@string/Gold_Rate"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/ic_bullion"
             android:layout_below="@+id/gold"
-            android:text="News &amp; Tips"
+            android:text="@string/news_tips"
             android:textSize="12sp"/>
 
 
         <ImageView
+            android:id="@+id/ic_bullion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

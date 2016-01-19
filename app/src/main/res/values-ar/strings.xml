@@ -294,4 +294,17 @@
     <string name="featured">متميز</string>
     <string name="top">أعلى</string>
     <string name="of_the_day">لليوم</string>
+    <string name="hotels_deals">فنادق وعروض</string>
+    <string name="brands_deals">العلامات التجارية والعروض</string>
+    <string name="health">الصحة</string>
+    <string name="beauty_fitness">الجمال واللياقة</string>
+    <string name="address_numbers">عناوين وأرقام</string>
+    <string name="around_you">حولك</string>
+    <string name="featured_categories">فئات مميزة</string>
+    <string name="mobile">هواتف محمولة</string>
+    <string name="deals_brand">عروض و العلامات التجارية</string>
+    <string name="jewellery">مجوهرات</string>
+    <string name="centers_tips">مراكز ونصائح</string>
+    <string name="agents_tickets">وكلاء و سفر</string>
+    <string name="news_tips">أخبار ونصائح</string>
 </resources>

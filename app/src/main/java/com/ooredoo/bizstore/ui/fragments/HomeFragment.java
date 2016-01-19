@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -125,6 +126,8 @@ dealofDayCalled = false;
 
         /*View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);*/
         View header = inflater.inflate(R.layout.layout_dashboard, null);
+
+        //final HorizontalScrollView hsv = (HorizontalScrollView) header.findViewById(R.id.hsv);
 
         setDashboardItemsClickListener(header);
 

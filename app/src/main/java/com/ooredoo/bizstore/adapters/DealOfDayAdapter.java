@@ -129,7 +129,11 @@ public class DealOfDayAdapter extends BaseAdapter
 
         holder.gridLayout.removeAllViews();
 
-        holder.tvCategory.setText(dod.category.toUpperCase());
+        Category category  = Converter.convertCategoryText(context, dod.category);
+
+        holder.tvCategory.setText(category.name.toUpperCase());
+        holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
+                0, 0);
 
         for(int i = 0, r = 0, c = 0; i < dods.size(); i++, c++)
         {
@@ -180,8 +184,8 @@ public class DealOfDayAdapter extends BaseAdapter
             }
 
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = (displayMetrics.widthPixels - (int) Converter.convertDpToPixels(24)) / 2;
-            params.height = (int) ((displayMetrics.widthPixels - (int) Converter.convertDpToPixels(24)) / 2.2);
+            params.width = (displayMetrics.widthPixels - (int) Converter.convertDpToPixels(36)) / 2;
+            params.height = (int) ((displayMetrics.widthPixels - (int) Converter.convertDpToPixels(36)) / 2.2);
 
             if(c == 2)
             {
@@ -193,12 +197,12 @@ public class DealOfDayAdapter extends BaseAdapter
 
             if(r > 0)
             {
-                params.topMargin = (int) Converter.convertDpToPixels(8);
+                params.topMargin = (int) Converter.convertDpToPixels(12);
             }
 
             if(c == 1)
             {
-                params.leftMargin = (int) Converter.convertDpToPixels(8);
+                params.leftMargin = (int) Converter.convertDpToPixels(12);
             }
            // params.rowSpec = GridLayout.spec(r);
             //params.columnSpec = GridLayout.spec(c);

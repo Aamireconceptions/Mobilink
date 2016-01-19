@@ -27,68 +27,54 @@ public class Converter
 
     public static Category convertCategoryText(Context context, String target)
     {
-        if(target.equals("shopping & speciality stores"))
+        if(target.equals("Food & Dining"))
+        {
+            return new Category(context.getString(R.string.food_dining), R.drawable.ic_food_dining);
+        }
+        else
+        if(target.equals("Shopping & Specialty Stores"))
         {
             return new Category(context.getString(R.string.shopping_speciality), R.drawable.ic_shopping);
         }
         else
-        if(target.equals(""))
+        if(target.equals("Electronics"))
         {
-
+            return new Category(context.getString(R.string.electronics), R.drawable.ic_electronics);
         }
         else
-        if(target.equals(""))
+        if(target.equals("Hotels & Spas"))
         {
-
+            return new Category(context.getString(R.string.hotels_spa), R.drawable.ic_hotels);
         }
         else
-        if(target.equals(""))
+        if(target.equals("Markets & Malls"))
         {
-
+            return new Category(context.getString(R.string.markets_malls), R.drawable.ic_malls);
         }
         else
-        if(target.equals(""))
+        if(target.equals("Automotives"))
         {
-
+            return new Category(context.getString(R.string.automotive), R.drawable.ic_automotive);
         }
         else
-        if(target.equals(""))
+        if(target.equals("Travel and Tours"))
         {
-
+            return new Category(context.getString(R.string.travel_tours), R.drawable.ic_travel);
         }
         else
-        if(target.equals(""))
+        if(target.equals(",Entertainment"))
         {
-
+            return new Category(context.getString(R.string.entertainment), R.drawable.ic_entertainment);
         }
         else
-        if(target.equals(""))
+        if(target.equals("Jewelry & Exchange"))
         {
-
+            return new Category(context.getString(R.string.jewelry_exchange), R.drawable.ic_jewellery);
         }
         else
-        if(target.equals(""))
+        if(target.equals("Sports & Fitness"))
         {
-
-        }
-        else
-        if(target.equals(""))
-        {
-
-        }
-        else
-        if(target.equals(""))
-        {
-
-        }
-        else
-        if(target.equals(""))
-        {
-
-        }
-        else
-        {
-
+            return new Category(context.getString(R.string.sports_fitness), R.drawable.ic_sports);
         }
 
         return null;

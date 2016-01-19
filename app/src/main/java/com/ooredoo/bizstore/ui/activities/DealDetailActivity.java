@@ -796,7 +796,7 @@ private EditText etMerchantCode;
                 rlDistance.setVisibility(View.VISIBLE);
                 tvDistance.setText(String.format("%.1f", genericDeal.mDistance / 1000) + " " + getString(R.string.km_away));
 
-                tvDirections.setText(String.format("%.1f", genericDeal.mDistance / 1000) + "km");
+                tvDirections.setText(String.format("%.1f", genericDeal.mDistance / 1000) + " km");
                 tvDirections.setOnClickListener(this);
             }
             else {
