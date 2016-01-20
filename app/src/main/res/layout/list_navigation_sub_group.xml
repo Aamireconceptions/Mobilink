@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:drawablePadding="@dimen/_12sdp"
+        android:gravity="center_vertical"
         android:padding="@dimen/_12sdp"
         android:text="Categories"
         android:textColor="@android:color/primary_text_light" />

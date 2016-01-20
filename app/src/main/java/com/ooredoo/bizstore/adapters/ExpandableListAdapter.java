@@ -179,6 +179,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
             final CustomExpandableListView customExpandableListView = new CustomExpandableListView(context,
                                                                                              navigationHeader);
+            customExpandableListView.setDrawSelectorOnTop(true);
             customExpandableListView.setGroupIndicator(null);
             customExpandableListView.setAdapter(adapter);
             customExpandableListView.setDivider(null);

@@ -62,8 +62,6 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
                 lang = "ar";
 
                 break;
-
-
         }
 
         LanguageTask languageTask = new LanguageTask();

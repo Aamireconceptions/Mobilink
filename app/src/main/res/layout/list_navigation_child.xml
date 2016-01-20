@@ -12,7 +12,8 @@
         android:layoutDirection="locale"
         android:padding="@dimen/_12sdp"
         android:text="Top Deals"
-
-        android:textColor="@color/text_color_selector"/>
+        android:gravity="center_vertical"
+        android:textColor="@color/text_color_selector"
+        />
 
 </LinearLayout>

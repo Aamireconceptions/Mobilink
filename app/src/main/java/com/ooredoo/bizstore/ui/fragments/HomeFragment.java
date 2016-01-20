@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -27,7 +26,6 @@ import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.DealOfDayTask;
-import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.FeaturedTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
@@ -48,11 +46,9 @@ import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.MyScroller;
-import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.utils.SliderUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -243,9 +239,9 @@ dealofDayCalled = false;
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            llRestaurant.setBackgroundResource(R.drawable.masked_ripple);
-            llShopping.setBackgroundResource(R.drawable.masked_ripple);
-            llHealth.setBackgroundResource(R.drawable.masked_ripple);
+            llRestaurant.setBackgroundResource(R.drawable.masked_ripple_light);
+            llShopping.setBackgroundResource(R.drawable.masked_ripple_light);
+            llHealth.setBackgroundResource(R.drawable.masked_ripple_light);
         }
 
         parent.findViewById(R.id.search_layout).setOnClickListener(dashboardItemClickListener);

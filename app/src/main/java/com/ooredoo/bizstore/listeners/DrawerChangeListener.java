@@ -27,16 +27,16 @@ public class DrawerChangeListener implements DrawerLayout.DrawerListener {
         homeActivity.hideSearchPopup();
         homeActivity.hideSearchResults();
 
-        if(homeActivity.drawerLayout.isDrawerOpen(GravityCompat.END))
+        /*if(homeActivity.drawerLayout.isDrawerOpen(GravityCompat.END))
         {
             homeActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
-        }
+        }*/
     }
 
     @Override
     public void onDrawerClosed(View view)
     {
-        homeActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+        //homeActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
     }
 
     @Override

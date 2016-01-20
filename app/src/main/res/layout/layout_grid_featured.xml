@@ -14,7 +14,7 @@
         app:layout_columnWeight="1"
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_4sdp"
-        android:background="@drawable/featured_category_bg">
+        android:background="@drawable/card_ripple">
 
         <TextView
             android:id="@+id/mobile_phone"
@@ -51,7 +51,7 @@
         android:layout_marginStart="6dp"
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_4sdp"
-        android:background="@drawable/featured_category_bg">
+        android:background="@drawable/card_ripple">
 
         <TextView
             android:id="@+id/jewellery"
@@ -89,7 +89,7 @@
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_4sdp"
-        android:background="@drawable/featured_category_bg">
+        android:background="@drawable/card_ripple">
 
         <TextView
             android:id="@+id/sports"
@@ -128,7 +128,7 @@
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_4sdp"
-        android:background="@drawable/featured_category_bg">
+        android:background="@drawable/card_ripple">
 
         <TextView
             android:id="@+id/salons"
@@ -166,7 +166,7 @@
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_4sdp"
-        android:background="@drawable/featured_category_bg">
+        android:background="@drawable/card_ripple">
 
         <TextView
             android:id="@+id/cinemas"
@@ -205,7 +205,7 @@
         android:layout_marginTop="@dimen/_6sdp"
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_4sdp"
-        android:background="@drawable/featured_category_bg">
+        android:background="@drawable/card_ripple">
 
         <TextView
             android:id="@+id/gold"

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -9,9 +8,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_6sdp"
-            android:paddingEnd="@dimen/_26sdp"
+            android:paddingEnd="@dimen/_28sdp"
             android:layout_alignParentBottom="true"
-            android:background="#AA000000">
+            android:background="@drawable/masked_ripple_dark_transparency">
 
             <TextView
                 android:id="@+id/title"
@@ -29,6 +28,7 @@
                 android:layout_below="@+id/title"
                 android:singleLine="true"
                 android:textSize="10sp"
+                android:maxLength="20"
                 android:ellipsize="none"
                 android:textColor="@color/white"
                 android:textAllCaps="true"/>

@@ -19,7 +19,8 @@
 
         <RelativeLayout
             android:id="@+id/search_layout"
-            android:layout_width="@dimen/_142sdp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_130sdp"
             android:background="@drawable/find_business">
 
@@ -28,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_6sdp"
                 android:layout_alignParentBottom="true"
-                android:background="#AA000000">
+                android:background="@drawable/masked_ripple_dark_transparency">
 
             <TextView
                 android:id="@+id/search"
@@ -74,12 +75,11 @@
 
         <RelativeLayout
             android:id="@+id/nearby_layout"
-            android:layout_width="@dimen/_142sdp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="@dimen/_130sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:background="@drawable/nearby_deals">
-
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                 android:padding="@dimen/_6sdp"
 
                 android:layout_alignParentBottom="true"
-                android:background="#AA000000">
+                android:background="@drawable/masked_ripple_dark_transparency">
 
                 <TextView
                     android:id="@+id/deals"

@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.listeners;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.v4.view.GravityCompat;
 import android.text.Html;
 
@@ -72,13 +73,18 @@ public class FilterOnClickListener implements View.OnClickListener {
         FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btList);
 
         Button btMap = (Button) layout.findViewById(R.id.popular_deals);
-        btMap.setText(category == CategoryUtils.CT_NEARBY ? R.string.map : R.string.brands );
+        btMap.setText(category == CategoryUtils.CT_NEARBY ? R.string.map : R.string.brands);
         btMap.setOnClickListener(this);
 
         FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btMap);
 
         Button ivFilter = (Button) layout.findViewById(R.id.filter);
         ivFilter.setOnClickListener(this);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            ivFilter.setBackgroundResource(R.drawable.filter_ripple);
+        }
     }
 
     static int saveCategory;
@@ -200,10 +206,7 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
 
-
-
                 Logger.print("FilterOnClickListener: CATEGORY -> Apply Filter: " + String.valueOf(category));
-
 
                 String subCategories = CategoryUtils.getSelectedSubCategories(category);
                 DealsTask.subCategories = subCategories;

@@ -23,6 +23,7 @@
     <drawable name="red">@color/red</drawable>
     <drawable name="transparent">@color/transparent</drawable>
     <drawable name="grey">@color/grey</drawable>
+    <color name="transparent_black">#AA000000</color>
 
 
 

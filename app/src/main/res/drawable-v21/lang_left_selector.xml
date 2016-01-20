@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple_material_dark">
+    <item>
+<selector >
+
+    <item
+        android:drawable="@drawable/lang_left_normal"
+        android:state_selected="false"
+        android:state_pressed="false"/>
+
+    <item
+        android:drawable="@drawable/lang_left_selected"
+        android:state_selected="true"/>
+
+    <item
+        android:drawable="@drawable/lang_left_selected"
+        android:state_pressed="true"/>
+
+</selector>
+    </item>
+    </ripple>

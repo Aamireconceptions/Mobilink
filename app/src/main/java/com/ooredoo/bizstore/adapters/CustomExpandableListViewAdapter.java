@@ -134,7 +134,6 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
             {
                 ivIndicator.setImageResource(R.drawable.ic_group_fwd_flip);
             }
-
         }
 
         groupName = (String) getGroup(groupPosition);
