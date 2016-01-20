@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -231,9 +232,21 @@ dealofDayCalled = false;
     private void setDashboardItemsClickListener(View parent) {
         dashboardItemClickListener = new DashboardItemClickListener(activity);
 
-        parent.findViewById(R.id.restaurants_layout).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.shopping_layout).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.health_layout).setOnClickListener(dashboardItemClickListener);
+        LinearLayout llRestaurant = (LinearLayout) parent.findViewById(R.id.restaurants_layout);
+        llRestaurant.setOnClickListener(dashboardItemClickListener);
+
+        LinearLayout llShopping = (LinearLayout) parent.findViewById(R.id.shopping_layout);
+        llShopping.setOnClickListener(dashboardItemClickListener);
+
+        LinearLayout llHealth = (LinearLayout) parent.findViewById(R.id.health_layout);
+        llHealth.setOnClickListener(dashboardItemClickListener);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            llRestaurant.setBackgroundResource(R.drawable.masked_ripple);
+            llShopping.setBackgroundResource(R.drawable.masked_ripple);
+            llHealth.setBackgroundResource(R.drawable.masked_ripple);
+        }
 
         parent.findViewById(R.id.search_layout).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.nearby_layout).setOnClickListener(dashboardItemClickListener);

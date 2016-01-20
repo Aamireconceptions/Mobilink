@@ -3,15 +3,14 @@
     android:id="@+id/layout_deal_detail"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/list_ripple">
+    android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_6sdp"
         android:background="@drawable/list_border_head">
@@ -137,7 +136,7 @@
     </RelativeLayout>
 
     <LinearLayout
-
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

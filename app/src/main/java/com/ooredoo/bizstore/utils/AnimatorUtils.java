@@ -125,7 +125,7 @@ public class AnimatorUtils
         translateX.start();*/
 
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.setDuration(700);
+        animatorSet.setDuration(600);
         animatorSet.playTogether(imageTranslateX, discountTranslateY);
         animatorSet.start();
     }

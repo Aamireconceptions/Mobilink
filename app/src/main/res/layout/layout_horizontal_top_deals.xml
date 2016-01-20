@@ -22,6 +22,7 @@
             android:id="@+id/restaurants_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_6sdp"
             android:orientation="vertical">
 
             <TextView
@@ -53,9 +54,9 @@
         <LinearLayout
             android:id="@+id/shopping_layout"
             android:layout_width="wrap_content"
-
+            android:padding="@dimen/_6sdp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_6sdp"
             android:orientation="vertical">
 
             <TextView
@@ -81,15 +82,15 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_6sdp"
             android:src="@drawable/dashboard_seperator"/>
 
         <LinearLayout
             android:id="@+id/health_layout"
             android:layout_width="wrap_content"
-
+            android:padding="@dimen/_6sdp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_6sdp"
             android:orientation="vertical">
 
             <TextView
