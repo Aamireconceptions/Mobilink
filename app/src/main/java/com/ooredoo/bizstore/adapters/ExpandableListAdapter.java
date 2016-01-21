@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,9 +139,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         return convertView;
     }
 
-
     @Override
-    public View getChildView(int groupPosition, final int childPosition, final boolean isLastChild, View convertView, final ViewGroup parent) {
+    public View getChildView(int groupPosition, final int childPosition, final boolean isLastChild,
+                             View convertView, final ViewGroup parent) {
 
         NavigationItem navigationItem1 = (NavigationItem) getChild(groupPosition, childPosition);
 
@@ -167,6 +168,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             return convertView;
         } else {
 
+            Logger.print("Positan: "+childPosition);
             NavigationItem navigationItem = navigationMenuUtils.subGroupList.get(childPosition);
 
             final CustomExpandableListViewAdapter adapter = new CustomExpandableListViewAdapter(context,
@@ -179,8 +181,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
             final CustomExpandableListView customExpandableListView = new CustomExpandableListView(context,
                                                                                              navigationHeader);
-            customExpandableListView.setDrawSelectorOnTop(true);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                customExpandableListView.setDrawSelectorOnTop(true);
+            }
+
             customExpandableListView.setGroupIndicator(null);
+           // customExpandableListView.setSelector(R.color.transparent);
             customExpandableListView.setAdapter(adapter);
             customExpandableListView.setDivider(null);
             customExpandableListView.setOnChildClickListener(onChildClickListener);
@@ -188,15 +195,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
                 @Override
                 public boolean onGroupClick(ExpandableListView listView, View v, int groupPosition, long id) {
 
+                    //Logger.print("onGroupClick: " + adapter.groupName);
+
                     adapter.setGroupExpanded();
 
                     onChildClickListener.groupName = adapter.groupName;
 
-                    if (lastExpandableListView != null && lastExpandableListView != listView)
-                    {
+                    if (lastExpandableListView != null && lastExpandableListView != listView) {
                         lastExpandableListView.collapseGroup(0);
 
-                        lastAdapter.setGroupExpanded();
+                        if (lastAdapter.groupExpanded) {
+                            lastAdapter.setGroupExpanded();
+                        }
                     }
 
                     lastExpandableListView = listView;
@@ -209,7 +219,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
             return customExpandableListView;
         }
-
     }
 
     @Override

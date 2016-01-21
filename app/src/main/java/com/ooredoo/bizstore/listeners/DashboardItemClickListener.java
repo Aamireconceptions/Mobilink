@@ -46,7 +46,8 @@ public class DashboardItemClickListener implements View.OnClickListener {
         } else {
 
             if(id == R.id.restaurants_layout || id == R.id.shopping_layout ||
-                    id == R.id.health_layout ) {
+                    id == R.id.health_layout || id == R.id.travel_layout ||
+                    id == R.id.electronics_layout || id == R.id.automobile_layout) {
             /*String subCategory = id == R.id.entertainment ? "entertainment" :
                                    id == R.id.shopping ? "shopping" :
                                    id == R.id.fashion ? "fashion" :
@@ -67,6 +68,25 @@ public class DashboardItemClickListener implements View.OnClickListener {
                     case R.id.health_layout:
 
                         mActivity.selectTab(6);
+
+                        break;
+
+                    case R.id.travel_layout:
+
+                        mActivity.selectTab(9);
+
+                        break;
+
+                    case R.id.electronics_layout:
+
+                        mActivity.selectTab(5);
+
+                        break;
+
+                    case R.id.automobile_layout:
+
+                        mActivity.selectTab(8);
+
 
                         break;
 

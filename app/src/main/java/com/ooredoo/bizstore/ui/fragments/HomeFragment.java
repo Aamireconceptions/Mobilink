@@ -237,11 +237,23 @@ dealofDayCalled = false;
         LinearLayout llHealth = (LinearLayout) parent.findViewById(R.id.health_layout);
         llHealth.setOnClickListener(dashboardItemClickListener);
 
+        LinearLayout llTravel = (LinearLayout) parent.findViewById(R.id.travel_layout);
+        llTravel.setOnClickListener(dashboardItemClickListener);
+
+        LinearLayout llElectronics = (LinearLayout) parent.findViewById(R.id.electronics_layout);
+        llElectronics.setOnClickListener(dashboardItemClickListener);
+
+        LinearLayout llAutomobile = (LinearLayout) parent.findViewById(R.id.automobile_layout);
+        llAutomobile.setOnClickListener(dashboardItemClickListener);
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             llRestaurant.setBackgroundResource(R.drawable.masked_ripple_light);
             llShopping.setBackgroundResource(R.drawable.masked_ripple_light);
             llHealth.setBackgroundResource(R.drawable.masked_ripple_light);
+            llTravel.setBackgroundResource(R.drawable.masked_ripple_light);
+            llElectronics.setBackgroundResource(R.drawable.masked_ripple_light);
+            llAutomobile.setBackgroundResource(R.drawable.masked_ripple_light);
         }
 
         parent.findViewById(R.id.search_layout).setOnClickListener(dashboardItemClickListener);

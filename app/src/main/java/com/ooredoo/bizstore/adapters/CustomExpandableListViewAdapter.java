@@ -95,7 +95,25 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
 
     public void setGroupExpanded()
     {
+        if(groupExpanded)
+        {
+            Logger.print("Group was expanded");
+        }
+        else
+        {
+            Logger.print("Group was collapsed");
+        }
+
         groupExpanded = !groupExpanded;
+
+        if(groupExpanded)
+        {
+            Logger.print("Group is expanded");
+        }
+        else
+        {
+            Logger.print("Group is collapsed");
+        }
     }
 
     public String groupName;
@@ -118,12 +136,14 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
 
         if(groupExpanded)
         {
+            //convertView.setBackgroundResource(R.drawable.group_expanded_ripple);
             convertView.setBackgroundColor(context.getResources().getColor(R.color.grey));
 
             ivIndicator.setImageResource(R.drawable.ic_group_expand);
         }
         else
         {
+           //convertView.setBackgroundResource(R.drawable.group_collpased_ripple);
             convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
 
             if(BizStore.getLanguage().equals("en"))

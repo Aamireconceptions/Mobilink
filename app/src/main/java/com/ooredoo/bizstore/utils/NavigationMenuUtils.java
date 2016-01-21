@@ -169,6 +169,11 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         ExpandableListAdapter adapter = new ExpandableListAdapter(this, activity, groupList, childList, navigationHeader);
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            expandableListView.setDrawSelectorOnTop(true);
+        }
+
         expandableListView.addHeaderView(navigationHeader);
         expandableListView.addFooterView(navigationFooter);
         expandableListView.setAdapter(adapter);
