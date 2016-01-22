@@ -686,7 +686,7 @@ private EditText etMerchantCode;
 
         //String[] locations = new String[genericDeal.locations.size()];
 
-        if(deal.locations != null)
+        if(deal.locations != null && deal.locations.size() > 0)
         {
             for(int i = 0; i<=deal.locations.size() - 1; i++)
             {
@@ -696,10 +696,10 @@ private EditText etMerchantCode;
                 }*/
                 if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
                 {
-
+                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
                 }
 
-                popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
+
             }
 
             if(deal.locations.size() == 1 && deal.location.equals(deal.locations.get(0).title))

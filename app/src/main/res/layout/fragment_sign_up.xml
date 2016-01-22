@@ -65,7 +65,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_8sdp"
-        android:background="@drawable/btn_red"
+        android:background="@drawable/btn_red_ripple"
         android:gravity="center"
         android:text="@string/NEXT"
         android:textColor="@android:color/white"

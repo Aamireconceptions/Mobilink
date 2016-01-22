@@ -1,9 +1,11 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -38,6 +40,11 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
     public void init() {
         setupToolbar();
         mListView = (ListView) findViewById(R.id.lv_notifications);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            mListView.setDrawSelectorOnTop(true);
+        }
 
         initNotificationsData();
 

@@ -500,16 +500,14 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
 
-        if(business.locations != null)
+        if(business.locations != null && business.locations.size() > 0)
         {
             for(int i = 0; i<=business.locations.size() - 1; i++)
             {
-                /*if(business.location != null && !business.location.equalsIgnoreCase(business.locations.get(i).title))
+                if(business.location != null && !business.location.equalsIgnoreCase(business.locations.get(i).title))
                 {
-
-                }*/
-
-                popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
+                    popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
+                }
             }
 
             if(business.locations.size() == 1 && business.location.equals(business.locations.get(0).title))

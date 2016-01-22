@@ -47,7 +47,7 @@
             android:layout_below="@+id/tv_details"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/btn_red"
+            android:background="@drawable/btn_red_ripple"
             android:gravity="center"
             android:text="@string/LETS_START"
             android:textColor="@android:color/white"

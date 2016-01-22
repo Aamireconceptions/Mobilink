@@ -100,6 +100,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
             if(id == R.id.search_layout)
             {
                 mActivity.clickSearch();
+               mActivity.resetToolBarPosition();
 
                 return;
             }

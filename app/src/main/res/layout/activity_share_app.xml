@@ -98,7 +98,7 @@
                 android:layout_width="225dp"
                 android:layout_height="38dp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/btn_red"
+                android:background="@drawable/btn_red_ripple"
                 android:text="@string/share_now"
                 android:textAllCaps="true"
                 android:textColor="@color/white"

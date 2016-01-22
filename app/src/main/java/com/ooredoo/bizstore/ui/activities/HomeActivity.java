@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -339,6 +340,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
 
+        llSearch = (LinearLayout) findViewById(R.id.layout_search);
+
        /* swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);*/
@@ -379,10 +382,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public static AppBarLayout appBarLayout;
-
+public CoordinatorLayout coordinatorLayout;
     private void setupToolbar() {
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -403,6 +408,17 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                 selectTab(0);
             }
         });
+    }
+
+    public void resetToolBarPosition()
+    {
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)
+                appBarLayout.getLayoutParams();
+        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+
+        int[] consumed = new int[2];
+        behavior.onNestedPreScroll(coordinatorLayout, appBarLayout, null, 0, -1000, consumed);
+
     }
 
     public static View getToolbarLogoIcon(Toolbar toolbar){
@@ -665,7 +681,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                 acSearch.setHint(R.string.search);
                 hideSearchResults();
                 hideSearchPopup();
-                showHideSearchBar(false);
+                //showHideSearchBar(false);
             } else {
                 showHideDrawer(GravityCompat.START, true);
             }
@@ -694,6 +710,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void hideSearchResults() {
         isShowResults = false;
+
+        llSearch.setVisibility(View.VISIBLE);
         //findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
         showHideSearchBar(false);
     }
@@ -745,14 +763,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             hideSearchPopup();
         }
     }
-
+LinearLayout llSearch;
     public void showSearchPopup() {
         isShowResults = false;
         tabLayout.setAlpha(0f);
         viewPager.setAlpha(0f);
         setRecentSearches();
         setPopularSearches(AppData.popularSearches.list);
-        findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
+       // findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
+
+        llSearch.setVisibility(View.VISIBLE);
         mRecentSearchListView.setVisibility(View.VISIBLE);
         findViewById(R.id.layout_search_filter).setVisibility(View.GONE);
         //searchPopup.showAsDropDown(acSearch, 10, 25);
@@ -783,16 +803,22 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void hideSearchPopup() {
+
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         isShowResults = true;
-        findViewById(R.id.layout_search).setVisibility(View.GONE);
+        //findViewById(R.id.layout_search).setVisibility(View.GONE);
+
+        llSearch.setVisibility(View.GONE);
         mSearchResultsListView.setVisibility(View.GONE);
         mRecentSearchListView.setVisibility(View.GONE);
         tabLayout.setAlpha(MAX_ALPHA);
         viewPager.setAlpha(MAX_ALPHA);
+
+
         //searchPopup.dismiss();
         //acSearch.setText(null);
-        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(acSearch.getWindowToken(), 0);
+
     }
 
     public void selectTab(int tabPosition) {
@@ -978,7 +1004,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         findViewById(R.id.layout_popular_searches).setAlpha(MAX_ALPHA);
 
         mRecentSearchListView.setVisibility(View.GONE);
-        findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
+        //findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
+
+        llSearch.setVisibility(View.VISIBLE);
         findViewById(R.id.lv_search_results).setVisibility(View.VISIBLE);
         findViewById(R.id.layout_popular_searches).setVisibility(View.GONE);
         findViewById(R.id.layout_search_filter).setVisibility(View.VISIBLE);

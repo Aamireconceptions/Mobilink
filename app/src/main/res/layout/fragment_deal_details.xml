@@ -277,7 +277,7 @@
                     android:textColor="@color/white"
 
                     android:textAllCaps="true"
-                    android:background="@drawable/btn_red"/>
+                    android:background="@drawable/btn_red_ripple"/>
 
 
 
