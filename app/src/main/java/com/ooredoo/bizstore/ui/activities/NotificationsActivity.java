@@ -48,6 +48,8 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
 
         initNotificationsData();
 
+        mListView.setItemsCanFocus(true);
+
         mAdapter = new NotificationsAdapter(this, R.layout.list_item_notification, notifications);
         mListView.setAdapter(mAdapter);
 

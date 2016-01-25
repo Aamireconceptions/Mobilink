@@ -97,6 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_toStartOf="@+id/ic_sports"
+            android:singleLine="true"
             android:text="@string/sports_fitness"
             android:textSize="14sp"
             android:textStyle="bold"/>

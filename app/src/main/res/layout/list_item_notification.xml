@@ -5,8 +5,8 @@
     android:layout_width="fill_parent"
     android:layout_height="50dp"
     android:layout_gravity="start|center_vertical"
-    android:background="@drawable/notification_item_selector"
     android:paddingEnd="9dp"
+    android:background="@drawable/item_selector_light"
     android:gravity="start|center_vertical">
 
     <ImageView
@@ -41,8 +41,12 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:button="@drawable/checkbox_button"
+        android:background="@color/transparent"
         android:gravity="start|center_vertical"
-android:focusable="false"
-        android:text=""/>
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text=""
+        android:enabled="true"
+        android:visibility="visible"/>
 
 </RelativeLayout>

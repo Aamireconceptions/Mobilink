@@ -55,6 +55,9 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
             holder.checkBox = (CheckBox) view.findViewById(R.id.checkbox);
             holder.ivCategory = (ImageView) view.findViewById(R.id.iv_category);
 
+            view.setClickable(true);
+            view.setFocusable(true);
+
             view.setTag(holder);
         }
 
@@ -70,19 +73,19 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
         holder.checkBox.setChecked(notification.enabled);
         holder.ivCategory.setImageResource(notification.icon);
 
-        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleCheckBox(holder.checkBox, notification);
             }
         });
 
-        holder.ivCategory.setOnClickListener(new View.OnClickListener() {
+        /*holder.ivCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleCheckBox(holder.checkBox, notification);
             }
-        });
+        });*/
 
         return view;
     }

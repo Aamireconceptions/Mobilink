@@ -694,12 +694,14 @@ private EditText etMerchantCode;
                 {
                     popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
                 }*/
-                if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
+                if(deal.locations.size() > 1 ||
+                        (deal.location != null
+                                &&
+                        (!deal.location.equalsIgnoreCase(deal.locations.get(i).title))))
+
                 {
                     popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
                 }
-
-
             }
 
             if(deal.locations.size() == 1 && deal.location.equals(deal.locations.get(0).title))
