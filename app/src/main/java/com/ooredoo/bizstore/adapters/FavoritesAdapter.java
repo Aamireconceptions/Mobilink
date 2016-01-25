@@ -8,11 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -143,6 +145,14 @@ public class FavoritesAdapter extends BaseAdapter {
             holder.tvDirections = (TextView) row.findViewById(R.id.directions);
             holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
             holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
+            holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
+            holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                holder.rlHeader.setBackgroundResource(R.drawable.list_header);
+                holder.llFooter.setBackgroundResource(R.drawable.list_footer);
+            }
 
             row.setTag(holder);
         } else {
@@ -241,6 +251,20 @@ public class FavoritesAdapter extends BaseAdapter {
         holder.tvDiscount.setText(valueOf(fav.discount) + "%\n"+context.getString(R.string.off));
 
         holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetailActivity(fav);
+            }
+        });
+
+        holder.rlHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetailActivity(fav);
+            }
+        });
+
+        holder.llFooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDetailActivity(fav);
@@ -450,6 +474,8 @@ public class FavoritesAdapter extends BaseAdapter {
 
         ProgressBar progressBar;
 
-        RelativeLayout rlPromotionalLayout;
+        LinearLayout llFooter;
+
+        RelativeLayout rlPromotionalLayout, rlHeader;
     }
 }

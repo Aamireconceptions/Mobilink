@@ -50,16 +50,19 @@
         layout="@layout/no_data_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        />
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:paddingTop="@dimen/_6sdp"
+        android:scrollbars="none"
         android:divider="@null"
         android:dividerHeight="@dimen/_6sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        android:clipToPadding="false"
         android:layout_below="@+id/filter"/>
 
 </RelativeLayout>

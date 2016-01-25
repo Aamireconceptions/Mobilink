@@ -659,7 +659,7 @@
             android:layout_height="wrap_content"
 
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/similar_deals"
@@ -679,7 +679,7 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:gravity="center"
-
+                android:stateListAnimator="@null"
                 android:textColor="@color/black_white_selector"
                 android:layout_weight="1"
                 android:text="@string/nearby"
