@@ -111,7 +111,15 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         FontUtils.setFont(this, BizStore.getLanguage().equals("en") ? BizStore.DEFAULT_FONT
         : BizStore.ARABIC_DEFAULT_FONT, etNumber);
         ivProfilePic = (ImageView) findViewById(R.id.iv_profile_pic);
-        findViewById(R.id.iv_edit_dp).setOnClickListener(this);
+        ImageView ivEditDp = (ImageView) findViewById(R.id.iv_edit_dp);
+        ivEditDp.setOnClickListener(this);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            ivEditDp.setBackgroundResource(R.drawable.masked_ripple_light);
+
+            ivEditName.setBackgroundResource(R.drawable.masked_ripple_light);
+        }
 
         ivEditName.setOnClickListener(this);
 

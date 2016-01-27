@@ -238,7 +238,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                     new BaseAdapterBitmapDownloadTask(SimilarBrandsAdapter.this);
 
-                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                            bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
                                     String.valueOf(reqWidth), String.valueOf(reqHeight));
                         }
                     });

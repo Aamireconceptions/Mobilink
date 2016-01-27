@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,12 +88,16 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
             holder.tvRedeemedOn = (TextView) row.findViewById(R.id.redeemed_on);
             holder.llRedeemOn = (LinearLayout) row.findViewById(R.id.redeem_on_layout);
 
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                row.findViewById(R.id.layout_deal_detail)
+                        .setBackgroundResource(R.drawable.redeemed_ripple);
+            }
+
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
         }
-
-
 
         row.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override

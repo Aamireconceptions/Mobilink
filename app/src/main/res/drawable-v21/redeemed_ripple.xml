@@ -3,6 +3,6 @@
     android:color="@color/ripple_material_light">
 
     <item
-        android:drawable="@drawable/btn_dark_red"/>
+        android:drawable="@drawable/deal_detail_bg"/>
 
 </ripple>

@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -359,6 +360,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setupTabs();
 
         setupPager();
+
+        popularGrid = findViewById(R.id.grid_popular_searches);
+        searchLayout = findViewById(R.id.layout_search_filter);
+        searchResultView = findViewById(R.id.lv_search_results);
     }
 
     public void setSearchSuggestions(List<String> list) {
@@ -507,6 +512,11 @@ public CoordinatorLayout coordinatorLayout;
 
         TextView tvDone = (TextView) findViewById(R.id.done);
         tvDone.setOnClickListener(clickListener);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            tvDone.setBackgroundResource(R.drawable.white_btn_ripple);
+        }
 
         /*TextView tvDealsAndDiscount = (TextView) findViewById(R.id.deals_discount_checkbox);
         tvDealsAndDiscount.setOnClickListener(clickListener);
@@ -681,6 +691,10 @@ public CoordinatorLayout coordinatorLayout;
                 acSearch.setHint(R.string.search);
                 hideSearchResults();
                 hideSearchPopup();
+
+
+                //viewPager.invalidate();
+                //viewPager.requestFocus();
                 //showHideSearchBar(false);
             } else {
                 showHideDrawer(GravityCompat.START, true);
@@ -709,11 +723,13 @@ public CoordinatorLayout coordinatorLayout;
     }
 
     public void hideSearchResults() {
+
+
         isShowResults = false;
 
         llSearch.setVisibility(View.VISIBLE);
         //findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
-        showHideSearchBar(false);
+       showHideSearchBar(false);
     }
 
     public void showHideDrawer(int gravity, boolean show) {
@@ -724,19 +740,22 @@ public CoordinatorLayout coordinatorLayout;
         }
     }
 
+    View popularGrid, searchLayout, searchResultView;
+
     public void showHideSearchBar(boolean show) {
         isSearchEnabled = show;
         mMenu.findItem(R.id.search).setVisible(show);
         mMenu.findItem(R.id.action_search).setVisible(!show);
         mActionBar.setDisplayUseLogoEnabled(!show);
-        findViewById(R.id.grid_popular_searches).setVisibility(show ? View.VISIBLE : View.GONE);
-        findViewById(R.id.layout_search_filter).setVisibility(show ? View.VISIBLE : View.GONE);
+        popularGrid.setVisibility(show ? View.VISIBLE : View.GONE);
+        searchLayout.setVisibility(show ? View.VISIBLE : View.GONE);
         mRecentSearchListView.setVisibility(show ? View.VISIBLE : View.GONE);
-        findViewById(R.id.lv_search_results).setVisibility(View.GONE);
+        searchResultView.setVisibility(View.GONE);
         if(show) {
             setRecentSearches();
             setPopularSearches(AppData.popularSearches.list);
         }
+
         mActionBar.setHomeAsUpIndicator(show ? R.drawable.ic_action_back : R.drawable.ic_menu);
         acSearch.setVisibility(show ? View.VISIBLE : View.GONE);
 
@@ -751,23 +770,33 @@ public CoordinatorLayout coordinatorLayout;
         MotionEvent motionEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_UP, x, y, metaState);
 
         // Dispatch touch event to view
-        acSearch.dispatchTouchEvent(motionEvent);
+       // acSearch.dispatchTouchEvent(motionEvent);
+
+
+
         if(show) {
-            new Handler().postDelayed(new Runnable() {
+           /* new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     showSearchPopup();
                 }
-            }, 100);
+            }, 100);*/
+
+            showSearchPopup();
         } else {
             hideSearchPopup();
         }
     }
 LinearLayout llSearch;
     public void showSearchPopup() {
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
         isShowResults = false;
-        tabLayout.setAlpha(0f);
-        viewPager.setAlpha(0f);
+       // tabLayout.setAlpha(0f);
+        //viewPager.setAlpha(0f);
+        tabLayout.setVisibility(View.GONE);
+        viewPager.setVisibility(View.GONE);
         setRecentSearches();
         setPopularSearches(AppData.popularSearches.list);
        // findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
@@ -804,16 +833,24 @@ LinearLayout llSearch;
 
     public void hideSearchPopup() {
 
-        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+
+
+
         isShowResults = true;
         //findViewById(R.id.layout_search).setVisibility(View.GONE);
 
         llSearch.setVisibility(View.GONE);
         mSearchResultsListView.setVisibility(View.GONE);
         mRecentSearchListView.setVisibility(View.GONE);
-        tabLayout.setAlpha(MAX_ALPHA);
-        viewPager.setAlpha(MAX_ALPHA);
+       // tabLayout.setAlpha(MAX_ALPHA);
+        //viewPager.setAlpha(MAX_ALPHA);
+
+        tabLayout.setVisibility(View.VISIBLE);
+        viewPager.setVisibility(View.VISIBLE);
+
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
 
         //searchPopup.dismiss();
