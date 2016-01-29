@@ -137,7 +137,9 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         jewellerySubCategories = new String[] { activity.getString(R.string.Gold_Rate), activity.getString(R.string.Currency) };
 
-        sportsSubCategories = new String[] { activity.getString(R.string.Clothing), activity.getString(R.string.Equipment) };
+        sportsSubCategories = new String[] { activity.getString(R.string.Clothing),
+                activity.getString(R.string.Equipment), activity.getString(R.string.fitness_program),
+        activity.getString(R.string.kids_program), activity.getString(R.string.diet_programs)};
     }
 
     public void setupNavigationMenu() {

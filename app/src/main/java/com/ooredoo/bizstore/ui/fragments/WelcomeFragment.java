@@ -42,5 +42,7 @@ public class WelcomeFragment extends BaseFragment {
 
         SignUpActivity activity = (SignUpActivity) mActivity;
         activity.startActivity(HomeActivity.class);
+
+        activity.finish();
     }
 }

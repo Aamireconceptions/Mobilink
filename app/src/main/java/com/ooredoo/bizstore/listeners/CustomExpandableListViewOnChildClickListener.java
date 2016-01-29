@@ -63,8 +63,6 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
         int subCategoryCheckboxId = getCategoryCheckboxId(subCategory);
 
-
-
         int tabPos = getTabPosition();
 
         Logger.print("Sub-Category: " + tabPos + ", " + subCategory);

@@ -306,5 +306,14 @@
     <string name="agents_tickets">Agents &amp; Tickets</string>
     <string name="news_tips">News &amp; Tips</string>
     <string name="travel">Travel</string>
+    <string name="fitness_program">Fitness Program</string>
+    <string name="kids_program">Kids Programs</string>
+    <string name="diet_programs">Diet Programs</string>
+    <string name="out_of">Out of</string>
+    <string name="you_have_availed">you have availed</string>
+    <string name="dealss">deal(s).</string>
+    <string name="already_availed_discount">Dear user, you have already availed this discount</string>
+    <string name="timess">time(s).</string>
+    <string name="no_contact">No contact number found</string>
 
 </resources>

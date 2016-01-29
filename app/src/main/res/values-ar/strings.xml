@@ -307,4 +307,13 @@
     <string name="centers_tips">مراكز ونصائح</string>
     <string name="agents_tickets">وكلاء و سفر</string>
     <string name="news_tips">أخبار ونصائح</string>
+    <string name="fitness_program">برنامج اللياقة البدنية</string>
+    <string name="kids_program">برامج الأطفال</string>
+    <string name="diet_programs">برامج الحمية</string>
+    <string name="out_of">بعيدا عن</string>
+    <string name="you_have_availed">كنت قد استفاد</string>
+    <string name="dealss">صفقة (ق).</string>
+    <string name="already_availed_discount">عزيزي المستخدم، كنت قد استفاد بالفعل هذا الخصم</string>
+    <string name="timess">الوقت (ق).</string>
+    <string name="no_contact">لا رقم الاتصال وجدت</string>
 </resources>

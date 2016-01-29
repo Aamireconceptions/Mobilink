@@ -35,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_255sdp"
                 android:scaleType="fitXY"
-                android:src="@drawable/detail_temp"/>
+
+                android:background="@color/grey"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"

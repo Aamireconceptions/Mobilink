@@ -55,7 +55,7 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
+        /*if(keyCode == KeyEvent.KEYCODE_BACK) {
             if(mFragmentManager.getBackStackEntryCount() > 1) {
                 mFragmentManager.popBackStack();
                 toggleToolbar();
@@ -63,7 +63,7 @@ public class SignUpActivity extends BaseActivity {
             } else {
                 startActivity(MainActivity.class);
             }
-        }
+        }*/
         return super.onKeyDown(keyCode, event);
     }
 

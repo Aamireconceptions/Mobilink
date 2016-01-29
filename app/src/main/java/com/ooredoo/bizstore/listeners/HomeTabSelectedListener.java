@@ -71,7 +71,8 @@ public class HomeTabSelectedListener extends TabLayout.ViewPagerOnTabSelectedLis
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-        //DealsTask.sortColumn = "createdate";
+        DealsTask.sortColumn = "createdate";
+        ShoppingTask.sortColumn = "createdate";
         //DealsTask.subCategories = "";
         //NearbyFragment.categories = "";
         //DealsTask.categories = "";

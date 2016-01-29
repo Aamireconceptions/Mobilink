@@ -1161,6 +1161,45 @@
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/Equipment"/>
 
+            <CheckBox
+                android:id="@+id/cb_sports_fitness_programs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/fitness_program"/>
+
+            <CheckBox
+                android:id="@+id/cb_sports_kids_programs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/kids_program"/>
+
+            <CheckBox
+                android:id="@+id/cb_sports_diet_programs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/diet_programs"/>
+
         </LinearLayout>
 
     </RelativeLayout>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.Locale;
 

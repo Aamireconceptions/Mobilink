@@ -956,7 +956,7 @@ private EditText etMerchantCode;
                 intent.setData(Uri.parse(DIALER_PREFIX.concat(phoneNumber)));
                 startActivity(intent);
             } else {
-                makeText(getApplicationContext(), "No contact number found", LENGTH_LONG).show();
+                makeText(getApplicationContext(), R.string.no_contact, LENGTH_LONG).show();
             }
         } else if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
 
@@ -1129,7 +1129,7 @@ private EditText etMerchantCode;
         {
             rlVoucher.setVisibility(View.GONE);
 
-            tvVoucherClaimed.setText("Dear user, you have already availed this discount " + maxAllowed + " time(s).");
+            tvVoucherClaimed.setText(getString(R.string.already_availed_discount)+" " + maxAllowed + " " + getString(R.string.timess));
 
             return;
         }
@@ -1142,9 +1142,9 @@ private EditText etMerchantCode;
                     + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");*/
         }
 
-        tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
-                + ", you have availed "
-                + ( voucherClaimed) + " deal(s).");
+        tvVoucherClaimed.setText(getString(R.string.out_of)+" " + genericDeal.vouchers_max_allowed
+                + ", " + getString(R.string.you_have_availed) + " "
+                + ( voucherClaimed) + " " + getString(R.string.dealss));
 
        /* tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
                 + " number of times "
@@ -1326,9 +1326,9 @@ private EditText etMerchantCode;
 
        tvVoucherClaimed.setVisibility(View.VISIBLE);
 
-       tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
-               + ", you have availed "
-               + (genericDeal.vouchers_claimed) + " deal(s).");
+       tvVoucherClaimed.setText(getString(R.string.out_of)+" " + genericDeal.vouchers_max_allowed
+               + ", " + getString(R.string.you_have_availed) + " "
+               + ( genericDeal.vouchers_claimed) + " " + getString(R.string.dealss));
 
       /* if(genericDeal.vouchers_claimed >= genericDeal.vouchers_max_allowed)
        {

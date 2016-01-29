@@ -96,6 +96,9 @@ public class CategoryUtils {
         /* SPORTS & FITNESS */
             subCategories.add(new SubCategory(33, R.id.cb_sports_clothing, activity.getString(R.string.Clothing), "sports_clothing", CT_SPORTS, false, false));
             subCategories.add(new SubCategory(34, R.id.cb_sports_equipment, activity.getString(R.string.Equipment), "sports_equipment", CT_SPORTS, false, false));
+            subCategories.add(new SubCategory(333, R.id.cb_sports_fitness_programs, activity.getString(R.string.fitness_program), "sports_fitnessp", CT_SPORTS, false, false));
+            subCategories.add(new SubCategory(344, R.id.cb_sports_kids_programs, activity.getString(R.string.kids_program), "sports_kids", CT_SPORTS, false, false));
+            subCategories.add(new SubCategory(355, R.id.cb_sports_diet_programs, activity.getString(R.string.diet_programs), "sports_diet", CT_SPORTS, false, false));
 
 
         /* NEAR BY */

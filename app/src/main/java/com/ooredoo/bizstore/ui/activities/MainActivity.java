@@ -1,14 +1,23 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
+import com.ooredoo.bizstore.ui.fragments.SplashFragment;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
@@ -21,12 +30,15 @@ public class MainActivity extends BaseActivity {
         layoutResId = R.layout.activity_main;
     }
 
+    boolean isSplashShowing = true;
+
     @Override
     public void init() {
-        boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
+        showSplash();
+        /*boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
         if(check) {
             startActivity(HomeActivity.class);
-        }
+        }*/
         btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
 
         FontUtils.setFont(this, BizStore.ARABIC_DEFAULT_FONT, btnArabicLang);
@@ -40,6 +52,58 @@ public class MainActivity extends BaseActivity {
 
         btnArabicLang.setSelected(isArabicLang);
         btnEnglishLang.setSelected(!isArabicLang);
+    }
+
+    SplashFragment splashFragment;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+
+    private void showSplash()
+    {
+        splashFragment = new SplashFragment();
+
+         fragmentManager = getFragmentManager();
+
+         fragmentTransaction = fragmentManager.beginTransaction();
+       //fragmentTransaction.setCustomAnimations(R.animator.slide_up_animator, R.animator.fade_out);
+        //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.add(android.R.id.content, splashFragment, null);
+fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideSplash();
+                    }
+                });
+
+            }
+        }, 2000);
+    }
+
+    private void hideSplash()
+    {
+        boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
+        if(check) {
+            startActivity(HomeActivity.class);
+        }
+        else
+        {
+            // FragmentManager fragmentManager = getFragmentManager();
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.remove(splashFragment);
+            fragmentTransaction.commitAllowingStateLoss();
+
+            // fragmentManager.executePendingTransactions();
+
+            isSplashShowing = false;
+        }
     }
 
     @Override
@@ -58,7 +122,9 @@ public class MainActivity extends BaseActivity {
 
             NavigationMenuOnClickListener.updateConfiguration(this, language);
 
-            startActivity(SignUpActivity.class);
+            //startActivity(SignUpActivity.class);
+
+            startActivity(new Intent(this, SignUpActivity.class));
         }
     }
 
@@ -69,5 +135,11 @@ public class MainActivity extends BaseActivity {
         if(check) {
             startActivity(HomeActivity.class);
         }*/
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!isSplashShowing)
+        super.onBackPressed();
     }
 }
