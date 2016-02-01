@@ -126,14 +126,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:horizontalSpacing="@dimen/_4sdp"
+                        android:horizontalSpacing="@dimen/_6sdp"
                         android:layoutDirection="locale"
                         android:numColumns="4"
+                        android:stretchMode="columnWidth"
                         android:paddingBottom="@dimen/_6sdp"
                         android:paddingEnd="@dimen/_6sdp"
                         android:paddingStart="@dimen/_6sdp"
                         android:scrollbars="none"
-                        android:verticalSpacing="@dimen/_4sdp"/>
+                        android:verticalSpacing="@dimen/_2sdp"/>
 
                 </LinearLayout>
 
