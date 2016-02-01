@@ -10,12 +10,14 @@ import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -162,6 +164,14 @@ public class SearchBaseAdapter extends BaseAdapter {
             holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
             holder.tvDirections = (TextView) row.findViewById(R.id.directions);
             holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+            holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
+            holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                holder.rlHeader.setBackgroundResource(R.drawable.list_header);
+                holder.llFooter.setBackgroundResource(R.drawable.list_footer);
+            }
 
             row.setTag(holder);
         } else {
@@ -377,6 +387,20 @@ public class SearchBaseAdapter extends BaseAdapter {
             holder.tvDirections.setVisibility(View.GONE);
         }
 
+        holder.rlHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetail(deal);
+            }
+        });
+
+        holder.llFooter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetail(deal);
+            }
+        });
+
         if(doAnimate && position > 0)
         {
             //AnimUtils.slideView(activity, row, prevItem < position);
@@ -385,6 +409,9 @@ public class SearchBaseAdapter extends BaseAdapter {
         {
             doAnimate = true;
         }
+
+
+
 
         prevItem = position;
 
@@ -515,7 +542,9 @@ public class SearchBaseAdapter extends BaseAdapter {
 
         ProgressBar progressBar;
 
-        RelativeLayout rlPromotionalLayout;
+        LinearLayout llFooter;
+
+        RelativeLayout rlPromotionalLayout, rlHeader;
     }
 
     private void startDirections(SearchResult genericDeal)

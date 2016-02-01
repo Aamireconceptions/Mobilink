@@ -8,11 +8,13 @@
                 >
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:padding="@dimen/_8sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_6sdp"
         android:background="@drawable/list_border_head">
 
         <FrameLayout

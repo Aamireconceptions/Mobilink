@@ -19,6 +19,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -203,6 +204,14 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             TextView tvDirections = (TextView) childView.findViewById(R.id.directions);
             ImageView ivDiscountTag = (ImageView) childView.findViewById(R.id.discount_tag);
 
+            RelativeLayout rlHeader = (RelativeLayout) childView.findViewById(R.id.header);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+               rlHeader.setBackgroundResource(R.drawable.list_header);
+               layout.setBackgroundResource(R.drawable.list_footer);
+            }
+
             //holder.tvBrandName.setText(genericDeal.brandName);
             //holder.tvBrandAddress.setText(genericDeal.brandAddress);
 
@@ -306,6 +315,13 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
 
             layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDetail(deal);
+                }
+            });
+
+            rlHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showDetail(deal);
@@ -421,6 +437,11 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                     gridView.setHorizontalSpacing((int) context.getResources().getDimension(R.dimen._minus1sdp));
               /*  else
                     gridView.setHorizontalSpacing((int) context.getResources().getDimension(R.dimen._8sdp));*/
+            }
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                gridView.setDrawSelectorOnTop(true);
             }
 
             gridView.setGravity(Gravity.CENTER_HORIZONTAL);

@@ -148,6 +148,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             gridView.setNestedScrollingEnabled(true);
+            gridView.setDrawSelectorOnTop(true);
         }
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);

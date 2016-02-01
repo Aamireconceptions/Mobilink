@@ -557,6 +557,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
                // gridView.setHorizontalSpacing(-30);
                 //gridView.setVerticalSpacing(-30);
 
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    gridView.setDrawSelectorOnTop(true);
+                }
+
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
