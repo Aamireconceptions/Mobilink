@@ -22,6 +22,8 @@ public class SearchResult {
 
     public int color = 0, is_exclusive;
 
+    public int actualPrice, discountedPrice;
+
     public double latitude, longitude;
 
     String banner, detailBanner;

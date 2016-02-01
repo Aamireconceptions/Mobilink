@@ -316,4 +316,5 @@
     <string name="already_availed_discount">عزيزي المستخدم، كنت قد استفاد بالفعل هذا الخصم</string>
     <string name="timess">الوقت (ق).</string>
     <string name="no_contact">لا رقم الاتصال وجدت</string>
+    <string name="qar">ريال قطري</string>
 </resources>

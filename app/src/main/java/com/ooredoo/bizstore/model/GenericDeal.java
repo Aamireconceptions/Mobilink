@@ -24,6 +24,8 @@ public class GenericDeal implements Serializable{
 
     public double mDistance;
 
+    public int actualPrice, discountedPrice;
+
     public String distanceStatus, how_works, terms_services;
 
    public boolean isBannerDisplayed, isLogoDisplayed, isDetailDisplayed, isSlidedUp;

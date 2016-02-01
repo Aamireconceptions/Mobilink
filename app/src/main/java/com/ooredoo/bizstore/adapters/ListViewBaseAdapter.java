@@ -59,6 +59,7 @@ import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.views.NonScrollableGridView;
@@ -266,6 +267,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
                 holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
                 holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
+                holder.tvPrice = (TextView) row.findViewById(R.id.prices);
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 {
@@ -285,6 +287,32 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
 
             lastPosition = position;*/
+
+            deal.actualPrice = 4000;
+            deal.discountedPrice = 2000;
+
+            if(deal.actualPrice > 0 && deal.discountedPrice > 0)
+            {
+                holder.tvDetail.setVisibility(View.GONE);
+
+                holder.tvPrice.setVisibility(View.VISIBLE);
+
+                String qar = context.getString(R.string.qar);
+
+                String discountedPrice = qar + " " + deal.discountedPrice;
+
+                String actualPrice = qar + " " + deal.actualPrice;
+
+                FontUtils.strikeThrough(holder.tvPrice, discountedPrice + "  -  " + actualPrice,
+                        actualPrice, context.getResources().getColor(R.color.slight_grey));
+
+            }
+            else
+            {
+                holder.tvPrice.setVisibility(View.GONE);
+
+                holder.tvDetail.setVisibility(View.VISIBLE);
+            }
 
             holder.tvBrandName.setText(deal.businessName);
 
@@ -985,7 +1013,7 @@ return null;
         ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
-                 tvDirections, tvBrandText;
+                 tvDirections, tvBrandText, tvPrice;
 
         RatingBar rbRatings;
 

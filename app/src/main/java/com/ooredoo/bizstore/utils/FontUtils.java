@@ -2,12 +2,14 @@ package com.ooredoo.bizstore.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -83,5 +85,17 @@ public class FontUtils
 
         textView.setText(spannable);
     }
+
+    public static void strikeThrough(TextView textView, String text,  String part, int color)
+    {
+        Spannable spannable = new SpannableString(text);
+        spannable.setSpan(new StrikethroughSpan(), text.length() - part.length(), text.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(color), text.length() - part.length(), text.length(),
+                Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        textView.setText(spannable);
+    }
+
 
 }

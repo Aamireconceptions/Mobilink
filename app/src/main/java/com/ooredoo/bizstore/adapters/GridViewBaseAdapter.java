@@ -24,6 +24,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -141,6 +142,7 @@ public class GridViewBaseAdapter extends BaseAdapter
                 holder.tvDiscount = (TextView) grid.findViewById(R.id.discount);
                 holder.progressBar = (ProgressBar) grid.findViewById(R.id.progress_bar);
                 holder.ivDiscountTag = (ImageView) grid.findViewById(R.id.discount_tag);
+                holder.tvPrice = (TextView) grid.findViewById(R.id.prices);
 
                 grid.setTag(holder);
             } else {
@@ -148,6 +150,28 @@ public class GridViewBaseAdapter extends BaseAdapter
             }
 
             final GenericDeal deal = (GenericDeal) getItem(position);
+
+            if(deal.actualPrice > 0 && deal.discountedPrice > 0)
+            {
+                holder.tvDesc.setVisibility(View.GONE);
+
+                holder.tvPrice.setVisibility(View.VISIBLE);
+
+                String qar = context.getString(R.string.qar);
+
+                String discountedPrice = qar + " " + deal.discountedPrice;
+
+                String actualPrice = qar + " " + deal.actualPrice;
+
+                FontUtils.strikeThrough(holder.tvPrice, discountedPrice + " - " + actualPrice,
+                        actualPrice, context.getResources().getColor(R.color.slight_grey));
+            }
+            else
+            {
+                holder.tvPrice.setVisibility(View.GONE);
+
+                holder.tvDesc.setVisibility(View.VISIBLE);
+            }
 
             if(deal.color == 0)
             {
@@ -390,7 +414,7 @@ public class GridViewBaseAdapter extends BaseAdapter
     {
         ImageView ivThumbnail, ivFav, ivDiscountTag;
 
-        TextView tvTitle, tvDiscount, tvDesc;
+        TextView tvTitle, tvDiscount, tvDesc, tvPrice;
 
         ProgressBar progressBar;
 
