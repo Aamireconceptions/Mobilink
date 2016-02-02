@@ -185,6 +185,11 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
     }
 
     @Override
+    public void filterTagUpdate() {
+
+    }
+
+    @Override
     public void onRefresh() {
 
         diskCache.remove(adapter.deals);

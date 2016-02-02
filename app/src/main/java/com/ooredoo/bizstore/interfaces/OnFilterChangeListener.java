@@ -6,4 +6,6 @@ package com.ooredoo.bizstore.interfaces;
 public interface OnFilterChangeListener
 {
    void onFilterChange();
+
+   void filterTagUpdate();
 }

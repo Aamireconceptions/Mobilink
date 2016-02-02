@@ -264,6 +264,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         isRefreshed = false;
     }
 
+    @Override
+    public void filterTagUpdate() {
+
+    }
+
     SimilarBrandsAdapter brandsAdapter;
     public void showBrands(List<Brand> brands)
     {

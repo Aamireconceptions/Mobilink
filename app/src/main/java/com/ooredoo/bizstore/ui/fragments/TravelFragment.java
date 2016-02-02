@@ -173,6 +173,11 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
     }
 
     @Override
+    public void filterTagUpdate() {
+
+    }
+
+    @Override
     public void onRefresh() {
 
         diskCache.remove(adapter.deals);

@@ -236,6 +236,35 @@ public class CategoryUtils {
         return subCategories;
     }
 
+    public static String getSelectedSubCategoriesForTag(int parent) {
+        String categories = null;
+
+        int i = 0;
+
+        for(SubCategory subCategory : subCategories)
+        {
+            if(subCategory.parent == parent)
+            {
+                if(subCategory.isSelected)
+                {
+                    if(i != 0)
+                    {
+                        categories += ", " + subCategory.title;
+                    }
+                    else
+                    {
+                        categories = subCategory.title;
+                    }
+
+                }
+            }
+
+            i++;
+        }
+
+        return categories;
+    }
+
     public static void resetSubCategories(int parent) {
         for(SubCategory subCategory : subCategories) {
             if(subCategory.parent == parent) {

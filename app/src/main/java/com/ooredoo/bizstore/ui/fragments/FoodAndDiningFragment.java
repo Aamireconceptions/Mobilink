@@ -10,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -35,9 +38,12 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.CACHE_TIME;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 
@@ -91,6 +97,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         return v;
     }
 
+    private RelativeLayout rlFilterTags;
+
+    private TextView tvFilter;
+
     private void init(View v, LayoutInflater inflater)
     {
         activity = (HomeActivity) getActivity();
@@ -108,6 +118,21 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
+        rlFilterTags = (RelativeLayout) inflater.inflate(R.layout.layout_filter_tags, null);
+
+        tvFilter = (TextView) rlFilterTags.findViewById(R.id.filter);
+
+        ImageView ivCloseFilerTag = (ImageView) rlFilterTags.findViewById(R.id.close);
+        ivCloseFilerTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tvFilter.setText("");
+
+                rlFilterTags.setVisibility(View.GONE);
+            }
+        });
+
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
         clickListener.setLayout(rlHeader);
 
@@ -122,6 +147,9 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
         listView.addHeaderView(rlHeader);
+        listView.addHeaderView(rlFilterTags);
+
+        //rlFilterTags.setVisibility(View.GONE);
 
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -291,5 +319,37 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     public void scroll() {
 
         listView.setSelection(0);
+    }
+
+    public void filterTagUpdate()
+    {
+        String filter = null;
+
+        if(activity.doApplyDiscount)
+        {
+            filter = "Discount: Highest to lowest";
+        }
+
+        if(activity.doApplyRating)
+        {
+            filter += ", Rating " + activity.ratingFilter;
+        }
+
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_FOOD);
+
+        if(categories != null)
+        {
+            filter += ", Sub Categories: "+categories;
+        }
+
+        if(filter != null)
+        {
+            rlFilterTags.setVisibility(View.VISIBLE);
+            rlFilterTags.setLayoutParams(
+                    new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            tvFilter.setText("Filter: "+ filter);
+        }
     }
 }

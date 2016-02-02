@@ -477,6 +477,11 @@ dealofDayCalled = false;
     }
 
     @Override
+    public void filterTagUpdate() {
+
+    }
+
+    @Override
     public void onResume()
     {
         super.onResume();

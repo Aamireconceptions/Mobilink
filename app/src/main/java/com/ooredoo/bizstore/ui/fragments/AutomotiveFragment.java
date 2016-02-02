@@ -175,6 +175,11 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
     }
 
     @Override
+    public void filterTagUpdate() {
+
+    }
+
+    @Override
     public void onRefresh() {
 
         diskCache.remove(adapter.deals);

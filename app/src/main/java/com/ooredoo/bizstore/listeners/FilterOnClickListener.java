@@ -215,6 +215,8 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 onFilterChangeListener.onFilterChange();
 
+                onFilterChangeListener.filterTagUpdate();
+
                 break;
 
             case R.id.rating_checkbox:
@@ -325,7 +327,6 @@ public class FilterOnClickListener implements View.OnClickListener {
                 setDistanceSelected(v);
 
                 break;
-
         }
     }
 

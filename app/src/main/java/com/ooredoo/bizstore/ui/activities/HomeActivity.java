@@ -1199,6 +1199,11 @@ LinearLayout llSearch;
         }
     }
 
+    public void filterTagUpdate()
+    {
+        ((OnFilterChangeListener) currentFragment).filterTagUpdate();
+    }
+
     @Override
     public void onBackPressed() {
 

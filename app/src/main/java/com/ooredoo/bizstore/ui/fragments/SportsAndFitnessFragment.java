@@ -187,6 +187,11 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     }
 
     @Override
+    public void filterTagUpdate() {
+
+    }
+
+    @Override
     public void onRefresh() {
         diskCache.remove(adapter.deals);
 

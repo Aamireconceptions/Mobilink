@@ -185,6 +185,11 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
     }
 
     @Override
+    public void filterTagUpdate() {
+
+    }
+
+    @Override
     public void onRefresh()
     {
         diskCache.remove(adapter.deals);

@@ -130,6 +130,11 @@ public class TestTopDealsFragment extends Fragment implements OnFilterChangeList
     }
 
     @Override
+    public void filterTagUpdate() {
+
+    }
+
+    @Override
     public void onRefresh() {
         loadTopDeals();
     }

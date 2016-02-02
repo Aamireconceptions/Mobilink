@@ -180,6 +180,11 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
     }
 
     @Override
+    public void filterTagUpdate() {
+
+    }
+
+    @Override
     public void onRefresh() {
         diskCache.remove(adapter.deals);
 
