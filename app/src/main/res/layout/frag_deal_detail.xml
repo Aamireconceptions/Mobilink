@@ -263,6 +263,14 @@
                 android:textColor="@color/red"/>
 
             <TextView
+                android:id="@+id/prices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:visibility="gone"/>
+
+            <TextView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

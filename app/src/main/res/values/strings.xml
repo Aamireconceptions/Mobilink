@@ -316,5 +316,6 @@
     <string name="timess">time(s).</string>
     <string name="no_contact">No contact number found</string>
     <string name="qar">QAR</string>
+    <string name="get_qticket">Get QTicket</string>
 
 </resources>

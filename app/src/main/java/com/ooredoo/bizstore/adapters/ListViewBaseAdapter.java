@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -287,9 +288,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
             }
 
             lastPosition = position;*/
-
-            deal.actualPrice = 4000;
-            deal.discountedPrice = 2000;
 
             if(deal.actualPrice > 0 && deal.discountedPrice > 0)
             {
@@ -588,6 +586,10 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 {
                     gridView.setDrawSelectorOnTop(true);
+                }
+                else
+                {
+                    gridView.setSelector(new ColorDrawable());
                 }
 
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

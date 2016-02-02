@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -53,6 +54,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -84,6 +86,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 private EditText etMerchantCode;
 
     RelativeLayout rlMerchandCode;
+
+    private String qticketUrl = "https://www.q-tickets.com/";
 
    // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
@@ -196,6 +200,7 @@ private EditText etMerchantCode;
     ListView listView;
     PopupMenu popupMenu;
     TextView tvLocations;
+    TextView tvPrices;
     ListViewBaseAdapter similarAdapter, nearbyAdapter;
 
     List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
@@ -212,6 +217,8 @@ private EditText etMerchantCode;
         llHead = (LinearLayout) header.findViewById(R.id.head);
         tvHeadTitle = (TextView) header.findViewById(R.id.head_title);
         tvHeadDescription = (TextView) header.findViewById(R.id.head_description);
+
+        tvPrices = (TextView) header.findViewById(R.id.prices);
 
         tvVoucherClaimed = (TextView) header.findViewById(R.id.vouchers_claimed);
 
@@ -403,6 +410,21 @@ private EditText etMerchantCode;
 
             mDeal = deal;
 
+            if(deal.actualPrice > 0 && deal.discountedPrice > 0)
+            {
+                tvPrices.setVisibility(View.VISIBLE);
+
+                String qar = getString(R.string.qar);
+
+                String discountedPrice = qar + " " + deal.discountedPrice;
+
+                String actualPrice = qar + " " + deal.actualPrice;
+
+                FontUtils.strikeThrough(tvPrices, discountedPrice + "  -  " + actualPrice,
+                        actualPrice, getResources().getColor(R.color.slight_grey));
+            }
+
+
             mOnScrollViewListener.setTitle(deal.title);
 
             src = new Deal(deal);
@@ -430,6 +452,11 @@ private EditText etMerchantCode;
 
             TextView tvCategory = (TextView) findViewById(R.id.cat);
             tvCategory.setText(deal.category);
+
+            if(BizStore.getLanguage().equals("ar"))
+            {
+                FontUtils.setFont(this, BizStore.ARABIC_DEFAULT_FONT, tvCategory);
+            }
 
             if(deal.how_works != null && !deal.how_works.isEmpty())
             {
@@ -497,6 +524,12 @@ private EditText etMerchantCode;
                 tvDiscount.setVisibility(View.GONE);
             }
 
+            if(deal.isQticket == 1)
+            {
+                btGetCode.setText(R.string.get_qticket);
+
+
+            }
            // deal.location = "doha";
 
             RelativeLayout rlLocationHeader = (RelativeLayout) header.findViewById(R.id.location_header);
@@ -965,14 +998,26 @@ private EditText etMerchantCode;
         else
         if(viewId == R.id.get_code)
         {
-            v.setVisibility(View.GONE);
+            if(mDeal.isQticket == 1)
+            {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(qticketUrl));
 
-            rlMerchandCode.setVisibility(View.VISIBLE);
+                startActivity(intent);
+            }
+            else
+            {
+                v.setVisibility(View.GONE);
 
-            etMerchantCode.requestFocus();
+                rlMerchandCode.setVisibility(View.VISIBLE);
 
-            InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.toggleSoftInputFromWindow(etMerchantCode.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+                etMerchantCode.requestFocus();
+
+                InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.toggleSoftInputFromWindow(etMerchantCode.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+            }
+
         }
         else
             if(viewId == R.id.similar_deals)
@@ -1306,7 +1351,7 @@ private EditText etMerchantCode;
        this.genericDeal = genericDeal;
 
 
-       if(genericDeal.is_exclusive == 0)
+       if(genericDeal.is_exclusive == 0 || mDeal.isQticket == 1)
        {
            return;
        }

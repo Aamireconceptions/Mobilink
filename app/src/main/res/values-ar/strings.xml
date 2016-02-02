@@ -317,4 +317,5 @@
     <string name="timess">الوقت (ق).</string>
     <string name="no_contact">لا رقم الاتصال وجدت</string>
     <string name="qar">ريال قطري</string>
+    <string name="get_qticket">الحصول على QTicket</string>
 </resources>

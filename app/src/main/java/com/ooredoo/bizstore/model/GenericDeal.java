@@ -24,7 +24,11 @@ public class GenericDeal implements Serializable{
 
     public double mDistance;
 
+
     public int actualPrice, discountedPrice;
+
+    @SerializedName("is_qticket")
+    public int isQticket;
 
     public String distanceStatus, how_works, terms_services;
 

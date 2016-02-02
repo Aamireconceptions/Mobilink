@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -408,7 +409,6 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             NonScrollableGridView gridView = new NonScrollableGridView(context, null);
 
 
-
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -442,6 +442,10 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                 gridView.setDrawSelectorOnTop(true);
+            }
+            else
+            {
+                gridView.setSelector(new ColorDrawable());
             }
 
             gridView.setGravity(Gravity.CENTER_HORIZONTAL);

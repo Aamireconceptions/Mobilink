@@ -314,6 +314,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        if(locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null)
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis, distanceMeters, this);
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if(location != null) {
