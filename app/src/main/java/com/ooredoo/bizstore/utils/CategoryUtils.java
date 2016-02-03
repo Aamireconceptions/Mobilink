@@ -237,7 +237,7 @@ public class CategoryUtils {
     }
 
     public static String getSelectedSubCategoriesForTag(int parent) {
-        String categories = null;
+        String categories = "";
 
         int i = 0;
 
@@ -247,15 +247,15 @@ public class CategoryUtils {
             {
                 if(subCategory.isSelected)
                 {
-                    if(i != 0)
+                    /*if(i != 0)
                     {
                         categories += ", " + subCategory.title;
                     }
                     else
                     {
                         categories = subCategory.title;
-                    }
-
+                    }*/
+                    categories += subCategory.title + ", ";
                 }
             }
 

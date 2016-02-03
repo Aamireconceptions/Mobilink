@@ -27,7 +27,7 @@ public class GenericDeal implements Serializable{
 
     public int actualPrice, discountedPrice;
 
-    @SerializedName("is_qticketi")
+    @SerializedName("is_qticket")
     public int isQticket;
 
     public String distanceStatus, how_works, terms_services;
@@ -50,6 +50,13 @@ public class GenericDeal implements Serializable{
 
     @SerializedName("nearDeals")
     public List<GenericDeal> nearbyDeals;
+
+    public boolean isHeader;
+
+    public GenericDeal(boolean isHeader)
+    {
+        this.isHeader = isHeader;
+    }
 
     public GenericDeal(RecentDeal deal) {
         this.id = deal.id;

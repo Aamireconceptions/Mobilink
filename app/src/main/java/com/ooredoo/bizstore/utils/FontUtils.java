@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -93,6 +94,15 @@ public class FontUtils
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannable.setSpan(new ForegroundColorSpan(color), text.length() - part.length(), text.length(),
                 Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        textView.setText(spannable);
+    }
+
+    public static void changeColorAndMakeBold(TextView textView, String text, String part, int color)
+    {
+        Spannable spannable = new SpannableString(text);
+        spannable.setSpan(new ForegroundColorSpan(color), 0, part.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, part.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 
         textView.setText(spannable);
     }

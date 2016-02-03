@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">-->
+    android:layout_height="wrap_content">
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:id="@+id/tags_wrapper"
-    android:padding="@dimen/_12sdp"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingBottom="@dimen/_12sdp"
+    android:paddingStart="@dimen/_20sdp"
+    android:paddingEnd="@dimen/_20sdp"
     android:background="@drawable/top_bottom_border"
-    >
+    android:visibility="visible">
 
     <TextView
         android:id="@+id/filter"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/close"
+        android:textColor="@android:color/secondary_text_light"
         android:layout_marginEnd="@dimen/_6sdp"
         android:layout_centerVertical="true"/>
 
     <ImageView
         android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_close"/>
 
 </RelativeLayout>
 
-<!--
-</LinearLayout>-->
+</FrameLayout>

@@ -30,6 +30,7 @@ import com.ooredoo.bizstore.interfaces.ScrollToTop;
 import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.SubCategory;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -100,7 +101,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     private RelativeLayout rlFilterTags;
 
     private TextView tvFilter;
-
+    List<GenericDeal> deals;
     private void init(View v, LayoutInflater inflater)
     {
         activity = (HomeActivity) getActivity();
@@ -118,7 +119,9 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
-        rlFilterTags = (RelativeLayout) inflater.inflate(R.layout.layout_filter_tags, null);
+        FrameLayout flWrapper = (FrameLayout) inflater.inflate(R.layout.layout_filter_tags, null);
+
+        rlFilterTags = (RelativeLayout) flWrapper.findViewById(R.id.tags_wrapper);
 
         tvFilter = (TextView) rlFilterTags.findViewById(R.id.filter);
 
@@ -136,7 +139,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
         clickListener.setLayout(rlHeader);
 
-        List<GenericDeal> deals = new ArrayList<>();
+        deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
         adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
@@ -144,10 +147,15 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        listView = (ListView) v.findViewById(R.id.list_view);
+        listView = (ListView) v.findViewById(R.id.list_view); listView.setHeaderDividersEnabled(true);
+
         listView.addHeaderView(ivBanner);
         listView.addHeaderView(rlHeader);
-        listView.addHeaderView(rlFilterTags);
+        //flWrapper.setPadding(0, -1000, 0, 0);
+        //flWrapper.setLayoutParams(new AbsListView.LayoutParams(0, 0));
+       // listView.addHeaderView(flWrapper);
+
+
 
         //rlFilterTags.setVisibility(View.GONE);
 
@@ -214,6 +222,13 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onRefresh()
     {
+        if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+        {
+            adapter.filterHeaderDeal = null;
+            adapter.deals.remove(0);
+            adapter.notifyDataSetChanged();
+        }
+
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
@@ -258,6 +273,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
+
+        adapter.filterHeaderDeal = null;
     }
 
     @Override
@@ -323,33 +340,43 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     public void filterTagUpdate()
     {
-        String filter = null;
+        String filter = "";
 
         if(activity.doApplyDiscount)
         {
-            filter = "Discount: Highest to lowest";
+            filter = "Discount: Highest to lowest, ";
         }
 
         if(activity.doApplyRating)
         {
-            filter += ", Rating " + activity.ratingFilter;
+            filter += "Rating " + activity.ratingFilter +", ";
         }
 
         String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_FOOD);
 
-        if(categories != null)
+        if(!categories.isEmpty())
         {
-            filter += ", Sub Categories: "+categories;
+            filter += "Sub Categories: "+categories ;
         }
 
-        if(filter != null)
+        if(! filter.isEmpty() && filter.charAt(filter.length() - 2) == ',')
         {
-            rlFilterTags.setVisibility(View.VISIBLE);
-            rlFilterTags.setLayoutParams(
-                    new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
+            filter = filter.substring(0, filter.length() - 2);
+        }
 
-            tvFilter.setText("Filter: "+ filter);
+        if(!filter.isEmpty())
+        {
+            adapter.subcategoryParent = CategoryUtils.CT_FOOD;
+            adapter.filterHeaderDeal = new GenericDeal(true);
+        }
+        else
+        {
+            if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+            {
+                adapter.filterHeaderDeal = null;
+                adapter.deals.remove(0);
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 }

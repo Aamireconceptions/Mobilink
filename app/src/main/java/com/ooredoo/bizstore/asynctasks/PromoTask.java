@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -120,6 +121,8 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
         } else {
+
+            Toast.makeText(activity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
             Logger.print("PromoTask: Failed to download banners due to no internet");
         }
 

@@ -527,8 +527,6 @@ private EditText etMerchantCode;
             if(deal.isQticket == 1)
             {
                 btGetCode.setText(R.string.get_qticket);
-
-
             }
            // deal.location = "doha";
 

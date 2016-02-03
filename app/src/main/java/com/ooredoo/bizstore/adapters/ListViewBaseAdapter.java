@@ -57,6 +57,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
+import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -150,6 +151,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
     FrameLayout linearLayout;
     //public boolean isDealOfDay;
 
+   public boolean isFilterShowing = false;
+
     void initMarker()
     {
         linearLayout = (FrameLayout) inflater.inflate(R.layout.marker, null);
@@ -180,12 +183,25 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     public void setData(List<GenericDeal> deals) {
         this.deals = deals;
+
+        if(filterHeaderDeal != null)
+        {
+            deals.add(0, filterHeaderDeal);
+            //notifyDataSetChanged();
+        }
     }
+
+    public GenericDeal filterHeaderDeal;
 
     public void clearData()
     {
         if(this.deals != null)
         {
+            if(deals.size() >0 && deals.get(0).isHeader)
+            {
+                filterHeaderDeal = deals.get(0);
+            }
+
             deals.clear();
         }
 
@@ -229,6 +245,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     int lastPosition = -1;
 
+    public int subcategoryParent;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -236,6 +253,69 @@ public class ListViewBaseAdapter extends BaseAdapter {
         {
             Logger.print("getView");
             final GenericDeal deal = getItem(position);
+
+            if(deal.isHeader)
+            {
+                HomeActivity homeActivity = (HomeActivity) activity;
+                String filter = "";
+
+                if(homeActivity.doApplyDiscount)
+                {
+                    filter = context.getString(R.string.sort_by) + ": "
+                            + context.getString(R.string.sort_discount) + ", ";
+                }
+
+                if(homeActivity.doApplyRating)
+                {
+                    filter += context.getString(R.string.rating) + ": " + homeActivity.ratingFilter + ", ";
+                }
+
+                if(homeActivity.distanceFilter != null && subcategoryParent == CategoryUtils.CT_NEARBY)
+                {
+                    filter += context.getString(R.string.distance)
+                            + ": " + homeActivity.distanceFilter
+                            + " " + context.getString(R.string.km)+", ";
+                }
+
+                String categories = CategoryUtils.getSelectedSubCategoriesForTag(subcategoryParent);
+
+                if(!categories.isEmpty())
+                {
+                    filter +=  context.getString(R.string.sub_categories)+": "+categories ;
+                }
+
+                if(! filter.isEmpty() && filter.charAt(filter.length() - 2) == ',')
+                {
+                    filter = filter.substring(0, filter.length() - 2);
+                }
+
+                View filterHeader = inflater.inflate(R.layout.layout_filter_tags, parent, false);
+
+                final TextView tvFilter = (TextView) filterHeader.findViewById(R.id.filter);
+                if(!filter.isEmpty())
+                {
+                    FontUtils.changeColorAndMakeBold(tvFilter,
+                            context.getString(R.string.filter) + " : " + filter,
+                            context.getString(R.string.filter) + " : ",
+                            context.getResources().getColor(R.color.black));
+                   // tvFilter.setText("Filter: "+ filter);
+                }
+
+                ImageView ivCloseFilerTag = (ImageView) filterHeader.findViewById(R.id.close);
+                ivCloseFilerTag.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        tvFilter.setText("");
+
+                       deals.remove(0);
+                        filterHeaderDeal = null;
+                        notifyDataSetChanged();
+                    }
+                });
+
+                return filterHeader;
+            }
 
             View row = null;
             if((convertView instanceof LinearLayout))
@@ -279,6 +359,17 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 row.setTag(holder);
             } else {
                 holder = (Holder) row.getTag();
+            }
+
+            if(!isFilterShowing&& position == 0)
+            {
+                //row.setPadding(0, -24, 0, 0);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                params.topMargin = -24;
+               // holder.rlHeader.setLayoutParams(params);
             }
 
           /*  if(!deal.isSlidedUp && position > lastPosition)

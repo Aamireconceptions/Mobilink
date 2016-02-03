@@ -176,13 +176,15 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
         isRefreshed = false;
     }
 
-    @Override
-    public void filterTagUpdate() {
-
-    }
 
     @Override
     public void onRefresh() {
+        if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+        {
+            adapter.filterHeaderDeal = null;
+            adapter.deals.remove(0);
+            adapter.notifyDataSetChanged();
+        }
 
         diskCache.remove(adapter.deals);
 
@@ -225,6 +227,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
+
+        adapter.filterHeaderDeal = null;
     }
 
     @Override
@@ -269,5 +273,47 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void scroll() {
         listView.setSelection(0);
+    }
+
+    public void filterTagUpdate()
+    {
+        String filter = "";
+
+        if(activity.doApplyDiscount)
+        {
+            filter = "Discount: Highest to lowest, ";
+        }
+
+        if(activity.doApplyRating)
+        {
+            filter += "Rating " + activity.ratingFilter +", ";
+        }
+
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_MALLS);
+
+        if(!categories.isEmpty())
+        {
+            filter += "Sub Categories: "+categories ;
+        }
+
+        if(! filter.isEmpty() && filter.charAt(filter.length() - 2) == ',')
+        {
+            filter = filter.substring(0, filter.length() - 2);
+        }
+
+        if(!filter.isEmpty())
+        {
+            adapter.subcategoryParent = CategoryUtils.CT_MALLS;
+            adapter.filterHeaderDeal = new GenericDeal(true);
+        }
+        else
+        {
+            if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+            {
+                adapter.filterHeaderDeal = null;
+                adapter.deals.remove(0);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }

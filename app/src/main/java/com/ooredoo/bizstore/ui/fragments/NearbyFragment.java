@@ -466,10 +466,7 @@ RelativeLayout rlParent;
         fetchAndDisplayNearby(progressBar);
     }
 
-    @Override
-    public void filterTagUpdate() {
 
-    }
 
     @Override
     public void onResume() {
@@ -486,6 +483,14 @@ RelativeLayout rlParent;
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
+
+            if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+            {
+                adapter.filterHeaderDeal = null;
+                adapter.deals.remove(0);
+                adapter.notifyDataSetChanged();
+            }
+
             diskCache.remove(adapter.deals);
 
             memoryCache.remove(adapter.deals);
@@ -566,6 +571,15 @@ RelativeLayout rlParent;
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
+
+       /* if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+        {
+            adapter.filterHeaderDeal = null;
+            adapter.deals.remove(0);
+            adapter.notifyDataSetChanged();
+        }*/
+
+        adapter.filterHeaderDeal = null;
     }
 
     @Override
@@ -857,5 +871,53 @@ RelativeLayout rlParent;
     @Override
     public void scroll() {
         listView.setSelection(0);
+    }
+
+    public void filterTagUpdate()
+    {
+        String filter = "";
+
+        if(activity.doApplyDiscount)
+        {
+            filter = "Discount: Highest to lowest, ";
+        }
+
+        if(activity.doApplyRating)
+        {
+            filter += "Rating " + activity.ratingFilter +", ";
+        }
+
+        if(activity.distanceFilter != null )
+        {
+            filter += activity.getString(R.string.distance)
+                    + ": " + activity.distanceFilter
+                    + " " + activity.getString(R.string.km)+", ";
+        }
+
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_NEARBY);
+
+        if(!categories.isEmpty())
+        {
+            filter += "Sub Categories: "+categories ;
+        }
+
+        if(! filter.isEmpty() && filter.charAt(filter.length() - 2) == ',')
+        {
+            filter = filter.substring(0, filter.length() - 2);
+        }
+
+        if(!filter.isEmpty())
+        {
+            adapter.subcategoryParent = CategoryUtils.CT_NEARBY;
+            adapter.filterHeaderDeal = new GenericDeal(true);
+        }
+        else
+        {
+            if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+            {   adapter.filterHeaderDeal = null;
+                adapter.deals.remove(0);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }

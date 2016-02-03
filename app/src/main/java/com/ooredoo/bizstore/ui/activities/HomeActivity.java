@@ -1201,6 +1201,7 @@ LinearLayout llSearch;
 
     public void filterTagUpdate()
     {
+        if(currentFragment != null)
         ((OnFilterChangeListener) currentFragment).filterTagUpdate();
     }
 
