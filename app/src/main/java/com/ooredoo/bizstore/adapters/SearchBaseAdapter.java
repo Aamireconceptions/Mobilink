@@ -134,10 +134,125 @@ public class SearchBaseAdapter extends BaseAdapter {
         return deals.get(position).id;
     }
 
+    private View doItBusinessWay(final SearchResult result, int position, View convertView, ViewGroup parent)
+    {
+        View row = convertView;
+
+        if(row == null) {
+            row = inflater.inflate(R.layout.list_search_business, parent, false);
+
+            holder = new Holder();
+
+            holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
+            holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+            holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
+            holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+            holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+            holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                holder.rlHeader.setBackgroundResource(R.drawable.list_header);
+            }
+
+            row.setTag(holder);
+        } else {
+            holder = (Holder) row.getTag();
+        }
+
+        holder.tvBrandName.setText(result.businessName);
+
+        holder.tvBrandAddress.setText(result.location);
+
+        //deal.isFav = Favorite.isFavorite(deal.id);
+
+        // holder.ivFav.setSelected(deal.isFav);
+        //holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
+
+        String brandLogoUrl = result.businessLogo != null ? result.businessLogo : null;
+
+        Logger.print("BrandLogo: " + brandLogoUrl);
+
+        if(brandLogoUrl != null )
+        {
+            holder.tvBrandText.setVisibility(View.GONE);
+            String url = BaseAsyncTask.IMAGE_BASE_URL + brandLogoUrl;
+
+            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+
+            if(bitmap != null)
+            {
+                holder.ivBrand.setImageBitmap(bitmap);
+                //holder.progressBar.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.ivBrand.setImageBitmap(null);
+
+                fallBackToDiskCache(url);
+            }
+        }
+        else
+        {
+            holder.tvBrandText.setVisibility(View.VISIBLE);
+            if(result.businessName != null && !result.businessName.isEmpty())
+            {
+                if(result.color == 0)
+                {
+                    result.color = Color.parseColor(ColorUtils.getColorCode());
+                }
+
+                holder.tvBrandText.setText(String.valueOf(result.businessName.charAt(0)));
+                holder.tvBrandText.setBackgroundColor(result.color);
+            }
+
+            holder.ivBrand.setImageBitmap(null);
+        }
+
+        holder.tvDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startDirections(result);
+            }
+        });
+
+        if((result.latitude != 0 && result.longitude != 0)
+                && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
+        {
+            holder.tvDirections.setVisibility(View.VISIBLE);
+            float results[] = new float[3];
+            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, result.latitude, result.longitude,
+                    results);
+
+            holder.tvDirections.setText(String.format("%.1f", (results[0] / 1000)) + " " + context.getString(R.string.km));
+        }
+        else
+        {
+            holder.tvDirections.setVisibility(View.GONE);
+        }
+
+        holder.rlHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetail(result);
+            }
+        });
+
+        return row;
+
+    }
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final SearchResult deal = getItem(position);
+
+        if(HomeActivity.searchType.equals("business"))
+        {
+            return doItBusinessWay(deal, position, convertView, parent);
+        }
 
         View row = convertView;
 

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -928,7 +929,12 @@ LinearLayout llSearch;
                 if(searchResults.list != null & searchResults.list.size() > 0) {
                     if(searchType.equalsIgnoreCase("business")) {
                         results = getBusinesses();
+                        mSearchResultsListView.setDivider(new ColorDrawable(getResources().getColor(R.color.grey)));
+                        mSearchResultsListView.setDividerHeight(1);
+
                     } else {
+                        mSearchResultsListView.setDivider(new ColorDrawable(getResources().getColor(R.color.white)));
+                        mSearchResultsListView.setDividerHeight((int) Converter.convertDpToPixels(getResources().getDimension(R.dimen._6sdp)));
                         results = getDeals();
                     }
                     String keyword = acSearch.getText().toString();
@@ -1053,8 +1059,6 @@ LinearLayout llSearch;
         searchBusinesses.setText(getBusinessCount() + " " + getString(R.string.businesses));
 
         isSearchTextWatcherEnabled = true;
-
-
     }
 
     private int getDealsCount() {
@@ -1207,8 +1211,6 @@ LinearLayout llSearch;
 
     @Override
     public void onBackPressed() {
-
-
         if(drawerLayout.isDrawerOpen(GravityCompat.START))
         {
             drawerLayout.closeDrawer(GravityCompat.START);

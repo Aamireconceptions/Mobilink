@@ -67,8 +67,8 @@
                         android:layout_gravity="bottom"
                         android:layout_weight="0.5"
                         android:background="@drawable/detail_tab_selector"
-                        android:gravity="center_horizontal"
-                        android:paddingTop="12dp"
+                        android:gravity="center"
+
                         android:text="@string/Search_for_Deals"
                         android:textColor="@color/black_white_selector"
                         android:textSize="13sp"/>
@@ -79,8 +79,8 @@
                         android:layout_height="50dp"
                         android:layout_weight="0.50"
                         android:background="@drawable/detail_tab_selector"
-                        android:gravity="center_horizontal"
-                        android:paddingTop="12dp"
+                        android:gravity="center"
+
                         android:text="@string/Search_for_Business"
                         android:textColor="@color/black_white_selector"
                         android:textSize="13sp"/>
