@@ -38,6 +38,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="26sp"
+                android:textAllCaps="true"
                 android:visibility="gone"/>
 
         </FrameLayout>

@@ -9,11 +9,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"/>
 
+    <include layout="@layout/layout_filter_tags"
+        android:id="@+id/filter_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_below="@+id/header"
+        android:visibility="gone"/>
+
     <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"
+        android:layout_below="@+id/filter_tags"
         android:layout_marginTop="@dimen/_12sdp">
 
         <FrameLayout

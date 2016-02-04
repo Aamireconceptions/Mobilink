@@ -27,6 +27,7 @@
             android:gravity="center"
             android:textSize="50sp"
             android:textStyle="bold"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             />
 

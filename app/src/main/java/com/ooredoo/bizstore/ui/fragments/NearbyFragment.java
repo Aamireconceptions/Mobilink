@@ -54,10 +54,13 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -157,6 +160,12 @@ RelativeLayout rlParent;
 
     LocationManager locationManager;
     BitmapProcessor bitmapProcessor;
+
+    private View layoutFilterTags;
+
+    private TextView tvFilter;
+
+    private ImageView ivClose;
 
     private void init(View v, LayoutInflater inflater, Bundle savedInstanceState)
     {
@@ -332,6 +341,18 @@ RelativeLayout rlParent;
         clickListener.setLayout(v);
 
         initMarker();
+
+        layoutFilterTags = v.findViewById(R.id.filter_tags);
+
+        tvFilter = (TextView) layoutFilterTags.findViewById(R.id.filter);
+
+        ivClose = (ImageView) v.findViewById(R.id.close);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutFilterTags.setVisibility(View.GONE);
+            }
+        });
     }
 
     ImageView markerImageView;
@@ -425,9 +446,7 @@ RelativeLayout rlParent;
 
            // swipeRefreshLayout.setEnabled(true);
 
-
             listView.setVisibility(View.VISIBLE);
-
 
             //mapView.setVisibility(View.INVISIBLE);
 
@@ -437,7 +456,6 @@ RelativeLayout rlParent;
         }
         else
         {
-
             listView.setVisibility(View.GONE);
 
             rlParent.setVisibility(View.VISIBLE);
@@ -466,8 +484,6 @@ RelativeLayout rlParent;
         fetchAndDisplayNearby(progressBar);
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -483,13 +499,7 @@ RelativeLayout rlParent;
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
-
-            if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
-            {
-                adapter.filterHeaderDeal = null;
-                adapter.deals.remove(0);
-                adapter.notifyDataSetChanged();
-            }
+            layoutFilterTags.setVisibility(View.GONE);
 
             diskCache.remove(adapter.deals);
 
@@ -908,16 +918,16 @@ RelativeLayout rlParent;
 
         if(!filter.isEmpty())
         {
-            adapter.subcategoryParent = CategoryUtils.CT_NEARBY;
-            adapter.filterHeaderDeal = new GenericDeal(true);
+            layoutFilterTags.setVisibility(View.VISIBLE);
+
+            FontUtils.changeColorAndMakeBold(tvFilter,
+                    activity.getString(R.string.filter) + " : " + filter,
+                    activity.getString(R.string.filter) + " : ",
+                    activity.getResources().getColor(R.color.black));
         }
         else
         {
-            if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
-            {   adapter.filterHeaderDeal = null;
-                adapter.deals.remove(0);
-                adapter.notifyDataSetChanged();
-            }
+            layoutFilterTags.setVisibility(View.GONE);
         }
     }
 }

@@ -66,6 +66,7 @@
                         android:textSize="50sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
+                        android:textAllCaps="true"
                         />
                 </RelativeLayout>
 

@@ -193,6 +193,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
     public GenericDeal filterHeaderDeal;
 
+    public Brand filterHeaderBrand;
+
     public void clearData()
     {
         if(this.deals != null)
@@ -207,6 +209,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
         if(this.brands != null)
         {
+            if(brands.size() > 0 && brands.get(0).isHeader)
+            {
+                filterHeaderBrand = brands.get(0);
+            }
+
             brands.clear();
         }
     }
@@ -222,6 +229,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
         }
         else
         {
+            if(brands.size() > 0 && filterHeaderBrand != null)
+            {
+                return 2;
+            }
+            else
             if(brands.size() > 0 || listingType.equals("map"))
             {
                 return 1;
@@ -668,7 +680,81 @@ public class ListViewBaseAdapter extends BaseAdapter {
         else
             if(listingType.equals("brands"))
             {
-                SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand, brands);
+                Brand brand = brands.get(position);
+
+                if(brand.isHeader)
+                {
+                    HomeActivity homeActivity = (HomeActivity) activity;
+                    String filter = "";
+
+                    if(homeActivity.doApplyDiscount)
+                    {
+                        filter = context.getString(R.string.sort_by) + ": "
+                                + context.getString(R.string.sort_discount) + ", ";
+                    }
+
+                    if(homeActivity.doApplyRating)
+                    {
+                        filter += context.getString(R.string.rating) + ": " + homeActivity.ratingFilter + ", ";
+                    }
+
+                    if(homeActivity.distanceFilter != null && subcategoryParent == CategoryUtils.CT_NEARBY)
+                    {
+                        filter += context.getString(R.string.distance)
+                                + ": " + homeActivity.distanceFilter
+                                + " " + context.getString(R.string.km)+", ";
+                    }
+
+                    String categories = CategoryUtils.getSelectedSubCategoriesForTag(subcategoryParent);
+
+                    if(!categories.isEmpty())
+                    {
+                        filter +=  context.getString(R.string.sub_categories)+": "+categories ;
+                    }
+
+                    if(! filter.isEmpty() && filter.charAt(filter.length() - 2) == ',')
+                    {
+                        filter = filter.substring(0, filter.length() - 2);
+                    }
+
+                    View filterHeader = inflater.inflate(R.layout.layout_filter_tags, parent, false);
+
+                    final TextView tvFilter = (TextView) filterHeader.findViewById(R.id.filter);
+                    if(!filter.isEmpty())
+                    {
+                        FontUtils.changeColorAndMakeBold(tvFilter,
+                                context.getString(R.string.filter) + " : " + filter,
+                                context.getString(R.string.filter) + " : ",
+                                context.getResources().getColor(R.color.black));
+                        // tvFilter.setText("Filter: "+ filter);
+                    }
+
+                    ImageView ivCloseFilerTag = (ImageView) filterHeader.findViewById(R.id.close);
+                    ivCloseFilerTag.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            tvFilter.setText("");
+
+                            brands.remove(0);
+                            filterHeaderBrand = null;
+                            notifyDataSetChanged();
+                        }
+                    });
+
+                    return filterHeader;
+                }
+
+                List<Brand> mBrands = new ArrayList<>();
+                mBrands.addAll(brands);
+
+                if(filterHeaderBrand != null)
+                {
+                    mBrands.remove(0);
+
+                }
+
+                SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand, mBrands);
 
                 NonScrollableGridView gridView = new NonScrollableGridView(context, null);
                // gridView.setHorizontalSpacing(-30);
@@ -688,6 +774,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         Brand brand1 = (Brand) parent.getItemAtPosition(position);
+
+                        if(brand1.isHeader)
+                        {
+                            return;
+                        }
 
                         Business business = new Business(brand1);
 
@@ -966,11 +1057,17 @@ return null;
         this.googleMap = googleMap;
     }
 
-    private List<Brand> brands = new ArrayList<>();
+    public List<Brand> brands = new ArrayList<>();
 
     public void setBrandsList(List<Brand> brands)
     {
         this.brands = brands;
+
+        if(filterHeaderBrand != null)
+        {
+            this.brands.add(0, filterHeaderBrand);
+        }
+
     }
 
     private void fallBackToDiskCache(final String url)

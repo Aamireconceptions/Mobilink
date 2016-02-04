@@ -25,6 +25,7 @@ import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.interfaces.ScrollToTop;
 import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
+import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
@@ -196,6 +197,13 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
             adapter.notifyDataSetChanged();
         }
 
+        if(adapter.brands != null && adapter.brands.size() > 0 && adapter.filterHeaderBrand != null)
+        {
+            adapter.filterHeaderBrand = null;
+            adapter.brands.remove(0);
+            adapter.notifyDataSetChanged();
+        }
+
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
@@ -238,6 +246,7 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
         listView.setEmptyView(tvEmptyView);
 
         adapter.filterHeaderDeal = null;
+        adapter.filterHeaderBrand = null;
     }
 
     @Override
@@ -310,18 +319,38 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
             filter = filter.substring(0, filter.length() - 2);
         }
 
-        if(!filter.isEmpty())
+        if(adapter.listingType.equals("deals"))
         {
-            adapter.subcategoryParent = CategoryUtils.CT_SPORTS;
-            adapter.filterHeaderDeal = new GenericDeal(true);
+            if(!filter.isEmpty())
+            {
+                adapter.subcategoryParent = CategoryUtils.CT_SPORTS;
+                adapter.filterHeaderDeal = new GenericDeal(true);
+            }
+            else
+            {
+                if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+                {
+                    adapter.filterHeaderDeal = null;
+                    adapter.deals.remove(0);
+                    adapter.notifyDataSetChanged();
+                }
+            }
         }
         else
         {
-            if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+            if(!filter.isEmpty())
             {
-                adapter.filterHeaderDeal = null;
-                adapter.deals.remove(0);
-                adapter.notifyDataSetChanged();
+                adapter.subcategoryParent = CategoryUtils.CT_SPORTS;
+                adapter.filterHeaderBrand = new Brand(true);
+            }
+            else
+            {
+                if(adapter.brands != null && adapter.brands.size() > 0 && adapter.filterHeaderBrand != null)
+                {
+                    adapter.filterHeaderBrand = null;
+                    adapter.brands.remove(0);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
     }

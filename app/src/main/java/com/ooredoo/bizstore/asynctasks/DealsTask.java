@@ -146,10 +146,12 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         //adapter.clearData();
 
+        subCategories = "";
+
         if (result != null) {
             if (sortColumn.equals("createdate") || category.equals("nearby")
                     || (category.equals("nearby") && sortColumn.equals("views"))) {
-                subCategories = "";
+               // subCategories = "";
 
                 //This was a criminal act
                 //sortColumn = "createdate";

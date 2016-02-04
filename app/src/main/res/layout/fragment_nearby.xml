@@ -36,12 +36,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp" />
 
+    <include layout="@layout/layout_filter_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/filter_tags"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:visibility="gone"/>
+
 
     <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"
+        android:layout_below="@+id/filter_tags"
         android:layout_marginTop="@dimen/_12sdp"
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -51,9 +59,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
-
-            >
+            android:clickable="true">
 
             <ListView
                 android:id="@+id/nearby_list_view"
@@ -65,8 +71,6 @@
                 android:paddingBottom="@dimen/_12sdp"
                 android:clipToPadding="false"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-
 
             <ScrollView
                 android:id="@+id/scrollView"
@@ -150,7 +154,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_8sdp"
         android:clickable="true"
-        android:layout_below="@+id/header"
+        android:layout_below="@+id/filter_tags"
         android:visibility="gone"/>
 
     <ProgressBar

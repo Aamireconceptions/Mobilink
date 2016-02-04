@@ -233,7 +233,7 @@
     <string name="featured_deals">عروض مميزة</string>
     <string name="subscribing">اشتراك</string>
     <string name="unsubscribing">إلغاء الاشتراك</string>
-    <string name="invalid_phone_num">عزيزي المستخدم، كنت قد قدمت رقم الهاتف غير صالح</string>
+    <string name="invalid_password">عزيزي المستخدم، كنت قد قدمت كلمة مرور غير صالحة.</string>
     <string name="profile_update">تم تحديث إعدادات حسابك بنجاح.</string>
     <string name="cinemas"> دور السينما</string>
     <string name="apply">تطبيق</string>

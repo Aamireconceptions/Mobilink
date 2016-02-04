@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -331,7 +332,8 @@ private EditText etMerchantCode;
             }
         });
 
-        popupMenu = new PopupMenu(this, tvLocations, Gravity.BOTTOM);
+        popupMenu = new PopupMenu(this, null, Gravity.CENTER);
+
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
         {
             @Override

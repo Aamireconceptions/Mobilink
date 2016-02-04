@@ -234,7 +234,7 @@
     <string name="subscribing">Subscribing</string>
     <string name="unsubscribing">Unsubscribing</string>
     <string name="profile_update">The profile settings have been updated successfully.</string>
-    <string name="invalid_phone_num">Dear user, you have provided an invalid phone number.</string>
+    <string name="invalid_password">Dear user, you have provided an invalid password.</string>
     <string name="cinemas">Cinemas</string>
     <string name="rating_success">Thank you for rating!</string>
     <string name="nearby">Nearby Deals</string>

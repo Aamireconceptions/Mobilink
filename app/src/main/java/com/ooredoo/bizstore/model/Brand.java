@@ -35,4 +35,12 @@ public class Brand implements Serializable
     public Image image;
 
     public boolean isLogoDisplayed;
+
+    public boolean isHeader;
+
+    public Brand(boolean isHeader)
+    {
+        this.isHeader = isHeader;
+    }
+
 }

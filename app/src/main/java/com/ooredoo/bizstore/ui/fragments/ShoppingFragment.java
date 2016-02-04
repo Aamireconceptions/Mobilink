@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,9 +30,11 @@ import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -83,6 +86,13 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     private MemoryCache memoryCache = MemoryCache.getInstance();
 
     private DiskCache diskCache = DiskCache.getInstance();
+
+    private View layoutFilterTags;
+
+    private TextView tvFilter;
+
+    private ImageView ivClose;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shopping, container, false);
@@ -146,6 +156,22 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             gridView.setNestedScrollingEnabled(true);
             gridView.setDrawSelectorOnTop(true);
         }
+        else
+        {
+            gridView.setSelector(new ColorDrawable());
+        }
+
+        layoutFilterTags = v.findViewById(R.id.filter_tags);
+
+        tvFilter = (TextView) layoutFilterTags.findViewById(R.id.filter);
+
+        ivClose = (ImageView) layoutFilterTags.findViewById(R.id.close);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutFilterTags.setVisibility(View.GONE);
+            }
+        });
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
@@ -264,11 +290,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         isRefreshed = false;
     }
 
-    @Override
-    public void filterTagUpdate() {
-
-    }
-
     SimilarBrandsAdapter brandsAdapter;
     public void showBrands(List<Brand> brands)
     {
@@ -278,6 +299,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onRefresh() {
+       layoutFilterTags.setVisibility(View.GONE);
+
         tvEmptyView.setText("");
         memoryCache.remove(adapter.deals);
 
@@ -368,5 +391,45 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void scroll() {
         gridView.setSelection(0);
+    }
+
+    @Override
+    public void filterTagUpdate() {
+        String filter = "";
+
+        if(activity.doApplyDiscount)
+        {
+            filter = "Discount: Highest to lowest, ";
+        }
+
+        if(activity.doApplyRating)
+        {
+            filter += "Rating " + activity.ratingFilter +", ";
+        }
+
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_SHOPPING);
+
+        if(!categories.isEmpty())
+        {
+            filter += "Sub Categories: "+categories ;
+        }
+
+        if(! filter.isEmpty() && filter.charAt(filter.length() - 2) == ',')
+        {
+            filter = filter.substring(0, filter.length() - 2);
+        }
+
+        if(!filter.isEmpty())
+        {
+            layoutFilterTags.setVisibility(View.VISIBLE);
+
+            FontUtils.changeColorAndMakeBold(tvFilter,
+                    activity.getString(R.string.filter) + " : " + filter,
+                    activity.getString(R.string.filter) + " : ", activity.getResources().getColor(R.color.black));
+        }
+        else
+        {
+            layoutFilterTags.setVisibility(View.GONE);
+        }
     }
 }

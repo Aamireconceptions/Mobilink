@@ -171,6 +171,7 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
                     {
                         if(brand.brands != null)
                         {
+                            dealsTaskFinishedListener.onHaveDeals();
 
                             //adapter.setBrandsList(brand.brands);
                             //adapter.notifyDataSetChanged();
