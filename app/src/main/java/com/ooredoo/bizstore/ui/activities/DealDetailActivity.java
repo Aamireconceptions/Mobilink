@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -195,6 +197,45 @@ private EditText etMerchantCode;
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        Logger.print("OnCreateContextMenu");
+
+        if(mDeal.locations != null && mDeal.locations.size() > 0) {
+            for (int i = 0; i <= mDeal.locations.size() - 1; i++) {
+                /*if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
+                {
+                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
+                }*/
+                if (mDeal.locations.size() > 1 ||
+                        (mDeal.location != null
+                                &&
+                                (!mDeal.location.equalsIgnoreCase(mDeal.locations.get(i).title))))
+
+                {
+                    menu.add(1, mDeal.locations.get(i).id, 0, mDeal.locations.get(i).title);
+                }
+            }
+        }
+
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        Logger.print("menuId: "+id);
+
+        LocationsTask locationsTask = new LocationsTask(DealDetailActivity.this);
+        locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
+
+        return super.onContextItemSelected(item);
+    }
+
     Spinner spinner;
     View header;
     ListView listView;
@@ -209,6 +250,7 @@ private EditText etMerchantCode;
     TextView tvHeadTitle, tvHeadDescription;
     TableLayout tableLayout;
     RelativeLayout rlDetails;
+
 
     private void initViews()
     {
@@ -327,7 +369,13 @@ private EditText etMerchantCode;
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupMenu.show();
+               // popupMenu.show();
+
+                registerForContextMenu(v);
+
+                openContextMenu(v);
+
+                unregisterForContextMenu(v);
             }
         });
 

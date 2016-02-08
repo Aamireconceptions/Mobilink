@@ -17,6 +17,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -146,6 +147,39 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        Logger.print("OnCreateContextMenu");
+
+        if(mBusiness.locations != null && mBusiness.locations.size() > 0) {
+            for (int i = 0; i <= mBusiness.locations.size() - 1; i++) {
+                if (mBusiness.locations.size() > 1 ||
+                        (mBusiness.location != null)
+                                &&
+                                (!mBusiness.location.equalsIgnoreCase(mBusiness.locations.get(i).title))) {
+                    menu.add(1, mBusiness.locations.get(i).id, 0, mBusiness.locations.get(i).title);
+                }
+            }
+        }
+
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        Logger.print("menuId: "+id);
+
+        LocationsTask locationsTask = new LocationsTask(BusinessDetailActivity.this);
+        locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
+
+        return super.onContextItemSelected(item);
+    }
+
     View header;
     SnackBarUtils snackBarUtils;
     TextView tvLocations;
@@ -211,7 +245,13 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupMenu.show();
+               // popupMenu.show();
+
+                registerForContextMenu(v);
+
+                openContextMenu(v);
+
+                unregisterForContextMenu(v);
             }
         });
 
