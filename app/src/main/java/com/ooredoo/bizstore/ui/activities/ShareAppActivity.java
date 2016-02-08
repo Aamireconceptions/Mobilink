@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.ShareAppTask;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 public class ShareAppActivity extends AppCompatActivity {
@@ -43,6 +45,11 @@ public class ShareAppActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+        EditText etCountry = (EditText) findViewById(R.id.country_code);
+        //etCountry.setText("974");
+       FontUtils.setFont(this, BizStore.DEFAULT_FONT, etCountry);
+
         etPhoneNum = (EditText) findViewById(R.id.phone_number);
         etPhoneNum.setOnClickListener(new View.OnClickListener() {
             @Override
