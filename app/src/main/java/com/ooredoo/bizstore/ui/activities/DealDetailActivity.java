@@ -580,8 +580,10 @@ private EditText etMerchantCode;
 
             RelativeLayout rlLocationHeader = (RelativeLayout) header.findViewById(R.id.location_header);
 
+            tvCity = ((TextView) header.findViewById(R.id.city));
+
             if(deal.location != null && !deal.location.isEmpty()) {
-                tvCity = ((TextView) header.findViewById(R.id.city));
+
                 tvCity.setText(deal.location);
             }
             else
