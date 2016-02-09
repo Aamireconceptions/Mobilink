@@ -17,10 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,15 +38,13 @@ import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.NonScrollableGridView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
-import java.util.Random;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
@@ -57,7 +52,7 @@ import static java.lang.String.valueOf;
 /**
  * Created by Babar on 30-Oct-15.
  */
-public class BusinessAdapter extends BaseExpandableListAdapter
+public class MallDetailAdapter extends BaseExpandableListAdapter
 {
     private Context context;
 
@@ -74,7 +69,9 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
     private int reqWidth, reqHeight;
 
-    public BusinessAdapter(Context context, List<String> groupList, List<List<?>> childList)
+    private String type;
+
+    public MallDetailAdapter(Context context, List<String> groupList, List<List<?>> childList)
     {
         this.context = context;
 
@@ -92,6 +89,11 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 / resources.getDisplayMetrics().density);
     }
 
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
     @Override
     public int getGroupCount() {
 
@@ -101,10 +103,10 @@ public class BusinessAdapter extends BaseExpandableListAdapter
     @Override
     public int getChildrenCount(int groupPosition)
     {
-        if(childList.size() > 0 && childList.get(groupPosition).get(0) instanceof Brand)
+        /*if(childList.size() > 0 && childList.get(groupPosition).get(0) instanceof Brand)
         {
             return 1;
-        }
+        }*/
 
         return childList.get(groupPosition).size();
     }
@@ -145,22 +147,34 @@ public class BusinessAdapter extends BaseExpandableListAdapter
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = inflater.inflate(R.layout.business_group_view, parent, false);
+            convertView.setBackgroundResource(R.drawable.subheading_bg);
         }
 
         TextView textView = (TextView) convertView;
-        textView.setAllCaps(true);
+        textView.setTextColor(context.getResources().getColor(R.color.grey));
 
-        textView.setText(getGroup(groupPosition));
+        String category = Converter.convertCategoryText(context, getGroup(groupPosition)).name.toUpperCase();
 
+        //textView.setText(category);
 
-        if(groupPosition == 0)
+        String part = category;
+
+        if(category.contains(" "))
+        {
+            part = category.substring(0, category.indexOf(" "));
+        }
+
+        FontUtils.changeColor(textView, category, part.toUpperCase(),
+                context.getResources().getColor(R.color.red));
+
+      /*  if(groupPosition == 0)
         {
             textView.setBackgroundColor(resources.getColor(R.color.red));
         }
         else
         {
             textView.setBackgroundColor(resources.getColor(R.color.orange));
-        }
+        }*/
 
         return convertView;
     }
@@ -453,48 +467,6 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
             gridView.setAdapter(adapter);
 
-            //GridLayout gridLayout = new GridLayout(context);
-
-           /* View brandView = layoutInflater.inflate(R.layout.brand, parent, false);
-
-            brandView.setTag(brand);
-            brandView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-            TextView tvTitle = (TextView) brandView.findViewById(R.id.text_view);
-            tvTitle.setText(brand.title);*/
-
-           /* if(brand.businessLogo != null && !brand.businessLogo.isEmpty())
-            {
-                String logoUrl = BaseAsyncTask.IMAGE_BASE_URL + brand.businessLogo;
-
-                Bitmap bitmap = memoryCache.getBitmapFromCache(logoUrl);
-
-                ImageView ivImageView = (ImageView) brandView.findViewById(R.id.image_view);
-
-
-                ProgressBar progressBar = (ProgressBar) brandView.findViewById(R.id.progressBar);
-
-                if(bitmap != null)
-                {
-                    ivImageView.setImageBitmap(bitmap);
-                    progressBar.setVisibility(View.GONE);
-                }
-                else
-                {
-                    ivImageView.setImageBitmap(null);
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    fallBackToDiskCache(logoUrl);
-                }
-            }*/
-
-
-
             return gridView;
         }
     }
@@ -557,7 +529,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                             // holder.progressBar.setVisibility(View.VISIBLE);
 
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                                    new BaseAdapterBitmapDownloadTask(BusinessAdapter.this);
+                                    new BaseAdapterBitmapDownloadTask(MallDetailAdapter.this);
 
                             bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
                                     String.valueOf(reqWidth), String.valueOf(reqHeight));
@@ -571,8 +543,6 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
         thread.start();
     }
-
-
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

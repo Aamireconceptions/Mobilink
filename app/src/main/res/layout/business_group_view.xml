@@ -5,7 +5,6 @@
     android:padding="@dimen/_12sdp"
     android:gravity="center_vertical"
     android:background="@color/red"
-    android:textAllCaps="true"
     android:textColor="@color/white"
     android:text="Subway deals"
 />

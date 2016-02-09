@@ -188,6 +188,7 @@ public class SearchBaseAdapter extends BaseAdapter {
             else
             {
                 holder.ivBrand.setImageBitmap(null);
+                //holder.progressBar.setVisibility(View.VISIBLE);
 
                 fallBackToDiskCache(url);
             }
@@ -333,11 +334,6 @@ public class SearchBaseAdapter extends BaseAdapter {
 
         holder.tvBrandAddress.setText(deal.location);
 
-        //deal.isFav = Favorite.isFavorite(deal.id);
-
-       // holder.ivFav.setSelected(deal.isFav);
-        //holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
-
         holder.tvTitle.setText(deal.title);
 
         holder.tvDetail.setText(deal.description);
@@ -356,11 +352,12 @@ public class SearchBaseAdapter extends BaseAdapter {
             if(bitmap != null)
             {
                 holder.ivBrand.setImageBitmap(bitmap);
-                //holder.progressBar.setVisibility(View.GONE);
+                holder.progressBar.setVisibility(View.GONE);
             }
             else
             {
                 holder.ivBrand.setImageBitmap(null);
+                holder.progressBar.setVisibility(View.VISIBLE);
 
                 fallBackToDiskCache(url);
             }
@@ -468,6 +465,9 @@ public class SearchBaseAdapter extends BaseAdapter {
             }
             else
             {
+                holder.progressBar.setVisibility(View.VISIBLE);
+                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+
                 fallBackToDiskCache(url);
             }
 
@@ -588,8 +588,8 @@ public class SearchBaseAdapter extends BaseAdapter {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                            holder.progressBar.setVisibility(View.VISIBLE);
+                            //holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                            //holder.progressBar.setVisibility(View.VISIBLE);
 
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                     new BaseAdapterBitmapDownloadTask(SearchBaseAdapter.this);

@@ -194,6 +194,12 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".ui.activities.MallDetailActivity"
+            android:configChanges="locale|layoutDirection"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".ui.activities.RedeemedDealsActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/redeemed_deals"

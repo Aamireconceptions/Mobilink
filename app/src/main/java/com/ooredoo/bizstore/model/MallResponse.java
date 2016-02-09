@@ -14,4 +14,8 @@ public class MallResponse
 
     @SerializedName("results")
     public List<Mall> malls;
+
+    public List<MallDeals> deals;
+
+    public List<MallBrands> brands;
 }
