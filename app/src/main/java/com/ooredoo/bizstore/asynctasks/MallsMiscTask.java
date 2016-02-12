@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.BusinessDetail;
+import com.ooredoo.bizstore.model.MallMiscResponse;
 import com.ooredoo.bizstore.model.MallResponse;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.MallDetailActivity;
@@ -75,7 +76,7 @@ public class MallsMiscTask extends BaseAsyncTask<String, Void, String> {
 
             //Logger.print("Business Misc: " + result);
             try {
-                MallResponse response = gson.fromJson(result, MallResponse.class);
+                MallMiscResponse response = gson.fromJson(result, MallMiscResponse.class);
 
                 if(response.resultCode != -1) {
 

@@ -55,7 +55,7 @@ public class SMSReceiver extends BroadcastReceiver
 
                             if(BizStore.getLanguage().equals("en")) {
                                 if (msgBody.contains("Password for Bizstore App is")) {
-                                    String code = msgBody.substring(msgBody.length() - 8);
+                                    String code = msgBody.substring(msgBody.length() - 6);
 
                                     BizStore.password = code;
 

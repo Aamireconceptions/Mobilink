@@ -1,5 +1,7 @@
 package com.ooredoo.bizstore.utils;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
@@ -19,6 +21,8 @@ public class Converter
         Resources resources = Resources.getSystem();
 
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
+        FragmentManager fragmentManager;
+        FragmentTransaction fragmentTransaction;
 
        // Logger.print("DP: "+dp+ ", PX: "+px);
 

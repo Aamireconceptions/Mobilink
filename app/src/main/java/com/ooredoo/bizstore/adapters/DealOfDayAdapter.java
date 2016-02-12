@@ -155,7 +155,7 @@ public class DealOfDayAdapter extends BaseAdapter
 
             Image image = genericDeal.image;
 
-            if(image != null && !image.gridBannerUrl.isEmpty())
+            if(image != null && image.gridBannerUrl != null && !image.gridBannerUrl.isEmpty())
             {
                 String imageUrl = BaseAsyncTask.IMAGE_BASE_URL + image.gridBannerUrl;
 

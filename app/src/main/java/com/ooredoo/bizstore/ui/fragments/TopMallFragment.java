@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -19,6 +20,8 @@ import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.activities.MallDetailActivity;
+import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -81,7 +84,8 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         if(mall.color == 0)
         {
-            mall.color = Color.parseColor(getColorCode());
+
+            mall.color = Color.parseColor(ColorUtils.getColorCode());
         }
 
         /*id = bundle.getInt("id");
@@ -196,49 +200,12 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
         //activity.showDetailActivity(AppConstant.BUSINESS, AppConstant.DEAL_CATEGORIES[6], id);
 
         mall.views += 1;
-        activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
-    }
 
-    public String getColorCode()
-    {
-        int min = 1;
-        int max = 8;
+        Intent intent = new Intent(activity, MallDetailActivity.class);
+        intent.putExtra("business", new Business(mall));
+        intent.putExtra(AppConstant.CATEGORY, AppConstant.DEAL_CATEGORIES[6]);
+        startActivity(intent);
 
-        Random random = new Random();
-
-        int i = random.nextInt(max - min) + min;
-
-        Logger.print("random: "+i);
-
-        String color = null;
-        switch (i)
-        {
-            case 1:
-                color = "#90a4ae";
-                break;
-            case 2:
-                color = "#ff8a65";
-                break;
-            case 3:
-                color = "#ba68c8";
-                break;
-            case 4:
-                color = "#da4336";
-                break;
-            case 5:
-                color = "#4fc3f7";
-                break;
-            case 6:
-                color = "#ffa726";
-                break;
-            case 7:
-                color = "#aed581";
-                break;
-            case 8:
-                color = "#b39ddb";
-                break;
-        }
-
-        return color;
+       // activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
     }
 }

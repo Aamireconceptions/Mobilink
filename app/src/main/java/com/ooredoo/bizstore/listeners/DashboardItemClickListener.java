@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.listeners;
 
+import android.os.Build;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -100,7 +101,10 @@ public class DashboardItemClickListener implements View.OnClickListener {
             if(id == R.id.search_layout)
             {
                 mActivity.clickSearch();
-               mActivity.resetToolBarPosition();
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    mActivity.resetToolBarPosition();
+                }
 
                 return;
             }

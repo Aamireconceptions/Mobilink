@@ -49,6 +49,7 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.MallBrands;
 import com.ooredoo.bizstore.model.MallDeals;
+import com.ooredoo.bizstore.model.MallMiscResponse;
 import com.ooredoo.bizstore.model.MallResponse;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -112,7 +113,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Logger.logI("BUSINESS_DETAIL", "onNewIntent");
+        Logger.logI("MAll_DETAIL", "onNewIntent");
 
         setIntent(intent);
 
@@ -180,7 +181,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        header = layoutInflater.inflate(R.layout.fragment_business_details, null);
+        header = layoutInflater.inflate(R.layout.fragment_mall_detail, null);
 
         scrollViewListener = new ScrollViewListener(mActionBar);
 
@@ -257,7 +258,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 Logger.print("menuId: " + id);
 
                 LocationsTask locationsTask = new LocationsTask(MallDetailActivity.this);
-                locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
+                locationsTask.execute(String.valueOf(id), "business", item.getTitle().toString());
 
                 return false;
             }
@@ -708,7 +709,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             groupList.clear();
             childList.clear();
 
-            for(MallBrands brand : response.brands)
+            for(MallBrands brand : response.result.brands)
             {
                 groupList.add(brand.category);
                 childList.add(brand.brands);
@@ -725,7 +726,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 groupList.clear();
                 childList.clear();
 
-                for(MallDeals deal : response.deals)
+                for(MallDeals deal : response.result.deals)
                 {
                     groupList.add(deal.category);
                     childList.add(deal.deals);
@@ -768,22 +769,23 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         mActionBar.setShowHideAnimationEnabled(false);
     }
 
-    MallResponse response;
+    MallMiscResponse response;
 
-    public void populateMisc(MallResponse response)
+    public void populateMisc(MallMiscResponse response)
     {
-        if(response.brands.size() > 0 || response.deals.size() > 0)
+        if( response.result.brands.size() > 0
+                ||  response.result.deals.size() > 0)
         {
             llSimilarNearby.setVisibility(View.VISIBLE);
 
             this.response = response;
 
-            if(response.brands.size() >= 0)
+            if(response.result.brands.size() > 0)
             {
                 groupList.clear();
                 childList.clear();
 
-                for(MallBrands brand : response.brands)
+                for(MallBrands brand : response.result.brands)
                 {
                     groupList.add(brand.category);
                     childList.add(brand.brands);
@@ -800,12 +802,12 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             }
 
 
-            if(response.deals.size() >= 0)
+            if(response.result.deals.size() > 0)
             {
                 groupList.clear();
                 childList.clear();
 
-                for(MallDeals deal : response.deals)
+                for(MallDeals deal : response.result.deals)
                 {
                     groupList.add(deal.category);
                     childList.add(deal.deals);

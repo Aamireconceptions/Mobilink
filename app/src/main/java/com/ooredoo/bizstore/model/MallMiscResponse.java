@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * Created by Babar on 07-Jul-15.
  */
-public class MallResponse
+public class MallMiscResponse
 {
     @SerializedName("result")
     public int resultCode;
 
     @SerializedName("results")
-    public List<Mall> malls;
+    public MallMiscResult result;
 }

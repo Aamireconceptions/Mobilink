@@ -44,6 +44,7 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.NonScrollableGridView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
@@ -68,6 +69,8 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
     DiskCache diskCache = DiskCache.getInstance();
 
     private int reqWidth, reqHeight;
+
+    public HashMap<String, Boolean> expandStateMap = new HashMap<>();
 
     private String type;
 
@@ -146,12 +149,14 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            convertView = inflater.inflate(R.layout.business_group_view, parent, false);
+            convertView = inflater.inflate(R.layout.mall_group_view, parent, false);
             convertView.setBackgroundResource(R.drawable.subheading_bg);
         }
 
-        TextView textView = (TextView) convertView;
-        textView.setTextColor(context.getResources().getColor(R.color.grey));
+        TextView textView = (TextView) convertView.findViewById(R.id.name);
+        textView.setTextColor(context.getResources().getColor(R.color.slight_grey));
+
+        ImageView ivIndicator = (ImageView) convertView.findViewById(R.id.indicator);
 
         String category = Converter.convertCategoryText(context, getGroup(groupPosition)).name.toUpperCase();
 
@@ -167,14 +172,17 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
         FontUtils.changeColor(textView, category, part.toUpperCase(),
                 context.getResources().getColor(R.color.red));
 
-      /*  if(groupPosition == 0)
+        String key = getGroup(groupPosition);
+        Boolean isGroupExpanded = expandStateMap.get(key);
+
+        if(isGroupExpanded != null && isGroupExpanded)
         {
-            textView.setBackgroundColor(resources.getColor(R.color.red));
+            ivIndicator.setImageResource(R.drawable.ic_group_expand);
         }
         else
         {
-            textView.setBackgroundColor(resources.getColor(R.color.orange));
-        }*/
+            ivIndicator.setImageResource(R.drawable.ic_group_fwd);
+        }
 
         return convertView;
     }
@@ -463,12 +471,27 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 gridView.setSelector(new ColorDrawable());
             }
 
+
             gridView.setGravity(Gravity.CENTER_HORIZONTAL);
 
             gridView.setAdapter(adapter);
 
             return gridView;
         }
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        super.onGroupExpanded(groupPosition);
+
+        expandStateMap.put(getGroup(groupPosition), true);
+    }
+
+    @Override
+    public void onGroupCollapsed(int groupPosition) {
+        super.onGroupCollapsed(groupPosition);
+
+        expandStateMap.put(getGroup(groupPosition), false);
     }
 
     private void showDetail(GenericDeal deal)

@@ -175,7 +175,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         Logger.print("menuId: "+id);
 
         LocationsTask locationsTask = new LocationsTask(BusinessDetailActivity.this);
-        locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
+        locationsTask.execute(String.valueOf(id), "business", item.getTitle().toString());
 
         return super.onContextItemSelected(item);
     }

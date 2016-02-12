@@ -13,6 +13,8 @@
         android:layout_height="match_parent"
         android:scrollbars="none"
         android:groupIndicator="@null"
+        android:dividerHeight="12dp"
+        android:divider="@null"
         android:headerDividersEnabled="false" />
 
     <RelativeLayout
