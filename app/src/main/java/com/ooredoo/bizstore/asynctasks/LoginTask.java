@@ -12,6 +12,7 @@ import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,6 +74,10 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
             {
                 if(response.desc.equals("Logged in successfully"))
                 {
+                    SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
+                    sharedPrefUtils.updateVal((Activity) activity, "username", BizStore.username);
+                    sharedPrefUtils.updateVal((Activity) activity, "password", BizStore.password);
+
                     DialogUtils.startWelcomeFragment();
                 }
             }

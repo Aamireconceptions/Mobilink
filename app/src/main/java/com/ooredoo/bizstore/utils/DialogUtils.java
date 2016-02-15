@@ -202,9 +202,9 @@ public class DialogUtils {
 
         if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN && code.equals(password)) {
 
-            SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
+           /* SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
             sharedPrefUtils.updateVal(activity, "username", BizStore.username);
-            sharedPrefUtils.updateVal(activity, "password", BizStore.password);
+            sharedPrefUtils.updateVal(activity, "password", BizStore.password);*/
 
 
             if(loginTask.getStatus() != AsyncTask.Status.RUNNING)

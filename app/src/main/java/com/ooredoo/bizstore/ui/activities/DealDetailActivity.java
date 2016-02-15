@@ -1075,7 +1075,7 @@ private EditText etMerchantCode;
                 commonAdapter.setData(similarDeals);
                 commonAdapter.notifyDataSetChanged();
                 listView.smoothScrollToPositionFromTop(1,
-                        (btSimilarDeals.getHeight() + (int) getResources().getDimension(R.dimen._9sdp)), 200);
+                        (btSimilarDeals.getHeight() * 2 + (int) getResources().getDimension(R.dimen._9sdp)), 200);
                 //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
                 //similarAdapter.setListingType("deals");
 
@@ -1114,7 +1114,7 @@ private EditText etMerchantCode;
                             commonAdapter.notifyDataSetChanged();
 
                             listView.smoothScrollToPositionFromTop(1,
-                                    (btSimilarDeals.getHeight() + (int) getResources().getDimension(R.dimen._9sdp)), 200);
+                                    (btNearbyDeals.getHeight() * 2 + (int) getResources().getDimension(R.dimen._9sdp)), 200);
 
                            // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
                            // nearbyAdapter.setListingType("deals");

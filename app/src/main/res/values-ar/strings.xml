@@ -36,7 +36,7 @@
     <string name="markets_malls">أسواق و مجمعات تجارية</string>
     <string name="automotive">سيارات</string>
     <string name="travel_tours">السفر و السياحة</string>
-    <string name="jewelry_exchange">المجوهرات_أسعار العملات</string>
+    <string name="jewelry_exchange">المجوهرات وأسعار العملات</string>
     <string name="sports_fitness">رياضة و لياقة</string>
     <string name="my_account">حسابي</string>
     <string name="my_notifications">تنبيهاتي</string>
@@ -197,10 +197,10 @@
     <string name="redeem_until">احصل على الخصم حتى</string>
     <string name="notification_text">يمكنك إختيار الفئات المفضلة لديك والحصول على تنبيهاتها على الفور!</string>
     <string name="slide_1_text_1">أحدث العروض والخصومات.</string>
-    <string name="slide_1_text_2">أحدث العروض والخصومات.</string>
-    <string name="slide_1_text_3">المفضلة لديكم </string>
-    <string name="slide_2_text_1">لأفلام، السينما، الفعاليات </string>
-    <string name="slide_2_text_2">التسلية </string>
+    <string name="slide_1_text_2">المفضلة لديك</string>
+    <string name="slide_1_text_3">أشهر الماركات والمطاعم</string>
+    <string name="slide_2_text_1">أفلام، دور سينما، فعاليات</string>
+    <string name="slide_2_text_2">وتسلية</string>
     <string name="slide_2_text_3">في متناول يديك</string>
     <string name="slide_3_text_1">السفر والسياحة، الفنادق </string>
     <string name="slide_3_text_2">المنتجعات الصحية، الرياضة واللياقة</string>
@@ -216,7 +216,7 @@
     <string name="subscription_charges">سيتم إحتساب 9 ريال قطري أسبوعيا</string>
     <string name="subscription_terms_services"><![CDATA[في حال الإشتراك فقد قمت بالموافقة على <u>البنود و الخدمات</u>]]></string>
     <string name="error_no_search_item_found">العثور على أي عنصر البحث.</string>
-    <string name="error_no_data">سيتم البيانات قريبا!</string>
+    <string name="error_no_data">سيتم توفير البيانات قريباً!</string>
     <string name="rate_deal">قيم هذا العرض</string>
     <string name="discount_voucher">قسيمة الخصم :</string>
     <string name="showing">عرض</string>
@@ -285,7 +285,7 @@
     <string name="error_discount_redeemed">رمز خاطئ</string>
     <string name="error_no_deal_redeemed">لم تقم باستبدال أي من العروض حتى الآن!</string>
     <string name="off_the_week">لهذا الأسبوع</string>
-    <string name="featured">مميزة</string>
+    <string name="featured">المميزة</string>
     <string name="top">أفضل</string>
     <string name="of_the_day">لليوم</string>
     <string name="hotels_deals">عروض الفنادق</string>
@@ -313,4 +313,5 @@
     <string name="qar">ريال قطري</string>
     <string name="get_qticket">الحصول على QTicket</string>
     <string name="_974">٩٧٤</string>
+    <string name="ok">حسنا</string>
 </resources>

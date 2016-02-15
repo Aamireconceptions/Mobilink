@@ -75,7 +75,7 @@ public class SignUpFragment extends BaseFragment {
                 errMsg = getString(R.string.error_invalid_num);
             }
         } else {
-            errMsg = "Please connect to Internet.";
+            errMsg = getString(R.string.error_no_internet);
         }
 
         if(!errMsg.equals("Error")) {
@@ -99,7 +99,7 @@ public class SignUpFragment extends BaseFragment {
                 errMsg = subscription.desc;
             }
         } else {
-            errMsg = "Error connecting to server";
+            errMsg = getString(R.string.error_server_down);
         }
 
         if(!errMsg.equals("Error")) {

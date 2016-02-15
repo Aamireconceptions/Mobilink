@@ -25,7 +25,7 @@
 
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="OK"
+            android:text="@string/ok"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/white"
