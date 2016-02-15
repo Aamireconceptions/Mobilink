@@ -135,7 +135,7 @@ public class DealOfDayAdapter extends BaseAdapter
         holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
                 0, 0);
 
-        for(int i = 0, r = 0, c = 0; i < dods.size(); i++, c++)
+        for(int i = 0, r = 0, c = 0; i < dod.deals.size(); i++, c++)
         {
             GenericDeal genericDeal = dod.deals.get(i);
 
