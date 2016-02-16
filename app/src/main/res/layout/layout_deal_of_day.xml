@@ -9,6 +9,7 @@
     android:paddingStart="12dp">
 
     <LinearLayout
+        android:id="@+id/cat_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -20,15 +21,18 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="Fashion Deals"
-            android:drawablePadding="@dimen/_6sdp"
-            android:textColor="@color/red"/>
+            android:drawablePadding="@dimen/_4sdp"
+            android:textSize="15sp"
+            android:textColor="@color/text_red"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_3sdp"
             android:textAllCaps="true"
-            android:text="@string/deals"/>
+            android:textColor="@color/heading_gray"
+            android:text="@string/deals"
+            android:textSize="15sp"/>
 
     </LinearLayout>
 

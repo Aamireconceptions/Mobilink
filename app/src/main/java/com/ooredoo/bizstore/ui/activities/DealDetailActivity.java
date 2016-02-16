@@ -610,14 +610,7 @@ private EditText etMerchantCode;
 
             String brandLogo = deal.businessLogo;
 
-           /* if(deal.image != null)
-            {
-                brandLogo = deal.image.logoUrl;
-            }*/
-
             Logger.print("BrandLogo: " + brandLogo);
-
-           // RelativeLayout rlBrandLogo = (RelativeLayout) findViewById(R.id.brand_logo_layout);
 
             if(brandLogo != null && !brandLogo.equals(""))
             {
@@ -636,7 +629,7 @@ private EditText etMerchantCode;
             }
             else
             {
-               // rlBrandLogo.setVisibility(View.GONE);
+                ivBrandLogo.setVisibility(View.GONE);
 
                 TextView tvBrandTxt = (TextView) header.findViewById(R.id.brand_txt);
 
@@ -652,16 +645,12 @@ private EditText etMerchantCode;
             }
 
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
-            //((TextView) findViewById(R.id.discount)).setText(discount);
-            //((TextView) findViewById(R.id.tv_deal_discount)).setText(discount);
 
             src.isFavorite = Favorite.isFavorite(id);
 
             findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
             int categoryIcon = getCategoryIcon(deal.category);
-
-            //((ImageView) header.findViewById(R.id.iv_deal_category)).setImageResource(categoryIcon);
 
             ivDetail = (ImageView) header.findViewById(R.id.detail_img);
 

@@ -3,8 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/_5sdp"
-    android:paddingBottom="@dimen/_5sdp"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingBottom="@dimen/_12sdp"
                 >
 
     <RelativeLayout
@@ -19,16 +19,17 @@
 
         <FrameLayout
             android:id="@+id/logo_frame"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="@dimen/_36sdp"
             android:layout_centerVertical="true"
-            android:padding="@dimen/_1sdp">
+            android:background="@drawable/business_border">
 
             <ImageView
                 android:id="@+id/brand_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/business_border" />
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/brand_txt"
@@ -37,7 +38,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="26sp"
+                android:textSize="24sp"
                 android:textAllCaps="true"
                 android:visibility="gone"/>
 

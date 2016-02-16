@@ -74,8 +74,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     public static ViewPager featuredPager, promoPager, topBrandsPager, topMallsPager;
 
-   // private ProgressBar pbPromo, pbFeatued, pbTopBrands, pbTopMalls;
-
     private CirclePageIndicator promoIndicator, featuredIndicator;
 
     private SliderUtils promoSlider, featuredSlider;
@@ -117,22 +115,13 @@ dealofDayCalled = false;
 
         final ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 
-
-
         LayoutInflater inflater = activity.getLayoutInflater();
 
-        /*View header = inflater.inflate(R.layout.layout_fragment_home_listview_header, null);*/
         View header = inflater.inflate(R.layout.layout_dashboard, null);
-
-        //final HorizontalScrollView hsv = (HorizontalScrollView) header.findViewById(R.id.hsv);
 
         setDashboardItemsClickListener(header);
 
-       // TextView tvHotDeals = (TextView) header.findViewById(R.id.hot_deals);
-
         String font = BizStore.getLanguage().equals("en") ? BizStore.MONOSPACE_FONT : BizStore.ARABIC_DEFAULT_FONT;
-
-       // FontUtils.setFont(activity, font , tvHotDeals);
 
         TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
         FontUtils.setFont(activity, font, tvTopBrands);
@@ -141,8 +130,8 @@ dealofDayCalled = false;
         String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
         String brandsOfTheWeek = brands + " " + ofTheWeek;
 
-        FontUtils.changeColor(tvTopBrands, brandsOfTheWeek, brands,
-                getResources().getColor(R.color.red));
+        FontUtils.changeColorAndMakeBold(tvTopBrands, brandsOfTheWeek, brands,
+                getResources().getColor(R.color.text_red));
 
         TextView tvFeaturedCategories = (TextView) header.findViewById(R.id.featured_categories);
         FontUtils.setFont(activity, font, tvFeaturedCategories);
@@ -152,8 +141,8 @@ dealofDayCalled = false;
 
         String featuredCategories = featured + " " + categories;
 
-        FontUtils.changeColor(tvFeaturedCategories, featuredCategories, featured,
-                getResources().getColor(R.color.red));
+        FontUtils.changeColorAndMakeBold(tvFeaturedCategories, featuredCategories, featured,
+                getResources().getColor(R.color.text_red));
 
         TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
         FontUtils.setFont(activity, font, tvTopMalls);
@@ -162,7 +151,7 @@ dealofDayCalled = false;
         String malls = getString(R.string.Malls).toUpperCase();
         String topMalls = top + " " + malls;
 
-        FontUtils.changeColor(tvTopMalls, topMalls, top, getResources().getColor(R.color.red));
+        FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top, getResources().getColor(R.color.text_red));
 
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
         FontUtils.setFont(activity, font, tvDealsOfTheDay);
@@ -171,16 +160,11 @@ dealofDayCalled = false;
         String ofTheDay = getString(R.string.of_the_day).toUpperCase();
         String dealsOfTheDay = deals + " " + ofTheDay;
 
-        FontUtils.changeColor(tvDealsOfTheDay, dealsOfTheDay, deals, getResources().getColor(R.color.red));
+        FontUtils.changeColorAndMakeBold(tvDealsOfTheDay, dealsOfTheDay, deals, getResources().getColor(R.color.text_red));
 
         List<DOD> dods = new ArrayList<>();
 
-       /* listAdapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
-        listAdapter.setCategory(ResourceUtils.TOP_DEALS);
-        listAdapter.setListingType("deals");*/
-
         dealOfDayAdapter = new DealOfDayAdapter(activity, R.layout.layout_deal_of_day, dods);
-
 
         listView.addHeaderView(header);
         listView.setAdapter(dealOfDayAdapter);
@@ -265,12 +249,6 @@ dealofDayCalled = false;
         parent.findViewById(R.id.salons_layout).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.cinemas_layout).setOnClickListener(dashboardItemClickListener);
         parent.findViewById(R.id.gold_layout).setOnClickListener(dashboardItemClickListener);
-        //parent.findViewById(R.id.lodging).setOnClickListener(dashboardItemClickListener);
-       // parent.findViewById(R.id.spas).setOnClickListener(dashboardItemClickListener);
-
-       /* parent.findViewById(R.id.kids_activities).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.events).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.movie_tickets).setOnClickListener(dashboardItemClickListener);*/
     }
 
     PromoStatePagerAdapter promoAdapter;
@@ -297,7 +275,8 @@ dealofDayCalled = false;
         promoIndicator = (CirclePageIndicator) v.findViewById(R.id.promo_indicator);
         promoIndicator.setViewPager(promoPager);
         promoIndicator.setVisibility(View.GONE);
-        promoIndicator.setPageColor(getResources().getColor(R.color.home_mall_title));
+        promoIndicator.setPageColor(getResources().getColor(R.color.indicator_normal));
+        promoIndicator.setFillColor(getResources().getColor(R.color.red));
 
         loadPromos(pbPromo);
     }

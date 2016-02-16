@@ -23,8 +23,14 @@
     <drawable name="red">@color/red</drawable>
     <drawable name="transparent">@color/transparent</drawable>
     <drawable name="grey">@color/grey</drawable>
-    <color name="transparent_black">#AA000000</color>
-
+    <color name="transparent_black">#99000000</color>
+    <color name="banner">#DFDFDF</color>
+    <color name="indicator_normal">#d6d8d7</color>
+    <color name="gray_light_shade">#919393</color>
+    <color name="heading_gray">#A0A09F</color>
+    <color name="text_red">#D50809</color>
+    <color name="gray_dark_shade">#818175</color>
+    <color name="cloud">#FAFAFA</color>
 
 
 </resources>

@@ -89,6 +89,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                             public void onClick(View v) {
 
                                 detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
+
                                 dialog.dismiss();
                             }
                         });

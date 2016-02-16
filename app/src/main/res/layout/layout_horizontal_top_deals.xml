@@ -14,6 +14,7 @@
         android:paddingTop="@dimen/_8sdp"
         android:paddingBottom="@dimen/_8sdp"
         android:paddingStart="@dimen/_8sdp"
+        android:gravity="center_vertical"
         android:paddingEnd="@dimen/_8sdp"
         android:orientation="horizontal"
         android:background="@color/white">
@@ -29,18 +30,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/restaurants"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:drawableBottom="@drawable/burger_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/hotels_deals"
-                android:textSize="12sp"
-                android:textColor="@color/home_category_item"/>
+                android:textSize="13sp"
+                android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
 
@@ -63,8 +64,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/shopping"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,8 +74,8 @@
                 android:drawableBottom="@drawable/shopping_bag_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/brands_deals"
-                android:textSize="12sp"
-                android:textColor="@color/home_category_item"/>
+                android:textSize="13sp"
+                android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
 
@@ -97,8 +99,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/health"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -106,8 +109,8 @@
                 android:drawableBottom="@drawable/make_up_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/beauty_fitness"
-                android:textSize="12sp"
-                android:textColor="@color/home_category_item"/>
+                android:textSize="13sp"
+                android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
 
@@ -131,8 +134,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/travel"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -140,8 +144,8 @@
                 android:drawableBottom="@drawable/icon_travel"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/deals_discount"
-                android:textSize="12sp"
-                android:textColor="@color/home_category_item"/>
+                android:textSize="13sp"
+                android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
 
@@ -164,8 +168,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/electronics"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -173,8 +178,8 @@
                 android:drawableBottom="@drawable/icon_electronics"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/deals_discount"
-                android:textSize="12sp"
-                android:textColor="@color/home_category_item"/>
+                android:textSize="13sp"
+                android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
 
@@ -197,8 +202,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/automotive"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -206,8 +212,8 @@
                 android:drawableBottom="@drawable/icon_automobile"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/deals_discount"
-                android:textSize="12sp"
-                android:textColor="@color/home_category_item"/>
+                android:textSize="13sp"
+                android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
 

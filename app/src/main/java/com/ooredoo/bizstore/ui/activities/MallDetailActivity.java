@@ -715,10 +715,15 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 childList.add(brand.brands);
             }
 
+            lastSelected.setSelected(false);
+
             btBrands.setSelected(true);
             lastSelected = btBrands;
 
             adapter.notifyDataSetChanged();
+
+            expandableListView.smoothScrollToPositionFromTop(1, btBrands.getHeight() * 2
+                    + (int) getResources().getDimension(R.dimen._9sdp), 200 );
         }
         else
             if(viewId == R.id.deals)
@@ -732,8 +737,13 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                     childList.add(deal.deals);
                 }
 
+                lastSelected.setSelected(false);
+
                 btDeals.setSelected(true);
                 lastSelected = btDeals;
+
+                expandableListView.smoothScrollToPositionFromTop(1, btDeals.getHeight() * 2
+                        + (int) getResources().getDimension(R.dimen._9sdp), 200 );
 
                 adapter.notifyDataSetChanged();
             }
@@ -799,26 +809,25 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             else
             {
                 btBrands.setVisibility(View.GONE);
-            }
 
-
-            if(response.result.deals.size() > 0)
-            {
-                groupList.clear();
-                childList.clear();
-
-                for(MallDeals deal : response.result.deals)
+                if(response.result.deals.size() > 0)
                 {
-                    groupList.add(deal.category);
-                    childList.add(deal.deals);
-                }
+                    groupList.clear();
+                    childList.clear();
 
-                btDeals.setSelected(true);
-                lastSelected = btDeals;
-            }
-            else
-            {
-                btDeals.setVisibility(View.GONE);
+                    for(MallDeals deal : response.result.deals)
+                    {
+                        groupList.add(deal.category);
+                        childList.add(deal.deals);
+                    }
+
+                    btDeals.setSelected(true);
+                    lastSelected = btDeals;
+                }
+                else
+                {
+                    btDeals.setVisibility(View.GONE);
+                }
             }
 
             //setupDealsAndBrands(response);

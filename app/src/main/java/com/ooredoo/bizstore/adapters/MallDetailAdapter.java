@@ -150,7 +150,8 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = inflater.inflate(R.layout.mall_group_view, parent, false);
-            convertView.setBackgroundResource(R.drawable.subheading_bg);
+            convertView.setPaddingRelative((int) Converter.convertDpToPixels(18), 0,
+                    (int) Converter.convertDpToPixels(18), 0);
         }
 
         TextView textView = (TextView) convertView.findViewById(R.id.name);
@@ -195,11 +196,11 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
         Logger.print("group:position:" + groupPosition + ", child:position:" + childPosition);
         if(getChild(groupPosition, childPosition) instanceof GenericDeal)
         {
-            childView = layoutInflater.inflate(R.layout.list_deal_promotional_similar_deals, parent, false);
-            childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
-                    (int) resources.getDimension(R.dimen._5sdp));
+            childView = layoutInflater.inflate(R.layout.list_deal_promotional, parent, false);
+          /*  childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
+                    (int) resources.getDimension(R.dimen._5sdp));*/
 
-            if(childPosition == 0)
+           /* if(childPosition == 0)
             {
                 childView.setPadding(0, (int) resources.getDimension(R.dimen._10sdp), 0,
                         (int) resources.getDimension(R.dimen._5sdp));
@@ -209,7 +210,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             {
                 childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
                                      (int) resources.getDimension(R.dimen._10sdp));
-            }
+            }*/
 
             final GenericDeal deal = (GenericDeal) getChild(groupPosition, childPosition);
 
@@ -235,9 +236,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                rlHeader.setBackgroundResource(R.drawable.list_header);
                layout.setBackgroundResource(R.drawable.list_footer);
             }
-
-            //holder.tvBrandName.setText(genericDeal.brandName);
-            //holder.tvBrandAddress.setText(genericDeal.brandAddress);
 
             if((deal.latitude != 0 && deal.longitude != 0)
                     && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
@@ -271,7 +269,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 if(bitmap != null)
                 {
                     ivBrand.setImageBitmap(bitmap);
-                    //holder.progressBar.setVisibility(View.GONE);
                 }
                 else
                 {
@@ -319,9 +316,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
 
             deal.isFav = Favorite.isFavorite(deal.id);
 
-            // holder.ivFav.setSelected(deal.isFav);
-            //  holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
-
             tvTitle.setText(deal.title);
 
             tvDetail.setText(deal.description);
@@ -351,22 +345,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                     showDetail(deal);
                 }
             });
-
-       /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isSearchEnabled()) {
-                    HomeActivity homeActivity = (HomeActivity) activity;
-                    homeActivity.showHideSearchBar(false);
-                } else {
-                    DealDetailActivity.shareDeal((Activity) context, deal.id);
-                }
-            }
-        });*/
-
-//        holder.rbRatings.setRating(deal.rating);
-
-            //   holder.tvViews.setText(valueOf(deal.views));
 
             String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
 
@@ -407,15 +385,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 if(ivPromotional != null)
                 {
                    rlPromotionalLayout.setVisibility(View.GONE);
-
-               /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                holder.progressBar.setVisibility(View.GONE);
-                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDetail(deal);
-                    }
-                });*/
                 }
             }
 
@@ -423,14 +392,10 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
         }
         else
         {
-           // Brand brand = (Brand) getChild(groupPosition, childPosition);
-
             SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand,
                     (List<Brand>) childList.get(groupPosition));
 
-           // GridView gridView = (GridView) layoutInflater.inflate(R.layout.grid_view, parent, false);
             NonScrollableGridView gridView = new NonScrollableGridView(context, null);
-
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -441,25 +406,21 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                     Business business = new Business(brand1);
 
                     Intent intent = new Intent(context, BusinessDetailActivity.class);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                   // intent.setClass(context, BusinessDetailActivity.class);
                     intent.putExtra("business", business);
                     intent.putExtra(CATEGORY, "N/A");
                     context.startActivity(intent);
                 }
             });
             gridView.setNumColumns(3);
-            gridView.setPadding((int) resources.getDimension(R.dimen._9sdp), (int) resources.getDimension(R.dimen._9sdp),
-                    (int) resources.getDimension(R.dimen._9sdp), (int) resources.getDimension(R.dimen._9sdp));
-            //gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._8sdp));
+            gridView.setPadding((int) resources.getDimension(R.dimen._9sdp), 0,
+                    (int) resources.getDimension(R.dimen._9sdp), 0);
+
             gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._12sdp));
 
             if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             {
                 if(BizStore.getLanguage().equals("ar"))
                     gridView.setHorizontalSpacing((int) context.getResources().getDimension(R.dimen._minus1sdp));
-              /*  else
-                    gridView.setHorizontalSpacing((int) context.getResources().getDimension(R.dimen._8sdp));*/
             }
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -470,7 +431,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             {
                 gridView.setSelector(new ColorDrawable());
             }
-
 
             gridView.setGravity(Gravity.CENTER_HORIZONTAL);
 

@@ -79,6 +79,14 @@ public class FontUtils
         textView.setTypeface(typeface);
     }
 
+    public static void setFontWithStyle(Context context, String path, TextView textView, int style)
+    {
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), path);
+
+        textView.setTypeface(typeface, style);
+    }
+
+
     public static void changeColor(TextView textView, String text, String part, int color)
     {
         Spannable spannable = new SpannableString(text);
@@ -101,7 +109,7 @@ public class FontUtils
     public static void changeColorAndMakeBold(TextView textView, String text, String part, int color)
     {
         Spannable spannable = new SpannableString(text);
-       spannable.setSpan(new ForegroundColorSpan(color), 0, part.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(color), 0, part.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, part.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 
         textView.setText(spannable);

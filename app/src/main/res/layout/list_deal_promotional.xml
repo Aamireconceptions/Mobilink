@@ -17,16 +17,17 @@
 
         <FrameLayout
             android:id="@+id/logo_frame"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="@dimen/_36sdp"
             android:layout_centerVertical="true"
-            android:padding="@dimen/_1sdp">
+            android:background="@drawable/business_border" >
 
             <ImageView
                 android:id="@+id/brand_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/business_border" />
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"/>
 
             <TextView
                 android:id="@+id/brand_txt"
@@ -35,12 +36,11 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="26sp"
+                android:textSize="24sp"
+                android:textAllCaps="true"
                 android:visibility="gone"/>
 
         </FrameLayout>
-
-
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -66,7 +66,6 @@
                 android:id="@+id/brand_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:textAllCaps="true"
                 android:textSize="10sp"
                 android:textColor="@color/slight_grey"
@@ -132,7 +131,6 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-
     </RelativeLayout>
 
     <LinearLayout
@@ -151,7 +149,6 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="Amir Adnan"
             android:singleLine="true"
             android:textSize="16sp"
@@ -188,63 +185,6 @@
 
         </FrameLayout>
 
-        <!--<TextView
-            android:id="@+id/discount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-
-            android:textSize="14sp"
-            android:textColor="@color/red"
-            android:textAllCaps="true"/>-->
-
     </LinearLayout>
-
- <!--   <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_deal_detail"
-        android:padding="@dimen/_12sdp"
-        android:background="@drawable/deal_footer_bg">
-
-        <RatingBar
-            android:id="@+id/ratings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:rating="0"
-            android:progressDrawable="@drawable/deal_rating_bar"
-            style="?android:attr/ratingBarStyleSmall"/>
-
-        <ImageView
-            android:id="@+id/share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_share"/>
-
-        <TextView
-            android:id="@+id/views"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:layout_toStartOf="@+id/share"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:drawableStart="@drawable/ic_views"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="0"/>
-
-    </RelativeLayout>-->
-
-    <!--<ImageView
-        android:id="@+id/fav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:src="@drawable/fav_selector"/>-->
 
 </LinearLayout>

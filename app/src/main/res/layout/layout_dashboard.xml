@@ -16,7 +16,7 @@
             android:id="@+id/promo_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/feature_banner"/>
+            android:background="@color/banner"/>
 
         <ProgressBar
             android:id="@+id/promo_progress"
@@ -70,13 +70,11 @@
         android:id="@+id/top_brands"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp"
-        android:paddingStart="@dimen/_18sdp"
-        android:paddingEnd="@dimen/_18sdp"
-        android:textSize="14sp"
+        android:padding="@dimen/_12sdp"
+        android:textSize="15sp"
         android:typeface="serif"
-        android:textColor="@color/home_heading_text"
+        android:text="@string/top_brands"
+        android:textColor="@color/heading_gray"
         android:background="@drawable/heading_bg"/>
 
     <RelativeLayout
@@ -103,14 +101,11 @@
         android:id="@+id/featured_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp"
-        android:paddingStart="@dimen/_18sdp"
-        android:paddingEnd="@dimen/_18sdp"
-        android:text="@string/featured_categories"
-        android:textSize="14sp"
+        android:padding="@dimen/_12sdp"
+        android:textSize="15sp"
         android:typeface="serif"
-        android:textColor="@color/home_heading_text"
+        android:text="@string/featured_categories"
+        android:textColor="@color/heading_gray"
         android:background="@drawable/heading_bg"/>
 
     <include layout="@layout/layout_grid_featured"/>
@@ -119,14 +114,11 @@
         android:id="@+id/top_malls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp"
-        android:paddingStart="@dimen/_18sdp"
-        android:paddingEnd="@dimen/_18sdp"
+        android:padding="@dimen/_12sdp"
         android:text="@string/top_malls"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:typeface="serif"
-        android:textColor="@color/home_heading_text"
+        android:textColor="@color/heading_gray"
         android:background="@drawable/heading_bg"/>
 
     <RelativeLayout
@@ -136,7 +128,6 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/top_malls_pager"
             android:layout_width="match_parent"
-            android:gravity="start"
             android:layout_height="@dimen/_120sdp" />
 
         <ProgressBar
@@ -159,9 +150,9 @@
         android:paddingStart="@dimen/_18sdp"
         android:paddingEnd="@dimen/_18sdp"
         android:text="@string/deals_of_the_day"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:typeface="serif"
-        android:textColor="@color/home_heading_text"
+        android:textColor="@color/heading_gray"
         android:background="@drawable/heading_bg"
         android:visibility="gone"/>
 

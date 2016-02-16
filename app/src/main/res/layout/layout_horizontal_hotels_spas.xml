@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="none"
-    android:fillViewport="true">-->
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +10,7 @@
         android:paddingStart="@dimen/_10sdp"
         android:paddingEnd="@dimen/_10sdp"
         android:orientation="horizontal"
-        android:background="@color/grey">
+        android:background="@color/cloud">
 
         <RelativeLayout
             android:id="@+id/search_layout"
@@ -26,17 +21,24 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
+                android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/masked_ripple_dark_transparency">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_8sdp"
+                android:layout_toStartOf="@+id/arrow_next"
+                android:layout_centerVertical="true"
+                >
 
             <TextView
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="@string/search"
+                android:singleLine="true"
                 android:textSize="12sp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
@@ -46,32 +48,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/search"
+                    android:singleLine="true"
                     android:text="@string/address_numbers"
                     android:textSize="10sp"
                     android:textColor="@color/white"
                     android:textAllCaps="true"/>
 
+            </RelativeLayout>
 
+                <ImageView
+                    android:id="@+id/arrow_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_next"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_next"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"/>
-
         </RelativeLayout>
-
-
-       <!-- <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_70sdp"
-            android:layout_gravity="top"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:src="@drawable/horizontal_separator"/>-->
 
         <RelativeLayout
             android:id="@+id/nearby_layout"
@@ -83,17 +78,23 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
-
+                android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/masked_ripple_dark_transparency">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_8sdp"
+                android:layout_toStartOf="@+id/arrow_next_2"
+                android:layout_centerVertical="true">
 
                 <TextView
                     android:id="@+id/deals"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/deals"
+                    android:singleLine="true"
                     android:textAllCaps="true"
                     android:textSize="12sp"
                     android:textColor="@color/white"
@@ -104,24 +105,23 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/deals"
                     android:text="@string/around_you"
+                    android:singleLine="true"
                     android:textSize="10sp"
                     android:textColor="@color/white"
                     android:textAllCaps="true"/>
 
-
             </RelativeLayout>
 
             <ImageView
+                android:id="@+id/arrow_next_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow_next"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"/>
 
+            </RelativeLayout>
+
         </RelativeLayout>
 
-
-
     </LinearLayout>
-
-<!--</HorizontalScrollView>-->

@@ -51,17 +51,15 @@
 
                     <ImageView
                         android:id="@+id/brand_logo"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
-                        android:padding="1.5dp"
-                        android:scaleType="fitXY"
-
-                        />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY" />
 
                     <TextView
                         android:id="@+id/brand_txt"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:textSize="50sp"
                         android:textStyle="bold"

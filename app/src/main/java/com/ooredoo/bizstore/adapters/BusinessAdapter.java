@@ -170,23 +170,42 @@ public class BusinessAdapter extends BaseExpandableListAdapter
     {
         View childView = null;
 
+        childView = convertView;
+
         Logger.print("group:position:" + groupPosition + ", child:position:" + childPosition);
         if(getChild(groupPosition, childPosition) instanceof GenericDeal)
         {
-            childView = layoutInflater.inflate(R.layout.list_deal_promotional_similar_deals, parent, false);
-            childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
-                    (int) resources.getDimension(R.dimen._5sdp));
-
-            if(childPosition == 0)
+            if(childView == null || !(childView instanceof LinearLayout))
             {
-                childView.setPadding(0, (int) resources.getDimension(R.dimen._10sdp), 0,
-                        (int) resources.getDimension(R.dimen._5sdp));
+                childView = layoutInflater.inflate(R.layout.list_deal_promotional_similar_deals, parent, false);
             }
 
-            if(childPosition == getChildrenCount(groupPosition) - 1)
+            childView.setPadding(0, (int) resources.getDimension(R.dimen._12sdp), 0,
+                    (int) resources.getDimension(R.dimen._12sdp));
+
+            if(childPosition == 0 && getChildrenCount(groupPosition) > 1)
             {
-                childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
-                                     (int) resources.getDimension(R.dimen._10sdp));
+                childView.setPadding(0, (int) resources.getDimension(R.dimen._12sdp), 0,
+                        (int) resources.getDimension(R.dimen._6sdp));
+            }
+            else
+            {
+                if(getChildrenCount(groupPosition) > 1)
+                {
+                    childView.setPadding(0, (int) resources.getDimension(R.dimen._6sdp), 0,
+                            (int) resources.getDimension(R.dimen._6sdp));
+                }
+                else
+                {
+                    childView.setPadding(0, (int) resources.getDimension(R.dimen._12sdp), 0,
+                            (int) resources.getDimension(R.dimen._12sdp));
+                }
+            }
+
+            if(childPosition != 0 && childPosition == getChildrenCount(groupPosition) - 1)
+            {
+                childView.setPadding(0, (int) resources.getDimension(R.dimen._6sdp), 0,
+                                     (int) resources.getDimension(R.dimen._12sdp));
             }
 
             final GenericDeal deal = (GenericDeal) getChild(groupPosition, childPosition);

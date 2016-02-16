@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -14,11 +15,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -31,6 +35,7 @@ import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -118,6 +123,8 @@ public class DealOfDayAdapter extends BaseAdapter
 
             holder.gridLayout = (GridLayout) grid.findViewById(R.id.grid);
 
+            holder.llCat = (LinearLayout) grid.findViewById(R.id.cat_layout);
+
             grid.setTag(holder);
         }
         else
@@ -134,6 +141,8 @@ public class DealOfDayAdapter extends BaseAdapter
         holder.tvCategory.setText(category.name.toUpperCase());
         holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
                 0, 0);
+
+        FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvCategory, Typeface.BOLD);
 
         for(int i = 0, r = 0, c = 0; i < dod.deals.size(); i++, c++)
         {
@@ -229,11 +238,19 @@ public class DealOfDayAdapter extends BaseAdapter
             }*/
         }
 
+        if(position > 0)
+        {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
+                    (ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            params.topMargin = (int) Converter.convertDpToPixels(12);
+
+            holder.llCat.setLayoutParams(params);
+        }
+
         return grid;
     }
-
-    boolean first = true;
-
 
 
     private void fallBackToDiskCache(final String imageUrl)
@@ -275,7 +292,7 @@ public class DealOfDayAdapter extends BaseAdapter
             Intent intent = new Intent(context, DealDetailActivity.class);
             intent.putExtra("generic_deal", genericDeal);
 
-            ((HomeActivity) context).startActivity(intent);
+            context.startActivity(intent);
         }
     }
 
@@ -284,6 +301,8 @@ public class DealOfDayAdapter extends BaseAdapter
         TextView tvCategory, tvTitle, tvDescription;
 
         ProgressBar progressBar;
+
+        LinearLayout llCat;
 
         GridLayout gridLayout;
     }

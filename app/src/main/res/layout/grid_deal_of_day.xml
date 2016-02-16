@@ -6,17 +6,23 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_6sdp"
-            android:paddingEnd="@dimen/_28sdp"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             android:background="@drawable/masked_ripple_dark_transparency">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/red_arrow"
+                android:paddingStart="@dimen/_8sdp">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:singleLine="true"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
@@ -27,20 +33,28 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
                 android:singleLine="true"
+                android:textAllCaps="true"
                 android:textSize="10sp"
-                android:maxLength="20"
-                android:ellipsize="none"
-                android:textColor="@color/white"
-                android:textAllCaps="true"/>
+                android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/red_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_next"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true" />
 
         </RelativeLayout>
 
-        <ImageView
+       <!-- <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow_next"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true" />-->
 
     <ProgressBar
         android:id="@+id/progressBar"
