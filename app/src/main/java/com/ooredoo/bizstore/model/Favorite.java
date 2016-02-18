@@ -99,6 +99,8 @@ public class Favorite extends Model {
     @Column(name = "end_date")
     public String endDate;
 
+    @Column(name = "is_exclusive")
+    public int isExclusive;
 
     public Favorite() {
     }
@@ -138,6 +140,7 @@ public class Favorite extends Model {
         this.location = deal.location;
 
         this.isFav = true;
+        this.isExclusive = deal.is_exclusive;
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }
 
@@ -233,7 +236,7 @@ public class Favorite extends Model {
         return false;
     }
 
-    public static void updateFavorite(Favorite favorite) {
+    public static void updateFavorite(Favorite favorite, boolean isBusiness) {
         if(favorite != null && favorite.id > 0) {
             Favorite fav = new Favorite();
             List<Favorite> favorites = new Select().all().from(Favorite.class).where("itemId=" + favorite.id).execute();
@@ -265,6 +268,10 @@ public class Favorite extends Model {
             fav.location = favorite.location;
             fav.businessId = favorite.businessId;
             fav.endDate = favorite.endDate;
+            if(!isBusiness)
+            {
+                fav.isExclusive = favorite.isExclusive;
+            }
 
             Log.i("UPDATE_FAV_DEAL: " + favorite.id, "---" + favorite.isFavorite);
             fav.save();

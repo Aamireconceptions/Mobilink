@@ -653,7 +653,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 src.isFavorite = isFavorite;
                 Favorite favorite = new Favorite(src);
                 favorite.isBusiness = 1;
-                Favorite.updateFavorite(favorite);
+                Favorite.updateFavorite(favorite, true);
             }
         } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
             ratingDialog = showRatingDialog(this, "mall", id);

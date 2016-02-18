@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -39,6 +40,7 @@ import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
@@ -272,20 +274,22 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
 
             holder = new Holder();
 
-            holder.layout = row.findViewById(R.id.layout_deal_detail);
-            holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
-            holder.ivFav = (ImageView) row.findViewById(R.id.fav);
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
+            FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
+            FontUtils.setFontWithStyle(context,  holder.tvDiscount, Typeface.BOLD);
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
             holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
             holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
             holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+            FontUtils.setFontWithStyle(context,  holder.tvBrandName, Typeface.BOLD);
             holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
             holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+            FontUtils.setFontWithStyle(context, holder.tvDirections, Typeface.BOLD);
             holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+            FontUtils.setFontWithStyle(context, holder.tvBrandText, Typeface.BOLD);
             holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
             holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
             holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
@@ -304,17 +308,6 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
         holder.tvBrandName.setText(recentItem.businessName);
 
         holder.tvBrandAddress.setText(recentItem.location);
-
-        if(holder.tvCategory != null)
-        {
-            String category = recentItem.category;
-            holder.tvCategory.setText(category);
-
-            int categoryDrawable = ResourceUtils.getDrawableResId(this.category);
-            if(categoryDrawable > 0) {
-                holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
-            }
-        }
 
         if((recentItem.latitude != 0 && recentItem.longitude != 0)
                 && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
@@ -371,10 +364,6 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
             holder.ivBrand.setImageBitmap(null);
         }
 
-        //recentItem.isFavorite = Favorite.isFavorite(recentItem.id);
-
-        //holder.ivFav.setSelected(recentItem.isFavorite);
-       // holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
         holder.tvTitle.setText(recentItem.title);
 
@@ -389,7 +378,7 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
             holder.tvDiscount.setVisibility(View.VISIBLE);
             holder.ivDiscountTag.setVisibility(View.VISIBLE);
         }
-        holder.tvDiscount.setText(valueOf(recentItem.discount) + "%\n"+context.getString(R.string.off));
+        holder.tvDiscount.setText(valueOf(recentItem.discount) + "%\n" + context.getString(R.string.off));
 
         if(BizStore.getLanguage().equals("en"))
         {
@@ -399,24 +388,6 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
         {
             holder.tvDiscount.setRotation(40);
         }
-
-        holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDetailActivity(recentItem);
-            }
-        });
-
-       /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DealDetailActivity.shareDeal((Activity) context, recentItem.id);
-            }
-        });*/
-
-        //holder.rbRatings.setRating(recentItem.rating);
-
-        //holder.tvViews.setText(valueOf(recentItem.views));
 
         String promotionalBanner = recentItem.banner;
 
@@ -437,6 +408,10 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
             }
             else
             {
+                holder.ivPromotional.setImageBitmap(null);
+                holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
+                holder.progressBar.setVisibility(View.VISIBLE);
+
                 fallBackToDiskCache(url);
             }
 
@@ -523,9 +498,6 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
-                            holder.progressBar.setVisibility(View.VISIBLE);
-
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                     new BaseAdapterBitmapDownloadTask(RecentItemsAdapter.this);
 
@@ -541,17 +513,6 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
 
         thread.start();
     }
-
-   /* private void showDetail(GenericDeal deal)
-    {
-        this.genericDeal = deal;
-
-        Deal recentDeal = new Deal(deal);
-        RecentViewedActivity.addToRecentViewed(recentDeal);
-        DealDetailActivity.selectedDeal = deal;
-
-        showDealDetailActivity(category, deal);
-    }*/
 
     public void showDetailActivity(RecentItem recentItem) {
         Intent intent = new Intent();
@@ -576,48 +537,14 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
         context.startActivity(intent);
     }
 
-    private class FavouriteOnClickListener implements View.OnClickListener {
-        private int position;
-
-        public FavouriteOnClickListener(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public void onClick(View v) {
-            boolean isSelected = v.isSelected();
-
-            /*Favorite genericDeal = getItem(position);
-
-            Logger.logI("FAV_DEAL: " + genericDeal.id, String.valueOf(genericDeal.isFav));
-
-            genericDeal.isFav = !isSelected;
-
-            v.setSelected(!isSelected);
-
-            Favorite favDeal = new Favorite(genericDeal);
-            Favorite.updateFavorite(favDeal);*/
-
-            RecentItem recentItem = getItem(position);
-
-            recentItem.isFavorite = false;
-            recentItem.save();
-            recentItems.remove(recentItem);
-            notifyDataSetChanged();
-            ((MyFavoritesActivity) context).toggleEmptyView(getCount());
-        }
-    }
-
     private static class Holder {
 
         View layout;
 
-        ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
+        ImageView  ivPromotional, ivBrand, ivDiscountTag;
 
-        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
+        TextView tvTitle, tvDetail, tvDiscount, tvBrandName, tvBrandAddress,
                 tvDirections, tvBrandText;
-
-        RatingBar rbRatings;
 
         ProgressBar progressBar;
 

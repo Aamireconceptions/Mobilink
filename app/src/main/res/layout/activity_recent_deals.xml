@@ -39,6 +39,7 @@
         android:paddingTop="@dimen/_6sdp"
         android:paddingBottom="@dimen/_6sdp"
         android:clipToPadding="false"
+        android:scrollbars="none"
         android:divider="@null"
         android:dividerHeight="@dimen/_6sdp"
         android:layout_below="@+id/toolbar"/>

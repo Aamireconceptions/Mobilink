@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -37,6 +38,7 @@ import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
@@ -127,20 +129,22 @@ public class FavoritesAdapter extends BaseAdapter {
 
             holder = new Holder();
 
-            holder.layout = row.findViewById(R.id.layout_deal_detail);
-            holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
-            holder.ivFav = (ImageView) row.findViewById(R.id.fav);
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
+            FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
+            FontUtils.setFontWithStyle(context,  holder.tvDiscount, Typeface.BOLD);
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
             holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
             holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
             holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+            FontUtils.setFontWithStyle(context,  holder.tvBrandName, Typeface.BOLD);
             holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
             holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+            FontUtils.setFontWithStyle(context, holder.tvDirections, Typeface.BOLD);
             holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+            FontUtils.setFontWithStyle(context, holder.tvBrandText, Typeface.BOLD);
             holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
             holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
             holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
@@ -160,17 +164,6 @@ public class FavoritesAdapter extends BaseAdapter {
 
         holder.tvBrandAddress.setText(fav.location);
 
-        if(holder.tvCategory != null)
-        {
-            String category = fav.category;
-            holder.tvCategory.setText(category);
-
-            int categoryDrawable = ResourceUtils.getDrawableResId(this.category);
-            if(categoryDrawable > 0) {
-                holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
-            }
-        }
-
         if((fav.lat != 0 && fav.lng != 0)
                 && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
         {
@@ -185,11 +178,6 @@ public class FavoritesAdapter extends BaseAdapter {
         {
             holder.tvDirections.setVisibility(View.GONE);
         }
-
-     //   fav.isFav = Favorite.isFavorite(fav.id);
-
-     //   holder.ivFav.setSelected(fav.isFav);
-   //     holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
         String brandLogoUrl = fav.businessLogo != null ? fav.businessLogo : null;
 
@@ -247,13 +235,6 @@ public class FavoritesAdapter extends BaseAdapter {
 
         holder.tvDiscount.setText(valueOf(fav.discount) + "%\n"+context.getString(R.string.off));
 
-        holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDetailActivity(fav);
-            }
-        });
-
         holder.rlHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,17 +248,6 @@ public class FavoritesAdapter extends BaseAdapter {
                 showDetailActivity(fav);
             }
         });
-
-       /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DealDetailActivity.shareDeal((Activity) context, fav.id);
-            }
-        });*/
-
-      //  holder.rbRatings.setRating(fav.rating);
-
-      //  holder.tvViews.setText(valueOf(fav.views));
 
         String promotionalBanner = fav.banner;
 
@@ -298,6 +268,8 @@ public class FavoritesAdapter extends BaseAdapter {
             }
             else
             {
+                holder.ivPromotional.setImageBitmap(null);
+                holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                 fallBackToDiskCache(url);
             }
 
@@ -306,7 +278,6 @@ public class FavoritesAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v)
                 {
-                    //showDetail(new GenericDeal(fav));
 
                     showDetailActivity(fav);
                 }
@@ -317,28 +288,8 @@ public class FavoritesAdapter extends BaseAdapter {
             if(holder.ivPromotional != null)
             {
                 holder.rlPromotionalLayout.setVisibility(View.GONE);
-
-               /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                holder.progressBar.setVisibility(View.GONE);
-                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDetail(deal);
-                    }
-                });*/
             }
         }
-
-        if(doAnimate && position > 0)
-        {
-            //AnimUtils.slideView(activity, row, prevItem < position);
-        }
-        else
-        {
-            doAnimate = true;
-        }
-
-
 
         return row;
     }
@@ -372,8 +323,7 @@ public class FavoritesAdapter extends BaseAdapter {
                     ((MyFavoritesActivity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
-                            holder.progressBar.setVisibility(View.VISIBLE);
+
 
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
                                     new BaseAdapterBitmapDownloadTask(FavoritesAdapter.this);
@@ -413,7 +363,8 @@ public class FavoritesAdapter extends BaseAdapter {
         }
         intent.putExtra(AppConstant.ID, favorite.id);
         context.startActivity(intent);
-        RecentViewedActivity.addToRecentViewed(favorite);
+        // I DID THIS INTENTIONALLY
+       // RecentViewedActivity.addToRecentViewed(favorite);
     }
 
     public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal)

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -145,9 +146,12 @@ public class SearchBaseAdapter extends BaseAdapter {
 
             holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
             holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+            FontUtils.setFontWithStyle(context, holder.tvBrandName, Typeface.BOLD);
             holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
             holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+            FontUtils.setFontWithStyle(context, holder.tvDirections, Typeface.BOLD);
             holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+            FontUtils.setFontWithStyle(context, holder.tvBrandText, Typeface.BOLD);
             holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -262,13 +266,11 @@ public class SearchBaseAdapter extends BaseAdapter {
 
             holder = new Holder();
 
-            holder.layout = row.findViewById(R.id.layout_deal_detail);
-            holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
-            holder.ivFav = (ImageView) row.findViewById(R.id.fav);
-
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
+            FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
+            FontUtils.setFontWithStyle(context,  holder.tvDiscount, Typeface.BOLD);
             holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
 
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
@@ -277,9 +279,12 @@ public class SearchBaseAdapter extends BaseAdapter {
             holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
             holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
             holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+            FontUtils.setFontWithStyle(context,  holder.tvBrandName, Typeface.BOLD);
             holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
             holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+            FontUtils.setFontWithStyle(context, holder.tvDirections, Typeface.BOLD);
             holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+            FontUtils.setFontWithStyle(context, holder.tvBrandText, Typeface.BOLD);
             holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
             holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
             holder.tvPrice = (TextView) row.findViewById(R.id.prices);
@@ -404,38 +409,6 @@ public class SearchBaseAdapter extends BaseAdapter {
         } else {
             holder.tvDiscount.setRotation(40);
         }
-
-        holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*if(isSearchEnabled()) {
-                    HomeActivity homeActivity = (HomeActivity) activity;
-                    homeActivity.showHideSearchBar(false);
-                } else {
-                    showDetail(deal);
-                }*/
-
-                showDetail(deal);
-            }
-        });
-
-        /*holder.ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               *//* if(isSearchEnabled()) {
-                    HomeActivity homeActivity = (HomeActivity) activity;
-                    homeActivity.showHideSearchBar(false);
-                } else {
-                    DealDetailActivity.shareDeal((Activity) context, deal.id);
-                }*//*
-
-                DealDetailActivity.shareDeal((Activity) context, deal.id);
-            }
-        });*/
-
-        //holder.rbRatings.setRating(deal.rating);
-
-       // holder.tvViews.setText(valueOf(deal.views));
 
         String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
 
@@ -645,29 +618,6 @@ public class SearchBaseAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private class FavouriteOnClickListener implements View.OnClickListener {
-        private int position;
-
-        public FavouriteOnClickListener(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public void onClick(View v) {
-            boolean isSelected = v.isSelected();
-
-            SearchResult searchResult = getItem(position);
-
-            Logger.logI("FAV_DEAL: " + searchResult.id, String.valueOf(searchResult.isFav));
-
-            searchResult.isFav = !isSelected;
-
-            v.setSelected(!isSelected);
-
-            Favorite favDeal = new Favorite(searchResult);
-            Favorite.updateFavorite(favDeal);
-        }
-    }
 
     private static class Holder {
 

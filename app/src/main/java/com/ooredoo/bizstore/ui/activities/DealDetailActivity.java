@@ -976,7 +976,7 @@ private EditText etMerchantCode;
                 genericDeal.isFav = !genericDeal.isFav;
                 v.setSelected(genericDeal.isFav);
                 Favorite favorite = new Favorite(genericDeal);
-                Favorite.updateFavorite(favorite);
+                Favorite.updateFavorite(favorite, false);
 
                 isFav = genericDeal.isFav;
 

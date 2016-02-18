@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
@@ -53,6 +54,7 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Menu;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
+import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -422,7 +424,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
                 if(business.color == 0)
                 {
-                    business.color = color;
+                    business.color = Color.parseColor(ColorUtils.getColorCode());
                 }
                 tvBrandTxt.setBackgroundColor(business.color);
                 tvBrandTxt.setText(String.valueOf(business.title.charAt(0)));
@@ -828,7 +830,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 src.isFavorite = isFavorite;
                 Favorite favorite = new Favorite(src);
                 favorite.isBusiness = 1;
-                Favorite.updateFavorite(favorite);
+                Favorite.updateFavorite(favorite, true);
             }
         } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
             ratingDialog = showRatingDialog(this, "business", id);

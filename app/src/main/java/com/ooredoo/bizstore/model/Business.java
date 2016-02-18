@@ -18,7 +18,7 @@ public class Business  implements Serializable{
 
     public int views;
 
-    public String title, description, location, contact, address, businessLogo, timing;
+    public String title, description, location, contact, address, businessLogo, timing, businessName;
 
     public float rating;
 
@@ -154,8 +154,10 @@ public class Business  implements Serializable{
 
         this.timing = fav.timing;
 
+
         this.businessId = (int) fav.businessId;
         this.businessLogo = fav.businessLogo;
+        this.businessName = fav.title;
         this.latitude = fav.lat;
         this.longitude = fav.lng;
        // this.color = fav.color;

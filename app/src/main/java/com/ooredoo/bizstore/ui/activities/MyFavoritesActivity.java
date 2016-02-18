@@ -44,7 +44,6 @@ public class MyFavoritesActivity extends AppCompatActivity {
         Button btNewDeals = (Button) findViewById(R.id.deals);
         btNewDeals.setOnClickListener(listener);
         listener.setButtonSelected(btNewDeals);
-
         FontUtils.setFont(this,  btNewDeals);
 
         Button btPopularDeals = (Button) findViewById(R.id.businesses);

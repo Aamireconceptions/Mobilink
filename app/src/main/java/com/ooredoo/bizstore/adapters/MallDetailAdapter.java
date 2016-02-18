@@ -426,7 +426,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 gridView.setSelector(new ColorDrawable());
             }
 
-          // gridView.setGravity(Gravity.CENTER_HORIZONTAL);
+          gridView.setGravity(Gravity.CENTER_HORIZONTAL);
 
            gridView.setAdapter(adapter);
 

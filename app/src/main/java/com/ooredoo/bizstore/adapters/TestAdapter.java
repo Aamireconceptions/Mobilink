@@ -108,7 +108,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
         deal.isFav = Favorite.isFavorite(deal.id);
 
         holder.ivFav.setSelected(deal.isFav);
-        holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
         holder.tvTitle.setText(deal.title);
 
@@ -236,30 +235,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
     @Override
     public int getItemCount() {
         return deals.size();
-    }
-
-    private class FavouriteOnClickListener implements View.OnClickListener {
-        private int position;
-
-        public FavouriteOnClickListener(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public void onClick(View v) {
-            boolean isSelected = v.isSelected();
-
-            GenericDeal genericDeal = deals.get(position);
-
-            Logger.logI("FAV_DEAL: " + genericDeal.id, String.valueOf(genericDeal.isFav));
-
-            genericDeal.isFav = !isSelected;
-
-            v.setSelected(!isSelected);
-
-            Favorite favDeal = new Favorite(genericDeal);
-            Favorite.updateFavorite(favDeal);
-        }
     }
 
     public void setData(List<GenericDeal> deals)

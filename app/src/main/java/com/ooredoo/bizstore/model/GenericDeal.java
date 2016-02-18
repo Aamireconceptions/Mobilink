@@ -24,7 +24,6 @@ public class GenericDeal implements Serializable{
 
     public double mDistance;
 
-
     public int actualPrice, discountedPrice;
 
     @SerializedName("is_qticket")
@@ -96,7 +95,7 @@ public class GenericDeal implements Serializable{
         this.longitude = recentItem.longitude;
         this.location = recentItem.location;
         this.endDate = recentItem.endDate;
-
+        this.is_exclusive = recentItem.isExclusive;
        // this.color = recentItem.color;
         //this.locations = recentItem.locations;
         //this.endDate = recentItem.endDate;
@@ -193,6 +192,7 @@ public class GenericDeal implements Serializable{
         this.longitude = fav.lng;
         this.endDate = fav.endDate;
         this.location = fav.location;
+        this.is_exclusive = fav.isExclusive;
 
 
         // Logger.logI("DEAL: " + result.id, String.valueOf(deal.isFavorite));

@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimUtils;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
@@ -79,10 +81,11 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
 
             holder = new Holder();
 
-            holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
+            FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
+            FontUtils.setFontWithStyle(context, holder.tvDiscount, Typeface.BOLD);
             holder.tvValidity = (TextView) row.findViewById(R.id.validity);
             holder.tvCode = (TextView) row.findViewById(R.id.code);
             holder.tvRedeemedOn = (TextView) row.findViewById(R.id.redeemed_on);
@@ -106,13 +109,6 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
             }
         });
 
-        String category = deal.category;
-        holder.tvCategory.setText(category);
-
-        int categoryDrawable = ResourceUtils.getDrawableResId(category);
-        if(categoryDrawable > 0) {
-            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
-        }
 
         holder.tvTitle.setText(deal.title);
 
@@ -121,8 +117,6 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
         holder.tvDiscount.setText(valueOf(deal.discount) + context.getString(R.string.percentage_off));
 
         holder.tvValidity.setText(context.getString(R.string.redeem_until) + " " + deal.endDate);
-
-       // holder.tvCode.setText(deal.voucher);
 
         if(available)
         {
@@ -134,9 +128,6 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
             holder.llRedeemOn.setVisibility(View.VISIBLE);
         }
 
-        //AnimUtils.slideView((Activity) context, row, prevItem < position);
-
-        prevItem = position;
 
         return row;
     }
@@ -153,7 +144,7 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
 
     private static class Holder {
 
-        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvValidity, tvCode, tvRedeemedOn;
+        TextView tvTitle, tvDetail, tvDiscount, tvValidity, tvCode, tvRedeemedOn;
 
         LinearLayout llRedeemOn;
     }

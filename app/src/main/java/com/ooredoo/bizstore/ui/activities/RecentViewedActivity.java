@@ -240,6 +240,7 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.location = deal.location;
             rd.businessId = deal.businessId;
             rd.endDate = deal.endDate;
+            rd.isExclusive = deal.isExclusive;
 
             Logger.logI("UPDATE", "EXISTING---" + rd.title == null ? "NULL" : rd.title);
             rd.save();

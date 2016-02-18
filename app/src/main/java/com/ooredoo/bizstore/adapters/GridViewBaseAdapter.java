@@ -406,7 +406,7 @@ public class GridViewBaseAdapter extends BaseAdapter
             v.setSelected(!isSelected);
 
             Favorite favorite = new Favorite(genericDeal);
-            Favorite.updateFavorite(favorite);
+            Favorite.updateFavorite(favorite, false);
         }
     }
 

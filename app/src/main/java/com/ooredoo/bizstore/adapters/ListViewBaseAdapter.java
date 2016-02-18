@@ -161,6 +161,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         markerImageView = (ImageView) linearLayout.findViewById(R.id.brand_icon);
 
         tvBrandText = (TextView) linearLayout.findViewById(R.id.brand_text);
+        FontUtils.setFontWithStyle(context, tvBrandText, Typeface.BOLD);
         //imageView.setImageBitmap(bitmap);
 
         //linearLayout.setDrawingCacheEnabled(true);
@@ -385,14 +386,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
                // holder.rlHeader.setLayoutParams(params);
             }
 
-          /*  if(!deal.isSlidedUp && position > lastPosition)
-            {
-                deal.isSlidedUp = true;
-                AnimatorUtils.slideUp(context, row);
-            }
-
-            lastPosition = position;*/
-
             if(deal.actualPrice > 0 && deal.discountedPrice > 0)
             {
                 holder.tvDetail.setVisibility(View.GONE);
@@ -463,22 +456,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 }
             }
 
-           /* if(holder.tvCategory != null)
-            {
-                String category = deal.category;
-                holder.tvCategory.setText(category);
-
-                int categoryDrawable = ResourceUtils.getDrawableResId(this.category);
-                if(categoryDrawable > 0) {
-                    holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
-                }
-            }*/
-
-            //deal.isFav = Favorite.isFavorite(deal.id);
-
-            // holder.ivFav.setSelected(deal.isFav);
-            //  holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
-
             holder.tvTitle.setText(deal.title);
 
             holder.tvDetail.setText(deal.description);
@@ -505,21 +482,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder.tvDiscount.setRotation(40);
             }
 
-       /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isSearchEnabled()) {
-                    HomeActivity homeActivity = (HomeActivity) activity;
-                    homeActivity.showHideSearchBar(false);
-                } else {
-                    DealDetailActivity.shareDeal((Activity) context, deal.id);
-                }
-            }
-        });*/
-
-//        holder.rbRatings.setRating(deal.rating);
-
-            //   holder.tvViews.setText(valueOf(deal.views));
 
             String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
 
@@ -1159,31 +1121,6 @@ return null;
         activity.startActivityForResult(intent, 1);
         //fragment.startActivityForResult(intent, 1);
     }
-
-    private class FavouriteOnClickListener implements View.OnClickListener {
-        private int position;
-
-        public FavouriteOnClickListener(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public void onClick(View v) {
-            boolean isSelected = v.isSelected();
-
-            GenericDeal genericDeal = getItem(position);
-
-            Logger.logI("FAV_DEAL: " + genericDeal.id, String.valueOf(genericDeal.isFav));
-
-            genericDeal.isFav = !isSelected;
-
-            v.setSelected(!isSelected);
-
-            Favorite favDeal = new Favorite(genericDeal);
-            Favorite.updateFavorite(favDeal);
-        }
-    }
-
 
 
     private static class Holder {

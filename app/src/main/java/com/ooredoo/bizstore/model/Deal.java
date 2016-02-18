@@ -89,6 +89,9 @@ public class Deal extends Model {
     @Column(name = "end_date")
     public String endDate;
 
+    @Column(name = "is_exclusive")
+    public int isExclusive;
+
     public List<Location> locations;
 
     public Deal() {
@@ -126,6 +129,8 @@ public class Deal extends Model {
         this.businessId = deal.businessId;
         this.endDate = deal.endDate;
         this.locations = deal.locations;
+        this.isExclusive = deal.is_exclusive;
+
 
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }
