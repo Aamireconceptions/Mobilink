@@ -167,7 +167,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
             }
             else
             {
-                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                 holder.progressBar.setVisibility(View.VISIBLE);
 
                 /*BaseAdapterBitmapDownloadTask bitmapDownloadTask =
@@ -299,12 +299,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
             layout = v.findViewById(R.id.layout_deal_detail);
             tvCategory = (TextView) v.findViewById(R.id.category_icon);
             ivFav = (ImageView) v.findViewById(R.id.fav);
-            ivShare = (ImageView) v.findViewById(R.id.share);
             tvTitle = (TextView) v.findViewById(R.id.title);
             tvDetail = (TextView) v.findViewById(R.id.detail);
             tvDiscount = (TextView) v.findViewById(R.id.discount);
-            tvViews = (TextView) v.findViewById(R.id.views);
-            rbRatings = (RatingBar) v.findViewById(R.id.ratings);
             ivPromotional = (ImageView) v.findViewById(R.id.promotional_banner);
             progressBar = (ProgressBar) v.findViewById(R.id.progress_bar);
             rlPromotionalLayout = (RelativeLayout) v.findViewById(R.id.promotion_layout);

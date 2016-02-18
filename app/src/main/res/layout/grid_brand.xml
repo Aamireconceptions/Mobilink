@@ -2,12 +2,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical"
->
+    android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_90sdp"
+    <RelativeLayout
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/business_border">
 
         <ImageView
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="50sp"
+            android:textSize="45sp"
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@color/white"

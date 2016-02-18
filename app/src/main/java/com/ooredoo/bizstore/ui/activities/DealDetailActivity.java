@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
@@ -172,16 +173,6 @@ private EditText etMerchantCode;
         if(intent != null) {
             Uri uri = intent.getData();
 
-            /*if(uri != null) {
-                String paramId = uri.getQueryParameter("id");
-
-                Logger.print("Extras: " + paramId);
-                id = intent.getIntExtra(AppConstant.ID, 0);
-                getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
-                getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
-                initViews();
-            }*/
-
             if(uri != null)
             {
                 String paramId = uri.getQueryParameter("id");
@@ -193,7 +184,7 @@ private EditText etMerchantCode;
 
             id = intent.getIntExtra(AppConstant.ID, 0);
             getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
-            //initViews();
+
         }
     }
 
@@ -258,6 +249,7 @@ private EditText etMerchantCode;
 
         llHead = (LinearLayout) header.findViewById(R.id.head);
         tvHeadTitle = (TextView) header.findViewById(R.id.head_title);
+        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvHeadTitle, Typeface.BOLD);
         tvHeadDescription = (TextView) header.findViewById(R.id.head_description);
 
         tvPrices = (TextView) header.findViewById(R.id.prices);
@@ -273,9 +265,10 @@ private EditText etMerchantCode;
         etMerchantCode.setMaxWidth(etMerchantCode.getWidth());
         etMerchantCode.setMaxLines(4);
 
+        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, etMerchantCode, Typeface.BOLD);
+
         Logger.print("etMerchant Code width:"+etMerchantCode.getWidth());
 
-        //  id = intent.getIntExtra(AppConstant.ID, 0);
         packageName = getPackageName();
         if(genericDeal != null) {
 
@@ -291,8 +284,6 @@ private EditText etMerchantCode;
         rlDetails = (RelativeLayout) header.findViewById(R.id.ll_details);
 
         scrollViewHelper = new ScrollViewHelper(this);
-       // scrollViewHelper = (ScrollViewHelper) header.findViewById(R.id.scrollViewHelper);
-        //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
 
         mOnScrollViewListener = new ScrollViewListener(mActionBar);
         llSimilarNearby = (LinearLayout) header.findViewById(R.id.similar_nearby);
@@ -331,9 +322,6 @@ private EditText etMerchantCode;
                 {
                     currentFcous.clearFocus();
                 }
-                //mOnScrollViewListener.onScrollChanged( view);
-                //super.onScrollChanged(l, t, oldl, oldt);
-
             }
 
             @Override
@@ -341,12 +329,7 @@ private EditText etMerchantCode;
                 mOnScrollViewListener.onScrollChanged( header);
             }
 
-
         });
-
-
-        TextView tvEmptyView = (TextView) findViewById(R.id.empty_view);
-        //listView.setEmptyView(tvEmptyView);
 
         category = intent.getStringExtra(CATEGORY);
 
@@ -366,6 +349,9 @@ private EditText etMerchantCode;
         findViewById(R.id.iv_favorite).setOnClickListener(this);
 
         tvLocations = (TextView) header.findViewById(R.id.locations);
+
+        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvLocations, Typeface.BOLD);
+
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -396,42 +382,16 @@ private EditText etMerchantCode;
             }
         });
 
-        //spinner = (Spinner) header.findViewById(R.id.locations_spinner);
-
-        //header.findViewById(R.id.tv_hdr_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
-        //header.findViewById(R.id.iv_deal_banner).setVisibility(showBanner ? View.VISIBLE : View.GONE);
-
-        //header.findViewById(R.id.ll_deal_details).setVisibility(View.VISIBLE);
-        //header.findViewById(R.id.ll_deal_category).setVisibility(View.VISIBLE);
-       // header.findViewById(R.id.ll_banner_preview).setVisibility(View.VISIBLE);
-
-       /* if(isNotNullOrEmpty(category)) {
-            if(category.equalsIgnoreCase("PROMO") || category.equalsIgnoreCase("FEATURED")) {
-                findViewById(R.id.ll_banner_preview).setVisibility(View.VISIBLE);
-            }
-        }*/
-
         btGetCode = (Button) header.findViewById(R.id.get_code);
         btGetCode.setOnClickListener(this);
 
-        //ivLine = (ImageView) findViewById(R.id.horizontal_line);
-
-        //llVoucherCode = (LinearLayout) findViewById(R.id.voucher_code_layout);
+        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, btGetCode, Typeface.BOLD);
 
         tvDiscount = (TextView) findViewById(R.id.discount);
-
-       // tvValidity = (TextView) findViewById(R.id.validity);
-
-        //tvCode = (TextView) findViewById(R.id.voucher_code);
-
-       // tvNote = (TextView) findViewById(R.id.note);
-
-        //tvDiscountVoucher = (TextView) findViewById(R.id.discount_voucher);
 
         if(genericDeal == null) {
             DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
             dealDetailTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
-            //dealDetailTask.execute(String.valueOf(id));
         }
         else
         {
@@ -501,6 +461,8 @@ private EditText etMerchantCode;
             TextView tvCategory = (TextView) findViewById(R.id.cat);
             tvCategory.setText(deal.category);
 
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvCategory, Typeface.BOLD);
+
             if(BizStore.getLanguage().equals("ar"))
             {
                 FontUtils.setFont(this, BizStore.ARABIC_DEFAULT_FONT, tvCategory);
@@ -526,7 +488,10 @@ private EditText etMerchantCode;
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
                 deal.category = deal.category.replace(".", ",");
             }
-            ((TextView) header.findViewById(R.id.title)).setText(deal.title);
+            TextView tvTitle = ((TextView) header.findViewById(R.id.title));
+            tvTitle.setText(deal.title);
+
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvTitle, Typeface.BOLD);
             //((TextView) header.findViewById(R.id.phone)).setText(deal.contact);
 
             ((TextView) header.findViewById(R.id.description)).setText(deal.description);
@@ -582,6 +547,8 @@ private EditText etMerchantCode;
 
             tvCity = ((TextView) header.findViewById(R.id.city));
 
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvCity, Typeface.BOLD);
+
             if(deal.location != null && !deal.location.isEmpty()) {
 
                 tvCity.setText(deal.location);
@@ -629,9 +596,10 @@ private EditText etMerchantCode;
             }
             else
             {
-                ivBrandLogo.setVisibility(View.GONE);
+                //ivBrandLogo.setVisibility(View.GONE);
 
                 TextView tvBrandTxt = (TextView) header.findViewById(R.id.brand_txt);
+                FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvBrandTxt, Typeface.BOLD);
 
                 if(deal.businessName != null && !deal.businessName.isEmpty())
                 {
@@ -701,13 +669,18 @@ private EditText etMerchantCode;
             }
 
             tvDiscount.setText(discount);
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvDiscount, Typeface.BOLD);
 
             btSimilarDeals = (Button) header.findViewById(R.id.similar_deals);
             btSimilarDeals.setOnClickListener(this);
+
+            FontUtils.setFont(this, BizStore.DEFAULT_FONT, btSimilarDeals);
            // btSimilarDeals.performClick();
 
             btNearbyDeals = (Button) header.findViewById(R.id.nearby_deals);
             btNearbyDeals.setOnClickListener(this);
+
+            FontUtils.setFont(this, BizStore.DEFAULT_FONT, btNearbyDeals);
 
             //tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
 

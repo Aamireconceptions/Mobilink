@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -53,6 +54,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Menu;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -242,6 +244,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         header.findViewById(R.id.iv_share).setOnClickListener(this);
 
         tvLocations = (TextView) header.findViewById(R.id.locations);
+        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvLocations, Typeface.BOLD);
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -306,7 +309,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     PopupMenu popupMenu;
     LinearLayout llDirections;
     RelativeLayout rlHeader;
-    TextView tvCity;
+    TextView tvCity, tvCity2;
     int color;
     public void populateData(final Business business) {
         if(business != null) {
@@ -386,7 +389,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 {
                     brandLogo = business.image.logoUrl;
                 }
-
             }
 
            /* if(business.image != null)
@@ -416,6 +418,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 //ivBrandLogo.setVisibility(View.GONE);
 
                 TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
+                FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvBrandTxt, Typeface.BOLD);
 
                 if(business.color == 0)
                 {
@@ -446,10 +449,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
             }
 
-            tvDescriptionArrow = (TextView) header.findViewById(R.id.description_arrow);
+            TextView tvDescriptionHeading = (TextView) header.findViewById(R.id.desc_heading);
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvDescriptionHeading, Typeface.BOLD);
 
-            /*rlDescription = (RelativeLayout) header.findViewById(R.id.description_layout);
-            rlDescription.setOnClickListener(this);*/
+            tvDescriptionArrow = (TextView) header.findViewById(R.id.description_arrow);
 
             tvDescription = ((TextView) header.findViewById(R.id.description));
             tvDescription.setText(business.description);
@@ -457,24 +460,32 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             rlMenu = (RelativeLayout) header.findViewById(R.id.menu_layout);
             rlMenu.setOnClickListener(this);
 
+            TextView tvMenuHeading = (TextView) header.findViewById(R.id.menu_heading);
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvMenuHeading, Typeface.BOLD);
+
             tvMenuArrow = (TextView) header.findViewById(R.id.menu_arrow);
 
             llMenu = (LinearLayout) header.findViewById(R.id.ll_menu);
 
-            ((TextView) header.findViewById(R.id.tv_title)).setText(business.title);
+            TextView tvGalleryHeading = (TextView) header.findViewById(R.id.gallery_heading);
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvGalleryHeading, Typeface.BOLD);
+
+            TextView tvTitle = ((TextView) header.findViewById(R.id.tv_title));
+            tvTitle.setText(business.title);
+
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvTitle, Typeface.BOLD);
+
+
+
             ((TextView) header.findViewById(R.id.phone)).setText(business.contact);
             ((TextView) header.findViewById(R.id.address)).setText(business.address);
             tvCity = ((TextView) header.findViewById(R.id.city));
             tvCity.setText(business.location);
-            TextView tvType = (TextView) header.findViewById(R.id.type);
-            if(business.type != null)
-            {
-                tvType.setText(business.type);
-            }
-            else
-            {
-                tvType.setVisibility(View.GONE);
-            }
+
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvCity, Typeface.BOLD);
+
+            tvCity2 = ((TextView) header.findViewById(R.id.tv_city));
+            tvCity2.setText(business.location);
 
             ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(business.rating);
             header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
@@ -577,6 +588,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         if(value != null)
         {
             tvCity.setText(value);
+            tvCity2.setText(value);
         }
 
         RelativeLayout rlPhone = (RelativeLayout) header.findViewById(R.id.phone_layout);

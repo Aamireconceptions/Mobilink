@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:paddingStart="12dp"
     android:paddingEnd="12dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -19,7 +20,7 @@
        android:gravity="center_vertical"
        android:padding="@dimen/_12sdp"
        android:text="Categories"
-       android:textColor="@android:color/primary_text_light" />
+       android:textColor="@color/slight_grey" />
 
    <ImageView
        android:id="@+id/indicator"

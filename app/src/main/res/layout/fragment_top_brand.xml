@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="@dimen/_65sdp"
-        android:layout_height="@dimen/_65sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:padding="1dp"

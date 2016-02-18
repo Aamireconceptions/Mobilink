@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/_12sdp"
-    android:paddingBottom="@dimen/_12sdp"
-                >
+    android:paddingBottom="@dimen/_12sdp">
 
     <RelativeLayout
         android:id="@+id/header"
@@ -103,7 +102,7 @@
             android:paddingBottom="0.8dp"
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
-            android:src="@drawable/deal_banner"
+            android:src="@color/banner"
             android:background="@drawable/listing_border"/>
 
         <ProgressBar
@@ -134,10 +133,7 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-
     </RelativeLayout>
-
-
 
     <LinearLayout
         android:id="@+id/layout_deal_detail"
@@ -166,71 +162,24 @@
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
             android:layout_marginTop="@dimen/_2sdp"
             android:textColor="@color/black"
-            android:textSize="14sp"
             android:text="Amir Adnan Wedding Coture Package 2015 - Sherwani, Inner, Lawn, Suite, etc"
             android:maxLines="1"
             android:ellipsize="end"/>
 
-        <!--<TextView
-            android:id="@+id/discount"
+        <TextView
+            android:id="@+id/prices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-
+            android:gravity="top"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textColor="@color/black"
             android:textSize="14sp"
-            android:textColor="@color/red"
-            android:textAllCaps="true"/>-->
+            android:text="QAR 200 - QAR 400"
+            android:maxLines="1"
+            android:visibility="gone"/>
 
     </LinearLayout>
-
- <!--   <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_deal_detail"
-        android:padding="@dimen/_12sdp"
-        android:background="@drawable/deal_footer_bg">
-
-        <RatingBar
-            android:id="@+id/ratings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:rating="0"
-            android:progressDrawable="@drawable/deal_rating_bar"
-            style="?android:attr/ratingBarStyleSmall"/>
-
-        <ImageView
-            android:id="@+id/share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_share"/>
-
-        <TextView
-            android:id="@+id/views"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:layout_toStartOf="@+id/share"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:drawableStart="@drawable/ic_views"
-            android:drawablePadding="@dimen/_4sdp"
-            android:text="0"/>
-
-    </RelativeLayout>-->
-
-    <!--<ImageView
-        android:id="@+id/fav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:src="@drawable/fav_selector"/>-->
 
 </LinearLayout>

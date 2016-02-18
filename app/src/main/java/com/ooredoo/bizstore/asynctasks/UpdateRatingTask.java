@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.MallDetailActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import org.json.JSONException;
@@ -72,7 +73,13 @@ public class UpdateRatingTask extends BaseAsyncTask<Void, Void, String> {
             if(isNotNullOrEmpty(type)) {
                 if(type.equalsIgnoreCase("business")) {
                     updateBusiness(rating);
-                } else {
+                }
+                else
+                if (type.equals("mall"))
+                {
+                    updateMall(rating);
+                }
+                else {
                     updateDeal(rating);
                 }
             }
@@ -112,12 +119,30 @@ public class UpdateRatingTask extends BaseAsyncTask<Void, Void, String> {
         }
     }
 
+    private void updateMall(float rating) {
+        /*if(MallDetailActivity.selectedBusiness != null) {
+            MallDetailActivity.selectedBusiness.rating = rating;
+        }*/
+
+        MallDetailActivity detailActivity = (MallDetailActivity) mActivity;
+        if(detailActivity != null && detailActivity.src != null) {
+            detailActivity.src.rating = rating;
+        }
+    }
+
     private String updateRating() throws IOException {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put("type", type);
+        if(type.equals("mall"))
+        {
+            params.put("type", "business");
+        }
+        else {
+            params.put("type", type);
+        }
+
         params.put("id", String.valueOf(typeId));
         params.put("rating", String.valueOf(rating));
 

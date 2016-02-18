@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.net.Uri;
@@ -340,24 +341,24 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                 holder = new Holder();
 
-                holder.layout = row.findViewById(R.id.layout_deal_detail);
-                holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
-                holder.ivFav = (ImageView) row.findViewById(R.id.fav);
-                holder.ivShare = (ImageView) row.findViewById(R.id.share);
                 holder.tvTitle = (TextView) row.findViewById(R.id.title);
+                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvTitle, Typeface.BOLD);
+
                 holder.tvDetail = (TextView) row.findViewById(R.id.detail);
                 holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
+                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvDiscount, Typeface.BOLD);
                 holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
-                holder.tvViews = (TextView) row.findViewById(R.id.views);
-                holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
                 holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
                 holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
                 holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
                 holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
                 holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
+                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvBrandName, Typeface.BOLD);
                 holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
                 holder.tvDirections = (TextView) row.findViewById(R.id.directions);
+                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvDirections, Typeface.BOLD);
                 holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
+                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvBrandText, Typeface.BOLD);
                 holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
                 holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
                 holder.tvPrice = (TextView) row.findViewById(R.id.prices);
@@ -482,6 +483,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             holder.tvDetail.setText(deal.description);
 
+
             if(deal.discount == 0) {
                 holder.tvDiscount.setVisibility(View.GONE);
                 holder.ivDiscountTag.setVisibility(View.GONE);
@@ -502,18 +504,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
             {
                 holder.tvDiscount.setRotation(40);
             }
-
-            holder.layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(isSearchEnabled()) {
-                        HomeActivity homeActivity = (HomeActivity) activity;
-                        homeActivity.showHideSearchBar(false);
-                    } else {
-                        showDetail(deal);
-                    }
-                }
-            });
 
        /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -556,7 +546,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 }
                 else
                 {
-                    holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                    holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     holder.progressBar.setVisibility(View.VISIBLE);
 
                     fallBackToDiskCache(url);
@@ -582,7 +572,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 {
                     holder.rlPromotionalLayout.setVisibility(View.GONE);
 
-                    holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                    holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
 
                /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
                 holder.progressBar.setVisibility(View.GONE);
@@ -956,7 +946,6 @@ return null;
                 tvBrandText.setText(String.valueOf(deal.title.charAt(0)));
             }
 
-
             bitmap = linearLayout.getDrawingCache();
 
             if(bitmap != null)
@@ -1198,14 +1187,10 @@ return null;
 
     private static class Holder {
 
-        View layout;
+        ImageView  ivPromotional, ivBrand, ivDiscountTag;
 
-        ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
-
-        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
+        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvBrandName, tvBrandAddress,
                  tvDirections, tvBrandText, tvPrice;
-
-        RatingBar rbRatings;
 
         ProgressBar progressBar;
 

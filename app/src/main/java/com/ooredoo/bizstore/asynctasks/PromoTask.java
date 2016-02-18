@@ -115,7 +115,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
                         viewPager.setCurrentItem(deals.size() - 1);
                     }
                 } else {
-                    viewPager.setBackgroundResource(R.drawable.feature_banner);
+                    viewPager.setBackgroundColor(activity.getResources().getColor(R.color.banner));
                 }
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
@@ -161,6 +161,8 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        Logger.print("Promo Url: "+url.toString());
 
         result = getJson(url);
 

@@ -68,8 +68,6 @@ public class SearchAdapter extends android.widget.ArrayAdapter {
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
-            holder.tvViews = (TextView) row.findViewById(R.id.views);
-            holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
 
             row.setTag(holder);
         } else {

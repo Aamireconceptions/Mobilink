@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.BusinessAdapter;
 import com.ooredoo.bizstore.adapters.MallDetailAdapter;
@@ -52,6 +54,7 @@ import com.ooredoo.bizstore.model.MallDeals;
 import com.ooredoo.bizstore.model.MallMiscResponse;
 import com.ooredoo.bizstore.model.MallResponse;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -229,13 +232,16 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         llSimilarNearby = (LinearLayout) header.findViewById(R.id.similar_nearby);
 
         btBrands = (Button) header.findViewById(R.id.brands);
+        FontUtils.setFont(this, BizStore.DEFAULT_FONT, btBrands);
         btBrands.setOnClickListener(this);
         // btSimilarDeals.performClick();
 
         btDeals = (Button) header.findViewById(R.id.deals);
+        FontUtils.setFont(this, BizStore.DEFAULT_FONT, btDeals);
         btDeals.setOnClickListener(this);
 
         tvLocations = (TextView) header.findViewById(R.id.locations);
+        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvLocations, Typeface.BOLD);
         tvLocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,7 +304,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
     PopupMenu popupMenu;
     LinearLayout llDirections;
     RelativeLayout rlHeader;
-    TextView tvCity;
+    TextView tvCity, tvCity2;
     int color;
 
     Button btBrands, btDeals;
@@ -356,6 +362,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             else
             {
                 TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
+                FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvBrandTxt, Typeface.BOLD);
 
                 if(business.color == 0)
                 {
@@ -385,20 +392,21 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 mActionBar.setTitle(business.title);
             }
 
-            ((TextView) header.findViewById(R.id.tv_title)).setText(business.title);
+            TextView tvTitle = ((TextView) header.findViewById(R.id.tv_title));
+            tvTitle.setText(business.title);
+
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvTitle, Typeface.BOLD);
+
             ((TextView) header.findViewById(R.id.phone)).setText(business.contact);
             ((TextView) header.findViewById(R.id.address)).setText(business.address);
             tvCity = ((TextView) header.findViewById(R.id.city));
             tvCity.setText(business.location);
-            TextView tvType = (TextView) header.findViewById(R.id.type);
-            if(business.type != null)
-            {
-                tvType.setText(business.type);
-            }
-            else
-            {
-                tvType.setVisibility(View.GONE);
-            }
+
+            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvCity, Typeface.BOLD);
+
+            tvCity2 = (TextView) header.findViewById(R.id.tv_city);
+            tvCity2.setText(business.location);
+
 
             ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(business.rating);
             header.findViewById(R.id.iv_views).setOnClickListener(new View.OnClickListener() {
@@ -493,6 +501,8 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         if(value != null)
         {
             tvCity.setText(value);
+
+            tvCity2.setText(value);
         }
 
         RelativeLayout rlPhone = (RelativeLayout) header.findViewById(R.id.phone_layout);
@@ -646,7 +656,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 Favorite.updateFavorite(favorite);
             }
         } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
-            ratingDialog = showRatingDialog(this, "business", id);
+            ratingDialog = showRatingDialog(this, "mall", id);
         } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {
             if(src != null && isNotNullOrEmpty(src.contact)) {
                 String phoneNumber = src.contact.trim();
@@ -706,8 +716,12 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         else
         if(viewId == R.id.brands)
         {
+            adapter.expandStateMap.clear();
+
             groupList.clear();
             childList.clear();
+
+           adapter.notifyDataSetChanged();
 
             for(MallBrands brand : response.result.brands)
             {
@@ -728,8 +742,12 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         else
             if(viewId == R.id.deals)
             {
+                adapter.expandStateMap.clear();
+
                 groupList.clear();
                 childList.clear();
+
+                adapter.notifyDataSetChanged();
 
                 for(MallDeals deal : response.result.deals)
                 {
@@ -742,10 +760,10 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 btDeals.setSelected(true);
                 lastSelected = btDeals;
 
+                adapter.notifyDataSetChanged();
+
                 expandableListView.smoothScrollToPositionFromTop(1, btDeals.getHeight() * 2
                         + (int) getResources().getDimension(R.dimen._9sdp), 200 );
-
-                adapter.notifyDataSetChanged();
             }
     }
 
@@ -804,7 +822,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 btBrands.setSelected(true);
                 lastSelected = btBrands;
 
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
             }
             else
             {
@@ -834,23 +852,6 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         }
 
     }
-
-  /*  public void setupDealsAndBrands(Business business)
-    {
-        if(business.moreDeals.size() > 0)
-        {
-            groupList.add(business.title + " " + getString(R.string.deals));
-            childList.add(( business.moreDeals));
-        }
-
-        if(business.similarBrands.size() > 0)
-        {
-            groupList.add(getString(R.string.similar_brands));
-            childList.add(business.similarBrands);
-        }
-
-        adapter.notifyDataSetChanged();
-    }*/
 
     private void startDirections()
     {

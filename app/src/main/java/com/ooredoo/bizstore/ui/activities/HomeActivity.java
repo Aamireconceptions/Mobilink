@@ -87,6 +87,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.KeywordSearch;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
+import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
@@ -946,6 +947,7 @@ LinearLayout llSearch;
         else
             if(viewId == R.id.scrollToTop)
             {
+                if(!(currentFragment instanceof HomeFragment))
                 ((ScrollToTop) currentFragment).scroll();
             }
     }

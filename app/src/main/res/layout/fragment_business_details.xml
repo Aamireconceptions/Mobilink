@@ -23,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_255sdp"
                 android:scaleType="fitXY"
-                android:src="@drawable/detail_temp"/>
+                android:adjustViewBounds="true"
+                android:src="@color/banner"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -36,15 +37,15 @@
             <RelativeLayout
                 android:id="@+id/ll_details"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_90sdp"
                 android:layout_alignParentBottom="true"
                 android:orientation="vertical"
-                android:background="@drawable/gradient_overlay">
+                android:background="@color/transparent_black">
 
                 <RelativeLayout
                     android:id="@+id/brand_logo_layout"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_70sdp"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/business_border">
@@ -61,7 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textSize="50sp"
+                        android:textSize="45sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textAllCaps="true"
@@ -72,10 +73,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/directions_layout"
+                    android:layout_alignTop="@+id/brand_logo_layout"
+                    android:layout_alignBottom="@+id/brand_logo_layout"
                     android:orientation="vertical"
                     android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_toEndOf="@+id/brand_logo_layout"
-                    android:layout_centerVertical="true">
+                    android:layout_toEndOf="@+id/brand_logo_layout">
 
 
 
@@ -84,37 +86,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAllCaps="true"
-
-                        android:textColor="#F7F7F7"
-                        android:textSize="20sp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/type"
+                        android:id="@+id/tv_city"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/tv_title"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
                         android:textColor="@color/white"
-                        android:text="Restaurant"
-                        android:textStyle="normal"
-                        android:visibility="gone"/>
+                        android:textSize="12sp" />
 
-                    <!--<TextView
-                        android:id="@+id/tv_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:textColor="@color/grey"
-                        android:textStyle="normal"/>-->
 
                     <RatingBar
                         android:id="@+id/rating_bar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:progressDrawable="@drawable/deal_rating_bar"
                         style="?android:attr/ratingBarStyleSmall"/>
 
@@ -123,13 +113,12 @@
                 <LinearLayout
                     android:id="@+id/directions_layout"
                     android:layout_width="wrap_content"
-                    android:layout_height="106dp"
-                    android:paddingStart="@dimen/_8sdp"
-                    android:paddingEnd="@dimen/_8sdp"
+                    android:layout_height="match_parent"
+                    android:paddingStart="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_6sdp"
                     android:gravity="center_vertical"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:background="#33ffffff"
+                    android:background="@color/transparent_white"
                     android:visibility="gone">
 
                     <TextView
@@ -139,16 +128,11 @@
                         android:textColor="@color/white"
                         android:drawablePadding="@dimen/_4sdp"
                         android:gravity="center_horizontal"
-                        android:drawableTop="@drawable/ic_directions_big"
-                        android:text=""
-                        android:visibility="visible"/>
+                        android:drawableTop="@drawable/ic_directions_big" />
 
                 </LinearLayout>
 
             </RelativeLayout>
-
-
-
 
         </RelativeLayout>
 
@@ -199,6 +183,7 @@
                     android:gravity="center"
                     android:text="@string/call"
                     android:textAllCaps="true"
+                    android:textSize="12sp"
                     android:textColor="@color/white"/>
                 <TextView
                     android:id="@+id/tv_views"
@@ -208,6 +193,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0"
+                    android:textSize="12sp"
                     android:textColor="@color/white"/>
                 <TextView
                     android:id="@+id/tv_rate"
@@ -217,6 +203,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/rate"
+                    android:textSize="12sp"
                     android:textAllCaps="true"
                     android:textColor="@color/white"/>
                 <TextView
@@ -227,6 +214,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/share"
+                    android:textSize="12sp"
                     android:textAllCaps="true"
                     android:textColor="@color/white"/>
             </TableRow>
@@ -241,8 +229,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
                 android:background="@drawable/subheading_bg">
 
                 <TextView
@@ -254,7 +242,8 @@
                     android:singleLine="true"
                     android:layout_toStartOf="@+id/locations"
                     android:layout_marginEnd="@dimen/_4sdp"
-                    android:text=""
+                    android:textSize="13sp"
+                    android:textStyle="bold"
                     android:textColor="@color/red"/>
 
                 <TextView
@@ -267,7 +256,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="@dimen/_5sdp"
                     android:textColor="@color/red"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:visibility="visible"
                     android:textStyle="bold"/>
 
@@ -279,7 +268,7 @@
                 android:id="@+id/phone_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_50sdp"
+                android:minHeight="@dimen/_46sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:paddingTop="@dimen/_5sdp"
@@ -294,7 +283,7 @@
                     android:autoLink="phone"
                     android:drawableStart="@drawable/ic_call"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text=""
+                    android:textSize="12sp"
                     android:textColor="@color/black"/>
 
             </RelativeLayout>
@@ -304,7 +293,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
-                android:minHeight="@dimen/_50sdp"
+                android:minHeight="@dimen/_46sdp"
                 android:paddingEnd="@dimen/_10sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
@@ -320,7 +309,7 @@
                     android:layout_toStartOf="@+id/address_arrow"
                     android:drawableStart="@drawable/ic_location"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text=""
+                    android:textSize="12sp"
                     android:textColor="@color/black"/>
 
                 <ImageView
@@ -339,7 +328,7 @@
             <RelativeLayout
                 android:id="@+id/distance_layout"
                 android:layout_width="match_parent"
-                android:minHeight="@dimen/_50sdp"
+                android:minHeight="@dimen/_46sdp"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
@@ -357,8 +346,7 @@
                     android:layout_toStartOf="@+id/distance_arrow"
                     android:drawableStart="@drawable/ic_directions_small"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text=""
-
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     android:visibility="visible"/>
 
@@ -379,7 +367,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
-                android:minHeight="@dimen/_50sdp"
+                android:minHeight="@dimen/_46sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:background="@drawable/layer_list_end">
@@ -393,7 +381,7 @@
                     android:layout_toStartOf="@+id/timing_arrow"
                     android:drawableStart="@drawable/ic_clock"
                     android:drawablePadding="@dimen/_10sdp"
-                    android:text=""
+                    android:textSize="12sp"
                     android:textColor="@color/black"/>
 
                 <ImageView
@@ -411,19 +399,20 @@
                 android:id="@+id/description_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
                 android:tag="collapsed"
                 android:background="@drawable/subheading_bg">
 
                 <TextView
+                    android:id="@+id/desc_heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
                     android:text="@string/description"
-
+                    android:textSize="13sp"
                     android:textColor="@color/red"/>
 
                 <TextView
@@ -444,7 +433,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_8sdp"
                 android:visibility="gone"
-                android:background="@drawable/layer_list"/>
+                android:background="@drawable/layer_list_end"/>
 
 
             <ProgressBar
@@ -459,19 +448,21 @@
                 android:id="@+id/menu_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
                 android:tag="collapsed"
                 android:background="@drawable/subheading_bg"
                 android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/menu_heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
-                    android:text="menu"
+                    android:text="@string/menu"
+                    android:textSize="13sp"
                     android:textColor="@color/red"/>
 
                 <TextView
@@ -498,17 +489,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:padding="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:padding="@dimen/_8sdp"
                 android:background="@drawable/gallery_bg"
                 android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/gallery_heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textAllCaps="true"
                     android:text="gallery"
+                    android:textSize="13sp"
                     android:textColor="@color/black"/>
 
 
@@ -519,91 +512,9 @@
                     android:layout_marginTop="@dimen/_20sdp"/>
 
 
-
             </LinearLayout>
 
         </LinearLayout>
 
-
-
-
-        <!--<LinearLayout
-            android:id="@+id/ll_deal_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_hdr_deal_desc"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_below="@+id/iv_deal_banner"
-                android:layout_margin="0dp"
-                android:background="@drawable/deal_header_bg"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/_10sdp"
-                android:text="@string/description"
-                android:textColor="@color/red"/>
-            <TextView
-                android:id="@+id/tv_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/border_grey"
-                android:gravity="center_vertical"
-                android:padding="@dimen/_10sdp"
-                android:textColor="@color/black"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rl_header"
-            android:orientation="vertical"
-            android:paddingTop="0dp"
-            android:paddingStart="10dp"
-            android:paddingBottom="10dp"
-            android:paddingEnd="10dp">
-            <TextView
-                android:id="@+id/tv_hdr_contact_info"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="0dp"
-                android:background="@drawable/deal_header_bg"
-                android:gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:text="@string/Contact_Information"
-                android:textColor="@color/red"/>
-            <TextView
-                android:id="@+id/tv_contact"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/deal_footer_bg"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/tv_hdr_address"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/deal_header_bg"
-                android:gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:text="@string/Address"
-                android:textColor="@color/red"/>
-            <TextView
-                android:id="@+id/tv_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:background="@drawable/deal_footer_bg"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:textColor="@color/black"/>
-        </LinearLayout>-->
     </LinearLayout>
 </ScrollView>

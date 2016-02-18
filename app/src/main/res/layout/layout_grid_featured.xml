@@ -23,7 +23,6 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_toStartOf="@+id/ic_mobile"
             android:text="@string/mobile"
-            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -60,7 +59,6 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_toStartOf="@+id/ic_ring"
             android:text="@string/jewellery"
-            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -99,7 +97,6 @@
             android:layout_toStartOf="@+id/ic_sports"
             android:singleLine="true"
             android:text="@string/sports_fitness"
-            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -138,7 +135,6 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_toStartOf="@+id/ic_dryer"
             android:text="@string/Salons"
-            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -176,7 +172,6 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_toStartOf="@+id/ic_popcorn"
             android:text="@string/cinemas"
-            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -215,7 +210,6 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_toStartOf="@+id/ic_bullion"
             android:text="@string/Gold_Rate"
-            android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView

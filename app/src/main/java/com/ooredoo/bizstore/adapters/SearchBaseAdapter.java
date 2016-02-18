@@ -152,7 +152,7 @@ public class SearchBaseAdapter extends BaseAdapter {
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
-                holder.rlHeader.setBackgroundResource(R.drawable.list_header);
+                row.setBackgroundResource(R.drawable.masked_ripple_light);
             }
 
             row.setTag(holder);
@@ -265,13 +265,12 @@ public class SearchBaseAdapter extends BaseAdapter {
             holder.layout = row.findViewById(R.id.layout_deal_detail);
             holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
             holder.ivFav = (ImageView) row.findViewById(R.id.fav);
-            holder.ivShare = (ImageView) row.findViewById(R.id.share);
+
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
             holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
-            holder.tvViews = (TextView) row.findViewById(R.id.views);
-            holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
+
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
             holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
@@ -466,7 +465,7 @@ public class SearchBaseAdapter extends BaseAdapter {
             else
             {
                 holder.progressBar.setVisibility(View.VISIBLE);
-                holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
 
                 fallBackToDiskCache(url);
             }

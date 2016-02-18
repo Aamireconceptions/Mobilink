@@ -31,6 +31,9 @@
     <color name="text_red">#D50809</color>
     <color name="gray_dark_shade">#818175</color>
     <color name="cloud">#FAFAFA</color>
+    <color name="border_dark_gray">#cdcdcd</color>
+    <color name="list_separator_light_gray">#e9e9ea</color>
+    <color name="transparent_white">#40FFFFFF</color>
 
 
 </resources>

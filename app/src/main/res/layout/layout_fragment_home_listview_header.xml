@@ -13,7 +13,7 @@
             android:id="@+id/promo_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/feature_banner"/>
+            android:background="@color/banner"/>
 
         <com.ooredoo.bizstore.ui.CirclePageIndicator
             android:id="@+id/promo_indicator"
@@ -74,7 +74,7 @@
             android:id="@+id/featured_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/feature_banner"/>
+            android:background="@color/banner"/>
 
         <com.ooredoo.bizstore.ui.CirclePageIndicator
             android:id="@+id/featured_indicator"

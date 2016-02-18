@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="1dp"
-            android:src="@drawable/deal_bg"
+            android:src="@color/banner"
             android:scaleType="fitXY"
             android:background="@drawable/box"/>
 

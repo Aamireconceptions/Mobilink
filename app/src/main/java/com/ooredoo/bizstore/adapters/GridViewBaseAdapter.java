@@ -228,12 +228,12 @@ public class GridViewBaseAdapter extends BaseAdapter
                                          String.valueOf(reqWidth), String.valueOf(reqHeight));*//*
                 bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));*/
 
-                    holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                    holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     holder.progressBar.setVisibility(View.VISIBLE);
                     fallBackToDiskCache(imgUrl);
                 }
             } else {
-                holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
                 holder.progressBar.setVisibility(View.GONE);
             }
 
@@ -305,12 +305,12 @@ public class GridViewBaseAdapter extends BaseAdapter
                                          String.valueOf(reqWidth), String.valueOf(reqHeight));*//*
                 bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));*/
 
-                        holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                        holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
                         holder.progressBar.setVisibility(View.VISIBLE);
                         fallBackToDiskCache(imgUrl);
                     }
                 } else {
-                    holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                    holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     holder.progressBar.setVisibility(View.GONE);
                 }
 

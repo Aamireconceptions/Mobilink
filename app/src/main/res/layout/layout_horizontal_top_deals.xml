@@ -27,10 +27,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/restaurants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/restaurants"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/gray_dark_shade"/>
 
@@ -40,7 +41,7 @@
                 android:drawableBottom="@drawable/burger_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/hotels_deals"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
@@ -61,10 +62,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/shopping"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/shopping"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/gray_dark_shade"/>
 
@@ -74,7 +76,7 @@
                 android:drawableBottom="@drawable/shopping_bag_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/brands_deals"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
@@ -96,10 +98,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/health"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/health"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/gray_dark_shade"/>
 
@@ -109,7 +112,7 @@
                 android:drawableBottom="@drawable/make_up_icon"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/beauty_fitness"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
@@ -131,10 +134,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/travel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/travel"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/gray_dark_shade"/>
 
@@ -144,7 +148,7 @@
                 android:drawableBottom="@drawable/icon_travel"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/deals_discount"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
@@ -165,10 +169,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/electronics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/electronics"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/gray_dark_shade"/>
 
@@ -178,7 +183,7 @@
                 android:drawableBottom="@drawable/icon_electronics"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/deals_discount"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
@@ -199,10 +204,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/automotive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/automotive"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/gray_dark_shade"/>
 
@@ -212,7 +218,7 @@
                 android:drawableBottom="@drawable/icon_automobile"
                 android:drawablePadding="@dimen/_4sdp"
                 android:text="@string/deals_discount"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>

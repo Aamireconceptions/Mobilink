@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,7 +70,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
     MemoryCache memoryCache = MemoryCache.getInstance();
     DiskCache diskCache = DiskCache.getInstance();
 
-    private int reqWidth, reqHeight;
+    private int reqWidth, reqHeight, padding;
 
     public HashMap<String, Boolean> expandStateMap = new HashMap<>();
 
@@ -90,6 +92,9 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
 
         reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._105sdp)
                 / resources.getDisplayMetrics().density);
+
+        padding = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._16sdp) /
+        resources.getDisplayMetrics().density);
     }
 
     public void setType(String type)
@@ -150,12 +155,12 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = inflater.inflate(R.layout.mall_group_view, parent, false);
-            convertView.setPaddingRelative((int) Converter.convertDpToPixels(18), 0,
-                    (int) Converter.convertDpToPixels(18), 0);
+            convertView.setPaddingRelative(padding, 0, padding, 0);
+            convertView.setBackground(null);
         }
 
         TextView textView = (TextView) convertView.findViewById(R.id.name);
-        textView.setTextColor(context.getResources().getColor(R.color.slight_grey));
+        FontUtils.setFont(context, BizStore.DEFAULT_FONT, textView);
 
         ImageView ivIndicator = (ImageView) convertView.findViewById(R.id.indicator);
 
@@ -170,7 +175,8 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             part = category.substring(0, category.indexOf(" "));
         }
 
-        FontUtils.changeColor(textView, category, part.toUpperCase(),
+
+        FontUtils.changeColorAndMakeBold(textView, category, part.toUpperCase(),
                 context.getResources().getColor(R.color.red));
 
         String key = getGroup(groupPosition);
@@ -191,32 +197,27 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
     {
-        View childView = null;
+        View childView = convertView;
 
         Logger.print("group:position:" + groupPosition + ", child:position:" + childPosition);
         if(getChild(groupPosition, childPosition) instanceof GenericDeal)
         {
-            childView = layoutInflater.inflate(R.layout.list_deal_promotional, parent, false);
-          /*  childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
-                    (int) resources.getDimension(R.dimen._5sdp));*/
-
-           /* if(childPosition == 0)
-            {
-                childView.setPadding(0, (int) resources.getDimension(R.dimen._10sdp), 0,
-                        (int) resources.getDimension(R.dimen._5sdp));
-            }
-
-            if(childPosition == getChildrenCount(groupPosition) - 1)
-            {
-                childView.setPadding(0, (int) resources.getDimension(R.dimen._5sdp), 0,
-                                     (int) resources.getDimension(R.dimen._10sdp));
-            }*/
+            if(childView == null || ! (childView instanceof LinearLayout)) {
+                childView = layoutInflater.inflate(R.layout.list_deal_promotional, parent, false);
+                childView.setPaddingRelative((int) ( padding -
+                                Converter.convertDpToPixels(context.getResources().getDimension(R.dimen._8sdp))/
+                                        context.getResources().getDisplayMetrics().density),
+                        0,
+                        (int) (padding -
+                                 Converter.convertDpToPixels(context.getResources().getDimension(R.dimen._8sdp))/
+                                context.getResources().getDisplayMetrics().density)
+                        , 0);
+           }
 
             final GenericDeal deal = (GenericDeal) getChild(groupPosition, childPosition);
 
-            View layout = childView.findViewById(R.id.layout_deal_detail);
-            TextView tvCategory = (TextView) childView.findViewById(R.id.category_icon);
             TextView tvTitle = (TextView) childView.findViewById(R.id.title);
+            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvTitle, Typeface.BOLD);
             TextView tvDetail = (TextView) childView.findViewById(R.id.detail);
             TextView tvDiscount = (TextView) childView.findViewById(R.id.discount);
             ImageView ivPromotional = (ImageView) childView.findViewById(R.id.promotional_banner);
@@ -224,17 +225,21 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             RelativeLayout rlPromotionalLayout = (RelativeLayout) childView.findViewById(R.id.promotion_layout);
             ImageView ivBrand = (ImageView) childView.findViewById(R.id.brand_logo);
             TextView tvBrandName = (TextView) childView.findViewById(R.id.brand_name);
+            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvBrandName, Typeface.BOLD);
             TextView tvBrandAddress = (TextView) childView.findViewById(R.id.brand_address);
             TextView tvBrandText = (TextView) childView.findViewById(R.id.brand_txt);
+            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvBrandText, Typeface.BOLD);
             TextView tvDirections = (TextView) childView.findViewById(R.id.directions);
+            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvDirections, Typeface.BOLD);
             ImageView ivDiscountTag = (ImageView) childView.findViewById(R.id.discount_tag);
 
             RelativeLayout rlHeader = (RelativeLayout) childView.findViewById(R.id.header);
+            LinearLayout llFooter = (LinearLayout) childView.findViewById(R.id.footer);
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                rlHeader.setBackgroundResource(R.drawable.list_header);
-               layout.setBackgroundResource(R.drawable.list_footer);
+               llFooter.setBackgroundResource(R.drawable.list_footer);
             }
 
             if((deal.latitude != 0 && deal.longitude != 0)
@@ -272,7 +277,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 }
                 else
                 {
-                    ivBrand.setImageResource(R.drawable.deal_banner);
+                    ivBrand.setBackgroundColor(context.getResources().getColor(R.color.banner));
 
                     fallBackToDiskCache(url);
                 }
@@ -303,17 +308,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 ivBrand.setImageBitmap(null);
             }
 
-            if(tvCategory != null)
-            {
-                String category = deal.category;
-                tvCategory.setText(category);
-
-                int categoryDrawable = ResourceUtils.getDrawableResId(category);
-                if(categoryDrawable > 0) {
-                    tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
-                }
-            }
-
             deal.isFav = Favorite.isFavorite(deal.id);
 
             tvTitle.setText(deal.title);
@@ -332,14 +326,13 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
 
             tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
 
-            layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+            rlHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showDetail(deal);
                 }
             });
-
-            rlHeader.setOnClickListener(new View.OnClickListener() {
+            llFooter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showDetail(deal);
@@ -365,7 +358,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 }
                 else
                 {
-                    ivPromotional.setImageResource(R.drawable.deal_banner);
+                    ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     progressBar.setVisibility(View.VISIBLE);
 
                     fallBackToDiskCache(url);
@@ -412,8 +405,10 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 }
             });
             gridView.setNumColumns(3);
-            gridView.setPadding((int) resources.getDimension(R.dimen._9sdp), 0,
-                    (int) resources.getDimension(R.dimen._9sdp), 0);
+            /*gridView.setPadding((int) resources.getDimension(R.dimen._9sdp), 0,
+                   (int) resources.getDimension(R.dimen._9sdp), 0);*/
+
+            gridView.setPadding(padding -12, 0, padding, 0);
 
             gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._12sdp));
 
@@ -432,11 +427,11 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 gridView.setSelector(new ColorDrawable());
             }
 
-            gridView.setGravity(Gravity.CENTER_HORIZONTAL);
+           gridView.setGravity(Gravity.CENTER_HORIZONTAL);
 
-            gridView.setAdapter(adapter);
+           gridView.setAdapter(adapter);
 
-            return gridView;
+           return gridView;
         }
     }
 
@@ -461,7 +456,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
         Deal recentDeal = new Deal(deal);
         RecentViewedActivity.addToRecentViewed(recentDeal);
         DealDetailActivity.selectedDeal = deal;
-
 
         showDealDetailActivity(null, deal);
     }

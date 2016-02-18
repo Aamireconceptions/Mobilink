@@ -16,8 +16,8 @@
         >
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"/>
 
@@ -38,7 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_2sdp"
-
         android:gravity="center_horizontal"
         android:maxLines="1"
         android:textColor="@android:color/secondary_text_light"

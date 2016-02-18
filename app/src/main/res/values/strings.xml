@@ -14,7 +14,7 @@
     <string name="weekly_plan_details"><![CDATA[QAR <b>9</b>\nPER WEEK]]></string>
     <string name="WEEKLY_PLAN">WEEKLY PLAN</string>
     <string name="SUBSCRIPTION_PLANS">SUBSCRIPTION PLAN</string>
-    <string name="sms_charges">BizStore app will send a one time sms message to verify your phone number. Carrier SMS charges may apply.</string>
+    <string name="sms_charges">BizStore app will send a one time sms message to verify your phone number.</string>
     <string name="num_confirm_text">Please enter your Qatar Ooredoo Number.</string>
     <string name="NEXT">NEXT</string>
     <string name="SIGNUP">SIGNUP</string>
@@ -184,7 +184,7 @@
     <string name="Currency">Currency</string>
     <string name="Clothing">Clothing</string>
     <string name="Equipment">Equipment</string>
-    <string name="error_invalid_num">Please provide valid phone number.</string>
+    <string name="error_invalid_num">Please enter a valid Ooredoo Mobile Number</string>
     <string name="error_invalid_verification_code">Please copy passcode from your SMS and try again.</string>
     <string name="copyrights_text">Copyright 2015 Ooredoo BizStore Application\nAll rights reserved.</string>
     <string name="Clear_All">Clear All</string>
@@ -319,5 +319,6 @@
     <string name="get_qticket">Get QTicket</string>
     <string name="_974">974</string>
     <string name="ok">OK</string>
+    <string name="menu">Menu</string>
 
 </resources>

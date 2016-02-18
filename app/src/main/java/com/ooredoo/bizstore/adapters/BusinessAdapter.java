@@ -272,7 +272,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 }
                 else
                 {
-                    ivBrand.setImageResource(R.drawable.deal_banner);
+                    ivBrand.setBackgroundColor(context.getResources().getColor(R.color.banner));
 
                     fallBackToDiskCache(url);
                 }
@@ -384,7 +384,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 }
                 else
                 {
-                    ivPromotional.setImageResource(R.drawable.deal_banner);
+                    ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     progressBar.setVisibility(View.VISIBLE);
 
                     fallBackToDiskCache(url);
@@ -446,8 +446,8 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 }
             });
             gridView.setNumColumns(3);
-            gridView.setPadding((int) resources.getDimension(R.dimen._9sdp), (int) resources.getDimension(R.dimen._9sdp),
-                    (int) resources.getDimension(R.dimen._9sdp), (int) resources.getDimension(R.dimen._9sdp));
+            gridView.setPaddingRelative((int) resources.getDimension(R.dimen._8sdp), (int) resources.getDimension(R.dimen._12sdp),
+                    (int) resources.getDimension(R.dimen._8sdp), (int) resources.getDimension(R.dimen._12sdp));
             //gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._8sdp));
             gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._12sdp));
 
@@ -472,56 +472,12 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
             gridView.setAdapter(adapter);
 
-            //GridLayout gridLayout = new GridLayout(context);
-
-           /* View brandView = layoutInflater.inflate(R.layout.brand, parent, false);
-
-            brandView.setTag(brand);
-            brandView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-            TextView tvTitle = (TextView) brandView.findViewById(R.id.text_view);
-            tvTitle.setText(brand.title);*/
-
-           /* if(brand.businessLogo != null && !brand.businessLogo.isEmpty())
-            {
-                String logoUrl = BaseAsyncTask.IMAGE_BASE_URL + brand.businessLogo;
-
-                Bitmap bitmap = memoryCache.getBitmapFromCache(logoUrl);
-
-                ImageView ivImageView = (ImageView) brandView.findViewById(R.id.image_view);
-
-
-                ProgressBar progressBar = (ProgressBar) brandView.findViewById(R.id.progressBar);
-
-                if(bitmap != null)
-                {
-                    ivImageView.setImageBitmap(bitmap);
-                    progressBar.setVisibility(View.GONE);
-                }
-                else
-                {
-                    ivImageView.setImageBitmap(null);
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    fallBackToDiskCache(logoUrl);
-                }
-            }*/
-
-
-
             return gridView;
         }
     }
 
     private void showDetail(GenericDeal deal)
     {
-        //this.genericDeal = deal;
-
         Deal recentDeal = new Deal(deal);
         RecentViewedActivity.addToRecentViewed(recentDeal);
         DealDetailActivity.selectedDeal = deal;

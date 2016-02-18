@@ -1,6 +1,6 @@
 ﻿<resources>
     <string name="app_name">Ooredoo بيزستور</string>
-    <string name="popular_searches">نتائج البحث الرائجة </string>
+    <string name="popular_searches">نتائج البحث المتداولة</string>
     <string name="plus_sign">+</string>
     <string name="phone_number">رقم الهاتف</string>
     <string name="search">بحث</string>
@@ -9,16 +9,16 @@
     <string name="food_dining">عروض المطاعم</string>
     <string name="shopping">تسوق</string>
     <string name="CONGRATULATIONS">تهانينا</string>
-    <string name="TXT_DETAILS"><![CDATA[تم الاشتراك في خدمة بيزستور بنجاح اكتشف أماكن شعبية وأفضل عروض وخدمات محلية قريبة منك في أي مكان!]]></string>
+    <string name="TXT_DETAILS"><![CDATA[تم الاشتراك في خدمة بيزستور بنجاح تعرف على الأماكن المشهورة وأفضل العروض والخدمات المحلية القريبة منك في أي مكان!]]></string>
     <string name="LETS_START">لنبدأ</string>
-    <string name="weekly_plan_details"><![CDATA[ريال قطري <b>9</b>\nأسبوعيا]]></string>
-    <string name="WEEKLY_PLAN">اسبوعي</string>
+    <string name="weekly_plan_details"><![CDATA[ ريال قطري <b>9</b>\nأسبوعيا]]></string>
+    <string name="WEEKLY_PLAN">الإشتراك الإسبوعي</string>
     <string name="SUBSCRIPTION_PLANS">خيارات الاشتراك</string>
-    <string name="sms_charges"> سيتم ارسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك. من المحتمل تطبيق رسوم من قبل شركة الاتصال.</string>
+    <string name="sms_charges">سيتم إرسال رسالة نصية من تطبيق بيزستور للتحقق من رقم هاتفك.</string>
     <string name="num_confirm_text">الرجاء إدخال رقم جوال Ooredoo الخاص بك</string>
     <string name="NEXT">التالي</string>
     <string name="SIGNUP">التسجيل</string>
-    <string name="SUBSCRIBE">الإشتراك</string>
+    <string name="SUBSCRIBE">اشترك</string>
     <string name="top_brands">أفضل الماركات</string>
     <string name="health_fitness">الصحة واللياقة</string>
     <string name="top_malls">أفضل المجمعات التجارية</string>
@@ -43,7 +43,7 @@
     <string name="help">مساعدة</string>
     <string name="about">عن التطبيق</string>
     <string name="un_subscribe">الغاء الاشتراك</string>
-    <string name="shopping_speciality">التسوق</string>
+    <string name="shopping_speciality">التسوق و التميز</string>
     <string name="type">نوع</string>
     <string name="deals_discount">العروض والخصومات</string>
     <string name="business_directory">دليل الأعمال</string>
@@ -61,7 +61,7 @@
     <string name="_20">20</string>
     <string name="rating">تقييم</string>
     <string name="top_rated">أعلى العروض تقييماً</string>
-    <string name="sort_discount"> من أعلى إلى أدنى خصم.</string>
+    <string name="sort_discount">الخصومات من الأعلى إلى الأدنى</string>
     <string name="sub_categories">فئات فرعية</string>
     <string name="discount_offer">عروض الخصم</string>
     <string name="category_selection">اختيار الفئة</string>
@@ -79,17 +79,17 @@
     <string name="new_deals">العروض الجديدة</string>
     <string name="popular_deals">العروض الرائجة</string>
     <string name="error_search_term"> يرجى تقديم مصطلح البحث</string>
-    <string name="error_no_internet">لايوجد اتصال مع الإنترنت. الرجاء تفقد الاتصال بالإنترنت.</string>
+    <string name="error_no_internet">لايوجد اتصال بالإنترنت. الرجاء التأكد من توصيل جهازك بالانترنت</string>
     <string name="rate_us">قيمنا على بلاي ستور.</string>
     <string name="English">English</string>
     <string name="arabic">العربية</string>
-    <string name="share_app_note">شارك التطبيق مع الأصدقاء و الأقارب</string>
-    <string name="enter_number">الرجاء إدخال رقم جوالك.</string>
+    <string name="share_app_note">شارك هذا البرنامج مع الأصدقاء و الأقارب</string>
+    <string name="enter_number">الرجاء إدخال رقم الجوال</string>
     <string name="sharing_msg">رسالة المشاركة</string>
-    <string name="share_with_friends_txt">مرحباً، وجدت هذا التطبيق الرهيب لأفضل العروض في المدينة. أرسل SUB BIZ الى الرقم 92806 للإشتراك في خدمة الرسائل النصية مقابل 3 ريال قطري أسبوعياً. حمل تطبيق Ooredoo بيزستور على جهاز الأندرويد: (Link) أو على جهاز الأي أو إس: (Link) مقابل 9 ريال قطري أسبوعياً.</string>
+    <string name="share_with_friends_txt">مرحباً، لقد وجدتُ هذا التطبيق الرائع لأفضل العروض في قطر. أرسل SUB BIZ الى الرقم 92806 للإشتراك في خدمة الرسائل النصية مقابل 3 ريال قطري أسبوعياً. حمل تطبيق Ooredoo بيزستور على جهاز الأندرويد: (Link) أو على جهاز الأي أو إس: (Link) مقابل 9 ريال قطري أسبوعياً.</string>
     <string name="share_now">شارك الآن</string>
     <string name="Preview">عرض</string>
-    <string name="description">تفاصيل</string>
+    <string name="description">التفاصيل</string>
     <string name="Deal_Description">تفاصيل العرض</string>
     <string name="Address">العنوان</string>
     <string name="Contact_Information">بيانات الاتصال</string>
@@ -103,7 +103,7 @@
     <string name="unsub_details">في حال تم إلغاء الاشتراك في خدمة بيزستور، سيتم إيقاف جميع تنبيهات العروض من التطبيق.</string>
     <string name="share_app_with_friends">شارك التطبيق مع الأصدقاء</string>
     <string name="About_Us">عن التطبيق</string>
-    <string name="select_all">اخيتار كل</string>
+    <string name="select_all">اخيتار الكل</string>
     <string name="name_hint">الرجاء إدخال إسمك</string>
     <string name="no_recent_searches"> لا توجد أي نتائج</string>
     <string name="my_businesses">أعمالي</string>
@@ -121,25 +121,31 @@
     <string name="success_shared">تمت المشاركة بنجاح</string>
     <string name="redeemed">مستبدلة</string>
     <string name="redeemed_deals">عروض مستبدلة</string>
-    <string name="help_question1">ما هو أوريدو بيزستور؟</string>
-    <string name="help_answer1">بيزستور هي خدمة رسائل نصية و تطبيق للهاتف الجوال توفر للعميل منصة لمتابعة أفضل العروض و الخصومات في قطر. من أشهر الماركات لها علاقة بالموضة و الصحة و حتى اللياقة بالإضافة إلى التسوق، المطاعم و السفر والسياحة و الأكثر من ذلك كلٌ في مكان واحد!! كما يقدم بيزستور مجموعة متنوعة من العروض و الخدمات لمستخدميه حيث يمكن الإستفادة منها في أي وقت و مكان.</string>
-    <string name="help_question2">ماذا أحصل من إشتراكي في خدمة Ooredoo بيزستور؟</string>
-    <string name="help_answer2"><![CDATA[يمكن لعملاء خدمة Ooredoo بيزستور البحث على عناوين و بيانات الإتصال للمتاجر والخدمات التي يفضلوها. للعميل عدة خيارات للحصول على أحدث العروض، الخصومات، و آخر الأخبار. الفئات هي:n\أفضل العروضn\أفضل مجمعات تجارية في قطرn\مطاعمn\تسوقn\تعليمn\نمط حياة و موضةn\ترفيه و إستجمامn\]]></string>
-    <string name="help_question3">كيف يمكنني الإشتراك في خدمة Ooredoo بيزستور؟</string>
-    <string name="help_answer3">يمكن للمستخدم الإشتراك في خدمة Ooredoo بيزستور من خلال الآليتين التالية:</string>
+    <string name="help_question1">ما هو تطبيق Ooredoo بيزستور؟</string>
+    <string name="help_answer1">بيزستور هي خدمة رسائل نصية وتطبيق للهاتف الجوال توفر للعميل منصة لمتابعة أفضل العروض والخصومات في قطر.  أشهر الماركات التي لها علاقة بالموضة والصحة وحتى اللياقة، بالإضافة الى التسوق، المطاعم والسفر والسياحة والأكثر من ذلك كلٌ في مكان واحد!! كما يقدم بيزستور مجموعة متنوعة من العروض والخدمات لمستخدميه حيث يمكن الإستفادة منها في أي وقت ومكان.</string>
+    <string name="help_question2">على ماذا أحصل من اشتراكي في خدمة Ooredoo بيزستور؟</string>
+    <string name="help_answer2">يمكن لعملاء خدمة Ooredoo بيزستور البحث عن عناوين وبيانات الإتصال للمتاجر والخدمات التي يفضلونها. و للعميل عدة خيارات حيث يمكن الحصول على أحدث العروض، الخصومات، وآخر الأخبار. و الفئات هي: أفضل العروض
+أفضل مجمعات تجارية في قطر
+مطاعم
+تسوق
+تعليم
+نمط حياة وموضة
+ترفيه وإستجمام</string>
+    <string name="help_question3">كيف يمكنني الاشتراك في خدمة Ooredoo بيزستور؟</string>
+    <string name="help_answer3">يمكن للمستخدم الاشتراك في خدمة Ooredoo بيزستور من خلال احدى الآليتين التاليتين:</string>
     <string name="help_answer3a">1. يمكن للعميل إرسال "ك" إلى 92806 للحصول على خدمة الرسائل النصية</string>
     <string name="help_answer3b">2. في حال تمت عملية الإشتراك في التطبيق من خلال وسيلة الرسائل النصية و سجل الدخول إلى التطبيق، سيتم إحتساب 9 ريال قطري أسبوعياً.</string>
-    <string name="help_question4">كيف يمكنني أن أعرف إذا تم عملية الإشتراك في خدمة Ooredoo بيزستور؟</string>
-    <string name="help_answer4">سيحصل العميل على تنبيهات منتظمة لها علاقة في الخدمات التي سجل فيها بالإضافة إلى بيانات إشتراكه و صلاحيتها</string>
-    <string name="help_question5">كيف يمكنني إلغاء إشتراكي في خدمة Ooredoo بيزستور؟</string>
-    <string name="help_answer5">لإلغاء الإشتراك من خدمة Ooredoo بيزستور، يجب على العميل إرسال "غ" إلى 92806. سيتم عرض خيارين على العميل.:</string>
+    <string name="help_question4">كيف يمكنني أن أعرف إذا ما تمت عملية الإشتراك في خدمة Ooredoo بيزستوربنجاح؟</string>
+    <string name="help_answer4">سيحصل العميل على تنبيهات منتظمة لها علاقة بالخدمات التي سجل فيها بالإضافة الى بيانات إشتراكه وصلاحيتها.</string>
+    <string name="help_question5">كيف يمكنني إلغاء اشتراكي في خدمة Ooredoo بيزستور؟</string>
+    <string name="help_answer5">لإلغاء الاشتراك من خدمة Ooredoo بيزستور، يجب على العميل إرسال "غ" الى 92806. سيتم عرض خيارين على العميل:</string>
     <string name="help_answer5a">1. لإيقاف التنبيهات</string>
     <string name="help_answer5b">2. لإلغاء الإشتراك من الخدمة تماما</string>
     <string name="help_question6">ما هي رسوم الإشتراك؟</string>
     <string name="help_answer6">هناك نوعان من نماذج الشحن التي يمكن للمستخدم أن يختار عند الإشتراك.</string>
-    <string name="help_answer6a">1. سيتم إحتساب 9 ريال قطري أسبوعياً مع تراجع الشحن</string>
+    <string name="help_answer6a">في حال فشل اشتراك العميل بقيمة 9 ريال قطري سيتم محاولة احتساب 1.3 ريال قطري في اليوم الواحد بشكل تلقائي من قبل النظام</string>
     <string name="help_answer6_a">a. سيحتسب أن العميل مشترك في الخدمة، في حال فشل النظام سيتم محاولة إحتساب 1.3 ريال قطري في اليوم الواحد</string>
-    <string name="help_answer6b">2. سيتم إحتساب 2 ريال قطري أسبوعياً للرسائل النصية</string>
+    <string name="help_answer6b">سيتم احتساب 2 ريال قطري أسبوعياً لخدمة الرسائل النصية.</string>
 
     <!-- Sub Categories -->
     <string name="Arabic">العربية</string>
@@ -177,10 +183,10 @@
     <string name="Currency">عملة</string>
     <string name="Clothing">ملابس</string>
     <string name="Equipment">معدات</string>
-    <string name="error_invalid_num">الرجاء إدخال رقم جوالك.</string>
+    <string name="error_invalid_num">الرجاء إدخال رقم جوال Ooredoo</string>
     <string name="error_invalid_verification_code">الرجاء نسخ رقم التأكيد من الرسالة النصية الواردة، والمحاولة مرة أخرى.</string>
     <string name="copyrights_text">Copyright 2015 Ooredoo Bizstore\nجميع حقوق النشر محفوظة</string>
-    <string name="Clear_All">إخلاء</string>
+    <string name="Clear_All">مسح الكل</string>
     <string name="error_server_down">الخدمة تحت الصيانة. الرجاء المحاولة مرة أخرى في وقت لاحق</string>
     <string name="skip">تخطى</string>
     <string name="All">كل</string>
@@ -189,7 +195,7 @@
     <string name="provide_name">اسمك</string>
     <string name="select_pic">الرجاء إختيار صورة.</string>
     <string name="no_fav_item">صندوق النتائج المفضلة لديك فارغ.</string>
-    <string name="no_recent_item">لم تقم بمشاهدة أي من العروض أو الأعمال.ً</string>
+    <string name="no_recent_item">لم تقم بمشاهدة أي عروض أو أعمال.</string>
     <string name="available">متوفر</string>
     <string name="provide_valid_verification">الرجاء إدخال رقم التأكيد</string>
     <string name="getting_vocher">الحصول على القسيمة</string>
@@ -214,7 +220,7 @@
     <string name="discounts_on_fav_brands">الخصومات على الماركات المفضلة لديك</string>
     <string name="movies_cinemas_more"><![CDATA[أفلام، دور سينما، والأكثر بكثير]]></string>
     <string name="subscription_charges">سيتم إحتساب 9 ريال قطري أسبوعيا</string>
-    <string name="subscription_terms_services"><![CDATA[في حال الإشتراك فقد قمت بالموافقة على <u>البنود و الخدمات</u>]]></string>
+    <string name="subscription_terms_services"><![CDATA[في حال الإشتراك فقد قمت بالموافقة على <u>الشروط والأحكام للخدمات</u>]]></string>
     <string name="error_no_search_item_found">العثور على أي عنصر البحث.</string>
     <string name="error_no_data">سيتم توفير البيانات قريباً!</string>
     <string name="rate_deal">قيم هذا العرض</string>
@@ -241,7 +247,7 @@
     <string name="redeem_deal">تخليص صفقة</string>
     <string name="locations">المواقع</string>
     <string name="km_away">كم عن الفندق</string>
-    <string name="deal_valid_till">هذه الصفقة ساري حتى</string>
+    <string name="deal_valid_till">هذا العرض صالح حتى</string>
     <string name="similar_deals">صفقات مماثلة</string>
     <string name="no_nearby_deals">لا صفقات القريبة وجدت</string>
     <string name="deal_has_been_viewed">تم استعراض هذا الاتفاق</string>
@@ -261,7 +267,7 @@
     <string name="discount_not_availed">عزيزي العميل، لم تقم بالإستفادة من هذا الخصم بعد!</string>
     <string name="error_max_availed">عزيزي العميل، لقد قمت بإستخدام الحد الأقصى من عمليات الاستبدال لهذا العرض.</string>
     <string name="error_invalid_merchant_code">الرجاء إعادة إدخال رمز المتجر</string>
-    <string name="error_no_location">تحديد موقعك غير متوفر، الرجاء تفعيله.</string>
+    <string name="error_no_location">لم تقم بتفعيل خدمة تحديد الموقع، برجاء تفعيلها!</string>
     <string name="un_sub_success">عزيزي العميل، تم إلغاء إشتراكك من Ooredoo بيزستور بنجاح!</string>
     <string name="enable_location">تفعيل خدمات تحديد الموقع</string>
     <string name="btn_enable_loc">تفعيل خدمات تحديد الموقع</string>
@@ -272,7 +278,7 @@
     <string name="tos_note"><u>شروط وأحكام هذا العرض</u></string>
     <string name="deal_loc_not_availabe">موقع العرض غير متوفر!</string>
     <string name="business_loc_not_available">موقع العمل غير متوفر!</string>
-    <string name="error_no_loc">إنتظار تحديد الموقع. الرجاء المحالوة لاحقاً</string>
+    <string name="error_no_loc">إنتظار تحديد الموقع. الرجاء المحاولة لاحقاً</string>
     <string name="send">إرسال</string>
     <string name="your_message">رسالتك</string>
     <string name="searching">البحث</string>
@@ -298,7 +304,7 @@
     <string name="mobile">هواتف الجوال</string>
     <string name="deals_brand">عروض وماركات</string>
     <string name="jewellery">مجوهرات</string>
-    <string name="centers_tips">مراكز ونصائح</string>
+    <string name="centers_tips">مراكز و نصائح</string>
     <string name="agents_tickets">عملاء وتذاكر</string>
     <string name="news_tips">أخبار ونصائح</string>
     <string name="fitness_program">برامج لياقة</string>
@@ -314,4 +320,5 @@
     <string name="get_qticket">الحصول على QTicket</string>
     <string name="_974">٩٧٤</string>
     <string name="ok">حسنا</string>
+    <string name="menu">قائمة طعام</string>
 </resources>

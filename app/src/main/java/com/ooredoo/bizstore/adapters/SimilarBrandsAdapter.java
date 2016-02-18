@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -23,6 +25,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -115,6 +118,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
             holder.ivThumbnail = (ImageView) grid.findViewById(R.id.image_view);
             holder.tvTitle = (TextView) grid.findViewById(R.id.text_view);
             holder.tvBrandText = (TextView) grid.findViewById(R.id.brand_txt);
+            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvBrandText, Typeface.BOLD);
             holder.progressBar = (ProgressBar) grid.findViewById(R.id.progressBar);
 
             grid.setTag(holder);

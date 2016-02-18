@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.CustomExpandableListViewOnChildClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.views.CustomExpandableListView;
@@ -132,6 +134,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         int resId = navigationItem.getResId();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
+        FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvName, Typeface.BOLD);
         tvName.setLayoutDirection(direction);
         tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
         tvName.setText(name);

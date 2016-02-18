@@ -158,6 +158,7 @@ public class DealOfDayAdapter extends BaseAdapter
 
             holder.tvTitle = (TextView) rlCell.findViewById(R.id.title);
             holder.tvTitle.setText(genericDeal.title.toUpperCase());
+            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvTitle, Typeface.BOLD);
 
             holder.tvDescription = (TextView) rlCell.findViewById(R.id.description);
             holder.tvDescription.setText(genericDeal.description.toUpperCase());

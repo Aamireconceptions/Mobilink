@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -94,7 +95,9 @@ public class BusinessDetailTask extends BaseAsyncTask<String, Void, String> {
         }
         else
         {
-            snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
+            Toast.makeText(detailActivity, R.string.error_no_internet, Toast.LENGTH_LONG).show();
+            detailActivity.finish();
+           // snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
     }
 

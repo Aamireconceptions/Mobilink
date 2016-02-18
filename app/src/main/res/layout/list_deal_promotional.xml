@@ -49,7 +49,7 @@
             android:layout_toStartOf="@+id/directions"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_6sdp"
             android:layout_centerVertical="true">
 
         <TextView
@@ -100,7 +100,8 @@
             android:paddingBottom="0.8dp"
             android:layout_height="@dimen/_105sdp"
             android:scaleType="fitXY"
-            android:src="@drawable/deal_banner"
+            android:adjustViewBounds="true"
+            android:src="@color/banner"
             android:background="@drawable/listing_border"/>
 
         <ProgressBar
@@ -163,7 +164,6 @@
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
             android:layout_marginTop="@dimen/_2sdp"
             android:textColor="@color/black"
             android:textSize="14sp"

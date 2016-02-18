@@ -275,12 +275,9 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
             holder.layout = row.findViewById(R.id.layout_deal_detail);
             holder.tvCategory = (TextView) row.findViewById(R.id.category_icon);
             holder.ivFav = (ImageView) row.findViewById(R.id.fav);
-            holder.ivShare = (ImageView) row.findViewById(R.id.share);
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
             holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
-            holder.tvViews = (TextView) row.findViewById(R.id.views);
-            holder.rbRatings = (RatingBar) row.findViewById(R.id.ratings);
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
             holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
@@ -526,7 +523,7 @@ public class RecentItemsAdapter extends ArrayAdapter<RecentItem> {
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            holder.ivPromotional.setImageResource(R.drawable.deal_banner);
+                            holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                             holder.progressBar.setVisibility(View.VISIBLE);
 
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =

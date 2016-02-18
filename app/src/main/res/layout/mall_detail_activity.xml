@@ -16,8 +16,8 @@
         android:dividerHeight="12dp"
         android:paddingBottom="12dp"
         android:clipToPadding="false"
-        android:divider="@null"
-        android:headerDividersEnabled="false" />
+        android:listSelector="@color/transparent"
+        android:divider="@null" />
 
     <RelativeLayout
         android:id="@+id/toolbar_layout"

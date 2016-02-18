@@ -5,35 +5,32 @@
 
         <shape android:shape="rectangle">
 
-            <solid android:color="#cdcdcd" />
-
-
-        </shape>
-        </item>
-
-    <item
-        android:left="1px"
-        android:right="1px">
-
-        <shape android:shape="rectangle">
-            <solid android:color="#eaeaed"/>
+            <solid android:color="@color/border_dark_gray" />
 
         </shape>
     </item>
 
     <item
-        android:bottom="1px"
-        android:left="1px"
-        android:right="1px">
+        android:left="2px"
+        android:right="2px">
+
+        <shape android:shape="rectangle">
+            <solid android:color="@color/list_separator_light_gray"/>
+
+        </shape>
+    </item>
+
+    <item
+        android:bottom="2px"
+        android:left="2px"
+        android:right="2px">
 
         <shape android:shape="rectangle">
             <solid android:color="@color/white"/>
 
-
         </shape>
 
-
-        </item>
+    </item>
 
 
 </layer-list>

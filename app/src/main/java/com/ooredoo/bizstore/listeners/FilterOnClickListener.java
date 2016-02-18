@@ -81,6 +81,8 @@ public class FilterOnClickListener implements View.OnClickListener {
         Button ivFilter = (Button) layout.findViewById(R.id.filter);
         ivFilter.setOnClickListener(this);
 
+        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, ivFilter);
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             ivFilter.setBackgroundResource(R.drawable.filter_ripple);

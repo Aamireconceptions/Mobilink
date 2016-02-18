@@ -5,24 +5,21 @@
 
         <shape android:shape="rectangle">
 
-            <solid android:color="#cdcdcd" />
-
+            <solid android:color="@color/border_dark_gray" />
 
         </shape>
-        </item>
+    </item>
 
     <item
-        android:left="1px"
-        android:right="1px"
-        android:bottom="1px">
+        android:left="2px"
+        android:right="2px"
+        android:bottom="2px">
 
         <shape android:shape="rectangle">
             <solid android:color="@color/white"/>
 
         </shape>
     </item>
-
-
 
 
 </layer-list>
