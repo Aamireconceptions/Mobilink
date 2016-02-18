@@ -5,8 +5,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_width="@dimen/_85sdp"
+        android:layout_height="@dimen/_85sdp"
         android:background="@drawable/business_border">
 
         <ImageView

@@ -73,6 +73,16 @@ public class FontUtils
         }
     }
 
+    public static void setFont(Context context, TextView textView)
+    {
+        String path = BizStore.getLanguage().equals("en") ? BizStore.DEFAULT_FONT :
+                BizStore.ARABIC_DEFAULT_FONT;
+
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), path);
+
+        textView.setTypeface(typeface);
+    }
+
     public static void setFont(Context context, String path, TextView textView)
     {
         Typeface typeface = Typeface.createFromAsset(context.getAssets(), path);
@@ -80,8 +90,11 @@ public class FontUtils
         textView.setTypeface(typeface);
     }
 
-    public static void setFontWithStyle(Context context, String path, TextView textView, int style)
+    public static void setFontWithStyle(Context context, TextView textView, int style)
     {
+        String path = BizStore.getLanguage().equals("en") ? BizStore.DEFAULT_FONT :
+                BizStore.ARABIC_DEFAULT_FONT;
+
         Typeface typeface = Typeface.createFromAsset(context.getAssets(), path);
 
         textView.setTypeface(typeface, style);

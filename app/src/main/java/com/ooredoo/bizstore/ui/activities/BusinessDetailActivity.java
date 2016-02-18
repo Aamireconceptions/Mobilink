@@ -244,7 +244,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         header.findViewById(R.id.iv_share).setOnClickListener(this);
 
         tvLocations = (TextView) header.findViewById(R.id.locations);
-        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvLocations, Typeface.BOLD);
+        FontUtils.setFontWithStyle(this, tvLocations, Typeface.BOLD);
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -418,7 +418,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 //ivBrandLogo.setVisibility(View.GONE);
 
                 TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
-                FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvBrandTxt, Typeface.BOLD);
+                FontUtils.setFontWithStyle(this, tvBrandTxt, Typeface.BOLD);
 
                 if(business.color == 0)
                 {
@@ -450,7 +450,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             }
 
             TextView tvDescriptionHeading = (TextView) header.findViewById(R.id.desc_heading);
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvDescriptionHeading, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this, tvDescriptionHeading, Typeface.BOLD);
 
             tvDescriptionArrow = (TextView) header.findViewById(R.id.description_arrow);
 
@@ -461,19 +461,19 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             rlMenu.setOnClickListener(this);
 
             TextView tvMenuHeading = (TextView) header.findViewById(R.id.menu_heading);
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvMenuHeading, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this, tvMenuHeading, Typeface.BOLD);
 
             tvMenuArrow = (TextView) header.findViewById(R.id.menu_arrow);
 
             llMenu = (LinearLayout) header.findViewById(R.id.ll_menu);
 
             TextView tvGalleryHeading = (TextView) header.findViewById(R.id.gallery_heading);
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvGalleryHeading, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this,  tvGalleryHeading, Typeface.BOLD);
 
             TextView tvTitle = ((TextView) header.findViewById(R.id.tv_title));
             tvTitle.setText(business.title);
 
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvTitle, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this,  tvTitle, Typeface.BOLD);
 
 
 
@@ -482,7 +482,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             tvCity = ((TextView) header.findViewById(R.id.city));
             tvCity.setText(business.location);
 
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvCity, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this, tvCity, Typeface.BOLD);
 
             tvCity2 = ((TextView) header.findViewById(R.id.tv_city));
             tvCity2.setText(business.location);

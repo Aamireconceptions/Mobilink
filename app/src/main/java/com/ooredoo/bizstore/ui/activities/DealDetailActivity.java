@@ -249,7 +249,7 @@ private EditText etMerchantCode;
 
         llHead = (LinearLayout) header.findViewById(R.id.head);
         tvHeadTitle = (TextView) header.findViewById(R.id.head_title);
-        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvHeadTitle, Typeface.BOLD);
+        FontUtils.setFontWithStyle(this, tvHeadTitle, Typeface.BOLD);
         tvHeadDescription = (TextView) header.findViewById(R.id.head_description);
 
         tvPrices = (TextView) header.findViewById(R.id.prices);
@@ -265,7 +265,7 @@ private EditText etMerchantCode;
         etMerchantCode.setMaxWidth(etMerchantCode.getWidth());
         etMerchantCode.setMaxLines(4);
 
-        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, etMerchantCode, Typeface.BOLD);
+        FontUtils.setFontWithStyle(this, etMerchantCode, Typeface.BOLD);
 
         Logger.print("etMerchant Code width:"+etMerchantCode.getWidth());
 
@@ -350,7 +350,7 @@ private EditText etMerchantCode;
 
         tvLocations = (TextView) header.findViewById(R.id.locations);
 
-        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvLocations, Typeface.BOLD);
+        FontUtils.setFontWithStyle(this, tvLocations, Typeface.BOLD);
 
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
@@ -385,7 +385,7 @@ private EditText etMerchantCode;
         btGetCode = (Button) header.findViewById(R.id.get_code);
         btGetCode.setOnClickListener(this);
 
-        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, btGetCode, Typeface.BOLD);
+        FontUtils.setFontWithStyle(this, btGetCode, Typeface.BOLD);
 
         tvDiscount = (TextView) findViewById(R.id.discount);
 
@@ -461,12 +461,7 @@ private EditText etMerchantCode;
             TextView tvCategory = (TextView) findViewById(R.id.cat);
             tvCategory.setText(deal.category);
 
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvCategory, Typeface.BOLD);
-
-            if(BizStore.getLanguage().equals("ar"))
-            {
-                FontUtils.setFont(this, BizStore.ARABIC_DEFAULT_FONT, tvCategory);
-            }
+            FontUtils.setFontWithStyle(this, tvCategory, Typeface.BOLD);
 
             if(deal.how_works != null && !deal.how_works.isEmpty())
             {
@@ -491,7 +486,7 @@ private EditText etMerchantCode;
             TextView tvTitle = ((TextView) header.findViewById(R.id.title));
             tvTitle.setText(deal.title);
 
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvTitle, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this, tvTitle, Typeface.BOLD);
             //((TextView) header.findViewById(R.id.phone)).setText(deal.contact);
 
             ((TextView) header.findViewById(R.id.description)).setText(deal.description);
@@ -547,7 +542,7 @@ private EditText etMerchantCode;
 
             tvCity = ((TextView) header.findViewById(R.id.city));
 
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvCity, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this, tvCity, Typeface.BOLD);
 
             if(deal.location != null && !deal.location.isEmpty()) {
 
@@ -599,7 +594,7 @@ private EditText etMerchantCode;
                 //ivBrandLogo.setVisibility(View.GONE);
 
                 TextView tvBrandTxt = (TextView) header.findViewById(R.id.brand_txt);
-                FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvBrandTxt, Typeface.BOLD);
+                FontUtils.setFontWithStyle(this, tvBrandTxt, Typeface.BOLD);
 
                 if(deal.businessName != null && !deal.businessName.isEmpty())
                 {
@@ -669,18 +664,18 @@ private EditText etMerchantCode;
             }
 
             tvDiscount.setText(discount);
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvDiscount, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this, tvDiscount, Typeface.BOLD);
 
             btSimilarDeals = (Button) header.findViewById(R.id.similar_deals);
             btSimilarDeals.setOnClickListener(this);
 
-            FontUtils.setFont(this, BizStore.DEFAULT_FONT, btSimilarDeals);
+            FontUtils.setFont(this, btSimilarDeals);
            // btSimilarDeals.performClick();
 
             btNearbyDeals = (Button) header.findViewById(R.id.nearby_deals);
             btNearbyDeals.setOnClickListener(this);
 
-            FontUtils.setFont(this, BizStore.DEFAULT_FONT, btNearbyDeals);
+            FontUtils.setFont(this,  btNearbyDeals);
 
             //tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
 

@@ -465,6 +465,7 @@ public class SearchBaseAdapter extends BaseAdapter {
             else
             {
                 holder.progressBar.setVisibility(View.VISIBLE);
+                holder.ivPromotional.setImageBitmap(null);
                 holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
 
                 fallBackToDiskCache(url);

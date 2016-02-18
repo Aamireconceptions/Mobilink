@@ -232,16 +232,16 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         llSimilarNearby = (LinearLayout) header.findViewById(R.id.similar_nearby);
 
         btBrands = (Button) header.findViewById(R.id.brands);
-        FontUtils.setFont(this, BizStore.DEFAULT_FONT, btBrands);
+        FontUtils.setFont(this,  btBrands);
         btBrands.setOnClickListener(this);
         // btSimilarDeals.performClick();
 
         btDeals = (Button) header.findViewById(R.id.deals);
-        FontUtils.setFont(this, BizStore.DEFAULT_FONT, btDeals);
+        FontUtils.setFont(this,  btDeals);
         btDeals.setOnClickListener(this);
 
         tvLocations = (TextView) header.findViewById(R.id.locations);
-        FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvLocations, Typeface.BOLD);
+        FontUtils.setFontWithStyle(this, tvLocations, Typeface.BOLD);
         tvLocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -362,7 +362,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             else
             {
                 TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
-                FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvBrandTxt, Typeface.BOLD);
+                FontUtils.setFontWithStyle(this, tvBrandTxt, Typeface.BOLD);
 
                 if(business.color == 0)
                 {
@@ -395,14 +395,14 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             TextView tvTitle = ((TextView) header.findViewById(R.id.tv_title));
             tvTitle.setText(business.title);
 
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvTitle, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this, tvTitle, Typeface.BOLD);
 
             ((TextView) header.findViewById(R.id.phone)).setText(business.contact);
             ((TextView) header.findViewById(R.id.address)).setText(business.address);
             tvCity = ((TextView) header.findViewById(R.id.city));
             tvCity.setText(business.location);
 
-            FontUtils.setFontWithStyle(this, BizStore.DEFAULT_FONT, tvCity, Typeface.BOLD);
+            FontUtils.setFontWithStyle(this, tvCity, Typeface.BOLD);
 
             tvCity2 = (TextView) header.findViewById(R.id.tv_city);
             tvCity2.setText(business.location);

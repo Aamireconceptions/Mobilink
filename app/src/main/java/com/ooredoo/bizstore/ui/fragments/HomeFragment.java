@@ -125,49 +125,49 @@ dealofDayCalled = false;
         String font = BizStore.getLanguage().equals("en") ? BizStore.MONOSPACE_FONT : BizStore.ARABIC_DEFAULT_FONT;
 
         TextView tvRestaurants = (TextView) header.findViewById(R.id.restaurants);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvRestaurants, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvRestaurants, Typeface.BOLD);
 
         TextView tvShopping = (TextView) header.findViewById(R.id.shopping);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvShopping, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvShopping, Typeface.BOLD);
 
         TextView tvHealth = (TextView) header.findViewById(R.id.health);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvHealth, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvHealth, Typeface.BOLD);
 
         TextView tvTravel = (TextView) header.findViewById(R.id.travel);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvTravel, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvTravel, Typeface.BOLD);
 
         TextView tvElectronics = (TextView) header.findViewById(R.id.electronics);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvElectronics, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvElectronics, Typeface.BOLD);
 
         TextView tvAutomotive= (TextView) header.findViewById(R.id.automotive);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvAutomotive, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvAutomotive, Typeface.BOLD);
 
         TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
-        FontUtils.setFont(activity, font, tvTopBrands);
+        FontUtils.setFont(activity, tvTopBrands);
 
         TextView tvSearch = (TextView) header.findViewById(R.id.search);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvSearch, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvSearch, Typeface.BOLD);
 
         TextView tvDeals = (TextView) header.findViewById(R.id.deals);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvDeals, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvDeals, Typeface.BOLD);
 
         TextView tvMobile = (TextView) header.findViewById(R.id.mobile_phone);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvMobile, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvMobile, Typeface.BOLD);
 
         TextView tvJewellery = (TextView) header.findViewById(R.id.jewellery);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvJewellery, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvJewellery, Typeface.BOLD);
 
         TextView tvSports = (TextView) header.findViewById(R.id.sports);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvSports, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvSports, Typeface.BOLD);
 
         TextView tvSalons = (TextView) header.findViewById(R.id.salons);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvSalons, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity,  tvSalons, Typeface.BOLD);
 
         TextView tvCinemas = (TextView) header.findViewById(R.id.cinemas);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvCinemas, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvCinemas, Typeface.BOLD);
 
         TextView tvGold = (TextView) header.findViewById(R.id.gold);
-        FontUtils.setFontWithStyle(activity, BizStore.DEFAULT_FONT, tvGold, Typeface.BOLD);
+        FontUtils.setFontWithStyle(activity, tvGold, Typeface.BOLD);
 
         String brands = getString(R.string.brands).toUpperCase();
         String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
@@ -177,7 +177,7 @@ dealofDayCalled = false;
                 getResources().getColor(R.color.red));
 
         TextView tvFeaturedCategories = (TextView) header.findViewById(R.id.featured_categories);
-        FontUtils.setFont(activity, font, tvFeaturedCategories);
+        FontUtils.setFont(activity, tvFeaturedCategories);
 
         String featured = getString(R.string.featured).toUpperCase();
         String categories = getString(R.string.categories).toUpperCase();
@@ -188,7 +188,7 @@ dealofDayCalled = false;
                 getResources().getColor(R.color.red));
 
         TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
-        FontUtils.setFont(activity, font, tvTopMalls);
+        FontUtils.setFont(activity, tvTopMalls);
 
         String top = getString(R.string.top).toUpperCase();
         String malls = getString(R.string.Malls).toUpperCase();
@@ -197,7 +197,7 @@ dealofDayCalled = false;
         FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top, getResources().getColor(R.color.red));
 
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
-        FontUtils.setFont(activity, font, tvDealsOfTheDay);
+        FontUtils.setFont(activity, tvDealsOfTheDay);
 
         String deals = getString(R.string.deals).toUpperCase();
         String ofTheDay = getString(R.string.of_the_day).toUpperCase();

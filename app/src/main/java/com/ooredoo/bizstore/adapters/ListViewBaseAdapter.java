@@ -342,23 +342,23 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder = new Holder();
 
                 holder.tvTitle = (TextView) row.findViewById(R.id.title);
-                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvTitle, Typeface.BOLD);
+                FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
 
                 holder.tvDetail = (TextView) row.findViewById(R.id.detail);
                 holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
-                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvDiscount, Typeface.BOLD);
+                FontUtils.setFontWithStyle(context,  holder.tvDiscount, Typeface.BOLD);
                 holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
                 holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
                 holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
                 holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
                 holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
                 holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
-                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvBrandName, Typeface.BOLD);
+                FontUtils.setFontWithStyle(context,  holder.tvBrandName, Typeface.BOLD);
                 holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
                 holder.tvDirections = (TextView) row.findViewById(R.id.directions);
-                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvDirections, Typeface.BOLD);
+                FontUtils.setFontWithStyle(context, holder.tvDirections, Typeface.BOLD);
                 holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
-                FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvBrandText, Typeface.BOLD);
+                FontUtils.setFontWithStyle(context, holder.tvBrandText, Typeface.BOLD);
                 holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
                 holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
                 holder.tvPrice = (TextView) row.findViewById(R.id.prices);
@@ -546,6 +546,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 }
                 else
                 {
+                    holder.ivPromotional.setImageBitmap(null);
                     holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     holder.progressBar.setVisibility(View.VISIBLE);
 

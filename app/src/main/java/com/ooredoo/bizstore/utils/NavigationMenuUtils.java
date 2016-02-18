@@ -162,10 +162,12 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         Button btEnglish = (Button) navigationHeader.findViewById(R.id.btn_lang_english);
         btEnglish.setOnClickListener(clickListener);
         if(BizStore.getLanguage().equals("en")) clickListener.setSelected(btEnglish);
+        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btEnglish);
 
         Button btArabic = (Button) navigationHeader.findViewById(R.id.btn_lang_arabic);
         btArabic.setOnClickListener(clickListener);
         if(BizStore.getLanguage().equals("ar")) clickListener.setSelected(btArabic);
+        FontUtils.setFont(activity, BizStore.ARABIC_DEFAULT_FONT, btArabic);
 
         new HeaderNavigationListener(homeActivity, navigationHeader);
 

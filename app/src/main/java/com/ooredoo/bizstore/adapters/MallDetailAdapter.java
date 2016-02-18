@@ -155,12 +155,12 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = inflater.inflate(R.layout.mall_group_view, parent, false);
-            convertView.setPaddingRelative(padding, 0, padding, 0);
+           convertView.setPaddingRelative(padding, 0, padding, 0);
             convertView.setBackground(null);
         }
 
         TextView textView = (TextView) convertView.findViewById(R.id.name);
-        FontUtils.setFont(context, BizStore.DEFAULT_FONT, textView);
+        FontUtils.setFont(context, textView);
 
         ImageView ivIndicator = (ImageView) convertView.findViewById(R.id.indicator);
 
@@ -174,7 +174,6 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
         {
             part = category.substring(0, category.indexOf(" "));
         }
-
 
         FontUtils.changeColorAndMakeBold(textView, category, part.toUpperCase(),
                 context.getResources().getColor(R.color.red));
@@ -217,7 +216,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             final GenericDeal deal = (GenericDeal) getChild(groupPosition, childPosition);
 
             TextView tvTitle = (TextView) childView.findViewById(R.id.title);
-            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvTitle, Typeface.BOLD);
+            FontUtils.setFontWithStyle(context, tvTitle, Typeface.BOLD);
             TextView tvDetail = (TextView) childView.findViewById(R.id.detail);
             TextView tvDiscount = (TextView) childView.findViewById(R.id.discount);
             ImageView ivPromotional = (ImageView) childView.findViewById(R.id.promotional_banner);
@@ -225,12 +224,12 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             RelativeLayout rlPromotionalLayout = (RelativeLayout) childView.findViewById(R.id.promotion_layout);
             ImageView ivBrand = (ImageView) childView.findViewById(R.id.brand_logo);
             TextView tvBrandName = (TextView) childView.findViewById(R.id.brand_name);
-            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvBrandName, Typeface.BOLD);
+            FontUtils.setFontWithStyle(context, tvBrandName, Typeface.BOLD);
             TextView tvBrandAddress = (TextView) childView.findViewById(R.id.brand_address);
             TextView tvBrandText = (TextView) childView.findViewById(R.id.brand_txt);
-            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvBrandText, Typeface.BOLD);
+            FontUtils.setFontWithStyle(context, tvBrandText, Typeface.BOLD);
             TextView tvDirections = (TextView) childView.findViewById(R.id.directions);
-            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvDirections, Typeface.BOLD);
+            FontUtils.setFontWithStyle(context, tvDirections, Typeface.BOLD);
             ImageView ivDiscountTag = (ImageView) childView.findViewById(R.id.discount_tag);
 
             RelativeLayout rlHeader = (RelativeLayout) childView.findViewById(R.id.header);
@@ -408,7 +407,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             /*gridView.setPadding((int) resources.getDimension(R.dimen._9sdp), 0,
                    (int) resources.getDimension(R.dimen._9sdp), 0);*/
 
-            gridView.setPadding(padding -12, 0, padding, 0);
+            gridView.setPaddingRelative(padding, 0, padding, 0);
 
             gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._12sdp));
 
@@ -427,7 +426,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 gridView.setSelector(new ColorDrawable());
             }
 
-           gridView.setGravity(Gravity.CENTER_HORIZONTAL);
+          // gridView.setGravity(Gravity.CENTER_HORIZONTAL);
 
            gridView.setAdapter(adapter);
 

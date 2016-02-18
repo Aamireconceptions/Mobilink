@@ -45,12 +45,12 @@ public class MyFavoritesActivity extends AppCompatActivity {
         btNewDeals.setOnClickListener(listener);
         listener.setButtonSelected(btNewDeals);
 
-        FontUtils.setFont(this, BizStore.DEFAULT_FONT, btNewDeals);
+        FontUtils.setFont(this,  btNewDeals);
 
         Button btPopularDeals = (Button) findViewById(R.id.businesses);
         btPopularDeals.setOnClickListener(listener);
 
-        FontUtils.setFont(this, BizStore.DEFAULT_FONT, btPopularDeals);
+        FontUtils.setFont(this,  btPopularDeals);
 
         showFavs();
     }

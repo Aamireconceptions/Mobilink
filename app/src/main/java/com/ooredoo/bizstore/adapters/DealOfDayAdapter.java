@@ -142,7 +142,7 @@ public class DealOfDayAdapter extends BaseAdapter
         holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
                 0, 0);
 
-        FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvCategory, Typeface.BOLD);
+        FontUtils.setFontWithStyle(context, holder.tvCategory, Typeface.BOLD);
 
         for(int i = 0, r = 0, c = 0; i < dod.deals.size(); i++, c++)
         {
@@ -158,7 +158,7 @@ public class DealOfDayAdapter extends BaseAdapter
 
             holder.tvTitle = (TextView) rlCell.findViewById(R.id.title);
             holder.tvTitle.setText(genericDeal.title.toUpperCase());
-            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvTitle, Typeface.BOLD);
+            FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
 
             holder.tvDescription = (TextView) rlCell.findViewById(R.id.description);
             holder.tvDescription.setText(genericDeal.description.toUpperCase());

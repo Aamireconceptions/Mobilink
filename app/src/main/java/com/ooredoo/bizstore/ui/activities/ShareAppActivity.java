@@ -48,7 +48,7 @@ public class ShareAppActivity extends AppCompatActivity {
 
         EditText etCountry = (EditText) findViewById(R.id.country_code);
         //etCountry.setText("974");
-       FontUtils.setFont(this, BizStore.DEFAULT_FONT, etCountry);
+       FontUtils.setFont(this, etCountry);
 
         etPhoneNum = (EditText) findViewById(R.id.phone_number);
         etPhoneNum.setOnClickListener(new View.OnClickListener() {

@@ -118,7 +118,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
             holder.ivThumbnail = (ImageView) grid.findViewById(R.id.image_view);
             holder.tvTitle = (TextView) grid.findViewById(R.id.text_view);
             holder.tvBrandText = (TextView) grid.findViewById(R.id.brand_txt);
-            FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, holder.tvBrandText, Typeface.BOLD);
+            FontUtils.setFontWithStyle(context, holder.tvBrandText, Typeface.BOLD);
             holder.progressBar = (ProgressBar) grid.findViewById(R.id.progressBar);
 
             grid.setTag(holder);

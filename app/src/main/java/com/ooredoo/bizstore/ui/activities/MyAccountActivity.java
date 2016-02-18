@@ -108,8 +108,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         });
         etNumber = (EditText) findViewById(R.id.et_number);
 
-        FontUtils.setFont(this, BizStore.getLanguage().equals("en") ? BizStore.DEFAULT_FONT
-        : BizStore.ARABIC_DEFAULT_FONT, etNumber);
+        FontUtils.setFont(this, etNumber);
         ivProfilePic = (ImageView) findViewById(R.id.iv_profile_pic);
         ImageView ivEditDp = (ImageView) findViewById(R.id.iv_edit_dp);
         ivEditDp.setOnClickListener(this);

@@ -38,8 +38,7 @@ public class SignUpFragment extends BaseFragment {
         signUpActivity.toolbar.setVisibility(View.VISIBLE);
 
         EditText etCountryCode = (EditText) parent.findViewById(R.id.et_country_code);
-        FontUtils.setFont(getActivity(), BizStore.getLanguage().equals("en") ? BizStore.DEFAULT_FONT
-        : BizStore.ARABIC_DEFAULT_FONT, etCountryCode);
+        FontUtils.setFont(getActivity(), etCountryCode);
 
         etMsisdn = (EditText) parent.findViewById(R.id.et_phone_num);
         parent.findViewById(R.id.btn_next).setOnClickListener(this);

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -41,6 +42,7 @@ import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
@@ -210,31 +212,36 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
             final GenericDeal deal = (GenericDeal) getChild(groupPosition, childPosition);
 
-            View layout = childView.findViewById(R.id.layout_deal_detail);
-            TextView tvCategory = (TextView) childView.findViewById(R.id.category_icon);
             TextView tvTitle = (TextView) childView.findViewById(R.id.title);
+            FontUtils.setFontWithStyle(context, tvTitle, Typeface.BOLD);
+
             TextView tvDetail = (TextView) childView.findViewById(R.id.detail);
             TextView tvDiscount = (TextView) childView.findViewById(R.id.discount);
+            FontUtils.setFontWithStyle(context, tvDiscount, Typeface.BOLD);
+
             ImageView ivPromotional = (ImageView) childView.findViewById(R.id.promotional_banner);
             ProgressBar progressBar = (ProgressBar) childView.findViewById(R.id.progress_bar);
             RelativeLayout rlPromotionalLayout = (RelativeLayout) childView.findViewById(R.id.promotion_layout);
             ImageView ivBrand = (ImageView) childView.findViewById(R.id.brand_logo);
             TextView tvBrandName = (TextView) childView.findViewById(R.id.brand_name);
+            FontUtils.setFontWithStyle(context, tvBrandName, Typeface.BOLD);
+
             TextView tvBrandAddress = (TextView) childView.findViewById(R.id.brand_address);
             TextView tvBrandText = (TextView) childView.findViewById(R.id.brand_txt);
+            FontUtils.setFontWithStyle(context, tvBrandText, Typeface.BOLD);
             TextView tvDirections = (TextView) childView.findViewById(R.id.directions);
+            FontUtils.setFontWithStyle(context, tvDirections, Typeface.BOLD);
             ImageView ivDiscountTag = (ImageView) childView.findViewById(R.id.discount_tag);
 
             RelativeLayout rlHeader = (RelativeLayout) childView.findViewById(R.id.header);
 
+            LinearLayout llFooter = (LinearLayout) childView.findViewById(R.id.layout_deal_detail);
+
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                rlHeader.setBackgroundResource(R.drawable.list_header);
-               layout.setBackgroundResource(R.drawable.list_footer);
+                llFooter.setBackgroundResource(R.drawable.list_footer);
             }
-
-            //holder.tvBrandName.setText(genericDeal.brandName);
-            //holder.tvBrandAddress.setText(genericDeal.brandAddress);
 
             if((deal.latitude != 0 && deal.longitude != 0)
                     && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
@@ -255,7 +262,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
             tvBrandAddress.setText(deal.location);
 
-            String brandLogoUrl = deal.image != null ? deal.image.logoUrl : null;
+            String brandLogoUrl = deal.businessLogo;
 
             Logger.print("BrandLogo: " + brandLogoUrl);
 
@@ -268,11 +275,10 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 if(bitmap != null)
                 {
                     ivBrand.setImageBitmap(bitmap);
-                    //holder.progressBar.setVisibility(View.GONE);
                 }
                 else
                 {
-                    ivBrand.setBackgroundColor(context.getResources().getColor(R.color.banner));
+                    ivBrand.setImageBitmap(null);
 
                     fallBackToDiskCache(url);
                 }
@@ -303,21 +309,6 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 ivBrand.setImageBitmap(null);
             }
 
-            if(tvCategory != null)
-            {
-                String category = deal.category;
-                tvCategory.setText(category);
-
-                int categoryDrawable = ResourceUtils.getDrawableResId(category);
-                if(categoryDrawable > 0) {
-                    tvCategory.setCompoundDrawablesWithIntrinsicBounds(categoryDrawable, 0, 0, 0);
-                }
-            }
-
-            deal.isFav = Favorite.isFavorite(deal.id);
-
-            // holder.ivFav.setSelected(deal.isFav);
-            //  holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
 
             tvTitle.setText(deal.title);
 
@@ -335,7 +326,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
             tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
 
-            layout.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
+            llFooter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showDetail(deal);
@@ -348,22 +339,6 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                     showDetail(deal);
                 }
             });
-
-       /* holder.ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isSearchEnabled()) {
-                    HomeActivity homeActivity = (HomeActivity) activity;
-                    homeActivity.showHideSearchBar(false);
-                } else {
-                    DealDetailActivity.shareDeal((Activity) context, deal.id);
-                }
-            }
-        });*/
-
-//        holder.rbRatings.setRating(deal.rating);
-
-            //   holder.tvViews.setText(valueOf(deal.views));
 
             String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
 
@@ -384,6 +359,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 }
                 else
                 {
+                    ivPromotional.setImageBitmap(null);
                     ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -404,15 +380,6 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 if(ivPromotional != null)
                 {
                    rlPromotionalLayout.setVisibility(View.GONE);
-
-               /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                holder.progressBar.setVisibility(View.GONE);
-                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDetail(deal);
-                    }
-                });*/
                 }
             }
 
@@ -420,14 +387,11 @@ public class BusinessAdapter extends BaseExpandableListAdapter
         }
         else
         {
-           // Brand brand = (Brand) getChild(groupPosition, childPosition);
 
             SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand,
                     (List<Brand>) childList.get(groupPosition));
 
-           // GridView gridView = (GridView) layoutInflater.inflate(R.layout.grid_view, parent, false);
             NonScrollableGridView gridView = new NonScrollableGridView(context, null);
-
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -438,25 +402,21 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                     Business business = new Business(brand1);
 
                     Intent intent = new Intent(context, BusinessDetailActivity.class);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                   // intent.setClass(context, BusinessDetailActivity.class);
                     intent.putExtra("business", business);
                     intent.putExtra(CATEGORY, "N/A");
                     context.startActivity(intent);
                 }
             });
             gridView.setNumColumns(3);
-            gridView.setPaddingRelative((int) resources.getDimension(R.dimen._8sdp), (int) resources.getDimension(R.dimen._12sdp),
-                    (int) resources.getDimension(R.dimen._8sdp), (int) resources.getDimension(R.dimen._12sdp));
-            //gridView.setHorizontalSpacing((int) resources.getDimension(R.dimen._8sdp));
+            gridView.setPaddingRelative((int) resources.getDimension(R.dimen._6sdp), (int) resources.getDimension(R.dimen._12sdp),
+                    (int) resources.getDimension(R.dimen._6sdp), (int) resources.getDimension(R.dimen._12sdp));
+
             gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._12sdp));
 
             if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             {
                 if(BizStore.getLanguage().equals("ar"))
                     gridView.setHorizontalSpacing((int) context.getResources().getDimension(R.dimen._minus1sdp));
-              /*  else
-                    gridView.setHorizontalSpacing((int) context.getResources().getDimension(R.dimen._8sdp));*/
             }
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

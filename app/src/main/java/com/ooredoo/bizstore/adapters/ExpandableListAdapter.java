@@ -134,7 +134,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         int resId = navigationItem.getResId();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
-        FontUtils.setFontWithStyle(context, BizStore.DEFAULT_FONT, tvName, Typeface.BOLD);
+        FontUtils.setFontWithStyle(context, tvName, Typeface.BOLD);
         tvName.setLayoutDirection(direction);
         tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
         tvName.setText(name);

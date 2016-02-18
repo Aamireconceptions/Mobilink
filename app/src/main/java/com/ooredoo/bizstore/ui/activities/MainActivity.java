@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
         }*/
         btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
 
-        FontUtils.setFont(this, BizStore.ARABIC_DEFAULT_FONT, btnArabicLang);
+        FontUtils.setFont(this, btnArabicLang);
 
         btnEnglishLang = (Button) findViewById(R.id.btn_lang_english);
         btnArabicLang.setOnClickListener(this);

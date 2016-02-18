@@ -229,7 +229,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_8sdp"
-                android:background="@drawable/subheading_bg">
+                android:background="@drawable/location_header_layer">
 
                 <TextView
                     android:id="@+id/city"

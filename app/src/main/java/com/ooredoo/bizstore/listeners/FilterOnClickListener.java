@@ -70,18 +70,18 @@ public class FilterOnClickListener implements View.OnClickListener {
         btList.setOnClickListener(this);
         setButtonSelected(btList);
 
-        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btList);
+        FontUtils.setFont(activity, btList);
 
         Button btMap = (Button) layout.findViewById(R.id.popular_deals);
         btMap.setText(category == CategoryUtils.CT_NEARBY ? R.string.map : R.string.brands);
         btMap.setOnClickListener(this);
 
-        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btMap);
+        FontUtils.setFont(activity, btMap);
 
         Button ivFilter = (Button) layout.findViewById(R.id.filter);
         ivFilter.setOnClickListener(this);
 
-        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, ivFilter);
+        FontUtils.setFont(activity, ivFilter);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
