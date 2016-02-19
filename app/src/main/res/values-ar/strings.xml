@@ -322,4 +322,5 @@
     <string name="ok">حسنا</string>
     <string name="menu">قائمة طعام</string>
     <string name="version">الإصدار</string>
+    <string name="turn_location_on">الرجاء تشغيل خدمات الموقع على لعرض الصفقات القريبة بك</string>
 </resources>

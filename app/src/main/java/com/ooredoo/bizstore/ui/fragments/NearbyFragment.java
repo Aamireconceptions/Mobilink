@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -284,7 +286,8 @@ RelativeLayout rlParent;
 
         llLocationEmptyView = (LinearLayout) v.findViewById(R.id.location_empty_view);
 
-        v.findViewById(R.id.enable_location).setOnClickListener(new View.OnClickListener() {
+        Button btEnableLoc = (Button) v.findViewById(R.id.enable_location);
+        btEnableLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -293,6 +296,7 @@ RelativeLayout rlParent;
                 NearbyFragment.this.startActivityForResult(intent, 10);
             }
         });
+        FontUtils.setFontWithStyle(activity, btEnableLoc, Typeface.BOLD);
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 

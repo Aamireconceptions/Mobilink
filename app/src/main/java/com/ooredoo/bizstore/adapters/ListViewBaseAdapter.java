@@ -161,7 +161,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
         markerImageView = (ImageView) linearLayout.findViewById(R.id.brand_icon);
 
         tvBrandText = (TextView) linearLayout.findViewById(R.id.brand_text);
-        FontUtils.setFontWithStyle(context, tvBrandText, Typeface.BOLD);
+       // FontUtils.setFontWithStyle(context, tvBrandText, Typeface.BOLD);
         //imageView.setImageBitmap(bitmap);
 
         //linearLayout.setDrawingCacheEnabled(true);
@@ -910,6 +910,7 @@ return null;
             if(deal.title != null && !deal.title.isEmpty())
             {
                 tvBrandText.setText(String.valueOf(deal.title.charAt(0)));
+                FontUtils.setFont(context, tvBrandText);
             }
 
             bitmap = linearLayout.getDrawingCache();
