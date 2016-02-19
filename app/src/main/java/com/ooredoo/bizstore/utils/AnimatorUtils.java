@@ -28,11 +28,10 @@ public class AnimatorUtils
 {
     public static void fadeIn(View v)
     {
-        v.setAlpha(0);
+        v.setAlpha(0.1f);
 
      //v.animate().alpha(0).setDuration(500);
-        v.animate().alphaBy(1).setDuration(150);
-
+        v.animate().alphaBy(1).setDuration(150).start();
 
        /* ObjectAnimator fadeIn = ObjectAnimator.ofFloat(v, "alpha", 1f);
         fadeIn.setDuration(200);
@@ -208,6 +207,4 @@ public class AnimatorUtils
             }
         });
     }
-
-
 }

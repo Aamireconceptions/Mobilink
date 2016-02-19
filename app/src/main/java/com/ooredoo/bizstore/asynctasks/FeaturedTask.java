@@ -126,10 +126,12 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
             catch (JsonSyntaxException e)
             {
                 e.printStackTrace();
+                handleIndicatorVisibility(0, featuredIndicator);
             }
         }
         else
         {
+            handleIndicatorVisibility(0, featuredIndicator);
             Logger.print("FeaturedAsyncTask: Failed to download banners due to no internet");
         }
 

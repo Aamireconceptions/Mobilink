@@ -119,9 +119,10 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
                 }
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
+                handleIndicatorVisibility(0, circlePageIndicator);
             }
         } else {
-
+            handleIndicatorVisibility(0, circlePageIndicator);
             Toast.makeText(activity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
             Logger.print("PromoTask: Failed to download banners due to no internet");
         }

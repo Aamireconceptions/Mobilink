@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -139,7 +142,9 @@ public class GridViewBaseAdapter extends BaseAdapter
                 holder.ivFav = (ImageView) grid.findViewById(R.id.fav);
                 holder.tvDesc = (TextView) grid.findViewById(R.id.desc);
                 holder.tvTitle = (TextView) grid.findViewById(R.id.title);
+                FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
                 holder.tvDiscount = (TextView) grid.findViewById(R.id.discount);
+                FontUtils.setFontWithStyle(context, holder.tvDiscount, Typeface.BOLD);
                 holder.progressBar = (ProgressBar) grid.findViewById(R.id.progress_bar);
                 holder.ivDiscountTag = (ImageView) grid.findViewById(R.id.discount_tag);
                 holder.tvPrice = (TextView) grid.findViewById(R.id.prices);
@@ -215,25 +220,23 @@ public class GridViewBaseAdapter extends BaseAdapter
                 if (bitmap != null) {
                     holder.ivThumbnail.setImageBitmap(bitmap);
                     holder.progressBar.setVisibility(View.GONE);
+
+                    if(!deal.isLogoDisplayed)
+                    {
+                        deal.isLogoDisplayed = true;
+
+                        AnimatorUtils.fadeIn(holder.ivThumbnail);
+                    }
+
                 } else {
-                /*holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
-                holder.progressBar.setVisibility(View.VISIBLE);
-
-                Logger.print("Download started for position: " + position);
-
-                BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                        new BaseAdapterBitmapDownloadTask(this);
-
-                *//*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
-                                         String.valueOf(reqWidth), String.valueOf(reqHeight));*//*
-                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));*/
-
-                    holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
+                    holder.ivThumbnail.setImageDrawable(new ColorDrawable(context.getResources().getColor(R.color.banner)));
+                    // holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     holder.progressBar.setVisibility(View.VISIBLE);
+
                     fallBackToDiskCache(imgUrl);
                 }
             } else {
-                holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
+                holder.ivThumbnail.setImageDrawable(new ColorDrawable(context.getResources().getColor(R.color.banner)));
                 holder.progressBar.setVisibility(View.GONE);
             }
 
@@ -261,7 +264,9 @@ public class GridViewBaseAdapter extends BaseAdapter
                     holder.ivFav = (ImageView) grid.findViewById(R.id.fav);
                     holder.tvDesc = (TextView) grid.findViewById(R.id.desc);
                     holder.tvTitle = (TextView) grid.findViewById(R.id.title);
+                    FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
                     holder.tvDiscount = (TextView) grid.findViewById(R.id.discount);
+                    FontUtils.setFontWithStyle(context, holder.tvDiscount, Typeface.BOLD);
                     holder.progressBar = (ProgressBar) grid.findViewById(R.id.progress_bar);
 
                     grid.setTag(holder);
@@ -291,40 +296,24 @@ public class GridViewBaseAdapter extends BaseAdapter
                     Logger.print("Pos: " + position + "imgUrl: " + imgUrl + ", bitmap: " + bitmap);
                     if (bitmap != null) {
                         holder.ivThumbnail.setImageBitmap(bitmap);
+
                         holder.progressBar.setVisibility(View.GONE);
+
+
                     } else {
-                /*holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
-                holder.progressBar.setVisibility(View.VISIBLE);
-
-                Logger.print("Download started for position: " + position);
-
-                BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                        new BaseAdapterBitmapDownloadTask(this);
-
-                *//*bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imgUrl,
-                                         String.valueOf(reqWidth), String.valueOf(reqHeight));*//*
-                bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));*/
-
-                        holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
+                        holder.ivThumbnail.setImageDrawable(new ColorDrawable(context.getResources().getColor(R.color.banner)));
+                       // holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
                         holder.progressBar.setVisibility(View.VISIBLE);
                         fallBackToDiskCache(imgUrl);
                     }
                 } else {
-                    holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
+                    holder.ivThumbnail.setImageDrawable(new ColorDrawable(context.getResources().getColor(R.color.banner)));
+//                    holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     holder.progressBar.setVisibility(View.GONE);
                 }
 
-                /*if (brand.discount == 0) {
-                    holder.tvDiscount.setVisibility(View.GONE);
-                } else {
-                    holder.tvDiscount.setVisibility(View.VISIBLE);
-                }*/
-
-               // holder.tvDiscount.setVisibility(View.GONE);
-
                 holder.tvTitle.setText(brand.title);
                 holder.tvDesc.setText(brand.description);
-                //holder.tvDiscount.setText(valueOf(brand.discount) + context.getString(R.string.percentage_off));
 
                 return grid;
             }
@@ -417,8 +406,5 @@ public class GridViewBaseAdapter extends BaseAdapter
         TextView tvTitle, tvDiscount, tvDesc, tvPrice;
 
         ProgressBar progressBar;
-
     }
-
-
 }

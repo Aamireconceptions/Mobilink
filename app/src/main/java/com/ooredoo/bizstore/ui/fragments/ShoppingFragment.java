@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -164,6 +165,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         layoutFilterTags = v.findViewById(R.id.filter_tags);
 
         tvFilter = (TextView) layoutFilterTags.findViewById(R.id.filter);
+        FontUtils.setFont(activity, tvFilter);
 
         ivClose = (ImageView) layoutFilterTags.findViewById(R.id.close);
         ivClose.setOnClickListener(new View.OnClickListener() {
@@ -270,8 +272,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             gridView.setNumColumns(3);
 
             adapter.setListingType("brands");
-
-
 
           /*  gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._22sdp));
             gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));*/

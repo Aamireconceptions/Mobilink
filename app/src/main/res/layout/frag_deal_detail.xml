@@ -302,8 +302,7 @@
                     android:id="@+id/merchant_code_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/_26sdp"
-                    android:paddingEnd="@dimen/_26sdp"
+
                     android:visibility="gone" >
 
                     <EditText
@@ -314,7 +313,7 @@
                         android:paddingEnd="@dimen/_45sdp"
                         android:singleLine="true"
                         android:gravity="center"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:inputType="textPassword"
                         android:textColor="@color/red"
                         android:textStyle="bold"

@@ -45,8 +45,7 @@
             android:text="@string/No"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textScaleX="1.1"
-            android:textSize="16sp"
+
             android:textStyle="normal"/>
 
         <Button
@@ -59,8 +58,7 @@
             android:text="@string/Yes"
             android:textAllCaps="true"
             android:textColor="@color/home_heading_text"
-            android:textScaleX="0.9"
-            android:textSize="16sp"
+
             android:textStyle="normal"/>
 
         </LinearLayout>

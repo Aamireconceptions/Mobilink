@@ -1,9 +1,13 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.utils.FontUtils;
 
 /**
  * @author Pehlaj Rai
@@ -18,6 +22,15 @@ public class AboutUsActivity extends BaseActivity {
     @Override
     public void init() {
         setupToolbar();
+
+        TextView tvVersion = (TextView) findViewById(R.id.tv_app_version);
+        FontUtils.setFontWithStyle(this, tvVersion, Typeface.BOLD);
+
+        try {
+            tvVersion.setText(getString(R.string.version) +" " +getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupToolbar() {

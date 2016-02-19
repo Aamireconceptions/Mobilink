@@ -306,6 +306,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 View filterHeader = inflater.inflate(R.layout.layout_filter_tags, parent, false);
 
                 final TextView tvFilter = (TextView) filterHeader.findViewById(R.id.filter);
+                FontUtils.setFont(context, tvFilter);
+
                 if(!filter.isEmpty())
                 {
                     FontUtils.changeColorAndMakeBold(tvFilter,
@@ -673,6 +675,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     View filterHeader = inflater.inflate(R.layout.layout_filter_tags, parent, false);
 
                     final TextView tvFilter = (TextView) filterHeader.findViewById(R.id.filter);
+                    FontUtils.setFont(context, tvFilter);
                     if(!filter.isEmpty())
                     {
                         FontUtils.changeColorAndMakeBold(tvFilter,

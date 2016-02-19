@@ -140,7 +140,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
 
             if(bitmap != null)
             {
-                holder.tvBrandText.setVisibility(View.GONE);
+               holder.tvBrandText.setVisibility(View.GONE);
                 holder.progressBar.setVisibility(View.GONE);
 
                 holder.ivThumbnail.setImageBitmap(bitmap);
@@ -155,6 +155,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
             {
                 holder.ivThumbnail.setImageBitmap(null);
                 holder.progressBar.setVisibility(View.VISIBLE);
+                holder.tvBrandText.setVisibility(View.GONE);
 
                 fallBackToDiskCache(brandLogo);
             }
@@ -162,6 +163,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
         else
         {
             holder.ivThumbnail.setImageBitmap(null);
+            holder.progressBar.setVisibility(View.GONE);
             if(brand.title != null && !brand.title.isEmpty())
             {
                 if(brand.color == 0)
@@ -173,7 +175,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
                 holder.tvBrandText.setText(String.valueOf(brand.title.charAt(0)));
             }
 
-            holder.progressBar.setVisibility(View.GONE);
+
         }
 
        /* holder.ivThumbnail.setOnClickListener(new View.OnClickListener() {

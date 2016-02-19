@@ -81,6 +81,6 @@ public class Converter
             return new Category(context.getString(R.string.sports_fitness), R.drawable.ic_sports);
         }
 
-        return null;
+        return new Category(context.getString(R.string.sports_fitness), R.drawable.ic_sports);
     }
 }

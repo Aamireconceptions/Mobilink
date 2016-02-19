@@ -7,16 +7,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_110sdp">
+        android:layout_height="@dimen/_110sdp"
+        android:background="@drawable/business_border">
 
         <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="1dp"
+            android:layout_height="match_parent"
             android:src="@color/banner"
-            android:scaleType="fitXY"
-            android:background="@drawable/box"/>
+            android:scaleType="fitXY" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -73,7 +72,6 @@
             android:text="Wedding Formal Dess"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:textSize="16sp"
             android:gravity="center_vertical"
             android:textColor="@color/red"
             android:maxLines="1"
@@ -91,6 +89,7 @@
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:maxLines="1"
+            android:textSize="12sp"
             android:ellipsize="end"/>
 
             <TextView

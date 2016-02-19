@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -18,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -120,20 +122,27 @@ public class DialogUtils {
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        view.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+        Button btCancel = (Button) view.findViewById(R.id.btn_cancel);
+        FontUtils.setFont(activity, btCancel);
+        btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
 
-        view.findViewById(R.id.btn_unsub).setOnClickListener(new View.OnClickListener() {
+        Button btUnSub = (Button) view.findViewById(R.id.btn_unsub);
+        FontUtils.setFont(activity, btUnSub);
+        btUnSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new UnSubTask(activity).execute(BizStore.username);
                 dialog.dismiss();
             }
         });
+
+        TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
+        FontUtils.setFontWithStyle(activity, tvTitle, Typeface.BOLD);
 
         dialog.setCancelable(true);
         builder.setCancelable(true);
