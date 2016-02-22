@@ -201,11 +201,11 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         mall.views += 1;
 
-        Intent intent = new Intent(activity, MallDetailActivity.class);
+        /*Intent intent = new Intent(activity, MallDetailActivity.class);
         intent.putExtra("business", new Business(mall));
         intent.putExtra(AppConstant.CATEGORY, AppConstant.DEAL_CATEGORIES[6]);
-        startActivity(intent);
+        startActivity(intent);*/
 
-       // activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
+        activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
     }
 }

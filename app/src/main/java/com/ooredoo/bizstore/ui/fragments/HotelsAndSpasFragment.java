@@ -180,6 +180,8 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         fetchAndDisplayHotelsAndSpas(progressBar);
 
         isRefreshed = false;

@@ -172,6 +172,8 @@ public class MallsFragment extends Fragment implements OnFilterChangeListener,
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         fetchAndDisplayMalls(progressBar);
 
         isRefreshed = false;

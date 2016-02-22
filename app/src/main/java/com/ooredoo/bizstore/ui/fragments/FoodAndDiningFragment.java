@@ -215,6 +215,9 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         {
             adapter.setListingType("brands");
         }
+
+        filterTagUpdate();
+
         fetchAndDisplayFoodAndDining(progressBar);
 
         isRefreshed = false;

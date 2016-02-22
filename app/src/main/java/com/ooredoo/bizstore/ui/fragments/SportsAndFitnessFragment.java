@@ -164,6 +164,8 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
     @Override
     public void onFilterChange()
     {
+
+
         isRefreshed = true;
 
         dealsTask.cancel(true);
@@ -182,11 +184,12 @@ public class SportsAndFitnessFragment extends Fragment implements OnFilterChange
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         fetchAndDisplaySportsAndFitness(progressBar);
 
         isRefreshed = false;
     }
-
 
     @Override
     public void onRefresh() {

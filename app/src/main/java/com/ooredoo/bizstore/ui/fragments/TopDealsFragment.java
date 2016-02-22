@@ -173,12 +173,12 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         loadTopDeals(progressBar);
 
         isRefreshed = false;
     }
-
-
 
     @Override
     public void onRefresh() {
@@ -201,7 +201,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     memoryCache.remove(adapter.deals);
 
-        final String KEY = PREFIX_DEALS.concat("top_deals");
+    final String KEY = PREFIX_DEALS.concat("top_deals");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);

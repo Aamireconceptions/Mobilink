@@ -47,6 +47,8 @@ import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
+import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
+import com.ooredoo.bizstore.interfaces.OnRefreshListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Deal;
@@ -270,7 +272,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             if(deal.isHeader)
             {
-                HomeActivity homeActivity = (HomeActivity) activity;
+                final HomeActivity homeActivity = (HomeActivity) activity;
                 String filter = "";
 
                 if(homeActivity.doApplyDiscount)
@@ -326,7 +328,13 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                        deals.remove(0);
                         filterHeaderDeal = null;
+
+                        filterHeaderBrand = null;
+
                         notifyDataSetChanged();
+
+                        homeActivity.resetFilters();
+                        ((OnFilterChangeListener) fragment).onFilterChange();
                     }
                 });
 
@@ -639,7 +647,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                 if(brand.isHeader)
                 {
-                    HomeActivity homeActivity = (HomeActivity) activity;
+                    final HomeActivity homeActivity = (HomeActivity) activity;
                     String filter = "";
 
                     if(homeActivity.doApplyDiscount)
@@ -694,7 +702,13 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                             brands.remove(0);
                             filterHeaderBrand = null;
+
+                            filterHeaderDeal = null;
+
                             notifyDataSetChanged();
+
+                            homeActivity.resetFilters();
+                                    ((OnFilterChangeListener) fragment).onFilterChange();
                         }
                     });
 

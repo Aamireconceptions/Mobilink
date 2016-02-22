@@ -355,6 +355,9 @@ RelativeLayout rlParent;
             @Override
             public void onClick(View v) {
                 layoutFilterTags.setVisibility(View.GONE);
+
+                activity.resetFilters();
+                onFilterChange();
             }
         });
     }
@@ -484,6 +487,8 @@ RelativeLayout rlParent;
         }
 
        // adapter.notifyDataSetChanged();
+
+        filterTagUpdate();
 
         fetchAndDisplayNearby(progressBar);
     }

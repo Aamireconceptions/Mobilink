@@ -180,6 +180,8 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         fetchAndDisplayElectronics(progressBar);
 
         isRefreshed = false;

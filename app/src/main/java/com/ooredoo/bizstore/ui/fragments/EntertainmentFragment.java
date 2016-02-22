@@ -186,6 +186,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         fetchAndDisplayEntertainment(progressBar);
 
         isRefreshed = false;

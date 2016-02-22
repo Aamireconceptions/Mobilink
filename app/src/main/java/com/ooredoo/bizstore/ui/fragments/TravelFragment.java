@@ -168,6 +168,8 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         fetchAndDisplayTravel(progressBar);
 
         isRefreshed = false;

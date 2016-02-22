@@ -170,6 +170,8 @@ public class AutomotiveFragment extends Fragment implements OnFilterChangeListen
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         fetchAndDisplayAutomotive(progressBar);
 
         isRefreshed = false;

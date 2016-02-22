@@ -108,6 +108,10 @@ public class FilterOnClickListener implements View.OnClickListener {
                 DealsTask.sortColumn = "createdate";
                 ShoppingTask.sortColumn = "createdate";
 
+                String subCategories = CategoryUtils.getSelectedSubCategories(category);
+                DealsTask.subCategories = subCategories;
+                ShoppingTask.subCategories = subCategories;
+
                 onFilterChangeListener.onFilterChange();
 
                 break;
@@ -125,6 +129,10 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 DealsTask.sortColumn = "views";
                 ShoppingTask.sortColumn = "views";
+
+                subCategories = CategoryUtils.getSelectedSubCategories(category);
+                DealsTask.subCategories = subCategories;
+                ShoppingTask.subCategories = subCategories;
 
                 onFilterChangeListener.onFilterChange();
 
@@ -210,14 +218,14 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 Logger.print("FilterOnClickListener: CATEGORY -> Apply Filter: " + String.valueOf(category));
 
-                String subCategories = CategoryUtils.getSelectedSubCategories(category);
+                subCategories = CategoryUtils.getSelectedSubCategories(category);
                 DealsTask.subCategories = subCategories;
                 ShoppingTask.subCategories = subCategories;
                 Logger.print("SELECTION::: " + subCategories);
 
                 onFilterChangeListener.onFilterChange();
 
-                onFilterChangeListener.filterTagUpdate();
+               // onFilterChangeListener.filterTagUpdate();
 
                 break;
 

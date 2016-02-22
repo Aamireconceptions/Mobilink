@@ -83,7 +83,7 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
         subCategorySelectedListener.onSubCategorySelected();
 
-
+        homeActivity.filterTagUpdate();
 
         return true;
     }

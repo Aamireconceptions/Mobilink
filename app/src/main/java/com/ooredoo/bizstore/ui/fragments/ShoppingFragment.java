@@ -172,6 +172,10 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             @Override
             public void onClick(View v) {
                 layoutFilterTags.setVisibility(View.GONE);
+
+                activity.resetFilters();
+
+                onFilterChange();
             }
         });
 
@@ -284,6 +288,8 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
                     gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));*/
             }
         }
+
+        filterTagUpdate();
 
         loadDeals(progressBar);
 

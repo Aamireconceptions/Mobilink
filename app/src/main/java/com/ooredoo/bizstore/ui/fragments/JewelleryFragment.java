@@ -175,6 +175,8 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
             adapter.setListingType("brands");
         }
 
+        filterTagUpdate();
+
         fetchAndDisplayJewelry(progressBar);
 
         isRefreshed = false;

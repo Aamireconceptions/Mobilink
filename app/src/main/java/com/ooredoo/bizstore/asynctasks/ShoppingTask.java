@@ -120,6 +120,8 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
         //adapter.clearData();
 
+        subCategories = "";
+
         if(result != null)
         {
             if(sortColumn.equals("createdate"))
