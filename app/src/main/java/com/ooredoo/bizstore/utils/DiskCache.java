@@ -3,7 +3,10 @@ package com.ooredoo.bizstore.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.widget.BaseAdapter;
 
+import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.DiskCacheTask;
 import com.ooredoo.bizstore.model.Brand;
@@ -425,4 +428,30 @@ public class DiskCache
             }
         }
     }
+
+    /*public void fallBackToDiskCache(final BaseAdapter adapter, final MemoryCache memoryCache,
+                                     final String imageUrl, final int reqWidth, final int reqHeight)
+    {
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = diskCache.getBitmapFromDiskCache(imageUrl);
+
+                if(bitmap != null)
+                {
+                    memoryCache.addBitmapToCache(imageUrl, bitmap);
+
+                    adapter.notifyDataSetChanged();
+                }
+                else
+                {
+                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                            new BaseAdapterBitmapDownloadTask(adapter);
+                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
+                            String.valueOf(reqWidth), String.valueOf(reqHeight));
+                }
+            }
+        });
+    }*/
 }

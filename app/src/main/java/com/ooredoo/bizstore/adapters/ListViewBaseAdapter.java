@@ -1070,22 +1070,6 @@ return null;
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                           // holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                           // holder.progressBar.setVisibility(View.VISIBLE);
-
-                            /*Iterator it = BitmapDownloadTask.downloadingPool.entrySet().iterator();
-
-                            while (it.hasNext()) {
-                                Map.Entry pair = (Map.Entry)it.next();
-                                System.out.println(pair.getKey() + " = " + pair.getValue());
-
-                                if(pair.getKey().equals(url))
-                                {
-                                    Logger.print("Adapter not downloading the bitmap");
-
-                                    return;
-                                }
-                            }*/
 
                             if(BitmapDownloadTask.downloadingPool.get(url) == null)
                             {
