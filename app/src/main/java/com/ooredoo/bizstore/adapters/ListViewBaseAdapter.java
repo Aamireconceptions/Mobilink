@@ -14,6 +14,7 @@ import android.graphics.drawable.RippleDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -503,11 +504,12 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                 String url = BaseAsyncTask.IMAGE_BASE_URL + promotionalBanner;
 
-                Bitmap bitmap = memoryCache.getBitmapFromCache(url);
+               final Bitmap bitmap = memoryCache.getBitmapFromCache(url);
 
                 if(bitmap != null)
                 {
                     holder.progressBar.setVisibility(View.GONE);
+
                     holder.ivPromotional.setImageBitmap(bitmap);
 
                     if(!deal.isBannerDisplayed)
@@ -1037,12 +1039,11 @@ return null;
         {
             this.brands.add(0, filterHeaderBrand);
         }
-
     }
 
     private void fallBackToDiskCache(final String url)
     {
-        Thread thread = new Thread(new Runnable() {
+         new Handler().post(new Runnable() {
             @Override
             public void run()
             {
@@ -1056,18 +1057,33 @@ return null;
 
                     memoryCache.addBitmapToCache(url, bitmap);
 
-                    activity.runOnUiThread(new Runnable()
+                   notifyDataSetChanged();
+                    /*activity.runOnUiThread(new Runnable()
                     {
                         @Override
                         public void run() {
                             Logger.print(" dCache fallback notifyDataSetChanged");
                            notifyDataSetChanged();
                         }
-                    });
+                    });*/
                 }
                 else
                 {
-                    activity.runOnUiThread(new Runnable() {
+                    if(BitmapDownloadTask.downloadingPool.get(url) == null)
+                    {
+                        Logger.print("Adapter executing:"+url);
+
+                        BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                                new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
+                        bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                                String.valueOf(reqWidth), String.valueOf(reqHeight));
+                    }
+                    else
+                    {
+                        Logger.print("Adapter returning");
+                    }
+
+                    /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
@@ -1086,14 +1102,14 @@ return null;
                                 Logger.print("Adapter returning");
                             }
                         }
-                    });
+                    });*/
 
                    // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
                 }
             }
         });
 
-        thread.start();
+       // thread.start();
     }
 
     private boolean isSearchEnabled() {
@@ -1125,7 +1141,7 @@ return null;
     }
 
 
-    private static class Holder {
+     static class Holder {
 
         ImageView  ivPromotional, ivBrand, ivDiscountTag;
 

@@ -294,4 +294,16 @@ public class CategoryUtils {
             s.isSelected = false;
         }
     }
+
+    public static void uncheckCheckBoxes(Activity activity)
+    {
+        for(SubCategory sc : subCategories) {
+
+                CheckBox checkBox = (CheckBox) activity.findViewById(sc.checkBoxId);
+
+                checkBox.setChecked(false);
+                checkBox.setSelected(false);
+
+            }
+    }
 }

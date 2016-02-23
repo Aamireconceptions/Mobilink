@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -252,7 +253,7 @@ public class GridViewBaseAdapter extends BaseAdapter
 
             return grid;
         }
-        else
+        /*else
             if(listingType.equals("brands"))
             {
                 if (grid == null) {
@@ -316,41 +317,45 @@ public class GridViewBaseAdapter extends BaseAdapter
                 holder.tvDesc.setText(brand.description);
 
                 return grid;
-            }
+            }*/
 
         return null;
     }
 
     private void fallBackToDiskCache(final String url)
     {
-        Thread thread = new Thread(new Runnable() {
+        new Handler().post(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
 
                 Logger.print("dCache getting bitmap from cache");
 
-                if(bitmap != null)
-                {
+                if (bitmap != null) {
                     Logger.print("dCache found!");
 
                     memoryCache.addBitmapToCache(url, bitmap);
-                    ((Activity) context).runOnUiThread(new Runnable()
-                    {
+
+                    notifyDataSetChanged();
+
+                   /* ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Logger.print(" dCache fallback notifyDataSetChanged");
                             notifyDataSetChanged();
                         }
-                    });
-                }
-                else
-                {
-                    ((Activity) context).runOnUiThread(new Runnable() {
+                    });*/
+                } else {
+
+                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                            new BaseAdapterBitmapDownloadTask(GridViewBaseAdapter.this);
+
+                    bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
+                            String.valueOf(reqWidth), String.valueOf(reqHeight));
+                    /*((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                           // holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
+                            // holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
                             //holder.progressBar.setVisibility(View.VISIBLE);
 
                             BaseAdapterBitmapDownloadTask bitmapDownloadTask =
@@ -361,12 +366,12 @@ public class GridViewBaseAdapter extends BaseAdapter
 
                             // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
                         }
-                    });
+                    });*/
                 }
             }
         });
 
-        thread.start();
+        //thread.start();
     }
 
     List<Brand> brands = new ArrayList<>();

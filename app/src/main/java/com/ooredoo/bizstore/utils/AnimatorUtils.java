@@ -26,16 +26,16 @@ import com.ooredoo.bizstore.R;
  */
 public class AnimatorUtils
 {
-    public static void fadeIn(View v)
+    public static void fadeIn(final View v)
     {
-        v.setAlpha(0.1f);
+       /* v.setAlpha(0.1f);
 
-     //v.animate().alpha(0).setDuration(500);
-        v.animate().alphaBy(1).setDuration(150).start();
+        //v.animate().alpha(0).setDuration(500);
+        v.animate().alphaBy(1).setDuration(150).start();*/
 
-       /* ObjectAnimator fadeIn = ObjectAnimator.ofFloat(v, "alpha", 1f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(v, "alpha", 0.1f, 1f);
         fadeIn.setDuration(200);
-        fadeIn.start();*/
+        fadeIn.start();
     }
 
     public static void fadeOut(View v)

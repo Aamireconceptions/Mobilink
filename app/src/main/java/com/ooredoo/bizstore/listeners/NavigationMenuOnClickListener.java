@@ -12,6 +12,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.LanguageTask;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.SearchItem;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
@@ -80,6 +81,10 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
 
         clearRecentItems();
 
+        ((HomeActivity) activity).resetFilters();
+
+        CategoryUtils.uncheckCheckBoxes(activity);
+
        // AppData.searchSuggestions = null;
 
         AppData.popularSearches.list = new ArrayList<>();
@@ -91,7 +96,6 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
         new Delete().from(SearchItem.class).execute();
 
         changeLocale();
-
     }
 
     public void setSelected(View v) {

@@ -7,6 +7,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ProgressBar;
 
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
 /**

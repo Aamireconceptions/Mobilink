@@ -75,10 +75,9 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     @Override
     protected void onPostExecute(Bitmap bitmap)
     {
-        super.onPostExecute(bitmap);
+      super.onPostExecute(bitmap);
 
         showProgress(View.GONE);
-
 
 /*
             Iterator<String> iterator = downloadingPool.iterator();
@@ -98,7 +97,6 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             }*/
 
         downloadingPool.remove(imgUrl);
-
 
 
         if(bitmap != null)
