@@ -102,7 +102,7 @@
 
                     <TextView
                         android:id="@+id/brand_name"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:singleLine="true"
@@ -307,7 +307,7 @@
 
                     <EditText
                         android:id="@+id/merchant_code_field"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="@dimen/_20sdp"
                         android:paddingEnd="@dimen/_45sdp"
@@ -327,8 +327,8 @@
                         android:id="@+id/verify_merchant_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:layout_alignEnd="@+id/merchant_code_field"
                         android:layout_centerVertical="true"
                         android:src="@drawable/code_field_btn"/>
 
