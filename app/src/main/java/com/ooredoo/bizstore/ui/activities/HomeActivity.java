@@ -86,6 +86,7 @@ import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
+import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -783,6 +784,12 @@ public CoordinatorLayout coordinatorLayout;
             }, 100);*/
 
             showSearchPopup();
+
+            if(fab.getVisibility() == View.VISIBLE)
+            {
+                AnimatorUtils.hideFab(fab);
+            }
+
         } else {
             hideSearchPopup();
         }

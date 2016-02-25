@@ -8,6 +8,7 @@ import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.fragments.TopBrandFragment;
 import com.ooredoo.bizstore.ui.fragments.TopMallFragment;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.List;
 

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -161,8 +163,10 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
-                            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
+                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
+                                    (imageView, progressBar, null);
+                            bitmapDownloadTask.execute(url, String.valueOf(reqWidth),
+                                    String.valueOf(reqHeight));
                         }
                     });
 

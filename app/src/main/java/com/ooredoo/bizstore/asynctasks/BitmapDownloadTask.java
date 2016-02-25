@@ -121,13 +121,13 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
     }
 
     boolean writing = false;
-    public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
+    public Bitmap downloadBitmap(final String imgUrl, String reqWidth, String reqHeight)
     {
         try
         {
             if(memoryCache.getBitmapFromCache(imgUrl) != null)
             {
-                Logger.print("Already downloaded. Cancelling task");
+                Logger.print("Already downloaded. Cancelling task :" + imgUrl);
 
                 cancel(true);
             }
@@ -182,7 +182,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             if(downloadingPool.get(imgUrl) != null)
             {
-                Logger.print("x3 Image Download alreay in progress");
+                Logger.print("x3 Image Download alreay in progress :"+imgUrl);
 
                 cancel(true);
             }

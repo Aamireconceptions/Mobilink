@@ -324,7 +324,7 @@ public class GridViewBaseAdapter extends BaseAdapter
 
     private void fallBackToDiskCache(final String url)
     {
-        new Handler().post(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
@@ -338,13 +338,13 @@ public class GridViewBaseAdapter extends BaseAdapter
 
                     notifyDataSetChanged();
 
-                   /* ((Activity) context).runOnUiThread(new Runnable() {
+                   *//* ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Logger.print(" dCache fallback notifyDataSetChanged");
                             notifyDataSetChanged();
                         }
-                    });*/
+                    });*//*
                 } else {
 
                     BaseAdapterBitmapDownloadTask bitmapDownloadTask =
@@ -352,26 +352,44 @@ public class GridViewBaseAdapter extends BaseAdapter
 
                     bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
                             String.valueOf(reqWidth), String.valueOf(reqHeight));
-                    /*((Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // holder.ivThumbnail.setImageResource(R.drawable.deal_bg);
-                            //holder.progressBar.setVisibility(View.VISIBLE);
-
-                            BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                                    new BaseAdapterBitmapDownloadTask(GridViewBaseAdapter.this);
-
-                            bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
-                                    String.valueOf(reqWidth), String.valueOf(reqHeight));
-
-                            // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
-                        }
-                    });*/
                 }
             }
-        });
+        }, 1000);*/
 
-        //thread.start();
+        new AsyncTask<Void, Void, Bitmap>()
+        {
+            @Override
+            protected Bitmap doInBackground(Void... params) {
+                Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
+                return bitmap;
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                super.onPostExecute(bitmap);
+
+
+                Logger.print("dCache getting bitmap from cache");
+
+                if (bitmap != null) {
+                    Logger.print("dCache found!");
+
+                    memoryCache.addBitmapToCache(url, bitmap);
+
+                    notifyDataSetChanged();
+
+                } else {
+
+                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                            new BaseAdapterBitmapDownloadTask(GridViewBaseAdapter.this);
+
+                    bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
+                            String.valueOf(reqWidth), String.valueOf(reqHeight));
+                }
+
+            }
+        }.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+
     }
 
     List<Brand> brands = new ArrayList<>();

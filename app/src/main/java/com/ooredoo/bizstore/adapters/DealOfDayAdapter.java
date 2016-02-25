@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -154,14 +155,16 @@ public class DealOfDayAdapter extends BaseAdapter
                     layoutInflater.inflate(R.layout.grid_deal_of_day, parent, false);
             rlCell.setOnClickListener(clickListener);
 
+            holder.ivThumbnail = (ImageView) rlCell.findViewById(R.id.thumbnail);
+
             holder.progressBar = (ProgressBar) rlCell.findViewById(R.id.progressBar);
 
             holder.tvTitle = (TextView) rlCell.findViewById(R.id.title);
-            holder.tvTitle.setText(genericDeal.title.toUpperCase());
+            holder.tvTitle.setText(genericDeal.businessName.toUpperCase());
             FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
 
             holder.tvDescription = (TextView) rlCell.findViewById(R.id.description);
-            holder.tvDescription.setText(genericDeal.description.toUpperCase());
+            holder.tvDescription.setText(genericDeal.title.toUpperCase());
 
             Image image = genericDeal.image;
 
@@ -175,20 +178,21 @@ public class DealOfDayAdapter extends BaseAdapter
                 {
                     holder.progressBar.setVisibility(View.GONE);
 
-                    rlCell.setBackground(new BitmapDrawable(resources, bitmap));
+                    holder.ivThumbnail.setImageBitmap(bitmap);
+                   // rlCell.setBackground(new BitmapDrawable(resources, bitmap));
                 }
                 else
                 {
                     holder.progressBar.setVisibility(View.VISIBLE);
 
-                    rlCell.setBackground(null);
+                   // rlCell.setBackground(null);
 
                     fallBackToDiskCache(imageUrl);
                 }
             }
             else
             {
-                rlCell.setBackground(null);
+               // rlCell.setBackground(null);
 
                 holder.progressBar.setVisibility(View.GONE);
             }
@@ -306,5 +310,7 @@ public class DealOfDayAdapter extends BaseAdapter
         LinearLayout llCat;
 
         GridLayout gridLayout;
+
+        ImageView ivThumbnail;
     }
 }

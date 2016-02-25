@@ -6,6 +6,7 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.ui.fragments.TopBrandFragment;
+import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class TopBrandsStatePagerAdapter extends FragmentStatePagerAdapter
         /*Brand brand = brands.get(position);
 
         return TopBrandFragment.newInstance(brand.id, brand.image.logoUrl);*/
+
 
         Brand brand = brands.get(position);
 

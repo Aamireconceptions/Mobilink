@@ -562,6 +562,10 @@ private EditText etMerchantCode;
             ivBrandLogo.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
+
                     Intent intent = new Intent();
                     intent.setClass(DealDetailActivity.this, BusinessDetailActivity.class);
 

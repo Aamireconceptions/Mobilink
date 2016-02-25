@@ -1043,7 +1043,7 @@ return null;
 
     private void fallBackToDiskCache(final String url)
     {
-         new Handler().post(new Runnable() {
+         /*new Handler().post(new Runnable() {
             @Override
             public void run()
             {
@@ -1058,14 +1058,14 @@ return null;
                     memoryCache.addBitmapToCache(url, bitmap);
 
                    notifyDataSetChanged();
-                    /*activity.runOnUiThread(new Runnable()
+                   *//* activity.runOnUiThread(new Runnable()
                     {
                         @Override
                         public void run() {
                             Logger.print(" dCache fallback notifyDataSetChanged");
                            notifyDataSetChanged();
                         }
-                    });*/
+                    });*//*
                 }
                 else
                 {
@@ -1083,7 +1083,7 @@ return null;
                         Logger.print("Adapter returning");
                     }
 
-                    /*activity.runOnUiThread(new Runnable() {
+                   *//* activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
@@ -1102,14 +1102,55 @@ return null;
                                 Logger.print("Adapter returning");
                             }
                         }
-                    });*/
+                    });*//*
 
                    // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
                 }
             }
-        });
+        });*/
 
-       // thread.start();
+        new AsyncTask<Void, Void, Bitmap>()
+        {
+            @Override
+            protected Bitmap doInBackground(Void... params) {
+
+                Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
+                return bitmap;
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                super.onPostExecute(bitmap);
+
+                if(bitmap != null)
+                {
+                    Logger.print("dCache found!");
+
+                    memoryCache.addBitmapToCache(url, bitmap);
+
+                    notifyDataSetChanged();
+
+                }
+                else
+                {
+                    if(BitmapDownloadTask.downloadingPool.get(url) == null)
+                    {
+                        Logger.print("Adapter executing:"+url);
+
+                        BaseAdapterBitmapDownloadTask bitmapDownloadTask =
+                                new BaseAdapterBitmapDownloadTask(ListViewBaseAdapter.this);
+                        bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
+                                String.valueOf(reqWidth), String.valueOf(reqHeight));
+                    }
+                    else
+                    {
+                        Logger.print("Adapter returning");
+                    }
+                }
+      }
+        }.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+
+
     }
 
     private boolean isSearchEnabled() {

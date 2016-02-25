@@ -17,6 +17,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -84,7 +85,6 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         if(mall.color == 0)
         {
-
             mall.color = Color.parseColor(ColorUtils.getColorCode());
         }
 
@@ -174,7 +174,9 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
+                            Logger.print("top mall: downloading for :"+mall.title);
+                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
+                                    (imageView, progressBar, null);
                             bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
                         }
                     });
