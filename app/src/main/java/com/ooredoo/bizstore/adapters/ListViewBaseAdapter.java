@@ -752,6 +752,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                             return;
                         }
 
+                        brand1.views += 1;
+
                         Business business = new Business(brand1);
 
                         Intent intent = new Intent(context, BusinessDetailActivity.class);

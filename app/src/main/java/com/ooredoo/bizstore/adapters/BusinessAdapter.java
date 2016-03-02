@@ -407,6 +407,8 @@ public class BusinessAdapter extends BaseExpandableListAdapter
 
                     Brand brand1 = (Brand) parent.getItemAtPosition(position);
 
+                    brand1.views += 1;
+
                     Business business = new Business(brand1);
 
                     Intent intent = new Intent(context, BusinessDetailActivity.class);
