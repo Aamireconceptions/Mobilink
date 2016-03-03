@@ -18,6 +18,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors{
+        telenor{
+        applicationId "com.telenor.bizstore"
+            versionName "1.0"
+        }
+        ooredoo{
+            applicationId "com.ooredoo.bizstore"
+            versionName = "1.0"
+        }
+    }
 }
 
 dependencies {

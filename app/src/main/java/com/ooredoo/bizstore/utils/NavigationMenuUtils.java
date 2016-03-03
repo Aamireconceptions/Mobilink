@@ -12,10 +12,12 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
@@ -155,6 +157,13 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         HomeActivity homeActivity = (HomeActivity) activity;
 
         NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
+
+        LinearLayout llLangToggle = (LinearLayout) navigationHeader.findViewById(R.id.lang_toggle_layout);
+
+        if(BuildConfig.FLAVOR.equals("telenor"))
+        {
+            llLangToggle.setVisibility(View.GONE);
+        }
 
         TextView tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
         tvNumber.setText(PhoneNumberUtils.formatNumber("+974"+ BizStore.username));
