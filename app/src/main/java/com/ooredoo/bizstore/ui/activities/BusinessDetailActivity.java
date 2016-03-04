@@ -447,7 +447,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
             if(isNotNullOrEmpty(business.title)) {
-                mActionBar.setTitle(business.title);
+                mActionBar.setTitle(business.title.toUpperCase());
                 //scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
             }
 

@@ -442,7 +442,7 @@ private EditText etMerchantCode;
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "deals", id);
             incrementViewsTask.execute();
 
-            mActionBar.setTitle(deal.title);
+            mActionBar.setTitle(deal.title.toUpperCase());
 
             rlHeader = (RelativeLayout) header.findViewById(R.id.rl_header);
 
