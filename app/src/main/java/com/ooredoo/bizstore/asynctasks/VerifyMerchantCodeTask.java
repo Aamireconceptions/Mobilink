@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
@@ -27,15 +29,20 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
     private SnackBarUtils snackBarUtils;
 
+    private Tracker tracker;
+
     private Dialog dialog;
 
     private final static String SERVICE_NAME = "/redeemdiscount?";
 
-    public VerifyMerchantCodeTask(DealDetailActivity detailActivity, SnackBarUtils snackBarUtils)
+    public VerifyMerchantCodeTask(DealDetailActivity detailActivity, SnackBarUtils snackBarUtils,
+                                  Tracker tracker)
     {
         this.detailActivity = detailActivity;
 
         this.snackBarUtils = snackBarUtils;
+
+        this.tracker = tracker;
     }
 
     @Override
@@ -87,6 +94,11 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                         {
                             @Override
                             public void onClick(View v) {
+
+                                tracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("Action")
+                                .setAction("Deal Redeem")
+                                .build());
 
                                 detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
 

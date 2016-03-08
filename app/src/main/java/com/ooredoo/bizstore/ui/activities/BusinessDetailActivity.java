@@ -315,7 +315,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     int color;
     public void populateData(final Business business) {
         if(business != null) {
-            scrollViewListener.setTitle(business.title);
+            scrollViewListener.setTitle(business.title.toUpperCase());
             color = getIntent().getIntExtra("color", -1);
 
             id = business.id;

@@ -2,9 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        OoredooBizstore {
+            keyAlias 'ooredoobizstore'
+            keyPassword 'ooredoobizstore'
+            storeFile file('D:/Apk & Keystore/Oreedoo Bizstore/oreedoobizstore.keystore.jks')
+            storePassword 'ooredoobizstore'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-
     defaultConfig {
         applicationId "com.ooredoo.bizstore"
         minSdkVersion 17
@@ -18,31 +25,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    productFlavors{
-        telenor{
-        applicationId "com.telenor.bizstore"
+    productFlavors {
+        telenor {
+            applicationId "com.telenor.bizstore"
             versionName "1.0"
         }
-        ooredoo{
+        ooredoo {
             applicationId "com.ooredoo.bizstore"
             versionName = "1.0"
+            buildConfigField "String", "API_KEY", "\"AIzaSyB_ftptFafLH_jdpJcRrSsuwPWjqrTg9No\""
+            signingConfig signingConfigs.OoredooBizstore
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:palette-v7:22.1.0'
     compile 'com.android.support:design:22.2.0'
-    compile "com.android.support:recyclerview-v7:21.0.0"
+    compile 'com.android.support:recyclerview-v7:21.0.0'
     compile 'com.android.support:cardview-v7:21.0.3'
     compile 'com.android.support:support-v13:22.2.0'
     compile 'com.intuit.sdp:sdp-android:1.0.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile files('libs/activeandroid-3.0.jar')
-    compile 'com.google.android.gms:play-services:7.5.+'
+    compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.android.support:gridlayout-v7:22.1.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
 }

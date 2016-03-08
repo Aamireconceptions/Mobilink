@@ -39,6 +39,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -132,6 +133,8 @@ private EditText etMerchantCode;
     }
 
     TextView tvVoucherClaimed;
+
+    Tracker tracker;
 
     @Override
     public void init() {
@@ -400,7 +403,9 @@ private EditText etMerchantCode;
             populateData(genericDeal);
         }
 
+        BizStore bizStore = (BizStore) getApplication();
 
+        tracker = bizStore.getDefaultTracker();
     }
 
     Button btSimilarDeals, btNearbyDeals;
@@ -435,14 +440,14 @@ private EditText etMerchantCode;
             }
 
 
-            mOnScrollViewListener.setTitle(deal.title);
+            mOnScrollViewListener.setTitle(deal.title.toUpperCase());
 
             src = new Deal(deal);
             src.id = deal.id;
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "deals", id);
             incrementViewsTask.execute();
 
-            mActionBar.setTitle(deal.title.toUpperCase());
+            mActionBar.setTitle(deal.title);
 
             rlHeader = (RelativeLayout) header.findViewById(R.id.rl_header);
 
@@ -1125,7 +1130,7 @@ private EditText etMerchantCode;
                         if(!code.isEmpty())
                         {
                             VerifyMerchantCodeTask verifyMerchantCodeTask =
-                                    new VerifyMerchantCodeTask(this, snackBarUtils);
+                                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
                             verifyMerchantCodeTask
                                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                             String.valueOf(id), code, String.valueOf(mDeal.businessId));

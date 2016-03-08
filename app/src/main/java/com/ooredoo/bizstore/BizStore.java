@@ -1,6 +1,8 @@
 package com.ooredoo.bizstore;
 
 import com.activeandroid.ActiveAndroid;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -29,6 +31,8 @@ public class BizStore extends com.activeandroid.app.Application {
     //public static String password = "d5pF55dZ";
 
     public static String password = "911156";
+
+    private Tracker tracker;
 
     private final static String DEFAULT = "DEFAULT";
     private final static String MONOSPACE = "MONOSPACE";
@@ -75,6 +79,18 @@ public class BizStore extends com.activeandroid.app.Application {
         params.put("msisdn", user.username);
         params.put("password", encodeToBase64(user.password));
         return params;
+    }
+
+    synchronized public Tracker getDefaultTracker()
+    {
+        if(tracker == null)
+        {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+            tracker = analytics.newTracker(R.xml.global_tracker);
+        }
+
+        return tracker;
     }
 
     public void setUserName(String userName) {

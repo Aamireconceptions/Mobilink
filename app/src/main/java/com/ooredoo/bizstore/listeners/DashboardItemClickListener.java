@@ -202,7 +202,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 }
             }
 
-            if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities) {
+            /*if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities) {
                 String subCategory = id == R.id.events ? "events" : id == R.id.movie_tickets ? "cinemas" : "kids_activities";
                 EntertainmentFragment.subCategory = "entertainment_" + subCategory;
                 String subCategoryName = getEntertainmentSubCategory(id);
@@ -210,7 +210,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 mActivity.selectTab(10);
 
                 processSubCategory(subCategoryName);
-            }
+            }*/
 
             //onFilterChangeListener.onFilterChange();
         }
@@ -220,9 +220,9 @@ public class DashboardItemClickListener implements View.OnClickListener {
         return id == R.id.salons ? mActivity.getString(R.string.Salons) : id == R.id.salons ? mActivity.getString(R.string.Lodging) : mActivity.getString(R.string.Spas);
     }
 
-    private String getEntertainmentSubCategory(int id) {
+  /*  private String getEntertainmentSubCategory(int id) {
         return id == R.id.events ? mActivity.getString(R.string.events) : id == R.id.movie_tickets ? mActivity.getString(R.string.cinemas) : mActivity.getString(R.string.Kids_Activities);
-    }
+    }*/
 
     private void processSubCategory(String subCategoryName) {
         String filter = getCategoryFilter(subCategoryName);
