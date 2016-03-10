@@ -89,7 +89,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     public String category;
     static String packageName;
     public boolean showBanner = false;
-private EditText etMerchantCode;
+public EditText etMerchantCode;
 
     RelativeLayout rlMerchandCode;
 
@@ -1127,6 +1127,8 @@ private EditText etMerchantCode;
                     {
                         String code = etMerchantCode.getText().toString().trim();
 
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
                         if(!code.isEmpty())
                         {
                             VerifyMerchantCodeTask verifyMerchantCodeTask =

@@ -33,7 +33,6 @@ android {
         ooredoo {
             applicationId "com.ooredoo.bizstore"
             versionName = "1.0"
-            buildConfigField "String", "API_KEY", "\"AIzaSyB_ftptFafLH_jdpJcRrSsuwPWjqrTg9No\""
             signingConfig signingConfigs.OoredooBizstore
         }
     }
@@ -53,4 +52,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.android.support:gridlayout-v7:22.1.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.google.android.gms:play-services-analytics:8.3.0'
 }

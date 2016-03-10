@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.ui.fragments.SplashFragment;
@@ -39,6 +41,7 @@ public class MainActivity extends BaseActivity {
         if(check) {
             startActivity(HomeActivity.class);
         }*/
+
         btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
 
         FontUtils.setFont(this, btnArabicLang);
@@ -52,6 +55,14 @@ public class MainActivity extends BaseActivity {
 
         btnArabicLang.setSelected(isArabicLang);
         btnEnglishLang.setSelected(!isArabicLang);
+
+        if(BuildConfig.FLAVOR.equals("telenor"))
+        {
+            findViewById(R.id.lang_layout).setVisibility(View.INVISIBLE);
+
+            Button btNext = (Button) findViewById(R.id.btn_next);
+            btNext.setOnClickListener(this);
+        }
     }
 
     SplashFragment splashFragment;
@@ -126,6 +137,11 @@ fragmentTransaction.addToBackStack(null);
 
             startActivity(new Intent(this, SignUpActivity.class));
         }
+        else
+            if(viewId == R.id.btn_next)
+            {
+                startActivity(new Intent(this, SignUpActivity.class));
+            }
     }
 
     @Override

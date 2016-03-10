@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <color name="red">#0091d2</color>
+    <color name="heading_gray">#e6e6e6</color>
+    <color name="status_bar">#0075b4</color>
+</resources>

@@ -26,6 +26,12 @@
 
     </style>
 
+    <style name="editTextTheme" parent="Theme.AppCompat.Light">
+
+        <item name="colorAccent">@color/red</item>
+
+    </style>
+
 
 
 </resources>

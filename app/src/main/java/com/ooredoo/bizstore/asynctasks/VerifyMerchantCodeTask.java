@@ -1,8 +1,10 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -88,6 +90,11 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                     //detailActivity.showCode(voucher.code);
                     if(voucher.resultCode == 0)
                     {
+                        tracker.send(new HitBuilders.EventBuilder()
+                                .setCategory("Action")
+                                .setAction("Deal Redeem")
+                                .build());
+
                         final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
                                 R.string.success_redeemed);
                         dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener()
@@ -95,17 +102,13 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                             @Override
                             public void onClick(View v) {
 
-                                tracker.send(new HitBuilders.EventBuilder()
-                                .setCategory("Action")
-                                .setAction("Deal Redeem")
-                                .build());
-
                                 detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
 
                                 dialog.dismiss();
                             }
                         });
-
+dialog.setCanceledOnTouchOutside(false);
+                        dialog.setCancelable(false);
                         dialog.show();
                     }
                     else

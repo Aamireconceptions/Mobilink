@@ -56,7 +56,8 @@
         android:hint="@string/phone_number"
         android:singleLine="true"
         android:textSize="14sp"
-        android:textStyle="normal"/>
+        android:textStyle="normal"
+        android:theme="@style/editTextTheme"/>
 
     <Button
         android:id="@+id/btn_next"

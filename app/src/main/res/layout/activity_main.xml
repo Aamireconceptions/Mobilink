@@ -28,6 +28,7 @@
         android:visibility="gone"/>-->
 
     <LinearLayout
+        android:id="@+id/lang_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layoutDirection="ltr"
@@ -56,6 +57,18 @@
             android:textColor="@color/black_white_selector"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/lang_layout"
+        android:layout_marginBottom="@dimen/_38sdp"
+        android:background="@drawable/btn_red"
+        android:text="@string/NEXT"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
 
     <FrameLayout
         android:id="@+id/container"

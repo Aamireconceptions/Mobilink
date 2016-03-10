@@ -75,7 +75,8 @@
                     android:hint="@string/phone_number"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:theme="@style/editTextTheme"/>
 
             </LinearLayout>
 

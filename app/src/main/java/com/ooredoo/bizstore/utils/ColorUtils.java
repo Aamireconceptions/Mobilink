@@ -2,6 +2,8 @@ package com.ooredoo.bizstore.utils;
 
 import android.graphics.Color;
 
+import com.ooredoo.bizstore.BuildConfig;
+
 import java.util.Random;
 
 /**
@@ -11,7 +13,8 @@ import java.util.Random;
 
 public class ColorUtils {
     public static final int LT_GRAY = Color.parseColor("#f2f2f2");
-    public static final int RED = Color.parseColor("#ec1b24");
+    public static final int RED = BuildConfig.FLAVOR.equals("ooredoo")
+            ? Color.parseColor("#ec1b24") : Color.parseColor("#0091d2");
     public static final int WHITE = Color.parseColor("#FFFFFF");
     public static final int BLACK = Color.parseColor("#000000");
 

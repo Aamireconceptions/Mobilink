@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_3sdp"
             android:textAllCaps="true"
-            android:textColor="@color/heading_gray"
+            android:textColor="#A0A09F"
             android:text="@string/deals" />
 
     </LinearLayout>

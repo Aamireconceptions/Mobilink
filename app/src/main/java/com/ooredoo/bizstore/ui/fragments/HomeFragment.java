@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.DealOfDayAdapter;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
@@ -173,8 +174,11 @@ dealofDayCalled = false;
         String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
         String brandsOfTheWeek = brands + " " + ofTheWeek;
 
+        int color = BuildConfig.FLAVOR.equals("ooredoo") ? R.color.red : R.color.white;
+
+
         FontUtils.changeColorAndMakeBold(tvTopBrands, brandsOfTheWeek, brands,
-                getResources().getColor(R.color.red));
+                getResources().getColor(color));
 
         TextView tvFeaturedCategories = (TextView) header.findViewById(R.id.featured_categories);
         FontUtils.setFont(activity, tvFeaturedCategories);
@@ -185,7 +189,7 @@ dealofDayCalled = false;
         String featuredCategories = featured + " " + categories;
 
         FontUtils.changeColorAndMakeBold(tvFeaturedCategories, featuredCategories, featured,
-                getResources().getColor(R.color.red));
+                getResources().getColor(color));
 
         TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
         FontUtils.setFont(activity, tvTopMalls);
@@ -194,7 +198,8 @@ dealofDayCalled = false;
         String malls = getString(R.string.Malls).toUpperCase();
         String topMalls = top + " " + malls;
 
-        FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top, getResources().getColor(R.color.red));
+        FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top,
+                getResources().getColor(color));
 
         tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
         FontUtils.setFont(activity, tvDealsOfTheDay);
@@ -203,7 +208,8 @@ dealofDayCalled = false;
         String ofTheDay = getString(R.string.of_the_day).toUpperCase();
         String dealsOfTheDay = deals + " " + ofTheDay;
 
-        FontUtils.changeColorAndMakeBold(tvDealsOfTheDay, dealsOfTheDay, deals, getResources().getColor(R.color.red));
+        FontUtils.changeColorAndMakeBold(tvDealsOfTheDay, dealsOfTheDay, deals,
+                getResources().getColor(color));
 
         List<DOD> dods = new ArrayList<>();
 

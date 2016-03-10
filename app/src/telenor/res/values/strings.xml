@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Telenor BizStore</string>
-
+    <string name="slide_2_text_1">MOVIES, CINEMAS, EVENTS</string>
+    <string name="slide_2_text_2">&amp; ENTERTAINMENT</string>
+    <string name="slide_2_text_3">ON YOUR FINGER TIPS</string>
+    <string name="slide_3_text_1">TRAVEL &amp; TOURS, HOTELS &amp;</string>
+    <string name="slide_3_text_2">SPAS, SPORTS &amp; FITNESS</string>
+    <string name="slide_3_text_3">&amp; MUCH MORE</string>
 
 </resources>
