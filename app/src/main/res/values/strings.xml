@@ -83,7 +83,7 @@
     <string name="popular_deals">Popular Deals</string>
     <string name="error_search_term">Please enter search item</string>
     <string name="error_no_internet">No internet connection. Please connect your device to internet.</string>
-    <string name="rate_us">Rate Us on Playstore</string>
+    <string name="rate_us">Rate us</string>
     <string name="English">English</string>
     <string name="arabic">العربية</string>
     <string name="is_arabic">true</string>
@@ -276,7 +276,7 @@
     <string name="un_sub_success">Dear User, you have successfully unsubscribed from Ooredoo BizStore!</string>
     <string name="your_message">Your Message</string>
     <string name="send">Send</string>
-    <string name="loc_not_available">Location not available! Let\'s enable it.</string>
+    <string name="loc_not_available">Location not available!\nLet\'s enable it.</string>
     <string name="tos">Terms &amp; Conditions for this deal</string>
     <string name="how_this_works">How this works?</string>
     <string name="how_this_works_note"><u>How this works?</u></string>

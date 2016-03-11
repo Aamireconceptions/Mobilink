@@ -63,7 +63,7 @@
                     android:editable="false"
                     android:focusableInTouchMode="false"
                     android:inputType="none"
-                    android:text="@string/_974"
+                    android:text="@string/qatar_code"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
 

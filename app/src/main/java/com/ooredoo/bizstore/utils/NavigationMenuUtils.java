@@ -166,7 +166,10 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         }
 
         TextView tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
-        tvNumber.setText(PhoneNumberUtils.formatNumber("+974"+ BizStore.username));
+        tvNumber.setText(PhoneNumberUtils
+                .formatNumber(BuildConfig.FLAVOR.equals("ooredoo")
+                        ? "+974"
+                        : "+92" + BizStore.username));
 
         Button btEnglish = (Button) navigationHeader.findViewById(R.id.btn_lang_english);
         btEnglish.setOnClickListener(clickListener);

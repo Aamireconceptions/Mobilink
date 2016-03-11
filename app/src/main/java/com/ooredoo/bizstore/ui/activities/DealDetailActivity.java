@@ -1234,7 +1234,7 @@ public EditText etMerchantCode;
 
         Logger.print("Uri: " + uri);
 
-        uri = "View this awesome deal on Ooredoo BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
+        uri = "View this awesome deal on Telenor BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
         "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);

@@ -65,10 +65,13 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/lang_layout"
         android:layout_marginBottom="@dimen/_38sdp"
-        android:background="@drawable/btn_red"
+        android:background="@drawable/next_btn_ripple"
+        android:clickable="true"
         android:text="@string/NEXT"
         android:textAllCaps="false"
-        android:textColor="@color/white"/>
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/container"

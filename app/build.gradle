@@ -29,11 +29,13 @@ android {
         telenor {
             applicationId "com.telenor.bizstore"
             versionName "1.0"
+            buildConfigField "String", "BASE_URL", "\"http://telenor.bizstore.com.pk/\""
         }
         ooredoo {
             applicationId "com.ooredoo.bizstore"
             versionName = "1.0"
             signingConfig signingConfigs.OoredooBizstore
+            buildConfigField "String", "BASE_URL", "\"http://ooredoo.bizstore.com.pk/index.php/api/\""
         }
     }
 }

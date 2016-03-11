@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity {
             findViewById(R.id.lang_layout).setVisibility(View.INVISIBLE);
 
             Button btNext = (Button) findViewById(R.id.btn_next);
+            btNext.setVisibility(View.VISIBLE);
             btNext.setOnClickListener(this);
         }
     }

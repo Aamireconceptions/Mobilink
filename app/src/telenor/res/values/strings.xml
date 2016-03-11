@@ -37,5 +37,10 @@
     \niii. Merchant codes will be put on display in their shops and User can enter it himself.</string>
     <string name="help_question6">How can a user Unsubscribe from this service?</string>
     <string name="help_answer6a">User can deactivate the service by simply clicking on ‘Unsubscribe’ button from Main Menu given on the home screen. Once done, the user will have to login again if he wishes to use the smartphone application.</string>
+    <string name="num_confirm_text">Please enter your Telenor Number.</string>
+    <string name="qatar_code">92</string>
+    <string name="error_invalid_num">Please enter a valid Telenor Mobile Number</string>
+    <string name="subscription_charges">You will be charged Rs <b>5</b>/week</string>
+    <string name="share_with_friends_txt">Hi, I just found this great App for you called Telenor Biz Store. You can find businesses and enjoy the best deals &amp; discounts in your city. Send SUB to 5005 to download the Application.</string>
 
 </resources>

@@ -57,6 +57,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.ooredoo.bizstore.AppData;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.HomePagerAdapter;
 import com.ooredoo.bizstore.adapters.PopularSearchesGridAdapter;
@@ -396,6 +397,12 @@ public CoordinatorLayout coordinatorLayout;
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        if(BuildConfig.FLAVOR.equals("telenor"))
+        {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.status_bar));
+        }
+
         setSupportActionBar(toolbar);
 
         mActionBar = getSupportActionBar();
@@ -403,10 +410,20 @@ public CoordinatorLayout coordinatorLayout;
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowTitleEnabled(false);
 
-        boolean isArabic = BizStore.getLanguage().equals("ar");
-        mActionBar.setLogo(isArabic ? R.drawable.ic_bizstore_arabic : R.drawable.ic_bizstore);
+        View logoView;
+        if(BuildConfig.FLAVOR.equals("telenor"))
+        {
+            logoView = getLayoutInflater().inflate(R.layout.layout_actionbar, null);
+            mActionBar.setDisplayShowCustomEnabled(true);
+            mActionBar.setCustomView(logoView);
+        }
+        else {
+            boolean isArabic = BizStore.getLanguage().equals("ar");
+            mActionBar.setLogo(isArabic ? R.drawable.ic_bizstore_arabic : R.drawable.ic_bizstore);
 
-        View logoView = getToolbarLogoIcon(toolbar);
+            logoView = getToolbarLogoIcon(toolbar);
+        }
+
         logoView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -414,6 +431,8 @@ public CoordinatorLayout coordinatorLayout;
                 selectTab(0);
             }
         });
+
+
     }
 
     public void resetToolBarPosition()
@@ -531,8 +550,9 @@ public CoordinatorLayout coordinatorLayout;
         TextView tvSortBy = (TextView) findViewById(R.id.sort_by);
         tvSortBy.setText(sort + " " + by, TextView.BufferType.SPANNABLE);
 
+        int color = BuildConfig.FLAVOR.equals("ooredoo") ? R.color.red : R.color.white;
         Spannable spannable = (Spannable) tvSortBy.getText();
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)),
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(color)),
                 0, sort.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         TextView tvRating = (TextView) findViewById(R.id.rating_checkbox);

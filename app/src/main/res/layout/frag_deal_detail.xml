@@ -319,7 +319,7 @@
                         android:textStyle="bold"
                         android:layout_centerHorizontal="true"
                         android:maxLength="4"
-
+                        android:textCursorDrawable="@null"
                         android:hint="@string/enter_merchant_code"
                         android:background="@drawable/code_field"/>
 

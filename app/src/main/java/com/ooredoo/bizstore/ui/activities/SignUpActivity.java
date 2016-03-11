@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.DemoFragment;
 
@@ -34,6 +35,10 @@ public class SignUpActivity extends BaseActivity {
     public Toolbar toolbar;
     private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(BuildConfig.FLAVOR.equals("telenor"))
+        {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+        }
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

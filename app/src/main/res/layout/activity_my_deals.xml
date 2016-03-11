@@ -38,7 +38,7 @@
             android:layout_toEndOf="@+id/deals"
             android:layout_centerVertical="true"
 
-            android:text="@string/businesses"
+            android:text="@string/brands"
             android:textAllCaps="false"
             android:textColor="@color/black_white_selector"
             android:background="@drawable/bt_tab_style_right_selector"/>

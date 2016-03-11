@@ -108,14 +108,14 @@
             android:id="@+id/sort_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:background="@drawable/heading_bg"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_10sdp"
             android:paddingEnd="@dimen/_16sdp"
             android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_10sdp"
-            android:text="@string/sort_by"/>
+            android:paddingTop="@dimen/_4sdp"
+            android:text="@string/sort_by"
+            android:textColor="@color/heading_gray"/>
 
         <CheckBox
             android:id="@+id/cb_highest_discount"
@@ -442,10 +442,10 @@
                 android:paddingEnd="@dimen/_16sdp"
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingTop="@dimen/_4sdp"
-                android:textSize="16sp"
                 android:textStyle="normal"
                 android:textAllCaps="false"
-                android:text="@string/sub_categories"/>
+                android:text="@string/sub_categories"
+                android:textColor="@color/heading_gray"/>
 
             <!--<CheckBox
                 android:id="@+id/cb_top_deals"

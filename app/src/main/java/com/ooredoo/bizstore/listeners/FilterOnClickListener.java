@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
@@ -172,12 +173,14 @@ public class FilterOnClickListener implements View.OnClickListener {
                     String all = activity.getString(R.string.all).toUpperCase();
                     String categories = activity.getString(R.string.categories).toUpperCase();
 
+                    int color = BuildConfig.FLAVOR.equals("ooredoo") ? R.color.red : R.color.white;
+
                     if(category == CategoryUtils.CT_NEARBY || category == CategoryUtils.CT_TOP)
                     {
                         tvCategory.setText(all + " " + categories, TextView.BufferType.SPANNABLE);
 
                         Spannable word = (Spannable) tvCategory.getText();
-                        word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(R.color.red)),
+                        word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
                                 0, all.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                     }
                     else
@@ -185,7 +188,7 @@ public class FilterOnClickListener implements View.OnClickListener {
                         tvCategory.setText(sub + " " + categories, TextView.BufferType.SPANNABLE);
 
                         Spannable word = (Spannable) tvCategory.getText();
-                        word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(R.color.red)),
+                        word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
                                 0, sub.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                     }
 
