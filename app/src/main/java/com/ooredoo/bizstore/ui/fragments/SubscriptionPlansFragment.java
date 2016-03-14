@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FragmentUtils;
@@ -36,6 +37,10 @@ public class SubscriptionPlansFragment extends BaseFragment {
         TextView tvTOS = (TextView ) parent.findViewById(R.id.agree_terms_services);
         tvTOS.setText(Html.fromHtml(signUpActivity.getString(R.string.subscription_terms_services)));
         tvTOS.setOnClickListener(this);
+
+        if(BuildConfig.FLAVOR.equals("telenor")){
+            tvTOS.setVisibility(View.GONE);
+        }
     }
 
     @Override

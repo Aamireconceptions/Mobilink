@@ -30,7 +30,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
     //public static String password = "d5pF55dZ";
 
-    public static String password = "249633";
+    public static String password = "609964";
 
     private Tracker tracker;
 
@@ -39,10 +39,14 @@ public class BizStore extends com.activeandroid.app.Application {
     private final static String SERIF = "SERIF";
     private final static String SANS_SERIF = "SANS_SERIF";
 
-    public final static String DEFAULT_FONT = "fonts/Futura/FuturaLT-Book.ttf";
-    public final static String MONOSPACE_FONT = "fonts/Futura/FuturaLT.ttf";
-    public final static String SERIF_FONT = "fonts/Opifico/Opificio_Bold.ttf";
-    public final static String SANS_SERIF_FONT = "fonts/Opifico/Opificio.ttf";
+    public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
+    ? "fonts/Futura/FuturaLT-Book.ttf" : "fonts/Telenor.otf";
+    public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
+    ? "fonts/Futura/FuturaLT.ttf" : "fonts/Telenor.otf";
+    public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
+    ? "fonts/Opifico/Opificio_Bold.ttf" : "fonts/Telenor.otf";
+    public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
+    ? "fonts/Opifico/Opificio.ttf" : "fonts/Telenor.otf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 

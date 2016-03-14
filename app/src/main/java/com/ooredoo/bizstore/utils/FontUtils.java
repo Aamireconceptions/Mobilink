@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
@@ -32,7 +33,8 @@ public class FontUtils
 
     private static String lollipopTypefaceFieldName = "sSystemFontMap";
 
-    private final static String LOLLIPOP_DEFAULT_FONT = "fonts/Futura/FuturaLT-Book.ttf";
+    private static String LOLLIPOP_DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
+    ? "fonts/Futura/FuturaLT-Book.ttf" : "fonts/Telenor.otf";
 
     private final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 

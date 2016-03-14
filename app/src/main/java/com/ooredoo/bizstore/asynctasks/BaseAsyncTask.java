@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -33,9 +34,11 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     protected final static String SLASH = "/";
     protected final static String QUESTION_MARK = "?";
 
-    public static String SERVER_URL = "http://ooredoo.bizstore.com.pk/";
+    public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
+    ? "http://ooredoo.bizstore.com.pk/" : "http://telenor.bizstore.com.pk/";
 
-    public static String BASE_URL = "http://ooredoo.bizstore.com.pk/index.php/api/";
+    public static String BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
+    ? "http://ooredoo.bizstore.com.pk/index.php/api/" : "http://telenor.bizstore.com.pk/index.php/api/";
 
     public final static int CONNECTION_TIME_OUT = 30 * 1000;
 
@@ -69,7 +72,8 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
     public final static String HTTP_X_PASSWORD = "HTTP_X_PASSWORD";
 
-    public final static String IMAGE_BASE_URL = "http://ooredoo.bizstore.com.pk";
+    public final static String IMAGE_BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
+    ? "http://ooredoo.bizstore.com.pk" : "http://telenor.bizstore.com.pk";
 
     protected Dialog dialog;
 
