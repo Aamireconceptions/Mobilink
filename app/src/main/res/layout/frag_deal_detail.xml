@@ -350,6 +350,17 @@
                 android:visibility="gone"/>
 
             <TextView
+                android:id="@+id/validity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:textSize="12sp"
+                android:textColor="@color/black"/>
+
+
+
+            <TextView
                 android:id="@+id/how_this_work_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -372,6 +383,8 @@
                 android:visibility="gone"/>
 
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:id="@+id/head"
@@ -628,13 +641,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/validity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:textSize="12sp"
-                android:textColor="@color/black"/>
+
 
         </LinearLayout>
 

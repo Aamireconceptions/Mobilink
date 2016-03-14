@@ -95,7 +95,7 @@
     <string name="Contact_Information">بيانات الاتصال</string>
     <string name="Category">فئة</string>
     <string name="Category_2">فئة:</string>
-    <string name="Unsubscribe_Bizstore">الغاء الاشتراك في بيزستور</string>
+    <string name="Unsubscribe_Bizstore">تسجيل الخروج بيزستور</string>
     <string name="No">لا</string>
     <string name="Yes">نعم</string>
     <string name="ENTER_CODE">أدخل الرمز</string>
@@ -177,7 +177,7 @@
     <string name="Currency">عملة</string>
     <string name="Clothing">ملابس</string>
     <string name="Equipment">معدات</string>
-    <string name="error_invalid_num">الرجاء إدخال رقم جوال Ooredoo</string>
+    <string name="error_invalid_num">إدخال رقم يرجى Ooredoo صحيح </string>
     <string name="error_invalid_verification_code">الرجاء نسخ رقم التأكيد من الرسالة النصية الواردة، والمحاولة مرة أخرى.</string>
     <string name="copyrights_text">Copyright 2015 Ooredoo Bizstore\nجميع حقوق النشر محفوظة</string>
     <string name="Clear_All">مسح الكل</string>

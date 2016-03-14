@@ -30,7 +30,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
     //public static String password = "d5pF55dZ";
 
-    public static String password = "048912";
+    public static String password = "249633";
 
     private Tracker tracker;
 

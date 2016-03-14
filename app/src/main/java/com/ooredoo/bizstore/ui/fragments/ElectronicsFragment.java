@@ -72,9 +72,9 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     public static String subCategory;
 
-    public static LadiesFragment newInstance()
+    public static ElectronicsFragment newInstance()
     {
-        LadiesFragment fragment = new LadiesFragment();
+        ElectronicsFragment fragment = new ElectronicsFragment();
 
         return fragment;
     }
