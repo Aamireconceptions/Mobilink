@@ -99,24 +99,44 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
                 return 4;
             }
         else
-            if(groupName.equals(context.getString(R.string.ladies_section)))
+            if(groupName.equals(context.getString(R.string.electronics)))
             {
                 return 5;
             }
         else
-            if(groupName.equals(context.getString(R.string.health_fitness)))
+            if(groupName.equals(context.getString(R.string.hotels_spa)))
             {
                 return 6;
             }
         else
-            if(groupName.equals(context.getString(R.string.education)))
+            if(groupName.equals(context.getString(R.string.markets_malls)))
             {
                 return 7;
             }
         else
-            if(groupName.equals(context.getString(R.string.entertainment)))
+            if(groupName.equals(context.getString(R.string.automotive)))
             {
                 return 8;
+            }
+        else
+            if(groupName.equals(context.getString(R.string.travel_tours)))
+            {
+                return 9;
+            }
+        else
+            if(groupName.equals(context.getString(R.string.entertainment)))
+            {
+                return 10;
+            }
+        else
+            if(groupName.equals(context.getString(R.string.jewelry_exchange)))
+            {
+                return 11;
+            }
+        else
+            if(groupName.equals(context.getString(R.string.sports_fitness)))
+            {
+                return 12;
             }
 
         return -1;

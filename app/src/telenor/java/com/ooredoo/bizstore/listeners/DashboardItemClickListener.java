@@ -7,7 +7,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.fragments.LadiesFragment;
+import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
 import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 
 import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryCheckboxId;
@@ -129,7 +129,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 {
                     subCategory = "mobile";
 
-                    LadiesFragment.subCategory = "electronics_"+subCategory;
+                    ElectronicsFragment.subCategory = "electronics_"+subCategory;
 
                     subCategoryName = mActivity.getString(R.string.Mobile_Phones_Accessories);
 
