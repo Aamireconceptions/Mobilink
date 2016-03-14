@@ -43,7 +43,8 @@ import static java.lang.String.valueOf;
  * @author Babar
  * @since 12-Jun-15.
  */
-public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseListener, ExpandableListView.OnGroupExpandListener, View.OnClickListener {
+public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseListener,
+        ExpandableListView.OnGroupExpandListener, View.OnClickListener {
     private final String[] groupNames, categories, settings;
     private final int[] groupResIds, categoriesResIds, settingsResIds;
     public final String[] subCategories;

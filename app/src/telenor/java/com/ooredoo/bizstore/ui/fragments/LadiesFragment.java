@@ -41,18 +41,16 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class EntertainmentFragment extends Fragment implements OnFilterChangeListener,
-                                                               OnDealsTaskFinishedListener,
-                                                               OnSubCategorySelectedListener,
-                                                               SwipeRefreshLayout.OnRefreshListener,
+public class LadiesFragment extends Fragment implements OnFilterChangeListener,
+                                                             OnDealsTaskFinishedListener,
+                                                             OnSubCategorySelectedListener,
+                                                             SwipeRefreshLayout.OnRefreshListener,
         ScrollToTop{
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
-
-    public static String subCategory;
 
     private ImageView ivBanner;
 
@@ -72,9 +70,11 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    public static EntertainmentFragment newInstance()
+    public static String subCategory;
+
+    public static LadiesFragment newInstance()
     {
-        EntertainmentFragment fragment = new EntertainmentFragment();
+        LadiesFragment fragment = new LadiesFragment();
 
         return fragment;
     }
@@ -86,7 +86,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
         init(v, inflater);
 
-        fetchAndDisplayEntertainment(progressBar);
+        fetchAndDisplayLadies(progressBar);
 
         isCreated = true;
 
@@ -110,15 +110,13 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
-        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_ENTERTAINMENT);
-
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_ENTERTAINMENT);
+        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_ELECTRONICS);
         clickListener.setLayout(rlHeader);
 
         List<GenericDeal> deals = new ArrayList<>();
 
-        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
-        adapter.setCategory(ResourceUtils.ENTERTAINMENT);
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals,this);
+        adapter.setCategory(ResourceUtils.ELECTRONICS);
         adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
@@ -138,8 +136,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     }
 
     DealsTask dealsTask;
-
-    private void fetchAndDisplayEntertainment(ProgressBar progressBar)
+    private void fetchAndDisplayLadies(ProgressBar progressBar)
     {
         tvEmptyView.setVisibility(View.GONE);
 
@@ -150,7 +147,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
             subCategory = ""; //Reset sub category filter.
         }
 
-        String cache = dealsTask.getCache("entertainment");
+        String cache = dealsTask.getCache("ladies");
 
         if(cache != null && !isRefreshed)
         {
@@ -158,18 +155,17 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         }
         else
         {
-            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "entertainment");
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "ladies");
         }
     }
 
     @Override
-    public void onFilterChange()
-    {
+    public void onFilterChange() {
+
         isRefreshed = true;
 
         adapter.clearData();
         adapter.notifyDataSetChanged();
-
         tvEmptyView.setText("");
 
         dealsTask.cancel(true);
@@ -185,15 +181,15 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
         filterTagUpdate();
 
-        fetchAndDisplayEntertainment(progressBar);
+        fetchAndDisplayLadies(progressBar);
 
         isRefreshed = false;
     }
 
-
-
     @Override
     public void onRefresh() {
+
+
         if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
         {
             adapter.filterHeaderDeal = null;
@@ -201,18 +197,11 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
             adapter.notifyDataSetChanged();
         }
 
-        if(adapter.brands != null && adapter.brands.size() > 0 && adapter.filterHeaderBrand != null)
-        {
-            adapter.filterHeaderBrand = null;
-            adapter.brands.remove(0);
-            adapter.notifyDataSetChanged();
-        }
-
         diskCache.remove(adapter.deals);
 
         memoryCache.remove(adapter.deals);
 
-        final String KEY = PREFIX_DEALS.concat("entertainment");
+        final String KEY = PREFIX_DEALS.concat("electronics");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
@@ -220,10 +209,10 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
         activity.resetFilters();
 
-        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_ENTERTAINMENT);
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_LADIES);
 
         isRefreshed = true;
-        fetchAndDisplayEntertainment(null);
+        fetchAndDisplayLadies(null);
         isRefreshed = false;
     }
 
@@ -234,7 +223,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.entertainment_banner);
+        ivBanner.setImageResource(R.drawable.electronics_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
 
@@ -251,7 +240,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         listView.setEmptyView(tvEmptyView);
 
         adapter.filterHeaderDeal = null;
-        adapter.filterHeaderBrand = null;
+
     }
 
     @Override
@@ -266,6 +255,8 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
             isCreated = false;
         }
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -312,7 +303,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
             filter += "Rating " + activity.ratingFilter +", ";
         }
 
-        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_ENTERTAINMENT);
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_LADIES);
 
         if(!categories.isEmpty())
         {
@@ -328,7 +319,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_ENTERTAINMENT;
+                adapter.subcategoryParent = CategoryUtils.CT_LADIES;
                 adapter.filterHeaderDeal = new GenericDeal(true);
             }
             else
@@ -345,7 +336,7 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_ENTERTAINMENT;
+                adapter.subcategoryParent = CategoryUtils.CT_LADIES;
                 adapter.filterHeaderBrand = new Brand(true);
             }
             else
@@ -359,4 +350,5 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
             }
         }
     }
+
 }

@@ -5,11 +5,9 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 
-import com.ooredoo.bizstore.AppConstant;
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.AutomotiveFragment;
-import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
+import com.ooredoo.bizstore.ui.fragments.LadiesFragment;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
 import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
@@ -19,7 +17,6 @@ import com.ooredoo.bizstore.ui.fragments.MallsFragment;
 import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.SportsAndFitnessFragment;
-import com.ooredoo.bizstore.ui.fragments.TestTopDealsFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 import com.ooredoo.bizstore.ui.fragments.TravelFragment;
 import com.ooredoo.bizstore.utils.Logger;
@@ -57,7 +54,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
             case 4:
                 return ShoppingFragment.newInstance();
             case 5:
-                return ElectronicsFragment.newInstance();
+                return LadiesFragment.newInstance();
             case 6:
                 return HotelsAndSpasFragment.newInstance();
             case 7:

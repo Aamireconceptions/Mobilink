@@ -2,23 +2,17 @@ package com.ooredoo.bizstore.listeners;
 
 import android.os.Build;
 import android.view.View;
-import android.widget.CheckBox;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
-import com.ooredoo.bizstore.model.CheckHelper;
-import com.ooredoo.bizstore.model.SubCategory;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
-import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
+import com.ooredoo.bizstore.ui.fragments.LadiesFragment;
 import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
-import com.ooredoo.bizstore.utils.Logger;
 
 import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryCheckboxId;
 import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryFilter;
 import static com.ooredoo.bizstore.utils.CategoryUtils.getParentCategory;
-import static com.ooredoo.bizstore.utils.CategoryUtils.getSubCategoryByCheckboxId;
 import static com.ooredoo.bizstore.utils.CategoryUtils.resetSubCategories;
 import static com.ooredoo.bizstore.utils.CategoryUtils.updateSubCategorySelection;
 
@@ -135,7 +129,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 {
                     subCategory = "mobile";
 
-                    ElectronicsFragment.subCategory = "electronics_"+subCategory;
+                    LadiesFragment.subCategory = "electronics_"+subCategory;
 
                     subCategoryName = mActivity.getString(R.string.Mobile_Phones_Accessories);
 

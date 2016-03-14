@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.animation.LayoutTransition;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -73,9 +72,9 @@ public class ElectronicsFragment extends Fragment implements OnFilterChangeListe
 
     public static String subCategory;
 
-    public static ElectronicsFragment newInstance()
+    public static LadiesFragment newInstance()
     {
-        ElectronicsFragment fragment = new ElectronicsFragment();
+        LadiesFragment fragment = new LadiesFragment();
 
         return fragment;
     }

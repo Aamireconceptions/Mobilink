@@ -1,34 +1,26 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
-import android.text.Html;
 
 import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
-import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
-
-import java.nio.Buffer;
 
 /**
  * @author Babar
@@ -197,8 +189,8 @@ public class FilterOnClickListener implements View.OnClickListener {
                     //activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
                     //activity.findViewById(R.id.line1).setVisibility(View.GONE);
 
-                    if(category == CategoryUtils.CT_TRAVEL) {
-                        //There are no sub categories in TRAVEL categories
+                    if(category == CategoryUtils.CT_LADIES) {
+                        //There are no sub categories in LADIES categories
                         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
                     } else {
                         activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);

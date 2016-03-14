@@ -26,11 +26,11 @@ public class BizStore extends com.activeandroid.app.Application {
 
     //public static String username = "123445";
 
-    public static String username = "50204309";
+    public static String username = "50356956";
 
     //public static String password = "d5pF55dZ";
 
-    public static String password = "911156";
+    public static String password = "048912";
 
     private Tracker tracker;
 
