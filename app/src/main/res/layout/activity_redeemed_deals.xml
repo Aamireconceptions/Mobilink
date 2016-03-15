@@ -70,7 +70,8 @@
             android:layout_centerInParent="true"
             android:gravity="center_horizontal"
             android:text="@string/error_discount_redeemed"
-            android:textSize="24sp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
             android:visibility="gone"/>
 
         <ProgressBar

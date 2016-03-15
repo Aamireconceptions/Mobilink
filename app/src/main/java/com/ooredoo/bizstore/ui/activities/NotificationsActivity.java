@@ -99,14 +99,10 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         notifications.add(new Notification(1, true, R.drawable.ic_top_deals, getString(R.string.top_deals), "top_deals"));
         notifications.add(new Notification(2, false, R.drawable.ic_food_dining, getString(R.string.food_dining), "food"));
         notifications.add(new Notification(3, false, R.drawable.ic_shopping, getString(R.string.shopping), "shopping"));
-        notifications.add(new Notification(4, false, R.drawable.ic_electronics, getString(R.string.electronics), "electronics"));
-        notifications.add(new Notification(5, false, R.drawable.ic_hotels, getString(R.string.hotels_spa), "hotels_spas"));
-        notifications.add(new Notification(6, false, R.drawable.ic_malls, getString(R.string.markets_malls), "malls"));
-        notifications.add(new Notification(7, false, R.drawable.ic_automotive, getString(R.string.automotive), "automotive"));
-        notifications.add(new Notification(8, false, R.drawable.ic_travel, getString(R.string.travel_tours), "travel"));
-        notifications.add(new Notification(9, false, R.drawable.ic_entertainment, getString(R.string.entertainment), "entertainment"));
-        notifications.add(new Notification(10, false, R.drawable.ic_jewellery, getString(R.string.jewelry_exchange), "jewelry"));
-        notifications.add(new Notification(11, false, R.drawable.ic_sports, getString(R.string.sports_fitness), "sports_fitness"));
+        notifications.add(new Notification(4, false, R.drawable.ic_electronics, getString(R.string.ladies_section), "ladies"));
+        notifications.add(new Notification(5, false, R.drawable.ic_hotels, getString(R.string.health_fitness), "health"));
+        notifications.add(new Notification(6, false, R.drawable.ic_malls, getString(R.string.education), "education"));
+        notifications.add(new Notification(7, false, R.drawable.ic_automotive, getString(R.string.entertainment), "entertainment"));
     }
 
     public void saveNotification(Notification notification) {

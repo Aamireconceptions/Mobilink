@@ -96,7 +96,7 @@ public class GetRedeemedDealsTask extends BaseAsyncTask<String, Void, String>
                 }
                 else
                 {
-                    onDealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
+                    onDealsTaskFinishedListener.onNoDeals(R.string.error_no_deal_redeemed);
                 }
 
             } catch(JsonSyntaxException e) {
