@@ -58,7 +58,7 @@
     <string name="weight_loss_tips">Weight Loss Tips</string>
     <string name="education">Education</string>
     <string name="universities_institutes">Universities and Institutes</string>
-    <string name="colleges_schools">Colleges and Schools</string>
+    <string name="colleges_schools">Colleges &amp; Schools</string>
     <string name="tuition_centers">Tuition Centers</string>
     <string name="day_care">Day Care &amp; Pre School</string>
     <string name="overseas_consultants">Overseas Consultants</string>
@@ -66,5 +66,7 @@
     <string name="talk_shows">Talk Shows and Alerts</string>
     <string name="funny_sms">Funny Sms</string>
     <string name="travel">Travel</string>
+    <string name="ladies">Ladies</string>
+    <string name="tips">Tips</string>
 
 </resources>

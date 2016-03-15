@@ -8,6 +8,7 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
+import com.ooredoo.bizstore.ui.fragments.HealthFragment;
 import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 
 import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryCheckboxId;
@@ -41,8 +42,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
         } else {
 
             if(id == R.id.restaurants_layout || id == R.id.shopping_layout ||
-                    id == R.id.health_layout || id == R.id.travel_layout ||
-                    id == R.id.electronics_layout || id == R.id.automobile_layout) {
+                    id == R.id.entertainment_layout ) {
             /*String subCategory = id == R.id.entertainment ? "entertainment" :
                                    id == R.id.shopping ? "shopping" :
                                    id == R.id.fashion ? "fashion" :
@@ -60,31 +60,11 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
                         break;
 
-                    case R.id.health_layout:
-
-                        mActivity.selectTab(6);
-
-                        break;
-
-                    case R.id.travel_layout:
-
-                        mActivity.selectTab(9);
-
-                        break;
-
-                    case R.id.electronics_layout:
-
-                        mActivity.selectTab(5);
-
-                        break;
-
-                    case R.id.automobile_layout:
+                    case R.id.entertainment_layout:
 
                         mActivity.selectTab(8);
 
-
                         break;
-
 
                 }
 
@@ -110,7 +90,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
             }
 
 
-            if(id == R.id.salons || id == R.id.salons || id == R.id.salons) {
+        /*    if(id == R.id.salons || id == R.id.salons || id == R.id.salons) {
                 String subCategory = id == R.id.salons ? "salons" : id == R.id.salons ? "lodging" : "spas";
 
                 HotelsAndSpasFragment.subCategory = "hotels_" + subCategory;
@@ -118,16 +98,17 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 mActivity.selectTab(6);
 
                 processSubCategory(subCategoryName);
-            }
+            }*/
 
-            if(id == R.id.mobile_layout || id == R.id.jewellery_layout || id == R.id.sports_layout
-                    || id == R.id.salons_layout || id == R.id.cinemas_layout || id == R.id.gold_layout)
+            if(id == R.id.top_deals_layout || id == R.id.ladies_layout || id == R.id.beauty_layout
+                    || id == R.id.weight_loss_layout || id == R.id.clothing_layout
+                    || id == R.id.education_layout)
             {
                 String subCategory, subCategoryName;
 
-                if(id == R.id.mobile_layout)
+                if(id == R.id.top_deals_layout)
                 {
-                    subCategory = "mobile";
+                    /*subCategory = "mobile";
 
                     ElectronicsFragment.subCategory = "electronics_"+subCategory;
 
@@ -135,28 +116,22 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
                     mActivity.selectTab(5);
 
-                    processSubCategory(subCategoryName);
+                    processSubCategory(subCategoryName);*/
+                    mActivity.selectTab(2);
                 }
 
-                if(id == R.id.jewellery_layout)
+                if(id == R.id.ladies_layout)
                 {
-                    mActivity.selectTab(11);
+                    mActivity.selectTab(5);
                 }
 
-                if(id == R.id.sports_layout)
+                if(id == R.id.beauty_layout)
                 {
-                    mActivity.selectTab(12);
+                   subCategory = "beauty_fitness_tips";
 
-                    return;
-                }
+                    HealthFragment.subCategory = "health_"+subCategory;
 
-                if(id == R.id.salons_layout)
-                {
-                    subCategory = "salons";
-
-                    HotelsAndSpasFragment.subCategory = "hotels_"+subCategory;
-
-                    subCategoryName = mActivity.getString(R.string.Salons);
+                    subCategoryName = mActivity.getString(R.string.beauty_fitness_tips);
 
                     mActivity.selectTab(6);
 
@@ -165,32 +140,39 @@ public class DashboardItemClickListener implements View.OnClickListener {
                     return;
                 }
 
-                if(id == R.id.cinemas_layout)
+                if(id == R.id.weight_loss_layout)
                 {
-                    subCategory = "cinemas";
+                    subCategory = "weight_loss_tips";
 
-                    HotelsAndSpasFragment.subCategory = "hotels_"+subCategory;
+                    HealthFragment.subCategory = "health_"+subCategory;
 
-                    subCategoryName = mActivity.getString(R.string.Cinemas);
+                    subCategoryName = mActivity.getString(R.string.weight_loss_tips);
 
-                    mActivity.selectTab(10);
+                    mActivity.selectTab(6);
 
                     processSubCategory(subCategoryName);
 
                     return;
                 }
 
-                if(id == R.id.gold_layout)
+                if(id == R.id.clothing_layout)
                 {
-                    subCategory = "gold";
+                    subCategory = "clothing";
 
-                    HotelsAndSpasFragment.subCategory = "jewelry_"+subCategory;
+                    HealthFragment.subCategory = "shopping"+subCategory;
 
-                    subCategoryName = mActivity.getString(R.string.Gold_Rate);
+                    subCategoryName = mActivity.getString(R.string.weight_loss_tips);
 
-                    mActivity.selectTab(11);
+                    mActivity.selectTab(4);
 
                     processSubCategory(subCategoryName);
+
+                    return;
+                }
+
+                if(id == R.id.education_layout)
+                {
+                    mActivity.selectTab(7);
 
                     return;
                 }
@@ -210,9 +192,9 @@ public class DashboardItemClickListener implements View.OnClickListener {
         }
     }
 
-    private String getHotelsSubCategory(int id) {
+    /*private String getHotelsSubCategory(int id) {
         return id == R.id.salons ? mActivity.getString(R.string.Salons) : id == R.id.salons ? mActivity.getString(R.string.Lodging) : mActivity.getString(R.string.Spas);
-    }
+    }*/
 
   /*  private String getEntertainmentSubCategory(int id) {
         return id == R.id.events ? mActivity.getString(R.string.events) : id == R.id.movie_tickets ? mActivity.getString(R.string.cinemas) : mActivity.getString(R.string.Kids_Activities);

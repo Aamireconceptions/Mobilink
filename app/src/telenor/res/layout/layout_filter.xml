@@ -1,8 +1,8 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:fillViewport="true">
+            android:fillViewport="true">-->
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -873,4 +873,5 @@
     </RelativeLayout>
             </ScrollView>
 </RelativeLayout>
-</ScrollView>
+<!--
+</ScrollView>-->
