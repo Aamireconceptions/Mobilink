@@ -111,7 +111,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_HOTELS);
+        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_HEALTH);
         clickListener.setLayout(rlHeader);
 
         List<GenericDeal> deals = new ArrayList<>();
@@ -244,6 +244,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
         rlHeader.setVisibility(View.GONE);
 
         tvEmptyView.setText(stringResId);
+        //tvEmptyView.setVisibility(View.VISIBLE);
         listView.setEmptyView(tvEmptyView);
 
         adapter.filterHeaderDeal = null;

@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -1231,7 +1232,9 @@ public EditText etMerchantCode;
 
         Logger.print("Uri: " + uri);
 
-        uri = "View this awesome deal on Telenor BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
+        String operatorName = BuildConfig.FLAVOR.equals("ooredoo") ? "Ooredoo" : "Telenor";
+
+        uri = "View this awesome deal on " + operatorName + " BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
         "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);

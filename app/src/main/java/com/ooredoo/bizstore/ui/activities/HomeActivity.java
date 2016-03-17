@@ -334,6 +334,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         mPopularSearchGridView = (GridView) findViewById(R.id.grid_popular_searches);
         mSearchSuggestionListView = (ListView) searchView.findViewById(R.id.list_search_suggestions);
 
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+        {
+            if(BizStore.getLanguage().equals("ar"))
+                mPopularSearchGridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus2sdp));
+   /*             else
+                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));*/
+        }
+
         setRecentSearches();
 
         mPopularSearchesGridAdapter = new PopularSearchesGridAdapter(this, R.layout.list_popular_search, new ArrayList<KeywordSearch>());

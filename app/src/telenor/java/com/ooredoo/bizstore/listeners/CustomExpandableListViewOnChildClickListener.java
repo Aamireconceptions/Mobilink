@@ -104,7 +104,7 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
                 return 5;
             }
         else
-            if(groupName.equals(context.getString(R.string.health)))
+            if(groupName.equals(context.getString(R.string.health_fitness)))
             {
                 return 6;
             }

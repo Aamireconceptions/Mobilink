@@ -110,7 +110,7 @@ public class LadiesFragment extends Fragment implements OnFilterChangeListener,
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_ELECTRONICS);
+        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_LADIES);
         clickListener.setLayout(rlHeader);
 
         List<GenericDeal> deals = new ArrayList<>();

@@ -106,7 +106,7 @@ public class EducationFragment extends Fragment implements OnFilterChangeListene
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_MALLS);
+        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_EDUCATION);
         clickListener.setLayout(rlHeader);
 
         List<GenericDeal> deals = new ArrayList<>();

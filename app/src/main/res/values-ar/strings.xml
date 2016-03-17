@@ -114,7 +114,7 @@
     <string name="plan_details">ريال قطري <b>9</b>\nأسبوعياً</string>
     <string name="filter">مصنفة</string>
     <string name="filter_results">نتائج مصنفة</string>
-    <string name="percentage_off">خصم %</string>
+    <string name="percentage_off">%  خصم</string>
     <string name="off">بعيدا</string>
     <string name="error_provide_num">الرجاء إدخال رقم جوالك.</string>
     <string name="please_wait">الرجاء الانتظار</string>
@@ -179,13 +179,13 @@
     <string name="Equipment">معدات</string>
     <string name="error_invalid_num">إدخال رقم يرجى Ooredoo صحيح </string>
     <string name="error_invalid_verification_code">الرجاء نسخ رقم التأكيد من الرسالة النصية الواردة، والمحاولة مرة أخرى.</string>
-    <string name="copyrights_text">Copyright 2015 Ooredoo Bizstore\nجميع حقوق النشر محفوظة</string>
+    <string name="copyrights_text">Copyright 2016 Ooredoo Bizstore\nجميع حقوق النشر محفوظة</string>
     <string name="Clear_All">مسح الكل</string>
     <string name="error_server_down">الخدمة تحت الصيانة. الرجاء المحاولة مرة أخرى في وقت لاحق</string>
     <string name="skip">تخطى</string>
     <string name="All">كل</string>
     <string name="hot_deals">عروض خاصة</string>
-
+    <string name="travel">سفر</string>
     <string name="provide_name">اسمك</string>
     <string name="select_pic">الرجاء إختيار صورة.</string>
     <string name="no_fav_item">صندوق النتائج المفضلة لديك فارغ.</string>
