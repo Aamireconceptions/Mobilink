@@ -137,6 +137,8 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
                     processSubCategory(subCategoryName);
 
+                    mActivity.onFilterChange();
+
                     return;
                 }
 
@@ -152,6 +154,8 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
                     processSubCategory(subCategoryName);
 
+                    mActivity.onFilterChange();
+
                     return;
                 }
 
@@ -159,13 +163,15 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 {
                     subCategory = "clothing";
 
-                    HealthFragment.subCategory = "shopping"+subCategory;
+                    HealthFragment.subCategory = "shopping_"+subCategory;
 
-                    subCategoryName = mActivity.getString(R.string.weight_loss_tips);
+                    subCategoryName = mActivity.getString(R.string.clothing);
 
                     mActivity.selectTab(4);
 
                     processSubCategory(subCategoryName);
+
+                    mActivity.onFilterChange();
 
                     return;
                 }

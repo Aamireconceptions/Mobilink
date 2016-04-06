@@ -40,13 +40,17 @@ public class BizStore extends com.activeandroid.app.Application {
     private final static String SANS_SERIF = "SANS_SERIF";
 
     public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Futura/FuturaLT-Book.ttf" : "fonts/Telenor.otf";
+    ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
     public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Futura/FuturaLT.ttf" : "fonts/Telenor.otf";
+    ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
     public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Opifico/Opificio_Bold.ttf" : "fonts/Telenor.otf";
+    ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
     public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Opifico/Opificio.ttf" : "fonts/Telenor.otf";
+    ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
@@ -75,8 +79,6 @@ public class BizStore extends com.activeandroid.app.Application {
         setDefaultFont(this, SERIF, language.equals("en") ? SERIF_FONT : ARABIC_DEFAULT_FONT);
         setDefaultFont(this, SANS_SERIF, language.equals("en") ? SANS_SERIF_FONT : ARABIC_DEFAULT_FONT);
     }
-
-
 
     public static HashMap<String, String> getUserCredentials() {
         HashMap<String, String> params = new HashMap<>();
@@ -116,5 +118,4 @@ public class BizStore extends com.activeandroid.app.Application {
     public static void setLanguage(String language) {
         BizStore.language = language;
     }
-
 }

@@ -64,7 +64,8 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
-       // actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setTitle(getString(R.string.redeemed_deals));
     }
 

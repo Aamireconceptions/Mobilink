@@ -36,6 +36,8 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:focusable="true"
+                    android:textColor="@color/auto_complete_text"
+
                     android:hint="@string/search"
                     android:imeOptions="actionSearch"
                     android:inputType="textCapWords"
@@ -55,15 +57,16 @@
                 <LinearLayout
                     android:id="@+id/layout_search_filter"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_margin="0dp"
                     android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/search_deals"
                         android:layout_width="0dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="bottom"
                         android:layout_weight="0.5"
                         android:background="@drawable/detail_tab_selector"
@@ -76,7 +79,7 @@
                     <TextView
                         android:id="@+id/search_business"
                         android:layout_width="0dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="0.50"
                         android:background="@drawable/detail_tab_selector"
                         android:gravity="center"

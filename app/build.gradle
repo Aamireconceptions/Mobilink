@@ -9,6 +9,12 @@ android {
             storeFile file('D:/Apk & Keystore/Oreedoo Bizstore/oreedoobizstore.keystore.jks')
             storePassword 'ooredoobizstore'
         }
+        TelenorBizstore {
+            keyAlias 'telenorbizstore'
+            keyPassword 'telenorbizstore'
+            storeFile file('D:/Apk & Keystore/Telenor Bizstore/telenorbizstore.jks')
+            storePassword 'telenorbizstore'
+        }
     }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
@@ -25,17 +31,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions{
+        checkReleaseBuilds false
+
+    }
     productFlavors {
         telenor {
             applicationId "com.telenor.bizstore"
             versionName "1.0"
             buildConfigField "String", "BASE_URL", "\"http://telenor.bizstore.com.pk/\""
+            signingConfig signingConfigs.TelenorBizstore
         }
         ooredoo {
             applicationId "com.ooredoo.bizstore"
             versionName = "1.0"
             signingConfig signingConfigs.OoredooBizstore
             buildConfigField "String", "BASE_URL", "\"http://ooredoo.bizstore.com.pk/index.php/api/\""
+        }
+
+        dealionare{
+            applicationId "mobi.econceptions.dealionare"
+            versionName = "1.0"
+
         }
     }
 }

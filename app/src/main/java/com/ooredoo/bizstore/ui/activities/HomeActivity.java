@@ -410,6 +410,11 @@ public CoordinatorLayout coordinatorLayout;
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.status_bar));
         }
+        else
+        if(BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            //toolbar.setBackgroundColor(get);
+        }
 
         setSupportActionBar(toolbar);
 

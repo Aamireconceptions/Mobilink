@@ -335,6 +335,11 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
                     adapter.deals.remove(0);
                     adapter.notifyDataSetChanged();
                 }
+
+                if(adapter.filterHeaderDeal != null)
+                {
+                    adapter.filterHeaderDeal = null;
+                }
             }
         }
         else
@@ -351,6 +356,11 @@ public class HotelsAndSpasFragment extends Fragment implements OnFilterChangeLis
                     adapter.filterHeaderBrand = null;
                     adapter.brands.remove(0);
                     adapter.notifyDataSetChanged();
+                }
+
+                if(adapter.filterHeaderBrand != null)
+                {
+                    adapter.filterHeaderBrand = null;
                 }
             }
         }

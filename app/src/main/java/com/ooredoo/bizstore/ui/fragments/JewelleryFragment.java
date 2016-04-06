@@ -328,6 +328,11 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
                     adapter.deals.remove(0);
                     adapter.notifyDataSetChanged();
                 }
+
+                if(adapter.filterHeaderDeal != null)
+                {
+                    adapter.filterHeaderDeal = null;
+                }
             }
         }
         else
@@ -344,6 +349,11 @@ public class JewelleryFragment extends Fragment implements OnFilterChangeListene
                     adapter.filterHeaderBrand = null;
                     adapter.brands.remove(0);
                     adapter.notifyDataSetChanged();
+                }
+
+                if(adapter.filterHeaderBrand != null)
+                {
+                    adapter.filterHeaderBrand = null;
                 }
             }
         }

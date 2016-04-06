@@ -309,6 +309,11 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
                     adapter.deals.remove(0);
                     adapter.notifyDataSetChanged();
                 }
+
+                if(adapter.filterHeaderDeal != null)
+                {
+                    adapter.filterHeaderDeal = null;
+                }
             }
         }
         else
@@ -325,6 +330,11 @@ public class TravelFragment extends Fragment implements OnFilterChangeListener,
                     adapter.filterHeaderBrand = null;
                     adapter.brands.remove(0);
                     adapter.notifyDataSetChanged();
+                }
+
+                if(adapter.filterHeaderBrand != null)
+                {
+                    adapter.filterHeaderBrand = null;
                 }
             }
         }

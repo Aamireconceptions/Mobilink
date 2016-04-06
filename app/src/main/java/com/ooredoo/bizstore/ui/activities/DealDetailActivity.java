@@ -222,6 +222,8 @@ public EditText etMerchantCode;
 
         int id = item.getItemId();
 
+        mDeal.id = id;
+
         Logger.print("menuId: "+id);
 
         LocationsTask locationsTask = new LocationsTask(DealDetailActivity.this);

@@ -34,7 +34,8 @@ public class FontUtils
     private static String lollipopTypefaceFieldName = "sSystemFontMap";
 
     private static String LOLLIPOP_DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Futura/FuturaLT-Book.ttf" : "fonts/Telenor.otf";
+    ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
 
     private final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
@@ -141,6 +142,4 @@ public class FontUtils
        //         0, part.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE));
         textView.setText(spannable);
     }
-
-
 }

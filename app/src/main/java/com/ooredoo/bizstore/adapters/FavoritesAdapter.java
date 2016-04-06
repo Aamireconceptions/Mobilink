@@ -354,7 +354,9 @@ public class FavoritesAdapter extends BaseAdapter {
 
     public void showDetailActivity(Favorite favorite) {
         Intent intent = new Intent();
+        favorite.views += 1;
         if(favorite.isBusiness == 1) {
+
             intent.setClass(context, BusinessDetailActivity.class);
             intent.putExtra("business", new Business(favorite));
         } else {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#fb9900</color>
+    <color name="heading_gray">#e6e6e6</color>
+    <color name="status_bar">#cf7600</color>
+    <color name="auto_complete_text">#000000</color>
+</resources>
