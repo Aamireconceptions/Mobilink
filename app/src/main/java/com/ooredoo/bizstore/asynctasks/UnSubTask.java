@@ -40,8 +40,9 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String msisdn = params[0];
+        String password = params[1];
         try {
-            return unSubscribe(msisdn);
+            return unSubscribe(msisdn, password);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -74,14 +75,16 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
      * Un-Subscribe user, invalidate user session etc & close app
      *
      * @param msisdn
+     * @param password
      * @throws IOException
      */
-    private String unSubscribe(String msisdn) throws IOException {
+    private String unSubscribe(String msisdn, String password) throws IOException {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
         params.put("msisdn", msisdn);
+        params.put("password", password);
 
         setServiceUrl("signout", params);
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
@@ -59,7 +60,12 @@ public class SubscriptionPlansFragment extends BaseFragment {
         if(id == R.id.agree_terms_services)
         {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("http://ooredoo.bizstore.com.pk/index.php/other/terms/android"));
+
+            String uriString = BizStore.getLanguage().equals("en")
+                    ? "http://ooredoo.bizstore.com.pk/index.php/other/terms/android?language=en"
+                    : "http://ooredoo.bizstore.com.pk/index.php/other/terms/android?language=ar";
+
+            intent.setData(Uri.parse(uriString));
 
             startActivity(intent);
 

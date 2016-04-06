@@ -3,11 +3,13 @@ package com.ooredoo.bizstore.asynctasks;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
@@ -53,8 +55,6 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
             return subscribe(msisdn);
         } catch(IOException e) {
             e.printStackTrace();
-
-
         }
 
         return null;
@@ -70,7 +70,6 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
             try {
 
 
-
                 Subscription subscription = new Gson().fromJson(result, Subscription.class);
 
                 if(subscription.resultCode == 1 && subscription.desc.equals("In-valid User"))
@@ -78,9 +77,15 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
                     Toast.makeText(context, context.getString(R.string.error_invalid_num), Toast.LENGTH_SHORT).show();
                 }
                 else
+                if(BuildConfig.FLAVOR.equals("telenor") && subscription.resultCode == 3
+                        && subscription.desc.equals("Not Billed"))
+                {
+                    Toast.makeText(context, "Dear user, either you have insufficient balance or " +
+                            "you have entered an invalid Telenor number", Toast.LENGTH_SHORT).show();
+                }
+                else
                 {
                     signUpFragment.processSubscription(subscription);
-
                     //DialogUtils.processVerificationCode();
                 }
 

@@ -216,7 +216,7 @@ public class DealOfDayAdapter extends BaseAdapter
 
             if(c == 1)
             {
-                params.leftMargin = (int) Converter.convertDpToPixels(12);
+                params.setMarginStart((int) Converter.convertDpToPixels(12));
             }
            // params.rowSpec = GridLayout.spec(r);
             //params.columnSpec = GridLayout.spec(c);

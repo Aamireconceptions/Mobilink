@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.ShareAppTask;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -74,7 +75,15 @@ public class ShareAppActivity extends AppCompatActivity {
         String phoneNum = etPhoneNum.getText().toString().trim();
 
         if(!phoneNum.isEmpty() && phoneNum.length() >= AppConstant.MSISDN_MIN_LEN) {
-            phoneNum = "+974" + phoneNum;
+
+
+            if(BuildConfig.FLAVOR.equals("ooredoo"))
+            {
+                phoneNum = "+974" + phoneNum;
+            }
+            else {
+                phoneNum = "+92" + phoneNum;
+            }
 
             ShareAppTask shareAppTask = new ShareAppTask(this, snackBarUtils);
             shareAppTask.execute(phoneNum);
@@ -102,6 +111,24 @@ public class ShareAppActivity extends AppCompatActivity {
                 int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
 
                 String number = cursor.getString(column);
+
+                if(BuildConfig.FLAVOR.equals("ooredoo"))
+                {
+                    if(number.contains("+974"))
+                    {
+                       number = number.substring(4);
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                if(number.contains("+92"))
+                {
+                    number = number.substring(3);
+                }
+
 
                 etPhoneNum.setText(number);
                 etPhoneNum.setSelection(number.length());

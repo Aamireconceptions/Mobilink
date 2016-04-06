@@ -136,7 +136,7 @@ public class DialogUtils {
         btUnSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new UnSubTask(activity).execute(BizStore.username);
+                new UnSubTask(activity).execute(BizStore.username, BizStore.password);
                 dialog.dismiss();
             }
         });
@@ -239,7 +239,7 @@ public class DialogUtils {
     public static void startWelcomeFragment()
     {
         dialog.dismiss();
-         BaseFragment.hideKeyboard(activity);
+        BaseFragment.hideKeyboard(activity);
         activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         AppCompatActivity compatActivity = (AppCompatActivity) activity;
         FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");

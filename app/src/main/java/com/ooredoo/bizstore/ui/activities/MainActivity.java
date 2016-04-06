@@ -3,10 +3,9 @@ package com.ooredoo.bizstore.ui.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.Handler;
+
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
@@ -14,7 +13,6 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.ui.fragments.SplashFragment;
 import com.ooredoo.bizstore.utils.FontUtils;
-import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
@@ -41,6 +39,8 @@ public class MainActivity extends BaseActivity {
         if(check) {
             startActivity(HomeActivity.class);
         }*/
+
+
 
         btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
 

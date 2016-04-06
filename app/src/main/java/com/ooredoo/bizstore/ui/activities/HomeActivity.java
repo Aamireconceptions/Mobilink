@@ -427,7 +427,7 @@ public CoordinatorLayout coordinatorLayout;
         }
         else {
             boolean isArabic = BizStore.getLanguage().equals("ar");
-            mActionBar.setLogo(isArabic ? R.drawable.ic_bizstore_arabic : R.drawable.ic_bizstore);
+            mActionBar.setLogo(isArabic ? R.drawable.ic_bizstore : R.drawable.ic_bizstore);
 
             logoView = getToolbarLogoIcon(toolbar);
         }

@@ -19,7 +19,7 @@ import com.ooredoo.bizstore.utils.Logger;
 public class SMSReceiver extends BroadcastReceiver
 {
 
-    private final static String SERVICE_NUM = "92806";
+    private final static String SERVICE_NUM = "5005";
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -53,32 +53,19 @@ public class SMSReceiver extends BroadcastReceiver
 
                             //Toast.makeText(context, "SMS RECEIVED", Toast.LENGTH_SHORT).show();
 
-                            if(BizStore.getLanguage().equals("en")) {
-                                if (msgBody.contains("Password for Bizstore App is")) {
-                                    String code = msgBody.substring(msgBody.length() - 6);
 
-                                    BizStore.password = code;
+                            if (msgBody.contains("Password for Telenor Bizstore application is")) {
+                                String code = msgBody.substring(msgBody.length() - 6);
 
-                                    DialogUtils.etCode.setText(code);
-                                    DialogUtils.etCode.setSelection(code.length());
-                                    DialogUtils.progressBar.setVisibility(View.GONE);
+                                BizStore.password = code;
 
-                                    // DialogUtils.processVerificationCode();
-                                }
-                            }
-                            else
-                            {
-                                if (msgBody.contains("كلمة المرور لتطبيق Bizstore هي")) {
-                                    String code = msgBody.substring(msgBody.length() - 8);
-
-                                    BizStore.password = code;
-
-                                    DialogUtils.etCode.setText(code);
-                                    DialogUtils.progressBar.setVisibility(View.GONE);
+                                DialogUtils.etCode.setText(code);
+                                DialogUtils.etCode.setSelection(code.length());
+                                DialogUtils.progressBar.setVisibility(View.GONE);
 
                                     // DialogUtils.processVerificationCode();
-                                }
                             }
+
                         }
 
                     }

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.ContactTask;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -47,10 +48,14 @@ public class HelpActivity extends BaseActivity {
         TextView tvQ5 = (TextView) findViewById(R.id.q5);
         FontUtils.setFontWithStyle(this, tvQ5, Typeface.BOLD);
 
+
+        TextView tvQ6 = (TextView) findViewById(R.id.q6);
+        FontUtils.setFontWithStyle(this, tvQ6, Typeface.BOLD);
+
+
+
         TextView tvYourFeedback = (TextView) findViewById(R.id.your_feedback);
         FontUtils.setFontWithStyle(this, tvYourFeedback, Typeface.BOLD);
-
-
     }
 
     public void send(View v)

@@ -42,7 +42,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnClickL
            languageToLoad = BizStore.getLanguage();
         }
 
-
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();

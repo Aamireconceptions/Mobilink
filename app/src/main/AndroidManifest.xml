@@ -179,13 +179,6 @@
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activities.HelpActivity"
-            android:configChanges="locale|layoutDirection"
-            android:label="@string/help"
-            android:launchMode="singleTop"
-            android:parentActivityName=".ui.activities.HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.activities.RecentViewedActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/recent_viewed"
@@ -217,6 +210,13 @@
             android:name=".ui.activities.RedeemedDealsActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/redeemed_deals"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activities.HelpActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/help"
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"/>
 

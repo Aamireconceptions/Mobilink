@@ -234,6 +234,7 @@
                     android:background="@color/grey"/>
 
                 <TextView
+                    android:id="@+id/q6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"

@@ -28,7 +28,7 @@
     <string name="my_favorites">My Favorites</string>
     <string name="recommended">Tell a friend</string>
     <string name="recent_searches">Recent Searches</string>
-    <string name="recent_viewed">Recent Viewed</string>
+    <string name="recent_viewed">"Recently Viewed</string>
     <string name="categories">Categories</string>
     <string name="settings">Settings</string>
     <string name="electronics">Electronics</string>
@@ -186,7 +186,7 @@
     <string name="Equipment">Equipment</string>
     <string name="error_invalid_num">Please enter a valid Ooredoo Mobile Number</string>
     <string name="error_invalid_verification_code">Please copy passcode from your SMS and try again.</string>
-    <string name="copyrights_text">Copyright 2016 Ooredoo BizStore Application\nAll rights reserved.</string>
+    <string name="copyrights_text">© Copyright 2016 Ooredoo BizStore Application\nAll rights reserved.</string>
     <string name="Clear_All">Clear All</string>
     <string name="error_server_down">The connection to server is down, please check back soon!</string>
     <string name="skip">Skip</string>
