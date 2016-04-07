@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -43,8 +44,10 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-       // dialog = DialogUtils.createCustomLoader((Activity) activity, "Verifying....");
-       // dialog.show();;
+        if(BuildConfig.FLAVOR.equals("dealionare")) {
+            dialog = DialogUtils.createCustomLoader((Activity) activity, "Logging In....");
+            dialog.show();
+        }
     }
 
     @Override
@@ -62,7 +65,8 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-       // dialog.dismiss();
+       if(dialog != null)
+           dialog.dismiss();
 
         if(result != null)
         {
@@ -77,6 +81,8 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
                     SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
                     sharedPrefUtils.updateVal((Activity) activity, "username", BizStore.username);
                     sharedPrefUtils.updateVal((Activity) activity, "password", BizStore.password);
+
+                    DialogUtils.activity = (Activity) activity;
 
                     DialogUtils.startWelcomeFragment();
                 }
@@ -100,7 +106,9 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
         HashMap<String, String> params = new HashMap<>();
         //params.put(OS, ANDROID);
         params.put(MSISDN, BizStore.username);
-        params.put("password", BizStore.password);
+        if(!BuildConfig.FLAVOR.equals("dealionare")) {
+            params.put("password", BizStore.password);
+        }
         //params.put("secret", "A33w3zH2OsCMD");
 
         String query = createQuery(params);

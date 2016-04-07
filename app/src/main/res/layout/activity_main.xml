@@ -36,7 +36,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_14sdp"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btn_lang_english"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/lang_layout"
-        android:layout_marginBottom="@dimen/_38sdp"
+        android:layout_marginBottom="@dimen/_34sdp"
         android:background="@drawable/next_btn_ripple"
         android:clickable="true"
         android:text="@string/NEXT"

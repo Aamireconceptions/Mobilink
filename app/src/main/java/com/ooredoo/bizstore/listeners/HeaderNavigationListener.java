@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.view.View;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyFavoritesActivity;
@@ -45,7 +46,24 @@ public class HeaderNavigationListener implements View.OnClickListener {
                 mActivity.startActivity(new Intent(mActivity, MyFavoritesActivity.class));
                 break;
             case R.id.recommended:
+
+                if(BuildConfig.FLAVOR.equals("dealionare"))
+                {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_TEXT, "Sharing text goes here");
+                    intent.setType("text/plain");
+
+                    mActivity.startActivity(Intent.createChooser(intent, "Tell using"));
+
+                    return;
+                }
+
+
                 mActivity.startActivity(new Intent(mActivity, ShareAppActivity.class));
+
+
+
                 break;
             case R.id.recent_searches:
                // mActivity.startActivity(new Intent(mActivity, RecentSearchesActivity.class));

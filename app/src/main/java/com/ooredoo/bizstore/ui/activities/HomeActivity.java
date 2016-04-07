@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -242,6 +243,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         BizStore.forceStopTasks = false;
 
         checkIfGpsEnabled();
+
+        if(!BuildConfig.FLAVOR.equals("dealionare"))
         startSubscriptionCheck();
     }
 
@@ -413,7 +416,7 @@ public CoordinatorLayout coordinatorLayout;
         else
         if(BuildConfig.FLAVOR.equals("dealionare"))
         {
-            //toolbar.setBackgroundColor(get);
+            toolbar.setBackgroundResource(R.drawable.dealionare_toolbar_bg);
         }
 
         setSupportActionBar(toolbar);
@@ -424,7 +427,7 @@ public CoordinatorLayout coordinatorLayout;
         mActionBar.setDisplayShowTitleEnabled(false);
 
         View logoView;
-        if(BuildConfig.FLAVOR.equals("telenor"))
+        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("dealionare"))
         {
             logoView = getLayoutInflater().inflate(R.layout.layout_actionbar, null);
             mActionBar.setDisplayShowCustomEnabled(true);
@@ -480,6 +483,11 @@ public CoordinatorLayout coordinatorLayout;
 
     private void setupTabs() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
+        if(BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            tabLayout.setBackgroundColor(Color.parseColor("#232f3e"));
+        }
 
         //tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 

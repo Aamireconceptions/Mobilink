@@ -97,7 +97,6 @@
                                     android:layout_height="match_parent"
                                     android:gravity="center"
 
-                                    android:layout_gravity="bottom"
                                     android:layout_weight="0.5"
                                     android:background="@drawable/detail_tab_selector"
                                     android:textColor="@color/black_white_selector"

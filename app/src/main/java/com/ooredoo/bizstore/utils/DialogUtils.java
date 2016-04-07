@@ -150,7 +150,7 @@ public class DialogUtils {
         dialog.show();
     }
 
-    static Activity activity;
+    public static Activity activity;
 
     public static EditText etCode;
     static Dialog dialog;
@@ -238,7 +238,7 @@ public class DialogUtils {
 
     public static void startWelcomeFragment()
     {
-        dialog.dismiss();
+        if(dialog != null)dialog.dismiss();
         BaseFragment.hideKeyboard(activity);
         activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         AppCompatActivity compatActivity = (AppCompatActivity) activity;

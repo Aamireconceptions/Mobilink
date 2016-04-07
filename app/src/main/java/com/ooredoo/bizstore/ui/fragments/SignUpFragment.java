@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.LoginTask;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
@@ -69,7 +71,16 @@ public class SignUpFragment extends BaseFragment {
         if(NetworkUtils.hasInternetConnection(mActivity)) {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
                 BizStore.username = msisdn;
-                new SubscriptionTask(this).execute(msisdn);
+
+                if(BuildConfig.FLAVOR.equals("dealionare"))
+                {
+                    new LoginTask(mActivity).execute();
+                }
+                else
+                {
+                    new SubscriptionTask(this).execute(msisdn);
+                }
+
             } else {
                 errMsg = getString(R.string.error_invalid_num);
             }

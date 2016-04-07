@@ -222,7 +222,7 @@ public EditText etMerchantCode;
 
         int id = item.getItemId();
 
-        mDeal.id = id;
+        mDeal.businessId = id;
 
         Logger.print("menuId: "+id);
 

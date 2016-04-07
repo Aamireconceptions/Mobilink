@@ -35,10 +35,12 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     protected final static String QUESTION_MARK = "?";
 
     public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "http://ooredoo.bizstore.com.pk/" : "http://telenor.bizstore.com.pk/";
+    ? "http://ooredoo.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
+            ? "http://telenor.bizstore.com.pk/" : "http://dealionare.bizstore.com.pk/";
 
     public static String BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "http://ooredoo.bizstore.com.pk/index.php/api/" : "http://telenor.bizstore.com.pk/index.php/api/";
+    ? "http://ooredoo.bizstore.com.pk/index.php/api/" : BuildConfig.FLAVOR.equals("telenor")
+            ? "http://telenor.bizstore.com.pk/index.php/api/" : "http://dealionare.bizstore.com.pk/index.php/api/";
 
     public final static int CONNECTION_TIME_OUT = 30 * 1000;
 
@@ -73,7 +75,8 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     public final static String HTTP_X_PASSWORD = "HTTP_X_PASSWORD";
 
     public final static String IMAGE_BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "http://ooredoo.bizstore.com.pk" : "http://telenor.bizstore.com.pk";
+    ? "http://ooredoo.bizstore.com.pk" : BuildConfig.FLAVOR.equals("telenor")
+            ? "http://telenor.bizstore.com.pk" :"http://dealionare.bizstore.com.pk";
 
     protected Dialog dialog;
 

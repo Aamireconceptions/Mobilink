@@ -14,7 +14,9 @@ import java.util.Random;
 public class ColorUtils {
     public static final int LT_GRAY = Color.parseColor("#f2f2f2");
     public static final int RED = BuildConfig.FLAVOR.equals("ooredoo")
-            ? Color.parseColor("#ec1b24") : Color.parseColor("#0091d2");
+            ? Color.parseColor("#ec1b24") : BuildConfig.FLAVOR.equals("telenor")
+            ? Color.parseColor("#0091d2") : Color.parseColor("#fb9900");
+    
     public static final int WHITE = Color.parseColor("#FFFFFF");
     public static final int BLACK = Color.parseColor("#000000");
 
