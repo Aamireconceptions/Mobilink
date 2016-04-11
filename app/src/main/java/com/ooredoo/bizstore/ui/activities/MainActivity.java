@@ -56,7 +56,11 @@ public class MainActivity extends BaseActivity {
         btnArabicLang.setSelected(isArabicLang);
         btnEnglishLang.setSelected(!isArabicLang);
 
-        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("dealionare"))
+        if(BuildConfig.FLAVOR.equals("telenor")
+                ||
+                BuildConfig.FLAVOR.equals("dealionare")
+                ||
+                BuildConfig.FLAVOR.equals("mobilink"))
         {
             findViewById(R.id.lang_layout).setVisibility(View.INVISIBLE);
 

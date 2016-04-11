@@ -31,8 +31,13 @@ public class Converter
 
     public static Category convertCategoryText(Context context, String target)
     {
-        if(target.equals("Food & Dining"))
+        if(target.equals("Food & Dining") || target.equals("Food Deals"))
         {
+            if(target.equals("Food Deals"))
+            {
+                return new Category("Food", R.drawable.ic_food_dining);
+            }
+
             return new Category(context.getString(R.string.food_dining), R.drawable.ic_food_dining);
         }
         else
@@ -85,6 +90,6 @@ public class Converter
             return new Category(context.getString(R.string.lifestyle), R.drawable.ic_ladies);
         }
 
-        return new Category(context.getString(R.string.sports_fitness), R.drawable.ic_sports);
+        return new Category("Invalid Category", R.drawable.ic_sports);
     }
 }

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_8sdp"
+    app:columnCount="2">
+
+    <RelativeLayout
+        android:id="@+id/top_deals_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_columnWeight="1"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:background="@drawable/card_ripple">
+
+        <TextView
+            android:id="@+id/top_deals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:singleLine="true"
+            android:layout_toStartOf="@+id/ic_mobile"
+            android:text="@string/top_deals"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/top_deals"
+            android:text="@string/deals_brand"
+            android:layout_toStartOf="@+id/ic_mobile"
+            android:textSize="12sp"/>
+
+        <ImageView
+            android:id="@+id/ic_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/mobile_icon"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ladies_layout"
+        android:layout_width="0dp"
+        app:layout_columnWeight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:background="@drawable/card_ripple">
+
+        <TextView
+            android:id="@+id/ladies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:singleLine="true"
+            android:layout_toStartOf="@+id/ic_ring"
+            android:text="@string/ladies"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ladies"
+            android:layout_toStartOf="@+id/ic_ring"
+            android:text="@string/brands_deals"
+            android:textSize="12sp"/>
+
+
+        <ImageView
+            android:id="@+id/ic_ring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ring"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/beauty_layout"
+        android:layout_width="0dp"
+        app:layout_columnWeight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:background="@drawable/card_ripple">
+
+        <TextView
+            android:id="@+id/beauty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_toStartOf="@+id/ic_sports"
+            android:singleLine="true"
+            android:text="@string/beauty_fitness"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/beauty"
+            android:layout_toStartOf="@+id/ic_sports"
+            android:text="@string/centers_tips"
+            android:textSize="12sp"/>
+
+
+        <ImageView
+            android:id="@+id/ic_sports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/fashion_icon"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/weight_loss_layout"
+        android:layout_width="0dp"
+        app:layout_columnWeight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:background="@drawable/card_ripple">
+
+        <TextView
+            android:id="@+id/weight_loss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:singleLine="true"
+            android:layout_toStartOf="@+id/ic_dryer"
+            android:text="@string/weight_loss"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/weight_loss"
+            android:layout_toStartOf="@+id/ic_dryer"
+            android:text="@string/tips"
+            android:textSize="12sp"/>
+
+
+        <ImageView
+            android:id="@+id/ic_dryer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/fintness_icon"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/clothing_layout"
+        android:layout_width="0dp"
+        app:layout_columnWeight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:background="@drawable/card_ripple">
+
+        <TextView
+            android:id="@+id/clothing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_toStartOf="@+id/ic_popcorn"
+            android:text="@string/clothing"
+            android:singleLine="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/clothing"
+            android:layout_toStartOf="@+id/ic_popcorn"
+            android:text="@string/deals_brand"
+            android:textSize="12sp"/>
+
+
+        <ImageView
+            android:id="@+id/ic_popcorn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/cloths_icon"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/education_layout"
+        android:layout_width="0dp"
+        app:layout_columnWeight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:background="@drawable/card_ripple">
+
+        <TextView
+            android:id="@+id/education"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_toStartOf="@+id/ic_bullion"
+            android:text="@string/education"
+            android:singleLine="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/ic_bullion"
+            android:layout_below="@+id/education"
+            android:text="@string/colleges_schools"
+            android:textSize="12sp"/>
+
+
+        <ImageView
+            android:id="@+id/ic_bullion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/education_icon"/>
+    </RelativeLayout>
+</android.support.v7.widget.GridLayout>

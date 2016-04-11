@@ -47,13 +47,11 @@ public class HeaderNavigationListener implements View.OnClickListener {
                 break;
             case R.id.recommended:
 
-                if(BuildConfig.FLAVOR.equals("dealionare"))
+                if(BuildConfig.FLAVOR.equals("dealionare") || BuildConfig.FLAVOR.equals("mobilink"))
                 {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_SEND);
-                    intent.putExtra(Intent.EXTRA_TEXT, "Hi, I just found this great App for you called Dealionare. You can find businesses and " +
-                            "enjoy Premium Discounts of your favorite Top Brands. Simply download the Application " +
-                            "from PlayStore & avail the Best Deals in your city!");
+                    intent.putExtra(Intent.EXTRA_TEXT, mActivity.getString(R.string.share_with_friends_txt));
                     intent.setType("text/plain");
 
                     mActivity.startActivity(Intent.createChooser(intent, "Tell using"));

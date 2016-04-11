@@ -69,5 +69,7 @@
     <string name="ladies">Ladies</string>
     <string name="tips">Tips</string>
     <string name="copyrights_text">© Copyright 2016 Telenor BizStore Application\nAll rights reserved.</string>
+    <string name="city_selection_text">Please select your city.</string>
+    <string name="my_city">My City</string>
 
 </resources>

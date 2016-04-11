@@ -36,7 +36,9 @@
     <string name="qatar_code">92</string>
     <string name="error_invalid_num">Please enter a valid Mobile Number</string>
     <string name="subscription_charges">You will be charged Rs <b>5</b>/week</string>
-    <string name="share_with_friends_txt">Hi, I just found this great App for you called Telenor Biz Store. You can find businesses and enjoy the best deals &amp; discounts in your city. Send SUB to 5005 to download the Application.</string>
+    <string name="share_with_friends_txt">Hi, I just found this great App for you called Dealionare. You can find businesses and " +
+        "enjoy Premium Discounts of your favorite Top Brands. Simply download the Application " +
+        "from PlayStore &amp; avail the Best Deals in your city!</string>
     <string name="food_dining">Food Deals</string>
     <string name="special_discounts">Special Discounts</string>
     <string name="hot_deals">Hot Deals</string>

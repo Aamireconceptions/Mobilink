@@ -55,6 +55,11 @@ android {
             versionName = "1.0"
 
         }
+
+        mobilink{
+            applicationId "pk.com.mobilink.bizstore"
+            versionName = "1.0"
+        }
     }
 }
 
