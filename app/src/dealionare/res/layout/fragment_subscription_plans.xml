@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/bizstore"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:src="@drawable/subscription"/>
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/red_tickicon"
+            android:textSize="13sp"
+            android:text="@string/find_popular_venues"/>
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/red_tickicon"
+            android:textSize="13sp"
+            android:text="@string/get_restaurants_deals"/>
+
+        <TextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/red_tickicon"
+            android:textSize="13sp"
+            android:text="@string/discounts_on_fav_brands"/>
+
+        <TextView
+            android:id="@+id/tv_movies_cinemas_etc"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/red_tickicon"
+            android:textSize="13sp"
+            android:text="@string/movies_cinemas_more"/>
+
+
+
+        <Button
+            android:id="@+id/btn_subscribe"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:alpha="1.0"
+            android:background="@drawable/bg_red"
+            android:gravity="center"
+            android:text="@string/SUBSCRIBE"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/agree_terms_services"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:text="@string/subscription_terms_services"/>
+
+    </LinearLayout>
+
+</ScrollView>

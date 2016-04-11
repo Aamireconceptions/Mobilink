@@ -484,10 +484,10 @@ public CoordinatorLayout coordinatorLayout;
     private void setupTabs() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
-        if(BuildConfig.FLAVOR.equals("dealionare"))
+        /*if(BuildConfig.FLAVOR.equals("dealionare"))
         {
             tabLayout.setBackgroundColor(Color.parseColor("#232f3e"));
-        }
+        }*/
 
         //tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 

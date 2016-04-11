@@ -36,7 +36,7 @@ public class Converter
             return new Category(context.getString(R.string.food_dining), R.drawable.ic_food_dining);
         }
         else
-        if(target.equals("Shopping & Specialty Stores"))
+        if(target.equals("Shopping & Specialty Stores") || target.equals("Shopping") || target.equals("Shopping and Fashion"))
         {
             return new Category(context.getString(R.string.shopping_speciality), R.drawable.ic_shopping);
         }
@@ -66,7 +66,7 @@ public class Converter
             return new Category(context.getString(R.string.travel_tours), R.drawable.ic_travel);
         }
         else
-        if(target.equals(",Entertainment"))
+        if(target.equals("Entertainment"))
         {
             return new Category(context.getString(R.string.entertainment), R.drawable.ic_entertainment);
         }
@@ -79,6 +79,10 @@ public class Converter
         if(target.equals("Sports & Fitness"))
         {
             return new Category(context.getString(R.string.sports_fitness), R.drawable.ic_sports);
+        }
+        if(target.equals("lifestyle"))
+        {
+            return new Category(context.getString(R.string.lifestyle), R.drawable.ic_ladies);
         }
 
         return new Category(context.getString(R.string.sports_fitness), R.drawable.ic_sports);

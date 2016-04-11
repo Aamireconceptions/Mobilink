@@ -111,10 +111,10 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
     @Override
     public int getChildrenCount(int groupPosition)
     {
-        /*if(childList.size() > 0 && childList.get(groupPosition).get(0) instanceof Brand)
+        if(childList.size() > 0 && childList.get(groupPosition).get(0) instanceof Brand)
         {
             return 1;
-        }*/
+        }
 
         return childList.get(groupPosition).size();
     }
@@ -384,6 +384,8 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
         }
         else
         {
+            List<Brand> testbrands = (List<Brand>) childList.get(groupPosition);
+
             SimilarBrandsAdapter adapter = new SimilarBrandsAdapter(context, R.layout.grid_brand,
                     (List<Brand>) childList.get(groupPosition));
 

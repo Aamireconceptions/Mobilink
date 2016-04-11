@@ -139,7 +139,7 @@ public class LifestyleFragment extends Fragment implements OnFilterChangeListene
 
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
-        String cache = dealsTask.getCache("education");
+        String cache = dealsTask.getCache("lifestyle");
 
         if(cache != null && !isRefreshed)
         {
@@ -147,7 +147,7 @@ public class LifestyleFragment extends Fragment implements OnFilterChangeListene
         }
         else
         {
-            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "education");
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "lifestyle");
         }
 
     }

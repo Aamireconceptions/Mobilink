@@ -827,25 +827,25 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             else
             {
                 btBrands.setVisibility(View.GONE);
+            }
 
-                if(response.result.deals.size() > 0)
+            if(response.result.deals.size() > 0)
+            {
+                groupList.clear();
+                childList.clear();
+
+                for(MallDeals deal : response.result.deals)
                 {
-                    groupList.clear();
-                    childList.clear();
-
-                    for(MallDeals deal : response.result.deals)
-                    {
-                        groupList.add(deal.category);
-                        childList.add(deal.deals);
-                    }
-
-                    btDeals.setSelected(true);
-                    lastSelected = btDeals;
+                    groupList.add(deal.category);
+                    childList.add(deal.deals);
                 }
-                else
-                {
-                    btDeals.setVisibility(View.GONE);
-                }
+
+                btDeals.setSelected(true);
+                lastSelected = btDeals;
+            }
+            else
+            {
+                btDeals.setVisibility(View.GONE);
             }
 
             //setupDealsAndBrands(response);

@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
@@ -203,11 +204,14 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         mall.views += 1;
 
-        /*Intent intent = new Intent(activity, MallDetailActivity.class);
-        intent.putExtra("business", new Business(mall));
-        intent.putExtra(AppConstant.CATEGORY, AppConstant.DEAL_CATEGORIES[6]);
-        startActivity(intent);*/
-
-        activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
+        if(BuildConfig.FLAVOR.equals("telenor")) {
+            Intent intent = new Intent(activity, MallDetailActivity.class);
+            intent.putExtra("business", new Business(mall));
+            intent.putExtra(AppConstant.CATEGORY, AppConstant.DEAL_CATEGORIES[6]);
+            startActivity(intent);
+        }
+        else {
+            activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
+        }
     }
 }

@@ -65,7 +65,7 @@ public class CategoryUtils {
 
         /* ENTERTAINMENT */
             subCategories.add(new SubCategory(28, R.id.cb_cinemas, activity.getString(R.string.cinemas), "entertainment_cinemas", CT_ENTERTAINMENT, false, false));
-            subCategories.add(new SubCategory(29, R.id.cb_entertainment_others, activity.getString(R.string.talk_shows), "entertainment_others", CT_ENTERTAINMENT, false, false));
+            subCategories.add(new SubCategory(29, R.id.cb_entertainment_others, activity.getString(R.string.others), "entertainment_others", CT_ENTERTAINMENT, false, false));
 
         /* NEAR BY */
             subCategories.add(new SubCategory(36, R.id.cb_food_dining, activity.getString(R.string.food_dining), "food", CT_NEARBY, false, false));

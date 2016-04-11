@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -102,6 +103,9 @@ public class SlideFragment extends Fragment
 
             case 2:
 
+                if(BuildConfig.FLAVOR.equals("dealionare")) {
+                    textView1.setVisibility(View.GONE);
+                }
                 textView1.setTextColor(ColorUtils.BLACK);
                 textView2.setTextColor(ColorUtils.BLACK);
                 textView3.setTextColor(ColorUtils.RED);

@@ -45,6 +45,11 @@ public class SignUpFragment extends BaseFragment {
         etMsisdn = (EditText) parent.findViewById(R.id.et_phone_num);
         parent.findViewById(R.id.btn_next).setOnClickListener(this);
         mActivity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_VISIBLE | SOFT_INPUT_ADJUST_RESIZE);
+
+        if(BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            parent.findViewById(R.id.tv_sms_charges).setVisibility(View.GONE);
+        }
     }
 
     @Override

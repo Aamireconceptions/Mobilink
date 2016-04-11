@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -85,6 +86,14 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
                     DialogUtils.activity = (Activity) activity;
 
                     DialogUtils.startWelcomeFragment();
+                }
+                else
+                if(response.resultCode == 4)
+                {
+                    if(response.desc.equals("Not Billed"))
+                    {
+                        DialogUtils.createAlertDialog(activity, 0, R.string.error_insufficient_balance).show();
+                    }
                 }
             }
             else

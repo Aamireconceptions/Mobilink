@@ -321,5 +321,7 @@
     <string name="ok">OK</string>
     <string name="menu">Menu</string>
     <string name="version">Version</string>
+    <string name="error_insufficient_balance">Dear user, you have insufficient balance to perform this operation.</string>
+    <string name="lifestyle">Lifestyle</string>
 
 </resources>
