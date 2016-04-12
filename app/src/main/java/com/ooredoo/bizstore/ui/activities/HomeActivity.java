@@ -571,7 +571,8 @@ public CoordinatorLayout coordinatorLayout;
         TextView tvSortBy = (TextView) findViewById(R.id.sort_by);
         tvSortBy.setText(sort + " " + by, TextView.BufferType.SPANNABLE);
 
-        int color = BuildConfig.FLAVOR.equals("ooredoo") ? R.color.red : R.color.white;
+        int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
+                ? R.color.red : R.color.white;
         Spannable spannable = (Spannable) tvSortBy.getText();
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(color)),
                 0, sort.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

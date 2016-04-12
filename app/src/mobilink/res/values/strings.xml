@@ -6,10 +6,10 @@
     <string name="slide_3_text_1">TRAVEL &amp; TOURS, HOTELS &amp;</string>
     <string name="slide_3_text_2">SPAS, SPORTS &amp; FITNESS</string>
     <string name="slide_3_text_3">&amp; MUCH MORE</string>
-    <string name="help_question1">What is Telenor Biz Store Service all about?</string>
-    <string name="help_answer1"><![CDATA[Telenor Biz Store is an SMS and Mobile Application based service which provides a platform to view best Deals & Discounts on Top Brands in Pakistan. With major brands on-board ranging from fashion & lifestyle to health & fitness, Shopping, Restaurants and much more, Biz Store has it All!\n\nTelenor Biz Store also offers a variety of Exclusive Deals available to BizStore users only who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
-    <string name="help_question2">What do I get from Telenor Biz Store?</string>
-    <string name="help_answer2"><![CDATA[Telenor Biz Store users get Exclusive Deals & Discounts along with latest updates of the related categories. The user can also search any business of their liking and get the contact details. The categories for which deals & updates are offered are as follows:
+    <string name="help_question1">What is Jazz Biz Store Service all about?</string>
+    <string name="help_answer1"><![CDATA[Jazz Biz Store is an SMS and Mobile Application based service which provides a platform to view best Deals & Discounts on Top Brands in Pakistan. With major brands on-board ranging from fashion & lifestyle to health & fitness, Shopping, Restaurants and much more, Biz Store has it All!\n\Jazz Biz Store also offers a variety of Exclusive Deals available to BizStore users only who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
+    <string name="help_question2">What do I get from Jazz Biz Store?</string>
+    <string name="help_answer2"><![CDATA[Jazz Biz Store users get Exclusive Deals & Discounts along with latest updates of the related categories. The user can also search any business of their liking and get the contact details. The categories for which deals & updates are offered are as follows:
     \n\t\t1. Top Deals
     \n\t\t2. Food Deals
     \n\t\t3. Shopping and Fashion
@@ -17,16 +17,16 @@
     \n\t\t5. Health and Fitness
     \n\t\t6. Education
     \n\t\t7. Entertainment]]></string>
-    <string name="help_question3">How can a user subscribe to Telenor Biz Store?</string>
-    <string name="help_answer3">User can subscribe to Telenor Biz Store via either of the two mediums:</string>
-    <string name="help_answer3a">1. <b>SMS:</b> User must send “SUB” to 5005. Once sent, the user will get a message confirming successful subscription. User will be charged Rs. 5+tax/Week as subscription price. However, if the user has already subscribed to the service through Smartphone Application, he will not be charged again.</string>
+    <string name="help_question3">How can a user subscribe to Jazz Biz Store?</string>
+    <string name="help_answer3">User can subscribe to Jazz Biz Store via either of the two mediums:</string>
+    <string name="help_answer3a">1. <b>SMS:</b> User must send “SUB” to 5005. Once sent, the user will get a message confirming successful subscription. User will be charged Rs. 0.50+tax/Week as subscription price. However, if the user has already subscribed to the service through Smartphone Application, he will not be charged again.</string>
     <string name="help_answer3b">2. <b>Smart Phone Application:</b>
-\n\t\ti. User downloads the Bizstore smartphone application from Telenor App Store.
-\n\t\tii. User enters his Telenor Mobile Number to login.
-\n\t\tiii. On successful login, he becomes the subscriber and is charged Rs. 5 + tax /Week for the service.
+\n\t\ti. User downloads the Bizstore smartphone application from Jazz App Store.
+\n\t\tii. User enters his Jazz Mobile Number to login.
+\n\t\tiii. On successful login, he becomes the subscriber and is charged Rs. 2.5 + tax/Week for the service.
 \n\tiv. However, in case the user has already subscribed to the service through SMS, he will not be charged again.</string>
     <string name="help_question4">What are the Smartphone Application Charges?</string>
-    <string name="help_answer4">Upon successful application installation &amp; login, the user will be charged are Rs. 5+tax/Week. However, the user is not charged on downloading the smartphone application.</string>
+    <string name="help_answer4">Upon successful application installation &amp; login, the user will be charged are Rs. 2.5+tax/Week. However, the user is not charged on downloading the smartphone application.</string>
     <string name="help_question5">How can a User Redeem Exclusive Deals?</string>
     <string name="help_answer5">The User can redeem the deal through following steps:</string>
     <string name="help_answer5a">Step 1: User views the deal on APP.
@@ -72,7 +72,6 @@
     <string name="tips">Tips</string>
     <string name="copyrights_text">© Copyright 2016 Jazz BizStore Application\nAll rights reserved.</string>
     <string name="city_selection_text">Please select your city.</string>
-    <string name="my_city">My City</string>
-
+    <string name="my_city">City</string>
 
 </resources>

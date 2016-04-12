@@ -8,14 +8,14 @@
     android:fillViewport="false">
 
     <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ll_top_deals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_8sdp"
         android:paddingBottom="@dimen/_8sdp"
         android:paddingStart="@dimen/_8sdp"
-    android:paddingEnd="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_8sdp"
         android:gravity="center"
 
         android:orientation="horizontal"
@@ -131,8 +131,6 @@
                 android:textColor="@color/gray_light_shade"/>
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 

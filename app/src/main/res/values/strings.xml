@@ -38,8 +38,8 @@
     <string name="travel_tours">Travel &amp; Tours</string>
     <string name="jewelry_exchange">Jewellery &amp; Exchange</string>
     <string name="sports_fitness">Sports &amp; Fitness</string>
-    <string name="my_account">My Account</string>
-    <string name="my_notifications">My Notifications</string>
+    <string name="my_account">Account</string>
+    <string name="my_notifications">Notifications</string>
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="un_subscribe">Unsubscribe</string>

@@ -165,7 +165,8 @@ dealofDayCalled = false;
         String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
         String brandsOfTheWeek = brands + " " + ofTheWeek;
 
-        int color = BuildConfig.FLAVOR.equals("ooredoo") ? R.color.red : R.color.white;
+        int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
+                ? R.color.red : R.color.white;
 
 
         FontUtils.changeColorAndMakeBold(tvTopBrands, brandsOfTheWeek, brands,

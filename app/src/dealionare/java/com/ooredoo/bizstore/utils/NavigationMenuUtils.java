@@ -22,6 +22,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
 import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
+import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -136,11 +137,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
 
         LinearLayout llLangToggle = (LinearLayout) navigationHeader.findViewById(R.id.lang_toggle_layout);
+        llLangToggle.setVisibility(View.GONE);
 
-        if(!BuildConfig.FLAVOR.equals("ooredoo"))
-        {
-            llLangToggle.setVisibility(View.GONE);
-        }
 
         TextView tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
         tvNumber.setText(PhoneNumberUtils

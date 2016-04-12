@@ -150,11 +150,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
 
         LinearLayout llLangToggle = (LinearLayout) navigationHeader.findViewById(R.id.lang_toggle_layout);
-
-        if(BuildConfig.FLAVOR.equals("telenor"))
-        {
-            llLangToggle.setVisibility(View.GONE);
-        }
+        llLangToggle.setVisibility(View.GONE);
+     
 
         TextView tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
         tvNumber.setText(PhoneNumberUtils

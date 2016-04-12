@@ -165,7 +165,8 @@ public class FilterOnClickListener implements View.OnClickListener {
                     String all = activity.getString(R.string.all).toUpperCase();
                     String categories = activity.getString(R.string.categories).toUpperCase();
 
-                    int color = BuildConfig.FLAVOR.equals("ooredoo") ? R.color.red : R.color.white;
+                    int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
+                    ? R.color.red : R.color.white;
 
                     if(category == CategoryUtils.CT_NEARBY || category == CategoryUtils.CT_TOP)
                     {
