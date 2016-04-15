@@ -216,13 +216,22 @@ public class DealOfDayAdapter extends BaseAdapter
 
             if(c == 1)
             {
-                params.setMarginStart((int) Converter.convertDpToPixels(12));
+                if(BizStore.getLanguage().equals("en"))
+                {
+                    params.leftMargin = (int) Converter.convertDpToPixels(12);
+                }
+                else
+                {
+                    params.rightMargin = (int) Converter.convertDpToPixels(12);
+                }
+
+              //  params.setMarginStart((int) Converter.convertDpToPixels(12));
             }
            // params.rowSpec = GridLayout.spec(r);
             //params.columnSpec = GridLayout.spec(c);
 
             params.setGravity(Gravity.CENTER_HORIZONTAL);
-            Logger.print("row:"+r+", column:"+c);
+            Logger.print("row:" + r + ", column:" + c);
             holder.gridLayout.addView(rlCell, params);
 
             Logger.print("Specs: "+params.width+", "+params.height);

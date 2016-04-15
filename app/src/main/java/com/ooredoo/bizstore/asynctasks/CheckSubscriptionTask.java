@@ -77,10 +77,8 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
                 activity.startActivity(new Intent(activity, MainActivity.class));
 
             }
-
         }
     }
-
 
     private String check() throws IOException
     {

@@ -1,15 +1,15 @@
 <resources>
-    <string name="app_name">Jazz BizStore</string>
+    <string name="app_name">Jazz Discount Bazar</string>
     <string name="slide_2_text_1">MOVIES, CINEMAS, EVENTS</string>
     <string name="slide_2_text_2">&amp; ENTERTAINMENT</string>
     <string name="slide_2_text_3">ON YOUR FINGER TIPS</string>
     <string name="slide_3_text_1">TRAVEL &amp; TOURS, HOTELS &amp;</string>
     <string name="slide_3_text_2">SPAS, SPORTS &amp; FITNESS</string>
     <string name="slide_3_text_3">&amp; MUCH MORE</string>
-    <string name="help_question1">What is Jazz Biz Store Service all about?</string>
-    <string name="help_answer1"><![CDATA[Jazz Biz Store is an SMS and Mobile Application based service which provides a platform to view best Deals & Discounts on Top Brands in Pakistan. With major brands on-board ranging from fashion & lifestyle to health & fitness, Shopping, Restaurants and much more, Biz Store has it All!\n\Jazz Biz Store also offers a variety of Exclusive Deals available to BizStore users only who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
-    <string name="help_question2">What do I get from Jazz Biz Store?</string>
-    <string name="help_answer2"><![CDATA[Jazz Biz Store users get Exclusive Deals & Discounts along with latest updates of the related categories. The user can also search any business of their liking and get the contact details. The categories for which deals & updates are offered are as follows:
+    <string name="help_question1">What is Jazz Discount Bazar Service all about?</string>
+    <string name="help_answer1"><![CDATA[Jazz Discount Bazar is an SMS and Mobile Application based service which provides a platform to view best Deals & Discounts on Top Brands in Pakistan. With major brands on-board ranging from fashion & lifestyle to health & fitness, Shopping, Restaurants and much more, Discount Bazar has it All!\nJazz Discount Bazar also offers a variety of Exclusive Deals available to Discount Bazar users only who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
+    <string name="help_question2">What do I get from Jazz Discount Bazar?</string>
+    <string name="help_answer2"><![CDATA[Jazz Discount Bazar users get Exclusive Deals & Discounts along with latest updates of the related categories. The user can also search any business of their liking and get the contact details. The categories for which deals & updates are offered are as follows:
     \n\t\t1. Top Deals
     \n\t\t2. Food Deals
     \n\t\t3. Shopping and Fashion
@@ -17,11 +17,11 @@
     \n\t\t5. Health and Fitness
     \n\t\t6. Education
     \n\t\t7. Entertainment]]></string>
-    <string name="help_question3">How can a user subscribe to Jazz Biz Store?</string>
-    <string name="help_answer3">User can subscribe to Jazz Biz Store via either of the two mediums:</string>
+    <string name="help_question3">How can a user subscribe to Jazz Discount Bazar?</string>
+    <string name="help_answer3">User can subscribe to Jazz Discount Bazar via either of the two mediums:</string>
     <string name="help_answer3a">1. <b>SMS:</b> User must send “SUB” to 5005. Once sent, the user will get a message confirming successful subscription. User will be charged Rs. 0.50+tax/Week as subscription price. However, if the user has already subscribed to the service through Smartphone Application, he will not be charged again.</string>
     <string name="help_answer3b">2. <b>Smart Phone Application:</b>
-\n\t\ti. User downloads the Bizstore smartphone application from Jazz App Store.
+\n\t\ti. User downloads the Jazz Discount Bazar smartphone application from Jazz App Store.
 \n\t\tii. User enters his Jazz Mobile Number to login.
 \n\t\tiii. On successful login, he becomes the subscriber and is charged Rs. 2.5 + tax/Week for the service.
 \n\tiv. However, in case the user has already subscribed to the service through SMS, he will not be charged again.</string>
@@ -41,7 +41,7 @@
     <string name="qatar_code">92</string>
     <string name="error_invalid_num">Please enter a valid Mobilink Mobile Number</string>
     <string name="subscription_charges">You will be charged Rs <b>2.99</b>/week</string>
-    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz BizStore. You can find businesses and " +
+    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz Discount Bazar. You can find businesses and " +
                             "enjoy Premium Discounts of your favorite Top Brands. Simply download the Application " +
                             "from PlayStore &amp; avail the Best Deals in your city!</string>
     <string name="food_dining">Food Deals</string>
@@ -70,8 +70,9 @@
     <string name="travel">Travel</string>
     <string name="ladies">Ladies</string>
     <string name="tips">Tips</string>
-    <string name="copyrights_text">© Copyright 2016 Jazz BizStore Application\nAll rights reserved.</string>
+    <string name="copyrights_text">© Copyright 2016 Jazz Discount Bazar Application\nAll rights reserved.</string>
     <string name="city_selection_text">Please select your city.</string>
     <string name="my_city">City</string>
+    <string name="un_sub_success">Dear User, you have successfully unsubscribed from Jazz Discount Bazar!</string>
 
 </resources>

@@ -39,7 +39,7 @@ public class SubscriptionPlansFragment extends BaseFragment {
         tvTOS.setText(Html.fromHtml(signUpActivity.getString(R.string.subscription_terms_services)));
         tvTOS.setOnClickListener(this);
 
-        if(BuildConfig.FLAVOR.equals("telenor")){
+        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("mobilink")){
             tvTOS.setVisibility(View.GONE);
         }
     }

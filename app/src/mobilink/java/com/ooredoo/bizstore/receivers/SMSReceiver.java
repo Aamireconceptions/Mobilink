@@ -54,8 +54,8 @@ public class SMSReceiver extends BroadcastReceiver
                             //Toast.makeText(context, "SMS RECEIVED", Toast.LENGTH_SHORT).show();
 
 
-                            if (msgBody.contains("Password for Telenor Bizstore application is")) {
-                                String code = msgBody.substring(msgBody.length() - 6);
+                            if (msgBody.contains("Password for Bizstore App is")) {
+                                String code = msgBody.substring(msgBody.length() - 8);
 
                                 BizStore.password = code;
 

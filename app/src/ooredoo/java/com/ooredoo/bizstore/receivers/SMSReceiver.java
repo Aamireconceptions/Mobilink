@@ -54,7 +54,7 @@ public class SMSReceiver extends BroadcastReceiver
                             //Toast.makeText(context, "SMS RECEIVED", Toast.LENGTH_SHORT).show();
 
                             if(BizStore.getLanguage().equals("en")) {
-                                if (msgBody.contains("Password for Bizstore App is")) {
+                                if (msgBody.contains("Password for Ooredoo BizStore App is")) {
                                     String code = msgBody.substring(msgBody.length() - 6);
 
                                     BizStore.password = code;
@@ -68,7 +68,7 @@ public class SMSReceiver extends BroadcastReceiver
                             }
                             else
                             {
-                                if (msgBody.contains("كلمة المرور لتطبيق Bizstore هي")) {
+                                if (msgBody.contains("كلمة المرور لتطبيق Ooredoo Bizstore هي")) {
                                     String code = msgBody.substring(msgBody.length() - 6);
 
                                     BizStore.password = code;

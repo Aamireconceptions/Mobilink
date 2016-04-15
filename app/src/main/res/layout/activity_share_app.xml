@@ -78,6 +78,13 @@
                     android:textSize="14sp"
                     android:theme="@style/editTextTheme"/>
 
+                <ImageView
+                    android:id="@+id/pickFromContacts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/ic_plus"/>
+
             </LinearLayout>
 
             <TextView

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
@@ -58,7 +59,9 @@ public class ShareAppActivity extends AppCompatActivity {
         FontUtils.setFontWithStyle(this, btShareApp, Typeface.BOLD);
 
         etPhoneNum = (EditText) findViewById(R.id.phone_number);
-        etPhoneNum.setOnClickListener(new View.OnClickListener() {
+
+        ImageView ivPickFromContacts = (ImageView) findViewById(R.id.pickFromContacts);
+        ivPickFromContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
@@ -117,10 +120,6 @@ public class ShareAppActivity extends AppCompatActivity {
                     if(number.contains("+974"))
                     {
                        number = number.substring(4);
-                    }
-                    else
-                    {
-
                     }
                 }
                 else

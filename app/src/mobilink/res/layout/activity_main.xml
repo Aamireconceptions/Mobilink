@@ -31,9 +31,9 @@
     <Button
         android:id="@+id/btn_next"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_60sdp"
-        android:paddingEnd="@dimen/_60sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:paddingStart="@dimen/_70sdp"
+        android:paddingEnd="@dimen/_70sdp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/_8sdp"

@@ -71,5 +71,6 @@
     <string name="copyrights_text">© Copyright 2016 Telenor BizStore Application\nAll rights reserved.</string>
     <string name="city_selection_text">Please select your city.</string>
     <string name="my_city">City</string>
+    <string name="un_sub_success">Dear User, you have successfully unsubscribed from Telenor BizStore!</string>
 
 </resources>
