@@ -74,5 +74,8 @@
     <string name="city_selection_text">Please select your city.</string>
     <string name="my_city">City</string>
     <string name="un_sub_success">Dear User, you have successfully unsubscribed from Jazz Discount Bazar!</string>
-
+    <string name="Unsubscribe_Bizstore">Unsubscribe Jazz Discount Bazar</string>
+    <string name="unsub_details">By unsubscribing Jazz Discount Bazar, you will no longer get promotion or service alerts from application.</string>
+    <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Jazz Discount Bazar.\nFind popular venues, great local businesses,\nDiscover discounts, products & services closest to you, wherever you are!]]></string>
+    <string name="sms_charges">Jazz Discount Bazar app will send a one time sms message to verify your phone number.</string>
 </resources>

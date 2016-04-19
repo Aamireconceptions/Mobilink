@@ -32,9 +32,9 @@ public class BizStore extends com.activeandroid.app.Application {
 
     //public static String password = "d5pF55dZ";
 
-    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "609964"
+    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "427558"
             : BuildConfig.FLAVOR.equals("telenor") ? "DgHcXN"
-            : "ncXSdLNf";
+            : "731670";
 
     private Tracker tracker;
 

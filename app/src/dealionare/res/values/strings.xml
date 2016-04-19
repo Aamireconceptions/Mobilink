@@ -7,7 +7,7 @@
     <string name="slide_3_text_2">SPAS, SPORTS &amp; FITNESS</string>
     <string name="slide_3_text_3">&amp; MUCH MORE</string>
     <string name="help_question1">What is Top Deals  Service all about?</string>
-    <string name="help_answer1"><![CDATA[Top Deals is a Smartphone Application service which provides a platform to view best Deals & Discounts on Top Brands in Pakistan. With major brands on-board ranging from fashion & lifestyle to health & fitness, Shopping, Restaurants and much more, Top Deals has it All!\n\n Top Deals also offers a variety of Exclusive Deals available to the users who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
+    <string name="help_answer1"><![CDATA[Top Deals is a Smartphone Application service which provides a platform to view best Deals & Discounts on Top Brands in Pakistan. With major brands on-board ranging from fashion & lifestyle to health & fitness, Shopping, Restaurants and much more, Top Deals has it All!\n\n Top Deals also offers a variety of Exclusive Deals available to the users who can later avail them from the respective stores/outlets via deal redemption process.]]></string>
     <string name="help_question2">What do I get from Top Deals?</string>
     <string name="help_answer2"><![CDATA[Top Deals users get Exclusive Deals & Discounts along with latest updates of the related categories. The user can also search any business of their liking and get the contact details. The categories for which deals & updates are offered are as follows:
     \n\t\t1. Top Deals
@@ -36,11 +36,10 @@
     <string name="qatar_code">92</string>
     <string name="error_invalid_num">Please enter a valid Mobile Number</string>
     <string name="subscription_charges">You will be charged Rs <b>5</b>/week</string>
-    <string name="share_with_friends_txt">Hi, I just found this great App for you called Top Deals. You can find businesses and " +
-        "enjoy Premium Discounts of your favorite Top Brands. Simply download the Application " +
-        "from PlayStore &amp; avail the Best Deals in your city!</string>
+    <string name="share_with_friends_txt">Hi, I just found this great App for you called Top Deals. You can find businesses and enjoy Premium Discounts of your favorite Top Brands. Simply download the Application
+        from PlayStore &amp; avail the Best Deals in your city!</string>
     <string name="food_dining">Food Deals</string>
-    <string name="special_discounts">Special Discounts</string>
+    <string name="special_discounts">Special Deals</string>
     <string name="hot_deals">Hot Deals</string>
     <string name="restaurants_menu">Restaurants and Menu</string>
     <string name="shopping_speciality">Shopping</string>
@@ -74,5 +73,31 @@
     <string name="Unsubscribe_Bizstore">Sign out Top Deals</string>
     <string name="un_subscribe">Sign out</string>
     <string name="unsub_details">By signing out of Top Deals, you will no longer get promotion or service alerts from application.</string>
+    <string name="deals_of_the_day">Deals Of The Day</string>
+    <string name="deals_discount">Deals</string>
+    <string name="Search_for_Deals">Search for Deals</string>
+    <string name="Deal_Description">Deal Description</string>
+    <string name="redeemed_deals">Redeemed Deals</string>
+    <string name="rate_deal">Rate this deal</string>
+    <string name="deals">Deals</string>
+    <string name="featured_deals">Featured Deals</string>
+    <string name="deal">Deal</string>
+    <string name="redeem_deal">Redeem deal</string>
+    <string name="deal_valid_till">This deal is valid till</string>
+    <string name="similar_deals">Similar Deals</string>
+    <string name="no_nearby_deals">No nearby deals found</string>
+    <string name="deal_has_been_viewed">This deal has been viewed</string>
+    <string name="error_no_nearby_deals">No Nearby Deals Available!</string>
+    <string name="deal_loc_not_availabe">Deal location is not available!</string>
+    <string name="error_no_deal_redeemed">You haven\'t redeemed any deal yet!</string>
+    <string name="hotels_deals">Hotels &amp; Deals</string>
+    <string name="brands_deals">Brands &amp; Deals</string>
+    <string name="deals_brand">Deals &amp; Brands</string>
+    <string name="dealss">deal(s).</string>
+    <string name="top_deals">Top Deals</string>
+    <string name="nearby">Nearby Deals</string>
+    <string name="my_city">City</string>
+    <string name="city_selection_text">Please select your city.</string>
+    <string name="un_sub_success">Dear User, you have successfully unsubscribed from Top Deals!</string>
 
 </resources>

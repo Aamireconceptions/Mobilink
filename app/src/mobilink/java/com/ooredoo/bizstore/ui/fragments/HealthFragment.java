@@ -208,7 +208,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         memoryCache.remove(adapter.deals);
 
-        final String KEY = PREFIX_DEALS.concat("hotels_spas");
+        final String KEY = PREFIX_DEALS.concat("health");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
@@ -230,7 +230,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.hotels_spa_banner);
+        ivBanner.setImageResource(R.drawable.health_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
 

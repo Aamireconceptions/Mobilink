@@ -8,6 +8,7 @@ import android.widget.ExpandableListView;
 
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.ui.activities.AboutUsActivity;
+import com.ooredoo.bizstore.ui.activities.CitySelectionActivity;
 import com.ooredoo.bizstore.ui.activities.HelpActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
@@ -48,29 +49,36 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
                         break;
 
                     case 1:
+                        activity.startActivityForResult(new Intent(activity, CitySelectionActivity.class),
+                                101);
+
+                        break;
+
+                    case 2:
 
                         startActivity(NotificationsActivity.class);
 
                         break;
 
-                    case 2:
-                        rateUsOnPlayStore();
-
-                        break;
-
                     case 3:
 
-                        startActivity(HelpActivity.class);
+                        rateUsOnPlayStore();
 
                         break;
 
                     case 4:
 
-                        startActivity(AboutUsActivity.class);
+                        startActivity(HelpActivity.class);
 
                         break;
 
                     case 5:
+
+                        startActivity(AboutUsActivity.class);
+
+                        break;
+
+                    case 6:
 
                         DialogUtils.showUnSubscribeDialog(activity);
                 }

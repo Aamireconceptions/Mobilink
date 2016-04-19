@@ -1289,7 +1289,9 @@ LinearLayout llSearch;
         {
             if(resultCode == RESULT_OK)
             {
-                ((SwipeRefreshLayout.OnRefreshListener) currentFragment).onRefresh();
+                if(currentFragment != null) {
+                    ((SwipeRefreshLayout.OnRefreshListener) currentFragment).onRefresh();
+                }
             }
         }
     }

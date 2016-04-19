@@ -81,7 +81,7 @@ public class CategoryUtils {
             subCategories.add(new SubCategory(36, R.id.cb_food_dining, activity.getString(R.string.food_dining), "food", CT_NEARBY, false, false));
             subCategories.add(new SubCategory(37, R.id.cb_shopping, activity.getString(R.string.shopping), "shopping", CT_NEARBY, false, false));
             subCategories.add(new SubCategory(38, R.id.cb_ladies, activity.getString(R.string.ladies_section), "ladies", CT_NEARBY, false, false));
-            subCategories.add(new SubCategory(39, R.id.cb_health, activity.getString(R.string.health_fitness), "health_fitness", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(39, R.id.cb_health, activity.getString(R.string.health_fitness), "health", CT_NEARBY, false, false));
             subCategories.add(new SubCategory(40, R.id.cb_education, activity.getString(R.string.education), "education", CT_NEARBY, false, false));
             subCategories.add(new SubCategory(41, R.id.cb_entertainment, activity.getString(R.string.entertainment), "entertainment", CT_NEARBY, false, false));
 
@@ -89,7 +89,7 @@ public class CategoryUtils {
             subCategories.add(new SubCategory(46, R.id.cb_food_dining1, activity.getString(R.string.food_dining), "food", CT_TOP, false, false));
             subCategories.add(new SubCategory(47, R.id.cb_shopping1, activity.getString(R.string.shopping), "shopping", CT_TOP, false, false));
             subCategories.add(new SubCategory(48, R.id.cb_ladies1, activity.getString(R.string.ladies_section), "ladies", CT_TOP, false, false));
-            subCategories.add(new SubCategory(49, R.id.cb_health1, activity.getString(R.string.health_fitness), "health_fitness", CT_TOP, false, false));
+            subCategories.add(new SubCategory(49, R.id.cb_health1, activity.getString(R.string.health_fitness), "health", CT_TOP, false, false));
             subCategories.add(new SubCategory(50, R.id.cb_education1, activity.getString(R.string.education), "education", CT_TOP, false, false));
             subCategories.add(new SubCategory(53, R.id.cb_entertainment1, activity.getString(R.string.entertainment), "entertainment", CT_TOP, false, false));
         }

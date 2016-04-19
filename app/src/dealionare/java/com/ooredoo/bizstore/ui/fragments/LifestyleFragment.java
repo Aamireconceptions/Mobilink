@@ -222,7 +222,7 @@ public class LifestyleFragment extends Fragment implements OnFilterChangeListene
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.education_banner);
+        ivBanner.setImageResource(R.drawable.lifestyle_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
 

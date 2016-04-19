@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.activities;
 
 import android.app.FragmentManager;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -35,9 +36,14 @@ public class SignUpActivity extends BaseActivity {
     public Toolbar toolbar;
     private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if(BuildConfig.FLAVOR.equals("telenor"))
+        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("dealionare"))
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+
+        if(BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            toolbar.setBackgroundColor(Color.parseColor("#fb9900"));
         }
         setSupportActionBar(toolbar);
 

@@ -14,7 +14,7 @@
     <string name="weekly_plan_details"><![CDATA[QAR <b>9</b>\nPER WEEK]]></string>
     <string name="WEEKLY_PLAN">WEEKLY PLAN</string>
     <string name="SUBSCRIPTION_PLANS">SUBSCRIPTION PLAN</string>
-    <string name="sms_charges">BizStore app will send a one time sms message to verify your phone number.</string>
+    <string name="sms_charges">Ooredoo BizStore app will send a one time sms message to verify your phone number.</string>
     <string name="num_confirm_text">Please enter your Qatar Ooredoo Number.</string>
     <string name="NEXT">NEXT</string>
     <string name="SIGNUP">SIGNUP</string>
@@ -100,12 +100,12 @@
     <string name="Contact_Information">Contact Information</string>
     <string name="Category">Category</string>
     <string name="Category_2">Category:</string>
-    <string name="Unsubscribe_Bizstore">Unsubscribe BizStore</string>
+    <string name="Unsubscribe_Bizstore">Unsubscribe Ooredoo BizStore</string>
     <string name="No">No</string>
     <string name="Yes">Yes</string>
     <string name="ENTER_CODE">ENTER CODE</string>
     <string name="verification_code_details">Dear user, you will receive passcode from your carrier\nplease check your inbox.</string>
-    <string name="unsub_details">By unsubscribing BizStore, you will no longer get promotion or service alerts from application.</string>
+    <string name="unsub_details">By unsubscribing Ooredoo BizStore, you will no longer get promotion or service alerts from application.</string>
     <string name="share_app_with_friends">Share App with Friends</string>
     <string name="About_Us">About Us</string>
     <string name="select_all">Select All</string>
@@ -129,7 +129,7 @@
     <string name="get_discount_voucher">Get discount voucher</string>
     <string name="getting_vocher">Getting Voucher</string>
     <string name="help_question1">What is Ooredoo BizStore?</string>
-    <string name="help_answer1"><![CDATA[Ooredoo BizStore is an SMS/Mobile Application based service which provides a platform to view best Discounts in Qatar. With major brands on-board ranging from fashion & lifestyle to health & fitness, shopping, restaurants, travelling and much more, BizStore has it All! BizStore also offers a variety of Exclusive Discounts to the users who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
+    <string name="help_answer1"><![CDATA[Ooredoo BizStore is an SMS/Mobile Application based service which provides a platform to view best Discounts in Qatar. With major brands on-board ranging from fashion & lifestyle to health & fitness, shopping, restaurants, travelling and much more, Ooredoo BizStore has it All! Ooredoo BizStore also offers a variety of Exclusive Discounts to the users who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
     <string name="help_question2">What do I get from Ooredoo BizStore?</string>
     <string name="help_answer2"><![CDATA[Ooredoo BizStore users can search address and contact details of businesses of their liking. The user also has multiple options to choose from based on which user will get latest discounts & updates. The categories are:\n\t\t\t1. Top Discounts\n\t\t\t2. Food & Dining\n\t\t\t3. Shopping & Specialty Stores\n\t\t\t4. Electronics\n\t\t\t5. Hotels & Spas\n\t\t\t6. Markets & Malls\n\t\t\t7. Automotives\n\t\t\t8. Travel & Tours\n\t\t\t9. Entertainment\n\t\t\t10. Jewelry & Exchange\n\t\t\t11. Sports & Fitness]]></string>
     <string name="help_question3">How can I subscribe in Ooredoo BizStore?</string>
