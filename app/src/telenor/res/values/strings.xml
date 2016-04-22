@@ -72,5 +72,7 @@
     <string name="city_selection_text">Please select your city.</string>
     <string name="my_city">City</string>
     <string name="un_sub_success">Dear User, you have successfully unsubscribed from Telenor BizStore!</string>
+    <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Telenor BizStore.\nFind popular venues, great local businesses,\nDiscover discounts, products & services closest to you, wherever you are!]]></string>
+    <string name="sms_charges">Telenor BizStore app will send a one time sms message to verify your phone number.</string>
 
 </resources>

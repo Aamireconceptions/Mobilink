@@ -882,10 +882,6 @@ LinearLayout llSearch;
 
     public void hideSearchPopup() {
 
-
-
-
-
         isShowResults = true;
         //findViewById(R.id.layout_search).setVisibility(View.GONE);
 
@@ -1292,6 +1288,18 @@ LinearLayout llSearch;
                 if(currentFragment != null) {
                     ((SwipeRefreshLayout.OnRefreshListener) currentFragment).onRefresh();
                 }
+                else
+                {
+                    HomeFragment homeFragment = (HomeFragment) getFragmentManager().
+                        findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + 0);
+
+                    if(homeFragment != null)
+                    {
+                        homeFragment.onRefresh();
+                    }
+                }
+
+
             }
         }
     }

@@ -13,7 +13,7 @@
     <ImageView
         android:id="@+id/ic_city"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_150sdp"
         android:layout_centerInParent="true"
         android:layout_below="@+id/toolbar"
         android:src="@drawable/cityselection_icon"/>
@@ -84,8 +84,8 @@
 
     <Button
         android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="240dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Save"

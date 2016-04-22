@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="12dp"
+    android:paddingStart="12dp">
+
+    <LinearLayout
+        android:id="@+id/cat_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_4sdp"
+            android:textAllCaps="true"
+            android:textColor="#A0A09F"
+            android:text="@string/deals" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:gravity="center_vertical"
+            android:text="Fashion Deals"
+
+            android:textColor="@color/red"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:columnCount="2"
+        app:useDefaultMargins="false"
+        android:layout_marginTop="12dp"
+        app:alignmentMode="alignBounds"
+        android:layout_gravity="center" />
+
+</LinearLayout>

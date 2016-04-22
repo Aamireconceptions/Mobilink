@@ -122,6 +122,8 @@ public class DealOfDayAdapter extends BaseAdapter
             holder = new Holder();
             holder.tvCategory = (TextView) grid.findViewById(R.id.category);
 
+            holder.tvDiscount = (TextView) grid.findViewById(R.id.discount);
+
             holder.gridLayout = (GridLayout) grid.findViewById(R.id.grid);
 
             holder.llCat = (LinearLayout) grid.findViewById(R.id.cat_layout);
@@ -140,8 +142,16 @@ public class DealOfDayAdapter extends BaseAdapter
         Category category  = Converter.convertCategoryText(context, dod.category);
 
         holder.tvCategory.setText(category.name.toUpperCase());
-        holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
-                0, 0);
+
+        if(BizStore.getLanguage().equals("en")) {
+            holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
+                    0, 0);
+        }
+        else
+        {
+            holder.tvDiscount.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
+                    0, 0);
+        }
 
         FontUtils.setFontWithStyle(context, holder.tvCategory, Typeface.BOLD);
 
@@ -312,7 +322,7 @@ public class DealOfDayAdapter extends BaseAdapter
 
     public static class Holder
     {
-        TextView tvCategory, tvTitle, tvDescription;
+        TextView tvCategory, tvTitle, tvDescription, tvDiscount;
 
         ProgressBar progressBar;
 

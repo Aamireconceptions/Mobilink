@@ -186,9 +186,18 @@ dealofDayCalled = false;
         String featured = getString(R.string.featured).toUpperCase();
         String categories = getString(R.string.categories).toUpperCase();
 
-        String featuredCategories = featured + " " + categories;
+        String featuredCategories;
+        if(BizStore.getLanguage().equals("en")){
+        featuredCategories = featured + " " + categories;
+        }
+        else
+        {
+            featuredCategories = categories + " " + featured;
+        }
 
-        FontUtils.changeColorAndMakeBold(tvFeaturedCategories, featuredCategories, featured,
+        String part = BizStore.getLanguage().equals("en") ? featured : categories;
+
+        FontUtils.changeColorAndMakeBold(tvFeaturedCategories, featuredCategories, part,
                 getResources().getColor(color));
 
         TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);

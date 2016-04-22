@@ -89,7 +89,7 @@ public class CitySelectionActivity extends BaseActivity implements View.OnClickL
 
             Logger.print("mCities" + mCities);
 
-            CityTask cityTask = new CityTask();
+            CityTask cityTask = new CityTask(this);
             cityTask.execute(mCities);
 
             clearCache(this);
