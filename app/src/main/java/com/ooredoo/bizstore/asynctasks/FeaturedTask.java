@@ -121,6 +121,8 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
                 else
                 {
                     viewPager.setBackgroundColor(activity.getResources().getColor(R.color.banner));
+
+                    handleIndicatorVisibility(0, featuredIndicator);
                 }
             }
             catch (JsonSyntaxException e)

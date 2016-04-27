@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.AutomotiveFragment;
 import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
@@ -38,11 +39,18 @@ public class HomePagerAdapter extends FragmentPagerAdapter
         this.context = context;
     }
 
+    /*@Override
+    public int getItemPosition(Object object) {
+
+        return POSITION_NONE;
+       // return super.getItemPosition(object);
+    }*/
+
     @Override
     public Fragment getItem(int position) {
         Logger.print("Creating " + position);
 
-        switch(position) {
+       /* switch(position) {
             case 0:
                 return HomeFragment.newInstance();
             case 1:
@@ -69,8 +77,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 return JewelleryFragment.newInstance();
             case 12:
                 return SportsAndFitnessFragment.newInstance();
-        }
-        /*if(BizStore.getLanguage().equals("en"))
+        }*/
+        if(BizStore.getLanguage().equals("en"))
         {
             switch(position) {
                 case 0:
@@ -132,7 +140,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 case 0:
                     return SportsAndFitnessFragment.newInstance();
             }
-        }*/
+        }
 
         return null;
     }
@@ -144,6 +152,63 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
     @Override
     public CharSequence getPageTitle(int position)
+    {
+        /*switch (position)
+        {
+            case 0:
+
+                return context.getString(R.string.home);
+
+            case 1:
+
+                return context.getString(R.string.nearby);
+
+            case 2:
+
+                return context.getString(R.string.top_deals);
+
+            case 3:
+
+                return context.getString(R.string.food_dining);
+
+            case 4:
+
+                return context.getString(R.string.shopping);
+
+            case 5:
+
+                return context.getString(R.string.electronics);
+
+            case 6:
+
+                return context.getString(R.string.hotels_spa);
+
+            case 7:
+
+                return context.getString(R.string.markets_malls);
+
+            case 8:
+
+                return context.getString(R.string.automotive);
+
+            case 9:
+
+                return context.getString(R.string.travel_tours);
+
+            case 10:
+
+                return context.getString(R.string.entertainment);
+
+            case 11:
+
+                return context.getString(R.string.jewelry_exchange);
+
+            case 12:
+
+                return context.getString(R.string.sports_fitness);
+        }*/
+
+        if(BizStore.getLanguage().equals("en"))
     {
         switch (position)
         {
@@ -199,123 +264,63 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
                 return context.getString(R.string.sports_fitness);
         }
+    }
+    else
+    if(BizStore.getLanguage().equals("ar")) {
+        switch (position) {
+            case 12:
 
-        /*if(BizStore.getLanguage().equals("en"))
-        {
-            switch (position)
-            {
-                case 0:
+                return context.getString(R.string.home);
 
-                    return context.getString(R.string.home);
+            case 11:
 
-                case 1:
+                return context.getString(R.string.nearby);
 
-                    return context.getString(R.string.nearby);
+            case 10:
 
-                case 2:
+                return context.getString(R.string.top_deals);
 
-                    return context.getString(R.string.top_deals);
+            case 9:
 
-                case 3:
+                return context.getString(R.string.food_dining);
 
-                    return context.getString(R.string.food_dining);
+            case 8:
 
-                case 4:
+                return context.getString(R.string.shopping);
 
-                    return context.getString(R.string.shopping);
+            case 7:
 
-                case 5:
+                return context.getString(R.string.electronics);
 
-                    return context.getString(R.string.electronics);
+            case 6:
 
-                case 6:
+                return context.getString(R.string.hotels_spa);
 
-                    return context.getString(R.string.hotels_spa);
+            case 5:
 
-                case 7:
+                return context.getString(R.string.markets_malls);
 
-                    return context.getString(R.string.markets_malls);
+            case 4:
 
-                case 8:
+                return context.getString(R.string.automotive);
 
-                    return context.getString(R.string.automotive);
+            case 3:
 
-                case 9:
+                return context.getString(R.string.travel_tours);
 
-                    return context.getString(R.string.travel_tours);
+            case 2:
 
-                case 10:
+                return context.getString(R.string.entertainment);
 
-                    return context.getString(R.string.entertainment);
+            case 1:
 
-                case 11:
+                return context.getString(R.string.jewelry_exchange);
 
-                    return context.getString(R.string.jewelry_exchange);
+            case 0:
 
-                case 12:
-
-                    return context.getString(R.string.sports_fitness);
-            }
+                return context.getString(R.string.sports_fitness);
         }
-        else
-        if(BizStore.getLanguage().equals("ar")) {
-            switch (position) {
-                case 12:
-
-                    return context.getString(R.string.home);
-
-                case 11:
-
-                    return context.getString(R.string.nearby);
-
-                case 10:
-
-                    return context.getString(R.string.top_deals);
-
-                case 9:
-
-                    return context.getString(R.string.food_dining);
-
-                case 8:
-
-                    return context.getString(R.string.shopping);
-
-                case 7:
-
-                    return context.getString(R.string.electronics);
-
-                case 6:
-
-                    return context.getString(R.string.hotels_spa);
-
-                case 5:
-
-                    return context.getString(R.string.markets_malls);
-
-                case 4:
-
-                    return context.getString(R.string.automotive);
-
-                case 3:
-
-                    return context.getString(R.string.travel_tours);
-
-                case 2:
-
-                    return context.getString(R.string.entertainment);
-
-                case 1:
-
-                    return context.getString(R.string.jewelry_exchange);
-
-                case 0:
-
-                    return context.getString(R.string.sports_fitness);
-            }
-        }*/
-
+    }
         return "No Name";
     }
-
-
 }

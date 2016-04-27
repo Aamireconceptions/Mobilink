@@ -256,7 +256,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 tvDirections.setVisibility(View.GONE);
             }
 
-           tvBrandName.setText(deal.businessName);
+            tvBrandName.setText(deal.businessName);
 
             tvBrandAddress.setText(deal.location);
 

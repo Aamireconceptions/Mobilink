@@ -141,10 +141,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public AutoCompleteTextView acSearch;
 
-    private HomePagerAdapter homePagerAdapter;
+    public HomePagerAdapter homePagerAdapter;
 
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public ViewPager viewPager;
     private ExpandableListView expandableListView;
 
     public boolean isSearchEnabled = false;
@@ -244,8 +244,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         checkIfGpsEnabled();
 
-        if(!BuildConfig.FLAVOR.equals("dealionare"))
-        startSubscriptionCheck();
+        /*if(!BuildConfig.FLAVOR.equals("dealionare"))
+        startSubscriptionCheck();*/
     }
 
     Timer timer;
@@ -497,6 +497,7 @@ public CoordinatorLayout coordinatorLayout;
 
         tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
 
+
     }
 
     private void setupPager() {
@@ -505,6 +506,8 @@ public CoordinatorLayout coordinatorLayout;
        //viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout, this));
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
+
+        //tabLayout.getTabAt(11).select();
 
         //viewPager.setOffscreenPageLimit(11);Dea
        /* if(BizStore.getLanguage().equals("ar"))

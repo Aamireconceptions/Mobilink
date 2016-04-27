@@ -84,6 +84,20 @@
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
 
+        <!--<Button
+            android:id="@+id/btn_login"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:alpha="1.0"
+            android:background="@drawable/bg_red"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>-->
+
         <TextView
             android:id="@+id/agree_terms_services"
             android:layout_width="match_parent"

@@ -116,6 +116,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
                     }
                 } else {
                     viewPager.setBackgroundColor(activity.getResources().getColor(R.color.banner));
+                    handleIndicatorVisibility(0, circlePageIndicator);
                 }
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();

@@ -55,8 +55,11 @@ public class SMSReceiver extends BroadcastReceiver
 
                             if(BizStore.getLanguage().equals("en")) {
                                 if (msgBody.contains("Password for Ooredoo BizStore App is")) {
-                                    String code = msgBody.substring(msgBody.length() - 6);
+                                    //String code = msgBody.substring(msgBody.length() - 6);
 
+                                    String sms[] = msgBody.split("\n");
+
+                                    String code = sms[0].substring(sms[0].length() - 6);
                                     BizStore.password = code;
 
                                     DialogUtils.etCode.setText(code);
@@ -69,7 +72,11 @@ public class SMSReceiver extends BroadcastReceiver
                             else
                             {
                                 if (msgBody.contains("كلمة المرور لتطبيق Ooredoo Bizstore هي")) {
-                                    String code = msgBody.substring(msgBody.length() - 6);
+                                   // String code = msgBody.substring(msgBody.length() - 6);
+
+                                    String sms[] = msgBody.split("\n");
+
+                                    String code = sms[0].substring(sms[0].length() - 6);
 
                                     BizStore.password = code;
 

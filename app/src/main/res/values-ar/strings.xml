@@ -317,4 +317,5 @@
     <string name="version">الإصدار</string>
     <string name="turn_location_on">الرجاء تشغيل خدمات الموقع على لعرض الخصومات القريبة بك</string>
     <string name="error_insufficient_balance">عزيزي المستخدم، ليس لديك رصيد كافي لإجراء هذه العملية.</string>
+    <string name="login">تسجيل الدخول</string>
 </resources>

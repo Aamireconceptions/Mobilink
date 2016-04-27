@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.fragments;
 
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
@@ -29,6 +31,8 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class SignUpFragment extends BaseFragment {
 
     EditText etMsisdn;
+
+    boolean login;
     public SignUpFragment() {
         super();
         layoutResId = R.layout.fragment_sign_up;
@@ -49,6 +53,13 @@ public class SignUpFragment extends BaseFragment {
         if(BuildConfig.FLAVOR.equals("dealionare"))
         {
             parent.findViewById(R.id.tv_sms_charges).setVisibility(View.GONE);
+        }
+
+        Bundle bundle  = getArguments();
+
+        if(bundle != null)
+        {
+            login =  bundle.getBoolean("login");
         }
     }
 
@@ -77,7 +88,7 @@ public class SignUpFragment extends BaseFragment {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
                 BizStore.username = msisdn;
 
-                if(BuildConfig.FLAVOR.equals("dealionare"))
+                if(BuildConfig.FLAVOR.equals("dealionare") || login)
                 {
                     new LoginTask(mActivity).execute();
                 }

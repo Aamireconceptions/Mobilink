@@ -1,6 +1,8 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.View;
@@ -95,7 +97,29 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
 
         new Delete().from(SearchItem.class).execute();
 
+        freeFragmentsFromViewPager();
+
         changeLocale();
+    }
+
+    private void freeFragmentsFromViewPager()
+    {
+        HomeActivity homeActivity = (HomeActivity) activity;
+
+        for(int i = 0; i < homeActivity.homePagerAdapter.getCount(); i++)
+        {
+            Fragment fragment = homeActivity.getFragmentManager().
+                    findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + 0);
+
+            if(fragment != null)
+            {
+                Logger.print("freeing fragments from pager");
+
+                FragmentTransaction fragmentTransaction = homeActivity.getFragmentManager().beginTransaction();
+                fragmentTransaction.remove(fragment);
+                fragmentTransaction.commit();
+            }
+        }
     }
 
     public void setSelected(View v) {

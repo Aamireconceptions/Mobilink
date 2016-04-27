@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.ooredoo.bizstore.utils.FragmentUtils;
 
 public class SubscriptionPlansFragment extends BaseFragment {
 
-    Button btnSubscribe;
+    Button btnSubscribe, btLogin;
 
     public SubscriptionPlansFragment() {
         super();
@@ -34,6 +35,9 @@ public class SubscriptionPlansFragment extends BaseFragment {
         SignUpActivity.hideToolbar = true;
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
+
+     //   btLogin = (Button) parent.findViewById(R.id.btn_login);
+     //   btLogin.setOnClickListener(this);
 
         TextView tvTOS = (TextView ) parent.findViewById(R.id.agree_terms_services);
         tvTOS.setText(Html.fromHtml(signUpActivity.getString(R.string.subscription_terms_services)));
@@ -56,6 +60,18 @@ public class SubscriptionPlansFragment extends BaseFragment {
             FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container,
                                                        new SignUpFragment(), "SignUp");
         }
+
+       /* if (id == R.id.btn_login) {
+
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("login", true);
+
+            SignUpFragment signUpFragment = new SignUpFragment();
+            signUpFragment.setArguments(bundle);
+
+            FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) mActivity, R.id.fragment_container,
+                   signUpFragment, "LogIn");
+        }*/
 
         if(id == R.id.agree_terms_services)
         {

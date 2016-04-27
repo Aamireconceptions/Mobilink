@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
@@ -34,6 +35,8 @@ public class HomeTabSelectedListener extends TabLayout.ViewPagerOnTabSelectedLis
     public void onTabSelected(TabLayout.Tab tab)
     {
        super.onTabSelected(tab);
+
+        BizStore.lastTab = tab.getPosition();
 
         homeActivity.resetFilters();
 

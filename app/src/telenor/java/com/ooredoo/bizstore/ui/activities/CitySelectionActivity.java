@@ -96,9 +96,9 @@ public class CitySelectionActivity extends BaseActivity implements View.OnClickL
 
            // HomeActivity.forceRefresh();
 
-            setResult(RESULT_OK);
+           // setResult(RESULT_OK);
 
-            finish();
+          //  finish();
         }
     }
 

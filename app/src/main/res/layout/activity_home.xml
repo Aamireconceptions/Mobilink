@@ -168,6 +168,7 @@
                     android:paddingEnd="@dimen/_12sdp"
                     android:paddingStart="@dimen/_12sdp"
                     android:scrollbars="none"
+                    android:layoutDirection="ltr"
                     app:tabIndicatorColor="@color/white"
                     app:tabMode="scrollable"
                     app:tabSelectedTextColor="@color/white"
