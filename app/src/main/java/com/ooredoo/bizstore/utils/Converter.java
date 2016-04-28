@@ -85,9 +85,15 @@ public class Converter
         {
             return new Category(context.getString(R.string.sports_fitness), R.drawable.ic_sports);
         }
+        else
         if(target.equals("lifestyle"))
         {
             return new Category(context.getString(R.string.lifestyle), R.drawable.ic_ladies);
+        }
+        else
+        if(target.equals("Top Deals"))
+        {
+            return new Category("Top", R.drawable.ic_shopping);
         }
 
         return new Category("Invalid Category", R.drawable.ic_sports);

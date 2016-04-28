@@ -1,8 +1,8 @@
-<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:fillViewport="true">-->
+            android:fillViewport="true">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -619,7 +619,7 @@
                 android:text="@string/entertainment"/>
 
             <CheckBox
-                android:id="@+id/cb_food_special_discounts"
+                android:id="@+id/cb_food_pakistani"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
@@ -629,10 +629,10 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/special_discounts"/>
+                android:text="@string/pakistani"/>
 
             <CheckBox
-                android:id="@+id/cb_food_hot_deals"
+                android:id="@+id/cb_food_fast_food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
@@ -642,10 +642,10 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/hot_deals"/>
+                android:text="@string/Fast_Food"/>
 
             <CheckBox
-                android:id="@+id/cb_food_restaurant"
+                android:id="@+id/cb_food_chinese"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
@@ -655,8 +655,20 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/restaurants_menu"/>
+                android:text="@string/Chinese"/>
 
+            <CheckBox
+                android:id="@+id/cb_food_free_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_button"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_16sdp"
+                android:text="@string/free_delivery"/>
 
 
             <CheckBox
@@ -699,7 +711,7 @@
                 android:text="@string/others"/>
 
             <CheckBox
-                android:id="@+id/cb_beauty_fitness"
+                android:id="@+id/cb_health_spas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
@@ -709,10 +721,10 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/beauty_fitness"/>
+                android:text="@string/Spas"/>
 
             <CheckBox
-                android:id="@+id/cb_health_care"
+                android:id="@+id/cb_health_beauty_parlors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
@@ -722,10 +734,10 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/health_care_center"/>
+                android:text="@string/beauty_parlors"/>
 
             <CheckBox
-                android:id="@+id/cb_weight_gain"
+                android:id="@+id/cb_health_gyms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
@@ -735,10 +747,10 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/weight_gain_tips"/>
+                android:text="@string/gyms"/>
 
             <CheckBox
-                android:id="@+id/cb_weight_loss"
+                android:id="@+id/cb_health_beauty_clinics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
@@ -748,10 +760,10 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/weight_loss_tips"/>
+                android:text="@string/beauty_clinics"/>
 
             <CheckBox
-                android:id="@+id/cb_universities_institutes"
+                android:id="@+id/cb_cinemas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
@@ -761,98 +773,9 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/universities_institutes"/>
+                android:text="@string/cinemas"/>
 
-            <CheckBox
-                android:id="@+id/cb_colleges_schools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/colleges_schools"/>
 
-            <CheckBox
-                android:id="@+id/cb_tuition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/tuition_centers"/>
-
-            <CheckBox
-                android:id="@+id/cb_day_care"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/day_care"/>
-
-            <CheckBox
-                android:id="@+id/cb_overseas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/overseas_consultants"/>
-
-            <CheckBox
-                android:id="@+id/cb_cinemas_entertainment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/cinemas_entertainment"/>
-
-            <CheckBox
-                android:id="@+id/cb_talk_shows"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/talk_shows"/>
-
-            <CheckBox
-                android:id="@+id/cb_funny_sms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/funny_sms"/>
 
             <CheckBox
                 android:id="@+id/cb_travel"
@@ -873,5 +796,4 @@
     </RelativeLayout>
             </ScrollView>
 </RelativeLayout>
-<!--
-</ScrollView>-->
+</ScrollView>

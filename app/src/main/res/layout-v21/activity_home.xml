@@ -62,7 +62,7 @@
                             android:background="@color/red"
                             android:paddingEnd="@dimen/_12sdp"
                             android:paddingStart="@dimen/_12sdp"
-
+                            android:layoutDirection="ltr"
                             android:scrollbars="none"
                             app:tabIndicatorColor="@color/white"
                             app:tabMode="scrollable"

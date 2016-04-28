@@ -15,6 +15,7 @@ import com.ooredoo.bizstore.asynctasks.LanguageTask;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
@@ -67,6 +68,17 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
                 break;
         }
 
+        int homeFragPosition = BizStore.getLanguage().equals("en") ? 0 : 12;
+
+        HomeFragment homeFragment = (HomeFragment) activity.getFragmentManager()
+                .findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + homeFragPosition);
+
+        if(homeFragment != null)
+        {
+            homeFragment.promoSlider.stop();
+            homeFragment.featuredSlider.stop();
+        }
+
         LanguageTask languageTask = new LanguageTask();
 
         if(lang.equals("en")) languageTask.execute("1"); else languageTask.execute("2");
@@ -109,7 +121,7 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
         for(int i = 0; i < homeActivity.homePagerAdapter.getCount(); i++)
         {
             Fragment fragment = homeActivity.getFragmentManager().
-                    findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + 0);
+                    findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + i);
 
             if(fragment != null)
             {
@@ -135,9 +147,11 @@ public class NavigationMenuOnClickListener implements View.OnClickListener {
     private void changeLocale() {
         updateConfiguration(activity, lang);
 
-        CategoryUtils.setUpSubCategories(activity);
+
 
         activity.recreate();
+
+        CategoryUtils.setUpSubCategories(activity);
     }
 
     public static void updateConfiguration(Activity activity, String language) {

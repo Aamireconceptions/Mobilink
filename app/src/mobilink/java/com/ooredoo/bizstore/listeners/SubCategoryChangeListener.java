@@ -19,28 +19,21 @@ import static com.ooredoo.bizstore.utils.CategoryUtils.updateSubCategorySelectio
 public class SubCategoryChangeListener implements CheckBox.OnCheckedChangeListener {
 
     public SubCategoryChangeListener(Activity activity) {
-        ((CheckBox) activity.findViewById(R.id.cb_food_special_discounts)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_food_hot_deals)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_food_restaurant)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_food_pakistani)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_food_fast_food)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_food_chinese)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_food_free_delivery)).setOnCheckedChangeListener(this);
 
         ((CheckBox) activity.findViewById(R.id.cb_clothing)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_home_appliances)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_others)).setOnCheckedChangeListener(this);
 
-        ((CheckBox) activity.findViewById(R.id.cb_beauty_fitness)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_health_care)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_weight_gain)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_weight_loss)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_health_spas)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_health_beauty_parlors)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_health_gyms)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_health_beauty_clinics)).setOnCheckedChangeListener(this);
 
-        ((CheckBox) activity.findViewById(R.id.cb_universities_institutes)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_colleges_schools)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_tuition)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_day_care)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_overseas)).setOnCheckedChangeListener(this);
-
-        ((CheckBox) activity.findViewById(R.id.cb_cinemas_entertainment)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_talk_shows)).setOnCheckedChangeListener(this);
-        ((CheckBox) activity.findViewById(R.id.cb_funny_sms)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_cinemas)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_travel)).setOnCheckedChangeListener(this);
 
         //((CheckBox) activity.findViewById(R.id.cb_top_deals)).setOnCheckedChangeListener(this);
@@ -51,14 +44,12 @@ public class SubCategoryChangeListener implements CheckBox.OnCheckedChangeListen
         ((CheckBox) activity.findViewById(R.id.cb_education)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_entertainment)).setOnCheckedChangeListener(this);
 
-
         ((CheckBox) activity.findViewById(R.id.cb_food_dining1)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_shopping1)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_ladies1)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_health1)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_education1)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_entertainment1)).setOnCheckedChangeListener(this);
-
     }
 
     @Override

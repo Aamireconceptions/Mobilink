@@ -26,46 +26,14 @@
             android:layout_centerInParent="true"
             android:indeterminateDrawable="@drawable/custom_progress"/>
 
-    </RelativeLayout>
-
-    <com.ooredoo.bizstore.ui.CirclePageIndicator
-        android:id="@+id/promo_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:padding="@dimen/_4sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/_1sdp"/>
-
-    <include layout="@layout/layout_horizontal_top_deals" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_105sdp"
-        android:background="@color/banner">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/featured_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
         <com.ooredoo.bizstore.ui.CirclePageIndicator
-            android:id="@+id/featured_indicator"
+            android:id="@+id/promo_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_4sdp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/_1sdp"/>
-
-        <ProgressBar
-            android:id="@+id/featured_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminateDrawable="@drawable/custom_progress"/>
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
-
 
     <TextView
         android:id="@+id/top_brands"
@@ -75,7 +43,7 @@
         android:typeface="serif"
         android:text="@string/top_brands"
         android:textColor="@color/heading_gray"
-        android:background="@drawable/heading_bg"/>
+        android:background="@drawable/heading_bg" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -95,20 +63,6 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/layout_horizontal_hotels_spas"/>
-
-    <TextView
-        android:id="@+id/featured_categories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/_12sdp"
-        android:typeface="serif"
-        android:text="@string/featured_categories"
-        android:textColor="@color/heading_gray"
-        android:background="@drawable/heading_bg"/>
-
-    <include layout="@layout/layout_grid_featured"/>
-
     <TextView
         android:id="@+id/top_malls"
         android:layout_width="match_parent"
@@ -117,11 +71,13 @@
         android:text="@string/top_malls"
         android:typeface="serif"
         android:textColor="@color/heading_gray"
-        android:background="@drawable/heading_bg"/>
+        android:background="@drawable/heading_bg"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/top_malls_pager"

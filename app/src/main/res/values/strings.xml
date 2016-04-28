@@ -5,7 +5,7 @@
     <string name="phone_number">phone number</string>
     <string name="search">Search</string>
     <string name="home">Home</string>
-    <string name="top_deals">Top Discounts</string>
+    <string name="top_deals">Exclusive Discounts</string>
     <string name="food_dining">Food &amp; Dining</string>
     <string name="shopping">Shopping</string>
     <string name="CONGRATULATIONS">CONGRATULATIONS</string>
@@ -153,6 +153,7 @@
     <string name="Turkish">Turkish</string>
     <string name="Indian">Indian</string>
     <string name="Chinese">Chinese</string>
+    <string name="free_delivery">Free Home Delivery</string>
     <string name="Cafes">Cafes</string>
     <string name="Fast_Food">Fast Food</string>
     <string name="Italian">Italian</string>

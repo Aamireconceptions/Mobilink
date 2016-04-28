@@ -24,18 +24,18 @@ public class BizStore extends com.activeandroid.app.Application {
 
     private static String language = "en";
 
-    public static int lastTab = 0;
+    public static int lastTab = -1;
     //public static String username = "123445";
-     // ooredoo num "50356956"
-    public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "33165670"
+     // fatima hubail ooredoo num "33165670"
+    public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "50356956"
             : BuildConfig.FLAVOR.equals("telenor") ? "3441182798"
             : "03055571369";
 
     //public static String password = "d5pF55dZ";
 
-    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "751108"
+    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "793529"
             : BuildConfig.FLAVOR.equals("telenor") ? "DgHcXN"
-            : "679891";
+            : "122075";
 
     private Tracker tracker;
 

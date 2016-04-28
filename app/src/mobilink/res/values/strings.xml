@@ -46,6 +46,7 @@
                             "from PlayStore &amp; avail the Best Deals in your city!</string>
     <string name="food_dining">Food Deals</string>
     <string name="special_discounts">Special Discounts</string>
+    <string name="pakistani">Pakistani</string>
     <string name="hot_deals">Hot Deals</string>
     <string name="restaurants_menu">Restaurants and Menu</string>
     <string name="shopping_speciality">Shopping and Fashion</string>
@@ -56,15 +57,18 @@
     <string name="health_fitness">Health and Fitness</string>
     <string name="beauty_fitness_tips">Beauty and Fitness Tips</string>
     <string name="health_care_center">Health Care Center</string>
+    <string name="beauty_parlors">Beauty Parlors</string>
     <string name="weight_gain_tips">Weight Gain Tips</string>
+    <string name="gyms">Gyms</string>
     <string name="weight_loss_tips">Weight Loss Tips</string>
+    <string name="beauty_clinics">Beauty Clinics</string>
     <string name="education">Education</string>
     <string name="universities_institutes">Universities and Institutes</string>
     <string name="colleges_schools">Colleges &amp; Schools</string>
     <string name="tuition_centers">Tuition Centers</string>
     <string name="day_care">Day Care &amp; Pre School</string>
     <string name="overseas_consultants">Overseas Consultants</string>
-    <string name="cinemas_entertainment">Cinemas and Entertainment</string>
+    <string name="cinemas">Cinemas</string>
     <string name="talk_shows">Talk Shows and Alerts</string>
     <string name="funny_sms">Funny Sms</string>
     <string name="travel">Travel</string>

@@ -51,6 +51,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
@@ -144,7 +145,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public HomePagerAdapter homePagerAdapter;
 
     private TabLayout tabLayout;
-    public ViewPager viewPager;
+    private ViewPager viewPager;
     private ExpandableListView expandableListView;
 
     public boolean isSearchEnabled = false;
@@ -244,8 +245,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         checkIfGpsEnabled();
 
-        /*if(!BuildConfig.FLAVOR.equals("dealionare"))
-        startSubscriptionCheck();*/
+        if(!BuildConfig.FLAVOR.equals("dealionare"))
+        startSubscriptionCheck();
     }
 
     Timer timer;
@@ -277,7 +278,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     int minTimeMillis = 10 * (60 * 1 * 1000);
     int distanceMeters = 50;
-
+    RelativeLayout filterParent;
     public FloatingActionButton fab;
     private void init() {
         diskCache.requestInit(this);
@@ -304,15 +305,25 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         homePagerAdapter = new HomePagerAdapter(this, getFragmentManager());
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if(BizStore.getLanguage().equals("en"))
+
+
+
+       /* if(BizStore.getLanguage().equals("en"))
         {
+            Logger.print("Drawer: "+BizStore.getLanguage());
 
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+
+           // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.LEFT);
         }
         else
         {
+            Logger.print("Drawer: "+BizStore.getLanguage());
+
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
-        }
+        }*/
+
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
 
         drawerLayout.setDrawerListener(mDrawerListener);
 
@@ -377,6 +388,27 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         popularGrid = findViewById(R.id.grid_popular_searches);
         searchLayout = findViewById(R.id.layout_search_filter);
         searchResultView = findViewById(R.id.lv_search_results);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(BizStore.getLanguage().equals("en"))
+        {
+            Logger.print("Drawer: "+BizStore.getLanguage());
+
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+
+            // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.LEFT);
+        }
+        else
+        {
+            Logger.print("Drawer: "+BizStore.getLanguage());
+
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
+
+        }
     }
 
     public void setSearchSuggestions(List<String> list) {
@@ -444,7 +476,7 @@ public CoordinatorLayout coordinatorLayout;
             @Override
             public void onClick(View v) {
                 Logger.print("Logo clicked");
-                selectTab(0);
+                selectTab(BizStore.getLanguage().equals("en") ? 0 : 12);
             }
         });
 
@@ -507,12 +539,53 @@ public CoordinatorLayout coordinatorLayout;
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
 
+        if(BizStore.lastTab != -1 && BizStore.lastTab != 0) {
+            Logger.print("LastTab: "+BizStore.lastTab);
+            final int correctTab;
+
+            if (BizStore.getLanguage().equals("en")) {
+                correctTab = 12 - BizStore.lastTab;
+            }
+            else {
+                correctTab = Math.abs(BizStore.lastTab - 12);
+            }
+
+            Logger.print("CorrectTab: " + correctTab);
+
+            tabLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    tabLayout.getTabAt(correctTab).select();
+                }
+            }, 500);
+        }
+        else
+        {
+            tabLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    int pos = BizStore.getLanguage().equals("en") ? 0 : 12;
+
+                    tabLayout.getTabAt(pos).select();
+                }
+            }, 500);
+
+          /*  if(BizStore.getLanguage().equals("ar")) {
+
+                tabLayout.getTabAt(12).select();
+            }
+            else
+            {
+                tabLayout.getTabAt(0).select();
+            }*/
+        }
+
         //tabLayout.getTabAt(11).select();
 
         //viewPager.setOffscreenPageLimit(11);Dea
        /* if(BizStore.getLanguage().equals("ar"))
         {
-            viewPager.setCurrentItem(homePagerAdapter.getCount() - 1);
+            viewPager.setCurrentItem(homePagerAdapter.getCount() - 1);ac
         }*/
 
        /* if(BizStore.getLanguage().equals("ar"))
@@ -931,9 +1004,12 @@ LinearLayout llSearch;
         SharedPrefUtils.updateVal(this, "lat", (float) lat);
         SharedPrefUtils.updateVal(this, "lng", (float) lng);
 
-       Fragment nearbyFragment = getFragmentManager().findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + 1);
+        int nearbyIndex = BizStore.getLanguage().equals("en") ? 1 : 11;
 
-        if(nearbyFragment != null)
+       Fragment nearbyFragment = getFragmentManager().findFragmentByTag("android:switcher:"
+               + R.id.home_viewpager + ":" + nearbyIndex);
+
+        if(nearbyFragment != null && !BuildConfig.FLAVOR.equals("mobilink"))
         {
             ((NearbyFragment) nearbyFragment).onLocationFound();
         }
@@ -1276,6 +1352,8 @@ LinearLayout llSearch;
             return;
         }
 
+        BizStore.lastTab = -1;
+
         super.onBackPressed();
     }
 
@@ -1330,4 +1408,6 @@ LinearLayout llSearch;
 
         //timer.cancel();
     }
+
+
 }

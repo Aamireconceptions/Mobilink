@@ -6,21 +6,14 @@ import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.fragments.AutomotiveFragment;
-import com.ooredoo.bizstore.ui.fragments.EducationFragment;
 import com.ooredoo.bizstore.ui.fragments.HealthFragment;
 import com.ooredoo.bizstore.ui.fragments.LadiesFragment;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
 import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
-import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
-import com.ooredoo.bizstore.ui.fragments.JewelleryFragment;
-import com.ooredoo.bizstore.ui.fragments.MallsFragment;
 import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
-import com.ooredoo.bizstore.ui.fragments.SportsAndFitnessFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
-import com.ooredoo.bizstore.ui.fragments.TravelFragment;
 import com.ooredoo.bizstore.utils.Logger;
 
 /**
@@ -31,7 +24,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 {
     private Context context;
 
-    private final static int PAGE_COUNT = 9;
+    private final static int PAGE_COUNT = 6;
 
     public HomePagerAdapter(Context context, FragmentManager fragmentManager)
     {
@@ -48,21 +41,16 @@ public class HomePagerAdapter extends FragmentPagerAdapter
             case 0:
                 return HomeFragment.newInstance();
             case 1:
-                return NearbyFragment.newInstance();
-            case 2:
                 return TopDealsFragment.newInstance();
-            case 3:
+            case 2:
                 return FoodAndDiningFragment.newInstance();
-            case 4:
+            case 3:
                 return ShoppingFragment.newInstance();
-            case 5:
-                return LadiesFragment.newInstance();
-            case 6:
+            case 4:
                 return HealthFragment.newInstance();
-            case 7:
-                return EducationFragment.newInstance();
-            case 8:
+            case 5:
                 return EntertainmentFragment.newInstance();
+
         }
 
         return null;
@@ -84,33 +72,21 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
             case 1:
 
-                return context.getString(R.string.nearby);
+                return context.getString(R.string.top_deals);
 
             case 2:
 
-                return context.getString(R.string.top_deals);
+                return context.getString(R.string.food_dining);
 
             case 3:
 
-                return context.getString(R.string.food_dining);
+                return context.getString(R.string.shopping);
 
             case 4:
 
-                return context.getString(R.string.shopping);
-
-            case 5:
-
-                return context.getString(R.string.ladies_section);
-
-            case 6:
-
                 return context.getString(R.string.health_fitness);
 
-            case 7:
-
-                return context.getString(R.string.education);
-
-            case 8:
+            case 5:
 
                 return context.getString(R.string.entertainment);
         }

@@ -50,19 +50,19 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 switch(id) {
                     case R.id.restaurants_layout:
 
-                        mActivity.selectTab(3);
+                        mActivity.selectTab(2);
 
                         break;
 
                     case R.id.shopping_layout:
 
-                        mActivity.selectTab(4);
+                        mActivity.selectTab(3);
 
                         break;
 
                     case R.id.entertainment_layout:
 
-                        mActivity.selectTab(8);
+                        mActivity.selectTab(5);
 
                         break;
 

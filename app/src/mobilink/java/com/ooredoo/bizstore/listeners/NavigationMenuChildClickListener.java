@@ -35,7 +35,7 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
         switch(groupPosition) {
             case 0:
 
-                activity.selectTab(childPosition + 2);
+                activity.selectTab(childPosition + 1);
 
                 break;
 
