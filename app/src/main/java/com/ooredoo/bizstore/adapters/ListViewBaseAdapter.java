@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -369,6 +370,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
                 holder.tvPrice = (TextView) row.findViewById(R.id.prices);
 
+                if(BuildConfig.FLAVOR.equals("mobilink"))
+                {
+                    holder.tvValidity = (TextView) row.findViewById(R.id.validity);
+                }
+
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 {
                     holder.rlHeader.setBackgroundResource(R.drawable.list_header);
@@ -378,6 +384,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 row.setTag(holder);
             } else {
                 holder = (Holder) row.getTag();
+            }
+
+            if(BuildConfig.FLAVOR.equals("mobilink"))
+            {
+                holder.tvValidity.setText(deal.validity);
             }
 
             if(!isFilterShowing&& position == 0)
@@ -1183,7 +1194,7 @@ return null;
         ImageView  ivPromotional, ivBrand, ivDiscountTag;
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvBrandName, tvBrandAddress,
-                 tvDirections, tvBrandText, tvPrice;
+                 tvDirections, tvBrandText, tvPrice, tvValidity;
 
         ProgressBar progressBar;
 

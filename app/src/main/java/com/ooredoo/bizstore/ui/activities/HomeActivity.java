@@ -297,6 +297,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchDeals = (TextView) findViewById(R.id.search_deals);
         searchBusinesses = (TextView) findViewById(R.id.search_business);
 
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            searchBusinesses.setVisibility(View.GONE);
+        }
+
         setSearchCheckboxSelection();
 
         searchDeals.setOnClickListener(this);
@@ -306,24 +311,55 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-
+        expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
 
        /* if(BizStore.getLanguage().equals("en"))
         {
-            Logger.print("Drawer: "+BizStore.getLanguage());
+            Logger.print("Drawer: " + BizStore.getLanguage());
 
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+            DrawerLayout.LayoutParams params = new DrawerLayout
+                    .LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
 
-           // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.LEFT);
+            params.gravity = Gravity.LEFT;
+
+            expandableListView.setLayoutParams(params);
+
+            DrawerLayout.LayoutParams params2 =new DrawerLayout
+                    .LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
+            params2.gravity = Gravity.RIGHT;
+
+            filterParent.setLayoutParams(params2);
+
+           // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START);
+           // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START);
+            //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+           drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.LEFT);
         }
         else
         {
-            Logger.print("Drawer: "+BizStore.getLanguage());
+            Logger.print("Drawer: " + BizStore.getLanguage());
+
+            DrawerLayout.LayoutParams params = new DrawerLayout
+                    .LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
+
+            params.gravity = Gravity.LEFT;
+
+            filterParent.setLayoutParams(params);
+
+
+            DrawerLayout.LayoutParams params2 =new DrawerLayout
+                    .LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
+
+            params2.gravity = Gravity.RIGHT;
+
+            expandableListView.setLayoutParams(params2);
 
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.RIGHT);
         }*/
 
-        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
 
         drawerLayout.setDrawerListener(mDrawerListener);
 
@@ -341,7 +377,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         viewPager = (ViewPager) findViewById(R.id.home_viewpager);
 
-        expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
+
 
         mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
         mRecentSearchListView = (ListView) findViewById(R.id.list_recent_searches);
@@ -394,7 +430,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onResume() {
         super.onResume();
 
-        if(BizStore.getLanguage().equals("en"))
+     /*   if(BizStore.getLanguage().equals("en"))
         {
             Logger.print("Drawer: "+BizStore.getLanguage());
 
@@ -408,7 +444,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
 
-        }
+        }*/
     }
 
     public void setSearchSuggestions(List<String> list) {

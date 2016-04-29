@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     private CirclePageIndicator promoIndicator, featuredIndicator;
 
-    private SliderUtils promoSlider, featuredSlider;
+    public SliderUtils promoSlider, featuredSlider;
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 

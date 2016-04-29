@@ -14,7 +14,8 @@ public class GenericDeal implements Serializable{
 
     public int id, views, discount, is_exclusive, businessId;
 
-    public String description, startDate, endDate, voucher, status, redeemedOn, businessLogo, businessName;
+    public String description, startDate, endDate, voucher, status, redeemedOn, businessLogo,
+            businessName, validity;
 
     public String title, category, contact, address, location,  brandAddress, timing, color_code;
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.view.View;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -40,7 +41,7 @@ public class HeaderNavigationListener implements View.OnClickListener {
         switch(id) {
             case R.id.app_home:
                 mActivity.hideSearchResults();
-                mActivity.selectTab(0);
+                mActivity.selectTab(BizStore.getLanguage().equals("en") ? 0 : 12);
                 break;
             case R.id.my_deals:
                 mActivity.startActivity(new Intent(mActivity, MyFavoritesActivity.class));
