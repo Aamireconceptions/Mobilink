@@ -204,7 +204,7 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         mall.views += 1;
 
-        if(BuildConfig.FLAVOR.equals("telenor")) {
+        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("mobilink")) {
             Intent intent = new Intent(activity, MallDetailActivity.class);
             intent.putExtra("business", new Business(mall));
             intent.putExtra(AppConstant.CATEGORY, AppConstant.DEAL_CATEGORIES[6]);
