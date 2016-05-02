@@ -69,7 +69,9 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         groupResIds = new int[] { R.drawable.ic_categories, R.drawable.ic_settings };
 
-        categories = new String[] {activity.getString(R.string.top_deals),
+        categories = new String[] {
+                activity.getString(R.string.new_arrivals),
+                activity.getString(R.string.top_deals),
                 activity.getString(R.string.food_dining),
                 activity.getString(R.string.shopping_speciality),
 
@@ -77,7 +79,9 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.entertainment)};
 
         categoriesResIds = new int[]{
-                R.drawable.ic_top_deals, R.drawable.ic_food_dining,
+                R.drawable.ic_top_deals,
+                R.drawable.ic_top_deals,
+                R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
                 R.drawable.ic_health,
                 R.drawable.ic_entertainment};
@@ -95,20 +99,25 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.rate_us), activity.getString(R.string.help),
                 activity.getString(R.string.about), activity.getString(R.string.un_subscribe)};
 
-        settingsResIds = new int[]{R.drawable.ic_user,
+        settingsResIds = new int[]{
+                R.drawable.ic_user,
                 R.drawable.ic_business,
                 R.drawable.ic_notification,
                 R.drawable.ic_rate, R.drawable.ic_help,
                 R.drawable.ic_about, R.drawable.ic_unsubscribe};
 
-        subCategories = new String[] { activity.getString(R.string.top_deals),
+        subCategories = new String[] {
+                activity.getString(R.string.new_arrivals),
+                activity.getString(R.string.top_deals),
                 activity.getString(R.string.food_dining),
                 activity.getString(R.string.shopping_speciality),
 
                 activity.getString(R.string.health_fitness),
                 activity.getString(R.string.entertainment)};
 
-        subGroupResIds = new int[]{ R.drawable.ic_top_deals,
+        subGroupResIds = new int[]{
+                R.drawable.ic_top_deals,
+                R.drawable.ic_top_deals,
                 R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
                 R.drawable.ic_health,
@@ -331,11 +340,11 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         }
 
         subChildList = new HashMap<>();
-        subChildList.put(subGroupList.get(1).getItemName(), foodSubList);
-        subChildList.put(subGroupList.get(2).getItemName(), shoppingSubList);
+        subChildList.put(subGroupList.get(2).getItemName(), foodSubList);
+        subChildList.put(subGroupList.get(3).getItemName(), shoppingSubList);
 
-        subChildList.put(subGroupList.get(3).getItemName(), healthSubList);
-        subChildList.put(subGroupList.get(4).getItemName(), entertainmentSubList);
+        subChildList.put(subGroupList.get(4).getItemName(), healthSubList);
+        subChildList.put(subGroupList.get(5).getItemName(), entertainmentSubList);
     }
 
     private int getTreeNode(int index, String [] array)
