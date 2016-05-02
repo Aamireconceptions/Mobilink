@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.Tracker;
+import com.google.zxing.client.android.CaptureActivity;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
@@ -59,6 +60,7 @@ import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.IntentIntegrator;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -82,7 +84,10 @@ import static java.lang.String.valueOf;
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
-public class DealDetailActivity extends BaseActivity implements OnClickListener, LocationNotifies {
+public class DealDetailActivity extends BaseActivity implements OnClickListener,
+        LocationNotifies
+
+{
 
     public String category;
     static String packageName;
@@ -123,6 +128,7 @@ public EditText etMerchantCode;
     private SnackBarUtils snackBarUtils;
 
     LinearLayout llSimilarNearby;
+
 
     ListViewBaseAdapter commonAdapter;
     public DealDetailActivity() {
@@ -1014,6 +1020,17 @@ public EditText etMerchantCode;
         else
         if(viewId == R.id.get_code)
         {
+            if(BuildConfig.FLAVOR.equals("mobilink"))
+            {
+                /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+                intentIntegrator.initiateScan();*/
+
+                Intent intent  = new Intent(this, CaptureActivity.class);
+                startActivity(intent);
+
+                return;
+            }
+
             if(mDeal.isQticket == 1)
             {
                 Intent intent = new Intent();

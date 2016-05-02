@@ -152,7 +152,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
         // Logger.print("getChildView: groupPos: " + groupPosition + ", childPos: " + childPosition + " " + name1);
 
-        if((groupPosition == 0 && childPosition == 0) || groupPosition == 1) {
+        if(((groupPosition == 0) && childPosition == 0 || childPosition == 1) || groupPosition == 1) {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

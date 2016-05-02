@@ -195,7 +195,7 @@ dealofDayCalled = false;
 
         initAndLoadTopBrands(v);
 
-       // initAndLoadTopMalls(v);
+        initAndLoadTopMalls(v);
 
        // initAndLoadDealsOfTheDay();
     }

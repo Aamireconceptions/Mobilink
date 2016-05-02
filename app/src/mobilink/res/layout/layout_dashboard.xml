@@ -72,12 +72,12 @@
         android:typeface="serif"
         android:textColor="@color/heading_gray"
         android:background="@drawable/heading_bg"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/top_malls_pager"

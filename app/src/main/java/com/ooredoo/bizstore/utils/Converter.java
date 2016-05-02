@@ -35,7 +35,7 @@ public class Converter
         {
             if(target.equals("Food Deals"))
             {
-                return new Category("Food", R.drawable.ic_food_dining);
+                return new Category(context.getString(R.string.food_dining), R.drawable.ic_food_dining);
             }
 
             return new Category(context.getString(R.string.food_dining), R.drawable.ic_food_dining);
@@ -93,7 +93,7 @@ public class Converter
         else
         if(target.equals("Top Deals"))
         {
-            return new Category("Top", R.drawable.ic_shopping);
+            return new Category(context.getString(R.string.top_deals), R.drawable.ic_shopping);
         }
 
         return new Category("Invalid Category", R.drawable.ic_sports);

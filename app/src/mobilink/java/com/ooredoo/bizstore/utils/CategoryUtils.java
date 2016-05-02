@@ -36,11 +36,12 @@ public class CategoryUtils {
     public static final int CT_NEARBY = 12;
     public static final int CT_SPORTS = 14;
     public static final int CT_TRAVEL = 15;
+    public static final int CT_NEW_ARRIVALS = 16;
 
     public static final String[] CACHE_KEYS = { "TOP_BRANDS", "TOP_MALLS", "PROMO_DEALS", "FEATURED_DEALS" };
 
     public static final String[] categories = { "dealofday", "top_deals", "food", "shopping", "ladies",
-            "health", "education", "entertainment" };
+            "health", "education", "entertainment", "new_arrivals" };
 
     public static final List<SubCategory> subCategories = new ArrayList();
 
