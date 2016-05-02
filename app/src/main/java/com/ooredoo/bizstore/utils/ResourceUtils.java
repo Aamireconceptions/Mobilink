@@ -32,6 +32,8 @@ public class ResourceUtils {
 
     public final static String SPORTS_AND_FITNESS = "Sports & Fitness";
 
+    public final static String NEW_ARRIVALS = "New Arrivals";
+
     public static int getDrawableResId(String category) {
 
         if(isNotNullOrEmpty(category)) {
