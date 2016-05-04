@@ -95,19 +95,6 @@
 
     <!--<include layout="@layout/layout_horizontal_top_malls"/>-->
 
-    <TextView
-        android:id="@+id/deals_of_day"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp"
-        android:paddingStart="@dimen/_18sdp"
-        android:paddingEnd="@dimen/_18sdp"
-        android:text="@string/deals_of_the_day"
-        android:typeface="serif"
-        android:textColor="@color/heading_gray"
-        android:background="@drawable/heading_bg"
-        android:visibility="gone"/>
 
 </LinearLayout>
     </ScrollView>

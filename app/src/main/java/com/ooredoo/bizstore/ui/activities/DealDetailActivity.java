@@ -37,7 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.Tracker;
-import com.google.zxing.client.android.CaptureActivity;
+
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
@@ -60,7 +60,7 @@ import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
-import com.ooredoo.bizstore.utils.IntentIntegrator;
+
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -219,8 +219,6 @@ public EditText etMerchantCode;
                 }
             }
         }
-
-
     }
 
     @Override
@@ -1025,8 +1023,7 @@ public EditText etMerchantCode;
                 /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
                 intentIntegrator.initiateScan();*/
 
-                Intent intent  = new Intent(this, CaptureActivity.class);
-                startActivity(intent);
+
 
                 return;
             }
