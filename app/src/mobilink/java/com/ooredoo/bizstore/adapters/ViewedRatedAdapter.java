@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.widget.GridLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -210,7 +211,8 @@ public class ViewedRatedAdapter extends BaseAdapter
 
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = (displayMetrics.widthPixels - (int) Converter.convertDpToPixels(36)) / 2;
-            params.height = (int) ((displayMetrics.widthPixels - (int) Converter.convertDpToPixels(36)) / 2.2);
+            params.height = (int) ((displayMetrics.widthPixels - (int) Converter.convertDpToPixels(36)) / 2.2)
+            - (int) ( params.width   * ((float) 10 / 100));
 
             if(c == 2)
             {

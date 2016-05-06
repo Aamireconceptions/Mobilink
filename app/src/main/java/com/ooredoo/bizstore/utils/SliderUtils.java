@@ -71,11 +71,11 @@ public class SliderUtils
 
                                     if (imageView != null && tag != null && tag.equals("loaded")) {
 
-                                        Logger.print("ViewPager setCurrentItem to pos: "+pos);
+                                      //  Logger.print("ViewPager setCurrentItem to pos: "+pos);
 
                                         viewPager.setCurrentItem(pos, true);
                                     } else {
-                                        Logger.print("Images: Not Loaded");
+                                      //  Logger.print("Images: Not Loaded");
                                         pos++;
                                     }
                                 }
@@ -113,7 +113,7 @@ public class SliderUtils
                                     String tag = (String) imageView.getTag();
 
                                     if (imageView != null && tag != null && tag.equals("loaded")) {
-                                        Logger.print("ViewPager setCurrentItem to pos: "+pos);
+                                      //  Logger.print("ViewPager setCurrentItem to pos: "+pos);
                                         viewPager.setCurrentItem(pos, true);
                                     } else {
                                         pos--;
@@ -147,14 +147,14 @@ public class SliderUtils
         {
             timer.cancel();
 
-            Logger.print("SliderUtils: Timer cancelled");
+           // Logger.print("SliderUtils: Timer cancelled");
         }
 
         if(timerTask != null)
         {
             timerTask.cancel();
 
-            Logger.print("SliderUtils: TimerTask cancelled");
+          //  Logger.print("SliderUtils: TimerTask cancelled");
         }
     }
 }

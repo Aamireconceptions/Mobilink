@@ -1023,6 +1023,7 @@ public EditText etMerchantCode;
                 /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
                 intentIntegrator.initiateScan();*/
 
+                startActivity(new Intent(this, CaptureActivity.class));
 
 
                 return;

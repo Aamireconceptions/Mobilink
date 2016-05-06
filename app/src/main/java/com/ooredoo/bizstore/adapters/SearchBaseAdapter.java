@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -158,6 +159,8 @@ public class SearchBaseAdapter extends BaseAdapter {
             {
                 row.setBackgroundResource(R.drawable.masked_ripple_light);
             }
+
+
 
             row.setTag(holder);
         } else {
@@ -295,9 +298,24 @@ public class SearchBaseAdapter extends BaseAdapter {
                 holder.llFooter.setBackgroundResource(R.drawable.list_footer);
             }
 
+            if(BuildConfig.FLAVOR.equals("mobilink"))
+            {
+                holder.tvValidity = (TextView) row.findViewById(R.id.validity);
+            }
+
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
+        }
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            holder.tvValidity.setText("Valid Till: " + deal.endDate);
+            holder.tvValidity.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.tvValidity.setVisibility(View.GONE);
         }
 
         if(deal.actualPrice > 0 && deal.discountedPrice > 0)
@@ -626,7 +644,7 @@ public class SearchBaseAdapter extends BaseAdapter {
         ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
 
         TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
-                tvDirections, tvBrandText, tvPrice;
+                tvDirections, tvBrandText, tvPrice, tvValidity;
 
         RatingBar rbRatings;
 

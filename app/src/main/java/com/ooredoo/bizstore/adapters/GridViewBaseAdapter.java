@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -150,12 +151,27 @@ public class GridViewBaseAdapter extends BaseAdapter
                 holder.ivDiscountTag = (ImageView) grid.findViewById(R.id.discount_tag);
                 holder.tvPrice = (TextView) grid.findViewById(R.id.prices);
 
+                if(BuildConfig.FLAVOR.equals("mobilink"))
+                {
+                    holder.tvValidity = (TextView) grid.findViewById(R.id.validity);
+                }
+
                 grid.setTag(holder);
             } else {
                 holder = (Holder) grid.getTag();
             }
 
             final GenericDeal deal = (GenericDeal) getItem(position);
+
+            if(BuildConfig.FLAVOR.equals("mobilink"))
+            {
+                holder.tvValidity.setText("Valid Till: " + deal.endDate);
+                holder.tvValidity.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                holder.tvValidity.setVisibility(View.GONE);
+            }
 
             if(deal.actualPrice > 0 && deal.discountedPrice > 0)
             {
@@ -426,7 +442,7 @@ public class GridViewBaseAdapter extends BaseAdapter
     {
         ImageView ivThumbnail, ivFav, ivDiscountTag;
 
-        TextView tvTitle, tvDiscount, tvDesc, tvPrice;
+        TextView tvTitle, tvDiscount, tvDesc, tvPrice, tvValidity;;
 
         ProgressBar progressBar;
     }

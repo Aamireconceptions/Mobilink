@@ -370,6 +370,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 holder.llFooter = (LinearLayout) row.findViewById(R.id.footer);
                 holder.tvPrice = (TextView) row.findViewById(R.id.prices);
 
+
                 if(BuildConfig.FLAVOR.equals("mobilink"))
                 {
                     holder.tvValidity = (TextView) row.findViewById(R.id.validity);
@@ -388,7 +389,12 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             if(BuildConfig.FLAVOR.equals("mobilink"))
             {
-                holder.tvValidity.setText(deal.validity);
+                holder.tvValidity.setText("Valid Till: " + deal.endDate);
+                holder.tvValidity.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                holder.tvValidity.setVisibility(View.GONE);
             }
 
             if(!isFilterShowing&& position == 0)

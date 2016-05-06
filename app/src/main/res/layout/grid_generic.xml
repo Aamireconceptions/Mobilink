@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/_160sdp"
+              android:layout_height="@dimen/_170sdp"
     android:background="@drawable/grid_white_bg">
 
     <RelativeLayout
@@ -79,7 +79,8 @@
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <TextView
             android:id="@+id/desc"
@@ -103,6 +104,14 @@
                 android:visibility="gone"/>
 
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/validity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/slight_grey"
+            android:textSize="10sp"/>
 
         <!--<TextView
             android:id="@+id/discount"
