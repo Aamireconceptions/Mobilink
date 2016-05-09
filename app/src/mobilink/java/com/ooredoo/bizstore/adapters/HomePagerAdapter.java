@@ -42,18 +42,17 @@ public class HomePagerAdapter extends FragmentPagerAdapter
             case 0:
                 return HomeFragment.newInstance();
             case 1:
-                return NewArrivalsFragment.newInstance();
-            case 2:
                 return TopDealsFragment.newInstance();
-            case 3:
+            case 2:
                 return FoodAndDiningFragment.newInstance();
-            case 4:
+            case 3:
                 return ShoppingFragment.newInstance();
-            case 5:
+            case 4:
                 return HealthFragment.newInstance();
-            case 6:
+            case 5:
                 return EntertainmentFragment.newInstance();
-
+            case 6:
+                return NewArrivalsFragment.newInstance();
         }
 
         return null;
@@ -75,27 +74,27 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
             case 1:
 
-                return context.getString(R.string.new_arrivals);
+                return context.getString(R.string.top_deals);
 
             case 2:
 
-                return context.getString(R.string.top_deals);
+                return context.getString(R.string.food_dining);
 
             case 3:
 
-                return context.getString(R.string.food_dining);
+                return context.getString(R.string.shopping);
 
             case 4:
 
-                return context.getString(R.string.shopping);
+                return context.getString(R.string.health_fitness);
 
             case 5:
 
-                return context.getString(R.string.health_fitness);
+                return context.getString(R.string.entertainment);
 
             case 6:
 
-                return context.getString(R.string.entertainment);
+                return context.getString(R.string.new_arrivals);
         }
 
         return "No Name";

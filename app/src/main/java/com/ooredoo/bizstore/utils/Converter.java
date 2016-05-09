@@ -109,7 +109,12 @@ public class Converter
             if(target.equals("mostviewed"))
             {
                 return new Category("Most Viewed", R.drawable.ic_shopping);
-        }
+            }
+        else
+            if(target.equals("New Arrivals"))
+            {
+                return new Category("New Arrivals", R.drawable.ic_shopping);
+            }
 
 
         return new Category("Invalid Category", R.drawable.ic_sports);

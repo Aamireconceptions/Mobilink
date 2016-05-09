@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -62,6 +65,14 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
             activity.finish();
 
             activity.startActivity(new Intent(activity, MainActivity.class));
+
+            BizStore bizStore = (BizStore) activity.getApplication();
+            Tracker tracker = bizStore.getDefaultTracker();
+
+            tracker.send(new HitBuilders.EventBuilder()
+            .setCategory("Action")
+            .setAction("Unsubscribe")
+            .build());
 
             Toast.makeText(activity, R.string.un_sub_success, Toast.LENGTH_SHORT).show();
         }

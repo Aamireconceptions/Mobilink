@@ -456,7 +456,16 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public void handleDecode(Result rawResult, Bitmap barcode, float scaleFactor) {
     inactivityTimer.onActivity();
     lastResult = rawResult;
-    ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
+
+    beepManager.playBeepSoundAndVibrate();
+
+    setResult(RESULT_OK, new Intent().putExtra("code", lastResult.getText()));
+
+    finish();
+
+    return;
+
+   /* ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
 
     boolean fromLiveScan = barcode != null;
     if (fromLiveScan) {
@@ -490,7 +499,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
           handleDecodeInternally(rawResult, resultHandler, barcode);
         }
         break;
-    }
+    }*/
   }
 
   /**

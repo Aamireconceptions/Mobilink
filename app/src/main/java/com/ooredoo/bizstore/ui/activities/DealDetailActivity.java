@@ -36,6 +36,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import com.ooredoo.bizstore.AppConstant;
@@ -254,6 +255,14 @@ public EditText etMerchantCode;
 
     private void initViews()
     {
+        BizStore bizStore = (BizStore) getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+
+        tracker.send(new HitBuilders.EventBuilder()
+        .setCategory("Action")
+        .setAction("Deal Detail")
+        .build());
+
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
         llHead = (LinearLayout) header.findViewById(R.id.head);
@@ -406,10 +415,6 @@ public EditText etMerchantCode;
         {
             populateData(genericDeal);
         }
-
-        BizStore bizStore = (BizStore) getApplication();
-
-        tracker = bizStore.getDefaultTracker();
     }
 
     Button btSimilarDeals, btNearbyDeals;
@@ -1023,8 +1028,7 @@ public EditText etMerchantCode;
                 /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
                 intentIntegrator.initiateScan();*/
 
-                startActivity(new Intent(this, CaptureActivity.class));
-
+                startActivityForResult(new Intent(this, CaptureActivity.class), 303);
 
                 return;
             }
@@ -1440,5 +1444,19 @@ public EditText etMerchantCode;
         updateOutlet(deal, value);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode == 303 && resultCode == RESULT_OK)
+        {
+            etMerchantCode.setText(data.getStringExtra("code"));
+
+            Logger.print("Code: "+data.getStringExtra("code"));
+
+            btGetCode.setVisibility(View.GONE);
+
+            rlMerchandCode.setVisibility(View.VISIBLE);
+        }
+    }
 }

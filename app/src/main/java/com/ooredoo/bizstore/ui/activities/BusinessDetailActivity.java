@@ -35,6 +35,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
@@ -192,6 +194,14 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         {
             id = intent.getIntExtra(AppConstant.ID, -1);
         }*/
+
+        BizStore bizStore = (BizStore) getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Business Detail")
+                .build());
 
         Logger.print("businessId business, "+ id);
 
