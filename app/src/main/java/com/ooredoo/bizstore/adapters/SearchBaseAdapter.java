@@ -310,12 +310,15 @@ public class SearchBaseAdapter extends BaseAdapter {
 
         if(BuildConfig.FLAVOR.equals("mobilink"))
         {
-            holder.tvValidity.setText("Valid Till: " + deal.endDate);
-            holder.tvValidity.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            holder.tvValidity.setVisibility(View.GONE);
+            if(deal.endDate != null && !deal.endDate.isEmpty())
+            {
+                holder.tvValidity.setText("Valid Till: " + deal.endDate);
+                holder.tvValidity.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                holder.tvValidity.setVisibility(View.GONE);
+            }
         }
 
         if(deal.actualPrice > 0 && deal.discountedPrice > 0)

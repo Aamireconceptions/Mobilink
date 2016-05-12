@@ -107,7 +107,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 dialog.dismiss();
                             }
                         });
-dialog.setCanceledOnTouchOutside(false);
+                        dialog.setCanceledOnTouchOutside(false);
                         dialog.setCancelable(false);
                         dialog.show();
                     }

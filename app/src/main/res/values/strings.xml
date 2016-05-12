@@ -92,7 +92,7 @@
     <string name="share_app_note">Share this app with your friends and family!</string>
     <string name="enter_number">Please provide phone number.</string>
     <string name="sharing_msg">Sharing Message</string>
-    <string name="share_with_friends_txt">"I just found this great service for you called Ooredoo BizStore. You can get all the best discounts in your town. Send SUB BIZ to 92806 for SMS subscription @ QAR 3/week. Download Android APP for Ooredoo BizStore @ QAR 9/Week: [Link] Download iOS APP for Ooredoo BizStore: [Link]</string>
+    <string name="share_with_friends_txt">"I just found this great service for you called Ooredoo BizStore. You can get all the best discounts in your town. Send SUB BIZ to 92806 for SMS subscription @ QAR 3/week. Download Android APP for Ooredoo BizStore @ QAR 9/Week:</string>
     <string name="share_now">Share Now</string>
     <string name="Preview">Preview</string>
     <string name="description">Description</string>
@@ -451,5 +451,7 @@
     <string name="result_wifi">Found WLAN Configuration</string>
     <string name="sbc_name">Google Book Search</string>
     <string name="wifi_changing_network">Requesting connection to network\u2026</string>
+    <string name="google_maps_release_api_key">AIzaSyCEbiA598KwENjR8lkk6NUwnTZVIBcu1A0</string>
+    <string name="google_maps_debug_api_key">AIzaSyD8thjWWw0Stqgh_dmg8JUFJCufr3AsXw0</string>
 
 </resources>

@@ -253,10 +253,11 @@ public EditText etMerchantCode;
     RelativeLayout rlDetails;
 
 
+
     private void initViews()
     {
         BizStore bizStore = (BizStore) getApplication();
-        Tracker tracker = bizStore.getDefaultTracker();
+        tracker = bizStore.getDefaultTracker();
 
         tracker.send(new HitBuilders.EventBuilder()
         .setCategory("Action")
@@ -1224,7 +1225,7 @@ public EditText etMerchantCode;
                     + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");*/
         }
 
-        tvVoucherClaimed.setText(getString(R.string.out_of)+" " + genericDeal.vouchers_max_allowed
+        tvVoucherClaimed.setText(getString(R.string.out_of)+" " + maxAllowed
                 + ", " + getString(R.string.you_have_availed) + " "
                 + ( voucherClaimed) + " " + getString(R.string.dealss));
 

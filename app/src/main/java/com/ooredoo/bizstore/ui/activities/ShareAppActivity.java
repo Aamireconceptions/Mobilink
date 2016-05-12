@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
@@ -23,10 +24,14 @@ import com.ooredoo.bizstore.asynctasks.ShareAppTask;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
+import org.w3c.dom.Text;
+
 public class ShareAppActivity extends AppCompatActivity {
     private EditText etPhoneNum;
 
     private SnackBarUtils snackBarUtils;
+
+    private TextView tvShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,10 @@ public class ShareAppActivity extends AppCompatActivity {
         EditText etCountry = (EditText) findViewById(R.id.country_code);
         //etCountry.setText("974");
        FontUtils.setFont(this, etCountry);
+
+        tvShare = (TextView) findViewById(R.id.share_txt);
+        tvShare.setText(getString(R.string.share_with_friends_txt)
+                + " http://play.google.com/store/apps/details?id=" + getPackageName());
 
         Button btShareApp = (Button) findViewById(R.id.share_btn);
 

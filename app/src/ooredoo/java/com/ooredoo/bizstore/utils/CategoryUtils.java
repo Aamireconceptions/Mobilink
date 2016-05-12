@@ -62,7 +62,7 @@ public class CategoryUtils {
             subCategories.add(new SubCategory(12, R.id.cb_home_goods, activity.getString(R.string.Home_Goods), "shopping_home_goods", CT_SHOPPING, false, false));
             subCategories.add(new SubCategory(13, R.id.cb_sports, activity.getString(R.string.Sports_Fitness), "shopping_sports_fitness", CT_SHOPPING, false, false));
             subCategories.add(new SubCategory(14, R.id.cb_shop_electronics, activity.getString(R.string.Electronics), "shopping_electronics", CT_SHOPPING, false, false));
-            subCategories.add(new SubCategory(15, R.id.cb_fashion, activity.getString(R.string.Fashion), "shopping_fashion", CT_SHOPPING, false, false));
+            subCategories.add(new SubCategory(15, R.id.cb_fashion, activity.getString(R.string.Fashion_Beauty_Accessories), "shopping_fashion", CT_SHOPPING, false, false));
 
         /* ELECTRONICS */
             subCategories.add(new SubCategory(16, R.id.cb_tv, activity.getString(R.string.TV_Home_Entertainment), "electronics_tv_home", CT_ELECTRONICS, false, false));

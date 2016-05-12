@@ -78,7 +78,7 @@
             android:value=" AIzaSyD8thjWWw0Stqgh_dmg8JUFJCufr3AsXw0"/>-->
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD8thjWWw0Stqgh_dmg8JUFJCufr3AsXw0"/>
+            android:value="@string/google_maps_release_api_key"/>
 
         <activity
             android:name=".ui.activities.MainActivity"
@@ -199,7 +199,7 @@
             android:name=".ui.activities.MyAccountActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/my_account"
-            android:windowSoftInputMode="stateHidden"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"/>
@@ -242,6 +242,7 @@
             android:name=".ui.activities.HelpActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/help"
+            android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"/>
 

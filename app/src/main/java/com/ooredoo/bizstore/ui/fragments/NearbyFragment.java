@@ -183,7 +183,9 @@ RelativeLayout rlParent;
         bitmapProcessor = new BitmapProcessor();
 
 
-       mapView = (MapView) inflater.inflate(R.layout.layout_map, null, false);
+       mapView = (MapView) inflater.inflate(R.layout.layout_map, rlParent, false);
+
+
 
         //ImageView imageView =  (ImageView) linearLayout.findViewById(R.id.dummy);
 
@@ -237,6 +239,7 @@ RelativeLayout rlParent;
         {
             googleMap.getUiSettings().setZoomControlsEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+            googleMap.getUiSettings().setZoomControlsEnabled(false);
             //googleMap.getUiSettings().setMapToolbarEnabled(true);
             googleMap.setMyLocationEnabled(true);
             googleMap.getUiSettings().setMapToolbarEnabled(false);
@@ -473,6 +476,8 @@ RelativeLayout rlParent;
 
             if(rlParent != mapView.getParent())
             {
+                Logger.print("MapView Specs: " + mapView.getHeight());
+                Logger.print("Container Specs: "+rlParent.getHeight());
                 rlParent.addView(mapView);
             }
 

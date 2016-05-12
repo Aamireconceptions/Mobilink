@@ -191,6 +191,9 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         }
         else
         {
+            adapter.clearData();
+            adapter.notifyDataSetChanged();
+
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
 
            // snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);

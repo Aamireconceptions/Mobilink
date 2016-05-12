@@ -389,13 +389,17 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
             if(BuildConfig.FLAVOR.equals("mobilink"))
             {
-                holder.tvValidity.setText("Valid Till: " + deal.endDate);
-                holder.tvValidity.setVisibility(View.VISIBLE);
+                if(deal.endDate != null && !deal.endDate.isEmpty())
+                {
+                    holder.tvValidity.setText("Valid Till: " + deal.endDate);
+                    holder.tvValidity.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    holder.tvValidity.setVisibility(View.GONE);
+                }
             }
-            else
-            {
-                holder.tvValidity.setVisibility(View.GONE);
-            }
+
 
             if(!isFilterShowing&& position == 0)
             {
@@ -800,7 +804,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             {
 
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
-                        resources.getDisplayMetrics().heightPixels - (int) resources.getDimension(R.dimen._140sdp));
+                    resources.getDisplayMetrics().heightPixels - (int) resources.getDimension(R.dimen._140sdp));
 
                 mapView.setLayoutParams(params);
 
