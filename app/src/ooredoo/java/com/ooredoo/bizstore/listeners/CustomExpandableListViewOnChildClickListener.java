@@ -5,6 +5,7 @@ import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.CustomExpandableListViewAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -91,52 +92,52 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
     {
         if(groupName.equals(context.getString(R.string.food_dining)))
         {
-            return 3;
+            return BizStore.getLanguage().equals("en") ? 3 : 9;
         }
         else
             if(groupName.equals(context.getString(R.string.shopping_speciality)))
             {
-                return 4;
+                return BizStore.getLanguage().equals("en") ? 4 : 8;
             }
         else
             if(groupName.equals(context.getString(R.string.electronics)))
             {
-                return 5;
+                return BizStore.getLanguage().equals("en") ? 5 : 7;
             }
         else
             if(groupName.equals(context.getString(R.string.hotels_spa)))
             {
-                return 6;
+                return BizStore.getLanguage().equals("en") ? 6 : 6;
             }
         else
             if(groupName.equals(context.getString(R.string.markets_malls)))
             {
-                return 7;
+                return BizStore.getLanguage().equals("en") ? 7 : 5;
             }
         else
             if(groupName.equals(context.getString(R.string.automotive)))
             {
-                return 8;
+                return BizStore.getLanguage().equals("en") ? 8 : 4;
             }
         else
             if(groupName.equals(context.getString(R.string.travel_tours)))
             {
-                return 9;
+                return BizStore.getLanguage().equals("en") ? 9 : 3;
             }
         else
             if(groupName.equals(context.getString(R.string.entertainment)))
             {
-                return 10;
+                return BizStore.getLanguage().equals("en") ? 10 : 2;
             }
         else
             if(groupName.equals(context.getString(R.string.jewelry_exchange)))
             {
-                return 11;
+                return BizStore.getLanguage().equals("en") ? 11 : 1;
             }
         else
             if(groupName.equals(context.getString(R.string.sports_fitness)))
             {
-                return 12;
+                return BizStore.getLanguage().equals("en") ? 12 : 0;
             }
 
         return -1;

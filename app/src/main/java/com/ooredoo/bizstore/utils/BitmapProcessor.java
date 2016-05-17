@@ -46,6 +46,7 @@ public class BitmapProcessor
         options.inJustDecodeBounds = false;
         options.inSampleSize = sampleSize;
 
+
         inputStream = url.openStream();
 
         bitmap = BitmapFactory.decodeStream(inputStream, null, options);
@@ -58,6 +59,7 @@ public class BitmapProcessor
             Logger.print("@inSample:"+sampleSize);
             Logger.print("@Modified Width: "+width);
             Logger.print("@Modified Height: " + height);
+            Logger.print("@Modified URL: "+url.toString());
         }
 
         return bitmap;
@@ -110,6 +112,7 @@ public class BitmapProcessor
             Logger.print("@inSample:"+sampleSize);
             Logger.print("@Modified Width: "+width);
             Logger.print("@Modified Height: " + height);
+
         }
 
         return bitmap != null ? rotateBitmapIfNeeded(pathName, bitmap) : null;

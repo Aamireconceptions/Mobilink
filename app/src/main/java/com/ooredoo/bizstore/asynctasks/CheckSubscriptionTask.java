@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
@@ -68,7 +69,7 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
 
             if (response.desc.equals("Invalid MSIDN/Password"))
             {
-                Toast.makeText(activity, "You have been Unsubscribed from the service", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, R.string.unsub_from_service, Toast.LENGTH_LONG).show();
 
                 timer.cancel();
 

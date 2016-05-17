@@ -122,7 +122,7 @@ public class DiskCache
                         if (editor != null) {
                             out = editor.newOutputStream(DISK_CACHE_INDEX);
 
-                            value.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                            value.compress(Bitmap.CompressFormat.JPEG, 80, out);
 
                             editor.commit();
                             out.close();
@@ -155,6 +155,7 @@ public class DiskCache
     {
         Bitmap bitmap = null;
 
+        Logger.print("Crash on Bitmap: "+key);
         String encryptedKey = CryptoUtils.encryptToMD5(key);
 
         Logger.print("getBitmapFromDiskCache encryptToMD5: " + encryptedKey);

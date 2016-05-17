@@ -25,6 +25,9 @@ public class GenericDeal implements Serializable{
 
     public double mDistance;
 
+    // This is added only to map the distance values coming from server
+    public double distance;
+
     public int actualPrice, discountedPrice;
 
     @SerializedName("is_qticket")

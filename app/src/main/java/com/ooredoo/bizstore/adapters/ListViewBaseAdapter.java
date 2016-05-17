@@ -398,6 +398,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 {
                     holder.tvValidity.setVisibility(View.GONE);
                 }
+
+               deal.mDistance = deal.distance * 1000;
             }
 
 

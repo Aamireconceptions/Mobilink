@@ -27,15 +27,15 @@ public class BizStore extends com.activeandroid.app.Application {
     public static int lastTab = -1;
     //public static String username = "123445";
      // fatima hubail ooredoo num "33165670"
-    public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "33677402"
+    public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "50497958"
             : BuildConfig.FLAVOR.equals("telenor") ? "3441182798"
-            : "03055571369";
+            : "03025310933";
 
     //public static String password = "d5pF55dZ";
 
-    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "835677"
+    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "569015"
             : BuildConfig.FLAVOR.equals("telenor") ? "DgHcXN"
-            : "122075";
+            : "387985";
 
     private Tracker tracker;
 

@@ -1425,10 +1425,16 @@ LinearLayout llSearch;
     protected void onDestroy() {
         super.onDestroy();
 
+        if(timer != null)
+        {
+            timer.cancel();
+        }
+
         if(searchPopup != null && searchPopup.isShowing())
             searchPopup.dismiss();
 
         memoryCache.tearDown();
+
 
         diskCache.requestClose();
 

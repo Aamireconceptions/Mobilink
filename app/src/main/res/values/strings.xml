@@ -453,5 +453,6 @@
     <string name="wifi_changing_network">Requesting connection to network\u2026</string>
     <string name="google_maps_release_api_key">AIzaSyCEbiA598KwENjR8lkk6NUwnTZVIBcu1A0</string>
     <string name="google_maps_debug_api_key">AIzaSyD8thjWWw0Stqgh_dmg8JUFJCufr3AsXw0</string>
+    <string name="unsub_from_service">You have been Unsubscribed from Ooredoo BizStore</string>
 
 </resources>

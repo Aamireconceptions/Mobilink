@@ -15,6 +15,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
@@ -407,6 +408,14 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         if(isNotNullOrEmpty(sortColumns)) {
             params.put("sort", sortColumns);
+        }
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            params.put("lat", String.valueOf(HomeActivity.lat));
+            params.put("lng", String.valueOf(HomeActivity.lng));
+
+            params.put("nearby", "true");
         }
 
         Logger.logI("SORT BY", "Columns->" + sortColumns);

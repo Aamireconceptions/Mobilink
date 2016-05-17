@@ -94,7 +94,7 @@
     <string name="Contact_Information">بيانات الاتصال</string>
     <string name="Category">فئة</string>
     <string name="Category_2">فئة:</string>
-    <string name="Unsubscribe_Bizstore">تسجيل الخروج Ooredoo BizStore</string>
+    <string name="Unsubscribe_Bizstore">إلغاء الإشتراك من Ooredoo BizStore</string>
     <string name="No">لا</string>
     <string name="Yes">نعم</string>
     <string name="ENTER_CODE">أدخل الرمز</string>
@@ -112,7 +112,7 @@
     <string name="cancel">إلغاء</string>
     <string name="plan_details">ريال قطري <b>9</b>\nأسبوعياً</string>
     <string name="filter">التصنيف</string>
-    <string name="filter_results">تصفية نتائج البحث</string>
+    <string name="filter_results">تصنيف تنتائج البحث</string>
     <string name="percentage_off">%  خصم</string>
     <string name="off">بعيدا</string>
     <string name="error_provide_num">الرجاء إدخال رقم جوالك.</string>
@@ -164,7 +164,7 @@
     <string name="Salons">صالونات</string>
     <string name="Lodging">إقامة و سكن</string>
     <string name="Spas">منتجعات صحية</string>
-    <string name="Hypermarkets">هابرماركت</string>
+    <string name="Hypermarkets">هايبرماركت</string>
     <string name="Malls">مجمعات تجارية</string>
     <string name="Show_Rooms">معارض</string>
     <string name="Accessories">إكسسوارات</string>
@@ -237,14 +237,14 @@
     <string name="map">خريطة</string>
     <string name="deal">صفقة</string>
     <string name="brand">علامة تجارية</string>
-    <string name="redeem_deal">تخليص صفقة</string>
+    <string name="redeem_deal">استخدم الخصم</string>
     <string name="locations">المواقع</string>
     <string name="km_away">كم عن الفندق</string>
     <string name="deal_valid_till">هذا الخصم ساري المفعول حتى</string>
     <string name="similar_deals">صفقات مماثلة</string>
     <string name="no_nearby_deals">لا صفقات القريبة وجدت</string>
-    <string name="deal_has_been_viewed">تم استعراض هذا الاتفاق</string>
-    <string name="times">مرات</string>
+    <string name="deal_has_been_viewed">تم مشاهدة هذا الخصم</string>
+    <string name="times">مرة</string>
     <string name="business_has_been_viewed">تمت مشاهدة هذا العمل</string>
     <string name="similar_brands">ماركات مماثلة</string>
     <string name="deals">خصومات</string>
@@ -257,7 +257,7 @@
     <string name="error_no_nearby_deals">لاتوجد بيانات</string>
     <string name="error_your_loc_not_avaliable">الموقع الخاص بك هو غير متوفر!</string>
     <string name="enter_merchant_code">أدخل رمز المتجر</string>
-    <string name="discount_not_availed">عزيزي العميل، لم تقم بإستخدام من هذا الخصم بعد!</string>
+    <string name="discount_not_availed">عزيزي العميل، لم تقم بإستخدام هذا الخصم!</string>
     <string name="error_max_availed">عزيزي العميل، لقد قمت بإستخدام الحد الأقصى من عمليات استبدال الخصم.</string>
     <string name="error_invalid_merchant_code">الرجاء إعادة إدخال رمز المتجر</string>
     <string name="error_no_location">لم تقم بتفعيل خدمة تحديد الموقع، برجاء تفعيلها!</string>
@@ -318,4 +318,5 @@
     <string name="turn_location_on">الرجاء تشغيل خدمات الموقع على لعرض الخصومات القريبة بك</string>
     <string name="error_insufficient_balance">عزيزي المستخدم، ليس لديك رصيد كافي لإجراء هذه العملية.</string>
     <string name="login">تسجيل الدخول</string>
+    <string name="unsub_from_service">تم إلغاء إشتراكك من خدمة Ooredoo BizStore</string>
 </resources>

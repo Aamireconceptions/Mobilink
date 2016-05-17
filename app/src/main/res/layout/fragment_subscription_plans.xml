@@ -72,7 +72,7 @@
         <Button
             android:id="@+id/btn_subscribe"
             android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_39sdp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="0dp"
             android:layout_marginTop="@dimen/_12sdp"
