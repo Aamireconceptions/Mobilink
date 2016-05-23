@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -78,7 +79,11 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
                 similarDeals.addAll(dealMisc.genericDeal.similarDeals);
                 nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
 
-                activity.onHaveData(dealMisc.genericDeal);
+                if(!BuildConfig.FLAVOR.equals("telenor"))
+                {
+                    activity.onHaveData(dealMisc.genericDeal);
+                }
+
             }
             catch (JsonSyntaxException e)
             {

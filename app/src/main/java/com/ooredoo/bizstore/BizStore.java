@@ -28,13 +28,13 @@ public class BizStore extends com.activeandroid.app.Application {
     //public static String username = "123445";
      // fatima hubail ooredoo num "33165670"
     public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "50497958"
-            : BuildConfig.FLAVOR.equals("telenor") ? "3441182798"
+            : BuildConfig.FLAVOR.equals("telenor") ? "03454060708"
             : "03025310933";
 
     //public static String password = "d5pF55dZ";
 
     public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "569015"
-            : BuildConfig.FLAVOR.equals("telenor") ? "DgHcXN"
+            : BuildConfig.FLAVOR.equals("telenor") ? "578251"
             : "387985";
 
     private Tracker tracker;
@@ -99,6 +99,7 @@ public class BizStore extends com.activeandroid.app.Application {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
             tracker = analytics.newTracker(R.xml.global_tracker);
+
         }
 
         return tracker;

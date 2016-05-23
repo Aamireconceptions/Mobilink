@@ -49,6 +49,7 @@ import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
+import com.ooredoo.bizstore.asynctasks.RedeemViaSmsTask;
 import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.LocationsTask;
@@ -942,7 +943,6 @@ public EditText etMerchantCode;
 
                             imageView.setImageBitmap(bitmap);
                             //AnimatorUtils.expandAndFadeIn(imageView);
-
                         }
                     });
                 }
@@ -962,7 +962,6 @@ public EditText etMerchantCode;
                                     String.valueOf(displayMetrics.heightPixels / 2));
                         }
                     });
-
                 }
             }
         });
@@ -1024,6 +1023,16 @@ public EditText etMerchantCode;
         else
         if(viewId == R.id.get_code)
         {
+            if(BuildConfig.FLAVOR.equals("telenor"))
+            {
+                RedeemViaSmsTask redeemViaSmsTask =
+                        new RedeemViaSmsTask(this, snackBarUtils, tracker);
+
+                redeemViaSmsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+                return;
+            }
+
             if(BuildConfig.FLAVOR.equals("mobilink"))
             {
                 /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);

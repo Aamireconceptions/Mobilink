@@ -10,6 +10,8 @@ public class Voucher
     @SerializedName("result")
     public int resultCode;
 
+    public String desc;
+
     @SerializedName("voucher")
     public String code;
 

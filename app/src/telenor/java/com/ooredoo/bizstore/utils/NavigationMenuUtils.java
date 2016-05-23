@@ -174,7 +174,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         new HeaderNavigationListener(homeActivity, navigationHeader);
 
-        ExpandableListAdapter adapter = new ExpandableListAdapter(this, activity, groupList, childList, navigationHeader);
+        ExpandableListAdapter adapter = new ExpandableListAdapter(this, activity, groupList,
+                childList, navigationHeader);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
