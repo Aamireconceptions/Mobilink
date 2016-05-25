@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -43,12 +44,14 @@
         android:typeface="serif"
         android:text="@string/top_brands"
         android:textColor="@color/heading_gray"
-        android:background="@drawable/heading_bg" />
+        android:background="@drawable/heading_bg"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_8sdp">
+        android:padding="@dimen/_8sdp"
+        android:visibility="gone">
         <android.support.v4.view.ViewPager
             android:id="@+id/top_brands_pager"
             android:layout_width="match_parent"
@@ -63,10 +66,18 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
+
     <TextView
         android:id="@+id/top_malls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:padding="@dimen/_12sdp"
         android:text="@string/top_malls"
         android:typeface="serif"
