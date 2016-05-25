@@ -38,7 +38,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
@@ -49,10 +48,10 @@ import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
-import com.ooredoo.bizstore.asynctasks.RedeemViaSmsTask;
-import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.LocationsTask;
+import com.ooredoo.bizstore.asynctasks.RedeemViaSmsTask;
+import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
 import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
@@ -62,7 +61,6 @@ import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
-
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
@@ -1316,7 +1314,7 @@ public EditText etMerchantCode;
             return;
         }
 
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 
         try
         {

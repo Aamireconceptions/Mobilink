@@ -11,6 +11,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.DODResponse;
+import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.BufferedReader;
@@ -41,6 +42,8 @@ public class ViewedRatedTask extends AsyncTask<String, Void, String>
 
     private String category;
 
+    private HomeFragment homeFragment;
+
     private OnDealsTaskFinishedListener dealsTaskFinishedListener;
 
     private static final String SERVICE_NAME  = "/viewednrated?";
@@ -50,6 +53,8 @@ public class ViewedRatedTask extends AsyncTask<String, Void, String>
         this.context = context;
 
         this.adapter = adapter;
+
+        this.homeFragment = (HomeFragment) fragment;
 
         dealsTaskFinishedListener = (OnDealsTaskFinishedListener) fragment;
     }
@@ -100,7 +105,9 @@ public class ViewedRatedTask extends AsyncTask<String, Void, String>
                         updateVal((Activity) context, UPDATE_KEY, currentTimeMillis());*/
                     }
 
-                    adapter.setData(response.dods);
+                   // adapter.setData(response.dods);
+
+                    homeFragment.addMostViewedAndTopRated(response.dods);
                 }
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
