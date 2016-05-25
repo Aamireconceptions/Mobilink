@@ -1,12 +1,10 @@
 package com.ooredoo.bizstore.listeners;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;

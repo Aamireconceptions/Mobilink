@@ -2,7 +2,6 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Fragment;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
-import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.BrandResponse;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
@@ -29,14 +27,9 @@ import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.NetworkUtils;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

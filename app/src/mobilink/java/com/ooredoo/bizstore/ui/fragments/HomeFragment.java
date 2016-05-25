@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -16,10 +15,8 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -30,9 +27,8 @@ import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
-import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
+import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
 import com.ooredoo.bizstore.asynctasks.TopMallsTask;
@@ -49,8 +45,8 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -72,7 +68,7 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
  */
 public class HomeFragment extends Fragment implements OnFilterChangeListener,
                                                       OnDealsTaskFinishedListener,
-                                                      SwipeRefreshLayout.OnRefreshListener {
+                                                      SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     private HomeActivity activity;
 
     private TextView tvDealsOfTheDay;
@@ -395,6 +391,8 @@ dealofDayCalled = false;
 
 
                 View gridDealOfDay = inflater.inflate(R.layout.grid_deal_of_day, null);
+                gridDealOfDay.setTag(genericDeal);
+                gridDealOfDay.setOnClickListener(this);
 
                 ImageView ivThumbnail = (ImageView) gridDealOfDay.findViewById(R.id.thumbnail);
 
@@ -472,11 +470,15 @@ dealofDayCalled = false;
                 if(bitmap != null)
                 {
                     memoryCache.addBitmapToCache(imageUrl, bitmap);
+
+                    imageView.setImageBitmap(bitmap);
+
+                    progressBar.setVisibility(View.GONE);
                 }
                 else
                 {
-                    BitmapDownloadTask bitmapDownloadTask =
-                            new BitmapDownloadTask(imageView, progressBar);
+                    BitmapForceDownloadTask bitmapDownloadTask =
+                            new BitmapForceDownloadTask(imageView, progressBar, null);
                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
                             String.valueOf(reqWidth), String.valueOf(reqHeight));
                 }
@@ -616,5 +618,13 @@ dealofDayCalled = false;
 
             listAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(activity, DealDetailActivity.class);
+        intent.putExtra("generic_deal",(GenericDeal) v.getTag());
+
+        activity.startActivity(intent);
     }
 }

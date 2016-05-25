@@ -1,10 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Fragment;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -22,7 +20,6 @@ import com.ooredoo.bizstore.utils.NetworkUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;

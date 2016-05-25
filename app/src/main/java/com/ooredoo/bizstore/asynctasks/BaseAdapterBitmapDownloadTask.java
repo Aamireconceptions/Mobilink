@@ -1,14 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.graphics.Bitmap;
-import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ProgressBar;
-
-import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
-import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.MemoryCache;
 
 /**
  * Created by Babar on 04-Aug-15.

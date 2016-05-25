@@ -75,6 +75,8 @@
     <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Telenor BizStore.\nFind popular venues, great local businesses,\nDiscover discounts, products & services closest to you, wherever you are!]]></string>
     <string name="sms_charges">Telenor BizStore app will send a one time sms message to verify your phone number.</string>
     <string name="unsub_from_service">You have been Unsubscribed from Telenor BizStore</string>
-    <string name="success_redeemed">Dear user, you will receive a discount confirmation message shortly.</string>
+    <string name="success_redeemed">Awesome! BizStore saved you money on the best deal in town. You will receive a discount confirmation message shortly.</string>
+    <string name="Unsubscribe_Bizstore">Unsubscribe Telenor BizStore</string>
+    <string name="unsub_details">By unsubscribing Telenor BizStore, you will no longer get promotion or service alerts from application.</string>
 
 </resources>

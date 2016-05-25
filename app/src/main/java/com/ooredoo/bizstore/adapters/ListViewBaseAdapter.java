@@ -374,6 +374,9 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 if(BuildConfig.FLAVOR.equals("mobilink"))
                 {
                     holder.tvValidity = (TextView) row.findViewById(R.id.validity);
+                    holder.tvTitle.setVisibility(View.GONE);
+                    holder.tvDiscount.setVisibility(View.GONE);
+                    holder.ivDiscountTag.setVisibility(View.GONE);
                 }
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -489,16 +492,16 @@ public class ListViewBaseAdapter extends BaseAdapter {
             holder.tvDetail.setText(deal.description);
 
 
-            if(deal.discount == 0) {
-                holder.tvDiscount.setVisibility(View.GONE);
-                holder.ivDiscountTag.setVisibility(View.GONE);
-            }
-            else
-            {
-                holder.tvDiscount.setText(valueOf(deal.discount) + "%\n"+context.getString(R.string.off));
+            if(!BuildConfig.FLAVOR.equals("mobilink")) {
+                if (deal.discount == 0) {
+                    holder.tvDiscount.setVisibility(View.GONE);
+                    holder.ivDiscountTag.setVisibility(View.GONE);
+                } else {
+                    holder.tvDiscount.setText(valueOf(deal.discount) + "%\n" + context.getString(R.string.off));
 
-                holder.tvDiscount.setVisibility(View.VISIBLE);
-                holder.ivDiscountTag.setVisibility(View.VISIBLE);
+                    holder.tvDiscount.setVisibility(View.VISIBLE);
+                    holder.ivDiscountTag.setVisibility(View.VISIBLE);
+                }
             }
 
             if(BizStore.getLanguage().equals("en"))

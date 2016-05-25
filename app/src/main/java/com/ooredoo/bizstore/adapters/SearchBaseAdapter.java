@@ -301,6 +301,9 @@ public class SearchBaseAdapter extends BaseAdapter {
             if(BuildConfig.FLAVOR.equals("mobilink"))
             {
                 holder.tvValidity = (TextView) row.findViewById(R.id.validity);
+                holder.tvTitle.setVisibility(View.GONE);
+                holder.tvDiscount.setVisibility(View.GONE);
+                holder.ivDiscountTag.setVisibility(View.GONE);
             }
 
             row.setTag(holder);
@@ -404,17 +407,17 @@ public class SearchBaseAdapter extends BaseAdapter {
             holder.ivBrand.setImageBitmap(null);
         }
 
-        if(deal.discount == 0) {
-            holder.tvDiscount.setVisibility(View.GONE);
-            holder.ivDiscountTag.setVisibility(View.GONE);
-        }
-        else
-        {
-            holder.tvDiscount.setVisibility(View.VISIBLE);
-            holder.ivDiscountTag.setVisibility(View.VISIBLE);
-        }
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            if (deal.discount == 0) {
+                holder.tvDiscount.setVisibility(View.GONE);
+                holder.ivDiscountTag.setVisibility(View.GONE);
+            } else {
+                holder.tvDiscount.setText(valueOf(deal.discount) + "%\n" + context.getString(R.string.off));
 
-        holder.tvDiscount.setText(valueOf(deal.discount) + "%\n" + context.getString(R.string.off));
+                holder.tvDiscount.setVisibility(View.VISIBLE);
+                holder.ivDiscountTag.setVisibility(View.VISIBLE);
+            }
+        }
 
         if(BizStore.getLanguage().equals("en"))
         {

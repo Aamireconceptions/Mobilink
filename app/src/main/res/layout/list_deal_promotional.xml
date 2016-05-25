@@ -153,17 +153,19 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textSize="16sp"
-            android:textStyle="bold"
+            android:textStyle="bold" android:text="Hello"
             android:textAllCaps="true"
             android:textColor="@color/red"/>
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
         <TextView
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Descriptin"
             android:layout_marginTop="@dimen/_2sdp"
             android:textColor="@color/black"
             android:maxLines="1"
@@ -186,9 +188,9 @@
             android:id="@+id/validity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
             android:layout_gravity="end"
             android:textColor="@color/slight_grey"
+            android:text="12-43-23"
             android:textSize="10sp"/>
 
     </LinearLayout>

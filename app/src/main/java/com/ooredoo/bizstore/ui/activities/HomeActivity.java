@@ -245,8 +245,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         checkIfGpsEnabled();
 
-        if(!BuildConfig.FLAVOR.equals("dealionare")) {
-           // startSubscriptionCheck();
+        if(!BuildConfig.FLAVOR.equals("dealionare") && !BuildConfig.FLAVOR.equals("mobilink")) {
+            startSubscriptionCheck();
         }
     }
 

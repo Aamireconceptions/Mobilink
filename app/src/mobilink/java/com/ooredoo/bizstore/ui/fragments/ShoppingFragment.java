@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -41,10 +42,10 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class HealthFragment extends Fragment implements OnFilterChangeListener,
-                                                               OnDealsTaskFinishedListener,
-                                                               OnSubCategorySelectedListener,
-                                                               SwipeRefreshLayout.OnRefreshListener,
+public class ShoppingFragment extends Fragment implements OnFilterChangeListener,
+        OnDealsTaskFinishedListener,
+        OnSubCategorySelectedListener,
+        SwipeRefreshLayout.OnRefreshListener,
         ScrollToTop{
     private HomeActivity activity;
 
@@ -72,9 +73,9 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    public static HealthFragment newInstance()
+    public static ShoppingFragment newInstance()
     {
-        HealthFragment fragment = new HealthFragment();
+        ShoppingFragment fragment = new ShoppingFragment();
 
         return fragment;
     }
@@ -86,7 +87,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         init(v, inflater);
 
-        fetchAndDisplayHealth(progressBar);
+        fetchAndDisplayShopping(progressBar);
 
         isCreated = true;
 
@@ -110,13 +111,13 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_HEALTH);
+        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_SHOPPING);
         clickListener.setLayout(rlHeader);
 
         List<GenericDeal> deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
-        adapter.setCategory(ResourceUtils.HOTELS_AND_SPA);
+        adapter.setCategory(ResourceUtils.SHOPPING);
         adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
@@ -136,7 +137,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
     }
 
     DealsTask dealsTask = new DealsTask(null, null, null, null, null);
-    private void fetchAndDisplayHealth(ProgressBar progressBar)
+    private void fetchAndDisplayShopping(ProgressBar progressBar)
     {
         tvEmptyView.setVisibility(View.GONE);
 
@@ -147,7 +148,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
             subCategory = ""; //Reset sub category filter.
         }
 
-        String cache = dealsTask.getCache("health");
+        String cache = dealsTask.getCache("shopping");
 
         if(cache != null && !isRefreshed)
         {
@@ -157,7 +158,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
         {
             Logger.print("Culprit");
 
-            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "health");
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "shopping");
         }
     }
 
@@ -181,7 +182,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         filterTagUpdate();
 
-        fetchAndDisplayHealth(progressBar);
+        fetchAndDisplayShopping(progressBar);
 
         isRefreshed = false;
     }
@@ -207,7 +208,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         memoryCache.remove(adapter.deals);
 
-        final String KEY = PREFIX_DEALS.concat("hotels_spas");
+        final String KEY = PREFIX_DEALS.concat("shopping");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
@@ -215,10 +216,10 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         activity.resetFilters();
 
-        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_HOTELS);
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_SHOPPING);
 
         isRefreshed = true;
-        fetchAndDisplayHealth(null);
+        fetchAndDisplayShopping(null);
         isRefreshed = false;
     }
 
@@ -229,7 +230,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.hotels_spa_banner);
+        ivBanner.setImageResource(R.drawable.health_banner);
 
         rlHeader.setVisibility(View.VISIBLE);
 
@@ -308,7 +309,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
             filter += "Rating " + activity.ratingFilter +", ";
         }
 
-        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_HEALTH);
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_SHOPPING);
 
         if(!categories.isEmpty())
         {
@@ -324,7 +325,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_HEALTH;
+                adapter.subcategoryParent = CategoryUtils.CT_SHOPPING;
                 adapter.filterHeaderDeal = new GenericDeal(true);
             }
             else
@@ -343,7 +344,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_HEALTH;
+                adapter.subcategoryParent = CategoryUtils.CT_SHOPPING;
                 adapter.filterHeaderBrand = new Brand(true);
             }
             else
@@ -359,4 +360,10 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
             }
         }
     }
+
+    // Dummy method for Shopping Task
+    public void showBrands(List<Brand> brands)
+    {
+    }
+
 }
