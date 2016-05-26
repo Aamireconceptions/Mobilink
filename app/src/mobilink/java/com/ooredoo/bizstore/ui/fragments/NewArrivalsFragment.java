@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -78,6 +82,8 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        setHasOptionsMenu(true);
+
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
         init(v, inflater);
@@ -88,6 +94,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         return v;
     }
+    FilterOnClickListener clickListener;
 
     private void init(View v, LayoutInflater inflater)
     {
@@ -104,10 +111,12 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_NEW_ARRIVALS);
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_NEW_ARRIVALS);
-        clickListener.setLayout(rlHeader);
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+            clickListener.setLayout(rlHeader);
+        }
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -119,7 +128,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
-        listView.addHeaderView(rlHeader);
+        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
         //listView.setOnScrollListener(new FabScrollListener(activity));
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
@@ -149,6 +158,25 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         {
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "new_arrivals");
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        if(!BuildConfig.FLAVOR.equals("mobilink")){
+            menu.findItem(R.id.action_filter).setVisible(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.action_filter)
+        {
+            clickListener.filter();;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -225,7 +253,9 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.top_deals_banner);
 
-        rlHeader.setVisibility(View.VISIBLE);
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.VISIBLE);
+        }
 
         tvEmptyView.setText("");
     }
@@ -234,8 +264,9 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
-        rlHeader.setVisibility(View.GONE);
-
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.GONE);
+        }
         //adapter.clearData();
 
         tvEmptyView.setText(stringResId);

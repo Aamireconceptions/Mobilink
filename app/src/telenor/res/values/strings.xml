@@ -40,7 +40,7 @@
     <string name="num_confirm_text">Please enter your Telenor Number.</string>
     <string name="qatar_code">92</string>
     <string name="error_invalid_num">Please enter a valid Telenor Mobile Number</string>
-    <string name="subscription_charges">You will be charged Rs <b>5</b>/week</string>
+    <string name="subscription_charges">You will be charged @ Rs.<b>5</b>/week</string>
     <string name="share_with_friends_txt">Hi, I just found this great App for you called Telenor Biz Store. You can find businesses and enjoy the best deals &amp; discounts in your city. Send SUB to 5005 to download the Application.</string>
     <string name="food_dining">Food Deals</string>
     <string name="special_discounts">Special Discounts</string>
@@ -73,7 +73,7 @@
     <string name="my_city">City</string>
     <string name="un_sub_success">Dear User, you have successfully unsubscribed from Telenor BizStore!</string>
     <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Telenor BizStore.\nFind popular venues, great local businesses,\nDiscover discounts, products & services closest to you, wherever you are!]]></string>
-    <string name="sms_charges">Telenor BizStore app will send a one time sms message to verify your phone number.</string>
+    <string name="sms_charges">Telenor BizStore app will send a one time sms to verify your phone number.</string>
     <string name="unsub_from_service">You have been Unsubscribed from Telenor BizStore</string>
     <string name="success_redeemed">Awesome! BizStore saved you money on the best deal in town. You will receive a discount confirmation message shortly.</string>
     <string name="Unsubscribe_Bizstore">Unsubscribe Telenor BizStore</string>

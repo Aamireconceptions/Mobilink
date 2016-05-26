@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -18,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -82,6 +86,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
         init(v, inflater);
@@ -97,8 +102,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     private TextView tvFilter;
     List<GenericDeal> deals;
+    FilterOnClickListener clickListener;
     private void init(View v, LayoutInflater inflater)
     {
+
         activity = (HomeActivity) getActivity();
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
@@ -112,7 +119,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+
 
         FrameLayout flWrapper = (FrameLayout) inflater.inflate(R.layout.layout_filter_tags, null);
 
@@ -131,8 +138,13 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
             }
         });
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
-        clickListener.setLayout(rlHeader);
+         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+            clickListener.setLayout(rlHeader);
+        }
 
         deals = new ArrayList<>();
 
@@ -145,12 +157,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         listView = (ListView) v.findViewById(R.id.list_view); listView.setHeaderDividersEnabled(true);
 
         listView.addHeaderView(ivBanner);
-        listView.addHeaderView(rlHeader);
+        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
         //flWrapper.setPadding(0, -1000, 0, 0);
         //flWrapper.setLayoutParams(new AbsListView.LayoutParams(0, 0));
        // listView.addHeaderView(flWrapper);
-
-
 
         //rlFilterTags.setVisibility(View.GONE);
 
@@ -164,8 +174,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         {
             listView.setNestedScrollingEnabled(true);
         }
-
-
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
     }
@@ -188,6 +196,26 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         {
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "food");
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        if(BuildConfig.FLAVOR.equals("mobilink")) {
+            menu.findItem(R.id.action_filter).setVisible(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.action_filter)
+        {
+            clickListener.filter();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -265,7 +293,9 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     {
         ivBanner.setImageResource(R.drawable.food_dinning_banner);
 
-        rlHeader.setVisibility(View.VISIBLE);
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.VISIBLE);
+        }
 
         tvEmptyView.setText("");
     }

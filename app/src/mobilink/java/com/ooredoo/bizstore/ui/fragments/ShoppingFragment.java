@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -80,9 +84,12 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         return fragment;
     }
 
+    FilterOnClickListener clickListener;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        setHasOptionsMenu(true);
+
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
         init(v, inflater);
@@ -109,10 +116,12 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+        clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_SHOPPING);
 
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_SHOPPING);
-        clickListener.setLayout(rlHeader);
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+            clickListener.setLayout(rlHeader);
+        }
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -124,7 +133,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
-        listView.addHeaderView(rlHeader);
+        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
         //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
@@ -160,6 +169,28 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "shopping");
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            menu.findItem(R.id.action_filter).setVisible(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.action_filter)
+        {
+            clickListener.filter();
+        }
+        return super.onOptionsItemSelected(item);
+
+
     }
 
     @Override
@@ -232,7 +263,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.health_banner);
 
-        rlHeader.setVisibility(View.VISIBLE);
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.VISIBLE);
+        }
 
         tvEmptyView.setText("");
     }
@@ -241,8 +274,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
-        rlHeader.setVisibility(View.GONE);
-
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.GONE);
+        }
         tvEmptyView.setText(stringResId);
         //tvEmptyView.setVisibility(View.VISIBLE);
         listView.setEmptyView(tvEmptyView);

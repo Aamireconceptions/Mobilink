@@ -102,6 +102,11 @@ import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
+import net.hockeyapp.android.CrashManager;
+import net.hockeyapp.android.Tracking;
+import net.hockeyapp.android.UpdateManager;
+import net.hockeyapp.android.metrics.MetricsManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -248,6 +253,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(!BuildConfig.FLAVOR.equals("dealionare") && !BuildConfig.FLAVOR.equals("mobilink")) {
             startSubscriptionCheck();
         }
+
+        MetricsManager.register(this, getApplication());
+
+        checkForUpdates();
+    }
+
+    private void checkForUpdates()
+    {
+        // Remove this for store builds!
+        UpdateManager.register(this);
     }
 
     Timer timer;
@@ -282,6 +297,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     RelativeLayout filterParent;
     public FloatingActionButton fab;
     private void init() {
+
         diskCache.requestInit(this);
 
         sharedPrefUtils = new SharedPrefUtils(this);
@@ -431,21 +447,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onResume() {
         super.onResume();
 
-     /*   if(BizStore.getLanguage().equals("en"))
-        {
-            Logger.print("Drawer: "+BizStore.getLanguage());
+        checkForCrashes();
 
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+        Tracking.startUsage(this);
+    }
 
-            // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.LEFT);
-        }
-        else
-        {
-            Logger.print("Drawer: "+BizStore.getLanguage());
-
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
-
-        }*/
+    private void checkForCrashes()
+    {
+        CrashManager.register(this);
     }
 
     public void setSearchSuggestions(List<String> list) {
@@ -814,7 +823,7 @@ public CoordinatorLayout coordinatorLayout;
         super.onStart();
     }
 
-    public static MenuItem miSearch;
+    public static MenuItem miSearch, miFilter;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -825,6 +834,13 @@ public CoordinatorLayout coordinatorLayout;
         loaderItem.setVisible(false);
 
         miSearch = menu.findItem(R.id.action_search);
+
+        if(BuildConfig.FLAVOR.equals("mobilink")) {
+            miFilter = menu.findItem(R.id.action_filter);
+            miFilter.setVisible(true);
+        }
+
+
 
         return true;
     }
@@ -857,16 +873,35 @@ public CoordinatorLayout coordinatorLayout;
             }
         } else if(id == R.id.action_search || id == R.id.search) {
             boolean show = id == R.id.action_search;
+
+            if(BuildConfig.FLAVOR.equals("mobilink")) {
+                if (id == R.id.action_search) {
+                    miFilter.setVisible(false);
+                } else {
+                    if (currentFragment != null) {
+                        miFilter.setVisible(true);
+                    }
+                }
+            }
+
             if(!show) {
+
                 isShowResults = false;
                 acSearch.setText("");
                 acSearch.setHint(R.string.search);
             } else {
+
+
                 if(searchSuggestions == null || searchSuggestions.list == null || searchSuggestions.list.size() == 0) {
                     new SearchSuggestionsTask(this).execute();
                 }
             }
             showHideSearchBar(show);
+        }
+        else
+        if(id == R.id.action_filter)
+        {
+            System.out.println("Home Filter pressed");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -876,6 +911,15 @@ public CoordinatorLayout coordinatorLayout;
         super.onPause();
 
         diskCache.requestFlush();
+
+        unregisterManagers();
+
+        Tracking.stopUsage(this);
+    }
+
+    private void unregisterManagers()
+    {
+        UpdateManager.unregister();
     }
 
     public void hideSearchResults() {
@@ -902,6 +946,8 @@ public CoordinatorLayout coordinatorLayout;
         isSearchEnabled = show;
         mMenu.findItem(R.id.search).setVisible(show);
         mMenu.findItem(R.id.action_search).setVisible(!show);
+
+
         mActionBar.setDisplayUseLogoEnabled(!show);
         popularGrid.setVisibility(show ? View.VISIBLE : View.GONE);
         searchLayout.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -1425,6 +1471,8 @@ LinearLayout llSearch;
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        unregisterManagers();
 
         if(timer != null)
         {

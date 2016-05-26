@@ -81,7 +81,7 @@
     <string name="Unsubscribe_Bizstore">Unsubscribe Jazz Discount Bazar</string>
     <string name="unsub_details">By unsubscribing Jazz Discount Bazar, you will no longer get promotion or service alerts from application.</string>
     <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Jazz Discount Bazar.\nFind popular venues, great local businesses,\nDiscover discounts, products & services closest to you, wherever you are!]]></string>
-    <string name="sms_charges">Jazz Discount Bazar app will send a one time sms message to verify your phone number.</string>
+    <string name="sms_charges">Jazz Discount Bazar app will send a one time sms to verify your phone number.</string>
     <string name="kids">Kids</string>
     <string name="other_activities">Other Activities</string>
     <string name="unsub_from_service">You have been Unsubscribed from Jazz Discount Bazar</string>

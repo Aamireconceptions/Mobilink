@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -79,6 +83,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
         init(v, inflater);
@@ -90,6 +95,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         return v;
     }
 
+    FilterOnClickListener clickListener;
     private void init(View v, LayoutInflater inflater)
     {
         activity = (HomeActivity) getActivity();
@@ -99,16 +105,13 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view, R.id.appBarLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-       /* ivBanner = (ImageView) v.findViewById(R.id.banner);
-
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
-
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
-
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_TOP);
-        clickListener.setLayout(rlHeader);
+        clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_TOP);
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+            clickListener.setLayout(rlHeader);
+        }
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -120,9 +123,9 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
-        listView.addHeaderView(rlHeader);
-        //listView.setOnScrollListener(new FabScrollListener(activity));
-        //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
+
+        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
+
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -150,6 +153,28 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         {
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "top_deals");
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            menu.findItem(R.id.action_filter).setVisible(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.action_filter)
+        {
+            System.out.println("TopDeals Filter pressed");
+            clickListener.filter();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -226,7 +251,9 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.top_deals_banner);
 
-        rlHeader.setVisibility(View.VISIBLE);
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.VISIBLE);
+        }
 
         tvEmptyView.setText("");
     }
@@ -235,7 +262,9 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
-        rlHeader.setVisibility(View.GONE);
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.GONE);
+        }
 
         //adapter.clearData();
 

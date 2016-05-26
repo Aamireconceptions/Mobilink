@@ -55,6 +55,11 @@ public class FilterOnClickListener implements View.OnClickListener {
 
     Button btList, btMap;
 
+    public void setCategory(int category)
+    {
+        this.category = category;
+    }
+
     public void setLayout(View layout) {
         this.layout = layout;
 
@@ -133,71 +138,8 @@ public class FilterOnClickListener implements View.OnClickListener {
 
             case R.id.filter:
 
-               // saveCategory = category;
+                filter();
 
-               // Logger.print("CAT: "+saveCategory);
-
-                if(category == CategoryUtils.CT_NEARBY &&
-                        (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                                && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
-                {
-                    return;
-                }
-
-                Logger.print("FilterOnClickListener: CATEGORY -> Filter: " + String.valueOf(category));
-
-                ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_highest_discount)).setChecked(activity.doApplyDiscount);
-
-                activity.drawerLayout.openDrawer(GravityCompat.END);
-
-                if(category > 0) {
-                    if(category == CategoryUtils.CT_NEARBY) {
-                        activity.findViewById(R.id.distance_layout).setVisibility(View.VISIBLE);
-                        activity.findViewById(R.id.line1).setVisibility(View.VISIBLE);
-                    } else {
-                        activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
-                        activity.findViewById(R.id.line1).setVisibility(View.GONE);
-                    }
-
-                    TextView tvCategory = (TextView) activity.findViewById(R.id.category_selection);
-                    //tvCategory.setAllCaps(true);
-                    String sub = activity.getString(R.string.sub).toUpperCase();
-                    String all = activity.getString(R.string.all).toUpperCase();
-                    String categories = activity.getString(R.string.categories).toUpperCase();
-
-                    int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
-                    ? R.color.red : R.color.white;
-
-                    if(category == CategoryUtils.CT_NEARBY || category == CategoryUtils.CT_TOP)
-                    {
-                        tvCategory.setText(all + " " + categories, TextView.BufferType.SPANNABLE);
-
-                        Spannable word = (Spannable) tvCategory.getText();
-                        word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
-                                0, all.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                    }
-                    else
-                    {
-                        tvCategory.setText(sub + " " + categories, TextView.BufferType.SPANNABLE);
-
-                        Spannable word = (Spannable) tvCategory.getText();
-                        word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
-                                0, sub.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                    }
-
-                   // tvCategory.setAllCaps(true);
-
-                    //activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
-                    //activity.findViewById(R.id.line1).setVisibility(View.GONE);
-
-                    if(category == CategoryUtils.CT_LADIES) {
-                        //There are no sub categories in LADIES categories
-                        activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
-                    } else {
-                        activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
-                    }
-                    CategoryUtils.showSubCategories(activity, category);
-                }
                 break;
 
             case R.id.back:
@@ -333,6 +275,83 @@ public class FilterOnClickListener implements View.OnClickListener {
                 setDistanceSelected(v);
 
                 break;
+        }
+    }
+    public void filter()
+    {
+        // saveCategory = category;
+
+        // Logger.print("CAT: "+saveCategory);
+
+        if(category == CategoryUtils.CT_NEARBY &&
+                (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                        && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
+        {
+            return;
+        }
+
+        Logger.print("FilterOnClickListener: CATEGORY -> Filter: " + String.valueOf(category));
+
+        ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_highest_discount)).setChecked(activity.doApplyDiscount);
+
+        activity.drawerLayout.openDrawer(GravityCompat.END);
+
+        if(category > 0) {
+            if(category == CategoryUtils.CT_NEARBY) {
+                activity.findViewById(R.id.distance_layout).setVisibility(View.VISIBLE);
+                activity.findViewById(R.id.line1).setVisibility(View.VISIBLE);
+            } else {
+                activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
+                activity.findViewById(R.id.line1).setVisibility(View.GONE);
+            }
+
+            TextView tvCategory = (TextView) activity.findViewById(R.id.category_selection);
+            //tvCategory.setAllCaps(true);
+            String sub = activity.getString(R.string.sub).toUpperCase();
+            String all = activity.getString(R.string.all).toUpperCase();
+            String categories = activity.getString(R.string.categories).toUpperCase();
+
+            int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
+                    ? R.color.red : R.color.white;
+
+            if(category == CategoryUtils.CT_NEARBY || category == CategoryUtils.CT_TOP)
+            {
+                tvCategory.setText(all + " " + categories, TextView.BufferType.SPANNABLE);
+
+                Spannable word = (Spannable) tvCategory.getText();
+                word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
+                        0, all.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+            else
+            {
+                tvCategory.setText(sub + " " + categories, TextView.BufferType.SPANNABLE);
+
+                Spannable word = (Spannable) tvCategory.getText();
+                word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
+                        0, sub.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+
+            if(category == CategoryUtils.CT_NEW_ARRIVALS)
+            {
+                tvCategory.setVisibility(View.GONE);
+            }
+            else
+            {
+                tvCategory.setVisibility(View.VISIBLE);
+            }
+
+            // tvCategory.setAllCaps(true);
+
+            //activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
+            //activity.findViewById(R.id.line1).setVisibility(View.GONE);
+
+            if(category == CategoryUtils.CT_LADIES) {
+                //There are no sub categories in LADIES categories
+                activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
+            } else {
+                activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
+            }
+            CategoryUtils.showSubCategories(activity, category);
         }
     }
 

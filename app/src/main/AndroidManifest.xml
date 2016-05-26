@@ -51,6 +51,10 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}"/>
+
         <!-- Register AnalyticsReceiver and AnalyticsService to support background
        dispatching on non-Google Play devices. -->
         <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"

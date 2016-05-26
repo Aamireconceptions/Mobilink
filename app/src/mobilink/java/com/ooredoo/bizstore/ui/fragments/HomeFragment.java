@@ -13,6 +13,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -55,6 +57,8 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.MyScroller;
 import com.ooredoo.bizstore.utils.SliderUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
+
+import net.hockeyapp.android.FeedbackManager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -104,7 +108,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.layout_dashboard, container, false);
 
         this.inflater = inflater;
@@ -114,6 +125,17 @@ dealofDayCalled = false;
         return v;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            System.out.println("HomeFragmental called");
+            menu.findItem(R.id.action_filter).setVisible(false);
+        }
+    }
+
     boolean dealofDayCalled = false;
 
     int reqWidth, reqHeight;
@@ -121,6 +143,7 @@ dealofDayCalled = false;
     DisplayMetrics displayMetrics;
 
     private void init(View v) {
+
         activity = (HomeActivity) getActivity();
 
         Resources resources = getResources();
@@ -512,6 +535,7 @@ dealofDayCalled = false;
     @Override
     public void onResume()
     {
+
         super.onResume();
 
         resumeSliders();
