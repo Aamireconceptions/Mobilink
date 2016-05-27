@@ -1036,7 +1036,13 @@ public EditText etMerchantCode;
                 /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
                 intentIntegrator.initiateScan();*/
 
-                startActivityForResult(new Intent(this, CaptureActivity.class), 303);
+                VerifyMerchantCodeTask verifyMerchantCodeTask =
+                        new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
+                verifyMerchantCodeTask
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                String.valueOf(id), "", String.valueOf(mDeal.businessId));
+
+              //  startActivityForResult(new Intent(this, CaptureActivity.class), 303);
 
                 return;
             }

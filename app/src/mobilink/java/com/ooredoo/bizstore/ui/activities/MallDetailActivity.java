@@ -32,9 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
-import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.BusinessAdapter;
 import com.ooredoo.bizstore.adapters.MallDetailAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
@@ -45,14 +43,12 @@ import com.ooredoo.bizstore.asynctasks.MallDetailTask;
 import com.ooredoo.bizstore.asynctasks.MallsMiscTask;
 import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
-import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.MallBrands;
 import com.ooredoo.bizstore.model.MallDeals;
 import com.ooredoo.bizstore.model.MallMiscResponse;
-import com.ooredoo.bizstore.model.MallResponse;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -75,7 +71,7 @@ import static java.lang.String.valueOf;
 /**
  * Created by Babar on 19-Jan-16.
  */
-public class MallDetailActivity extends BaseActivity implements View.OnClickListener, LocationNotifies
+public class MallDetailActivity extends BaseActivity implements View.OnClickListener
 {
     Bitmap bitmap;
     public String category;
@@ -218,60 +214,6 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
-        ProgressBar progressBar = (ProgressBar) header.findViewById(R.id.progress_bar);
-        if(progressBar != null) {
-            progressBar.setVisibility(View.GONE);
-        }
-        header.findViewById(R.id.tv_call).setOnClickListener(this);
-        header.findViewById(R.id.iv_call).setOnClickListener(this);
-        header.findViewById(R.id.tv_rate).setOnClickListener(this);
-        header.findViewById(R.id.iv_rate).setOnClickListener(this);
-        header.findViewById(R.id.tv_share).setOnClickListener(this);
-        header.findViewById(R.id.iv_share).setOnClickListener(this);
-
-        llSimilarNearby = (LinearLayout) header.findViewById(R.id.similar_nearby);
-
-        btBrands = (Button) header.findViewById(R.id.brands);
-        FontUtils.setFont(this,  btBrands);
-        btBrands.setOnClickListener(this);
-        // btSimilarDeals.performClick();
-
-        btDeals = (Button) header.findViewById(R.id.deals);
-        FontUtils.setFont(this,  btDeals);
-        btDeals.setOnClickListener(this);
-
-        tvLocations = (TextView) header.findViewById(R.id.locations);
-        FontUtils.setFontWithStyle(this, tvLocations, Typeface.BOLD);
-        tvLocations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // popupMenu.show();
-
-                registerForContextMenu(v);
-
-                openContextMenu(v);
-
-                unregisterForContextMenu(v);
-            }
-        });
-
-        popupMenu = new PopupMenu(this, tvLocations, Gravity.BOTTOM);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
-
-                Logger.print("menuId: " + id);
-
-                LocationsTask locationsTask = new LocationsTask(MallDetailActivity.this);
-                locationsTask.execute(String.valueOf(id), "business", item.getTitle().toString());
-
-                return false;
-            }
-        });
-
-        findViewById(R.id.iv_favorite).setOnClickListener(this);
-
         if(src == null)
         {
             MallDetailTask detailTask = new MallDetailTask(this, null, snackBarUtils);
@@ -385,7 +327,6 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
             src.isFavorite = Favorite.isFavorite(src.id);
 
-            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
             if(isNotNullOrEmpty(business.title)) {
@@ -397,12 +338,6 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
             FontUtils.setFontWithStyle(this, tvTitle, Typeface.BOLD);
 
-            ((TextView) header.findViewById(R.id.phone)).setText(business.contact);
-            ((TextView) header.findViewById(R.id.address)).setText(business.address);
-            tvCity = ((TextView) header.findViewById(R.id.city));
-            tvCity.setText(business.location);
-
-            FontUtils.setFontWithStyle(this, tvCity, Typeface.BOLD);
 
             tvCity2 = (TextView) header.findViewById(R.id.tv_city);
             tvCity2.setText(business.location);
@@ -428,8 +363,6 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                                     + getString(R.string.times), Toast.LENGTH_SHORT).show();
                 }
             });
-
-            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
             rlHeader = (RelativeLayout) header.findViewById(R.id.rl_header);
 
@@ -465,132 +398,11 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
 
-        if(business.locations != null && business.locations.size() > 0)
-        {
-            for(int i = 0; i<=business.locations.size() - 1; i++)
-            {
-                if(business.locations.size() > 1 ||
-                        (business.location != null)
-                                &&
-                                (!business.location.equalsIgnoreCase(business.locations.get(i).title)))
-                {
-                    popupMenu.getMenu().add(1, business.locations.get(i).id, 0, business.locations.get(i).title);
-                }
-            }
-
-            if(business.locations.size() == 1 && business.location.equals(business.locations.get(0).title))
-            {
-                tvLocations.setVisibility(View.GONE);
-            }
-        }
-        else
-        {
-            tvLocations.setVisibility(View.GONE);
-        }
-
-        updateOutlet(business, null);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
 
         MallsMiscTask mallsMiscTask = new MallsMiscTask(this, snackBarUtils, progressBar);
         mallsMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
-    }
-
-    private void updateOutlet(Business business, String value)
-    {
-        if(value != null)
-        {
-            tvCity.setText(value);
-
-            tvCity2.setText(value);
-        }
-
-        RelativeLayout rlPhone = (RelativeLayout) header.findViewById(R.id.phone_layout);
-
-        TextView tvPhone= (TextView) header.findViewById(R.id.phone);
-
-        if(business.contact != null && !business.contact.isEmpty())
-        {
-            rlPhone.setVisibility(View.VISIBLE);
-
-            tvPhone.setText(PhoneNumberUtils.formatNumber(business.contact.contains("+")
-                    ? business.contact : "+" + business.contact));
-        }
-        else
-        {
-            rlPhone.setVisibility(View.GONE);
-        }
-
-        RelativeLayout rlDistance = (RelativeLayout) header.findViewById(R.id.distance_layout);
-
-        ImageView ivArrow = (ImageView) findViewById(R.id.address_arrow);
-
-        if((business.latitude == 0 && business.longitude == 0)
-                || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
-        {
-            llDirections.setVisibility(View.GONE);
-            rlDistance.setVisibility(View.GONE);
-
-            ivArrow.setVisibility(View.GONE);
-        }
-        else
-        {
-            TextView tvDirections = (TextView) header.findViewById(R.id.directions);
-
-            ivArrow.setVisibility(View.VISIBLE);
-
-            tvDirections.setOnClickListener(this);
-
-            TextView tvDistance= (TextView) header.findViewById(R.id.distance);
-            tvDistance.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    startDirections();
-                }
-            });
-
-            String origin = HomeActivity.lat + "," + HomeActivity.lng;
-            String destination = business.latitude + "," + business.longitude;
-
-            CalculateDistanceTask calculateDistanceTask = new CalculateDistanceTask(this, business, tvDistance, tvDirections,
-                    rlDistance, llDirections);
-            calculateDistanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
-        }
-
-        RelativeLayout rlAddress = (RelativeLayout) header.findViewById(R.id.address_layout);
-        rlAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startDirections();
-            }
-        });
-
-        TextView tvAddress= (TextView) header.findViewById(R.id.address);
-
-        if(business.address != null && !business.address.isEmpty())
-        {
-            rlAddress.setVisibility(View.VISIBLE);
-            tvAddress.setText(business.address);
-        }
-        else
-        {
-            rlAddress.setVisibility(View.GONE);
-        }
-
-        RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
-
-        TextView tvTiming = (TextView) findViewById(R.id.timing);
-
-        if(business.timing != null && !business.timing.isEmpty())
-        {
-            rlTiming.setVisibility(View.VISIBLE);
-            tvTiming.setText(business.timing);
-        }
-        else
-        {
-            rlTiming.setVisibility(View.GONE);
-        }
     }
 
     private void fallBackToDiskCache(final String url, final ImageView imageView)
@@ -714,32 +526,6 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             startDirections();
         }
         else
-        if(viewId == R.id.brands)
-        {
-            adapter.expandStateMap.clear();
-
-            groupList.clear();
-            childList.clear();
-
-           adapter.notifyDataSetChanged();
-
-            for(MallBrands brand : response.result.brands)
-            {
-                groupList.add(brand.category);
-                childList.add(brand.brands);
-            }
-
-            lastSelected.setSelected(false);
-
-            btBrands.setSelected(true);
-            lastSelected = btBrands;
-
-            adapter.notifyDataSetChanged();
-
-            expandableListView.smoothScrollToPositionFromTop(1, btBrands.getHeight() * 2
-                    + (int) getResources().getDimension(R.dimen._9sdp), 200 );
-        }
-        else
             if(viewId == R.id.deals)
             {
                 adapter.expandStateMap.clear();
@@ -801,7 +587,26 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
     public void populateMisc(MallMiscResponse response)
     {
-        if( response.result.brands.size() > 0
+        if(response.result.deals.size() > 0)
+        {
+            groupList.clear();
+            childList.clear();
+
+            for(MallDeals deal : response.result.deals)
+            {
+                groupList.add(deal.category);
+                childList.add(deal.deals);
+            }
+
+            adapter.notifyDataSetChanged();
+
+//            btDeals.setSelected(true);
+//            lastSelected = btDeals;
+        }
+
+        return;
+
+       /* if( response.result.brands.size() > 0
                 ||  response.result.deals.size() > 0)
         {
             llSimilarNearby.setVisibility(View.VISIBLE);
@@ -852,7 +657,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             }
 
             //setupDealsAndBrands(response);
-        }
+        }*/
 
     }
 
@@ -908,7 +713,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
         System.out.println("Directions URI:"+uri);
 
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 
         try
         {
@@ -920,8 +725,4 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    @Override
-    public void onUpdated(GenericDeal deal, String value) {
-        updateOutlet(new Business(deal), value);
-    }
 }

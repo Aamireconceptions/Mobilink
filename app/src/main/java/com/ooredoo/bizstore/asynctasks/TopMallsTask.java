@@ -74,6 +74,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     public void setData(String result)
     {
          if(pbTopMalls != null)pbTopMalls.setVisibility(View.GONE);
+
         adapter.clear();
 
         if(result != null) {
@@ -102,8 +103,6 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
             catch (JsonSyntaxException e) {
                 e.printStackTrace();
             }
-
-
         } else {
             Logger.print("TopMallsAsyncTask: Failed to download Banners due to no internet");
         }

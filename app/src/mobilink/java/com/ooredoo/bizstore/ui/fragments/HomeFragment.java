@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -109,6 +110,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Logger.print("HomeFragment onCreate");
+
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
     }
@@ -116,13 +119,26 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
         View v = inflater.inflate(R.layout.layout_dashboard, container, false);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            v.setNestedScrollingEnabled(true);
+        }
 
         this.inflater = inflater;
 dealofDayCalled = false;
         init(v);
 
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Logger.print("Home onDestroyView");
     }
 
     @Override
@@ -325,7 +341,7 @@ dealofDayCalled = false;
     private void initAndLoadTopMalls(View v) {
         List<Mall> malls = new ArrayList<>();
 
-        topMallsAdapter = new TopMallsStatePagerAdapter(getFragmentManager(), malls);
+        topMallsAdapter = new TopMallsStatePagerAdapter(getChildFragmentManager(), malls);
 
         topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
 
@@ -413,20 +429,23 @@ dealofDayCalled = false;
                         cats[0].toUpperCase(), getResources().getColor(R.color.red));
 
 
-                View gridDealOfDay = inflater.inflate(R.layout.grid_deal_of_day, null);
+                View gridDealOfDay = inflater.inflate(R.layout.grid_generic, null);
                 gridDealOfDay.setTag(genericDeal);
                 gridDealOfDay.setOnClickListener(this);
 
                 ImageView ivThumbnail = (ImageView) gridDealOfDay.findViewById(R.id.thumbnail);
 
-                ProgressBar progressBar = (ProgressBar) gridDealOfDay.findViewById(R.id.progressBar);
+                ProgressBar progressBar = (ProgressBar) gridDealOfDay.findViewById(R.id.progress_bar);
 
-                TextView tvTitle = (TextView) gridDealOfDay.findViewById(R.id.title);
+                /*TextView tvTitle = (TextView) gridDealOfDay.findViewById(R.id.title);
                 tvTitle.setText(genericDeal.businessName.toUpperCase());
-                FontUtils.setFontWithStyle(activity, tvTitle, Typeface.BOLD);
+                FontUtils.setFontWithStyle(activity, tvTitle, Typeface.BOLD);*/
 
-                TextView tvDescription = (TextView) gridDealOfDay.findViewById(R.id.description);
-                tvDescription.setText(genericDeal.title.toUpperCase());
+                TextView tvDescription = (TextView) gridDealOfDay.findViewById(R.id.desc);
+                tvDescription.setText(genericDeal.description);
+
+                TextView tvValidity = (TextView) gridDealOfDay.findViewById(R.id.validity);
+                tvValidity.setText("Valid Till: " + genericDeal.endDate);
 
                 Image image = genericDeal.image;
 
@@ -453,10 +472,10 @@ dealofDayCalled = false;
                 }
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                 params.width = displayMetrics.widthPixels / 2;
-                params.height = params.width - (int) ( (params.width * (10f / 100f)));
+                params.height = params.width + (int) ( (params.width * (5f / 100f)));
 
                 if(column > 1)
                 {

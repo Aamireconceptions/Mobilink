@@ -140,7 +140,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
          clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
+        if(!BuildConfig.FLAVOR.equals("mobilink"))
         {
             rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
             clickListener.setLayout(rlHeader);

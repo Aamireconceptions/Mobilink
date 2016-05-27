@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="@dimen/_136sdp"
             android:layout_height="@dimen/_75sdp"
-            android:layout_marginTop="0dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/bizstore"/>
 
         <ImageView
@@ -26,6 +26,7 @@
             android:src="@drawable/subscription"/>
 
         <TextView
+            android:id="@+id/first"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"

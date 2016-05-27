@@ -245,7 +245,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         activity.resetFilters();
 
-        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_HOTELS);
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_HEALTH);
 
         isRefreshed = true;
         fetchAndDisplayHealth(null);
@@ -368,7 +368,10 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
                     adapter.notifyDataSetChanged();
                 }
 
-                adapter.filterHeaderDeal = null;
+                if(adapter.filterHeaderDeal != null)
+                {
+                    adapter.filterHeaderDeal = null;
+                }
             }
         }
         else
@@ -387,7 +390,10 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
                     adapter.notifyDataSetChanged();
                 }
 
-                adapter.filterHeaderBrand = null;
+                if(adapter.filterHeaderBrand != null)
+                {
+                    adapter.filterHeaderBrand = null;
+                }
             }
         }
     }

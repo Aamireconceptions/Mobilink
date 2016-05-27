@@ -39,6 +39,7 @@ public class TopMallsStatePagerAdapter extends FragmentStatePagerAdapter
     {
         Mall mall = malls.get(position);
 
+        System.out.println("TOPMALL getItem: "+position);
         /*return TopMallFragment.newInstance(mall.id,
                                            mall.title,
                                            mall.image.logoUrl);*/
@@ -48,7 +49,8 @@ public class TopMallsStatePagerAdapter extends FragmentStatePagerAdapter
 
     @Override
     public int getItemPosition(Object object) {
-        return POSITION_NONE;
+        Logger.print("TOPMALL getItemPosition");
+        return POSITION_UNCHANGED;
     }
 
     @Override

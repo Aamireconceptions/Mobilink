@@ -1,0 +1,232 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:scrollbars="none"
+    android:scrollbarStyle="insideOverlay">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <ImageView
+                android:id="@+id/detail_img"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_255sdp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:src="@color/banner"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateDrawable="@drawable/custom_progress"
+                android:layout_centerInParent="true"
+                android:visibility="gone"/>
+
+            <RelativeLayout
+                android:id="@+id/ll_details"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90sdp"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:background="@color/transparent_black">
+
+                <RelativeLayout
+                    android:id="@+id/brand_logo_layout"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/business_border">
+
+                    <ImageView
+                        android:id="@+id/brand_logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true" />
+
+                    <TextView
+                        android:id="@+id/brand_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="40sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textAllCaps="true" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/directions_layout"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_toEndOf="@+id/brand_logo_layout"
+                    android:layout_alignTop="@+id/brand_logo_layout"
+                    android:layout_alignBottom="@+id/brand_logo_layout">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_alignLeft="@+id/tv_title"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <RatingBar
+                        android:id="@+id/rating_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:progressDrawable="@drawable/deal_rating_bar"
+                        style="?android:attr/ratingBarStyleSmall"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/directions_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_6sdp"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/transparent_white"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/directions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:gravity="center_horizontal"
+                        android:drawableTop="@drawable/ic_directions_big"
+                        android:visibility="visible"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:background="@drawable/detail_actions_bg">
+            <TableRow>
+                <ImageView
+                    android:id="@+id/iv_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_phone_active"/>
+                <ImageView
+                    android:id="@+id/iv_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_views_white"/>
+                <ImageView
+                    android:id="@+id/iv_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+
+                    android:src="@drawable/ic_star_white"/>
+                <ImageView
+                    android:id="@+id/iv_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_share_white"/>
+            </TableRow>
+            <TableRow android:layout_marginBottom="15dp">
+                <TextView
+                    android:id="@+id/tv_call"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/call"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/tv_views"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/tv_rate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/rate"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/tv_share"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/share"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"/>
+            </TableRow>
+        </TableLayout>
+
+        <ProgressBar
+            android:id="@+id/more_progress"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
+
+
+
+    </LinearLayout>
+</ScrollView>

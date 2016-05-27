@@ -46,6 +46,7 @@ public class SubscriptionPlansFragment extends BaseFragment {
         if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("mobilink")){
             tvTOS.setVisibility(View.GONE);
         }
+
     }
 
     @Override

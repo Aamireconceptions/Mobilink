@@ -3,9 +3,9 @@
     <string name="slide_2_text_1">MOVIES, CINEMAS, EVENTS</string>
     <string name="slide_2_text_2">&amp; ENTERTAINMENT</string>
     <string name="slide_2_text_3">ON YOUR FINGER TIPS</string>
-    <string name="slide_3_text_1">TRAVEL &amp; TOURS, HOTELS &amp;</string>
-    <string name="slide_3_text_2">SPAS, SPORTS &amp; FITNESS</string>
-    <string name="slide_3_text_3">&amp; MUCH MORE</string>
+    <string name="slide_3_text_1">SPAS &amp; SALONS</string>
+    <string name="slide_3_text_2">SPORTS &amp; FITNESS</string>
+    <string name="slide_3_text_3">&amp; MUCH MORE!</string>
     <string name="help_question1">What is Jazz Discount Bazar Service all about?</string>
     <string name="help_answer1"><![CDATA[Jazz Discount Bazar is an SMS and Mobile Application based service which provides a platform to view best Deals & Discounts on Top Brands in Pakistan. With major brands on-board ranging from fashion & lifestyle to health & fitness, Shopping, Restaurants and much more, Discount Bazar has it All!\nJazz Discount Bazar also offers a variety of Exclusive Deals available to Discount Bazar users only who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
     <string name="help_question2">What do I get from Jazz Discount Bazar?</string>
@@ -40,7 +40,7 @@
     <string name="num_confirm_text">Please enter your Mobilink Number.</string>
     <string name="qatar_code">92</string>
     <string name="error_invalid_num">Please enter a valid Mobilink Mobile Number</string>
-    <string name="subscription_charges">You will be charged Rs <b>2.99</b>/week</string>
+    <string name="subscription_charges">You will be charged @ Rs.<b>2.99</b>/week</string>
     <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz Discount Bazar. You can find businesses and " +
                             "enjoy Premium Discounts of your favorite Top Brands. Simply download the Application " +
                             "from PlayStore &amp; avail the Best Deals in your city!</string>
@@ -80,10 +80,14 @@
     <string name="un_sub_success">Dear User, you have successfully unsubscribed from Jazz Discount Bazar!</string>
     <string name="Unsubscribe_Bizstore">Unsubscribe Jazz Discount Bazar</string>
     <string name="unsub_details">By unsubscribing Jazz Discount Bazar, you will no longer get promotion or service alerts from application.</string>
-    <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Jazz Discount Bazar.\nFind popular venues, great local businesses,\nDiscover discounts, products & services closest to you, wherever you are!]]></string>
+    <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Jazz Discount Bazar, discover deals, products and services closest to you where ever you are!]]></string>
     <string name="sms_charges">Jazz Discount Bazar app will send a one time sms to verify your phone number.</string>
     <string name="kids">Kids</string>
     <string name="other_activities">Other Activities</string>
     <string name="unsub_from_service">You have been Unsubscribed from Jazz Discount Bazar</string>
+    <string name="find_popular_venues">Get Promotions Near You</string>
+    <string name="get_restaurants_deals">Get Restaurant Deals</string>
+    <string name="discounts_on_fav_brands">Discounts on your favourite brands</string>
+    <string name="movies_cinemas_more">Movies, cinemas &amp; much more! </string>
     
 </resources>

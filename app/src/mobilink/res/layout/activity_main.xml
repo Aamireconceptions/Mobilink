@@ -28,22 +28,7 @@
         android:visibility="gone"/>-->
 
 
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_40sdp"
-        android:paddingStart="@dimen/_70sdp"
-        android:paddingEnd="@dimen/_70sdp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:background="@drawable/next_btn_ripple"
-        android:clickable="true"
-        android:text="@string/NEXT"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:visibility="visible"/>
+
 
     <FrameLayout
         android:id="@+id/container"
