@@ -151,13 +151,13 @@
 
                 <data
                     android:scheme="http"
-                    android:host="ooredoo.bizstore.deal"
+                    android:host="@string/host"
                     android:pathPrefix="/deal_detail"
                     android:pathPattern=".*"/>
 
                 <data
                     android:scheme="http"
-                    android:host="ooredoo.bizstore.deal"
+                    android:host="@string/host"
                     android:pathPrefix="/deal_detail"/>
 
             </intent-filter>
@@ -181,13 +181,13 @@
 
                 <data
                     android:scheme="http"
-                    android:host="ooredoo.bizstore"
+                    android:host="@string/host_business"
                     android:pathPrefix="/business_detail"
                     android:pathPattern=".*"/>
 
                 <data
                     android:scheme="http"
-                    android:host="ooredoo.bizstore"
+                    android:host="@string/host_business"
                     android:pathPrefix="/business_detail"/>
 
             </intent-filter>

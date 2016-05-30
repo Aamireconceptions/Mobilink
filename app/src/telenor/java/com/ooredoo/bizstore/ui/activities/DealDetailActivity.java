@@ -1263,9 +1263,9 @@ public EditText etMerchantCode;
 
         Logger.print("Uri: " + uri);
 
-        String operatorName = BuildConfig.FLAVOR.equals("ooredoo") ? "Ooredoo" : "Telenor";
+        String operatorName = "Telenor";
 
-        uri = "View this awesome deal on " + operatorName + " BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
+        uri = "View this awesome deal on " + operatorName + " BizStore http://telenor.bizstore.deal/deal_detail?id=" + dealId +
         "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);

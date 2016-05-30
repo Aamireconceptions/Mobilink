@@ -53,6 +53,7 @@
         android:inputType="number"
         android:layoutDirection="locale"
         android:gravity="start"
+        android:maxLength="14"
         android:hint="@string/phone_number"
         android:singleLine="true"
         android:textSize="14sp"

@@ -82,4 +82,6 @@ public class SignUpActivity extends BaseActivity {
         toolbar.setVisibility(hideToolbar ? View.GONE : View.VISIBLE);
         hideToolbar = false;
     }
+
+
 }

@@ -56,6 +56,7 @@ android {
         dealionare{
             applicationId "mobi.econceptions.dealionare"
             versionName = "1.0"
+            manifestPlaceholders = [HOCKEYAPP_APP_ID: "4e8fc3ee285640c2ab08942dac59ae9a"]
         }
 
         mobilink{

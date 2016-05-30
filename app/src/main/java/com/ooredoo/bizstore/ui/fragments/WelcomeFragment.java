@@ -49,14 +49,15 @@ public class WelcomeFragment extends BaseFragment {
 
         SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
 
+        //activity.finish();
+
         SignUpActivity activity = (SignUpActivity) mActivity;
         activity.startActivity(HomeActivity.class);
-
-        activity.finish();
 
         tracker.send(new HitBuilders.EventBuilder()
                .setCategory("Action")
                .setAction("Log in")
                .build());
     }
+
 }

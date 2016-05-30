@@ -394,6 +394,8 @@ public class FilterOnClickListener implements View.OnClickListener {
         lastDistanceSelected = v;
     }
 
+    public void filter(){}
+
     private void setCheckboxSelected(View v) {
         v.setSelected(!v.isSelected());
     }

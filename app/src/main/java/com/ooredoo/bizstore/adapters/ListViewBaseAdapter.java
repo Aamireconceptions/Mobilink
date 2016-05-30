@@ -394,7 +394,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
             {
                 if(deal.endDate != null && !deal.endDate.isEmpty())
                 {
-                    holder.tvValidity.setText("Valid Till: " + deal.endDate);
+                    holder.tvValidity.setText("Valid till: " + deal.endDate);
                     holder.tvValidity.setVisibility(View.VISIBLE);
                 }
                 else

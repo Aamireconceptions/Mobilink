@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,10 +82,10 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
 
        // signUpActivity.startActivity(HomeActivity.class);
         // signUpActivity.toolbar.setVisibility(View.VISIBLE);
-        FragmentUtils.replaceFragment(activity,
-                                      R.id.fragment_container,
-                                      new SubscriptionPlansFragment(),
-                                      "subscription_fragment");
+        FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
+                R.id.fragment_container,
+                new SubscriptionPlansFragment(),
+                "subscription_fragment");
 
     }
 

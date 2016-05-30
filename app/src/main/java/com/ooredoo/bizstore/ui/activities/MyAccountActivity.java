@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
@@ -92,6 +93,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         setupToolbar();
         final ImageView ivEditName = (ImageView) findViewById(R.id.iv_edit_name);
         etName = (EditText) findViewById(R.id.et_name);
+        FontUtils.setFont(this, etName);
         etName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -126,7 +128,8 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             etName.setText(userAccount.name);
         }
 
-        etNumber.setText(BizStore.username);
+        String prefix = BuildConfig.FLAVOR.equals("ooredoo") ? "+974" : "+92";
+        etNumber.setText(prefix + BizStore.username);
 
         loadPicture();
     }

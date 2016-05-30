@@ -2,6 +2,8 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
@@ -47,6 +49,29 @@ public class SignUpFragment extends BaseFragment {
         FontUtils.setFont(getActivity(), etCountryCode);
 
         etMsisdn = (EditText) parent.findViewById(R.id.et_phone_num);
+        etMsisdn.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length() > 0 && s.toString().charAt(0) == '0')
+                {
+                    String subString = s.toString().substring(1);
+
+                    etMsisdn.setText(subString);
+                }
+
+            }
+        });
         parent.findViewById(R.id.btn_next).setOnClickListener(this);
         mActivity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_VISIBLE | SOFT_INPUT_ADJUST_RESIZE);
 

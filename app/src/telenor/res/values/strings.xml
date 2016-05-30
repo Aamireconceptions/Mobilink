@@ -78,5 +78,7 @@
     <string name="success_redeemed">Awesome! BizStore saved you money on the best deal in town. You will receive a discount confirmation message shortly.</string>
     <string name="Unsubscribe_Bizstore">Unsubscribe Telenor BizStore</string>
     <string name="unsub_details">By unsubscribing Telenor BizStore, you will no longer get promotion or service alerts from application.</string>
+    <string name="host">telenor.bizstore.deal</string>
+    <string name="host_business">telenor.bizstore</string>
 
 </resources>

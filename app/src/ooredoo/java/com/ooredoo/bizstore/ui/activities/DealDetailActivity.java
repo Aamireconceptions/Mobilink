@@ -42,6 +42,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
@@ -1260,9 +1261,9 @@ public EditText etMerchantCode;
 
         Logger.print("Uri: " + uri);
 
-        String operatorName = BuildConfig.FLAVOR.equals("ooredoo") ? "Ooredoo" : "Telenor";
+        String appName = activity.getString(R.string.app_name);
 
-        uri = "View this awesome deal on " + operatorName + " BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
+        uri = "View this awesome deal on " + appName + " BizStore http://ooredoo.bizstore.deal/deal_detail?id=" + dealId +
         "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);

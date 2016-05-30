@@ -910,7 +910,11 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         Logger.print("Uri: " + uri);
 
-        uri = "View this restaurant on BizStore http://ooredoo.bizstore/business_detail?id=" + businessId+
+        String appName = activity.getString(R.string.app_name);
+
+        String hostBusiness = activity.getString(R.string.host_business);
+
+        uri = "View this brand on " + appName + " http://"+hostBusiness+"/business_detail?id=" + businessId+
         "\n\nor download app from play.google.com/store/apps/details?id="+packageName;
 
         DealDetailActivity.startShareIntent(activity, uri, businessId);

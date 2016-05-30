@@ -251,7 +251,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         checkIfGpsEnabled();
 
         if(!BuildConfig.FLAVOR.equals("dealionare") && !BuildConfig.FLAVOR.equals("mobilink")) {
-            startSubscriptionCheck();
+           // startSubscriptionCheck();
         }
 
         MetricsManager.register(this, getApplication());
@@ -585,36 +585,34 @@ public CoordinatorLayout coordinatorLayout;
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
 
-        if(BizStore.lastTab != -1 && BizStore.lastTab != 0) {
-            Logger.print("LastTab: "+BizStore.lastTab);
-            final int correctTab;
+        if(BuildConfig.FLAVOR.equals("ooredoo")) {
+            if (BizStore.lastTab != -1 && BizStore.lastTab != 0) {
+                Logger.print("LastTab: " + BizStore.lastTab);
+                final int correctTab;
 
-            if (BizStore.getLanguage().equals("en")) {
-                correctTab = 12 - BizStore.lastTab;
-            }
-            else {
-                correctTab = Math.abs(BizStore.lastTab - 12);
-            }
-
-            Logger.print("CorrectTab: " + correctTab);
-
-            tabLayout.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    tabLayout.getTabAt(correctTab).select();
+                if (BizStore.getLanguage().equals("en")) {
+                    correctTab = 12 - BizStore.lastTab;
+                } else {
+                    correctTab = Math.abs(BizStore.lastTab - 12);
                 }
-            }, 500);
-        }
-        else
-        {
-            tabLayout.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    int pos = BizStore.getLanguage().equals("en") ? 0 : 12;
 
-                    tabLayout.getTabAt(pos).select();
-                }
-            }, 500);
+                Logger.print("CorrectTab: " + correctTab);
+
+                tabLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tabLayout.getTabAt(correctTab).select();
+                    }
+                }, 500);
+            } else {
+                tabLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        int pos = BizStore.getLanguage().equals("en") ? 0 : 12;
+
+                        tabLayout.getTabAt(pos).select();
+                    }
+                }, 500);
 
           /*  if(BizStore.getLanguage().equals("ar")) {
 
@@ -624,6 +622,7 @@ public CoordinatorLayout coordinatorLayout;
             {
                 tabLayout.getTabAt(0).select();
             }*/
+            }
         }
 
         //tabLayout.getTabAt(11).select();
@@ -889,6 +888,7 @@ public CoordinatorLayout coordinatorLayout;
                 isShowResults = false;
                 acSearch.setText("");
                 acSearch.setHint(R.string.search);
+
             } else {
 
 

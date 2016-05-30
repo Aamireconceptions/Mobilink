@@ -37,7 +37,7 @@
                 android:text=""
                 android:textSize="16sp"
                 android:textStyle="bold"
-                />
+                android:inputType="number"/>
 
             <ImageButton
                 android:id="@+id/btn_next"

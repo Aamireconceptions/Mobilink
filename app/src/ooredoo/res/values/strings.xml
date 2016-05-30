@@ -2,5 +2,6 @@
 <resources>
 
     <string name="top_deals">Top Discounts</string>
-
+    <string name="host">ooredoo.bizstore.deal</string>
+    <string name="host_business">ooredoo.bizstore</string>
 </resources>

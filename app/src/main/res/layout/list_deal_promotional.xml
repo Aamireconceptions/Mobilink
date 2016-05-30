@@ -191,7 +191,8 @@
             android:layout_gravity="end"
             android:textColor="@color/slight_grey"
             android:text="12-43-23"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

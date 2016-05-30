@@ -23,7 +23,7 @@
     <string name="help_answer3b">2. <b>Smart Phone Application:</b>
 \n\t\ti. User downloads the Jazz Discount Bazar smartphone application from Jazz App Store.
 \n\t\tii. User enters his Jazz Mobile Number to login.
-\n\t\tiii. On successful login, he becomes the subscriber and is charged Rs. 2.5 + tax/Week for the service.
+\n\t\tiii. On successful login, he becomes the subscriber and is charged Rs. 2.99 + tax/Week for the service.
 \n\tiv. However, in case the user has already subscribed to the service through SMS, he will not be charged again.</string>
     <string name="help_question4">What are the Smartphone Application Charges?</string>
     <string name="help_answer4">Upon successful application installation &amp; login, the user will be charged are Rs. 2.5+tax/Week. However, the user is not charged on downloading the smartphone application.</string>
@@ -41,8 +41,8 @@
     <string name="qatar_code">92</string>
     <string name="error_invalid_num">Please enter a valid Mobilink Mobile Number</string>
     <string name="subscription_charges">You will be charged @ Rs.<b>2.99</b>/week</string>
-    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz Discount Bazar. You can find businesses and " +
-                            "enjoy Premium Discounts of your favorite Top Brands. Simply download the Application " +
+    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz Discount Bazar. You can find businesses and "
+                            "enjoy Premium Discounts of your favorite Top Brands. Simply download the Application "
                             "from PlayStore &amp; avail the Best Deals in your city!</string>
     <string name="food_dining">Food Deals</string>
     <string name="special_discounts">Special Discounts</string>
@@ -89,5 +89,7 @@
     <string name="get_restaurants_deals">Get Restaurant Deals</string>
     <string name="discounts_on_fav_brands">Discounts on your favourite brands</string>
     <string name="movies_cinemas_more">Movies, cinemas &amp; much more! </string>
+    <string name="host">jazzdiscountbazar.deal</string>
+    <string name="host_business">jazzdiscountbazar</string>
     
 </resources>
