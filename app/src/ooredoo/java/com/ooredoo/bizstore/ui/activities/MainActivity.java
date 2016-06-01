@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
@@ -24,7 +25,11 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 public class MainActivity extends BaseActivity {
 
-    Button btnArabicLang, btnEnglishLang;
+    Button btnArabicLang, btnEnglishLang,
+    btSignIn, btSignUp;
+
+    LinearLayout llLang, llSignin;
+
     public MainActivity() {
         super();
         layoutResId = R.layout.activity_main;
@@ -53,6 +58,15 @@ public class MainActivity extends BaseActivity {
 
         btnArabicLang.setSelected(isArabicLang);
         btnEnglishLang.setSelected(!isArabicLang);
+
+      /*  llLang = (LinearLayout) findViewById(R.id.lang_layout);
+        llSignin = (LinearLayout) findViewById(R.id.signin_layout);
+
+        btSignIn = (Button) findViewById(R.id.signin);
+        btSignIn.setOnClickListener(this);
+        btSignIn.setSelected(true);
+        btSignUp = (Button) findViewById(R.id.signup);
+        btSignUp.setOnClickListener(this);*/
     }
 
     SplashFragment splashFragment;
@@ -125,7 +139,23 @@ fragmentTransaction.addToBackStack(null);
 
             startActivity(new Intent(this, SignUpActivity.class));
         }
+
+        /*if(viewId == R.id.signin)
+        {
+            startActivity(new Intent(this, SignUpActivity.class).putExtra("is_signin", true));
+        }
+
+        if(viewId == R.id.signup)
+        {
+            llSignin.setVisibility(View.GONE);
+
+            llLang.setVisibility(View.VISIBLE);
+
+            canShowSigninlayout = true;
+        }*/
     }
+
+    boolean canShowSigninlayout = false;
 
     @Override
     protected void onPostResume() {
@@ -138,7 +168,11 @@ fragmentTransaction.addToBackStack(null);
 
     @Override
     public void onBackPressed() {
-        if(!isSplashShowing)
+        if(isSplashShowing)
+        {
+            return;
+        }
+
         super.onBackPressed();
     }
 }

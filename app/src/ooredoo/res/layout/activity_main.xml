@@ -36,7 +36,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_14sdp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_lang_english"
@@ -57,6 +57,8 @@
             android:textColor="@color/black_white_selector"/>
 
     </LinearLayout>
+
+
 
 
 

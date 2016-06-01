@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/scrollView"
+    android:fillViewport="true"
     android:scrollbars="none">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -109,3 +115,4 @@
 
 </LinearLayout>
     </ScrollView>
+    </com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>

@@ -2,6 +2,7 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -10,6 +11,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
+import com.ooredoo.bizstore.utils.TimeUtils;
 
 /**
  * @author Pehlaj Rai
@@ -39,6 +41,13 @@ public class WelcomeFragment extends BaseFragment {
         BizStore bizStore = (BizStore) activity.getApplication();
 
         tracker = bizStore.getDefaultTracker();
+
+        if(TimeUtils.isDateOver(6, 07, 2016))
+        {
+            TextView tvSpecialMsg = (TextView) parent.findViewById(R.id.special_msg);
+            tvSpecialMsg.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

@@ -119,7 +119,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
         View v = inflater.inflate(R.layout.layout_dashboard, container, false);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -172,10 +171,10 @@ dealofDayCalled = false;
         // This was killing the whole thing!
         //activity.setCurrentFragment(this);
 
-      /*  swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.home_list_view, R.id.empty_view, R.id.appBarLayout);*/
+        swipeRefreshLayout.setSwipeableChildrens(R.id.scrollView, R.id.appBarLayout);
 
        // final ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 
@@ -215,38 +214,6 @@ dealofDayCalled = false;
 
         viewedRatedAdapter = new ViewedRatedAdapter(activity, R.layout.layout_deal_of_day, dods);
 
-       // listView.addHeaderView(header);
-      //  listView.setAdapter(viewedRatedAdapter);
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            listView.setNestedScrollingEnabled(true);
-        }
-*/
-        /*listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                final int lastItem = firstVisibleItem + visibleItemCount;
-
-
-                if (listView.getLastVisiblePosition() == listView.getAdapter().getCount() - 1 &&
-                        listView.getChildAt(listView.getChildCount() - 1).getBottom() <= listView.getHeight()) {
-                    //It is scrolled all the way down here
-                    if (!dealofDayCalled) {
-                        dealofDayCalled = true;
-
-                        initAndLoadDealsOfTheDay();
-
-                        Logger.print("Last Item");
-                    }
-                }
-            }
-        });*/
-
         initAndLoadPromotions(v);
 
        // initAndLoadTopBrands(v);
@@ -271,7 +238,7 @@ dealofDayCalled = false;
 
         promoPager.setOnTouchListener(new SliderOnTouchListener(promoSlider));
 
-        promoAdapter = new PromoStatePagerAdapter(getFragmentManager(), deals, promoSlider);
+        promoAdapter = new PromoStatePagerAdapter(getChildFragmentManager(), deals, promoSlider);
 
         promoPager.setAdapter(promoAdapter);
 
@@ -400,6 +367,9 @@ dealofDayCalled = false;
 
     public void addMostViewedAndTopRated(List<DOD> dods)
     {
+
+        llContainer.removeAllViews();
+
         int row = 0;
         int column = 0;
         for(DOD dod : dods) {
@@ -624,7 +594,7 @@ dealofDayCalled = false;
 
     @Override
     public void onRefreshCompleted() {
-      //  swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

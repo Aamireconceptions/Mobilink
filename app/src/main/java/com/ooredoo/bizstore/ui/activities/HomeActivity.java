@@ -53,6 +53,7 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.google.android.gms.common.ConnectionResult;
@@ -1262,6 +1263,12 @@ LinearLayout llSearch;
         findViewById(R.id.layout_search_filter).setVisibility(View.VISIBLE);
 
         searchDeals.setText(getDealsCount() + " " + getString(R.string.deals));
+
+        if(getDealsCount() < 1)
+        {
+            Toast.makeText(this, R.string.error_no_search_item_found, LENGTH_SHORT).show();
+        }
+
         searchBusinesses.setText(getBusinessCount() + " " + getString(R.string.businesses));
 
         isSearchTextWatcherEnabled = true;

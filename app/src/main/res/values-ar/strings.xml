@@ -319,4 +319,14 @@
     <string name="error_insufficient_balance">عزيزي المستخدم، ليس لديك رصيد كافي لإجراء هذه العملية.</string>
     <string name="login">تسجيل الدخول</string>
     <string name="unsub_from_service">تم إلغاء إشتراكك من خدمة Ooredoo BizStore</string>
+    <string name="ramadan_discounts">خصومات رمضان</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="foc_point_1">Get Exclusive Ramadan Discounts</string>
+    <string name="foc_point_2">Find Your Favorite Iftar Spots</string>
+    <string name="foc_point_3">Discounts On Suhoor Menus</string>
+    <string name="foc_point_4">Health, Shopping, &amp; Much More</string>
+    <string name="dear_user">dear user</string>
+    <string name="already_availed_promo">you have already used your free trial\n\nplease subscribe\n\n
+    you will be charged QAR 9/week</string>
+
 </resources>

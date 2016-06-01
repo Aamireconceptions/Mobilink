@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/label_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enjoy_ramadan"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="true"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/_7_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/label_1"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/avatar"/>
+
+    <LinearLayout
+        android:id="@+id/free_trial_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/_7_icon"
+        android:layout_marginTop="18dp"
+        android:gravity="center_horizontal">
+    <TextView
+        android:id="@+id/days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/days"
+
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/free"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/free_trial"
+        android:layout_toRightOf="@+id/days"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        android:textAllCaps="true"
+        android:textColor="@color/red"
+        android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="12sp"
+        android:text="@string/free_trial_details"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/free_trial_layout"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/signin_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_14sdp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/signin"
+            android:layout_width="115dp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/lang_left_selector"
+            android:text="@string/sign_in"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"/>
+
+        <Button
+            android:id="@+id/signup"
+            android:layout_width="115dp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/lang_right_selector"
+            android:text="@string/SIGNUP"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

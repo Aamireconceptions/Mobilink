@@ -99,6 +99,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
                 Response response = gson.fromJson(result, Response.class);
 
                 if(response.resultCode != -1) {
+
                     List<GenericDeal> deals;
 
                     viewPager.setBackground(null);

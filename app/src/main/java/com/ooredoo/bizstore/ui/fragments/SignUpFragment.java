@@ -5,12 +5,14 @@ import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.LoginTask;
+import com.ooredoo.bizstore.asynctasks.SignInTask;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
@@ -33,6 +35,8 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class SignUpFragment extends BaseFragment {
 
     EditText etMsisdn;
+
+    boolean isSignin;
 
     boolean login;
     public SignUpFragment() {
@@ -63,8 +67,7 @@ public class SignUpFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(s.length() > 0 && s.toString().charAt(0) == '0')
-                {
+                if (s.length() > 0 && s.toString().charAt(0) == '0') {
                     String subString = s.toString().substring(1);
 
                     etMsisdn.setText(subString);
@@ -72,7 +75,9 @@ public class SignUpFragment extends BaseFragment {
 
             }
         });
-        parent.findViewById(R.id.btn_next).setOnClickListener(this);
+        Button btNext = (Button) parent.findViewById(R.id.btn_next);
+        btNext.setOnClickListener(this);
+
         mActivity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_VISIBLE | SOFT_INPUT_ADJUST_RESIZE);
 
         if(BuildConfig.FLAVOR.equals("dealionare"))
@@ -80,12 +85,11 @@ public class SignUpFragment extends BaseFragment {
             parent.findViewById(R.id.tv_sms_charges).setVisibility(View.GONE);
         }
 
-        Bundle bundle  = getArguments();
-
-        if(bundle != null)
-        {
-            login =  bundle.getBoolean("login");
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            isSignin = bundle.getBoolean("is_is_signin");
         }
+
     }
 
     @Override
@@ -119,7 +123,13 @@ public class SignUpFragment extends BaseFragment {
                 }
                 else
                 {
-                    new SubscriptionTask(this).execute(msisdn);
+                    if(isSignin)
+                    {
+                        new SignInTask(this).execute(msisdn);
+                    }
+                    else {
+                        new SubscriptionTask(this).execute(msisdn);
+                    }
                 }
 
             } else {

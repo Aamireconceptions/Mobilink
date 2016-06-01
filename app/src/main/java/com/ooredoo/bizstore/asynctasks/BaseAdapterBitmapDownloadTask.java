@@ -13,6 +13,7 @@ public class BaseAdapterBitmapDownloadTask extends BitmapDownloadTask
 
     private BaseExpandableListAdapter baseExpandableListAdapter;
 
+
     public BaseAdapterBitmapDownloadTask(BaseAdapter adapter)
     {
         super(null, null);
@@ -25,6 +26,10 @@ public class BaseAdapterBitmapDownloadTask extends BitmapDownloadTask
         super(null, null);
 
         this.baseExpandableListAdapter = adapter;
+    }
+
+    public BaseAdapterBitmapDownloadTask() {
+        super(null, null);
     }
 
     @Override
@@ -45,7 +50,9 @@ public class BaseAdapterBitmapDownloadTask extends BitmapDownloadTask
             }
             else
             {
-                baseExpandableListAdapter.notifyDataSetChanged();
+                if(baseExpandableListAdapter != null) {
+                    baseExpandableListAdapter.notifyDataSetChanged();
+                }
             }
         }
     }

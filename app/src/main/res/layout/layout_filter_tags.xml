@@ -5,12 +5,10 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/tags_wrapper"
-    android:paddingTop="@dimen/_12sdp"
-    android:paddingBottom="@dimen/_12sdp"
-    android:paddingStart="@dimen/_20sdp"
-    android:paddingEnd="@dimen/_20sdp"
+    android:padding="@dimen/_8sdp"
     android:background="@drawable/top_bottom_border"
     android:visibility="visible">
 
@@ -21,6 +19,7 @@
         android:layout_toStartOf="@+id/close"
         android:textColor="@android:color/secondary_text_light"
         android:layout_marginEnd="@dimen/_6sdp"
+        android:textSize="12sp"
         android:layout_centerVertical="true"/>
 
     <ImageView

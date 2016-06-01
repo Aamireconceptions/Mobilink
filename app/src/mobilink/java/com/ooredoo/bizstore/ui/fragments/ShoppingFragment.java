@@ -261,7 +261,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.health_banner);
+        ivBanner.setImageResource(R.drawable.shopping_banner);
 
         if(!BuildConfig.FLAVOR.equals("mobilink")) {
             rlHeader.setVisibility(View.VISIBLE);

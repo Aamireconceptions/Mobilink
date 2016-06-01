@@ -18,7 +18,7 @@
     <string name="sms_charges">Ooredoo BizStore app will send a one time sms message to verify your phone number.</string>
     <string name="num_confirm_text">Please enter your Qatar Ooredoo Number.</string>
     <string name="NEXT">NEXT</string>
-    <string name="SIGNUP">SIGNUP</string>
+    <string name="SIGNUP">Sign up</string>
     <string name="SUBSCRIBE">SUBSCRIBE</string>
     <string name="top_brands">Top Brands</string>
     <string name="health_fitness">Health &amp; Fitness</string>
@@ -454,5 +454,22 @@
     <string name="google_maps_release_api_key">AIzaSyCEbiA598KwENjR8lkk6NUwnTZVIBcu1A0</string>
     <string name="google_maps_debug_api_key">AIzaSyD8thjWWw0Stqgh_dmg8JUFJCufr3AsXw0</string>
     <string name="unsub_from_service">You have been Unsubscribed from Ooredoo BizStore</string>
+    <string name="foc_point_1">Get Exclusive Ramadan Discounts</string>
+    <string name="foc_point_2">Find Your Favorite Iftar Spots</string>
+    <string name="foc_point_3">Discounts On Suhoor Menus</string>
+    <string name="foc_point_4">Health, Shopping, &amp; Much More</string>
+    <string name="foc_subscription_charges">You will be charged QAR <b>9</b>/week after your free trial ends</string>
+    <string name="wish_ramadan">We wish you a blessed Ramadan!</string>
+    <string name="dear_user">dear user</string>
+    <string name="already_availed_promo">you have already used your free trial\n\nplease subscribe\n\n
+    you will be charged QAR 9/week</string>
+    <string name="subscribe_now">Subscribe Now</string>
+    <string name="days">Days</string>
+    <string name="enjoy_ramadan">enjoy a ramadan</string>
+    <string name="_1_week">1-week</string>
+    <string name="free_trial">free trial!</string>
+
+    <string name="free_trial_details">For Ramadan New Subscribers only!\nYou Will be charged QAR 9/week after your Free
+    Trial ends</string>
 
 </resources>

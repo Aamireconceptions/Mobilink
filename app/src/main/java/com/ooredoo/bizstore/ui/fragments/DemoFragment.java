@@ -84,7 +84,7 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
         // signUpActivity.toolbar.setVisibility(View.VISIBLE);
         FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
                 R.id.fragment_container,
-                new SubscriptionPlansFragment(),
+                new RamadanFOCFragment(),
                 "subscription_fragment");
 
     }

@@ -16,6 +16,7 @@ import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 import com.ooredoo.bizstore.ui.fragments.JewelleryFragment;
 import com.ooredoo.bizstore.ui.fragments.MallsFragment;
 import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
+import com.ooredoo.bizstore.ui.fragments.RamadanFragment;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.SportsAndFitnessFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
@@ -86,7 +87,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 case 1:
                     return NearbyFragment.newInstance();
                 case 2:
-                    return TopDealsFragment.newInstance();
+                    return RamadanFragment.newInstance();
+                   // return TopDealsFragment.newInstance();
                 case 3:
                     return FoodAndDiningFragment.newInstance();
                 case 4:
@@ -118,7 +120,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 case 11:
                     return NearbyFragment.newInstance();
                 case 10:
-                    return TopDealsFragment.newInstance();
+                    return RamadanFragment.newInstance();
+                   // return TopDealsFragment.newInstance();
                 case 9:
                     return FoodAndDiningFragment.newInstance();
                 case 8:
@@ -221,8 +224,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 return context.getString(R.string.nearby);
 
             case 2:
-
-                return context.getString(R.string.top_deals);
+                return context.getString(R.string.ramadan_discounts);
+               // return context.getString(R.string.top_deals);
 
             case 3:
 
@@ -278,7 +281,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
             case 10:
 
-                return context.getString(R.string.top_deals);
+                return context.getString(R.string.ramadan_discounts);
+                //return context.getString(R.string.top_deals);
 
             case 9:
 

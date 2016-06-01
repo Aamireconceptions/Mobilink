@@ -4,4 +4,10 @@
     <string name="top_deals">Top Discounts</string>
     <string name="host">ooredoo.bizstore.deal</string>
     <string name="host_business">ooredoo.bizstore</string>
+    <string name="ramadan_discounts">Ramadan Discounts</string>
+    <string name="sign_in">Sign in</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
 </resources>
