@@ -8,29 +8,33 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -38,6 +42,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.wallet.fragment.BuyButtonAppearance;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
@@ -45,12 +50,11 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
-import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
-import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.LocationsTask;
 import com.ooredoo.bizstore.asynctasks.RedeemViaSmsTask;
+import com.ooredoo.bizstore.asynctasks.ReportAsyncTask;
 import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
 import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
@@ -63,7 +67,7 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.ScrollViewHelper;
+//import com.ooredoo.bizstore.utils.ScrollViewHelper;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
@@ -84,15 +88,14 @@ import static java.lang.String.valueOf;
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
-public class DealDetailActivity extends BaseActivity implements OnClickListener,
-        LocationNotifies
+public class DealDetailActivity extends BaseActivity implements OnClickListener
 
 {
 
     public String category;
     static String packageName;
     public boolean showBanner = false;
-public EditText etMerchantCode;
+    public EditText etMerchantCode;
 
     RelativeLayout rlMerchandCode;
 
@@ -101,15 +104,29 @@ public EditText etMerchantCode;
    // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
-    ScrollViewHelper scrollViewHelper;
+    ScrollView scrollView;
 
     private Button btGetCode;
 
-    private ImageView ivLine, ivVerifyMerchantCode;
+    RadioGroup radioGroup;    // declare in report_dialog_box.
 
-    private LinearLayout llVoucherCode;
+    RadioButton someOther;    // declare in report_dialog_box.
 
-    private TextView tvDiscount, tvValidity, tvCode, tvNote, tvDiscountVoucher;
+    RadioButton other;        // declare in report_dialog_box.
+
+    EditText enterReport;    // declare in report_dialog_box.
+
+    String reportMesage;     // Use for send the report according to deal.
+
+    TextView titleReportBox;
+
+    int reportEdittxt_Check=0;
+
+    Button reportBtn_dialogBox;
+
+    private ImageView ivVerifyMerchantCode;
+
+    ColorDrawable cd;
 
     private int id = -1;
 
@@ -127,13 +144,10 @@ public EditText etMerchantCode;
 
     private SnackBarUtils snackBarUtils;
 
-    LinearLayout llSimilarNearby;
-
-
     ListViewBaseAdapter commonAdapter;
     public DealDetailActivity() {
         super();
-        layoutResId = R.layout.deal_detail_activity;
+        layoutResId = R.layout.frag_deal_detail;
     }
 
     TextView tvVoucherClaimed;
@@ -145,22 +159,9 @@ public EditText etMerchantCode;
 
         diskCache.requestInit(this);
 
-        header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
-
-        setupToolbar();
-
         handleIntentFilter();
 
         initViews();
-    }
-
-
-    private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setShowHideAnimationEnabled(false);
     }
 
     @Override
@@ -197,64 +198,25 @@ public EditText etMerchantCode;
         }
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-
-        Logger.print("OnCreateContextMenu");
-
-        if(mDeal.locations != null && mDeal.locations.size() > 0) {
-            for (int i = 0; i <= mDeal.locations.size() - 1; i++) {
-                /*if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
-                {
-                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
-                }*/
-                if (mDeal.locations.size() > 1 ||
-                        (mDeal.location != null
-                                &&
-                                (!mDeal.location.equalsIgnoreCase(mDeal.locations.get(i).title))))
-
-                {
-                    menu.add(1, mDeal.locations.get(i).id, 0, mDeal.locations.get(i).title);
-                }
-            }
-        }
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        mDeal.businessId = id;
-
-        Logger.print("menuId: "+id);
-
-        LocationsTask locationsTask = new LocationsTask(DealDetailActivity.this);
-        locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
-
-        return super.onContextItemSelected(item);
-    }
-
-    Spinner spinner;
-    View header;
-    ListView listView;
-    PopupMenu popupMenu;
-    TextView tvLocations;
     TextView tvPrices;
-    ListViewBaseAdapter similarAdapter, nearbyAdapter;
-
-    List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
     ScrollViewListener mOnScrollViewListener;
     LinearLayout llHead, llDiscount;
     TextView tvHeadTitle, tvHeadDescription;
     TableLayout tableLayout;
     RelativeLayout rlDetails;
 
-
+TextView tvDiscount;
 
     private void initViews()
     {
+        scrollView=(ScrollView) findViewById(R.id.scrollView1);
+         cd = new ColorDrawable(getResources().getColor(R.color.red));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mActionBar  = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+
         BizStore bizStore = (BizStore) getApplication();
         tracker = bizStore.getDefaultTracker();
 
@@ -265,21 +227,21 @@ public EditText etMerchantCode;
 
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
-        llHead = (LinearLayout) header.findViewById(R.id.head);
-        tvHeadTitle = (TextView) header.findViewById(R.id.head_title);
+        llHead = (LinearLayout) findViewById(R.id.head);
+        tvHeadTitle = (TextView) findViewById(R.id.head_title);
         FontUtils.setFontWithStyle(this, tvHeadTitle, Typeface.BOLD);
-        tvHeadDescription = (TextView) header.findViewById(R.id.head_description);
+        tvHeadDescription = (TextView) findViewById(R.id.head_description);
 
-        tvPrices = (TextView) header.findViewById(R.id.prices);
+        tvPrices = (TextView) findViewById(R.id.prices);
 
-        tvVoucherClaimed = (TextView) header.findViewById(R.id.vouchers_claimed);
+        tvVoucherClaimed = (TextView) findViewById(R.id.vouchers_claimed);
 
-        ivVerifyMerchantCode = (ImageView) header.findViewById(R.id.verify_merchant_code);
+        ivVerifyMerchantCode = (ImageView) findViewById(R.id.verify_merchant_code);
         ivVerifyMerchantCode.setOnClickListener(this);
 
-        rlMerchandCode = (RelativeLayout) header.findViewById(R.id.merchant_code_layout);
+        rlMerchandCode = (RelativeLayout) findViewById(R.id.merchant_code_layout);
 
-        etMerchantCode = (EditText) header.findViewById(R.id.merchant_code_field);
+        etMerchantCode = (EditText) findViewById(R.id.merchant_code_field);
         etMerchantCode.setMaxWidth(etMerchantCode.getWidth());
         etMerchantCode.setMaxLines(4);
 
@@ -295,112 +257,31 @@ public EditText etMerchantCode;
             Logger.logI("DETAIL_ID", valueOf(id));
         }
 
-        llDiscount = (LinearLayout) header.findViewById(R.id.discount_layout);
+        llDiscount = (LinearLayout) findViewById(R.id.discount_layout);
 
-        tableLayout = (TableLayout) header.findViewById(R.id.table);
+        tableLayout = (TableLayout) findViewById(R.id.table);
 
-        rlDetails = (RelativeLayout) header.findViewById(R.id.ll_details);
-
-        scrollViewHelper = new ScrollViewHelper(this);
+        rlDetails = (RelativeLayout) findViewById(R.id.ll_details);
 
         mOnScrollViewListener = new ScrollViewListener(mActionBar);
-        llSimilarNearby = (LinearLayout) header.findViewById(R.id.similar_nearby);
-
-        listView = (ListView) findViewById(R.id.list_view);
-        listView.addHeaderView(header);
-        listView.setAdapter(null);
-        header.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    View view = getCurrentFocus();
-                    if (view != null) {
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-
-                        etMerchantCode.clearFocus();
-                    }
-                }
-
-                return false;
-            }
-        });
-
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (mOnScrollViewListener != null) {
-
-                }
-
-                View currentFcous = getCurrentFocus();
-                if(currentFcous != null)
-                {
-                    currentFcous.clearFocus();
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                mOnScrollViewListener.onScrollChanged( header);
-            }
-
-        });
 
         category = intent.getStringExtra(CATEGORY);
 
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        if(progressBar != null) {
+       ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+       if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
 
-        header.findViewById(R.id.tv_call).setOnClickListener(this);
-        header.findViewById(R.id.iv_call).setOnClickListener(this);
-        header.findViewById(R.id.tv_rate).setOnClickListener(this);
-        header.findViewById(R.id.iv_rate).setOnClickListener(this);
-        header.findViewById(R.id.tv_share).setOnClickListener(this);
-        header.findViewById(R.id.iv_share).setOnClickListener(this);
-        findViewById(R.id.iv_favorite).setOnClickListener(this);
+        findViewById(R.id.tv_call).setOnClickListener(this);
+        findViewById(R.id.iv_call).setOnClickListener(this);
+        findViewById(R.id.tv_rate).setOnClickListener(this);
+        findViewById(R.id.iv_rate).setOnClickListener(this);
+        findViewById(R.id.share).setOnClickListener(this);
+        findViewById(R.id.iv_share).setOnClickListener(this);
 
-        tvLocations = (TextView) header.findViewById(R.id.locations);
-
-        FontUtils.setFontWithStyle(this, tvLocations, Typeface.BOLD);
-
-        tvLocations.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // popupMenu.show();
-
-                registerForContextMenu(v);
-
-                openContextMenu(v);
-
-                unregisterForContextMenu(v);
-            }
-        });
-
-        popupMenu = new PopupMenu(this, tvLocations, Gravity.BOTTOM);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
-        {
-            @Override
-            public boolean onMenuItemClick(MenuItem item)
-            {
-                int id = item.getItemId();
-
-                Logger.print("menuId: "+id);
-
-                LocationsTask locationsTask = new LocationsTask(DealDetailActivity.this);
-                locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
-
-                return false;
-            }
-        });
-
-        btGetCode = (Button) header.findViewById(R.id.get_code);
+        btGetCode = (Button) findViewById(R.id.get_code);
         btGetCode.setOnClickListener(this);
 
         FontUtils.setFontWithStyle(this, btGetCode, Typeface.BOLD);
@@ -415,17 +296,20 @@ public EditText etMerchantCode;
         {
             populateData(genericDeal);
         }
-    }
+    }                    //initViews function End.
 
-    Button btSimilarDeals, btNearbyDeals;
     ImageView ivDetail;
     ProgressBar progressBar;
     LinearLayout llDirections;
     RelativeLayout rlHeader;
-    TextView tvCity;
 
     RelativeLayout rlVoucher;
     GenericDeal mDeal;
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+    }
 
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
@@ -451,19 +335,51 @@ public EditText etMerchantCode;
 
             mOnScrollViewListener.setTitle(deal.title.toUpperCase());
 
+
+
             src = new Deal(deal);
             src.id = deal.id;
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "deals", id);
             incrementViewsTask.execute();
 
+            cd = new ColorDrawable(getResources().getColor(R.color.red));
+            mActionBar.setBackgroundDrawable(cd);
+
+            cd.setAlpha(0);
+
             mActionBar.setTitle(deal.title);
 
-            rlHeader = (RelativeLayout) header.findViewById(R.id.rl_header);
+            scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+
+
+                @Override
+                public void onScrollChanged() {
+                    cd.setAlpha(getAlphaforActionBar(scrollView.getScrollY()));
+                }
+                private int getAlphaforActionBar(int scrollY) {
+                    int minDist = 0, maxDist = 550;
+                    if (scrollY > maxDist) {
+                        return 255;
+                    } else {
+                        if (scrollY < minDist) {
+                            return 0;
+                        } else {
+                            return (int) ((255.0 / maxDist) * scrollY);
+                        }
+                    }
+                }
+            });
+
+            rlHeader = (RelativeLayout) findViewById(R.id.rl_header);
 
             TextView tvBrand = (TextView) findViewById(R.id.brand_name);
             tvBrand.setText(deal.businessName);
 
+            TextView tvBrandAddress = (TextView) findViewById(R.id.brand_address);
+            tvBrandAddress.setText(deal.address);
+
             TextView tvValidity = (TextView) findViewById(R.id.validity);
+           tvValidity.setTextDirection(View.TEXT_DIRECTION_RTL);
             tvValidity.setText(getString(R.string.deal_valid_till) + " " + deal.endDate);
 
             llDirections = (LinearLayout) findViewById(R.id.directions_layout);
@@ -474,14 +390,9 @@ public EditText etMerchantCode;
                 }
             });
 
-            TextView tvCategory = (TextView) findViewById(R.id.cat);
-            tvCategory.setText(deal.category);
-
-            FontUtils.setFontWithStyle(this, tvCategory, Typeface.BOLD);
-
             if(deal.how_works != null && !deal.how_works.isEmpty())
             {
-                TextView tvHTWNote = (TextView) header.findViewById(R.id.how_this_work_note);
+                TextView tvHTWNote = (TextView) findViewById(R.id.how_this_work_note);
 
                 tvHTWNote.setVisibility(View.VISIBLE);
                 tvHTWNote.setOnClickListener(this);
@@ -489,7 +400,7 @@ public EditText etMerchantCode;
 
             if(deal.terms_services != null && !deal.terms_services.isEmpty())
             {
-                TextView tvTermsServices = (TextView) header.findViewById(R.id.tos_note);
+                TextView tvTermsServices = (TextView) findViewById(R.id.tos_note);
 
                 tvTermsServices.setVisibility(View.VISIBLE);
                 tvTermsServices.setOnClickListener(this);
@@ -499,43 +410,105 @@ public EditText etMerchantCode;
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
                 deal.category = deal.category.replace(".", ",");
             }
-            TextView tvTitle = ((TextView) header.findViewById(R.id.title));
+            TextView tvTitle = ((TextView) findViewById(R.id.title));
             tvTitle.setText(deal.title);
 
             FontUtils.setFontWithStyle(this, tvTitle, Typeface.BOLD);
-            //((TextView) header.findViewById(R.id.phone)).setText(deal.contact);
 
-            ((TextView) header.findViewById(R.id.description)).setText(deal.description);
-            //((TextView) header.findViewById(R.id.address)).setText(deal.address);
+            ((TextView) findViewById(R.id.description)).setText(deal.description);
 
-            //((TextView) findViewById(R.id.tv_category)).setText(deal.category);
-            ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(deal.rating);
+            ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
 
 
-            header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
+            findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views + " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
                 }
             });
 
-            TextView tvView = ((TextView) header.findViewById(R.id.tv_views));
+            TextView tvView = ((TextView) findViewById(R.id.tv_views));
+            final Dialog dialog = new Dialog(DealDetailActivity.this);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.report_dialog_box);
+          //  dialog.setTitle("Report Box");
+
+            radioGroup=(RadioGroup) dialog.findViewById(R.id.radioGroup);
+            someOther=(RadioButton) dialog.findViewById(R.id.someOther_radioButton);
+            FontUtils.setFont(this, someOther);
+            other=(RadioButton)  dialog.findViewById(R.id.other_radioButton);
+            FontUtils.setFont(this, other);
+            reportBtn_dialogBox=(Button) dialog.findViewById(R.id.reportButton_report_dialog_box);
+            FontUtils.setFont(this, reportBtn_dialogBox);
+            titleReportBox=(TextView) dialog.findViewById(R.id.title_reportBox);
+            FontUtils.setFontWithStyle(this,titleReportBox,Typeface.BOLD);
+            enterReport=(EditText) dialog.findViewById(R.id.enterReport_editText);
+
             tvView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views+ " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
-                }
-            });
-            tvView.setText(valueOf(deal.views));
+                   // Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views+ " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
+                    // RadioGroup Check Listener.
+                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-            rlVoucher = (RelativeLayout) header.findViewById(R.id.voucher_layout);
+                            if(checkedId==R.id.someOther_radioButton) {
+                                enterReport.setVisibility(View.GONE);
+                                reportMesage=(String) someOther.getText();
+                         //       Toast.makeText(DealDetailActivity.this,reportMesage, Toast.LENGTH_SHORT).show();
+                               reportEdittxt_Check=1;
+                            }
+                            else if(checkedId==R.id.other_radioButton) {
+                                enterReport.setVisibility(View.VISIBLE);
+                               reportMesage="";
+                               reportEdittxt_Check=2;
+                            }
+
+                        }
+                 }); // End RadioGroup Check Listener.
+
+
+                    reportBtn_dialogBox.setOnClickListener(new OnClickListener() {     // Report button on click listener.
+                        @Override
+                        public void onClick(View v) {
+
+
+                            if(reportEdittxt_Check==2) {
+                                reportMesage=enterReport.getText().toString();
+                                if (reportMesage.matches("")) {
+                                    Toast.makeText(getApplicationContext(), "Please type the report", Toast.LENGTH_SHORT).show();
+                                } else {
+                                //    Toast.makeText(getApplicationContext(), "Message is:" + reportMesage, Toast.LENGTH_SHORT).show();
+                                    new ReportAsyncTask(DealDetailActivity.this,reportMesage,genericDeal.businessId,genericDeal.id).execute();
+                                    dialog.dismiss();
+                                }
+                            }
+                            else if(reportEdittxt_Check==1 )  {
+                                  // Toast.makeText(getApplicationContext(), "Message is: without" + reportMesage, Toast.LENGTH_SHORT).show();
+                                    new ReportAsyncTask(DealDetailActivity.this,reportMesage,genericDeal.businessId,genericDeal.id).execute();
+                                    dialog.dismiss();
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), "Please Select the one option", Toast.LENGTH_SHORT).show();
+                            }
+
+                            enterReport.setText("");
+
+                        }
+                    });
+
+                    dialog.show();
+
+                }
+            });   // Report button onClick Listener End.
+
+            rlVoucher = (RelativeLayout) findViewById(R.id.voucher_layout);
 
             if(deal.is_exclusive == 0) {
                 rlVoucher.setVisibility(View.GONE);
                 tvDiscount.setVisibility(View.GONE);
-
-               // findViewById(R.id.tv_discount).setVisibility(View.GONE);
-                //findViewById(R.id.tv_deal_discount).setVisibility(View.GONE);
             }
             else
             {
@@ -552,23 +525,6 @@ public EditText etMerchantCode;
             {
                 btGetCode.setText(R.string.get_qticket);
             }
-           // deal.location = "doha";
-
-            RelativeLayout rlLocationHeader = (RelativeLayout) header.findViewById(R.id.location_header);
-
-            tvCity = ((TextView) header.findViewById(R.id.city));
-
-            FontUtils.setFontWithStyle(this, tvCity, Typeface.BOLD);
-
-            if(deal.location != null && !deal.location.isEmpty()) {
-
-                tvCity.setText(deal.location);
-            }
-            else
-            {
-               // rlLocationHeader.setVisibility(View.GONE);
-            }
-
 
             Logger.print("businessId Deal,"+deal.businessId);
 
@@ -576,7 +532,7 @@ public EditText etMerchantCode;
             ivBrandLogo.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    
+
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
 
@@ -611,9 +567,7 @@ public EditText etMerchantCode;
             }
             else
             {
-                //ivBrandLogo.setVisibility(View.GONE);
-
-                TextView tvBrandTxt = (TextView) header.findViewById(R.id.brand_txt);
+                TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
                 FontUtils.setFontWithStyle(this, tvBrandTxt, Typeface.BOLD);
 
                 if(deal.businessName != null && !deal.businessName.isEmpty())
@@ -629,15 +583,9 @@ public EditText etMerchantCode;
 
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
 
-            src.isFavorite = Favorite.isFavorite(id);
+            ivDetail = (ImageView) findViewById(R.id.detail_img);
 
-            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
-
-            int categoryIcon = getCategoryIcon(deal.category);
-
-            ivDetail = (ImageView) header.findViewById(R.id.detail_img);
-
-            progressBar = (ProgressBar) header.findViewById(R.id.progressBar);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
             String detailImageUrl = null;
             if(deal.image != null)
@@ -653,18 +601,7 @@ public EditText etMerchantCode;
 
                 Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
-                if(bitmap != null)
-                {
-                   /* Palette palette = Palette.from(bitmap).generate();
-                    if(palette != null)
-                    {
-                        Palette.Swatch swatch = palette.getLightMutedSwatch();
-                        if(swatch != null)
-                        {
-                            rlHeader.setBackgroundColor(swatch.getRgb());
-                        }
-                    }*/
-
+                if(bitmap != null) {
                     ivDetail.setImageBitmap(bitmap);
 
                     ivDetail.post(new Runnable() {
@@ -673,9 +610,6 @@ public EditText etMerchantCode;
                             AnimatorUtils.startDetailAnimation(rlDetails, tableLayout, llDiscount);
                         }
                     });
-
-                    //AnimatorUtils.expandAndFadeIn(ivDetail);
-
                 }
                 else
                 {
@@ -686,226 +620,12 @@ public EditText etMerchantCode;
             tvDiscount.setText(discount);
             FontUtils.setFontWithStyle(this, tvDiscount, Typeface.BOLD);
 
-            btSimilarDeals = (Button) header.findViewById(R.id.similar_deals);
-            btSimilarDeals.setOnClickListener(this);
-
-            FontUtils.setFont(this, btSimilarDeals);
-           // btSimilarDeals.performClick();
-
-            btNearbyDeals = (Button) header.findViewById(R.id.nearby_deals);
-            btNearbyDeals.setOnClickListener(this);
-
-            FontUtils.setFont(this,  btNearbyDeals);
-
-            //tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
-
-            /*if(deal.voucher != null && !deal.voucher.isEmpty())
-            {
-                llVoucherCode.setVisibility(View.VISIBLE);
-
-                if(deal.status.equals("Available"))
-                {
-                    tvCode.setText(deal.voucher);
-
-                    tvNote.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    tvCode.setText("This voucher code has been already redeemed!");
-
-                    tvDiscountVoucher.setVisibility(View.GONE);
-                }
-
-                btGetCode.setVisibility(View.GONE);
-
-                ivLine.setVisibility(View.VISIBLE);
-            }*/
-
-            if(deal.is_exclusive == 1)
-            {
-               // header.findViewById(R.id.voucher_frame).setVisibility(View.VISIBLE);
-            }
-
-
-
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
 
-      //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
+    }    //populateData function end.
 
-       // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
-
-        commonAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-        commonAdapter.setListingType("deals");
-        listView.setAdapter(commonAdapter);
-        //listView.setAdapter(similarAdapter);
-        //listView.setAdapter(nearbyAdapter);
-
-        //String[] locations = new String[genericDeal.locations.size()];
-
-        if(deal.locations != null && deal.locations.size() > 0)
-        {
-            for(int i = 0; i<=deal.locations.size() - 1; i++)
-            {
-                /*if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
-                {
-                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
-                }*/
-                if(deal.locations.size() > 1 ||
-                        (deal.location != null
-                                &&
-                        (!deal.location.equalsIgnoreCase(deal.locations.get(i).title))))
-
-                {
-                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
-                }
-            }
-
-            if(deal.locations.size() == 1 && deal.location.equals(deal.locations.get(0).title))
-            {
-                tvLocations.setVisibility(View.GONE);
-            }
-        }
-        else
-        {
-            tvLocations.setVisibility(View.GONE);
-        }
-
-        if(popupMenu.getMenu().size() == 0)
-        {
-            tvLocations.setVisibility(View.GONE);
-        }
-
-       /* ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, locations);
-        spinner.setAdapter(spinnerAdapter);*/
-
-        updateOutlet(deal, null);
-
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
-
-        DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, similarDeals, nearbyDeals, progressBar);
-        detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id),
-                String.valueOf(deal.businessId));
-    }
-
-    private void updateOutlet(GenericDeal deal, String selectedLoc)
-    {
-        if(selectedLoc != null)
-        tvCity.setText(selectedLoc);
-
-        RelativeLayout rlPhone = (RelativeLayout) findViewById(R.id.phone_layout);
-
-        TextView tvPhone= (TextView) header.findViewById(R.id.phone);
-
-        if(deal.contact != null && !deal.contact.isEmpty())
-        {
-            rlPhone.setVisibility(View.VISIBLE);
-            tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact.contains("+")
-                    ? deal.contact : "+" + deal.contact));
-        }
-        else
-        {
-            rlPhone.setVisibility(View.GONE);
-        }
-
-        ImageView ivArrow = (ImageView) findViewById(R.id.address_arrow);
-
-        RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
-
-        if((deal.latitude == 0 && deal.longitude == 0)
-                || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
-        {
-            llDirections.setVisibility(View.GONE);
-            rlDistance.setVisibility(View.GONE);
-
-            ivArrow.setVisibility(View.GONE);
-        }
-        else
-        {
-            /*float results[] = new float[3];
-            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
-                    deal.latitude, deal.longitude,
-                    results);*/
-
-            ivArrow.setVisibility(View.VISIBLE);
-
-            genericDeal.latitude = deal.latitude;
-            genericDeal.longitude = deal.longitude;
-
-            TextView tvDirections = (TextView) header.findViewById(R.id.directions);
-
-            TextView tvDistance = (TextView) findViewById(R.id.distance);
-            tvDistance.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    startDirections();
-                }
-            });
-
-            String origin = HomeActivity.lat + "," + HomeActivity.lng;
-            String destination = deal.latitude + "," + deal.longitude;
-
-            CalculateDistanceTask distanceTask = new CalculateDistanceTask(this, deal,
-                    tvDistance, tvDirections, rlDistance, llDirections);
-            distanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
-
-            if(genericDeal.mDistance != 0) {
-                llDirections.setVisibility(View.VISIBLE);
-                rlDistance.setVisibility(View.VISIBLE);
-                tvDistance.setText(String.format("%.1f", genericDeal.mDistance / 1000) + " " + getString(R.string.km_away));
-
-                tvDirections.setText(String.format("%.1f", genericDeal.mDistance / 1000) + " km");
-                tvDirections.setOnClickListener(this);
-            }
-            else {
-               // llDirections.setVisibility(View.GONE);
-
-                //rlDistance.setVisibility(View.GONE);
-            }
-        }
-
-        RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
-        rlAddress.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startDirections();
-            }
-        });
-
-        TextView tvAddress= (TextView) header.findViewById(R.id.address);
-
-        if(deal.address != null && !deal.address.isEmpty())
-        {
-            rlAddress.setVisibility(View.VISIBLE);
-            tvAddress.setText(deal.address);
-
-
-        }
-        else
-        {
-            rlAddress.setVisibility(View.GONE);
-
-
-        }
-
-        RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
-
-        TextView tvTiming = (TextView) findViewById(R.id.timing);
-
-        if(deal.timing != null && !deal.timing.isEmpty())
-        {
-            rlTiming.setVisibility(View.VISIBLE);
-            tvTiming.setText(deal.timing);
-        }
-        else
-        {
-            rlTiming.setVisibility(View.GONE);
-        }
-    }
-
-  // Bitmap bitmap;
     private void fallBackToDiskCache(final String url, final ImageView imageView)
     {
         Thread thread = new Thread(new Runnable() {
@@ -929,16 +649,6 @@ public EditText etMerchantCode;
                         @Override
                         public void run() {
 
-                           /* Palette palette = Palette.from(bitmap).generate();
-                            if(palette != null)
-                            {
-                                Palette.Swatch swatch = palette.getLightMutedSwatch();
-                                if(swatch != null)
-                                {
-                                    rlHeader.setBackgroundColor(swatch.getRgb());
-                                }
-                            }*/
-
                             imageView.setImageBitmap(bitmap);
                             //AnimatorUtils.expandAndFadeIn(imageView);
                         }
@@ -951,7 +661,7 @@ public EditText etMerchantCode;
                         public void run() {
                             DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
+                           BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
                                     (imageView, progressBar, rlHeader);
                         /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
                                 String.valueOf(displayMetrics.heightPixels / 2));*/
@@ -1014,23 +724,13 @@ public EditText etMerchantCode;
             } else {
                 makeText(getApplicationContext(), R.string.no_contact, LENGTH_LONG).show();
             }
-        } else if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
+        } else if(viewId == R.id.share || viewId == R.id.share) {
 
             shareDeal(this, id);
         }
         else
         if(viewId == R.id.get_code)
         {
-            if(BuildConfig.FLAVOR.equals("telenor"))
-            {
-                RedeemViaSmsTask redeemViaSmsTask =
-                        new RedeemViaSmsTask(this, snackBarUtils, tracker);
-
-                redeemViaSmsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-                return;
-            }
-
             if(BuildConfig.FLAVOR.equals("mobilink"))
             {
                 /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
@@ -1068,88 +768,6 @@ public EditText etMerchantCode;
             }
 
         }
-        else
-            if(viewId == R.id.similar_deals)
-            {
-                setSelected(v);
-
-                commonAdapter.setData(similarDeals);
-                commonAdapter.notifyDataSetChanged();
-                listView.smoothScrollToPositionFromTop(1,
-                        (btSimilarDeals.getHeight() * 2 + (int) getResources().getDimension(R.dimen._9sdp)), 200);
-                //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-                //similarAdapter.setListingType("deals");
-
-              // listView.setAdapter(similarAdapter);
-
-               // listView.scrollTo(0, (int) llSimilarNearby.getY());
-                //listView.setScrollY((int) llSimilarNearby.getY());
-               // listView.smoothScrollToPosition(1);
-
-                //listView.setSelection(1);
-               // listView.scrollTo(0, btSimilarDeals.getTop() - btSimilarDeals.getHeight());
-
-                /*new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        listView.smoothScrollToPositionFromTop(1,
-                                200, 2000);
-                    }
-                }, 2000);*/
-
-//listView.requestFocusFromTouch();
-
-                //similarAdapter.notifyDataSetChanged();
-
-            }
-        else
-                if(viewId == R.id.nearby_deals)
-                {
-                    if(HomeActivity.lat != 0 && HomeActivity.lng != 0)
-                    {
-                        if(nearbyDeals.size() > 0)
-                        {
-                            setSelected(v);
-
-                            commonAdapter.setData(nearbyDeals);
-                            commonAdapter.notifyDataSetChanged();
-
-                            listView.smoothScrollToPositionFromTop(1,
-                                    (btNearbyDeals.getHeight() * 2 + (int) getResources().getDimension(R.dimen._9sdp)), 200);
-
-                           // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
-                           // nearbyAdapter.setListingType("deals");
-
-                           // listView.setAdapter(nearbyAdapter);
-                           /* listView.smoothScrollToPositionFromTop(2,
-                                    0, 00);*/
-                            /*new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    listView.smoothScrollToPositionFromTop(2,
-                                            0, 00);
-                                }
-                            }, 0);
-                            */
-
-
-
-                            //listView.setSelection(1);
-                            //listView.scrollBy(0,  llSimilarNearby.getTop() - 100);
-
-                        }
-                        else
-                        {
-                            Toast.makeText(this, R.string.error_no_nearby_deals, Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                    else
-                    {
-                        Toast.makeText(this, R.string.error_your_loc_not_avaliable, Toast.LENGTH_SHORT).show();
-                    }
-
-                }
                 else
                 if(viewId == R.id.directions)
                 {
@@ -1178,10 +796,17 @@ public EditText etMerchantCode;
         else
                         if(viewId == R.id.how_this_work_note)
                         {
-                            llHead.setVisibility(View.VISIBLE);
+                            if(llHead.getVisibility()==View.GONE){
+                                llHead.setVisibility(View.VISIBLE);
 
-                            tvHeadTitle.setText(R.string.how_this_works);
-                            tvHeadDescription.setText(mDeal.how_works);
+                                tvHeadTitle.setText(R.string.how_this_works);
+                                tvHeadDescription.setText(mDeal.how_works);
+                            }
+                            else{
+                                llHead.setVisibility(View.GONE);
+                            }
+
+
                         }
         else
                             if(viewId == R.id.tos_note)
@@ -1193,31 +818,16 @@ public EditText etMerchantCode;
                             }
     }
 
-    private void setSelected(View v)
-    {
-        if(lastSelected != null)
-        {
-            lastSelected.setSelected(false);
-        }
-
-        v.setSelected(true);
-
-        lastSelected = v;
-    }
-
     public void showCode(int voucherClaimed, int maxAllowed, boolean hide)
     {
         if(hide)
         {
-            //rlMerchandCode.setVisibility(View.GONE);
 
             etMerchantCode.setText("");
             rlMerchandCode.setVisibility(View.GONE);
 
             btGetCode.setVisibility(View.VISIBLE);
         }
-
-       // voucherClaimed += 1;
 
         tvVoucherClaimed.setVisibility(View.VISIBLE);
 
@@ -1232,31 +842,12 @@ public EditText etMerchantCode;
         else
         {
             tvVoucherClaimed.setVisibility(View.VISIBLE);
-
-            /*tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
-                    + " number of times "
-                    + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");*/
         }
 
-        tvVoucherClaimed.setText(getString(R.string.out_of)+" " + maxAllowed
+        tvVoucherClaimed.setText(getString(R.string.out_of) + " " + maxAllowed
                 + ", " + getString(R.string.you_have_availed) + " "
-                + ( voucherClaimed) + " " + getString(R.string.dealss));
+                + (voucherClaimed) + " " + getString(R.string.dealss));
 
-       /* tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
-                + " number of times "
-                + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");
-*/
-        /*btGetCode.setVisibility(View.GONE);
-
-        ivLine.setVisibility(View.VISIBLE);
-
-        llVoucherCode.setVisibility(View.VISIBLE);
-
-        tvCode.setText(code);
-
-        tvNote.setVisibility(View.VISIBLE);
-
-        genericDeal.voucher = code;*/
     }
 
     public static void shareDeal(Activity activity, long dealId) {
@@ -1377,29 +968,6 @@ public EditText etMerchantCode;
 
     public void onHaveData(GenericDeal genericDeal)
    {
-       if(genericDeal.similarDeals.size() > 0 || genericDeal.nearbyDeals.size() > 0)
-       {
-           llSimilarNearby.setVisibility(View.VISIBLE);
-
-           if(genericDeal.similarDeals.size() > 0)
-           {
-               commonAdapter.setData(similarDeals);
-               commonAdapter.notifyDataSetChanged();
-
-               btSimilarDeals.setSelected(true);
-
-               lastSelected = btSimilarDeals;
-
-           }
-           else {
-               btSimilarDeals.setVisibility(View.GONE);
-           }
-
-           if(genericDeal.nearbyDeals.size() < 1)
-           {
-               btNearbyDeals.setVisibility(View.GONE);
-           }
-       }
 
        this.genericDeal = genericDeal;
 
@@ -1427,35 +995,10 @@ public EditText etMerchantCode;
        tvVoucherClaimed.setText(getString(R.string.out_of)+" " + genericDeal.vouchers_max_allowed
                + ", " + getString(R.string.you_have_availed) + " "
                + ( genericDeal.vouchers_claimed) + " " + getString(R.string.dealss));
-
-      /* if(genericDeal.vouchers_claimed >= genericDeal.vouchers_max_allowed)
-       {
-           //rlVoucher.setVisibility(View.GONE);
-       }
-       else
-       {
-           tvVoucherClaimed.setVisibility(View.VISIBLE);
-
-           tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
-                   + ", you have availed "
-                   + (genericDeal.vouchers_claimed) + " deals.");
-       }*/
-
-//
-      // similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-       //similarAdapter.setListingType("deals");
-
-       //listView.setAdapter(similarAdapter);
    }
 
     public void onNoData()
     {
-        llSimilarNearby.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onUpdated(GenericDeal deal, String value) {
-        updateOutlet(deal, value);
     }
 
     @Override

@@ -101,8 +101,6 @@ public class CityTask extends BaseAsyncTask<String, Void, String>
 
         setServiceUrl("changesettings", params);
 
-
-
         result = getJson();
 
         Logger.print("city task result:" + result);
