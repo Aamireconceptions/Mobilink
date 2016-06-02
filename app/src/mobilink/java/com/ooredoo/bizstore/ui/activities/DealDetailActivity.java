@@ -95,7 +95,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener
     public String category;
     static String packageName;
     public boolean showBanner = false;
-public EditText etMerchantCode;
+    public EditText etMerchantCode;
 
     RelativeLayout rlMerchandCode;
 
