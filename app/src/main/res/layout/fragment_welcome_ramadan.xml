@@ -2,20 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/congrats_screen"
-    android:padding="@dimen/_20sdp">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+>
 
         <ImageView
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/congrats_screen_icon"/>
+            android:src="@drawable/congratulations_bg"/>
 
         <TextView
             android:id="@+id/tv_congratz"
@@ -27,7 +26,7 @@
 
             android:text="@string/CONGRATULATIONS"
             android:textColor="@color/red"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
@@ -40,7 +39,15 @@
             android:textSize="12sp"
             android:text="@string/TXT_DETAILS"/>
 
-
+        <TextView
+            android:id="@+id/special_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_details"
+            android:text="@string/wish_ramadan"
+            android:textSize="12sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"/>
 
         <Button
             android:id="@+id/btn_next"

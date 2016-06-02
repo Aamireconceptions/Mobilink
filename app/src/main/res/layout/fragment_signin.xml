@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/_8sdp"
+    android:background="@drawable/free_trail_bg">
 
     <TextView
         android:id="@+id/label_1"
@@ -11,19 +13,19 @@
         android:text="@string/enjoy_ramadan"
         android:layout_centerHorizontal="true"
         android:textAllCaps="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="@color/black"/>
 
     <ImageView
         android:id="@+id/_7_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/label_1"
-        android:layout_marginTop="18dp"
-        android:src="@drawable/avatar"/>
+        android:layout_marginTop="12dp"
+        android:src="@drawable/free_trail_day"/>
 
     <LinearLayout
         android:id="@+id/free_trial_layout"
@@ -31,7 +33,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@+id/_7_icon"
-        android:layout_marginTop="18dp"
         android:gravity="center_horizontal">
     <TextView
         android:id="@+id/days"
@@ -51,7 +52,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/free_trial"
-        android:layout_toRightOf="@+id/days"
         android:layout_marginStart="8dp"
         android:textSize="18sp"
         android:textAllCaps="true"
@@ -64,9 +64,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:layout_above="@+id/signin_layout"
         android:textSize="12sp"
         android:text="@string/free_trial_details"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_below="@+id/free_trial_layout"/>
 
 
@@ -79,7 +80,6 @@
         android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_14sdp"
         android:orientation="horizontal" >
 
         <Button

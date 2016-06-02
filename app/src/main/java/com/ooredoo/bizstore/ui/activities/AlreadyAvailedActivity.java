@@ -24,14 +24,9 @@ public class AlreadyAvailedActivity extends AppCompatActivity {
 
     public void subscribeNow(View v)
     {
-        finish();
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_already_availed, menu);
-        return true;
+
+        finish();
     }
 
     @Override

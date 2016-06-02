@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -12,6 +13,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Subscription;
+import com.ooredoo.bizstore.ui.activities.AlreadyAvailedActivity;
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -84,6 +86,13 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
                             "you have entered an invalid Telenor number", Toast.LENGTH_SHORT).show();
                 }
                 else
+                if(subscription.resultCode != 7)
+                {
+                    signUpFragment.checkForFOC = false;
+
+                    context.startActivity(new Intent(context, AlreadyAvailedActivity.class));
+                }
+                else
                 {
                     signUpFragment.processSubscription(subscription);
                     //DialogUtils.processVerificationCode();
@@ -114,6 +123,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
         params.put("msisdn", msisdn);
+        params.put("check_foc", signUpFragment.checkForFOC ? "1" : "0");
        // params.put("password", "A33w3zH2OsCMD");
 
         String query = createQuery(params);

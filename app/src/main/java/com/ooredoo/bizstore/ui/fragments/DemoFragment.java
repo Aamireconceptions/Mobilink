@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.DemoPagerAdapter;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
@@ -82,10 +83,20 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
 
        // signUpActivity.startActivity(HomeActivity.class);
         // signUpActivity.toolbar.setVisibility(View.VISIBLE);
-        FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
-                R.id.fragment_container,
-                new RamadanFOCFragment(),
-                "subscription_fragment");
+
+        if(BuildConfig.FLAVOR.equals("ooredoo")) {
+            FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
+                    R.id.fragment_container,
+                    new RamadanFOCFragment(),
+                    "subscription_fragment");
+        }
+        else
+        {
+            FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
+                    R.id.fragment_container,
+                    new SubscriptionPlansFragment(),
+                    "subscription_fragment");
+        }
 
     }
 

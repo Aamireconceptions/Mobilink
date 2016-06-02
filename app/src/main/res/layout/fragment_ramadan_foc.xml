@@ -10,16 +10,16 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:fitsSystemWindows="true"
-        android:orientation="vertical"
-        android:padding="@dimen/_8sdp">
-
-
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_156sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:src="@drawable/subscription"/>
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:scaleType="fitStart"
+            android:src="@drawable/subscription_bg"/>
 
         <TextView
             android:id="@+id/enjoy"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_1_week"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
                 android:textColor="@color/black"/>
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/free_trial"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
                 android:textColor="@color/red"/>
@@ -64,7 +64,7 @@
 
         <TextView
             android:id="@+id/first"
-            android:layout_width="230dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
             android:drawablePadding="8dp"
@@ -73,7 +73,7 @@
             android:text="@string/foc_point_1"/>
 
         <TextView
-            android:layout_width="230dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:drawablePadding="8dp"
@@ -82,7 +82,7 @@
             android:text="@string/foc_point_2"/>
 
         <TextView
-            android:layout_width="230dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:drawablePadding="8dp"
@@ -92,7 +92,7 @@
 
         <TextView
             android:id="@+id/tv_movies_cinemas_etc"
-            android:layout_width="230dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:drawablePadding="8dp"
@@ -105,6 +105,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:layout_marginTop="@dimen/_16sdp"
             android:textSize="12sp"
             android:text="@string/foc_subscription_charges"/>
@@ -143,6 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
             android:gravity="center"
             android:textSize="10sp"
             android:text="@string/subscription_terms_services"/>

@@ -38,7 +38,7 @@ public class SignUpFragment extends BaseFragment {
 
     boolean isSignin;
 
-    boolean login;
+    public boolean login, checkForFOC = true;
     public SignUpFragment() {
         super();
         layoutResId = R.layout.fragment_sign_up;
@@ -87,7 +87,7 @@ public class SignUpFragment extends BaseFragment {
 
         Bundle bundle = getArguments();
         if(bundle != null) {
-            isSignin = bundle.getBoolean("is_is_signin");
+            isSignin = bundle.getBoolean("is_signin");
         }
 
     }
@@ -102,7 +102,6 @@ public class SignUpFragment extends BaseFragment {
 
     private void subscribe() {
         String msisdn = etMsisdn.getText().toString();
-
        // msisdn = "66703202";
 
         /*if(!msisdn.equals("66703202"))
@@ -125,6 +124,7 @@ public class SignUpFragment extends BaseFragment {
                 {
                     if(isSignin)
                     {
+
                         new SignInTask(this).execute(msisdn);
                     }
                     else {

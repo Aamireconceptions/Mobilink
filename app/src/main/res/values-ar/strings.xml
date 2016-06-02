@@ -16,7 +16,7 @@
     <string name="sms_charges">سيتم إرسال رسالة نصية من تطبيق Ooredoo BizStore للتحقق من رقم هاتفك.</string>
     <string name="num_confirm_text">الرجاء إدخال رقم جوال Ooredoo Bizstore الخاص بك</string>
     <string name="NEXT">التالي</string>
-    <string name="SIGNUP">التسجيل</string>
+    <string name="SIGNUP">تسجيل</string>
     <string name="SUBSCRIBE">اشترك</string>
     <string name="top_brands">أفضل الماركات</string>
     <string name="health_fitness">الصحة واللياقة</string>
@@ -321,12 +321,20 @@
     <string name="unsub_from_service">تم إلغاء إشتراكك من خدمة Ooredoo BizStore</string>
     <string name="ramadan_discounts">خصومات رمضان</string>
     <string name="sign_in">تسجيل الدخول</string>
-    <string name="foc_point_1">Get Exclusive Ramadan Discounts</string>
-    <string name="foc_point_2">Find Your Favorite Iftar Spots</string>
-    <string name="foc_point_3">Discounts On Suhoor Menus</string>
-    <string name="foc_point_4">Health, Shopping, &amp; Much More</string>
+    <string name="foc_point_1">أستمتع بخصومات مذهلة خاصة في رمضان</string>
+    <string name="foc_point_2">أكتشف المطاعم الأفضل لديك لتناول الإفطار</string>
+    <string name="foc_point_3">خصومات على وجبات السحور</string>
+    <string name="foc_point_4">وأيضا الصحة والتسوق وأكثر من ذلك</string>
     <string name="dear_user">dear user</string>
     <string name="already_availed_promo">you have already used your free trial\n\nplease subscribe\n\n
     you will be charged QAR 9/week</string>
+    <string name="subscribe_now">أشترك</string>
+    <string name="days">أيام</string>
+    <string name="enjoy_ramadan">استمتع في شهر رمضان</string>
+    <string name="_1_week">1-week</string>
+    <string name="free_trial">فترة تجريبية!</string>
+    <string name="free_trial_details">فقط للمشتركين الجدد في شهر رمضان! سوف يتم خصم ٩ ر.ق اسبوعيآ عند خلاصة فترة التجربة المجانية</string>
+
+    <string name="foc_subscription_charges">You will be charged QAR <b>9</b>/week after your free trial ends</string>
 
 </resources>

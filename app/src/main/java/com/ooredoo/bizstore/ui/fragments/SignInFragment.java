@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -41,10 +42,19 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
 
         Button btSignIn = (Button) view.findViewById(R.id.signin);
         btSignIn.setOnClickListener(this);
-        btSignIn.setSelected(true);
+
 
         Button btSignUp = (Button) view.findViewById(R.id.signup);
         btSignUp.setOnClickListener(this);
+
+        if(BizStore.getLanguage().equals("en"))
+        {
+         btSignIn.setSelected(true);
+        }
+        else
+        {
+            btSignUp.setSelected(true);
+        }
 
         TextView tvLabel1 = (TextView) view.findViewById(R.id.label_1);
         TextView tvDays = (TextView) view.findViewById(R.id.days);

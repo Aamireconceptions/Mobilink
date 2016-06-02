@@ -19,7 +19,7 @@
         android:layout_toStartOf="@+id/close"
         android:textColor="@android:color/secondary_text_light"
         android:layout_marginEnd="@dimen/_6sdp"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:layout_centerVertical="true"/>
 
     <ImageView

@@ -35,7 +35,13 @@ public class SignUpActivity extends BaseActivity {
         setupToolbar();
         mFragmentManager = getFragmentManager();
 
-        addFragmentWithBackStack(this, R.id.fragment_container, new SignInFragment(), "signin_frag");
+        if(BuildConfig.FLAVOR.equals("ooredoo")) {
+            addFragmentWithBackStack(this, R.id.fragment_container, new SignInFragment(), "signin_frag");
+        }
+        else
+        {
+            addFragmentWithBackStack(this, R.id.fragment_container, new DemoFragment(), "demo_fragment");
+        }
        /* Bundle bundle = getIntent().getExtras();
 
         if(bundle != null)
