@@ -1270,7 +1270,7 @@ public EditText etMerchantCode;
         String appName = activity.getString(R.string.app_name);
 
         uri = "View this awesome deal on " + appName + " http://jazzdiscountbazar.deal/deal_detail?id=" + dealId +
-        "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
+                "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);
     }
