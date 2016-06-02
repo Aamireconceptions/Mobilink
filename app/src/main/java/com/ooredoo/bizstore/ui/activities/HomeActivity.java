@@ -448,7 +448,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onResume() {
         super.onResume();
 
-        checkForCrashes();
+        if(BuildConfig.DEBUG) {
+            checkForCrashes();
+        }
 
         Tracking.startUsage(this);
     }

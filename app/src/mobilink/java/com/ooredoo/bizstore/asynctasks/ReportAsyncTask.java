@@ -81,10 +81,10 @@ public class ReportAsyncTask extends BaseAsyncTask<String, Void, String> {
         dialog.dismiss();
 
         if(result != null) {
-            Toast.makeText(dealDetailAct, "Your report posted successfully.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(dealDetailAct, "Your report has been submitted.", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(dealDetailAct, "Error: Check your Internet Connction.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(dealDetailAct, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         }
     }
 }

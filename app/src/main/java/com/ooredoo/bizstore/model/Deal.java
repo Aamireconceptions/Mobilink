@@ -92,6 +92,9 @@ public class Deal extends Model {
     @Column(name = "is_exclusive")
     public int isExclusive;
 
+    @Column(name = "availed_deals")
+    public int voucherCount;
+
     public List<Location> locations;
 
     public Deal() {
@@ -130,7 +133,7 @@ public class Deal extends Model {
         this.endDate = deal.endDate;
         this.locations = deal.locations;
         this.isExclusive = deal.is_exclusive;
-
+        this.voucherCount = deal.voucher_count;
 
         Logger.logI("DEAL: " + deal.id, String.valueOf(deal.isFav));
     }

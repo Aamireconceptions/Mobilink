@@ -314,7 +314,13 @@ TextView tvDiscount;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
 
+            TextView tvAvailedDeals = (TextView) findViewById(R.id.tv_share);
+            tvAvailedDeals.setText(""+deal.voucher_count);
             genericDeal = deal;
+
+
+
+
 
             mDeal = deal;
 
@@ -380,7 +386,7 @@ TextView tvDiscount;
 
             TextView tvValidity = (TextView) findViewById(R.id.validity);
            tvValidity.setTextDirection(View.TEXT_DIRECTION_RTL);
-            tvValidity.setText(getString(R.string.deal_valid_till) + " " + deal.endDate);
+            tvValidity.setText("Valid till: " + deal.endDate);
 
             llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
@@ -389,6 +395,16 @@ TextView tvDiscount;
                     startDirections();
                 }
             });
+
+
+            if(deal.distance != 0)
+            {
+                llDirections.setVisibility(View.VISIBLE);
+
+                TextView tvDistance = (TextView) findViewById(R.id.directions);
+                tvDistance.setText(String.format("%.1f", deal.distance) + " km");
+
+            }
 
             if(deal.how_works != null && !deal.how_works.isEmpty())
             {
@@ -420,12 +436,7 @@ TextView tvDiscount;
             ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
 
 
-            findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views + " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
-                }
-            });
+
 
             TextView tvView = ((TextView) findViewById(R.id.tv_views));
             final Dialog dialog = new Dialog(DealDetailActivity.this);

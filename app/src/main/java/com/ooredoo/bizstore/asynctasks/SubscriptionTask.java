@@ -86,7 +86,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
                             "you have entered an invalid Telenor number", Toast.LENGTH_SHORT).show();
                 }
                 else
-                if(subscription.resultCode != 7)
+                if(BuildConfig.FLAVOR.equals("ooredoo") && subscription.resultCode != 7)
                 {
                     signUpFragment.checkForFOC = false;
 
