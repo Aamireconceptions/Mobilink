@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.model.City;
 
 
 import java.util.List;

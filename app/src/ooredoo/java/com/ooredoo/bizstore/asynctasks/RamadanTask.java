@@ -48,7 +48,7 @@ public class RamadanTask extends AsyncTask<String, Void, String>
 
     private OnDealsTaskFinishedListener dealsTaskFinishedListener;
 
-    private static final String SERVICE_NAME  = "/dealofday?";
+    private static final String SERVICE_NAME  = "/dealoframazan?";
 
     public RamadanTask(Context context, Fragment fragment, ProgressBar progressBar)
     {

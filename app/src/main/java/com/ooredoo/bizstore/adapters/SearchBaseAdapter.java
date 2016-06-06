@@ -234,6 +234,9 @@ public class SearchBaseAdapter extends BaseAdapter {
                     results);
 
             holder.tvDirections.setText(String.format("%.1f", (results[0] / 1000)) + " " + context.getString(R.string.km));
+
+            result.mDistance = results[0] / 1000;
+
         }
         else
         {
@@ -338,7 +341,6 @@ public class SearchBaseAdapter extends BaseAdapter {
 
             FontUtils.strikeThrough(holder.tvPrice, discountedPrice + "  -  " + actualPrice,
                     actualPrice, context.getResources().getColor(R.color.slight_grey));
-
         }
         else
         {
@@ -518,6 +520,8 @@ public class SearchBaseAdapter extends BaseAdapter {
                     results);
 
             holder.tvDirections.setText(String.format("%.1f", (results[0] / 1000)) + " " + context.getString(R.string.km));
+
+            deal.mDistance = results[0] / 1000;
         }
         else
         {

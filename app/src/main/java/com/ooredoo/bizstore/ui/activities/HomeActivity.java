@@ -204,6 +204,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
 
@@ -695,11 +697,11 @@ public CoordinatorLayout coordinatorLayout;
         TextView tvSortBy = (TextView) findViewById(R.id.sort_by);
         tvSortBy.setText(sort + " " + by, TextView.BufferType.SPANNABLE);
 
-        int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
+       /* int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
                 ? R.color.red : R.color.white;
         Spannable spannable = (Spannable) tvSortBy.getText();
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(color)),
-                0, sort.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                0, sort.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);*/
 
         TextView tvRating = (TextView) findViewById(R.id.rating_checkbox);
         tvRating.setOnClickListener(clickListener);
@@ -880,7 +882,7 @@ public CoordinatorLayout coordinatorLayout;
                 if (id == R.id.action_search) {
                     miFilter.setVisible(false);
                 } else {
-                    if (currentFragment != null) {
+                    if (currentFragment != null && !(currentFragment instanceof HomeFragment)) {
                         miFilter.setVisible(true);
                     }
                 }

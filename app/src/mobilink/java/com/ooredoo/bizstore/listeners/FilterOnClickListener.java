@@ -318,17 +318,17 @@ public class FilterOnClickListener implements View.OnClickListener {
             {
                 tvCategory.setText(all + " " + categories, TextView.BufferType.SPANNABLE);
 
-                Spannable word = (Spannable) tvCategory.getText();
+               /* Spannable word = (Spannable) tvCategory.getText();
                 word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
-                        0, all.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                        0, all.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);*/
             }
             else
             {
                 tvCategory.setText(sub + " " + categories, TextView.BufferType.SPANNABLE);
 
-                Spannable word = (Spannable) tvCategory.getText();
+                /*Spannable word = (Spannable) tvCategory.getText();
                 word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
-                        0, sub.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                        0, sub.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);*/
             }
 
             if(category == CategoryUtils.CT_NEW_ARRIVALS)

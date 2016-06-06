@@ -251,7 +251,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.top_deals_banner);
+        ivBanner.setImageResource(R.drawable.new_arrivals_banner);
 
         if(!BuildConfig.FLAVOR.equals("mobilink")) {
             rlHeader.setVisibility(View.VISIBLE);

@@ -42,6 +42,14 @@ public class MainActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        boolean check = getBooleanVal(MainActivity.this, SharedPrefUtils.LOGIN_STATUS);
+                        if(check) {
+                            startActivity(HomeActivity.class);
+
+                            return;
+                        }
+
                         isSplashShowing = false;
                         finish();
                         startActivity(new Intent(MainActivity.this, SignUpActivity.class));

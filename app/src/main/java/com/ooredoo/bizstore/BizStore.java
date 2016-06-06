@@ -29,13 +29,13 @@ public class BizStore extends com.activeandroid.app.Application {
      // fatima hubail ooredoo num "33165670"
     public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "50497958"
             : BuildConfig.FLAVOR.equals("telenor") ? "03454060708"
-            : "03025310933";
+            : "3000449647";
 
     //public static String password = "d5pF55dZ";
 
     public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "569015"
             : BuildConfig.FLAVOR.equals("telenor") ? "578251"
-            : "387985";
+            : "472617";
 
     private Tracker tracker;
 

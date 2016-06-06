@@ -102,7 +102,7 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         notifications.add(new Notification(5, true, R.drawable.ic_hotels, getString(R.string.health_fitness), "health"));
       //  notifications.add(new Notification(6, true, R.drawable.ic_malls, getString(R.string.education), "education"));
         notifications.add(new Notification(7, true, R.drawable.ic_automotive, getString(R.string.entertainment), "entertainment"));
-        notifications.add(new Notification(8, true, R.drawable.ic_entertainment, getString(R.string.new_arrivals), "new_arrivals"));
+        notifications.add(new Notification(8, true, R.drawable.ic_new_deals, getString(R.string.new_arrivals), "new_arrivals"));
     }
 
     public void saveNotification(Notification notification) {

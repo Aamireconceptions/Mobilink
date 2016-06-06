@@ -27,11 +27,11 @@
 \n\tiv. However, in case the user has already subscribed to the service through SMS, he will not be charged again.</string>
     <string name="help_question4">What are the Smartphone Application Charges?</string>
     <string name="help_answer4">Upon successful application installation &amp; login, the user will be charged are Rs. 2.5+tax/Week. However, the user is not charged on downloading the smartphone application.</string>
-    <string name="help_question5">How can a User Redeem Exclusive Deals?</string>
-    <string name="help_answer5">The User can redeem the deal through following steps:</string>
+    <string name="help_question5">How can a User Get a Discount?</string>
+    <string name="help_answer5">The User can get the discount through following steps:</string>
     <string name="help_answer5a">Step 1: User views the deal on APP.
-    \nStep 2: User will have to click on Redeem Deal Button. (Only for Exclusive Deals)
-    \nStep 3: User will have to enter merchant code.</string>
+    \nStep 2: User will have to click on Get Discount Button. (Only for Exclusive Deals)
+    \nStep 3: Congratulations. You have availed the discount.</string>
     <string name="help_answer5b">i.	Merchant can enter the code for User on their mobile.
     \nii. Merchant can share the code with User.
     \niii. Merchant codes will be put on display in their shops and User can enter it himself.</string>
@@ -41,8 +41,8 @@
     <string name="qatar_code">92</string>
     <string name="error_invalid_num">Please enter a valid Mobilink Mobile Number</string>
     <string name="subscription_charges">You will be charged @ Rs.<b>2.99</b>/week</string>
-    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz Discount Bazar. You can find businesses and "
-                            "enjoy Premium Discounts of your favorite Top Brands. Simply download the Application "
+    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz Discount Bazar."
+                            " Enjoy Premium Discounts of your favorite Top Brands. Simply download the Application "
                             "from PlayStore &amp; avail the Best Deals in your city!</string>
     <string name="food_dining">Food Deals</string>
     <string name="special_discounts">Special Discounts</string>
@@ -91,4 +91,6 @@
     <string name="movies_cinemas_more">Movies, cinemas &amp; much more! </string>
     <string name="host">jazzdiscountbazar.deal</string>
     <string name="host_business">jazzdiscountbazar</string>
+    <string name="congrats">Congratualtions</string>
+    <string name="congrats_msg">You have availed this discount\nShow this deal to the outlet and get discounts</string>
 </resources>

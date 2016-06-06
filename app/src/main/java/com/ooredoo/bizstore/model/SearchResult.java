@@ -11,12 +11,12 @@ import java.util.List;
 
 public class SearchResult {
 
-    public int id, discount, views, businessId;
+    public int id, discount, views, businessId, voucher_count;
 
     public String type, title, category, description, startDate, endDate, contact, address, location,
-            businessLogo, businessName, timing;
+            businessLogo, businessName, timing, how_works;
 
-    public float rating;
+    public float rating, mDistance;
 
     public boolean isFav;
 

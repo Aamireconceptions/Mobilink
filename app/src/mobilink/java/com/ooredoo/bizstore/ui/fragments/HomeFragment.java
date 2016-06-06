@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            v.setNestedScrollingEnabled(true);
+            v.findViewById(R.id.scrollView).setNestedScrollingEnabled(true);
         }
 
         this.inflater = inflater;
@@ -205,8 +205,8 @@ dealofDayCalled = false;
         String malls = getString(R.string.Malls).toUpperCase();
         String topMalls = top + " " + malls;
 
-        FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top,
-                getResources().getColor(color));
+       /* FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top,
+                getResources().getColor(color));*/
 
 
 
@@ -367,7 +367,6 @@ dealofDayCalled = false;
 
     public void addMostViewedAndTopRated(List<DOD> dods)
     {
-
         llContainer.removeAllViews();
 
         int row = 0;
@@ -386,7 +385,11 @@ dealofDayCalled = false;
 
                 TextView tvCategory = (TextView) v.findViewById(R.id.category);
 
+
                 Category category = Converter.convertCategoryText(activity, dod.category);
+                tvCategory.setText(category.name);
+
+                FontUtils.setFont(getActivity(), tvCategory);
 
                 String cats[] = category.name.split(" ");
 
@@ -395,8 +398,8 @@ dealofDayCalled = false;
 
             FontUtils.changeColorAndMakeBold();*/
 
-                FontUtils.changeColorAndMakeBold(tvCategory, category.name.toUpperCase(),
-                        cats[0].toUpperCase(), getResources().getColor(R.color.red));
+               /* FontUtils.changeColorAndMakeBold(tvCategory, category.name.toUpperCase(),
+                        cats[0].toUpperCase(), getResources().getColor(R.color.red));*/
 
 
                 View gridDealOfDay = inflater.inflate(R.layout.grid_generic, null);

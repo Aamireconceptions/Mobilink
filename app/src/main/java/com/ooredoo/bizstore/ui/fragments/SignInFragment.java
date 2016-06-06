@@ -59,10 +59,12 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         TextView tvLabel1 = (TextView) view.findViewById(R.id.label_1);
         TextView tvDays = (TextView) view.findViewById(R.id.days);
         TextView tvFree = (TextView) view.findViewById(R.id.free);
+        TextView tvDuringRamadan = (TextView) view.findViewById(R.id.during_ramadan);
 
         FontUtils.setFontWithStyle(getActivity(), tvLabel1, Typeface.BOLD);
         FontUtils.setFontWithStyle(getActivity(), tvDays, Typeface.BOLD);
         FontUtils.setFontWithStyle(getActivity(), tvFree, Typeface.BOLD);
+        FontUtils.setFontWithStyle(getActivity(), tvDuringRamadan, Typeface.BOLD);
     }
 
     @Override

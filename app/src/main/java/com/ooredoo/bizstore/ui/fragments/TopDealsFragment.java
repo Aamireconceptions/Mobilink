@@ -249,7 +249,9 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.top_deals_banner);
+        ivBanner.setImageResource(BuildConfig.FLAVOR.equals("mobilink")
+                ? R.drawable.exlusive_banner
+        :R.drawable.top_deals_banner);
 
         if(!BuildConfig.FLAVOR.equals("mobilink")) {
             rlHeader.setVisibility(View.VISIBLE);

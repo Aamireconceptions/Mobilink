@@ -1,7 +1,9 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -10,8 +12,10 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Subscription;
+import com.ooredoo.bizstore.ui.fragments.DemoFragment;
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
 import com.ooredoo.bizstore.utils.DialogUtils;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -74,17 +78,27 @@ public class SignInTask extends BaseAsyncTask<String, Void, String> {
                 {
                     Toast.makeText(context, context.getString(R.string.error_invalid_num), Toast.LENGTH_SHORT).show();
                 }
+
                 else
-                if(BuildConfig.FLAVOR.equals("telenor") && subscription.resultCode == 3
-                        && subscription.desc.equals("Not Billed"))
-                {
-                    Toast.makeText(context, "Dear user, either you have insufficient balance or " +
-                            "you have entered an invalid Telenor number", Toast.LENGTH_SHORT).show();
-                }
-                else
+                if(subscription.resultCode ==  2 && subscription.desc.equals("User Already subscribed"))
                 {
                     signUpFragment.processSubscription(subscription);
                     //DialogUtils.processVerificationCode();
+                }
+                else
+                {
+                    final Dialog dialog = DialogUtils.createAlertDialog(context, 0, R.string.error_signin_failure);
+                    dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+
+                            FragmentUtils.replaceFragment(((Activity) context), R.id.fragment_container,
+                                    new DemoFragment(),
+                                    null);
+                        }
+                    });
+                    dialog.show();
                 }
 
             } catch(JsonSyntaxException e) {
@@ -110,21 +124,20 @@ public class SignInTask extends BaseAsyncTask<String, Void, String> {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(OS, ANDROID);
         params.put("msisdn", msisdn);
-       // params.put("password", "A33w3zH2OsCMD");
+        params.put(OS, ANDROID);
 
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-        Logger.print("subscribe URL:" + url.toString());
+        Logger.print("Signin URL:" + url.toString());
 
         result = getJson(url);
 
        // result = getJson();
 
-        Logger.print("SubscrAibe: " + result);
+        Logger.print("Signin response: " + result);
 
         return result;
     }

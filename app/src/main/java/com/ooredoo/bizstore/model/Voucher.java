@@ -18,4 +18,10 @@ public class Voucher
     public int vouchers_claimed;
 
     public int max_allowed;
+
+    @SerializedName("redeem_date")
+    public String date;
+
+    @SerializedName("redeem_time")
+    public String time;
 }

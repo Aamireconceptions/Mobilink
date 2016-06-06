@@ -103,7 +103,7 @@ public EditText etMerchantCode;
 
     ScrollViewHelper scrollViewHelper;
 
-    private Button btGetCode;
+    public Button btGetCode;
 
     private ImageView ivLine, ivVerifyMerchantCode;
 

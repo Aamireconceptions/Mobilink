@@ -74,6 +74,11 @@ public class SharedPrefUtils {
         return false;
     }
 
+    public static boolean isFirstTime(Context activity, String key)
+    {
+        return getSharedPreferences((Activity) activity).getBoolean(key, true);
+    }
+
     public static void updateVal(Activity activity, final String KEY, final boolean VAL) {
         try {
             sharedPreferences = getSharedPreferences(activity);

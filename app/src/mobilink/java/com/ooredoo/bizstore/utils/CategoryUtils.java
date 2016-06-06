@@ -67,7 +67,7 @@ public class CategoryUtils {
             subCategories.add(new SubCategory(19, R.id.cb_health_beauty_clinics, activity.getString(R.string.beauty_clinics), "health_beauty_clinics", CT_HEALTH, false, false));
 
         /* ENTERTAINMENT */
-            subCategories.add(new SubCategory(28, R.id.cb_cinemas, activity.getString(R.string.cinemas), "entertainment_cinemas_and_entertainment", CT_ENTERTAINMENT, false, false));
+            subCategories.add(new SubCategory(28, R.id.cb_cinemas, activity.getString(R.string.cinemas), "entertainment_cinemas", CT_ENTERTAINMENT, false, false));
             subCategories.add(new SubCategory(31, R.id.cb_travel, activity.getString(R.string.travel), "entertainment_travel", CT_ENTERTAINMENT, false, false));
             subCategories.add(new SubCategory(32, R.id.cb_events, activity.getString(R.string.events), "entertainment_events", CT_ENTERTAINMENT, false, false));
             subCategories.add(new SubCategory(31, R.id.cb_kids, activity.getString(R.string.kids), "entertainment_kids", CT_ENTERTAINMENT, false, false));

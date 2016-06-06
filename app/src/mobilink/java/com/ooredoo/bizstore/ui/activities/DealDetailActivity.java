@@ -50,6 +50,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
+import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.LocationsTask;
@@ -106,7 +107,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener
 
     ScrollView scrollView;
 
-    private Button btGetCode;
+    public Button btGetCode;
 
     RadioGroup radioGroup;    // declare in report_dialog_box.
 
@@ -305,22 +306,27 @@ TextView tvDiscount;
 
     RelativeLayout rlVoucher;
     GenericDeal mDeal;
+    TextView tvAvailedDeals;
 
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
     }
 
+    TextView tvTimeStamp, tvDiscountAvailed;
+    LinearLayout llTimeStamp;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
 
-            TextView tvAvailedDeals = (TextView) findViewById(R.id.tv_share);
+            llTimeStamp = (LinearLayout) findViewById(R.id.last_redeemed_layout);
+            tvTimeStamp = (TextView) findViewById(R.id.time_stamp);
+            tvDiscountAvailed = (TextView) findViewById(R.id.discount_availed);
+            FontUtils.setFontWithStyle(this, tvDiscountAvailed, Typeface.BOLD);
+            FontUtils.setFont(this, tvTimeStamp);
+
+             tvAvailedDeals = (TextView) findViewById(R.id.tv_share);
             tvAvailedDeals.setText(""+deal.voucher_count);
             genericDeal = deal;
-
-
-
-
 
             mDeal = deal;
 
@@ -353,13 +359,21 @@ TextView tvDiscount;
 
             cd.setAlpha(0);
 
-            mActionBar.setTitle(deal.title);
+           // mActionBar.setTitle(deal.title);
 
             scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
 
                 @Override
                 public void onScrollChanged() {
+                    if(scrollView.getScrollY() > 1) {
+                        mActionBar.setTitle(deal.title);
+                    }
+                    else
+                    {
+                        mActionBar.setTitle("");
+                    }
+
                     cd.setAlpha(getAlphaforActionBar(scrollView.getScrollY()));
                 }
                 private int getAlphaforActionBar(int scrollY) {
@@ -427,9 +441,9 @@ TextView tvDiscount;
                 deal.category = deal.category.replace(".", ",");
             }
             TextView tvTitle = ((TextView) findViewById(R.id.title));
-            tvTitle.setText(deal.title);
+           // tvTitle.setText(deal.title);
 
-            FontUtils.setFontWithStyle(this, tvTitle, Typeface.BOLD);
+           // FontUtils.setFontWithStyle(this, tvTitle, Typeface.BOLD);
 
             ((TextView) findViewById(R.id.description)).setText(deal.description);
 
@@ -546,14 +560,6 @@ TextView tvDiscount;
 
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
-
-                    Intent intent = new Intent();
-                    intent.setClass(DealDetailActivity.this, BusinessDetailActivity.class);
-
-                    intent.putExtra(CATEGORY, "");
-                    intent.putExtra(AppConstant.ID, deal.businessId);
-                    intent.putExtra("color", deal.color );
-                    startActivity(intent);
                 }
             });
 
@@ -634,6 +640,10 @@ TextView tvDiscount;
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
+
+        DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, null, null, null);
+        detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id),
+                String.valueOf(deal.businessId));
 
     }    //populateData function end.
 
@@ -742,10 +752,10 @@ TextView tvDiscount;
         else
         if(viewId == R.id.get_code)
         {
-            if(BuildConfig.FLAVOR.equals("mobilink"))
+           /* if(BuildConfig.FLAVOR.equals("mobilink"))
             {
-                /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-                intentIntegrator.initiateScan();*/
+                *//*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+                intentIntegrator.initiateScan();*//*
 
                 VerifyMerchantCodeTask verifyMerchantCodeTask =
                         new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
@@ -756,7 +766,7 @@ TextView tvDiscount;
               //  startActivityForResult(new Intent(this, CaptureActivity.class), 303);
 
                 return;
-            }
+            }*/
 
             if(mDeal.isQticket == 1)
             {
@@ -768,16 +778,18 @@ TextView tvDiscount;
             }
             else
             {
-                v.setVisibility(View.GONE);
+               // v.setVisibility(View.GONE);
 
-                rlMerchandCode.setVisibility(View.VISIBLE);
+                /*rlMerchandCode.setVisibility(View.VISIBLE);
 
-                etMerchantCode.requestFocus();
+                etMerchantCode.requestFocus();*/
 
-                InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.toggleSoftInputFromWindow(etMerchantCode.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+                VerifyMerchantCodeTask verifyMerchantCodeTask =
+                        new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
+                verifyMerchantCodeTask
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                String.valueOf(id), "0", String.valueOf(mDeal.businessId));
             }
-
         }
                 else
                 if(viewId == R.id.directions)
@@ -804,7 +816,7 @@ TextView tvDiscount;
                             Toast.makeText(this, R.string.error_empty_voucher, Toast.LENGTH_SHORT).show();
                         }
                     }
-        else
+                    else
                         if(viewId == R.id.how_this_work_note)
                         {
                             if(llHead.getVisibility()==View.GONE){
@@ -812,6 +824,14 @@ TextView tvDiscount;
 
                                 tvHeadTitle.setText(R.string.how_this_works);
                                 tvHeadDescription.setText(mDeal.how_works);
+
+                                scrollView.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scrollView.smoothScrollTo(0, llHead.getBottom());
+                                    }
+                                }, 200);
+
                             }
                             else{
                                 llHead.setVisibility(View.GONE);
@@ -831,6 +851,17 @@ TextView tvDiscount;
 
     public void showCode(int voucherClaimed, int maxAllowed, boolean hide)
     {
+        int availed = Integer.parseInt(tvAvailedDeals.getText().toString()) + 1;
+
+        tvAvailedDeals.setText(""+availed);
+
+        if(genericDeal.date != null && !genericDeal.date.isEmpty())
+        {
+            llTimeStamp.setVisibility(View.VISIBLE);
+
+            tvTimeStamp.setText("on "+genericDeal.date+ " at " + genericDeal.time);
+        }
+
         if(hide)
         {
 
@@ -978,7 +1009,13 @@ TextView tvDiscount;
 
 
     public void onHaveData(GenericDeal genericDeal)
-   {
+    {
+       if(genericDeal.date != null && !genericDeal.date.isEmpty())
+       {
+           llTimeStamp.setVisibility(View.VISIBLE);
+
+           tvTimeStamp.setText("on "+genericDeal.date+ " at " + genericDeal.time);
+       }
 
        this.genericDeal = genericDeal;
 

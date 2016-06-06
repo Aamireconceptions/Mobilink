@@ -23,14 +23,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.LoginTask;
 import com.ooredoo.bizstore.asynctasks.UnSubTask;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
+import com.ooredoo.bizstore.ui.activities.CitySelectionActivity;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
@@ -38,7 +39,6 @@ import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HI
 import static com.ooredoo.bizstore.AppConstant.VERIFICATION_CODE_MIN_LEN;
 import static com.ooredoo.bizstore.BizStore.password;
 import static com.ooredoo.bizstore.utils.Converter.convertDpToPixels;
-import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackStack;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 /**
@@ -281,7 +281,7 @@ public class DialogUtils {
 
         return dialog;
     }
-
+    static boolean goingForLoc = false;
     public static Dialog createLocationDialog(final Context context)
     {
         final Dialog dialog = new Dialog(context);
@@ -293,12 +293,28 @@ public class DialogUtils {
         dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goingForLoc = true;
                 dialog.dismiss();
 
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 
                 context.startActivity(intent);
+            }
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if(!goingForLoc && SharedPrefUtils.isFirstTime(context, "first_time")
+                        && BuildConfig.FLAVOR.equals("mobilink"))
+                {
+                    Logger.print("Dialog dismissed");
+
+                    SharedPrefUtils.updateVal(((Activity) context), "first_time", false);
+
+                    context.startActivity(new Intent(context, CitySelectionActivity.class));
+                }
             }
         });
 

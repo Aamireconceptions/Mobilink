@@ -35,6 +35,9 @@ public class SubCategoryChangeListener implements CheckBox.OnCheckedChangeListen
 
         ((CheckBox) activity.findViewById(R.id.cb_cinemas)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_travel)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_events)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_kids)).setOnCheckedChangeListener(this);
+        ((CheckBox) activity.findViewById(R.id.cb_other_activities)).setOnCheckedChangeListener(this);
 
         //((CheckBox) activity.findViewById(R.id.cb_top_deals)).setOnCheckedChangeListener(this);
         ((CheckBox) activity.findViewById(R.id.cb_food_dining)).setOnCheckedChangeListener(this);

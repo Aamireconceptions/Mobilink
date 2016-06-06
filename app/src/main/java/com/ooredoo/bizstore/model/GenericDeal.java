@@ -17,6 +17,12 @@ public class GenericDeal implements Serializable{
     public String description, startDate, endDate, voucher, status, redeemedOn, businessLogo,
             businessName, validity;
 
+    @SerializedName("redeem_date")
+    public String date;
+
+    @SerializedName("redeem_time")
+    public String time;
+
     public String title, category, contact, address, location,  brandAddress, timing, color_code;
 
     public int vouchers_claimed, vouchers_max_allowed;
@@ -137,6 +143,10 @@ public class GenericDeal implements Serializable{
         this.locations = result.locations;
 
         this.is_exclusive = result.is_exclusive;
+
+        this.voucher_count = result.voucher_count;
+        this.distance = result.mDistance;
+        this.how_works = result.how_works;
 
        // Logger.logI("DEAL: " + result.id, String.valueOf(deal.isFavorite));
     }

@@ -22,7 +22,7 @@ android {
         applicationId "com.ooredoo.bizstore"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 7
+        versionCode 8
         versionName "1.0"
 
     }
@@ -47,7 +47,7 @@ android {
         }
         ooredoo {
             applicationId "com.ooredoobizstore"
-            versionName = "1.0"
+            versionName = "1.1"
             signingConfig signingConfigs.OoredooBizstore
             buildConfigField "String", "BASE_URL", "\"http://ooredoo.bizstore.com.pk/index.php/api/\""
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "58b4efad8e3248c8b5232d705e0d5781"]

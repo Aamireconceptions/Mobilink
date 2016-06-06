@@ -66,13 +66,22 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
     {
         super.onPostExecute(result);
 
-        progressBar.setVisibility(View.GONE);
+       if(progressBar != null) {
+           progressBar.setVisibility(View.GONE);
+       }
         if(result != null)
         {
             try {
                 Gson gson = new Gson();
 
                 DealMisc dealMisc = gson.fromJson(result, DealMisc.class);
+
+                if(BuildConfig.FLAVOR.equals("mobilink"))
+                {
+                    activity.onHaveData(dealMisc.genericDeal);
+
+                    return;
+                }
 
                 similarDeals.clear();
                 nearbyDeals.clear();

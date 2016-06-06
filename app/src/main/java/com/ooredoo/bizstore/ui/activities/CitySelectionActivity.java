@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
@@ -74,9 +75,26 @@ public class CitySelectionActivity extends BaseActivity implements View.OnClickL
         if(viewId == R.id.save)
         {
             String mCities = "";
+            int count = 0;
+            for(City city : cities)
+            {
+                if(!city.isChecked)
+                {
+                    count = count + 1;
+                }
+            }
+
+            if(count == cities.size())
+            {
+                Toast.makeText(this, "Please select atleast one City", Toast.LENGTH_SHORT).show();
+
+                return;
+            }
 
             for(City city : cities)
             {
+
+
                 Logger.print("Checked:" + city.isChecked);
 
                 saveCity(city);

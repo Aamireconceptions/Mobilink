@@ -465,11 +465,16 @@
     you will be charged QAR 9/week</string>
     <string name="subscribe_now">Subscribe</string>
     <string name="days">Days</string>
-    <string name="enjoy_ramadan">enjoy a ramadan</string>
+    <string name="enjoy_ramadan">enjoy a</string>
     <string name="_1_week">1-week</string>
     <string name="free_trial">free trial!</string>
-
     <string name="free_trial_details">For Ramadan New Subscribers only!\nYou Will be charged QAR 9/week after your Free
     Trial ends</string>
-
+    <string name="my_city">City</string>
+    <string name="city_selection_text">Please select your city.</string>
+    <string name="congrats">Congratualtions</string>
+    <string name="congrats_msg">You have availed this discount\nShow this deal to the outlet and get discounts</string>
+    <string name="error_signin_failure">Dear user, you are not subscribed to Ooredoo BizStore Applicaton.</string>
+    <string name="enjoy_ramadan_2">enjoy a ramadan</string>
+    <string name="during_ramadan">During ramadan!</string>
 </resources>

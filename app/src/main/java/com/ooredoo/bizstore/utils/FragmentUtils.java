@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+
+import com.ooredoo.bizstore.ui.fragments.DemoFragment;
 
 /**
  * @author Babar
@@ -36,5 +39,6 @@ public class FragmentUtils {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 
 }

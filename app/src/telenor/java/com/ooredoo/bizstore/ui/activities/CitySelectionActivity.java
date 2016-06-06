@@ -11,9 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.activeandroid.query.Select;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.CitiesAdapter;
-import com.ooredoo.bizstore.asynctasks.CityTask;
-import com.ooredoo.bizstore.model.City;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Logger;
 

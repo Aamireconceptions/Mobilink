@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.activities.CitySelectionActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.StringUtils;
@@ -21,15 +20,13 @@ import java.util.HashMap;
  */
 public class CityTask extends BaseAsyncTask<String, Void, String>
 {
-    Activity activity;
-
     private static final String LOG_TAG = "cityTask";
+
+    Activity activity;
 
     Dialog dialog;
 
     public CityTask(Activity activity) {
-        super();
-
         this.activity = activity;
     }
 
@@ -100,6 +97,8 @@ public class CityTask extends BaseAsyncTask<String, Void, String>
         params.put("cities", cities);
 
         setServiceUrl("changesettings", params);
+
+
 
         result = getJson();
 

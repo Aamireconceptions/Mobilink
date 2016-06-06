@@ -11,6 +11,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Voucher;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
@@ -94,6 +95,33 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 .setCategory("Action")
                                 .setAction("Deal Redeem")
                                 .build());
+
+
+                        if(BuildConfig.FLAVOR.equals("mobilink"))
+                        {
+                            final Dialog dialog = DialogUtils.createAlertDialog(detailActivity,
+                                    R.string.congrats,
+                                    R.string.success_redeemed);
+                            dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v) {
+
+                                    DealDetailActivity.genericDeal.date = voucher.date;
+                                    DealDetailActivity.genericDeal.time = voucher.time;
+
+                                    detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
+                                    detailActivity.btGetCode.setText("Get Discount Again");
+
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.setCanceledOnTouchOutside(false);
+                            dialog.setCancelable(false);
+                            dialog.show();
+
+                            return;
+                        }
 
                         final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
                                 R.string.success_redeemed);

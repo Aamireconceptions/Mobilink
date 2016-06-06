@@ -23,6 +23,7 @@
     android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="none"
     android:fillViewport="true">
 
 
@@ -106,24 +107,17 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     >
 
+
+
                     <TextView
-                        android:id="@+id/title"
+                        android:id="@+id/brand_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAllCaps="true" android:gravity="top"
                         android:maxLines="1"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/brand_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:singleLine="true"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/brand_address"
@@ -132,7 +126,7 @@
                         android:layout_weight="1"
                         android:textSize="10sp"
                         android:textColor="@color/white"
-                        android:maxLines="1"/>
+                        android:maxLines="2"/>
 
                     <RatingBar
                         android:id="@+id/rating_bar"
@@ -255,16 +249,47 @@
             android:id="@+id/discount_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingEnd="@dimen/_12sdp"
-            android:paddingTop="@dimen/_12sdp"
-            android:paddingBottom="@dimen/_12sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/last_redeemed_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/_20sdp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="@color/grey">
+
+                <TextView
+                    android:id="@+id/discount_availed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:textSize="18sp"
+                    android:textColor="@color/red"
+                    android:text="Discount availed "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/time_stamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="on 24 May 16 at 3:09pm"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/discount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:gravity="center_horizontal"
                 android:text=""
                 android:textAllCaps="true"
@@ -285,7 +310,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:textColor="@color/black"
                 />
 
@@ -294,7 +319,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:visibility="gone">
 
                 <TextView
@@ -313,7 +338,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/redeem_deal"
+                    android:text="Get Discount"
                     android:textColor="@color/white"
                     android:textAllCaps="true"
                     android:textSize="16sp"
@@ -357,11 +382,7 @@
 
                 </RelativeLayout>
 
-
-
             </RelativeLayout>
-
-
 
             <TextView
                 android:id="@+id/vouchers_claimed"
@@ -371,14 +392,6 @@
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:visibility="gone"/>
-
-
-
-
-
-
-
-
 
             <TextView
                 android:id="@+id/tos_note"
@@ -399,8 +412,6 @@
             android:id="@+id/head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
             android:paddingStart="@dimen/_12sdp"
             android:paddingEnd="@dimen/_12sdp"
             android:paddingTop="@dimen/_8sdp"
@@ -432,8 +443,7 @@
             android:layout_height="0dip"
             android:layout_weight="1"
             android:gravity="right|bottom"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/validity"
@@ -456,7 +466,6 @@
                 android:background="@color/grey"
                 android:text="@string/how_this_works"
                 android:textColor="@color/black"
-                android:textSize="16sp"
                 android:visibility="gone"/>
 
         </LinearLayout>

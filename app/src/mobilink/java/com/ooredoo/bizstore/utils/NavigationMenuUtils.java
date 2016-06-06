@@ -86,7 +86,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_shopping,
                 R.drawable.ic_health,
                 R.drawable.ic_entertainment,
-                R.drawable.ic_top_deals,};
+                R.drawable.ic_new_deals,};
 
        /* categories = new String[] { activity.getString(R.string.food_dining), activity.getString(R.string.shopping_speciality),
                 activity.getString(R.string.electronics)};
@@ -121,11 +121,12 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         subGroupResIds = new int[]{
                 R.drawable.ic_top_deals,
-                R.drawable.ic_top_deals,
+
                 R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
                 R.drawable.ic_health,
-                R.drawable.ic_entertainment};
+                R.drawable.ic_entertainment,
+                R.drawable.ic_new_deals};
 
         foodSubCategories = new String[] {activity.getString(R.string.pakistani),
         activity.getString(R.string.Fast_Food), activity.getString(R.string.Chinese),

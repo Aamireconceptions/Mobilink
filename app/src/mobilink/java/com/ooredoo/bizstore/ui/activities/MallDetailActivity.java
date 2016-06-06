@@ -325,7 +325,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             src = business;
             src.id = business.id;
 
-            src.isFavorite = Favorite.isFavorite(src.id);
+            //src.isFavorite = Favorite.isFavorite(src.id);
 
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
@@ -342,8 +342,11 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             tvCity2 = (TextView) header.findViewById(R.id.tv_city);
             tvCity2.setText(business.location);
 
+            ImageView ivShare = (ImageView) findViewById(R.id.iv_share);
+            ivShare.setOnClickListener(this);
 
-            ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(business.rating);
+
+                    ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(business.rating);
             header.findViewById(R.id.iv_views).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -458,16 +461,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        if(viewId == R.id.iv_favorite) {
-            if(src != null) {
-                boolean isFavorite = !v.isSelected();
-                v.setSelected(isFavorite);
-                src.isFavorite = isFavorite;
-                Favorite favorite = new Favorite(src);
-                favorite.isBusiness = 1;
-                Favorite.updateFavorite(favorite, true);
-            }
-        } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
+        if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
             ratingDialog = showRatingDialog(this, "mall", id);
         } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {
             if(src != null && isNotNullOrEmpty(src.contact)) {
@@ -481,7 +475,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 makeText(getApplicationContext(), "No contact number found", LENGTH_LONG).show();
             }
         } else
-        if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
+        if(viewId == R.id.iv_share ) {
             shareBusiness(this, src.id);
         }
         else
@@ -549,7 +543,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 adapter.notifyDataSetChanged();
 
                 expandableListView.smoothScrollToPositionFromTop(1, btDeals.getHeight() * 2
-                        + (int) getResources().getDimension(R.dimen._9sdp), 200 );
+                        + (int) getResources().getDimension(R.dimen._9sdp), 200);
             }
     }
 

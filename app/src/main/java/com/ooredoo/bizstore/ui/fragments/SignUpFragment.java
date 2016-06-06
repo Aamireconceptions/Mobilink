@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.FOCTask;
 import com.ooredoo.bizstore.asynctasks.LoginTask;
 import com.ooredoo.bizstore.asynctasks.SignInTask;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
@@ -124,11 +125,17 @@ public class SignUpFragment extends BaseFragment {
                 {
                     if(isSignin)
                     {
-
                         new SignInTask(this).execute(msisdn);
                     }
                     else {
-                        new SubscriptionTask(this).execute(msisdn);
+                        if(checkForFOC)
+                        {
+                            new FOCTask(this).execute(msisdn);
+                        }
+                        else
+                        {
+                            new SubscriptionTask(this).execute(msisdn);
+                        }
                     }
                 }
 

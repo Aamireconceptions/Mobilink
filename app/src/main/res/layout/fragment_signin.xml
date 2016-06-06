@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_8sdp"
+    android:padding="@dimen/_14sdp"
     android:background="@drawable/free_trail_bg">
 
     <TextView
@@ -13,7 +13,6 @@
         android:text="@string/enjoy_ramadan"
         android:layout_centerHorizontal="true"
         android:textAllCaps="true"
-        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="@color/black"/>
@@ -34,6 +33,7 @@
         android:orientation="horizontal"
         android:layout_below="@+id/_7_icon"
         android:gravity="center_horizontal">
+
     <TextView
         android:id="@+id/days"
         android:layout_width="wrap_content"
@@ -60,6 +60,20 @@
 
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/during_ramadan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/during_ramadan"
+android:layout_below="@+id/free_trial_layout"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,8 +81,8 @@
         android:layout_above="@+id/signin_layout"
         android:textSize="12sp"
         android:text="@string/free_trial_details"
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/free_trial_layout"/>
+        android:layout_marginTop="6dp"
+        android:layout_below="@+id/during_ramadan"/>
 
 
 

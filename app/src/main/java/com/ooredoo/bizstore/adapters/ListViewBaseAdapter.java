@@ -352,6 +352,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
 
                 holder.tvDetail = (TextView) row.findViewById(R.id.detail);
+
                 holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
                 FontUtils.setFontWithStyle(context,  holder.tvDiscount, Typeface.BOLD);
                 holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
@@ -377,6 +378,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                     holder.tvTitle.setVisibility(View.GONE);
                     holder.tvDiscount.setVisibility(View.GONE);
                     holder.ivDiscountTag.setVisibility(View.GONE);
+
+                    holder.tvDetail.setTextSize(16);
                 }
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.LoginTask;
+import com.ooredoo.bizstore.utils.FontUtils;
 
 public class AlreadyAvailedActivity extends AppCompatActivity {
 
@@ -17,15 +19,16 @@ public class AlreadyAvailedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getActionBar().hide();
+      //  getSupportActionBar().hide();
 
         setContentView(R.layout.activity_already_availed);
+
+        FontUtils.setFontWithStyle(this, (TextView) findViewById(R.id.user), Typeface.BOLD);
+        FontUtils.setFontWithStyle(this, (TextView) findViewById(R.id.info), Typeface.BOLD);
     }
 
     public void subscribeNow(View v)
     {
-
-
         finish();
     }
 

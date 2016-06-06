@@ -25,6 +25,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
+import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.RamadanTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -105,14 +106,14 @@ public class RamadanFragment extends Fragment implements OnDealsTaskFinishedList
 
         RamadanTask ramadanTask = new RamadanTask(getActivity(), this, progressBar);
 
-        String cache = ramadanTask.getCache("dealofday");
+        String cache = ramadanTask.getCache("dealoframazan");
 
         if(cache != null)
         {
             ramadanTask.setData(cache);
         }
         else {
-            ramadanTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealofday");
+            ramadanTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealoframazan");
         }
     }
 
@@ -166,7 +167,9 @@ public class RamadanFragment extends Fragment implements OnDealsTaskFinishedList
                 ProgressBar progressBar = (ProgressBar) rlCell.findViewById(R.id.progressBar);
 
                 TextView tvTitle = (TextView) rlCell.findViewById(R.id.title);
-                tvTitle.setText(genericDeal.businessName.toUpperCase());
+                if(genericDeal.businessName != null) {
+                    tvTitle.setText(genericDeal.businessName.toUpperCase());
+                }
                 FontUtils.setFontWithStyle(getActivity(), tvTitle, Typeface.BOLD);
 
                 TextView tvDescription = (TextView) rlCell.findViewById(R.id.description);
@@ -305,8 +308,8 @@ public class RamadanFragment extends Fragment implements OnDealsTaskFinishedList
                 }
                 else
                 {
-                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                            new BaseAdapterBitmapDownloadTask();
+                    BitmapForceDownloadTask bitmapDownloadTask =
+                            new BitmapForceDownloadTask(ivThumbnail, progressBar, null);
                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
                             String.valueOf(reqWidth), String.valueOf(reqHeight));
                 }
@@ -321,7 +324,7 @@ public class RamadanFragment extends Fragment implements OnDealsTaskFinishedList
     @Override
     public void onHaveDeals() {
         tvEmptyView.setVisibility(View.GONE);
-        ivBanner.setImageResource(R.drawable.automotive_banner);
+        ivBanner.setImageResource(R.drawable.ramzan_banner);
     }
 
     @Override

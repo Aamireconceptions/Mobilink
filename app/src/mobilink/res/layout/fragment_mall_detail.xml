@@ -143,7 +143,8 @@
             android:layout_alignParentBottom="true"
             android:paddingTop="@dimen/_8sdp"
             android:gravity="center"
-            android:background="@drawable/detail_actions_bg">
+            android:background="@drawable/detail_actions_bg"
+            android:visibility="gone">
             <TableRow>
                 <ImageView
                     android:id="@+id/iv_call"
@@ -168,7 +169,7 @@
 
                     android:src="@drawable/ic_star_white"/>
                 <ImageView
-                    android:id="@+id/iv_share"
+                    android:id="@+id/iv_share_old"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
