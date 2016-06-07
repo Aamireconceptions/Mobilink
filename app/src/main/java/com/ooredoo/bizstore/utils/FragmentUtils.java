@@ -19,7 +19,7 @@ public class FragmentUtils {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerId, fragment, tag);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
     }
 
@@ -36,8 +36,32 @@ public class FragmentUtils {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(containerId, fragment, tag);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
+    }
+
+    public static void popBackStackInclusive(AppCompatActivity activity)
+    {
+        FragmentManager fragmentManager = activity.getFragmentManager();
+
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    public static void removeFragment(Activity activity, Fragment fragment)
+    {
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.remove(fragment);
+        fragmentTransaction.commit();
+
+        fragmentManager.executePendingTransactions();
+    }
+
+    public static void popBackStack(Activity activity)
+    {
+        FragmentManager fragmentManager = activity.getFragmentManager();
+        fragmentManager.popBackStack();
     }
 
 

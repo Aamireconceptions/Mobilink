@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ import com.ooredoo.bizstore.utils.Logger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+
+import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackStack;
 
 /**
  * @author Pehlaj Rai
@@ -93,9 +96,7 @@ public class SignInTask extends BaseAsyncTask<String, Void, String> {
                         public void onClick(View v) {
                             dialog.dismiss();
 
-                            FragmentUtils.replaceFragment(((Activity) context), R.id.fragment_container,
-                                    new DemoFragment(),
-                                    null);
+                            FragmentUtils.popBackStack((Activity) context);
                         }
                     });
                     dialog.show();

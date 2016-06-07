@@ -1,8 +1,12 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -14,6 +18,7 @@ import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.AlreadyAvailedActivity;
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
 import com.ooredoo.bizstore.utils.DialogUtils;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -69,14 +74,7 @@ public class FOCTask extends BaseAsyncTask<String, Void, String> {
 
         if(result != null) {
 
-            if(true) {
-                signUpFragment.checkForFOC = false;
-                new SubscriptionTask(signUpFragment).execute(msisdn);
-return;
-            }
-
             try {
-
 
                 Subscription subscription = new Gson().fromJson(result, Subscription.class);
 
@@ -92,7 +90,21 @@ return;
                 else
                 {
                     signUpFragment.checkForFOC = false;
-                    context.startActivity(new Intent(context, AlreadyAvailedActivity.class));
+
+                    final Dialog dialog = DialogUtils.createFOCAlertDialog(context, 0, R.string.foc_already_availed);
+
+                    Button btSubscribe = (Button) dialog.findViewById(R.id.subscribe);
+                    FontUtils.setFontWithStyle(context, btSubscribe, Typeface.BOLD);
+
+                    Button btSub = (Button) dialog.findViewById(R.id.subscribe);
+                    btSub.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
                 }
 
             } catch(JsonSyntaxException e) {

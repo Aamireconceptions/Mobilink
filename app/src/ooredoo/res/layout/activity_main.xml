@@ -1,69 +1,30 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_signup"
-                tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <!--<ImageView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/bizstore_ooredoo_logo"
+        android:background="@color/tool_bar"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Light"
         android:visibility="gone"/>
 
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/btn_red_ripple"
-        android:gravity="center"
-        android:text="@string/SIGNUP"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:visibility="gone"/>-->
-
-    <LinearLayout
-        android:id="@+id/lang_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layoutDirection="ltr"
-        android:gravity="center_vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_14sdp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_lang_english"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/_35sdp"
-            android:background="@drawable/lang_left_selector"
-            android:text="@string/English"
-            android:textAllCaps="false"
-            android:textColor="@color/black_white_selector"/>
-
-        <Button
-            android:id="@+id/btn_lang_arabic"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/_35sdp"
-            android:background="@drawable/lang_right_selector"
-            android:text="@string/arabic"
-            android:textAllCaps="false"
-            android:textColor="@color/black_white_selector"/>
-
-    </LinearLayout>
-
-
-
-
+    <View
+        android:id="@+id/line_red"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/red"
+        android:visibility="gone"/>
 
     <FrameLayout
-        android:id="@+id/container"
+
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
-</RelativeLayout>
+        android:layout_height="match_parent"/>
+</LinearLayout>

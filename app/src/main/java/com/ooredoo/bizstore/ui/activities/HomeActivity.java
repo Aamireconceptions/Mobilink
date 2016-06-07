@@ -253,8 +253,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         checkIfGpsEnabled();
 
-        if(!BuildConfig.FLAVOR.equals("dealionare") && !BuildConfig.FLAVOR.equals("mobilink")) {
-           // startSubscriptionCheck();
+        if(!BuildConfig.FLAVOR.equals("dealionare")) {
+            startSubscriptionCheck();
         }
 
         MetricsManager.register(this, getApplication());
@@ -270,22 +270,26 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     Timer timer;
 
+    TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    CheckSubscriptionTask subscriptionTask = new CheckSubscriptionTask(HomeActivity.this,
+                            timer, timerTask);
+                    subscriptionTask.execute();
+                }
+            });
+        }
+    };
+
     private void startSubscriptionCheck() {
         timer = new Timer();
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        CheckSubscriptionTask subscriptionTask = new CheckSubscriptionTask(HomeActivity.this, timer);
-                        subscriptionTask.execute();
-                    }
-                });
-            }
-        }, 0, time);
+        timer.schedule(timerTask, 0, time);
     }
 
     private void overrideFonts() {
@@ -1510,6 +1514,4 @@ LinearLayout llSearch;
 
         //timer.cancel();
     }
-
-
 }

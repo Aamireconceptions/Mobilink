@@ -2,16 +2,19 @@ package com.ooredoo.bizstore.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +36,7 @@ import com.ooredoo.bizstore.asynctasks.UnSubTask;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
 import com.ooredoo.bizstore.ui.activities.CitySelectionActivity;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
+import com.ooredoo.bizstore.ui.fragments.RamadanWelcomeFragment;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN;
@@ -242,7 +246,13 @@ public class DialogUtils {
         BaseFragment.hideKeyboard(activity);
         activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         AppCompatActivity compatActivity = (AppCompatActivity) activity;
-        FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
+
+        Fragment fragment = BuildConfig.FLAVOR.equals("ooredoo")
+                ? new RamadanWelcomeFragment()
+                : new WelcomeFragment();
+
+        FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container,
+                fragment, "welcome_fragment");
     }
 
     public static Dialog createAlertDialog(Context context, int titleResId, int infoResId)
@@ -264,7 +274,6 @@ public class DialogUtils {
             textView.setText(infoResId);
         }
 
-
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable((new ColorDrawable(android.graphics.Color.TRANSPARENT)));
@@ -278,6 +287,52 @@ public class DialogUtils {
                 dialog.dismiss();
             }
         });
+
+        return dialog;
+    }
+
+    public static Dialog createFOCAlertDialog(final Context context, int titleResId, int infoResId)
+    {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.foc_alert_dialog, null);
+
+        TextView tvTos = (TextView) view.findViewById(R.id.tos);
+        tvTos.setText(Html.fromHtml(context.getString(R.string.subscription_terms_services)));
+        tvTos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                String uriString = BizStore.getLanguage().equals("en")
+                        ? "http://ooredoo.bizstore.com.pk/index.php/other/terms/android?language=en"
+                        : "http://ooredoo.bizstore.com.pk/index.php/other/terms/android?language=ar";
+
+                intent.setData(Uri.parse(uriString));
+
+                context.startActivity(intent);
+            }
+        });
+
+        if(titleResId != 0)
+        {
+            TextView textView = (TextView) view.findViewById(R.id.title);
+            textView.setText(titleResId);
+            textView.setVisibility(View.VISIBLE);
+        }
+
+        if(infoResId != 0)
+        {
+            TextView textView = (TextView) view.findViewById(R.id.info);
+            textView.setText(Html.fromHtml(context.getString(infoResId)));
+        }
+
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable((new ColorDrawable(android.graphics.Color.TRANSPARENT)));
+        dialog.setContentView(view);
+        //dialog.setContentView(R.layout.alert_dialog);
+
 
         return dialog;
     }

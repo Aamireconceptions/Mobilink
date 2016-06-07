@@ -16,6 +16,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.DemoPagerAdapter;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
+import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 
@@ -26,7 +27,7 @@ import static com.ooredoo.bizstore.adapters.DemoPagerAdapter.SLIDE_COUNT;
  * @since 24-Jul-15.
  */
 public class DemoFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
-    private SignUpActivity signUpActivity;
+    private MainActivity mainActivity;
 
     private Activity activity;
 
@@ -51,10 +52,10 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
     {
         activity = getActivity();
 
-        signUpActivity = (SignUpActivity) activity;
-        signUpActivity.toolbar.setVisibility(View.GONE);
+        mainActivity = (MainActivity) activity;
+        mainActivity.toolbar.setVisibility(View.GONE);
 
-        DemoPagerAdapter adapter = new DemoPagerAdapter(getFragmentManager());
+        DemoPagerAdapter adapter = new DemoPagerAdapter(getChildFragmentManager());
 
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);

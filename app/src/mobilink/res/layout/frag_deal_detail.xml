@@ -239,7 +239,6 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="201"
                     android:textAllCaps="true"
                     android:textColor="@color/white"/>
             </TableRow>

@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,18 +17,20 @@ import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.TimeUtils;
 
+import java.lang.reflect.Type;
+
 /**
  * @author Pehlaj Rai
  * @since 11/10/2014
  */
 
-public class WelcomeFragment extends BaseFragment {
+public class RamadanWelcomeFragment extends BaseFragment {
 
     private AppCompatActivity activity;
 
-    public WelcomeFragment() {
+    public RamadanWelcomeFragment() {
         super();
-        layoutResId = R.layout.fragment_welcome;
+        layoutResId = R.layout.fragment_welcome_ramadan;
     }
 
     Tracker tracker;
@@ -41,14 +42,18 @@ public class WelcomeFragment extends BaseFragment {
         activity = (AppCompatActivity) mActivity;
 
         FontUtils.setFontWithStyle(activity, btNext, Typeface.BOLD);
+
         MainActivity mainActivity = (MainActivity) activity;
         mainActivity.toolbar.setVisibility(View.GONE);
         MainActivity.hideToolbar = true;
 
+        BizStore bizStore = (BizStore) activity.getApplication();
+
         TextView tvCongrats = (TextView) parent.findViewById(R.id.tv_congratz);
         FontUtils.setFontWithStyle(activity, tvCongrats, Typeface.BOLD);
 
-        BizStore bizStore = (BizStore) activity.getApplication();
+        TextView tvMsg = (TextView) parent.findViewById(R.id.special_msg);
+        FontUtils.setFontWithStyle(activity, tvMsg, Typeface.BOLD);
 
         tracker = bizStore.getDefaultTracker();
 
@@ -71,10 +76,7 @@ public class WelcomeFragment extends BaseFragment {
         //activity.finish();
 
         MainActivity activity = (MainActivity) mActivity;
-       activity.startActivity(HomeActivity.class);
-
-        /*getActivity().finish();
-        getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));*/
+        activity.startActivity(HomeActivity.class);
 
         tracker.send(new HitBuilders.EventBuilder()
                .setCategory("Action")

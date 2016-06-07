@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.FragmentUtils;
@@ -31,9 +32,9 @@ public class RamadanFOCFragment extends BaseFragment {
     }
 
     public void init(View parent) {
-        SignUpActivity signUpActivity = (SignUpActivity) mActivity;
-        signUpActivity.toolbar.setVisibility(View.GONE);
-        SignUpActivity.hideToolbar = true;
+        MainActivity mainActivity = (MainActivity) mActivity;
+        mainActivity.toolbar.setVisibility(View.GONE);
+        mainActivity.hideToolbar = true;
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
 
@@ -41,7 +42,7 @@ public class RamadanFOCFragment extends BaseFragment {
      //   btLogin.setOnClickListener(this);
 
         TextView tvTOS = (TextView ) parent.findViewById(R.id.agree_terms_services);
-        tvTOS.setText(Html.fromHtml(signUpActivity.getString(R.string.subscription_terms_services)));
+        tvTOS.setText(Html.fromHtml(mainActivity.getString(R.string.subscription_terms_services)));
         tvTOS.setOnClickListener(this);
 
 

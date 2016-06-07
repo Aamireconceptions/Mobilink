@@ -4,15 +4,23 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 
+import android.graphics.Color;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
+import com.ooredoo.bizstore.ui.fragments.DemoFragment;
+import com.ooredoo.bizstore.ui.fragments.MainFragment;
 import com.ooredoo.bizstore.ui.fragments.SplashFragment;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.FragmentUtils;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
@@ -24,6 +32,7 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 public class MainActivity extends BaseActivity {
 
+    public static boolean hideToolbar = false;
 
     public MainActivity() {
         super();
@@ -35,6 +44,54 @@ public class MainActivity extends BaseActivity {
     @Override
     public void init() {
 
+        setupToolbar();
+        showSplash();
+
+        /*FragmentUtils.replaceFragment(this, R.id.fragment_container, new MainFragment(),
+                "main_fragment");*/
+
+    }
+
+    public Toolbar toolbar;
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+
+        if(BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            toolbar.setBackgroundColor(Color.parseColor("#fb9900"));
+        }
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        setTitle("");
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        //actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setLogo(R.drawable.ic_bizstore);
+    }
+
+    SplashFragment splashFragment;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+
+    private void showSplash()
+    {
+       /* splashFragment = new SplashFragment();
+
+        fragmentManager = getFragmentManager();
+
+        fragmentTransaction = fragmentManager.beginTransaction();
+        //fragmentTransaction.setCustomAnimations(R.animator.slide_up_animator, R.animator.fade_out);
+        //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.add(android.R.id.content, splashFragment, null);
+        fragmentTransaction.commit();*/
+
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -42,17 +99,7 @@ public class MainActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
-                        boolean check = getBooleanVal(MainActivity.this, SharedPrefUtils.LOGIN_STATUS);
-                        if(check) {
-                            startActivity(HomeActivity.class);
-
-                            return;
-                        }
-
-                        isSplashShowing = false;
-                        finish();
-                        startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+                        hideSplash();
                     }
                 });
 
@@ -60,10 +107,46 @@ public class MainActivity extends BaseActivity {
         }, 2000);
     }
 
+    private void hideSplash()
+    {
+        boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
+        if(check) {
+            startActivity(HomeActivity.class);
+        }
+        else
+        {
+
+            FragmentUtils.replaceFragment(this, R.id.fragment_container,
+                    new DemoFragment(), "demo_fragment");
+            /*FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.remove(splashFragment);
+            fragmentTransaction.commitAllowingStateLoss();
+
+            fragmentManager.executePendingTransactions();*/
+
+            isSplashShowing = false;
+
+
+        }
+    }
 
     @Override
     public void onBackPressed() {
-        if(!isSplashShowing)
+        if(isSplashShowing)
+        {
+            Logger.print("MAIN: return splash showing");
+
+            return;
+        }
+
+        if(getFragmentManager().getBackStackEntryCount() > 0)
+        {
+            getFragmentManager().popBackStack();
+
+            Logger.print("MAIN: return from pop");
+            return;
+        }
+
         super.onBackPressed();
     }
 }

@@ -333,8 +333,10 @@
     <string name="enjoy_ramadan_2">استمتع في شهر رمضان</string>
     <string name="_1_week">لاسبوع</string>
     <string name="free_trial">تجريبية في</string>
-    <string name="free_trial_details">فقط للمشتركين الجدد في شهر رمضان! سيتم خصم ٩ ر.ق اسبوعيآ عند انتهاء الفترة التجريبية المجانية</string>
+    <string name="free_trial_details">سيتم خصم ٩ ر.ق اسبوعيا عند انتهاء الفترة التجريبية المجانية!</string>
     <string name="foc_subscription_charges">سيتم خصم <b>9</b> ر.ق. أسبوعيا بعد إنتهاء الفترة التجريبية</string>
     <string name="error_signin_failure">عزيزي المستخدم، لم تقم بالإشتراك في تطبيق Ooredoo BizStore.</string>
     <string name="during_ramadan">شهر رمضان!</string>
+    <string name="wish_ramadan">ومبارك عليكم الشهر الفضيل!</string>
+    <string name="foc_already_availed">عزيزي المستخدم، لقد تم استخدام &lt;font color="#ec1b24"&gt; الفترة التجريبية لمدة 7 أيام &lt;/font&gt; مسبقاً! قم بالإشتراك وتفعيل خدمة تطبيق Ooredoo BizStore لـ9 ر.ق. اسبوعياً!</string>
 </resources>

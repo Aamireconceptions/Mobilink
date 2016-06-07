@@ -16,6 +16,7 @@ import com.ooredoo.bizstore.asynctasks.LoginTask;
 import com.ooredoo.bizstore.asynctasks.SignInTask;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
+import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -37,18 +38,24 @@ public class SignUpFragment extends BaseFragment {
 
     EditText etMsisdn;
 
-    boolean isSignin;
+    boolean isSignin = false;
 
-    public boolean login, checkForFOC = true;
+    public boolean login, checkForFOC = false;
     public SignUpFragment() {
         super();
         layoutResId = R.layout.fragment_sign_up;
     }
 
     public void init(View parent) {
-        SignUpActivity.hideToolbar = false;
-        SignUpActivity signUpActivity = (SignUpActivity) mActivity;
-        signUpActivity.toolbar.setVisibility(View.VISIBLE);
+
+        if(BuildConfig.FLAVOR.equals("ooredoo"))
+        {
+            checkForFOC = true;
+        }
+
+        MainActivity.hideToolbar = false;
+        MainActivity mainActivity = (MainActivity) mActivity;
+        mainActivity.toolbar.setVisibility(View.VISIBLE);
 
         EditText etCountryCode = (EditText) parent.findViewById(R.id.et_country_code);
         FontUtils.setFont(getActivity(), etCountryCode);

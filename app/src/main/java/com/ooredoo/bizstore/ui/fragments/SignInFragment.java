@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 
@@ -37,8 +38,8 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SignUpActivity signUpActivity = (SignUpActivity) getActivity();
-        signUpActivity.toolbar.setVisibility(View.GONE);
+       MainActivity mainActivity = (MainActivity) getActivity();
+       mainActivity.toolbar.setVisibility(View.GONE);
 
         Button btSignIn = (Button) view.findViewById(R.id.signin);
         btSignIn.setOnClickListener(this);
@@ -88,4 +89,5 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
 }

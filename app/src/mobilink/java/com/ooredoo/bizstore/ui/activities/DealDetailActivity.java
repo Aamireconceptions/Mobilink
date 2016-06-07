@@ -92,7 +92,6 @@ import static java.lang.String.valueOf;
 public class DealDetailActivity extends BaseActivity implements OnClickListener
 
 {
-
     public String category;
     static String packageName;
     public boolean showBanner = false;
@@ -325,7 +324,7 @@ TextView tvDiscount;
             FontUtils.setFont(this, tvTimeStamp);
 
              tvAvailedDeals = (TextView) findViewById(R.id.tv_share);
-            tvAvailedDeals.setText(""+deal.voucher_count);
+            //tvAvailedDeals.setText(""+deal.voucher_count);
             genericDeal = deal;
 
             mDeal = deal;
@@ -366,13 +365,13 @@ TextView tvDiscount;
 
                 @Override
                 public void onScrollChanged() {
-                    if(scrollView.getScrollY() > 1) {
+                   /* if(scrollView.getScrollY() > 1) {
                         mActionBar.setTitle(deal.title);
                     }
                     else
                     {
                         mActionBar.setTitle("");
-                    }
+                    }*/
 
                     cd.setAlpha(getAlphaforActionBar(scrollView.getScrollY()));
                 }
@@ -855,6 +854,8 @@ TextView tvDiscount;
 
         tvAvailedDeals.setText(""+availed);
 
+        genericDeal.voucher_count = genericDeal.voucher_count + 1;
+
         if(genericDeal.date != null && !genericDeal.date.isEmpty())
         {
             llTimeStamp.setVisibility(View.VISIBLE);
@@ -1010,6 +1011,8 @@ TextView tvDiscount;
 
     public void onHaveData(GenericDeal genericDeal)
     {
+        tvAvailedDeals.setText(""+genericDeal.voucher_count);
+
        if(genericDeal.date != null && !genericDeal.date.isEmpty())
        {
            llTimeStamp.setVisibility(View.VISIBLE);

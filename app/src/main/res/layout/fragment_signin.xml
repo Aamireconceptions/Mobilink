@@ -81,7 +81,7 @@ android:layout_below="@+id/free_trial_layout"
         android:layout_above="@+id/signin_layout"
         android:textSize="12sp"
         android:text="@string/free_trial_details"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:layout_below="@+id/during_ramadan"/>
 
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_white_rounded"
+        android:padding="@dimen/_20sdp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:text="Discount Redeemed"
+        android:textSize="19sp"
+        android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@android:color/secondary_text_light"
+            android:text="@string/invalid_password"
+            android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/subscribe"
+            android:layout_width="@dimen/_210sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_below="@+id/info"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/SUBSCRIBE"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_red_ripple"/>
+
+    <TextView
+        android:id="@+id/tos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/subscribe"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:textSize="12sp"
+        android:text="@string/subscription_terms_services" />
+    </RelativeLayout>
+

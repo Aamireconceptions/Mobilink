@@ -4,6 +4,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 
+import android.graphics.Color;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -12,8 +15,11 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
+import com.ooredoo.bizstore.ui.fragments.MainFragment;
 import com.ooredoo.bizstore.ui.fragments.SplashFragment;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.FragmentUtils;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
@@ -25,10 +31,7 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 public class MainActivity extends BaseActivity {
 
-    Button btnArabicLang, btnEnglishLang,
-    btSignIn, btSignUp;
-
-    LinearLayout llLang, llSignin;
+    public static boolean hideToolbar = false;
 
     public MainActivity() {
         super();
@@ -39,34 +42,37 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+
+        setupToolbar();
         showSplash();
-        /*boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
-        if(check) {
-            startActivity(HomeActivity.class);
-        }*/
 
-        btnArabicLang = (Button) findViewById(R.id.btn_lang_arabic);
+        FragmentUtils.replaceFragment(this, R.id.fragment_container, new MainFragment(),
+                "main_fragment");
 
-        FontUtils.setFont(this, btnArabicLang);
+    }
 
-        btnEnglishLang = (Button) findViewById(R.id.btn_lang_english);
-        btnArabicLang.setOnClickListener(this);
-        btnEnglishLang.setOnClickListener(this);
-        String lang = BizStore.getLanguage();
+    public Toolbar toolbar;
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+        }
 
-        boolean isArabicLang = StringUtils.isNotNullOrEmpty(lang) && lang.equals("ar");
+        if(BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            toolbar.setBackgroundColor(Color.parseColor("#fb9900"));
+        }
+        setSupportActionBar(toolbar);
 
-        btnArabicLang.setSelected(isArabicLang);
-        btnEnglishLang.setSelected(!isArabicLang);
-
-      /*  llLang = (LinearLayout) findViewById(R.id.lang_layout);
-        llSignin = (LinearLayout) findViewById(R.id.signin_layout);
-
-        btSignIn = (Button) findViewById(R.id.signin);
-        btSignIn.setOnClickListener(this);
-        btSignIn.setSelected(true);
-        btSignUp = (Button) findViewById(R.id.signup);
-        btSignUp.setOnClickListener(this);*/
+        ActionBar actionBar = getSupportActionBar();
+        setTitle("");
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        //actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setLogo(R.drawable.ic_bizstore);
     }
 
     SplashFragment splashFragment;
@@ -83,7 +89,6 @@ public class MainActivity extends BaseActivity {
        //fragmentTransaction.setCustomAnimations(R.animator.slide_up_animator, R.animator.fade_out);
         //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.add(android.R.id.content, splashFragment, null);
-fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
         new Timer().schedule(new TimerTask() {
@@ -109,67 +114,32 @@ fragmentTransaction.addToBackStack(null);
         }
         else
         {
-            // FragmentManager fragmentManager = getFragmentManager();
-
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.remove(splashFragment);
             fragmentTransaction.commitAllowingStateLoss();
 
-            // fragmentManager.executePendingTransactions();
+            fragmentManager.executePendingTransactions();
 
             isSplashShowing = false;
+
+
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        int viewId = v.getId();
-        if(viewId == R.id.btn_lang_arabic || viewId == R.id.btn_lang_english) {
-            boolean isArabic = viewId == R.id.btn_lang_arabic;
-            String language = viewId == R.id.btn_lang_arabic ? "ar" : "en";
-            SharedPrefUtils.updateVal(this, APP_LANGUAGE, language);
-            BizStore.setLanguage(language);
-            btnArabicLang.setSelected(isArabic);
-            btnEnglishLang.setSelected(!isArabic);
-
-            BizStore bizStore = (BizStore) getApplication();
-            bizStore.overrideDefaultFonts();
-
-            NavigationMenuOnClickListener.updateConfiguration(this, language);
-
-            startActivity(new Intent(this, SignUpActivity.class));
-        }
-
-        /*if(viewId == R.id.signin)
-        {
-            startActivity(new Intent(this, SignUpActivity.class).putExtra("is_signin", true));
-        }
-
-        if(viewId == R.id.signup)
-        {
-            llSignin.setVisibility(View.GONE);
-
-            llLang.setVisibility(View.VISIBLE);
-
-            canShowSigninlayout = true;
-        }*/
-    }
-
-    boolean canShowSigninlayout = false;
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-      /*  boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
-        if(check) {
-            startActivity(HomeActivity.class);
-        }*/
     }
 
     @Override
     public void onBackPressed() {
         if(isSplashShowing)
         {
+            Logger.print("MAIN: return splash showing");
+
+            return;
+        }
+
+        if(getFragmentManager().getBackStackEntryCount() > 0)
+        {
+            getFragmentManager().popBackStack();
+
+            Logger.print("MAIN: return from pop");
             return;
         }
 

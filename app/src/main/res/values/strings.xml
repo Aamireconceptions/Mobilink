@@ -467,9 +467,8 @@
     <string name="days">Days</string>
     <string name="enjoy_ramadan">enjoy a</string>
     <string name="_1_week">1-week</string>
-    <string name="free_trial">free trial!</string>
-    <string name="free_trial_details">For Ramadan New Subscribers only!\nYou Will be charged QAR 9/week after your Free
-    Trial ends</string>
+    <string name="free_trial">free trial</string>
+    <string name="free_trial_details">You Will be charged 9 QAR/week after your Free Trial ends</string>
     <string name="my_city">City</string>
     <string name="city_selection_text">Please select your city.</string>
     <string name="congrats">Congratualtions</string>
@@ -477,4 +476,5 @@
     <string name="error_signin_failure">Dear user, you are not subscribed to Ooredoo BizStore Applicaton.</string>
     <string name="enjoy_ramadan_2">enjoy a ramadan</string>
     <string name="during_ramadan">During ramadan!</string>
+    <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;7 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Ooredoo BizStore app @ QAR 9/week.</string>
 </resources>

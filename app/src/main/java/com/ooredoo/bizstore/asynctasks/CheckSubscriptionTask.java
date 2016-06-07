@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PASSWORD;
@@ -33,14 +34,16 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
 
     private Timer timer;
 
-    public CheckSubscriptionTask(HomeActivity activity, Timer timer)
+    private TimerTask timerTask;
+
+    public CheckSubscriptionTask(HomeActivity activity, Timer timer, TimerTask timerTask)
     {
         this.activity = activity;
 
         this.timer = timer;
+
+        this.timerTask = timerTask;
     }
-
-
 
     @Override
     protected String doInBackground(Void... params)
@@ -71,12 +74,12 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
             {
                 Toast.makeText(activity, R.string.unsub_from_service, Toast.LENGTH_LONG).show();
 
+                timerTask.cancel();
                 timer.cancel();
 
                 updateVal(activity, LOGIN_STATUS, false);
                 activity.finish();
                 activity.startActivity(new Intent(activity, MainActivity.class));
-
             }
         }
     }
