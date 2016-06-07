@@ -52,12 +52,6 @@ public class WelcomeFragment extends BaseFragment {
 
         tracker = bizStore.getDefaultTracker();
 
-        if(TimeUtils.isDateOver(6, 07, 2016))
-        {
-            TextView tvSpecialMsg = (TextView) parent.findViewById(R.id.special_msg);
-            tvSpecialMsg.setVisibility(View.GONE);
-        }
-
     }
 
     @Override

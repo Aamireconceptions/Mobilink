@@ -40,11 +40,20 @@ public class SubscriptionPlansFragment extends BaseFragment {
      //   btLogin = (Button) parent.findViewById(R.id.btn_login);
      //   btLogin.setOnClickListener(this);
 
+        TextView tvCharges = (TextView) parent.findViewById(R.id.tv_sub_charges);
+
+        if(BuildConfig.FLAVOR.equals("dealionare"))
+        {
+            tvCharges.setVisibility(View.GONE);
+        }
+
         TextView tvTOS = (TextView ) parent.findViewById(R.id.agree_terms_services);
         tvTOS.setText(Html.fromHtml(mainActivity.getString(R.string.subscription_terms_services)));
         tvTOS.setOnClickListener(this);
 
-        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("mobilink")){
+        if(BuildConfig.FLAVOR.equals("telenor")
+                || BuildConfig.FLAVOR.equals("mobilink")
+                || BuildConfig.FLAVOR.equals("dealionare")){
             tvTOS.setVisibility(View.GONE);
         }
 

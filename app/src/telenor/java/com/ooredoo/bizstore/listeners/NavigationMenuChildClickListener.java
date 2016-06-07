@@ -8,6 +8,7 @@ import android.widget.ExpandableListView;
 
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.ui.activities.AboutUsActivity;
+import com.ooredoo.bizstore.ui.activities.CitySelectionActivity;
 import com.ooredoo.bizstore.ui.activities.HelpActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;

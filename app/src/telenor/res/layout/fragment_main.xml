@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_signup"
+    tools:context=".MainActivity">
+
+    <!--<ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/bizstore_ooredoo_logo"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_red_ripple"
+        android:gravity="center"
+        android:text="@string/SIGNUP"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:visibility="gone"/>-->
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_86sdp"
+        android:background="@drawable/next_btn_ripple"
+        android:clickable="true"
+        android:text="@string/NEXT"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:visibility="visible"/>
+
+
+</RelativeLayout>
