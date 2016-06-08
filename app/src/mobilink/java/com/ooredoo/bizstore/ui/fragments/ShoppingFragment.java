@@ -288,14 +288,16 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onSubCategorySelected()
     {
-        if(!isCreated)
+       /* if(!isCreated)
         {
             onFilterChange();
         }
         else
         {
             isCreated = false;
-        }
+        }*/
+
+        onFilterChange();
     }
 
     @Override

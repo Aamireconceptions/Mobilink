@@ -278,11 +278,13 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onSubCategorySelected() {
-        if(!isCreated) {
+        /*if(!isCreated) {
             onFilterChange();
         } else {
             isCreated = false;
-        }
+        }*/
+
+        onFilterChange();
     }
 
     @Override

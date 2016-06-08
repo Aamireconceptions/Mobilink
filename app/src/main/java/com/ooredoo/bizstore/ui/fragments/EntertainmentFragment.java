@@ -291,14 +291,16 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onSubCategorySelected()
     {
-        if(!isCreated)
+        /*if(!isCreated)
         {
             onFilterChange();
         }
         else
         {
             isCreated = false;
-        }
+        }*/
+
+        onFilterChange();
     }
 
     @Override

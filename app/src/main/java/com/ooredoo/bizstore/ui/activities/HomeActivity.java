@@ -633,44 +633,6 @@ public CoordinatorLayout coordinatorLayout;
             }*/
             }
         }
-
-        //tabLayout.getTabAt(11).select();
-
-        //viewPager.setOffscreenPageLimit(11);Dea
-       /* if(BizStore.getLanguage().equals("ar"))
-        {
-            viewPager.setCurrentItem(homePagerAdapter.getCount() - 1);ac
-        }*/
-
-       /* if(BizStore.getLanguage().equals("ar"))
-        {
-            Logger.print("Lang Arabic");
-           *//* viewPager.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    viewPager.setCurrentItem(homePagerAdapter.getCount() - 1, false);
-                }
-            }, 1000);*//*
-
-
-            TabLayout.Tab tab = tabLayout.getTabAt(homePagerAdapter.getCount() - 1);
-            tab.select();
-        }
-        else
-        {
-            Logger.print("Lang Eng");
-
-            *//*viewPager.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    viewPager.setCurrentItem(0, false);
-                }
-            }, 1000);*//*
-
-            TabLayout.Tab tab = tabLayout.getTabAt(0);
-            tab.select();
-        }*/
-
     }
 
     TextView tvDistance5, tvDistance10, tvDistance20, tvDistance35, tvDistance50;

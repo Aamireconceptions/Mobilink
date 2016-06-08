@@ -568,18 +568,7 @@
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/shopping"/>
 
-            <CheckBox
-                android:id="@+id/cb_ladies1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/ladies_section"/>
+
 
             <CheckBox
                 android:id="@+id/cb_health1"
@@ -594,18 +583,7 @@
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/health_fitness"/>
 
-            <CheckBox
-                android:id="@+id/cb_education1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingTop="@dimen/_16sdp"
-                android:text="@string/education"/>
+
 
             <CheckBox
                 android:id="@+id/cb_entertainment1"

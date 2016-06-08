@@ -252,6 +252,14 @@
             android:parentActivityName=".ui.activities.HomeActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".ui.activities.CitySelectionActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/my_city"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name="com.ooredoo.bizstore.ui.activities.CaptureActivity"
             android:screenOrientation="sensorLandscape"
             android:clearTaskOnLaunch="true"

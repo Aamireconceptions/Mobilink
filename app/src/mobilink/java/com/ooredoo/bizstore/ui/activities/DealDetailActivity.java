@@ -1040,6 +1040,10 @@ TextView tvDiscount;
        {
            rlVoucher.setVisibility(View.GONE);
        }
+        else
+       {
+           btGetCode.setText("Get Discount Again");
+       }
 
        tvVoucherClaimed.setVisibility(View.VISIBLE);
 

@@ -316,7 +316,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onSubCategorySelected()
     {
-        Logger.print("IsCreated:" + isCreated);
+       /* Logger.print("IsCreated:" + isCreated);
 
         if(!isCreated)
         {
@@ -325,7 +325,9 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         else
         {
             isCreated = false;
-        }
+        }*/
+
+        onFilterChange();
     }
 
     @Override

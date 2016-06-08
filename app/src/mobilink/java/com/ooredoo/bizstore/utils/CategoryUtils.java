@@ -84,9 +84,9 @@ public class CategoryUtils {
         /* TOP */
             subCategories.add(new SubCategory(46, R.id.cb_food_dining1, activity.getString(R.string.food_dining), "food", CT_TOP, false, false));
             subCategories.add(new SubCategory(47, R.id.cb_shopping1, activity.getString(R.string.shopping), "shopping", CT_TOP, false, false));
-            subCategories.add(new SubCategory(48, R.id.cb_ladies1, activity.getString(R.string.ladies_section), "ladies", CT_TOP, false, false));
+
             subCategories.add(new SubCategory(49, R.id.cb_health1, activity.getString(R.string.health_fitness), "health", CT_TOP, false, false));
-            subCategories.add(new SubCategory(50, R.id.cb_education1, activity.getString(R.string.education), "education", CT_TOP, false, false));
+
             subCategories.add(new SubCategory(53, R.id.cb_entertainment1, activity.getString(R.string.entertainment), "entertainment", CT_TOP, false, false));
         }
     }

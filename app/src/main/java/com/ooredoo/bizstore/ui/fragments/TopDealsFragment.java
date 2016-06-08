@@ -206,7 +206,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onRefresh() {
-
         if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
         {
             adapter.filterHeaderDeal = null;
@@ -279,11 +278,13 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onSubCategorySelected() {
-        if(!isCreated) {
+       /* if(!isCreated) {
             onFilterChange();
         } else {
             isCreated = false;
-        }
+        }*/
+
+        onFilterChange();
     }
 
     @Override
