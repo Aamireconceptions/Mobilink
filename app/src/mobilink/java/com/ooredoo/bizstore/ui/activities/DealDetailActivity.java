@@ -373,7 +373,7 @@ TextView tvDiscount;
                         mActionBar.setTitle("");
                     }*/
 
-                    cd.setAlpha(getAlphaforActionBar(scrollView.getScrollY()));
+                   // cd.setAlpha(getAlphaforActionBar(scrollView.getScrollY()));
                 }
                 private int getAlphaforActionBar(int scrollY) {
                     int minDist = 0, maxDist = 550;
@@ -530,15 +530,7 @@ TextView tvDiscount;
 
             rlVoucher = (RelativeLayout) findViewById(R.id.voucher_layout);
 
-            if(deal.is_exclusive == 0) {
-                rlVoucher.setVisibility(View.GONE);
-                tvDiscount.setVisibility(View.GONE);
-            }
-            else
-            {
-                rlVoucher.setVisibility(View.VISIBLE);
-                tvDiscount.setVisibility(View.VISIBLE);
-            }
+
 
             if(deal.discount == 0)
             {
@@ -850,9 +842,13 @@ TextView tvDiscount;
 
     public void showCode(int voucherClaimed, int maxAllowed, boolean hide)
     {
-        int availed = Integer.parseInt(tvAvailedDeals.getText().toString()) + 1;
+      String availedText = tvAvailedDeals.getText().toString();
 
-        tvAvailedDeals.setText(""+availed);
+      if(!availedText.isEmpty()) {
+         int availed = Integer.parseInt(availedText) + 1;
+
+         tvAvailedDeals.setText(""+availed);
+      }
 
         genericDeal.voucher_count = genericDeal.voucher_count + 1;
 
@@ -1011,6 +1007,16 @@ TextView tvDiscount;
 
     public void onHaveData(GenericDeal genericDeal)
     {
+        if(genericDeal.is_exclusive == 0) {
+            rlVoucher.setVisibility(View.GONE);
+            tvDiscount.setVisibility(View.GONE);
+        }
+        else
+        {
+            rlVoucher.setVisibility(View.VISIBLE);
+           // tvDiscount.setVisibility(View.VISIBLE);
+        }
+
         tvAvailedDeals.setText(""+genericDeal.voucher_count);
 
        if(genericDeal.date != null && !genericDeal.date.isEmpty())

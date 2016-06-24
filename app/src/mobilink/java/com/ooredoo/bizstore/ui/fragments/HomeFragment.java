@@ -583,10 +583,10 @@ dealofDayCalled = false;
         loadPromos(null);
 
       //  loadTopBrands(null);
-       // loadTopMalls(null);
+        loadTopMalls(null);
         initAndLoadDealsOfTheDay();
 
-        final String KEY = PREFIX_DEALS.concat("dealofday");
+        final String KEY = PREFIX_DEALS.concat("viewednrated");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);

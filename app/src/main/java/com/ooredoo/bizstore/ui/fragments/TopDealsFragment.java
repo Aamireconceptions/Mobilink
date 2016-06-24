@@ -23,6 +23,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
+import com.ooredoo.bizstore.interfaces.LocationChangeListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
@@ -49,6 +50,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
                                                           OnDealsTaskFinishedListener,
                                                           OnSubCategorySelectedListener,
                                                           SwipeRefreshLayout.OnRefreshListener,
+        LocationChangeListener,
         ScrollToTop{
     private HomeActivity activity;
 
@@ -248,7 +250,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(BuildConfig.FLAVOR.equals("mobilink")
+        ivBanner.setImageResource(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("ufone")
                 ? R.drawable.exlusive_banner
         :R.drawable.top_deals_banner);
 
@@ -388,5 +390,14 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
                 }
             }
         }
+    }
+
+    @Override
+    public void onLocationChanged() {
+       tvEmptyView.setText("");
+
+       isRefreshed = true;
+        loadTopDeals(null);
+        isRefreshed = false;
     }
 }

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/_8sdp"
+    android:clickable="true"
+    android:paddingEnd="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/category_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_shopping"
+        android:drawablePadding="@dimen/_6sdp"
+        android:text="Shopping"
+        android:visibility="gone"
+        android:textColor="@android:color/primary_text_light"
+        android:background="@drawable/deal_header_bg"/>
+
+
+    <LinearLayout
+        android:id="@+id/layout_deal_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp"
+        android:orientation="vertical"
+        android:background="@drawable/deal_detail_bg">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amir Adnan"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/red"/>
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:text="Amir Adnan Wedding Coture Package 2015 - Sherwani, Inner, Lawn, Suite, etc"
+            android:textSize="14sp"
+            android:maxLines="3"
+            android:ellipsize="end"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:background="@drawable/redeem_deal_simple">
+
+            <LinearLayout
+                android:id="@+id/last_redeemed_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/_10sdp"
+                android:orientation="vertical"
+
+             >
+
+                <TextView
+                    android:id="@+id/discount_availed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:textSize="18sp"
+                    android:textColor="@color/red"
+                    android:text="Discount availed "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/time_stamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="on 24 May 16 at 3:09pm"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/redeem_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:background="@drawable/redeem_deal_simple"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/discount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textAllCaps="true"
+                android:text="20% off"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/validity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Redeem Discount Until July 20, 2015"
+                android:textColor="@android:color/secondary_text_light"/>
+
+            <ImageView
+                android:id="@+id/horizontal_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/redeem_deal_line"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/voucher_code_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="code : "
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textAllCaps="true"/>
+
+                <TextView
+                    android:id="@+id/code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:text="S1df43"
+                    android:textColor="@color/red" />
+            </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/redeem_on_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_12sdp"
+        android:background="@drawable/deal_footer_bg"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Redeemed on "/>
+
+        <TextView
+            android:id="@+id/redeemed_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23 July, 2015"
+            android:textColor="@color/red"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

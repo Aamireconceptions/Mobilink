@@ -86,6 +86,11 @@ public class SignUpFragment extends BaseFragment {
         Button btNext = (Button) parent.findViewById(R.id.btn_next);
         btNext.setOnClickListener(this);
 
+        if(BuildConfig.FLAVOR.equals("ufone"))
+        {
+            btNext.setBackgroundResource(R.drawable.btn_red_next_ripple);
+        }
+
         mActivity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_VISIBLE | SOFT_INPUT_ADJUST_RESIZE);
 
         if(BuildConfig.FLAVOR.equals("dealionare"))

@@ -73,10 +73,27 @@ public class MyGcmListenerService extends GcmListenerService
                     }
                 }
             }
+
+            if(notifications.size() < 1)
+            {
+                String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
+
+                String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
+
+                String reqHeight = String.valueOf((int) Converter.convertDpToPixels(256));
+
+                Logger.print("gcm width:" + reqWidth);
+
+                BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
+                        title, desc);
+                bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight);
+            }
         }
         catch (JSONException e)
         {
             e.printStackTrace();
         }
     }
+
+
 }

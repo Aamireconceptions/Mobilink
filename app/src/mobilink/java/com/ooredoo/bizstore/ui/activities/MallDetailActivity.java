@@ -194,7 +194,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                scrollViewListener.onScrollChanged(header);
+              //  scrollViewListener.onScrollChanged(header);
             }
         });
         expandableListView.addHeaderView(header);
@@ -330,7 +330,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
             if(isNotNullOrEmpty(business.title)) {
-                mActionBar.setTitle(business.title);
+               // mActionBar.setTitle(business.title);
             }
 
             TextView tvTitle = ((TextView) header.findViewById(R.id.tv_title));

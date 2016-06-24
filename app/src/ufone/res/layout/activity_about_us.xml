@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/toolBarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/bg_signup">
+
+        <TextView
+            android:id="@+id/tv_app_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_copyrights"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_copyrights"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/btn_cancel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_70sdp"
+            android:gravity="center"
+            android:text="@string/copyrights_text"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

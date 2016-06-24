@@ -74,6 +74,8 @@ import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
+import com.ooredoo.bizstore.interfaces.LocationChangeListener;
+import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.interfaces.ScrollToTop;
@@ -254,12 +256,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         checkIfGpsEnabled();
 
         if(!BuildConfig.FLAVOR.equals("dealionare")) {
-            startSubscriptionCheck();
+           startSubscriptionCheck();
         }
 
         MetricsManager.register(this, getApplication());
 
-        checkForUpdates();
+        if(BuildConfig.DEBUG) {
+            checkForUpdates();
+        }
     }
 
     private void checkForUpdates()
@@ -299,8 +303,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     LocationManager locationManager;
 
-    int minTimeMillis = 10 * (60 * 1 * 1000);
-    int distanceMeters = 50;
+    int minTimeMillis = 30 * (60 * 1 * 1000);
+    int distanceMeters = 100;
     RelativeLayout filterParent;
     public FloatingActionButton fab;
     private void init() {
@@ -1067,6 +1071,24 @@ LinearLayout llSearch;
         {
             ((NearbyFragment) nearbyFragment).onLocationFound();
         }
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+
+            NavigationMenuOnClickListener.clearCache(this);
+
+            for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
+            {
+                Fragment fragment = getFragmentManager().findFragmentByTag("android:switcher:"
+                        +R.id.home_viewpager + ":" + i);
+
+                if(fragment != null && !(fragment instanceof HomeFragment))
+                {
+                    ((LocationChangeListener) fragment).onLocationChanged();
+                }
+            }
+        }
+
     }
 
     @Override

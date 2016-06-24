@@ -29,13 +29,15 @@ public class BizStore extends com.activeandroid.app.Application {
      // fatima hubail ooredoo num "33165670"
     public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "50497958"
             : BuildConfig.FLAVOR.equals("telenor") ? "03454060708"
-            : "3000449647";
+            : BuildConfig.FLAVOR.equals("mobilink") ? "3000449647"
+            : "3215353670";
 
     //public static String password = "d5pF55dZ";
 
     public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "569015"
             : BuildConfig.FLAVOR.equals("telenor") ? "578251"
-            : "472617";
+            : BuildConfig.FLAVOR.equals("mobilink") ? "472617"
+            : "568938";
 
     private Tracker tracker;
 
@@ -46,16 +48,20 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("ufone")
+    ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
     public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("ufone")
+            ? "fonts/Telenor.otf" :"fonts/OpenSans-Regular.ttf";
     public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("ufone")
             ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
     public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("ufone")
+            ? "fonts/Telenor.otf" :"fonts/OpenSans-Regular.ttf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 

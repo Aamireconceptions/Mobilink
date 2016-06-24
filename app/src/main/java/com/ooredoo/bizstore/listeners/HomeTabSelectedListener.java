@@ -34,13 +34,13 @@ public class HomeTabSelectedListener extends TabLayout.ViewPagerOnTabSelectedLis
     @Override
     public void onTabSelected(TabLayout.Tab tab)
     {
-       super.onTabSelected(tab);
+        super.onTabSelected(tab);
 
         BizStore.lastTab = tab.getPosition();
 
         homeActivity.resetFilters();
 
-       Logger.print("Tab Selected:" + tab.getPosition());
+        Logger.print("Tab Selected:" + tab.getPosition());
 
        // viewPager.setCurrentItem(tab.getPosition());
 

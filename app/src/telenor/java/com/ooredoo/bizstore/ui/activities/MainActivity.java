@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.ui.fragments.MainFragment;
 import com.ooredoo.bizstore.ui.fragments.SplashFragment;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -35,7 +36,7 @@ public class MainActivity extends BaseActivity {
         showSplash();
 
         FragmentUtils.replaceFragment(this, R.id.fragment_container, new MainFragment(),
-                "main_fragment");
+        "main_fragment");
 
     }
 

@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "439897609900",
+    "project_id": "ufone-bizstore"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439897609900:android:27e0f98317b1f3d4",
+        "android_client_info": {
+          "package_name": "com.ufone.bizstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf--RFAoeGhRu5GPioVdRgJj2cDaPg8k0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-64066203-3"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -23,6 +23,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
+import com.ooredoo.bizstore.interfaces.LocationChangeListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
@@ -48,7 +49,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
                                                           OnDealsTaskFinishedListener,
                                                           OnSubCategorySelectedListener,
                                                           SwipeRefreshLayout.OnRefreshListener,
-        ScrollToTop{
+        ScrollToTop, LocationChangeListener{
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -388,5 +389,13 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
                 }
             }
         }
+    }
+
+    @Override
+    public void onLocationChanged() {
+        tvEmptyView.setText("");
+
+        //isRefreshed = true;
+        loadTopDeals(null);
     }
 }

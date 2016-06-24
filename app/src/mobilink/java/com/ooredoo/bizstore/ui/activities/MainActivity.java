@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity {
         else
         {
 
-            FragmentUtils.replaceFragment(this, R.id.fragment_container,
+            FragmentUtils.replaceFragmentAllowStateLose(this, R.id.fragment_container,
                     new DemoFragment(), "demo_fragment");
             /*FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.remove(splashFragment);

@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -234,6 +235,26 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
 
             RelativeLayout rlHeader = (RelativeLayout) childView.findViewById(R.id.header);
             LinearLayout llFooter = (LinearLayout) childView.findViewById(R.id.footer);
+
+            if(BuildConfig.FLAVOR.equals("mobilink"))
+            {
+                TextView tvValidity = (TextView) childView.findViewById(R.id.validity);
+                tvTitle.setVisibility(View.GONE);
+                tvDiscount.setVisibility(View.GONE);
+               ivDiscountTag.setVisibility(View.GONE);
+
+                tvDetail.setTextSize(16);
+
+                if(deal.endDate != null && !deal.endDate.isEmpty())
+                {
+                    tvValidity.setText("Valid till: " + deal.endDate);
+                    tvValidity.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                   tvValidity.setVisibility(View.GONE);
+                }
+            }
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {

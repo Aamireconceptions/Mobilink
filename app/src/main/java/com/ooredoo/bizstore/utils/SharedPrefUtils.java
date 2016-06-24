@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 
+import com.ooredoo.bizstore.BuildConfig;
+
 import static android.content.Context.MODE_PRIVATE;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
@@ -17,7 +19,9 @@ import static java.lang.System.currentTimeMillis;
 
 public class SharedPrefUtils {
 
-    public static final long CACHE_TIME = 24 * 60 * 60 * 1000;
+    public static final long CACHE_TIME = BuildConfig.FLAVOR.equals("mobilink")
+            ? 30 * 60 * 1000
+            : 24 * 60 * 60 * 1000;
 
     public static final String MyPREFERENCES = "OrdBsPrefs";
 

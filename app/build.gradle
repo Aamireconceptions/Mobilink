@@ -15,6 +15,12 @@ android {
             storeFile file('D:/Apk & Keystore/Telenor Bizstore/telenorbizstore.jks')
             storePassword 'telenorbizstore'
         }
+        JazzDiscountBazar {
+            keyAlias 'jazzdiscountbazar'
+            keyPassword 'jazzdiscountbazar'
+            storeFile file('D:/Apk & Keystore/Jazz Discount Bazar/jazzdiscountbazar.jks')
+            storePassword 'jazzdiscountbazar'
+        }
     }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
@@ -22,7 +28,7 @@ android {
         applicationId "com.ooredoo.bizstore"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 8
+        versionCode 11
         versionName "1.0"
 
     }
@@ -52,17 +58,21 @@ android {
             buildConfigField "String", "BASE_URL", "\"http://ooredoo.bizstore.com.pk/index.php/api/\""
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "58b4efad8e3248c8b5232d705e0d5781"]
         }
-
-        dealionare{
+        dealionare {
             applicationId "mobi.econceptions.dealionare"
             versionName = "1.0"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "4e8fc3ee285640c2ab08942dac59ae9a"]
         }
-
-        mobilink{
+        mobilink {
             applicationId "pk.com.mobilink.bizstore"
             versionName = "1.0"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
+            signingConfig signingConfigs.JazzDiscountBazar
+        }
+        ufone{
+            applicationId "com.ufone.bizstore"
+            versionName = "1.0"
+            manifestPlaceholders = [HOCKEYAPP_APP_ID: "44cc637273d64dcba2bc7fb792de3746"]
         }
     }
 }

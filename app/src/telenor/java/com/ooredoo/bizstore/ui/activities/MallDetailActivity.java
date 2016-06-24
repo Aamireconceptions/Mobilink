@@ -270,7 +270,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-        findViewById(R.id.iv_favorite).setOnClickListener(this);
+//        findViewById(R.id.iv_favorite).setOnClickListener(this);
 
         if(src == null)
         {
@@ -385,7 +385,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
             src.isFavorite = Favorite.isFavorite(src.id);
 
-            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+//            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
             if(isNotNullOrEmpty(business.title)) {
@@ -429,7 +429,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 }
             });
 
-            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
+           // findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
 
             rlHeader = (RelativeLayout) header.findViewById(R.id.rl_header);
 

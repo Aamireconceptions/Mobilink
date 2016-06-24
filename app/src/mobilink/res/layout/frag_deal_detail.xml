@@ -240,6 +240,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textAllCaps="true"
+
                     android:textColor="@color/white"/>
             </TableRow>
         </TableLayout>

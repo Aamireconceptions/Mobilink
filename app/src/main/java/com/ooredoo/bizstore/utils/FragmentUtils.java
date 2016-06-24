@@ -31,6 +31,14 @@ public class FragmentUtils {
         fragmentTransaction.commit();
     }
 
+    public static void replaceFragmentAllowStateLose(Activity activity, int containerId, Fragment fragment, String tag) {
+        FragmentManager fragmentManager = activity.getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(containerId, fragment, tag);
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
     public static void replaceFragmentWithBackStack(AppCompatActivity activity, int containerId, Fragment fragment, String tag) {
         FragmentManager fragmentManager = activity.getFragmentManager();
 

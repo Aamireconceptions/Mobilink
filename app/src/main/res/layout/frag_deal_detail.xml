@@ -295,7 +295,7 @@
                     android:textAllCaps="true"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:background="@drawable/btn_red_ripple"
+                    android:background="@drawable/btn_red_next_ripple"
                     android:visibility="visible"/>
 
                 <RelativeLayout

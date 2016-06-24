@@ -63,20 +63,26 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
         int subCategoryCheckboxId = getCategoryCheckboxId(subCategory);
 
+
         int tabPos = getTabPosition();
 
         Logger.print("Sub-Category: " + tabPos + ", " + subCategory);
 
-        if(getTabPosition() != 4)
+        homeActivity.selectTab(tabPos);
+        homeActivity.drawerLayout.closeDrawer(GravityCompat.START);
+
+        DealsTask.subCategories = filter;
+
+       /* if(getTabPosition() != 3)
         {
             DealsTask.subCategories = filter;
         }
         else
         {
             ShoppingTask.subCategories = filter;
-        }
-        homeActivity.selectTab(tabPos);
-        homeActivity.drawerLayout.closeDrawer(GravityCompat.START);
+        }*/
+       /* homeActivity.selectTab(tabPos);
+        homeActivity.drawerLayout.closeDrawer(GravityCompat.START);*/
 
         updateSubCategorySelection(subCategoryCheckboxId, true);
 

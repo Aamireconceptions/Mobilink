@@ -23,7 +23,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 {
     private Context context;
 
-    private final static int PAGE_COUNT = 7;
+    public final static int PAGE_COUNT = 7;
 
     public HomePagerAdapter(Context context, FragmentManager fragmentManager)
     {

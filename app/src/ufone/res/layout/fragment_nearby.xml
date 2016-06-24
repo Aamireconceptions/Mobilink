@@ -1,0 +1,169 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--<android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent">-->
+
+    <!--<ImageView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY" />
+
+            <include
+                layout="@layout/layout_filter_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/banner" />-->
+
+    <!-- </android.support.design.widget.AppBarLayout>-->
+
+    <include layout="@layout/layout_filter_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp" />
+
+    <include layout="@layout/layout_filter_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/filter_tags"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:visibility="gone"/>
+
+
+    <com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/filter_tags"
+        android:layout_marginTop="@dimen/_12sdp"
+
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true">
+
+            <ListView
+                android:id="@+id/nearby_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:divider="@null"
+                android:dividerHeight="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:clipToPadding="false"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingTop="@dimen/_5sdp"
+                android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/location_empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:drawableTop="@drawable/cityselection_icon"
+                android:drawablePadding="@dimen/_8sdp"
+                android:text="@string/enable_location"
+                android:textStyle="bold"
+                android:visibility="visible"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/turn_location_on"
+                    android:textSize="12sp"
+                    android:textColor="@color/slight_grey"/>
+
+                <Button
+                    android:id="@+id/enable_location"
+                    android:layout_width="@dimen/_230sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:textColor="@color/white"
+                    android:text="@string/btn_enable_loc"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:background="@drawable/btn_red_next_ripple"/>
+
+            </LinearLayout>
+
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:drawableTop="@drawable/shopping_bag_big"
+                android:text="@string/error_no_data"
+                android:textSize="20sp"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+
+
+    </com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>
+
+    <!--</android.support.design.widget.CoordinatorLayout>-->
+  <!--  <com.google.android.gms.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:visibility="gone"/>-->
+    <RelativeLayout
+        android:id="@+id/map_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:clickable="true"
+        android:layout_below="@+id/filter_tags"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateDrawable="@drawable/custom_progress"
+        style="?android:attr/progressBarStyle"/>
+
+</RelativeLayout>

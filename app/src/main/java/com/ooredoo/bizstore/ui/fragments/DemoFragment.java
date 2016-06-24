@@ -117,4 +117,5 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
     public void onPageScrollStateChanged(int state) {
 
     }
+
 }
