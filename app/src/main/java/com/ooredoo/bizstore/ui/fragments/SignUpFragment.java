@@ -17,10 +17,7 @@ import com.ooredoo.bizstore.asynctasks.SignInTask;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
-import com.ooredoo.bizstore.ui.activities.SignUpActivity;
-import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
-import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NetworkUtils;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
@@ -129,7 +126,7 @@ public class SignUpFragment extends BaseFragment {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
                 BizStore.username = msisdn;
 
-                if(BuildConfig.FLAVOR.equals("dealionare") || login)
+                if(BuildConfig.FLAVOR.equals("dealionare") || BuildConfig.FLAVOR.equals("ufone") || login)
                 {
                     new LoginTask(mActivity).execute();
                 }

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -15,6 +16,7 @@ import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
@@ -30,6 +32,7 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
 
     private Dialog dialog;
 
+    private static final String SERVICE_NAME = "/signout?";
     public UnSubTask(Activity activity) {
         this.activity = activity;
     }
@@ -97,13 +100,27 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
         params.put("msisdn", msisdn);
         params.put("password", password);
 
-        setServiceUrl("signout", params);
+        String query = createQuery(params);
 
-        result = getJson();
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        if(BuildConfig.FLAVOR.equals("ufone"))
+        {
+            params.clear();
+            params.put(MSISDN, BizStore.username);
+            params.put("password", "ZwRq5CsY96w3zCMD");
+
+            query = createQuery(params);
+
+            url = new URL("http://203.215.183.98:30119/yellowPages2/mobileAppSupport/logout?" + query);
+        }
+
+        Logger.print("UnSub URL: "+url.toString());
+
+        result = getJson(url);
 
         Logger.print("UnSubscribe: " + result);
 
         return result;
     }
-
 }

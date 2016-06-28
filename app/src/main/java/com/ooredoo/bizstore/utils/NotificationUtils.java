@@ -22,7 +22,6 @@ public class NotificationUtils
         Notification.Builder builder =
                 new Notification.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(bitmap)
                 .setContentTitle(title)
                 .setTicker(desc)
                 .setContentText(desc);

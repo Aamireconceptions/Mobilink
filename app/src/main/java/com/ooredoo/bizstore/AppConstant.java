@@ -28,7 +28,7 @@ public class AppConstant {
 
     public static String PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
 
-    public static final int MSISDN_MIN_LEN = 7; //TODO CHANGE MINIMUM LENGTH for Msisdn
+    public static final int MSISDN_MIN_LEN = BuildConfig.FLAVOR.equals("ufone") ? 10 : 7; //TODO CHANGE MINIMUM LENGTH for Msisdn
     public static final int VERIFICATION_CODE_MIN_LEN = 4; //TODO CHANGE MINIMUM LENGTH for Msisdn Verification Code
 
 }

@@ -88,7 +88,7 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
                 similarDeals.addAll(dealMisc.genericDeal.similarDeals);
                 nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
 
-                if(!BuildConfig.FLAVOR.equals("telenor"))
+                if(!BuildConfig.FLAVOR.equals("telenor") && !BuildConfig.FLAVOR.equals("ufone"))
                 {
                     activity.onHaveData(dealMisc.genericDeal);
                 }

@@ -76,8 +76,8 @@
     <string name="sms_charges">Ufone BizStore app will send a one time sms to verify your phone number.</string>
     <string name="unsub_from_service">You have been Unsubscribed from Ufone BizStore</string>
     <string name="success_redeemed">Awesome! BizStore saved you money on the best deal in town. You will receive a discount confirmation message shortly.</string>
-    <string name="Unsubscribe_Bizstore">Unsubscribe Ufone BizStore</string>
-    <string name="unsub_details">By unsubscribing Ufone BizStore, you will no longer get promotion or service alerts from application.</string>
+    <string name="Unsubscribe_Bizstore">Logout Ufone BizStore</string>
+    <string name="unsub_details">By logging out of Ufone BizStore, you will no longer get promotion or service alerts from application.</string>
     <string name="host">ufone.bizstore.deal</string>
     <string name="host_business">ufone.bizstore</string>
     <string name="find_popular_venues">Shopping &amp; Latest Trends</string>
@@ -85,5 +85,7 @@
     <string name="discounts_on_fav_brands">Restaurants &amp; Food Deals</string>
     <string name="movies_cinemas_more">Movies, Cinemas &amp; Much More</string>
     <string name="google_maps_release_api_key">AIzaSyAT6eT-PpTk7EfZOsOKq1co7Y5PRR_SMSM</string>
+    <string name="un_subscribe">Logout</string>
+    <string name="unsubscribing">Logging Out</string>
 
 </resources>

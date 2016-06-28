@@ -256,7 +256,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         checkIfGpsEnabled();
 
         if(!BuildConfig.FLAVOR.equals("dealionare")) {
-           startSubscriptionCheck();
+          startSubscriptionCheck();
         }
 
         MetricsManager.register(this, getApplication());

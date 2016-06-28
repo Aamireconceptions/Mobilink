@@ -477,4 +477,5 @@
     <string name="enjoy_ramadan_2">enjoy a ramadan</string>
     <string name="during_ramadan">During ramadan!</string>
     <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;7 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Ooredoo BizStore app @ QAR 9/week.</string>
+    <string name="error_signin_failure_ufone">Dear user, you are not subscribed to Ufone BizStore.</string>
 </resources>

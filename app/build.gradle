@@ -28,7 +28,7 @@ android {
         applicationId "com.ooredoo.bizstore"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 11
+        versionCode 12
         versionName "1.0"
 
     }

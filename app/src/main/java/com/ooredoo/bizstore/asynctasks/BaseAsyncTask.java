@@ -37,7 +37,9 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
     ? "http://ooredoo.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("dealionare")
-    ? "http://dealionare.bizstore.com.pk/" : "http://jazz.bizstore.com.pk/";
+    ? "http://dealionare.bizstore.com.pk/" :
+            BuildConfig.FLAVOR.equals("mobilink") ? "http://jazz.bizstore.com.pk/"
+            : "http://ufone.bizstore.com.pk/";
 
     /*public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
             ? "http://ooredoostage.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
@@ -45,9 +47,11 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
             ? "http://dealionare.bizstore.com.pk/" : "http://jazz.bizstore.com.pk/";*/
 
     public static String BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "http://ooredoo.bizstore.com.pk/index.php/api/" : BuildConfig.FLAVOR.equals("telenor")
-            ? "http://telenor.bizstore.com.pk/index.php/api/" : BuildConfig.FLAVOR.equals("dealionare")
-    ? "http://dealionare.bizstore.com.pk/index.php/api/" : "http://jazz.bizstore.com.pk/index.php/api/";
+    ? "http://ooredoo.bizstore.com.pk/index.php/api/"
+            : BuildConfig.FLAVOR.equals("telenor") ? "http://telenor.bizstore.com.pk/index.php/api/"
+            : BuildConfig.FLAVOR.equals("dealionare") ? "http://dealionare.bizstore.com.pk/index.php/api/" :
+            BuildConfig.FLAVOR.equals("mobilink") ? "http://jazz.bizstore.com.pk/index.php/api/"
+            : "http://ufone.bizstore.com.pk/index.php/api/";
 
     /*public static String BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
             ? "http://ooredoostage.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
@@ -89,7 +93,8 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     public final static String IMAGE_BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
     ? "http://ooredoo.bizstore.com.pk" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk" : BuildConfig.FLAVOR.equals("dealionare")
-    ? "http://dealionare.bizstore.com.pk" : "http://jazz.bizstore.com.pk";
+    ? "http://dealionare.bizstore.com.pk" : BuildConfig.FLAVOR.equals("mobilink")
+            ? "http://jazz.bizstore.com.pk" : "http://ufone.bizstore.com.pk";
 
     protected Dialog dialog;
 

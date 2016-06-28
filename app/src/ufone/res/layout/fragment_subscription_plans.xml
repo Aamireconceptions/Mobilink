@@ -63,13 +63,7 @@
             android:textSize="13sp"
             android:text="@string/movies_cinemas_more"/>
 
-        <TextView
-            android:id="@+id/tv_sub_charges"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:textSize="14sp"
-            android:text="@string/subscription_charges"/>
+
 
         <Button
             android:id="@+id/btn_subscribe"
@@ -81,7 +75,7 @@
             android:alpha="1.0"
             android:background="@drawable/bg_red"
             android:gravity="center"
-            android:text="@string/SUBSCRIBE"
+            android:text="@string/login"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
 

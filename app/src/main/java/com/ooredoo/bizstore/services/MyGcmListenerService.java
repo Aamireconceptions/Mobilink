@@ -78,7 +78,7 @@ public class MyGcmListenerService extends GcmListenerService
             {
                 String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
 
-                String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
+                String reqWidth = String.valueOf((int) Converter.convertDpToPixels(350));
 
                 String reqHeight = String.valueOf((int) Converter.convertDpToPixels(256));
 

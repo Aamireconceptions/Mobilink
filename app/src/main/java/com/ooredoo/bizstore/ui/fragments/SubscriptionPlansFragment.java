@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
+import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 
 /**
@@ -36,6 +38,8 @@ public class SubscriptionPlansFragment extends BaseFragment {
         MainActivity.hideToolbar = true;
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
+
+        FontUtils.setFontWithStyle(mainActivity, btnSubscribe, Typeface.BOLD);
 
      //   btLogin = (Button) parent.findViewById(R.id.btn_login);
      //   btLogin.setOnClickListener(this);

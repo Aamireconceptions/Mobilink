@@ -45,7 +45,7 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        if(BuildConfig.FLAVOR.equals("dealionare")) {
+        if(BuildConfig.FLAVOR.equals("dealionare") || BuildConfig.FLAVOR.equals("ufone")) {
             dialog = DialogUtils.createCustomLoader((Activity) activity, "Logging In....");
             dialog.show();
         }
@@ -88,6 +88,19 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
                     DialogUtils.startWelcomeFragment();
                 }
                 else
+                if(response.desc.equals("password msg is sent to user"))
+                {
+                    BizStore.password = response.password;
+
+                    SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
+                    sharedPrefUtils.updateVal((Activity) activity, "username", BizStore.username);
+                    sharedPrefUtils.updateVal((Activity) activity, "password", BizStore.password);
+
+                    DialogUtils.activity = (Activity) activity;
+
+                    DialogUtils.startWelcomeFragment();
+                }
+
                 if(response.resultCode == 4)
                 {
                     if(response.desc.equals("Not Billed"))
@@ -95,6 +108,11 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
                         DialogUtils.createAlertDialog(activity, 0, R.string.error_insufficient_balance).show();
                     }
                 }
+                else
+                    if(response.resultCode == 1)
+                    {
+                        DialogUtils.createAlertDialog(activity, 0, R.string.error_signin_failure_ufone).show();
+                    }
             }
             else
             {
@@ -123,6 +141,18 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_URL + query);
+
+        if(BuildConfig.FLAVOR.equals("ufone"))
+        {
+            params.clear();
+            params.put(MSISDN, BizStore.username);
+            params.put("password", "ZwRq5CsY96w3zCMD");
+
+            query = createQuery(params);
+
+            url = new URL("http://203.215.183.98:30119/yellowPages2/mobileAppSupport"
+            + SERVICE_URL + query);
+        }
 
         Logger.print("login() URL:" + url.toString());
 

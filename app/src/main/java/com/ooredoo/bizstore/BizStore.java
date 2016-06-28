@@ -48,20 +48,16 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("ufone")
-    ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
     public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("ufone")
-            ? "fonts/Telenor.otf" :"fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
     public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("ufone")
             ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
     public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("ufone")
-            ? "fonts/Telenor.otf" :"fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 

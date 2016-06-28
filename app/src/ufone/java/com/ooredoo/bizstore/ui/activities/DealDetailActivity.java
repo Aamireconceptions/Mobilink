@@ -1023,46 +1023,12 @@ public EditText etMerchantCode;
         else
         if(viewId == R.id.get_code)
         {
-            if(BuildConfig.FLAVOR.equals("telenor"))
-            {
-                RedeemViaSmsTask redeemViaSmsTask =
-                        new RedeemViaSmsTask(this, snackBarUtils, tracker);
+            RedeemViaSmsTask redeemViaSmsTask =
+                    new RedeemViaSmsTask(this, snackBarUtils, tracker);
 
-                redeemViaSmsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            redeemViaSmsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-                return;
-            }
-
-            if(BuildConfig.FLAVOR.equals("mobilink"))
-            {
-                /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-                intentIntegrator.initiateScan();*/
-
-                startActivityForResult(new Intent(this, CaptureActivity.class), 303);
-
-                return;
-            }
-
-            if(mDeal.isQticket == 1)
-            {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(qticketUrl));
-
-                startActivity(intent);
-            }
-            else
-            {
-                v.setVisibility(View.GONE);
-
-                rlMerchandCode.setVisibility(View.VISIBLE);
-
-                etMerchantCode.requestFocus();
-
-                InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.toggleSoftInputFromWindow(etMerchantCode.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
-            }
-
+            return;
         }
         else
             if(viewId == R.id.similar_deals)

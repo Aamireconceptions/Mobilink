@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -70,7 +71,9 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
 
             Response response = gson.fromJson(result, Response.class);
 
-            if (response.desc.equals("Invalid MSIDN/Password"))
+            if (response.desc.equals("Invalid MSIDN/Password")
+                    ||
+                    (BuildConfig.FLAVOR.equals("ufone") && !response.desc.equals("Active")))
             {
                 Toast.makeText(activity, R.string.unsub_from_service, Toast.LENGTH_LONG).show();
 
@@ -81,6 +84,7 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
                 activity.finish();
                 activity.startActivity(new Intent(activity, MainActivity.class));
             }
+
         }
     }
 
@@ -96,6 +100,18 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+        if(BuildConfig.FLAVOR.equals("ufone"))
+        {
+            params.clear();
+
+            params.put(MSISDN, BizStore.username);
+            params.put("password", "ZwRq5CsY96w3zCMD");
+
+            query = createQuery(params);
+
+            url = new URL("http://203.215.183.98:30119/yellowPages2/mobileAppSupport/checkUserSubscription?"+query);
+        }
 
         Logger.print("check Subscription URL:" + url.toString());
 

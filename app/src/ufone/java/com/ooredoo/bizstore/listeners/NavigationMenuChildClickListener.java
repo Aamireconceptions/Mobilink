@@ -81,6 +81,7 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
 
                     case 6:
 
+
                         DialogUtils.showUnSubscribeDialog(activity);
                 }
 
