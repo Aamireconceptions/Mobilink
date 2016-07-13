@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 
 import java.lang.reflect.Type;
 
@@ -60,12 +62,14 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         TextView tvLabel1 = (TextView) view.findViewById(R.id.label_1);
         TextView tvDays = (TextView) view.findViewById(R.id.days);
         TextView tvFree = (TextView) view.findViewById(R.id.free);
-        TextView tvDuringRamadan = (TextView) view.findViewById(R.id.during_ramadan);
+        TextView tvOnOoredoo = (TextView) view.findViewById(R.id.on_ooredoo);
+        TextView tvFreeTrial = (TextView) view.findViewById(R.id.free_trail);
+        tvFreeTrial.setMovementMethod(LinkMovementMethod.getInstance());
 
         FontUtils.setFontWithStyle(getActivity(), tvLabel1, Typeface.BOLD);
         FontUtils.setFontWithStyle(getActivity(), tvDays, Typeface.BOLD);
         FontUtils.setFontWithStyle(getActivity(), tvFree, Typeface.BOLD);
-        FontUtils.setFontWithStyle(getActivity(), tvDuringRamadan, Typeface.BOLD);
+        FontUtils.setFontWithStyle(getActivity(), tvOnOoredoo, Typeface.BOLD);
     }
 
     @Override
@@ -83,8 +87,10 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.signup:
 
-                replaceFragmentWithBackStack((AppCompatActivity) getActivity(), R.id.fragment_container,
-                        new DemoFragment(), "demo_fragment");
+                FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) getActivity(),
+                        R.id.fragment_container,
+                        new SubscriptionPlansFragment(),
+                        "subscription_fragment");
 
                 break;
         }

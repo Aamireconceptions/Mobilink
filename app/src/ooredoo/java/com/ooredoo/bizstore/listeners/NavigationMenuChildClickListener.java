@@ -10,9 +10,13 @@ import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.ui.activities.AboutUsActivity;
 import com.ooredoo.bizstore.ui.activities.HelpActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
 import com.ooredoo.bizstore.ui.activities.NotificationsActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
+
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
+import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 
 /**
  * @author Babar
@@ -73,6 +77,18 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
                     case 5:
 
                         DialogUtils.showUnSubscribeDialog(activity);
+
+                        break;
+
+                    case 6:
+
+                        updateVal(activity, LOGIN_STATUS, false);
+
+                        activity.finish();
+
+                        activity.startActivity(new Intent(activity, MainActivity.class));
+
+                        break;
                 }
 
                 break;

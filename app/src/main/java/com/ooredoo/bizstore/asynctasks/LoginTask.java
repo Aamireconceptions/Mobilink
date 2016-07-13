@@ -77,6 +77,13 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
 
             if(response.resultCode != -1)
             {
+                if(response.resultCode == 500)
+                {
+                    DialogUtils.createAlertDialog(activity, 0, R.string.error_server_down).show();
+
+                    return;
+                }
+
                 if(response.desc.equals("Logged in successfully"))
                 {
                     SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);

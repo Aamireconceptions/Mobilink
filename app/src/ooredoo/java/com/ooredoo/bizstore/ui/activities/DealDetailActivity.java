@@ -59,6 +59,7 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -66,8 +67,11 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -138,7 +142,7 @@ public EditText etMerchantCode;
 
     TextView tvVoucherClaimed;
 
-    Tracker tracker;
+    Tracker tracker, ooredooTracker;
 
     @Override
     public void init() {
@@ -258,10 +262,18 @@ public EditText etMerchantCode;
         BizStore bizStore = (BizStore) getApplication();
         tracker = bizStore.getDefaultTracker();
 
-        tracker.send(new HitBuilders.EventBuilder()
-        .setCategory("Action")
-        .setAction("Deal Detail")
-        .build());
+        Map<String, String> dealDetailEvent = new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Deal Detail")
+                .build();
+
+        tracker.send(dealDetailEvent);
+
+        if(BuildConfig.FLAVOR.equals("ooredoo"))
+        {
+            ooredooTracker = bizStore.getOoredooTracker();
+            ooredooTracker.send(dealDetailEvent);
+        }
 
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
@@ -429,7 +441,10 @@ public EditText etMerchantCode;
 
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
+            Dialog dialog = DialogUtils.createRedeemDialog(this);
+            tvDialogOutlet = (TextView) dialog.findViewById(R.id.outlet);
 
+            TextView tvChooseOutlet = (TextView) dialog.findViewById(R.id.choose_outlet);
             genericDeal = deal;
 
             mDeal = deal;
@@ -986,6 +1001,8 @@ public EditText etMerchantCode;
 
     View lastSelected = null;
 
+    TextView tvDialogOutlet;
+
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -1051,6 +1068,10 @@ public EditText etMerchantCode;
             }
             else
             {
+
+
+                //dialog.show();
+
                 v.setVisibility(View.GONE);
 
                 rlMerchandCode.setVisibility(View.VISIBLE);
@@ -1172,20 +1193,44 @@ public EditText etMerchantCode;
         else
                         if(viewId == R.id.how_this_work_note)
                         {
-                            llHead.setVisibility(View.VISIBLE);
+                            tosShowing = false;
 
-                            tvHeadTitle.setText(R.string.how_this_works);
-                            tvHeadDescription.setText(mDeal.how_works);
+                            if(howWorkShowing)
+                            {
+                                howWorkShowing = false;
+
+                                llHead.setVisibility(View.GONE);
+                            }
+                            else {
+                                howWorkShowing = true;
+                                llHead.setVisibility(View.VISIBLE);
+
+                                tvHeadTitle.setText(R.string.how_this_works);
+                                tvHeadDescription.setText(mDeal.how_works);
+                            }
                         }
         else
                             if(viewId == R.id.tos_note)
                             {
-                                llHead.setVisibility(View.VISIBLE);
+                                howWorkShowing = false;
 
-                                tvHeadTitle.setText(R.string.tos);
-                                tvHeadDescription.setText(mDeal.terms_services);
+                                if(tosShowing)
+                                {
+                                    tosShowing = false;
+
+                                    llHead.setVisibility(View.GONE);
+                                }
+                                else {
+                                    tosShowing = true;
+                                    llHead.setVisibility(View.VISIBLE);
+
+                                    tvHeadTitle.setText(R.string.tos);
+                                    tvHeadDescription.setText(mDeal.terms_services);
+                                }
                             }
     }
+
+    private boolean howWorkShowing = false, tosShowing = false;
 
     private void setSelected(View v)
     {

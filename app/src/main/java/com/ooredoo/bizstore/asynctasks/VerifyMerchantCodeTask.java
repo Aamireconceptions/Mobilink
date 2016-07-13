@@ -2,9 +2,12 @@ package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -22,6 +25,7 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Babar on 25-Jun-15.
@@ -32,7 +36,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
     private SnackBarUtils snackBarUtils;
 
-    private Tracker tracker;
+    private Tracker tracker, ooredooTracker;
 
     private Dialog dialog;
 
@@ -91,19 +95,27 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                     //detailActivity.showCode(voucher.code);
                     if(voucher.resultCode == 0)
                     {
-                        tracker.send(new HitBuilders.EventBuilder()
+                        Map<String, String> redeemEvent = new HitBuilders.EventBuilder()
                                 .setCategory("Action")
                                 .setAction("Deal Redeem")
-                                .build());
+                                .build();
+
+                        tracker.send(redeemEvent);
+
+                        if(BuildConfig.FLAVOR.equals("ooredoo"))
+                        {
+                            BizStore bizStore = (BizStore) detailActivity.getApplication();
+
+                            ooredooTracker = bizStore.getOoredooTracker();
+                            ooredooTracker.send(redeemEvent);
+                        }
 
 
                         if(BuildConfig.FLAVOR.equals("mobilink"))
                         {
-                            final Dialog dialog = DialogUtils.createAlertDialog(detailActivity,
-                                    R.string.congrats,
-                                    R.string.success_redeemed);
-                            dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener()
-                            {
+                            final Dialog dialog = DialogUtils.createMobilinkRedeemDialog(detailActivity);
+
+                            dialog.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
 
@@ -116,6 +128,36 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                     dialog.dismiss();
                                 }
                             });
+
+                            TextView tvDealDesc = (TextView) dialog.findViewById(R.id.deal_desc);
+                            tvDealDesc.setText(DealDetailActivity.genericDeal.description);
+
+                            TextView tvUniqueId = (TextView) dialog.findViewById(R.id.unique_id);
+                            tvUniqueId.setText(""+DealDetailActivity.genericDeal.id);
+
+                            TextView tvDate = (TextView) dialog.findViewById(R.id.date);
+                            tvDate.setText(voucher.date);
+
+                            TextView tvTime= (TextView) dialog.findViewById(R.id.time);
+                            tvTime.setText(voucher.time);
+
+                            String brandLogo = DealDetailActivity.genericDeal.businessLogo;
+
+                            Logger.print("BrandLogo: " + brandLogo);
+
+                            if(brandLogo != null && !brandLogo.equals(""))
+                            {
+                                final String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
+
+                                Bitmap bitmap = detailActivity.memoryCache.getBitmapFromCache(imgUrl);
+
+                                if(bitmap != null)
+                                {
+                                    ImageView ivLogo = (ImageView) dialog.findViewById(R.id.brand_logo);
+                                    ivLogo.setImageBitmap(bitmap);
+                                }
+                            }
+
                             dialog.setCanceledOnTouchOutside(false);
                             dialog.setCancelable(false);
                             dialog.show();

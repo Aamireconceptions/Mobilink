@@ -36,13 +36,13 @@
         android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_14sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_lang_english"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_133sdp"
+            android:layout_height="@dimen/_39sdp"
             android:background="@drawable/lang_left_selector"
             android:text="@string/English"
             android:textAllCaps="false"
@@ -50,8 +50,8 @@
 
         <Button
             android:id="@+id/btn_lang_arabic"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_133sdp"
+            android:layout_height="@dimen/_39sdp"
             android:background="@drawable/lang_right_selector"
             android:text="@string/arabic"
             android:textAllCaps="false"

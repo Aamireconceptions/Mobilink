@@ -261,7 +261,7 @@
     <string name="error_max_availed">عزيزي العميل، لقد قمت بإستخدام الحد الأقصى من عمليات استبدال الخصم.</string>
     <string name="error_invalid_merchant_code">الرجاء إعادة إدخال رمز المتجر</string>
     <string name="error_no_location">لم تقم بتفعيل خدمة تحديد الموقع، برجاء تفعيلها!</string>
-    <string name="un_sub_success">عزيزي العميل، تم إلغاء إشتراكك من Ooredoo BizStore بيزستور بنجاح!</string>
+    <string name="un_sub_success">عزيزي العميل، تم إلغاء إشتراكك من Ooredoo BizStore بنجاح!</string>
     <string name="enable_location">تفعيل خدمات تحديد الموقع</string>
     <string name="btn_enable_loc">تفعيل خدمات تحديد الموقع</string>
     <string name="loc_not_available">لم تقم بتفعيل خدمة تحديد الموقع، لنفعلها!</string>
@@ -333,10 +333,16 @@
     <string name="enjoy_ramadan_2">استمتع في شهر رمضان</string>
     <string name="_1_week">لاسبوع</string>
     <string name="free_trial">تجريبية في</string>
-    <string name="free_trial_details">سيتم خصم ٩ ر.ق اسبوعيا عند انتهاء الفترة التجريبية المجانية!</string>
+    <string name="free_trial_details">لإستخدام هذه الخدمة بعد انتهاء هذه الفترة المجانية، سيتم خصم 9 ر.ق اسبوعياً. تطبق <a href="http://ooredoo.bizstore.com.pk/index.php/other/terms/android?language=ar">الشروط والأحكام</a>.</string>
     <string name="foc_subscription_charges">سيتم خصم <b>9</b> ر.ق. أسبوعيا بعد إنتهاء الفترة التجريبية</string>
     <string name="error_signin_failure">عزيزي المستخدم، لم تقم بالإشتراك في تطبيق Ooredoo BizStore.</string>
     <string name="during_ramadan">شهر رمضان!</string>
     <string name="wish_ramadan">ومبارك عليكم الشهر الفضيل!</string>
     <string name="foc_already_availed">عزيزي المستخدم، لقد تم استخدام &lt;font color="#ec1b24"&gt; الفترة التجريبية لمدة 7 أيام &lt;/font&gt; مسبقاً! قم بالإشتراك وتفعيل خدمة تطبيق Ooredoo BizStore لـ9 ر.ق. اسبوعياً!</string>
+    <string name="on_ooredoo">فقط على Ooredoo BizStore</string>
+    <string name="new_user">جديد على التطبيق</string>
+    <string name="existing_user">عضو على التطبيق</string>
+    <string name="subscribe_small">اشترك</string>
+    <string name="redeem_times">Choose number of times you want to avail discount</string>
+    <string name="signout">تسجيل الخروج</string>
 </resources>

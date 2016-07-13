@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
@@ -17,6 +18,9 @@ import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.TimeUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Pehlaj Rai
@@ -26,13 +30,13 @@ import com.ooredoo.bizstore.utils.TimeUtils;
 public class WelcomeFragment extends BaseFragment {
 
     private AppCompatActivity activity;
-
+    BizStore bizStore;
     public WelcomeFragment() {
         super();
         layoutResId = R.layout.fragment_welcome;
     }
 
-    Tracker tracker;
+    Tracker tracker, ooredooTracker;
 
     public void init(View parent) {
         Button btNext = (Button) parent.findViewById(R.id.btn_next);
@@ -48,7 +52,7 @@ public class WelcomeFragment extends BaseFragment {
         TextView tvCongrats = (TextView) parent.findViewById(R.id.tv_congratz);
         FontUtils.setFontWithStyle(activity, tvCongrats, Typeface.BOLD);
 
-        BizStore bizStore = (BizStore) activity.getApplication();
+        bizStore = (BizStore) activity.getApplication();
 
         tracker = bizStore.getDefaultTracker();
 
@@ -70,10 +74,17 @@ public class WelcomeFragment extends BaseFragment {
         /*getActivity().finish();
         getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));*/
 
-        tracker.send(new HitBuilders.EventBuilder()
-               .setCategory("Action")
-               .setAction("Log in")
-               .build());
-    }
+        Map<String, String> loginEvent = new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Log in")
+                .build();
 
+        tracker.send(loginEvent);
+
+        if(BuildConfig.FLAVOR.equals("ooredoo"))
+        {
+            ooredooTracker = bizStore.getOoredooTracker();
+            ooredooTracker.send(loginEvent);
+        }
+    }
 }

@@ -39,6 +39,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.BusinessAdapter;
 import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
@@ -66,6 +67,7 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -198,10 +200,18 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         BizStore bizStore = (BizStore) getApplication();
         Tracker tracker = bizStore.getDefaultTracker();
 
-        tracker.send(new HitBuilders.EventBuilder()
+        Map<String, String> businessDetailEvent = new HitBuilders.EventBuilder()
                 .setCategory("Action")
                 .setAction("Business Detail")
-                .build());
+                .build();
+
+        tracker.send(businessDetailEvent);
+
+        if(BuildConfig.FLAVOR.equals("ooredoo"))
+        {
+            Tracker ooredooTracker = bizStore.getOoredooTracker();
+            ooredooTracker.send(businessDetailEvent);
+        }
 
         Logger.print("businessId business, "+ id);
 

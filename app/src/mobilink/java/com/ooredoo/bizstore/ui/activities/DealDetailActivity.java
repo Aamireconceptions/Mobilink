@@ -138,7 +138,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener
 
     private Dialog ratingDialog;
 
-    private  MemoryCache memoryCache = MemoryCache.getInstance();
+    public MemoryCache memoryCache = MemoryCache.getInstance();
 
     private DiskCache diskCache = DiskCache.getInstance();
 
@@ -408,7 +408,6 @@ TextView tvDiscount;
                     startDirections();
                 }
             });
-
 
             if(deal.distance != 0)
             {

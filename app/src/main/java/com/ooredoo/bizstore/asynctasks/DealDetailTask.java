@@ -12,6 +12,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.DealDetail;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -109,6 +110,8 @@ public class DealDetailTask extends BaseAsyncTask<String, Void, String> {
             params.put(OS, ANDROID);
             params.put("type", "deals");
             params.put("id", dealId);
+            params.put("lat", String.valueOf(HomeActivity.lat));
+            params.put("lng", String.valueOf(HomeActivity.lng));
 
             String query = createQuery(params);
 

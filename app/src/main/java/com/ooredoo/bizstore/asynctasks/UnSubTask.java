@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.utils.Logger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
@@ -72,10 +73,18 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
             BizStore bizStore = (BizStore) activity.getApplication();
             Tracker tracker = bizStore.getDefaultTracker();
 
-            tracker.send(new HitBuilders.EventBuilder()
-            .setCategory("Action")
-            .setAction("Unsubscribe")
-            .build());
+            Map<String, String> unsubEvent = new HitBuilders.EventBuilder()
+                    .setCategory("Action")
+                    .setAction("Unsubscribe")
+                    .build();
+
+            tracker.send(unsubEvent);
+
+            if(BuildConfig.FLAVOR.equals("ooredoo"))
+            {
+                Tracker ooredooTracker = bizStore.getOoredooTracker();
+                ooredooTracker.send(unsubEvent);
+            }
 
             Toast.makeText(activity, R.string.un_sub_success, Toast.LENGTH_SHORT).show();
         }

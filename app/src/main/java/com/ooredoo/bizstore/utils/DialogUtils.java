@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -247,9 +248,7 @@ public class DialogUtils {
         activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         AppCompatActivity compatActivity = (AppCompatActivity) activity;
 
-        Fragment fragment = BuildConfig.FLAVOR.equals("ooredoo")
-                ? new RamadanWelcomeFragment()
-                : new WelcomeFragment();
+        Fragment fragment = new WelcomeFragment();
 
         FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container,
                 fragment, "welcome_fragment");
@@ -372,6 +371,26 @@ public class DialogUtils {
                 }
             }
         });
+
+        return dialog;
+    }
+
+    public static Dialog createRedeemDialog(Context context)
+    {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable((new ColorDrawable(android.graphics.Color.TRANSPARENT)));
+        dialog.setContentView(R.layout.dialog_redeem);
+
+        return dialog;
+    }
+
+    public static Dialog createMobilinkRedeemDialog(Context context)
+    {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_mobilink_redeem);
 
         return dialog;
     }

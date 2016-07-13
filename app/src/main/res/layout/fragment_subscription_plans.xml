@@ -19,9 +19,9 @@
             android:src="@drawable/bizstore"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_width="@dimen/_220sdp"
+            android:layout_height="@dimen/_180sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:src="@drawable/subscription"/>
 
         <TextView
@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:drawablePadding="8dp"
             android:drawableStart="@drawable/red_tickicon"
             android:textSize="13sp"
@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:drawablePadding="8dp"
             android:drawableStart="@drawable/red_tickicon"
             android:textSize="13sp"
@@ -56,7 +56,7 @@
             android:id="@+id/tv_movies_cinemas_etc"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:drawablePadding="8dp"
             android:drawableStart="@drawable/red_tickicon"
             android:textSize="13sp"
@@ -66,17 +66,17 @@
             android:id="@+id/tv_sub_charges"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:textSize="14sp"
             android:text="@string/subscription_charges"/>
 
         <Button
             android:id="@+id/btn_subscribe"
             android:layout_width="@dimen/_210sdp"
-            android:layout_height="45dp"
+            android:layout_height="39dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="0dp"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:alpha="1.0"
             android:background="@drawable/bg_red"
             android:gravity="center"

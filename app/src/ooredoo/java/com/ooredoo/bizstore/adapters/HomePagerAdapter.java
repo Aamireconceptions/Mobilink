@@ -31,7 +31,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 {
     private Context context;
 
-    private final static int PAGE_COUNT = 13;
+    public final static int PAGE_COUNT = 13;
 
     public HomePagerAdapter(Context context, FragmentManager fragmentManager)
     {
@@ -87,8 +87,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 case 1:
                     return NearbyFragment.newInstance();
                 case 2:
-                    return RamadanFragment.newInstance();
-                   // return TopDealsFragment.newInstance();
+                    //return RamadanFragment.newInstance();
+                    return TopDealsFragment.newInstance();
                 case 3:
                     return FoodAndDiningFragment.newInstance();
                 case 4:
@@ -224,8 +224,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 return context.getString(R.string.nearby);
 
             case 2:
-                return context.getString(R.string.ramadan_discounts);
-               // return context.getString(R.string.top_deals);
+                // return context.getString(R.string.ramadan_discounts);
+                return context.getString(R.string.top_deals);
 
             case 3:
 

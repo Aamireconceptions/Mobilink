@@ -7,8 +7,10 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 
@@ -24,7 +26,14 @@ public class NotificationUtils
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setTicker(desc)
+
                 .setContentText(desc);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.FLAVOR.equals("mobilink"))
+        {
+           builder.setColor(context.getResources().getColor(R.color.red));
+            builder.setSmallIcon(R.drawable.jazz_notification_icon);
+        }
 
         if(bitmap != null)
         {
@@ -63,6 +72,8 @@ public class NotificationUtils
 
 
         Notification notification = builder.build();
+
+
 
         //notification.defaults |= Notification.DEFAULT_ALL;
         notification.defaults |= Notification.DEFAULT_SOUND;

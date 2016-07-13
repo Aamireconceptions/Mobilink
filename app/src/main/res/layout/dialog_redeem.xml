@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_rounded">
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/choose_outlet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/choose_outlet"/>
+
+            <TextView
+                android:id="@+id/outlet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:textSize="16sp"
+                android:text="Centauras"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textSize="12sp"
+        android:text="@string/redeem_times" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/_1sdp">
+
+        <EditText
+            android:id="@+id/redeem_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="text"/>
+
+        <ImageView
+            android:id="@+id/minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22sdp"
+            android:src="@drawable/ic_clock"/>
+
+        <ImageView
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:src="@drawable/ic_shopping"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/merchant_code_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:visibility="visible" >
+
+        <EditText
+            android:id="@+id/merchant_code_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_20sdp"
+            android:paddingEnd="@dimen/_45sdp"
+            android:singleLine="true"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:inputType="textPassword"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:maxLength="4"
+            android:textCursorDrawable="@null"
+            android:hint="@string/enter_merchant_code"
+            android:background="@drawable/code_field"/>
+
+        <ImageView
+            android:id="@+id/verify_merchant_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_alignEnd="@+id/merchant_code_field"
+            android:layout_centerVertical="true"
+            android:src="@drawable/code_field_btn"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

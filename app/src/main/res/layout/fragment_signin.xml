@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_14sdp"
+    android:padding="@dimen/_8sdp"
     android:background="@drawable/free_trail_bg">
 
     <TextView
@@ -19,11 +19,11 @@
 
     <ImageView
         android:id="@+id/_7_icon"
-        android:layout_width="200dp"
-        android:layout_height="300dp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_300sdp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/label_1"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/free_trail_day"/>
 
     <LinearLayout
@@ -39,7 +39,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/days"
-
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:textAllCaps="true"
@@ -62,11 +61,11 @@
 
 
     <TextView
-        android:id="@+id/during_ramadan"
+        android:id="@+id/on_ooredoo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/during_ramadan"
-android:layout_below="@+id/free_trial_layout"
+        android:text="@string/on_ooredoo"
+        android:layout_below="@+id/free_trial_layout"
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:textAllCaps="true"
@@ -75,44 +74,77 @@ android:layout_below="@+id/free_trial_layout"
 
 
     <TextView
+        android:id="@+id/free_trail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_above="@+id/signin_layout"
         android:textSize="12sp"
         android:text="@string/free_trial_details"
-        android:layout_marginTop="8dp"
-        android:layout_below="@+id/during_ramadan"/>
+        android:layout_marginTop="4dp"
 
 
+        android:layout_below="@+id/on_ooredoo"/>
 
     <LinearLayout
         android:id="@+id/signin_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layoutDirection="ltr"
+        android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_centerHorizontal="true">
+
+   <!-- <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/existing_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/existing_user"
+            android:textSize="10sp"/>
+
+        <TextView
+            android:id="@+id/new_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_42sdp"
+            android:text="@string/new_user"
+            android:textSize="10sp"/>
+
+        </LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layoutDirection="ltr"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/signin"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_133sdp"
+            android:layout_height="@dimen/_39sdp"
             android:background="@drawable/lang_left_selector"
-            android:text="@string/sign_in"
+            android:text="@string/existing_user"
             android:textAllCaps="false"
             android:textColor="@color/black_white_selector"/>
 
         <Button
             android:id="@+id/signup"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_133sdp"
+            android:layout_height="@dimen/_39sdp"
             android:background="@drawable/lang_right_selector"
-            android:text="@string/SIGNUP"
+            android:text="@string/new_user"
             android:textAllCaps="false"
             android:textColor="@color/black_white_selector"/>
+
+    </LinearLayout>
 
     </LinearLayout>
 

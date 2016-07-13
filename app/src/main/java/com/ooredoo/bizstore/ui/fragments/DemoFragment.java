@@ -85,19 +85,10 @@ public class DemoFragment extends Fragment implements View.OnClickListener, View
        // signUpActivity.startActivity(HomeActivity.class);
         // signUpActivity.toolbar.setVisibility(View.VISIBLE);
 
-        if(BuildConfig.FLAVOR.equals("ooredoo")) {
-            FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
-                    R.id.fragment_container,
-                    new RamadanFOCFragment(),
-                    "subscription_fragment");
-        }
-        else
-        {
-            FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
-                    R.id.fragment_container,
-                    new SubscriptionPlansFragment(),
-                    "subscription_fragment");
-        }
+        FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) activity,
+                R.id.fragment_container,
+                new SubscriptionPlansFragment(),
+                "subscription_fragment");
 
     }
 

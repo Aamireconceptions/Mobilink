@@ -26,7 +26,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static int lastTab = -1;
     //public static String username = "123445";
-     // fatima hubail ooredoo num "33165670"
+     // fatima hubail ooredoo num "33165670", some other num "66934265"
     public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "50497958"
             : BuildConfig.FLAVOR.equals("telenor") ? "03454060708"
             : BuildConfig.FLAVOR.equals("mobilink") ? "3000449647"
@@ -39,7 +39,7 @@ public class BizStore extends com.activeandroid.app.Application {
             : BuildConfig.FLAVOR.equals("mobilink") ? "472617"
             : "568938";
 
-    private Tracker tracker;
+    private Tracker tracker, ooredooTracker;
 
     private final static String DEFAULT = "DEFAULT";
     private final static String MONOSPACE = "MONOSPACE";
@@ -105,6 +105,18 @@ public class BizStore extends com.activeandroid.app.Application {
         }
 
         return tracker;
+    }
+
+    synchronized public Tracker getOoredooTracker()
+    {
+        if(ooredooTracker == null)
+        {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+
+            ooredooTracker = analytics.newTracker(R.xml.ooredoo_tracker);
+        }
+
+        return ooredooTracker;
     }
 
     public void setUserName(String userName) {

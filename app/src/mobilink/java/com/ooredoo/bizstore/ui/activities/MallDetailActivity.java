@@ -232,7 +232,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
     List<List<?>> childList;
 
-    RelativeLayout rlDescription;
+    //RelativeLayout rlDescription;
 
     TextView tvDescription, tvDescriptionArrow, tvMenuArrow;
 
@@ -259,10 +259,10 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             id = business.id;
             mBusiness = business;
 
-            if(mBusiness.description == null || mBusiness.description.isEmpty())
+          /*  if(mBusiness.description == null || mBusiness.description.isEmpty())
             {
                 rlDescription.setVisibility(View.GONE);
-            }
+            }*/
 
             llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new View.OnClickListener() {
@@ -481,7 +481,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         else
         if(viewId == R.id.description_layout)
         {
-            if(rlDescription.getTag().equals("collapsed"))
+            /*if(rlDescription.getTag().equals("collapsed"))
             {
                 tvDescription.setVisibility(View.VISIBLE);
                 tvDescriptionArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow, 0);
@@ -494,7 +494,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 tvDescriptionArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
 
                 rlDescription.setTag("collapsed");
-            }
+            }*/
         }
         else
         if(viewId == R.id.menu_layout)

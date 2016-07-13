@@ -468,7 +468,7 @@
     <string name="enjoy_ramadan">enjoy a</string>
     <string name="_1_week">1-week</string>
     <string name="free_trial">free trial</string>
-    <string name="free_trial_details">You Will be charged 9 QAR/week after your Free Trial ends</string>
+    <string name="free_trial_details">To continue to enjoy this service after the free trial, you will be charged 9 QAR/Week. <a href="http://ooredoo.bizstore.com.pk/index.php/other/terms/android?language=en">Terms &amp; Conditions Apply</a>.</string>
     <string name="my_city">City</string>
     <string name="city_selection_text">Please select your city.</string>
     <string name="congrats">Congratualtions</string>
@@ -478,4 +478,12 @@
     <string name="during_ramadan">During ramadan!</string>
     <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;7 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Ooredoo BizStore app @ QAR 9/week.</string>
     <string name="error_signin_failure_ufone">Dear user, you are not subscribed to Ufone BizStore.</string>
+    <string name="on_ooredoo">Only On Ooredoo BizStore</string>
+    <string name="new_user">New User</string>
+    <string name="existing_user">Existing User</string>
+    <string name="subscribe_small">Subscribe</string>
+    <string name="redeem_times">Choose number of times you want to avail discount</string>
+    <string name="choose_outlet">Choose Outlet</string>
+    <string name="signout">Sign Out</string>
+    <string name="discount_availed">You have availed the discount\nsuccessfully!</string>
 </resources>

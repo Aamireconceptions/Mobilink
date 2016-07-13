@@ -255,7 +255,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         checkIfGpsEnabled();
 
-        if(!BuildConfig.FLAVOR.equals("dealionare")) {
+        if(!BuildConfig.FLAVOR.equals("dealionare") &&!BuildConfig.DEBUG) {
           startSubscriptionCheck();
         }
 
@@ -303,8 +303,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     LocationManager locationManager;
 
-    int minTimeMillis = 30 * (60 * 1 * 1000);
-    int distanceMeters = 100;
+    int minTimeMillis = 5 * (60 * 1 * 1000);
+    int distanceMeters = 50;
     RelativeLayout filterParent;
     public FloatingActionButton fab;
     private void init() {
