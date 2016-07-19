@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Voucher;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
@@ -133,13 +135,29 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                             tvDealDesc.setText(DealDetailActivity.genericDeal.description);
 
                             TextView tvUniqueId = (TextView) dialog.findViewById(R.id.unique_id);
-                            tvUniqueId.setText(""+DealDetailActivity.genericDeal.id);
+                            tvUniqueId.setText("" + DealDetailActivity.genericDeal.id);
 
                             TextView tvDate = (TextView) dialog.findViewById(R.id.date);
                             tvDate.setText(voucher.date);
 
                             TextView tvTime= (TextView) dialog.findViewById(R.id.time);
                             tvTime.setText(voucher.time);
+
+                            Button btNoThanks = (Button) dialog.findViewById(R.id.no_thanks);
+                            btNoThanks.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            Button btShareFb = (Button) dialog.findViewById(R.id.share_fb);
+                            btShareFb.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            });
 
                             String brandLogo = DealDetailActivity.genericDeal.businessLogo;
 
@@ -153,6 +171,8 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                                 if(bitmap != null)
                                 {
+                                    bitmap = BitmapProcessor.makeBitmapRound(bitmap);
+
                                     ImageView ivLogo = (ImageView) dialog.findViewById(R.id.brand_logo);
                                     ivLogo.setImageBitmap(bitmap);
                                 }

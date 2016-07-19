@@ -170,14 +170,12 @@ public class BitmapProcessor
         return bitmap;
     }
 
-    public Bitmap makeBitmapRound(Bitmap src)
+    public static Bitmap makeBitmapRound(Bitmap src)
     {
         int width = src.getWidth();
         int height = src.getHeight();
 
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-
-       // Canvas canvas = new Canvas(bitmap);
+        Bitmap mutableBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
         BitmapShader shader = new BitmapShader(src, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
@@ -185,19 +183,10 @@ public class BitmapProcessor
         paint.setAntiAlias(true);
         paint.setShader(shader);
 
+        Canvas canvas = new Canvas(mutableBitmap);
+        canvas.drawCircle(width / 2, height / 2, width / 2, paint);
 
-
-        RectF rectF = new RectF(0.0f, 0.0f, width, height);
-
-        // rect contains the bounds of the shape
-        // radius is the radius in pixels of the rounded corners
-        // paint contains the shader that will texture the shape
-
-        Canvas canvas = new Canvas(src);
-
-        canvas.drawRoundRect(rectF, 30, 30, paint);
-
-        return src;
+        return mutableBitmap;
     }
 
     public static Bitmap rotateBitmap(Bitmap bitmap, int degree) {

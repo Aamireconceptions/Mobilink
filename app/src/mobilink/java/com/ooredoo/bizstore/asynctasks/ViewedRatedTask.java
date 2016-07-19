@@ -11,6 +11,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.DODResponse;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -128,6 +129,9 @@ public class ViewedRatedTask extends AsyncTask<String, Void, String>
     private String getViewedRated() throws IOException {
         HashMap<String, String> params = new HashMap<>();
         params.put(BaseAsyncTask.OS, BaseAsyncTask.ANDROID);
+        params.put("lat", ""+HomeActivity.lat);
+        params.put("lng", ""+HomeActivity.lng);
+        params.put("nearby", "true");
 
         String query = createQuery(params);
 

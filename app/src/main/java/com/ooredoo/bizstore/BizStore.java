@@ -61,8 +61,23 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
+
+   /* @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+
+        MultiDex.install(this);
+    }*/
+
     public void onCreate() {
         super.onCreate();
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+           // FacebookSdk.sdkInitialize(getApplicationContext());
+
+
+        }
         Logger.setEnabled(true);
 
         ActiveAndroid.initialize(this);

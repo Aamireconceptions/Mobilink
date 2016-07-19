@@ -9,16 +9,13 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.view.ContextMenu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
@@ -28,24 +25,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.wallet.fragment.BuyButtonAppearance;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -53,11 +46,8 @@ import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
-import com.ooredoo.bizstore.asynctasks.LocationsTask;
-import com.ooredoo.bizstore.asynctasks.RedeemViaSmsTask;
 import com.ooredoo.bizstore.asynctasks.ReportAsyncTask;
 import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
-import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
@@ -68,11 +58,7 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-//import com.ooredoo.bizstore.utils.ScrollViewHelper;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -80,10 +66,11 @@ import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.DIALER_PREFIX;
-import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryIcon;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
+
+//import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
 /**
  * @author Pehlaj Rai
@@ -409,6 +396,22 @@ TextView tvDiscount;
                 }
             });
 
+            if(deal.distance == 0)
+            {
+                if(HomeActivity.lat != 0 && HomeActivity.lng != 0
+                        && deal.latitude != 0 && deal.longitude != 0)
+                {
+                    float results[] = new float[3];
+
+                    Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
+                            deal.latitude, deal.longitude, results);
+
+                    float distance = results[0];
+
+                    deal.distance = Double.parseDouble(String.format("%.1f", distance / 1000));
+                }
+            }
+
             if(deal.distance != 0)
             {
                 llDirections.setVisibility(View.VISIBLE);
@@ -659,6 +662,7 @@ TextView tvDiscount;
                     {
                         @Override
                         public void run() {
+
 
                             imageView.setImageBitmap(bitmap);
                             //AnimatorUtils.expandAndFadeIn(imageView);

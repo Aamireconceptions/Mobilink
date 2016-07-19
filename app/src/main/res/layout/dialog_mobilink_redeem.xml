@@ -6,7 +6,9 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_white_rounded">
+        android:background="@drawable/bg_white"
+        android:layout_margin="@dimen/_12sdp"
+        android:padding="@dimen/_18sdp">
 
         <ImageView
             android:id="@+id/logo"
@@ -52,9 +54,10 @@
 
             <ImageView
                 android:id="@+id/brand_logo"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_70sdp"
-                android:layout_centerHorizontal="true" />
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/circle_border"/>
 
             <TextView
                 android:id="@+id/deal_desc"
@@ -94,6 +97,7 @@
           </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/time_date_layout"
             android:layout_below="@+id/unique_id_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,6 +126,42 @@
                 android:gravity="center_vertical"
                 android:drawablePadding="6dp"
                 android:textSize="12sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time_date_layout"
+            android:gravity="center_vertical"
+            android:layout_marginTop="12dp"
+           android:layout_centerHorizontal="true"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/no_thanks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+android:minWidth="@dimen/_100sdp"
+                android:background="@drawable/grey_button"
+                android:text="No thanks"
+                android:textAllCaps="true"
+                android:layout_alignTop="@+id/share_fb"
+                android:textSize="12sp"
+                android:textColor="@color/slight_grey"/>
+
+            <Button
+                android:id="@+id/share_fb"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/no_thanks"
+
+                android:background="@drawable/fb_button"
+                android:text="Share with facebook"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
 
         </RelativeLayout>
 

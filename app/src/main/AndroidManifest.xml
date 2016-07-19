@@ -52,6 +52,17 @@
         android:theme="@style/AppTheme">
 
         <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        
+        <!--<provider
+            android:authorities="com.facebook.app.FacebookContentProvider1574024299570067"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>-->
+        
+
+
+        <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}"/>
 
@@ -88,7 +99,7 @@
             android:name=".ui.activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <!--<intent-filter>
+         <!--   <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
