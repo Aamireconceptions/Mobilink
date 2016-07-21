@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,6 +57,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.ooredoo.bizstore.AppData;
@@ -393,8 +400,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if(locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null)
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis, distanceMeters, this);
+        if(locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis, distanceMeters, this);
+        }
+
+        if(locationManager.getProvider(LocationManager.GPS_PROVIDER) != null){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTimeMillis, distanceMeters, this);
+        }
+
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if(location != null) {
             Logger.print("Location Changed#LastKnown: " + location.getLatitude() + ", " + location.getLongitude());
@@ -846,7 +859,17 @@ public CoordinatorLayout coordinatorLayout;
                 showHideDrawer(GravityCompat.START, true);
             }
         } else if(id == R.id.action_search || id == R.id.search) {
-            boolean show = id == R.id.action_search;
+
+            ShareLinkContent content = new ShareLinkContent.Builder()
+                    .setContentTitle("Demo Purpose")
+                    .setContentDescription("Lorem ispum chipsum is a industry standard for gibberish")
+                    //.setContentUrl(Uri.parse("https://developers.facebook.com"))
+                    .build();
+
+            ShareDialog.show(this, content);
+
+
+           /* boolean show = id == R.id.action_search;
 
             if(BuildConfig.FLAVOR.equals("mobilink")) {
                 if (id == R.id.action_search) {
@@ -871,7 +894,7 @@ public CoordinatorLayout coordinatorLayout;
                     new SearchSuggestionsTask(this).execute();
                 }
             }
-            showHideSearchBar(show);
+            showHideSearchBar(show);*/
         }
         else
         if(id == R.id.action_filter)

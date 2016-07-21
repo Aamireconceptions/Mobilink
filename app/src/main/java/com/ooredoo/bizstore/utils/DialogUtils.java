@@ -314,6 +314,10 @@ public class DialogUtils {
             }
         });
 
+        if(BuildConfig.FLAVOR.equals("mobilink")){
+            tvTos.setVisibility(View.GONE);
+        }
+
         if(titleResId != 0)
         {
             TextView textView = (TextView) view.findViewById(R.id.title);

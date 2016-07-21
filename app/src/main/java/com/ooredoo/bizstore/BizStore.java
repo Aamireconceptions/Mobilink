@@ -1,6 +1,10 @@
 package com.ooredoo.bizstore;
 
 import com.activeandroid.ActiveAndroid;
+
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.FacebookSdk;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.model.User;
@@ -48,16 +52,20 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+            ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
     public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+            ? "fonts/lato_regular.ttf": "fonts/OpenSans-Regular.ttf";
     public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+            ? "fonts/lato_regular.ttf": "fonts/OpenSans-Regular.ttf";
     public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+            ? "fonts/lato_regular.ttf": "fonts/OpenSans-Regular.ttf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
@@ -74,10 +82,19 @@ public class BizStore extends com.activeandroid.app.Application {
 
         if(BuildConfig.FLAVOR.equals("mobilink"))
         {
-           // FacebookSdk.sdkInitialize(getApplicationContext());
-
-
+            FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
+                    {
+                @Override
+                public void onInitialized() {
+                    if(AccessToken.getCurrentAccessToken() == null){
+                        System.out.println("not logged in yet");
+                    } else {
+                        System.out.println("Logged in");
+                    }
+                }
+            });
         }
+
         Logger.setEnabled(true);
 
         ActiveAndroid.initialize(this);

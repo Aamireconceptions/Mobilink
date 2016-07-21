@@ -45,7 +45,7 @@ public class SignUpFragment extends BaseFragment {
 
     public void init(View parent) {
 
-        if(BuildConfig.FLAVOR.equals("ooredoo"))
+        if(BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink"))
         {
             checkForFOC = true;
         }

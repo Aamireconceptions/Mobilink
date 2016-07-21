@@ -10,8 +10,11 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -39,6 +42,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -76,7 +80,7 @@ import static java.lang.String.valueOf;
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
-public class DealDetailActivity extends BaseActivity implements OnClickListener
+public class DealDetailActivity extends BaseActivity implements OnClickListener, LocationListener
 
 {
     public String category;
@@ -301,8 +305,32 @@ TextView tvDiscount;
 
     TextView tvTimeStamp, tvDiscountAvailed;
     LinearLayout llTimeStamp;
+    private long minTimeMillis = 10 * 1000;
+    private float distanceMeters = 0;
+    LocationManager locationManager;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
+
+            if(HomeActivity.lat != 0 && HomeActivity.lng != 0 )
+            {
+                userLocation = new Location("");
+                userLocation.setLatitude(HomeActivity.lat);
+                userLocation.setLongitude(HomeActivity.lng);
+            }
+
+            if(deal.latitude != 0 && deal.longitude != 0) {
+                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTimeMillis, distanceMeters, this);
+
+                }
+
+                if(locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null)
+                {
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis,
+                            distanceMeters, this);
+                }
+            }
 
             llTimeStamp = (LinearLayout) findViewById(R.id.last_redeemed_layout);
             tvTimeStamp = (TextView) findViewById(R.id.time_stamp);
@@ -772,17 +800,29 @@ TextView tvDiscount;
             }
             else
             {
-               // v.setVisibility(View.GONE);
+               if(userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
+               {
+                  float results[] = new float[3];
 
-                /*rlMerchandCode.setVisibility(View.VISIBLE);
+                   Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
+                           mDeal.latitude, mDeal.longitude, results);
 
-                etMerchantCode.requestFocus();*/
+                   if(results[0] >= 13250)
+                   {
+                       Toast.makeText(this, "Dear user, it seems that you are away from outlet. " +
+                                       "Please go to the outlet to avail discount.",
+                               Toast.LENGTH_SHORT).show();
+
+                       return;
+                   }
+               }
 
                 VerifyMerchantCodeTask verifyMerchantCodeTask =
                         new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
                 verifyMerchantCodeTask
                         .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                 String.valueOf(id), "0", String.valueOf(mDeal.businessId));
+
             }
         }
                 else
@@ -982,6 +1022,8 @@ TextView tvDiscount;
             ratingDialog.dismiss();
         }
 
+       locationManager.removeUpdates(this);
+
         super.onDestroy();
     }
 
@@ -1080,4 +1122,27 @@ TextView tvDiscount;
             rlMerchandCode.setVisibility(View.VISIBLE);
         }
     }
+
+    Location userLocation;
+    @Override
+    public void onLocationChanged(Location location) {
+        userLocation = location;
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
 }

@@ -753,7 +753,8 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
-                android:text="@string/cinemas"/>
+                android:text="@string/cinemas"
+                android:visibility="gone"/>
 
 
 

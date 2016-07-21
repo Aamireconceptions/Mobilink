@@ -7,9 +7,6 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
-import com.ooredoo.bizstore.ui.fragments.HealthFragment;
-import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 
 import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryCheckboxId;
 import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryFilter;
@@ -100,89 +97,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 processSubCategory(subCategoryName);
             }*/
 
-            if(id == R.id.top_deals_layout || id == R.id.ladies_layout || id == R.id.beauty_layout
-                    || id == R.id.weight_loss_layout || id == R.id.clothing_layout
-                    || id == R.id.education_layout)
-            {
-                String subCategory, subCategoryName;
 
-                if(id == R.id.top_deals_layout)
-                {
-                    /*subCategory = "mobile";
-
-                    ElectronicsFragment.subCategory = "electronics_"+subCategory;
-
-                    subCategoryName = mActivity.getString(R.string.Mobile_Phones_Accessories);
-
-                    mActivity.selectTab(5);
-
-                    processSubCategory(subCategoryName);*/
-                    mActivity.selectTab(2);
-                }
-
-                if(id == R.id.ladies_layout)
-                {
-                    mActivity.selectTab(5);
-                }
-
-                if(id == R.id.beauty_layout)
-                {
-                   subCategory = "beauty_fitness_tips";
-
-                    HealthFragment.subCategory = "health_"+subCategory;
-
-                    subCategoryName = mActivity.getString(R.string.beauty_fitness_tips);
-
-                    mActivity.selectTab(6);
-
-                    processSubCategory(subCategoryName);
-
-                    mActivity.onFilterChange();
-
-                    return;
-                }
-
-                if(id == R.id.weight_loss_layout)
-                {
-                    subCategory = "weight_loss_tips";
-
-                    HealthFragment.subCategory = "health_"+subCategory;
-
-                    subCategoryName = mActivity.getString(R.string.weight_loss_tips);
-
-                    mActivity.selectTab(6);
-
-                    processSubCategory(subCategoryName);
-
-                    mActivity.onFilterChange();
-
-                    return;
-                }
-
-                if(id == R.id.clothing_layout)
-                {
-                    subCategory = "clothing";
-
-                    HealthFragment.subCategory = "shopping_"+subCategory;
-
-                    subCategoryName = mActivity.getString(R.string.clothing);
-
-                    mActivity.selectTab(4);
-
-                    processSubCategory(subCategoryName);
-
-                    mActivity.onFilterChange();
-
-                    return;
-                }
-
-                if(id == R.id.education_layout)
-                {
-                    mActivity.selectTab(7);
-
-                    return;
-                }
-            }
 
             /*if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities) {
                 String subCategory = id == R.id.events ? "events" : id == R.id.movie_tickets ? "cinemas" : "kids_activities";

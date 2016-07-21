@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
@@ -156,6 +159,14 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 @Override
                                 public void onClick(View v) {
 
+                                    ShareLinkContent content = new ShareLinkContent.Builder()
+                                            .setContentTitle(detailActivity.genericDeal.businessName)
+                                            .setContentDescription(detailActivity.genericDeal.description)
+                                            //.setContentUrl(Uri.parse("https://developers.facebook.com"))
+                                            //.setImageUrl(Uri.parse(BaseAsyncTask.IMAGE_BASE_URL + detailActivity.genericDeal.image.detailBannerUrl))
+                                            .build();
+
+                                    ShareDialog.show(detailActivity, content);
                                 }
                             });
 

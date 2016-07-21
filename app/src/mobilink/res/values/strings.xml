@@ -94,4 +94,5 @@
     <string name="congrats">Congratualtions</string>
     <string name="congrats_msg">You have availed this discount\nShow this deal to the outlet and get discounts</string>
     <string name="gcm_sender_id">413872219266</string>
+    <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;7 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Jazz Discount Bazar app @ Rs.<b>2.5</b>+tax/week for Prepaid and Rs.<b>15</b>+tax/month for Postpaid.</string>
 </resources>

@@ -125,7 +125,7 @@ public EditText etMerchantCode;
 
     private Dialog ratingDialog;
 
-    private  MemoryCache memoryCache = MemoryCache.getInstance();
+    public  MemoryCache memoryCache = MemoryCache.getInstance();
 
     private DiskCache diskCache = DiskCache.getInstance();
 

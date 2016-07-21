@@ -45,7 +45,8 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        if(BuildConfig.FLAVOR.equals("dealionare") || BuildConfig.FLAVOR.equals("ufone")) {
+        if(BuildConfig.FLAVOR.equals("dealionare") || BuildConfig.FLAVOR.equals("ufone")
+                || BuildConfig.FLAVOR.equals("mobilink")) {
             dialog = DialogUtils.createCustomLoader((Activity) activity, "Logging In....");
             dialog.show();
         }

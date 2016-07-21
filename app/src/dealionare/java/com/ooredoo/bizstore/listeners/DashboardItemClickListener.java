@@ -9,7 +9,6 @@ import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;
 import com.ooredoo.bizstore.ui.fragments.HealthFragment;
-import com.ooredoo.bizstore.ui.fragments.HotelsAndSpasFragment;
 
 import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryCheckboxId;
 import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryFilter;

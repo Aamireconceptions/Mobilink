@@ -25,6 +25,17 @@
             android:src="@drawable/subscription"/>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="Enjoy a 7 day free trial on\nsubscription!"/>
+
+        <TextView
             android:id="@+id/first"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -32,7 +43,8 @@
             android:drawablePadding="8dp"
             android:drawableStart="@drawable/red_tickicon"
             android:textSize="12sp"
-            android:text="@string/find_popular_venues"/>
+            android:text="@string/find_popular_venues"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="250dp"
@@ -41,7 +53,8 @@
             android:drawablePadding="8dp"
             android:drawableStart="@drawable/red_tickicon"
             android:textSize="12sp"
-            android:text="@string/get_restaurants_deals"/>
+            android:text="@string/get_restaurants_deals"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="250dp"
@@ -50,7 +63,8 @@
             android:drawablePadding="8dp"
             android:drawableStart="@drawable/red_tickicon"
             android:textSize="12sp"
-            android:text="@string/discounts_on_fav_brands"/>
+            android:text="@string/discounts_on_fav_brands"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_movies_cinemas_etc"
@@ -60,7 +74,8 @@
             android:drawablePadding="8dp"
             android:drawableStart="@drawable/red_tickicon"
             android:textSize="12sp"
-            android:text="@string/movies_cinemas_more"/>
+            android:text="@string/movies_cinemas_more"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_sub_charges"

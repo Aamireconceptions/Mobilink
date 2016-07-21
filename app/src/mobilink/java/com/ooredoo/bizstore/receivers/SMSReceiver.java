@@ -62,9 +62,8 @@ public class SMSReceiver extends BroadcastReceiver
                                 DialogUtils.etCode.setSelection(code.length());
                                 DialogUtils.progressBar.setVisibility(View.GONE);
 
-                                    // DialogUtils.processVerificationCode();
+                                DialogUtils.processVerificationCode();
                             }
-
                         }
 
                     }

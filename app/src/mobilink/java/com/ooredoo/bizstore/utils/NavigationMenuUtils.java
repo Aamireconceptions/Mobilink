@@ -140,7 +140,6 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         activity.getString(R.string.beauty_clinics)};
 
         entertainmentSubCategories = new String[] {
-                activity.getString(R.string.cinemas),
                 activity.getString(R.string.travel),
                 activity.getString(R.string.events),
                 activity.getString(R.string.kids),

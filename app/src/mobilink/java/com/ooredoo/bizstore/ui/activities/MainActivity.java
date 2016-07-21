@@ -11,6 +11,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.DemoFragment;
 import com.ooredoo.bizstore.ui.fragments.SplashFragment;
+import com.ooredoo.bizstore.ui.fragments.SubscriptionPlansFragment;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
@@ -107,7 +108,7 @@ public class MainActivity extends BaseActivity {
         {
 
             FragmentUtils.replaceFragmentAllowStateLose(this, R.id.fragment_container,
-                    new DemoFragment(), "demo_fragment");
+                    new SubscriptionPlansFragment(), "subscription_plan_fragment");
             /*FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.remove(splashFragment);
             fragmentTransaction.commitAllowingStateLoss();
