@@ -26,7 +26,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
     private SignUpFragment signUpFragment;
 
-    private String SERVICE_NAME = BuildConfig.FLAVOR.equals("mobilink") ? "/testsub?" :"/signup?";
+    private String SERVICE_NAME = BuildConfig.FLAVOR.equals("mobilink") ? "/signup?" :"/signup?";
 
     public SubscriptionTask(SignUpFragment signUpFragment) {
         this.signUpFragment = signUpFragment;

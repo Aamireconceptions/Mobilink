@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.fragments.DemoFragment;
 import com.ooredoo.bizstore.ui.fragments.SplashFragment;
 import com.ooredoo.bizstore.ui.fragments.SubscriptionPlansFragment;
 import com.ooredoo.bizstore.utils.FragmentUtils;

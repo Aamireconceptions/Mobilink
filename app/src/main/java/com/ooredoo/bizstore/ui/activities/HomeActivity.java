@@ -4,12 +4,10 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,11 +24,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,10 +51,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.common.ConnectionResult;
@@ -75,6 +65,7 @@ import com.ooredoo.bizstore.adapters.RecentSearchesAdapter;
 import com.ooredoo.bizstore.adapters.SearchBaseAdapter;
 import com.ooredoo.bizstore.adapters.SearchSuggestionsAdapter;
 import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CheckSubscriptionTask;
 import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
@@ -82,7 +73,6 @@ import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
 import com.ooredoo.bizstore.interfaces.LocationChangeListener;
-import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.interfaces.ScrollToTop;
@@ -104,6 +94,7 @@ import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FBUtils;
 import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -126,6 +117,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.MAX_ALPHA;
+import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.AppData.searchResults;
 import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
@@ -213,8 +205,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
 
@@ -228,6 +218,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(!password.equals(SharedPrefUtils.EMPTY)) {
             BizStore.password = password;
         }
+
+        PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
 
         CategoryUtils.setUpSubCategories(this);
 
@@ -813,6 +805,10 @@ public CoordinatorLayout coordinatorLayout;
     public static MenuItem miSearch, miFilter;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+        fbUtils = new FBUtils(this);
+        fbUtils.init();
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
         mMenu = menu;
@@ -837,6 +833,18 @@ public CoordinatorLayout coordinatorLayout;
         onOptionsItemSelected(miSearch);
     }
 
+    /**
+     * According to this <a href="http://stackoverflow.com/a/33419837/1939564">Guy</a>
+     * To share photos or videos sdk needs facebook for android app to be
+     * installed. If not installed this function will return false.
+     * @return
+     */
+    private boolean canShowShareDialog(){
+        return ShareDialog.canShow(ShareLinkContent.class);
+    }
+
+    FBUtils fbUtils;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -860,16 +868,78 @@ public CoordinatorLayout coordinatorLayout;
             }
         } else if(id == R.id.action_search || id == R.id.search) {
 
-            ShareLinkContent content = new ShareLinkContent.Builder()
+            /*fbUtils.lookupPlaceId = true;
+            fbUtils.checkIn("Sample Title", "50% off on sone deal", "http://tinyurl.com/gqz5owq",
+                            "http://tinyurl.com/gqz5owq", "Savor foods, rawalpindi", null);*/
+
+            /*ShareLinkContent content = new ShareLinkContent.Builder()
                     .setContentTitle("Demo Purpose")
                     .setContentDescription("Lorem ispum chipsum is a industry standard for gibberish")
                     //.setContentUrl(Uri.parse("https://developers.facebook.com"))
                     .build();
 
-            ShareDialog.show(this, content);
+            if(!canShowShareDialog())
+            {
+                ShareDialog.show(this, content);
+            }
+            else
+            {
+                ShareApi.share(content, new FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Toast.makeText(HomeActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onError(FacebookException e) {
+                        Toast.makeText(HomeActivity.this, "onError: " +e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }*/
+
+           /* AccessToken accessToken = AccessToken.getCurrentAccessToken();
+
+            if(accessToken != null)
+            {
+                Logger.logV("FbUtils AccessToken", accessToken.getToken());
+                fbUtils.getPlaceId(null, 0, 1, "Mango, Clifton");
+                *//*if(accessToken.getPermissions().contains(FBUtils.Permissions.))
+                {
+                    Logger.logV("FbUtils AccessToken", "Has publish permissions");
+                    fbUtils.checkIn();
+                }
+                else
+                {
+                    Logger.logV("FbUtils AccessToken", "Doesn't has publish permissions");
+
+                    fbUtils.pending_action = FBUtils.PENDING_ACTION.CHECK_IN;
+                    fbUtils.loginWithPublishPermissions(FBUtils.Permissions.PUBLIC_PERMISSION);
+                }*//*
 
 
-           /* boolean show = id == R.id.action_search;
+
+
+
+            }
+            else
+            {
+                Logger.logV("FbUtils AccessToken", "Was NULL, performing Login");
+
+                //fbUtils.loginWithPublishPermissions("publish_actions");
+
+                fbUtils.pending_action = FBUtils.PENDING_ACTION.PLACE_ID;
+
+                fbUtils.loginForAccessToken();
+
+            }*/
+
+
+            boolean show = id == R.id.action_search;
 
             if(BuildConfig.FLAVOR.equals("mobilink")) {
                 if (id == R.id.action_search) {
@@ -894,13 +964,14 @@ public CoordinatorLayout coordinatorLayout;
                     new SearchSuggestionsTask(this).execute();
                 }
             }
-            showHideSearchBar(show);*/
+            showHideSearchBar(show);
         }
         else
         if(id == R.id.action_filter)
         {
             System.out.println("Home Filter pressed");
         }
+
         return super.onOptionsItemSelected(item);
     }
 

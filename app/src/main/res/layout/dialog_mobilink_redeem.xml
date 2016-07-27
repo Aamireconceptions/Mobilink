@@ -57,7 +57,8 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_80sdp"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/circle_border"/>
+                android:background="@drawable/circle_border"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/deal_desc"
@@ -65,8 +66,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textColor="@color/white"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:text="Spme Dummy text regarding deal title"/>
+                android:layout_marginTop="@dimen/_8sdp" />
 
 
         </LinearLayout>

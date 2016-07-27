@@ -1,7 +1,6 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,13 +15,9 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
-import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 
-import java.lang.reflect.Type;
-
-import static com.ooredoo.bizstore.utils.FragmentUtils.addFragmentWithBackStack;
 import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackStack;
 
 /**

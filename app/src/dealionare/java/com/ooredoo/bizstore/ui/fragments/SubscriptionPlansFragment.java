@@ -39,6 +39,9 @@ public class SubscriptionPlansFragment extends BaseFragment {
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
 
+        TextView tvFreeTrial = (TextView) parent.findViewById(R.id.free_trial);
+        tvFreeTrial.setText(Html.fromHtml(getString(R.string.free_trial)));
+
         FontUtils.setFontWithStyle(mainActivity, btnSubscribe, Typeface.BOLD);
 
      //   btLogin = (Button) parent.findViewById(R.id.btn_login);
@@ -49,6 +52,11 @@ public class SubscriptionPlansFragment extends BaseFragment {
         if(BuildConfig.FLAVOR.equals("dealionare"))
         {
             tvCharges.setVisibility(View.GONE);
+        }
+
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            FontUtils.setFontWithStyle(getActivity(), tvCharges, Typeface.BOLD);
         }
 
         TextView tvTOS = (TextView ) parent.findViewById(R.id.agree_terms_services);

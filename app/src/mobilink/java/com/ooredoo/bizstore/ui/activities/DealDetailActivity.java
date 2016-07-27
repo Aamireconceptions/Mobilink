@@ -42,7 +42,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -58,11 +57,15 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FBUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
+
+import bolts.AppLinks;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -180,7 +183,20 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
                 Logger.print("Extras: " + paramId);
 
-                getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
+                if(paramId == null)
+                {
+                    Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+                    String fbParamId = targetUrl.getQueryParameter("id");
+
+                    Logger.print("FB targetURL: "+targetUrl+" id: "+fbParamId);
+
+                    getIntent().putExtra(AppConstant.ID, Integer.parseInt(fbParamId));
+                }
+                else
+                {
+                    getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
+                }
+
             }
 
             id = intent.getIntExtra(AppConstant.ID, 0);
@@ -298,6 +314,8 @@ TextView tvDiscount;
     GenericDeal mDeal;
     TextView tvAvailedDeals;
 
+    FBUtils fbUtils;
+
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
@@ -310,6 +328,9 @@ TextView tvDiscount;
     LocationManager locationManager;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
+
+            fbUtils = new FBUtils(this);
+            fbUtils.init();
 
             if(HomeActivity.lat != 0 && HomeActivity.lng != 0 )
             {
@@ -739,6 +760,8 @@ TextView tvDiscount;
 
     View lastSelected = null;
 
+
+
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -774,56 +797,36 @@ TextView tvDiscount;
         else
         if(viewId == R.id.get_code)
         {
-           /* if(BuildConfig.FLAVOR.equals("mobilink"))
+            if(userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
             {
-                *//*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-                intentIntegrator.initiateScan();*//*
+                if(userLocation == null)
+                {
+                    if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                    {
+                        Toast.makeText(DealDetailActivity.this, "Please Enable GPS", Toast.LENGTH_SHORT).show();
 
-                VerifyMerchantCodeTask verifyMerchantCodeTask =
-                        new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
-                verifyMerchantCodeTask
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                String.valueOf(id), "", String.valueOf(mDeal.businessId));
+                        return;
+                    }
+                }
 
-              //  startActivityForResult(new Intent(this, CaptureActivity.class), 303);
+                float results[] = new float[3];
 
-                return;
-            }*/
+                Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
+                        mDeal.latitude, mDeal.longitude, results);
 
-            if(mDeal.isQticket == 1)
-            {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(qticketUrl));
+                if(results[0] >= 22250)
+                {
+                    DialogUtils.createAlertDialog(this, 0, R.string.error_out_of_range).show();
 
-                startActivity(intent);
+                    return;
+                }
             }
-            else
-            {
-               if(userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
-               {
-                  float results[] = new float[3];
 
-                   Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
-                           mDeal.latitude, mDeal.longitude, results);
-
-                   if(results[0] >= 13250)
-                   {
-                       Toast.makeText(this, "Dear user, it seems that you are away from outlet. " +
-                                       "Please go to the outlet to avail discount.",
-                               Toast.LENGTH_SHORT).show();
-
-                       return;
-                   }
-               }
-
-                VerifyMerchantCodeTask verifyMerchantCodeTask =
-                        new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
-                verifyMerchantCodeTask
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                String.valueOf(id), "0", String.valueOf(mDeal.businessId));
-
-            }
+            VerifyMerchantCodeTask verifyMerchantCodeTask =
+                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
+            verifyMerchantCodeTask
+                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                            String.valueOf(id), "0", String.valueOf(mDeal.businessId));
         }
                 else
                 if(viewId == R.id.directions)
@@ -840,7 +843,7 @@ TextView tvDiscount;
                         if(!code.isEmpty())
                         {
                             VerifyMerchantCodeTask verifyMerchantCodeTask =
-                                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
+                                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
                             verifyMerchantCodeTask
                                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                             String.valueOf(id), code, String.valueOf(mDeal.businessId));
@@ -1110,6 +1113,8 @@ TextView tvDiscount;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        fbUtils.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 303 && resultCode == RESULT_OK)
         {

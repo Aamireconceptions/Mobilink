@@ -32,7 +32,8 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
 
     private Dialog dialog;
 
-    private final static String SERVICE_URL= "/login?";
+    private final static String SERVICE_URL= BuildConfig.FLAVOR.equals("mobilink") ? "/login?"
+            : "/login?";
     private Context activity;
 
     public LoginTask(Context activity) {

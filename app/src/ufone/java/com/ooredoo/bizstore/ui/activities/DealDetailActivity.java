@@ -41,7 +41,6 @@ import com.google.android.gms.analytics.Tracker;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;

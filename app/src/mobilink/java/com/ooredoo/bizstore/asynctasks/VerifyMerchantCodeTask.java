@@ -20,10 +20,13 @@ import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Voucher;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.DialogUtils;
+import com.ooredoo.bizstore.utils.FBUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
@@ -43,18 +46,22 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
     private Tracker tracker, ooredooTracker;
 
+    private FBUtils fbUtils;
+
     private Dialog dialog;
 
     private final static String SERVICE_NAME = "/redeemdiscount?";
 
     public VerifyMerchantCodeTask(DealDetailActivity detailActivity, SnackBarUtils snackBarUtils,
-                                  Tracker tracker)
+                                  Tracker tracker, FBUtils fbUtils)
     {
         this.detailActivity = detailActivity;
 
         this.snackBarUtils = snackBarUtils;
 
         this.tracker = tracker;
+
+        this.fbUtils = fbUtils;
     }
 
     @Override
@@ -107,96 +114,113 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                         tracker.send(redeemEvent);
 
-                        if(BuildConfig.FLAVOR.equals("ooredoo"))
-                        {
-                            BizStore bizStore = (BizStore) detailActivity.getApplication();
+                        final Dialog dialog = DialogUtils.createMobilinkRedeemDialog(detailActivity);
 
-                            ooredooTracker = bizStore.getOoredooTracker();
-                            ooredooTracker.send(redeemEvent);
-                        }
+                        dialog.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
+                                DealDetailActivity.genericDeal.date = voucher.date;
+                                DealDetailActivity.genericDeal.time = voucher.time;
 
-                        if(BuildConfig.FLAVOR.equals("mobilink"))
-                        {
-                            final Dialog dialog = DialogUtils.createMobilinkRedeemDialog(detailActivity);
+                                detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
+                                detailActivity.btGetCode.setText("Get Discount Again");
 
-                            dialog.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                    DealDetailActivity.genericDeal.date = voucher.date;
-                                    DealDetailActivity.genericDeal.time = voucher.time;
-
-                                    detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
-                                    detailActivity.btGetCode.setText("Get Discount Again");
-
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            TextView tvDealDesc = (TextView) dialog.findViewById(R.id.deal_desc);
-                            tvDealDesc.setText(DealDetailActivity.genericDeal.description);
-
-                            TextView tvUniqueId = (TextView) dialog.findViewById(R.id.unique_id);
-                            tvUniqueId.setText("" + DealDetailActivity.genericDeal.id);
-
-                            TextView tvDate = (TextView) dialog.findViewById(R.id.date);
-                            tvDate.setText(voucher.date);
-
-                            TextView tvTime= (TextView) dialog.findViewById(R.id.time);
-                            tvTime.setText(voucher.time);
-
-                            Button btNoThanks = (Button) dialog.findViewById(R.id.no_thanks);
-                            btNoThanks.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            Button btShareFb = (Button) dialog.findViewById(R.id.share_fb);
-                            btShareFb.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                    ShareLinkContent content = new ShareLinkContent.Builder()
-                                            .setContentTitle(detailActivity.genericDeal.businessName)
-                                            .setContentDescription(detailActivity.genericDeal.description)
-                                            //.setContentUrl(Uri.parse("https://developers.facebook.com"))
-                                            //.setImageUrl(Uri.parse(BaseAsyncTask.IMAGE_BASE_URL + detailActivity.genericDeal.image.detailBannerUrl))
-                                            .build();
-
-                                    ShareDialog.show(detailActivity, content);
-                                }
-                            });
-
-                            String brandLogo = DealDetailActivity.genericDeal.businessLogo;
-
-                            Logger.print("BrandLogo: " + brandLogo);
-
-                            if(brandLogo != null && !brandLogo.equals(""))
-                            {
-                                final String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
-
-                                Bitmap bitmap = detailActivity.memoryCache.getBitmapFromCache(imgUrl);
-
-                                if(bitmap != null)
-                                {
-                                    bitmap = BitmapProcessor.makeBitmapRound(bitmap);
-
-                                    ImageView ivLogo = (ImageView) dialog.findViewById(R.id.brand_logo);
-                                    ivLogo.setImageBitmap(bitmap);
-                                }
+                                dialog.dismiss();
                             }
+                        });
 
-                            dialog.setCanceledOnTouchOutside(false);
-                            dialog.setCancelable(false);
-                            dialog.show();
+                        TextView tvDealDesc = (TextView) dialog.findViewById(R.id.deal_desc);
+                        tvDealDesc.setText(DealDetailActivity.genericDeal.description);
 
-                            return;
+                        TextView tvUniqueId = (TextView) dialog.findViewById(R.id.unique_id);
+                        tvUniqueId.setText("" + DealDetailActivity.genericDeal.id);
+
+                        TextView tvDate = (TextView) dialog.findViewById(R.id.date);
+                        tvDate.setText(voucher.date);
+
+                        TextView tvTime= (TextView) dialog.findViewById(R.id.time);
+                        tvTime.setText(voucher.time);
+
+                        Button btNoThanks = (Button) dialog.findViewById(R.id.no_thanks);
+                        btNoThanks.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        Button btShareFb = (Button) dialog.findViewById(R.id.share_fb);
+                        btShareFb.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                /*ShareLinkContent content = new ShareLinkContent.Builder()
+                                        .setContentTitle(detailActivity.genericDeal.businessName)
+                                        .setContentDescription(detailActivity.genericDeal.description)
+                                                //.setContentUrl(Uri.parse("https://developers.facebook.com"))
+                                                //.setImageUrl(Uri.parse(BaseAsyncTask.IMAGE_BASE_URL + detailActivity.genericDeal.image.detailBannerUrl))
+                                        .build();
+
+
+
+
+
+                                ShareDialog.show(detailActivity, content);*/
+
+                                GenericDeal genericDeal = DealDetailActivity.genericDeal;
+                                String imageUrl = getImageURL(genericDeal.image);
+
+                                if(imageUrl != null)
+                                {
+                                    imageUrl = BaseAsyncTask.IMAGE_BASE_URL + imageUrl;
+                                }
+
+                                String contentUrl = "https://fb.me/1578100429162454?id="+genericDeal.id;
+
+                                String searchText = genericDeal.businessName != null
+                                        ? genericDeal.businessName : null;
+
+                                if(searchText != null && genericDeal.location != null)
+                                {
+                                    searchText += ", " + genericDeal.location;
+                                }
+
+
+                                fbUtils.lookupPlaceId = searchText != null ? true : false;
+                                fbUtils.showDialog();
+                                fbUtils.checkIn(genericDeal.businessName, genericDeal.description,
+                                        contentUrl, imageUrl, searchText, null);
+                            }
+                        });
+
+                        String brandLogo = DealDetailActivity.genericDeal.businessLogo;
+
+                        Logger.print("BrandLogo: " + brandLogo);
+
+                        if(brandLogo != null && !brandLogo.equals(""))
+                        {
+                            final String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
+
+                            Bitmap bitmap = detailActivity.memoryCache.getBitmapFromCache(imgUrl);
+
+                            if(bitmap != null)
+                            {
+                                bitmap = BitmapProcessor.makeBitmapRound(bitmap);
+
+                                ImageView ivLogo = (ImageView) dialog.findViewById(R.id.brand_logo);
+                                ivLogo.setImageBitmap(bitmap);
+                                ivLogo.setVisibility(View.VISIBLE);
+                            }
                         }
 
-                        final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.setCancelable(false);
+                        dialog.show();
+
+                        return;
+
+                       /* final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
                                 R.string.success_redeemed);
                         dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener()
                         {
@@ -210,7 +234,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                         });
                         dialog.setCanceledOnTouchOutside(false);
                         dialog.setCancelable(false);
-                        dialog.show();
+                        dialog.show();*/
                     }
                     else
                         if(voucher.resultCode == 1)
@@ -249,6 +273,20 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
             snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
+    }
+
+    private String getImageURL(Image image)
+    {
+        if(image != null)
+        {
+            return (image.promotionalUrl != null && !image.promotionalUrl.isEmpty()) ? image.promotionalUrl
+                    : (image.detailBannerUrl != null && !image.detailBannerUrl.isEmpty()) ? image.detailBannerUrl
+                    : (image.bannerUrl != null && !image.bannerUrl.isEmpty()) ? image.bannerUrl
+                    : (image.gridBannerUrl != null && !image.gridBannerUrl.isEmpty()) ? image.gridBannerUrl
+                    : image.logoUrl;
+        }
+
+        return null;
     }
 
     private String getCode(String id, String code, String businessId) throws IOException
