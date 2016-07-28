@@ -51,6 +51,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
+import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.common.ConnectionResult;
@@ -92,6 +93,7 @@ import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FBUtils;
@@ -204,6 +206,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Logger.print("hash: " + FacebookSdk.getApplicationSignature(this));
+
+        Logger.print("Base64:"+ CryptoUtils.encodeToBase64("142"));
 
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
@@ -760,7 +765,7 @@ public CoordinatorLayout coordinatorLayout;
                 &&
                 !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
-            DialogUtils.createLocationDialog(this).show();
+            DialogUtils.createLocationDialog(this, null).show();
         }
     }
 

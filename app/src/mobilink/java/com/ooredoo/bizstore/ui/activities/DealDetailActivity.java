@@ -56,7 +56,9 @@ import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
+import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FBUtils;
@@ -188,9 +190,11 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
                     Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
                     String fbParamId = targetUrl.getQueryParameter("id");
 
-                    Logger.print("FB targetURL: "+targetUrl+" id: "+fbParamId);
+                    String decodedFbParamId = CryptoUtils.decodeBase64(fbParamId);
 
-                    getIntent().putExtra(AppConstant.ID, Integer.parseInt(fbParamId));
+                    Logger.print("FB targetURL: "+targetUrl+" encoded id: "+fbParamId+", decodedId:"+decodedFbParamId);
+
+                    getIntent().putExtra(AppConstant.ID, Integer.parseInt(decodedFbParamId));
                 }
                 else
                 {
@@ -799,34 +803,29 @@ TextView tvDiscount;
         {
             if(userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
             {
-                if(userLocation == null)
-                {
-                    if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-                    {
-                        Toast.makeText(DealDetailActivity.this, "Please Enable GPS", Toast.LENGTH_SHORT).show();
-
-                        return;
-                    }
-                }
-
                 float results[] = new float[3];
 
                 Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
                         mDeal.latitude, mDeal.longitude, results);
 
-                if(results[0] >= 22250)
+                if(results[0] >= 250)
                 {
                     DialogUtils.createAlertDialog(this, 0, R.string.error_out_of_range).show();
 
                     return;
                 }
-            }
 
-            VerifyMerchantCodeTask verifyMerchantCodeTask =
-                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
-            verifyMerchantCodeTask
-                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                            String.valueOf(id), "0", String.valueOf(mDeal.businessId));
+                VerifyMerchantCodeTask verifyMerchantCodeTask =
+                        new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
+                verifyMerchantCodeTask
+                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                String.valueOf(id), "0", String.valueOf(mDeal.businessId));
+            }
+            else
+            {
+                DialogUtils.createLocationDialog(this,
+                        "Dear user, Please turn on location to avail discount").show();
+            }
         }
                 else
                 if(viewId == R.id.directions)

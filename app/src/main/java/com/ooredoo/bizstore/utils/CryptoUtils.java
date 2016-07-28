@@ -5,6 +5,7 @@ import android.util.Base64;
 import java.security.NoSuchAlgorithmException;
 
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
+import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 
 /**
  * @author Babar
@@ -64,6 +65,24 @@ public class CryptoUtils
                 e.printStackTrace();
             }
         }
+        return tmp;
+    }
+
+    public static String decodeBase64(String str)
+    {
+        String tmp = "";
+        if(isNotNullOrEmpty(str))
+        {
+            try
+            {
+                tmp = new String(Base64.decode(str.getBytes(), Base64.DEFAULT)).trim();
+            }
+            catch (Throwable e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         return tmp;
     }
 }

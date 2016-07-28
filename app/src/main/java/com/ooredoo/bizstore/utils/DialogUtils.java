@@ -341,13 +341,17 @@ public class DialogUtils {
         return dialog;
     }
     static boolean goingForLoc = false;
-    public static Dialog createLocationDialog(final Context context)
+    public static Dialog createLocationDialog(final Context context, String str)
     {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable((new ColorDrawable(android.graphics.Color.TRANSPARENT)));
         dialog.setContentView(R.layout.location_dialog);
 
+        if(str != null) {
+            TextView tvNote = (TextView) dialog.findViewById(R.id.location_note);
+            tvNote.setText(str);
+        }
 
         dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override

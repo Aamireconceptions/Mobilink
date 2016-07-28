@@ -158,7 +158,7 @@ android:minWidth="@dimen/_100sdp"
                 android:layout_toRightOf="@+id/no_thanks"
 
                 android:background="@drawable/fb_button"
-                android:text="Share with facebook"
+                android:text="Check in with facebook"
                 android:textAllCaps="true"
                 android:textSize="12sp"
                 android:textColor="@color/white"/>

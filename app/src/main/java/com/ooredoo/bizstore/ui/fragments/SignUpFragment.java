@@ -110,7 +110,7 @@ public class SignUpFragment extends BaseFragment {
         subscribe();
     }
 
-    private void subscribe() {
+    public void subscribe() {
         String msisdn = etMsisdn.getText().toString();
        // msisdn = "66703202";
 
@@ -180,6 +180,12 @@ public class SignUpFragment extends BaseFragment {
         }
 
         if(!errMsg.equals("Error")) {
+
+            if(errMsg.equals("-1"))
+            {
+                errMsg = "Something went wrong. Please make sure you entered a valid number";
+            }
+
             Snackbar.make(etMsisdn, errMsg, Snackbar.LENGTH_LONG).show();
         }
     }

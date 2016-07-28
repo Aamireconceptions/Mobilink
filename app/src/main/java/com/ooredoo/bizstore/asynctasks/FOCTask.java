@@ -100,6 +100,7 @@ public class FOCTask extends BaseAsyncTask<String, Void, String> {
                     btSub.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            signUpFragment.subscribe();
                             dialog.dismiss();
                         }
                     });

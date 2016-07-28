@@ -25,6 +25,7 @@ import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Voucher;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.FBUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -47,8 +48,6 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
     private Tracker tracker, ooredooTracker;
 
     private FBUtils fbUtils;
-
-    private Dialog dialog;
 
     private final static String SERVICE_NAME = "/redeemdiscount?";
 
@@ -88,6 +87,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
         return null;
     }
 
+    public static ImageView ivClose;
     @Override
     protected void onPostExecute(String result)
     {
@@ -116,7 +116,8 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                         final Dialog dialog = DialogUtils.createMobilinkRedeemDialog(detailActivity);
 
-                        dialog.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                        ivClose = (ImageView)dialog.findViewById(R.id.close);
+                        ivClose.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
@@ -146,6 +147,12 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                         btNoThanks.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                DealDetailActivity.genericDeal.date = voucher.date;
+                                DealDetailActivity.genericDeal.time = voucher.time;
+
+                                detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
+                                detailActivity.btGetCode.setText("Get Discount Again");
+
                                 dialog.dismiss();
                             }
                         });
@@ -176,7 +183,8 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                     imageUrl = BaseAsyncTask.IMAGE_BASE_URL + imageUrl;
                                 }
 
-                                String contentUrl = "https://fb.me/1578100429162454?id="+genericDeal.id;
+                                String contentUrl = "https://fb.me/1578100429162454?id="
+                                        + CryptoUtils.encodeToBase64(String.valueOf(genericDeal.id));
 
                                 String searchText = genericDeal.businessName != null
                                         ? genericDeal.businessName : null;

@@ -5,6 +5,8 @@ import com.activeandroid.ActiveAndroid;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.FacebookSdk;
+import com.facebook.LoggingBehavior;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.model.User;
@@ -93,6 +95,10 @@ public class BizStore extends com.activeandroid.app.Application {
                     }
                 }
             });
+
+            FacebookSdk.setIsDebugEnabled(true);
+            FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
+            AppEventsLogger.activateApp(this);
         }
 
         Logger.setEnabled(true);

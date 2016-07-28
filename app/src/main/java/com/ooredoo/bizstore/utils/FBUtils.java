@@ -8,6 +8,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -23,6 +24,7 @@ import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,6 +78,10 @@ public class FBUtils
 
             @Override
             public void onError(FacebookException e) {
+
+                Toast.makeText(activity, "Something went wrong @ Facebook side. Please retry",
+                               Toast.LENGTH_SHORT).show();
+                dismissDialog();
                 e.printStackTrace();
             }
         });
@@ -151,7 +157,31 @@ public class FBUtils
                 {
                     dismissDialog();
 
-                    ShareDialog.show(activity, content);
+                    VerifyMerchantCodeTask.ivClose.performClick();
+
+                    ShareDialog shareDialog =  new ShareDialog(activity);
+                    shareDialog.registerCallback(callbackManager,
+                            new FacebookCallback<Sharer.Result>() {
+                                @Override
+                                public void onSuccess(Sharer.Result result) {
+
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+
+                                @Override
+                                public void onError(FacebookException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+
+
+                    shareDialog.show(content);
+
+                 //   ShareDialog.show(activity, content);
                 }
                 else
                 {
