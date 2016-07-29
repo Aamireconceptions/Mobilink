@@ -8,9 +8,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -37,6 +39,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
@@ -873,76 +878,19 @@ public CoordinatorLayout coordinatorLayout;
             }
         } else if(id == R.id.action_search || id == R.id.search) {
 
-            /*fbUtils.lookupPlaceId = true;
-            fbUtils.checkIn("Sample Title", "50% off on sone deal", "http://tinyurl.com/gqz5owq",
-                            "http://tinyurl.com/gqz5owq", "Savor foods, rawalpindi", null);*/
 
-            /*ShareLinkContent content = new ShareLinkContent.Builder()
-                    .setContentTitle("Demo Purpose")
-                    .setContentDescription("Lorem ispum chipsum is a industry standard for gibberish")
-                    //.setContentUrl(Uri.parse("https://developers.facebook.com"))
-                    .build();
+            /*WebView webView = new WebView(this);
+            webView.setLayoutParams(new ViewGroup.LayoutParams
+                    (ViewGroup.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.setWebViewClient(new WebViewClient());
+            webView.setWebChromeClient(new WebChromeClient());
 
-            if(!canShowShareDialog())
-            {
-                ShareDialog.show(this, content);
-            }
-            else
-            {
-                ShareApi.share(content, new FacebookCallback<Sharer.Result>() {
-                    @Override
-                    public void onSuccess(Sharer.Result result) {
-                        Toast.makeText(HomeActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
-                    }
+            String pdf = "http://www.pdf995.com/samples/pdf.pdf";
 
-                    @Override
-                    public void onCancel() {
+            webView.loadUrl("file:/"+Environment.getExternalStorageDirectory().getAbsolutePath() + "/sample_pdf");
 
-                    }
-
-                    @Override
-                    public void onError(FacebookException e) {
-                        Toast.makeText(HomeActivity.this, "onError: " +e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }*/
-
-           /* AccessToken accessToken = AccessToken.getCurrentAccessToken();
-
-            if(accessToken != null)
-            {
-                Logger.logV("FbUtils AccessToken", accessToken.getToken());
-                fbUtils.getPlaceId(null, 0, 1, "Mango, Clifton");
-                *//*if(accessToken.getPermissions().contains(FBUtils.Permissions.))
-                {
-                    Logger.logV("FbUtils AccessToken", "Has publish permissions");
-                    fbUtils.checkIn();
-                }
-                else
-                {
-                    Logger.logV("FbUtils AccessToken", "Doesn't has publish permissions");
-
-                    fbUtils.pending_action = FBUtils.PENDING_ACTION.CHECK_IN;
-                    fbUtils.loginWithPublishPermissions(FBUtils.Permissions.PUBLIC_PERMISSION);
-                }*//*
-
-
-
-
-
-            }
-            else
-            {
-                Logger.logV("FbUtils AccessToken", "Was NULL, performing Login");
-
-                //fbUtils.loginWithPublishPermissions("publish_actions");
-
-                fbUtils.pending_action = FBUtils.PENDING_ACTION.PLACE_ID;
-
-                fbUtils.loginForAccessToken();
-
-            }*/
-
+            setContentView(webView);*/
 
             boolean show = id == R.id.action_search;
 

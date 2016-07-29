@@ -801,7 +801,8 @@ TextView tvDiscount;
         else
         if(viewId == R.id.get_code)
         {
-            if(userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
+            if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&
+                    userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
             {
                 float results[] = new float[3];
 
@@ -824,7 +825,7 @@ TextView tvDiscount;
             else
             {
                 DialogUtils.createLocationDialog(this,
-                        "Dear user, Please turn on location to avail discount").show();
+                        "Dear user, Please turn on GPS to avail discount").show();
             }
         }
                 else
@@ -1024,7 +1025,7 @@ TextView tvDiscount;
             ratingDialog.dismiss();
         }
 
-       locationManager.removeUpdates(this);
+       if(locationManager != null) locationManager.removeUpdates(this);
 
         super.onDestroy();
     }

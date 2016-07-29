@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -139,6 +140,7 @@ dealofDayCalled = false;
 
         Logger.print("Home onDestroyView");
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -366,12 +368,12 @@ dealofDayCalled = false;
     }
 
     public void addMostViewedAndTopRated(List<DOD> dods)
-    {
+    {if(isAdded()) {
         llContainer.removeAllViews();
 
         int row = 0;
         int column = 0;
-        for(DOD dod : dods) {
+        for (DOD dod : dods) {
 
             row += 1;
 
@@ -389,7 +391,7 @@ dealofDayCalled = false;
                 Category category = Converter.convertCategoryText(activity, dod.category);
                 tvCategory.setText(category.name);
 
-                FontUtils.setFont(getActivity(), tvCategory);
+                FontUtils.setFont(activity, tvCategory);
 
                 String cats[] = category.name.split(" ");
 
@@ -430,10 +432,10 @@ dealofDayCalled = false;
                     if (bitmap != null) {
                         progressBar.setVisibility(View.GONE);
 
-                       ivThumbnail.setImageBitmap(bitmap);
+                        ivThumbnail.setImageBitmap(bitmap);
                         // rlCell.setBackground(new BitmapDrawable(resources, bitmap));
                     } else {
-                       // progressBar.setVisibility(View.VISIBLE);
+                        // progressBar.setVisibility(View.VISIBLE);
 
                         // rlCell.setBackground(null);
 
@@ -448,10 +450,9 @@ dealofDayCalled = false;
                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                 params.width = displayMetrics.widthPixels / 2;
-                params.height = params.width + (int) ( (params.width * (5f / 100f)));
+                params.height = params.width + (int) ((params.width * (5f / 100f)));
 
-                if(column > 1)
-                {
+                if (column > 1) {
                     params.leftMargin = (int) Converter.convertDpToPixels(12);
                 }
 
@@ -470,7 +471,11 @@ dealofDayCalled = false;
 
             llContainer.addView(v, params);
         }
-
+    }
+else
+    {
+        Logger.print("Removed");
+    }
     }
 
     private void fallBackToDiskCache(final ImageView imageView,

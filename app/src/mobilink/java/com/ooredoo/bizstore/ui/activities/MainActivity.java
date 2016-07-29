@@ -33,13 +33,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-
         setupToolbar();
         showSplash();
-
-        /*FragmentUtils.replaceFragment(this, R.id.fragment_container, new MainFragment(),
-                "main_fragment");*/
-
     }
 
     public Toolbar toolbar;
@@ -60,28 +55,12 @@ public class MainActivity extends BaseActivity {
         setTitle("");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        //actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        //actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setLogo(R.drawable.ic_bizstore);
     }
 
-    SplashFragment splashFragment;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-
     private void showSplash()
     {
-       /* splashFragment = new SplashFragment();
-
-        fragmentManager = getFragmentManager();
-
-        fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentTransaction.setCustomAnimations(R.animator.slide_up_animator, R.animator.fade_out);
-        //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.add(android.R.id.content, splashFragment, null);
-        fragmentTransaction.commit();*/
-
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -105,18 +84,10 @@ public class MainActivity extends BaseActivity {
         }
         else
         {
-
             FragmentUtils.replaceFragmentAllowStateLose(this, R.id.fragment_container,
                     new SubscriptionPlansFragment(), "subscription_plan_fragment");
-            /*FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.remove(splashFragment);
-            fragmentTransaction.commitAllowingStateLoss();
-
-            fragmentManager.executePendingTransactions();*/
 
             isSplashShowing = false;
-
-
         }
     }
 
