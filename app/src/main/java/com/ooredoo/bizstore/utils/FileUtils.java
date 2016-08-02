@@ -17,8 +17,13 @@ import java.io.IOException;
  */
 public class FileUtils
 {
-    // Creates a unique subdirectory of the designated app cache directory. Tries to use external
-    // but if not mounted, falls back on internal storage.
+    /**
+     * Creates a unique subdirectory of the designated app cache directory. Tries to use external
+     * but if not mounted, falls back on internal storage.
+     * @param context Activity's context
+     * @param uniqueName folder name
+     * @return
+     */
     public static File getDiskCacheDir(Context context, String uniqueName)
     {
         // Check if media is mounted or storage is built-in, if so, try and use external cache dir
@@ -32,6 +37,11 @@ public class FileUtils
         Logger.print("getDiskCacheDir name:" + cachePath + uniqueName);
 
         return new File(cachePath + File.separator + uniqueName);
+    }
+
+    public static boolean isFileAvailable(File file)
+    {
+        return file.exists();
     }
 
     /**

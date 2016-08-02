@@ -96,8 +96,9 @@ public class BizStore extends com.activeandroid.app.Application {
                 }
             });
 
-            FacebookSdk.setIsDebugEnabled(true);
-            FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
+            // FacebookSdk.setIsDebugEnabled(true);
+           //  FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
+
             AppEventsLogger.activateApp(this);
         }
 

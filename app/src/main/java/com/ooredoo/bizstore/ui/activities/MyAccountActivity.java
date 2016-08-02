@@ -37,11 +37,8 @@ import android.widget.Toast;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
 import com.ooredoo.bizstore.asynctasks.UpdateAccountTask;
-import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.FileUtils;
@@ -52,10 +49,6 @@ import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;

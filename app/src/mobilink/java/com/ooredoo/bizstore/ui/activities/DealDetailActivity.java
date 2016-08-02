@@ -48,6 +48,7 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
+import com.ooredoo.bizstore.asynctasks.FileDownloadTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.ReportAsyncTask;
 import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
@@ -62,10 +63,13 @@ import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FBUtils;
+import com.ooredoo.bizstore.utils.FileUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
+
+import java.io.File;
 
 import bolts.AppLinks;
 
@@ -801,8 +805,15 @@ TextView tvDiscount;
         else
         if(viewId == R.id.get_code)
         {
-            if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&
-                    userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
+            if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            {
+                DialogUtils.createLocationDialog(this,
+                        "Dear user, Please turn on GPS to avail discount").show();
+
+                return;
+            }
+
+            if(userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
             {
                 float results[] = new float[3];
 
@@ -824,8 +835,7 @@ TextView tvDiscount;
             }
             else
             {
-                DialogUtils.createLocationDialog(this,
-                        "Dear user, Please turn on GPS to avail discount").show();
+                DialogUtils.createAlertDialog(this, 0, R.string.redeem_loc_error).show();
             }
         }
                 else
@@ -1101,13 +1111,38 @@ TextView tvDiscount;
 
        tvVoucherClaimed.setVisibility(View.VISIBLE);
 
-       tvVoucherClaimed.setText(getString(R.string.out_of)+" " + genericDeal.vouchers_max_allowed
+       tvVoucherClaimed.setText(getString(R.string.out_of) + " " + genericDeal.vouchers_max_allowed
                + ", " + getString(R.string.you_have_availed) + " "
-               + ( genericDeal.vouchers_claimed) + " " + getString(R.string.dealss));
+               + (genericDeal.vouchers_claimed) + " " + getString(R.string.dealss));
    }
 
     public void onNoData()
     {
+    }
+
+    private void downloadFile()
+    {
+        File cacheDir = FileUtils.getDiskCacheDir(this, "Pdf Docs");
+
+        if(!cacheDir.exists())
+        {
+            Logger.print("Creating Dir: ");
+
+            cacheDir.mkdir();
+        }
+        else
+        {
+            Logger.print("Dir Exists: ");
+        }
+
+        Logger.print("Cache Dir: " + cacheDir);
+
+        String fileUrl = "http://www.pdf995.com/samples/pdf.pdf";
+
+        File file = new File(cacheDir, CryptoUtils.encodeToBase64(fileUrl) + ".pdf");
+
+        FileDownloadTask downloadTask = new FileDownloadTask(this, file, -11, fileUrl);
+        downloadTask.execute();
     }
 
     @Override

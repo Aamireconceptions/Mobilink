@@ -113,7 +113,7 @@
                 android:layout_weight="2"
                 android:textColor="#C6C6C6"
                 android:gravity="end"
-                android:text="Rs 2.5+tax/week "/>
+                android:text="Rs 10+tax/week "/>
 
         </LinearLayout>
 

@@ -74,6 +74,7 @@ import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CheckSubscriptionTask;
+import com.ooredoo.bizstore.asynctasks.FileDownloadTask;
 import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
@@ -102,6 +103,7 @@ import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FBUtils;
+import com.ooredoo.bizstore.utils.FileUtils;
 import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -115,6 +117,7 @@ import net.hockeyapp.android.Tracking;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.metrics.MetricsManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -879,20 +882,8 @@ public CoordinatorLayout coordinatorLayout;
         } else if(id == R.id.action_search || id == R.id.search) {
 
 
-            /*WebView webView = new WebView(this);
-            webView.setLayoutParams(new ViewGroup.LayoutParams
-                    (ViewGroup.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.setWebViewClient(new WebViewClient());
-            webView.setWebChromeClient(new WebChromeClient());
 
-            String pdf = "http://www.pdf995.com/samples/pdf.pdf";
-
-            webView.loadUrl("file:/"+Environment.getExternalStorageDirectory().getAbsolutePath() + "/sample_pdf");
-
-            setContentView(webView);*/
-
-            boolean show = id == R.id.action_search;
+            /*boolean show = id == R.id.action_search;
 
             if(BuildConfig.FLAVOR.equals("mobilink")) {
                 if (id == R.id.action_search) {
@@ -917,7 +908,7 @@ public CoordinatorLayout coordinatorLayout;
                     new SearchSuggestionsTask(this).execute();
                 }
             }
-            showHideSearchBar(show);
+            showHideSearchBar(show);*/
         }
         else
         if(id == R.id.action_filter)
