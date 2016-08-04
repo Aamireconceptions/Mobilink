@@ -399,14 +399,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_gravity="center_horizontal"
-
                 android:text="@string/tos_note"
                 android:textSize="12sp"
                 android:visibility="gone"/>
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:id="@+id/head"
@@ -440,6 +437,27 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_16sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gallery"
+                android:textSize="16sp"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/business_border"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
             android:gravity="right|bottom"
@@ -457,10 +475,26 @@
                 android:textColor="@color/slight_grey"/>
 
             <TextView
+                android:id="@+id/brochure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:paddingStart="8dp"
+                android:paddingBottom="5dp"
+                android:layout_gravity="start"
+                android:text="View brochure"
+                android:gravity="center"
+                android:drawablePadding="6dp"
+                android:textColor="@color/black"
+
+                android:drawableStart="@drawable/ic_rate"
+                android:visibility="gone"/>
+
+            <TextView
                 android:id="@+id/how_this_work_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
                 android:gravity="bottom"
                 android:padding="10dp"
                 android:background="@color/grey"
@@ -491,11 +525,6 @@
         android:id="@+id/share"
         android:src="@drawable/ic_share"/>
     </android.support.v7.widget.Toolbar>
+
+
     </RelativeLayout>
-
-
-
-    <!--
-
-        </com.ooredoo.bizstore.utils.ScrollViewHelper>
-        </FrameLayout>-->

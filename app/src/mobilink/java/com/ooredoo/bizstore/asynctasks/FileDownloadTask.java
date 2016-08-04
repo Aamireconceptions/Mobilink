@@ -1,9 +1,11 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.content.Context;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.utils.CryptoUtils;
+import com.ooredoo.bizstore.utils.FileUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NotificationUtils;
 
@@ -27,9 +29,12 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
 
     private String fileUrl;
 
+    private TextView tvBrochure;
+
     private NotificationUtils notificationUtils;
 
-    public FileDownloadTask(Context context, File pathToSave, int id, String fileUrl)
+    public FileDownloadTask(Context context, File pathToSave, int id,
+                            String fileUrl, TextView tvBrochure)
     {
         this.context = context;
 
@@ -39,6 +44,8 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
 
         this.fileUrl = fileUrl;
 
+        this.tvBrochure = tvBrochure;
+
         notificationUtils = new NotificationUtils(context);
     }
 
@@ -47,6 +54,8 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
     {
         super.onPreExecute();
 
+        tvBrochure.setText("Downloading");
+        tvBrochure.setTag("Downloading");
         notificationUtils.showDownloadingNotification(id, "Downloading", fileUrl);
     }
 
@@ -74,9 +83,9 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
     {
         super.onProgressUpdate(values);
 
-        Logger.print("onProgressUpdate:" + values[0]);
+        //Logger.print("onProgressUpdate:" + values[0]);
 
-        notificationUtils.updateNotificationProgress(values[0], id);
+
     }
 
     @Override
@@ -90,11 +99,19 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
         {
             notificationMsg = "Download Failed";
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+
+            tvBrochure.setText("Failed to download. Retry?");
+            tvBrochure.setTag(null);
+
+            FileUtils.deleteFile(pathToSave);
         }
         else
         {
             notificationMsg = "Download Complete";
             notificationSubMsg = "Tap to open";
+
+            tvBrochure.setText("View Brochure");
+            tvBrochure.setTag("Downloaded");
 
             Logger.print("Download complete");
         }
@@ -118,6 +135,7 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
 
+
             if(connection.getResponseCode() != HttpURLConnection.HTTP_OK)
             {
                 error = "Server is down currently";
@@ -127,7 +145,10 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
 
            // File file = new File(dir, CryptoUtils.encodeToBase64(fileUrl) + ".pdf");
 
-            int contentLength = connection.getContentLength();
+            //int contentLength = connection.getContentLength();
+            long contentLength = Long.parseLong(connection.getHeaderField("content-length"));
+
+            Logger.print("Content Length: "+contentLength);
 
             is = connection.getInputStream();
             fos = new FileOutputStream(pathToSave);
@@ -144,11 +165,13 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
                 fos.write(data, 0, count);
             }
 
-            while((count = is.read(data)) != -1)
+            Logger.print("Total Length: "+total);
+
+           /* while((count = is.read(data)) != -1)
             {
                 total += count;
                 fos.write(data, 0, count);
-            }
+            }*/
         }
         finally
         {
@@ -171,13 +194,15 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
         return error;
     }
 
-    private void publishProgress(int contentLength, long totalRead)
+    private void publishProgress(long contentLength, long totalRead)
     {
         if(contentLength > 0)
         {
             float progress = ((float) totalRead / contentLength) * 100;
 
-            publishProgress(progress);
+            notificationUtils.updateNotificationProgress(progress, id);
+
+            //publishProgress(progress);
         }
     }
 }

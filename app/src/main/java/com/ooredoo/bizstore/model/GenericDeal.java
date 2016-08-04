@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ooredoo.bizstore.adapters.Gallery;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.Serializable;
@@ -59,6 +60,9 @@ public class GenericDeal implements Serializable{
 
     @SerializedName("nearDeals")
     public List<GenericDeal> nearbyDeals;
+
+    @SerializedName("gallery")
+    public List<Gallery> galleryList;
 
     public boolean isHeader;
 

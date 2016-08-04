@@ -38,7 +38,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     ? "http://ooredoo.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("dealionare")
     ? "http://dealionare.bizstore.com.pk/" :
-            BuildConfig.FLAVOR.equals("mobilink") ? "http://jazz.bizstore.com.pk/"
+            BuildConfig.FLAVOR.equals("mobilink") ? "http://188.138.33.11/jdb/"
             : "http://ufone.bizstore.com.pk/";
 
     /*public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
@@ -50,7 +50,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     ? "http://ooredoo.bizstore.com.pk/index.php/api/"
             : BuildConfig.FLAVOR.equals("telenor") ? "http://telenor.bizstore.com.pk/index.php/api/"
             : BuildConfig.FLAVOR.equals("dealionare") ? "http://dealionare.bizstore.com.pk/index.php/api/" :
-            BuildConfig.FLAVOR.equals("mobilink") ? "http://jazz.bizstore.com.pk/index.php/api/"
+            BuildConfig.FLAVOR.equals("mobilink") ? "http://188.138.33.11/jdb/index.php/api/"
             : "http://ufone.bizstore.com.pk/index.php/api/";
 
     /*public static String BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
@@ -94,7 +94,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     ? "http://ooredoo.bizstore.com.pk" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk" : BuildConfig.FLAVOR.equals("dealionare")
     ? "http://dealionare.bizstore.com.pk" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "http://jazz.bizstore.com.pk" : "http://ufone.bizstore.com.pk";
+            ? "http://188.138.33.11" : "http://ufone.bizstore.com.pk";
 
     protected Dialog dialog;
 

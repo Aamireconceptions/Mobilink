@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
@@ -15,6 +16,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -43,6 +45,8 @@ import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.Gallery;
+import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
@@ -65,11 +69,15 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FBUtils;
 import com.ooredoo.bizstore.utils.FileUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.IntentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import bolts.AppLinks;
 
@@ -79,6 +87,7 @@ import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.DIALER_PREFIX;
+import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
@@ -220,10 +229,31 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     TableLayout tableLayout;
     RelativeLayout rlDetails;
 
-TextView tvDiscount;
+TextView tvDiscount, tvBrochure;
+
+    File cacheDir;
 
     private void initViews()
     {
+        tvBrochure = (TextView) findViewById(R.id.brochure);
+        tvBrochure.setOnClickListener(this);
+        tvBrochure.setPaintFlags(tvBrochure.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        cacheDir = FileUtils.getDiskCacheDir(this, "Pdf Docs");
+
+        if(!cacheDir.exists())
+        {
+            Logger.print("Creating Dir: ");
+
+            cacheDir.mkdir();
+        }
+        else
+        {
+            Logger.print("Dir Exists: ");
+        }
+
+        Logger.print("Cache Dir: " + cacheDir);
+
         scrollView=(ScrollView) findViewById(R.id.scrollView1);
          cd = new ColorDrawable(getResources().getColor(R.color.red));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -894,6 +924,33 @@ TextView tvDiscount;
                                 tvHeadTitle.setText(R.string.tos);
                                 tvHeadDescription.setText(mDeal.terms_services);
                             }
+        else
+                                if(viewId == R.id.brochure)
+                                {
+                                    Object tag = tvBrochure.getTag();
+
+                                    if(tag != null)
+                                    {
+                                        if(tag.equals("Downloading"))
+                                        {
+                                            return;
+                                        }
+
+                                        if(tag.equals("Downloaded")) {
+                                            Intent intent = IntentUtils.getPdfIntent(brochureFile);
+                                            try {
+                                                startActivity(intent);
+                                            } catch (ActivityNotFoundException e) {
+                                                Toast.makeText(this, "No application found to open pdf,", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        downloadFile();
+                                    }
+                                }
     }
 
     public void showCode(int voucherClaimed, int maxAllowed, boolean hide)
@@ -1062,17 +1119,42 @@ TextView tvDiscount;
         finish();
     }
 
+    File brochureFile;
+
+   public GalleryStatePagerAdapter adapter;
 
     public void onHaveData(GenericDeal genericDeal)
     {
-        if(genericDeal.is_exclusive == 0) {
+        if(genericDeal.galleryList != null )
+        {
+            adapter = new GalleryStatePagerAdapter(getFragmentManager(), genericDeal.galleryList);
+
+            ViewPager galleryPager = (ViewPager) findViewById(R.id.gallery_pager);
+            galleryPager.setAdapter(adapter);
+        }
+
+        tvBrochure.setVisibility(View.VISIBLE);
+
+        brochureFile  = new File(cacheDir, CryptoUtils.encodeToBase64(fileUrl)+".pdf");
+
+        if(FileUtils.isFileAvailable(brochureFile))
+        {
+            tvBrochure.setText("View Brochure");
+            tvBrochure.setTag("Downloaded");
+        }
+        else
+        {
+            tvBrochure.setText("Download Brochure");
+        }
+
+        if(genericDeal.is_exclusive == 0)
+        {
             rlVoucher.setVisibility(View.GONE);
             tvDiscount.setVisibility(View.GONE);
         }
         else
         {
             rlVoucher.setVisibility(View.VISIBLE);
-           // tvDiscount.setVisibility(View.VISIBLE);
         }
 
         tvAvailedDeals.setText(""+genericDeal.voucher_count);
@@ -1085,7 +1167,6 @@ TextView tvDiscount;
        }
 
        this.genericDeal = genericDeal;
-
 
        if(genericDeal.is_exclusive == 0 || mDeal.isQticket == 1)
        {
@@ -1119,29 +1200,11 @@ TextView tvDiscount;
     public void onNoData()
     {
     }
-
+    String fileUrl = "http://download.macromedia.com/pub/elearning/objects/mx_creating_lo.pdf";
     private void downloadFile()
     {
-        File cacheDir = FileUtils.getDiskCacheDir(this, "Pdf Docs");
-
-        if(!cacheDir.exists())
-        {
-            Logger.print("Creating Dir: ");
-
-            cacheDir.mkdir();
-        }
-        else
-        {
-            Logger.print("Dir Exists: ");
-        }
-
-        Logger.print("Cache Dir: " + cacheDir);
-
-        String fileUrl = "http://www.pdf995.com/samples/pdf.pdf";
-
-        File file = new File(cacheDir, CryptoUtils.encodeToBase64(fileUrl) + ".pdf");
-
-        FileDownloadTask downloadTask = new FileDownloadTask(this, file, -11, fileUrl);
+        FileDownloadTask downloadTask = new FileDownloadTask(this, brochureFile, genericDeal.id,
+                                                             fileUrl, tvBrochure);
         downloadTask.execute();
     }
 

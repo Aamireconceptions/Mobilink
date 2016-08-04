@@ -44,6 +44,11 @@ public class FileUtils
         return file.exists();
     }
 
+    public static void deleteFile(File file)
+    {
+        file.delete();
+    }
+
     /**
      * Check how much usable space is available at a given path.
      *

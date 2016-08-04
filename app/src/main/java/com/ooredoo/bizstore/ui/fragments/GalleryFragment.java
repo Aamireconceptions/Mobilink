@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
@@ -30,7 +33,7 @@ import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
  */
 public class GalleryFragment extends Fragment implements View.OnClickListener {
 
-    private HomeActivity activity;
+    private DealDetailActivity activity;
 
     private int id;
 
@@ -42,12 +45,13 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    public static GalleryFragment newInstance(Gallery gallery)
+    public static GalleryFragment newInstance(Gallery gallery, int position)
     {
         Bundle bundle = new Bundle();
         /*bundle.putInt("id", id);
         bundle.putString("image_url", imgUrl);*/
         bundle.putSerializable("gallery", gallery);
+        bundle.putInt("pos", position);
 
         GalleryFragment fragment = new GalleryFragment();
         fragment.setArguments(bundle);
@@ -68,9 +72,12 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
 
     ImageView imageView;
     ProgressBar progressBar;
+    int pos;
     private void initAndLoadTopBrand(View v)
     {
-        activity = (HomeActivity) getActivity();
+        pos = getArguments().getInt("pos");
+
+        activity = (DealDetailActivity) getActivity();
 
         Bundle bundle = getArguments();
 
@@ -175,9 +182,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v)
     {
-        //activity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[1], id);
-
-       // brand.views += 1;
-       // activity.showBusinessDetailActivity(DEAL_CATEGORIES[1], new Business(brand));
+        FragmentUtils.addFragmentWithBackStack(activity, android.R.id.content,
+                ImageViewerFragment.newInstance(activity.adapter, pos), null);
     }
 }

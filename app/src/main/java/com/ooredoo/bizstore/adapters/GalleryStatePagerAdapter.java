@@ -27,21 +27,12 @@ public class GalleryStatePagerAdapter extends FragmentStatePagerAdapter
         this.galleries = galleries;
     }
 
-    public void setData(List<Gallery> galleries)
-    {
-        this.galleries = galleries;
-    }
-
     @Override
     public Fragment getItem(int position)
     {
-        /*Brand brand = brands.get(position);
-
-        return TopBrandFragment.newInstance(brand.id, brand.image.logoUrl);*/
-
         Gallery gallery = galleries.get(position);
 
-        return GalleryFragment.newInstance(gallery);
+        return GalleryFragment.newInstance(gallery, position);
     }
 
     @Override
@@ -58,10 +49,5 @@ public class GalleryStatePagerAdapter extends FragmentStatePagerAdapter
     public float getPageWidth(int position)
     {
         return PAGE_WIDTH;
-    }
-
-    public void clear()
-    {
-        galleries.clear();
     }
 }

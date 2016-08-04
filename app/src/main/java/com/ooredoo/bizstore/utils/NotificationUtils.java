@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.NotificationCompat;
 
 import com.ooredoo.bizstore.AppConstant;
@@ -118,12 +119,14 @@ public class NotificationUtils
         notificationManager.notify(id, downloadNotification);
     }
 
-    public void updateNotificationProgress(float progress, int id)
+    public void updateNotificationProgress(float progress, final int id)
     {
         downloadBuilder.setProgress(100, (int) progress, false);
         downloadNotification = downloadBuilder.build();
-
         notificationManager.notify(id, downloadNotification);
+
+
+
     }
 
     public void onDownloadFinish(String msg, String subMsg, int id, File file)

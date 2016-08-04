@@ -881,9 +881,7 @@ public CoordinatorLayout coordinatorLayout;
             }
         } else if(id == R.id.action_search || id == R.id.search) {
 
-
-
-            /*boolean show = id == R.id.action_search;
+            boolean show = id == R.id.action_search;
 
             if(BuildConfig.FLAVOR.equals("mobilink")) {
                 if (id == R.id.action_search) {
@@ -908,7 +906,7 @@ public CoordinatorLayout coordinatorLayout;
                     new SearchSuggestionsTask(this).execute();
                 }
             }
-            showHideSearchBar(show);*/
+            showHideSearchBar(show);
         }
         else
         if(id == R.id.action_filter)
