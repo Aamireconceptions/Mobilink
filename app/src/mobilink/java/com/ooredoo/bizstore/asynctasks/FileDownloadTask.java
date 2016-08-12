@@ -1,6 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +33,12 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
 
     private TextView tvBrochure;
 
+    private ImageView ivDownload;
+
     private NotificationUtils notificationUtils;
 
     public FileDownloadTask(Context context, File pathToSave, int id,
-                            String fileUrl, TextView tvBrochure)
+                            String fileUrl, TextView tvBrochure, ImageView ivDownload)
     {
         this.context = context;
 
@@ -45,6 +49,8 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
         this.fileUrl = fileUrl;
 
         this.tvBrochure = tvBrochure;
+
+        this.ivDownload = ivDownload;
 
         notificationUtils = new NotificationUtils(context);
     }
@@ -110,8 +116,10 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
             notificationMsg = "Download Complete";
             notificationSubMsg = "Tap to open";
 
-            tvBrochure.setText("View Brochure");
+            tvBrochure.setText("View");
             tvBrochure.setTag("Downloaded");
+
+            ivDownload.setVisibility(View.GONE);
 
             Logger.print("Download complete");
         }
@@ -131,6 +139,7 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
 
         try
         {
+            Logger.print("Document URL:"+fileUrl);
             URL url = new URL(fileUrl);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -146,7 +155,14 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
            // File file = new File(dir, CryptoUtils.encodeToBase64(fileUrl) + ".pdf");
 
             //int contentLength = connection.getContentLength();
-            long contentLength = Long.parseLong(connection.getHeaderField("content-length"));
+            String headerContentLength = connection.getHeaderField("content-length");
+
+            if(headerContentLength == null)
+            {
+                throw new IOException("404 File not found on server");
+            }
+
+            long contentLength = Long.parseLong(headerContentLength);
 
             Logger.print("Content Length: "+contentLength);
 

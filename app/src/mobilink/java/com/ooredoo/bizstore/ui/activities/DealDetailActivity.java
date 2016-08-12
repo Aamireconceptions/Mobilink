@@ -63,6 +63,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
@@ -229,15 +230,15 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     TableLayout tableLayout;
     RelativeLayout rlDetails;
 
-TextView tvDiscount, tvBrochure;
+TextView tvBrochure;
 
     File cacheDir;
 
     private void initViews()
     {
         tvBrochure = (TextView) findViewById(R.id.brochure);
+
         tvBrochure.setOnClickListener(this);
-        tvBrochure.setPaintFlags(tvBrochure.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         cacheDir = FileUtils.getDiskCacheDir(this, "Pdf Docs");
 
@@ -281,18 +282,12 @@ TextView tvDiscount, tvBrochure;
 
         tvVoucherClaimed = (TextView) findViewById(R.id.vouchers_claimed);
 
-        ivVerifyMerchantCode = (ImageView) findViewById(R.id.verify_merchant_code);
-        ivVerifyMerchantCode.setOnClickListener(this);
 
         rlMerchandCode = (RelativeLayout) findViewById(R.id.merchant_code_layout);
 
-        etMerchantCode = (EditText) findViewById(R.id.merchant_code_field);
-        etMerchantCode.setMaxWidth(etMerchantCode.getWidth());
-        etMerchantCode.setMaxLines(4);
 
-        FontUtils.setFontWithStyle(this, etMerchantCode, Typeface.BOLD);
 
-        Logger.print("etMerchant Code width:"+etMerchantCode.getWidth());
+
 
         packageName = getPackageName();
         if(genericDeal != null) {
@@ -331,7 +326,6 @@ TextView tvDiscount, tvBrochure;
 
         FontUtils.setFontWithStyle(this, btGetCode, Typeface.BOLD);
 
-        tvDiscount = (TextView) findViewById(R.id.discount);
 
         if(genericDeal == null) {
             DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
@@ -472,8 +466,7 @@ TextView tvDiscount, tvBrochure;
             tvBrandAddress.setText(deal.address);
 
             TextView tvValidity = (TextView) findViewById(R.id.validity);
-           tvValidity.setTextDirection(View.TEXT_DIRECTION_RTL);
-            tvValidity.setText("Valid till: " + deal.endDate);
+            tvValidity.setText("Validity Date: " + deal.endDate);
 
             llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
@@ -617,14 +610,9 @@ TextView tvDiscount, tvBrochure;
                 }
             });   // Report button onClick Listener End.
 
-            rlVoucher = (RelativeLayout) findViewById(R.id.voucher_layout);
+          //  rlVoucher = (RelativeLayout) findViewById(R.id.voucher_layout);
 
 
-
-            if(deal.discount == 0)
-            {
-                tvDiscount.setVisibility(View.GONE);
-            }
 
             if(deal.isQticket == 1)
             {
@@ -714,9 +702,6 @@ TextView tvDiscount, tvBrochure;
                 }
             }
 
-            tvDiscount.setText(discount);
-            FontUtils.setFontWithStyle(this, tvDiscount, Typeface.BOLD);
-
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
@@ -784,9 +769,6 @@ TextView tvDiscount, tvBrochure;
         switch (item.getItemId())
         {
             case android.R.id.home:
-
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
 
                 sendResult();
 
@@ -960,7 +942,7 @@ TextView tvDiscount, tvBrochure;
       if(!availedText.isEmpty()) {
          int availed = Integer.parseInt(availedText) + 1;
 
-         tvAvailedDeals.setText(""+availed);
+         tvAvailedDeals.setText(availed + " AVAILED");
       }
 
         genericDeal.voucher_count = genericDeal.voucher_count + 1;
@@ -1100,6 +1082,15 @@ TextView tvDiscount, tvBrochure;
     @Override
     public void onBackPressed() {
 
+        if(getFragmentManager().getBackStackEntryCount() > 0)
+        {
+            getFragmentManager().popBackStack();
+
+            Logger.print("backpressed return");
+
+            return;
+        }
+
         sendResult();
     }
 
@@ -1123,41 +1114,58 @@ TextView tvDiscount, tvBrochure;
 
    public GalleryStatePagerAdapter adapter;
 
+    public List<Gallery> galleryList;
+    ImageView ivDownload;
     public void onHaveData(GenericDeal genericDeal)
     {
-        if(genericDeal.galleryList != null )
+        if(genericDeal.galleryList != null && genericDeal.galleryList.size() > 0)
         {
-            adapter = new GalleryStatePagerAdapter(getFragmentManager(), genericDeal.galleryList);
+            TextView tvGalleryCount = (TextView) findViewById(R.id.gallery_items_count);
+            tvGalleryCount.setText(genericDeal.galleryList.size() + " Photos");
 
-            ViewPager galleryPager = (ViewPager) findViewById(R.id.gallery_pager);
+            LinearLayout llGallery = (LinearLayout) findViewById(R.id.gallery_layout);
+            llGallery.setVisibility(View.VISIBLE);
+
+            this.galleryList = genericDeal.galleryList;
+
+            adapter = new GalleryStatePagerAdapter(getFragmentManager(), genericDeal.galleryList, true);
+
+            ViewPager galleryPager = (ViewPager) findViewById(R.id.gallery);
+            galleryPager.setPageMargin((int) Converter.convertDpToPixels(4));
             galleryPager.setAdapter(adapter);
         }
 
-        tvBrochure.setVisibility(View.VISIBLE);
+        if(genericDeal.document != null && !genericDeal.document.isEmpty()) {
 
-        brochureFile  = new File(cacheDir, CryptoUtils.encodeToBase64(fileUrl)+".pdf");
+            fileUrl = BaseAsyncTask.SERVER_URL + genericDeal.document;
 
-        if(FileUtils.isFileAvailable(brochureFile))
-        {
-            tvBrochure.setText("View Brochure");
-            tvBrochure.setTag("Downloaded");
-        }
-        else
-        {
-            tvBrochure.setText("Download Brochure");
+            findViewById(R.id.brochure_layout).setVisibility(View.VISIBLE);
+
+            ivDownload = (ImageView) findViewById(R.id.download);
+
+            brochureFile = new File(cacheDir, CryptoUtils.encodeToBase64(fileUrl) + ".pdf");
+
+            String docName = "";
+
+            if(genericDeal.documentName != null)
+            {
+                docName = genericDeal.documentName;
+            }
+
+            if (FileUtils.isFileAvailable(brochureFile)) {
+
+
+                tvBrochure.setText("View "+docName);
+                tvBrochure.setTag("Downloaded");
+                ivDownload.setVisibility(View.GONE);
+            } else {
+                tvBrochure.setText("Download "+docName);
+            }
         }
 
-        if(genericDeal.is_exclusive == 0)
-        {
-            rlVoucher.setVisibility(View.GONE);
-            tvDiscount.setVisibility(View.GONE);
-        }
-        else
-        {
-            rlVoucher.setVisibility(View.VISIBLE);
-        }
 
-        tvAvailedDeals.setText(""+genericDeal.voucher_count);
+
+        tvAvailedDeals.setText(genericDeal.voucher_count + " AVAILED");
 
        if(genericDeal.date != null && !genericDeal.date.isEmpty())
        {
@@ -1173,6 +1181,9 @@ TextView tvDiscount, tvBrochure;
            return;
        }
 
+        LinearLayout llCode = (LinearLayout) findViewById(R.id.code_layout);
+        llCode.setVisibility(View.VISIBLE);
+
        if(genericDeal.vouchers_claimed == 0)
        {
            tvVoucherClaimed.setVisibility(View.VISIBLE);
@@ -1183,7 +1194,7 @@ TextView tvDiscount, tvBrochure;
 
        if(genericDeal.vouchers_claimed == genericDeal.vouchers_max_allowed)
        {
-           rlVoucher.setVisibility(View.GONE);
+           btGetCode.setVisibility(View.GONE);
        }
         else
        {
@@ -1200,11 +1211,13 @@ TextView tvDiscount, tvBrochure;
     public void onNoData()
     {
     }
-    String fileUrl = "http://download.macromedia.com/pub/elearning/objects/mx_creating_lo.pdf";
+   // String fileUrl = "http://download.macromedia.com/pub/elearning/objects/mx_creating_lo.pdf";
+
+    String fileUrl;
     private void downloadFile()
     {
         FileDownloadTask downloadTask = new FileDownloadTask(this, brochureFile, genericDeal.id,
-                                                             fileUrl, tvBrochure);
+                                                             fileUrl, tvBrochure, ivDownload);
         downloadTask.execute();
     }
 

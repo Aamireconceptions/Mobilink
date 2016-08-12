@@ -64,6 +64,11 @@ public class GenericDeal implements Serializable{
     @SerializedName("gallery")
     public List<Gallery> galleryList;
 
+    public String document;
+
+    @SerializedName("documentLabel")
+    public String documentName;
+
     public boolean isHeader;
 
     public GenericDeal(boolean isHeader)

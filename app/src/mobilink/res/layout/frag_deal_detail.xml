@@ -11,9 +11,18 @@
     android:scrollbarStyle="insideOverlay"
     xmlns:android="http://schemas.android.com/apk/res/android">-->
 
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:fillViewport="true">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/_8sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -211,6 +220,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/call"
+                    android:textSize="12sp"
                     android:textAllCaps="true"
                     android:textColor="@color/white"/>
                 <TextView
@@ -221,6 +231,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="REPORT"
+                    android:textSize="12sp"
                     android:textColor="@color/white"/>
                 <TextView
                     android:id="@+id/tv_rate"
@@ -230,6 +241,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/rate"
+                    android:textSize="12sp"
                     android:textAllCaps="true"
                     android:textColor="@color/white"/>
                 <TextView
@@ -239,8 +251,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textSize="12sp"
                     android:textAllCaps="true"
-
                     android:textColor="@color/white"/>
             </TableRow>
         </TableLayout>
@@ -263,7 +275,7 @@
                 android:padding="@dimen/_20sdp"
                 android:orientation="vertical"
                 android:visibility="gone"
-                android:background="@color/grey">
+                android:background="@drawable/border_grey">
 
                 <TextView
                     android:id="@+id/discount_availed"
@@ -285,17 +297,7 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/discount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:gravity="center_horizontal"
-                android:text=""
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/red"/>
+
 
             <TextView
                 android:id="@+id/prices"
@@ -309,80 +311,99 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:textColor="@color/black"
-                />
+                android:drawableStart="@drawable/ic_discount"
+                android:drawablePadding="@dimen/_18sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:minHeight="@dimen/_50sdp"
+                android:gravity="center_vertical"
+                android:textColor="#787878"
+                android:background="@drawable/border_grey"/>
 
-            <RelativeLayout
-                android:id="@+id/voucher_layout"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/validity"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:minHeight="@dimen/_50sdp"
+                android:drawableStart="@drawable/ic_calander"
+                android:drawablePadding="@dimen/_18sdp"
+                android:gravity="center_vertical"
+                android:textColor="#787878"
+                android:background="@drawable/border_grey"/>
+
+            <TextView
+                android:id="@+id/how_this_work_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:minHeight="@dimen/_50sdp"
+                android:gravity="center_vertical"
+                android:text="@string/how_this_works"
+                android:drawableStart="@drawable/ic_how"
+                android:drawablePadding="@dimen/_18sdp"
+                android:textColor="#787878"
+                android:visibility="gone"
+                android:background="@drawable/border_grey"/>
+
+            <LinearLayout
+                android:id="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:background="@color/white"
+                android:orientation="vertical"
                 android:visibility="gone">
 
                 <TextView
-                    android:id="@+id/code_field_note"
+                    android:id="@+id/head_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/head_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/get_code"
-                    android:text="Please ask the Merchant to enter their code"
                     android:textSize="12sp"
-                    android:visibility="gone"/>
+                    android:textColor="@color/black"/>
 
-                <Button
-                    android:id="@+id/get_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Get Discount"
-                    android:textColor="@color/white"
-                    android:textAllCaps="true"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/btn_red_ripple"
-                    android:visibility="visible"/>
+            </LinearLayout>
 
-                <RelativeLayout
-                    android:id="@+id/merchant_code_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
 
-                    android:visibility="gone" >
-
-                    <EditText
-                        android:id="@+id/merchant_code_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_20sdp"
-                        android:paddingEnd="@dimen/_45sdp"
-                        android:singleLine="true"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:inputType="textPassword"
-                        android:textColor="@color/red"
-                        android:textStyle="bold"
-                        android:layout_centerHorizontal="true"
-                        android:maxLength="4"
-                        android:textCursorDrawable="@null"
-                        android:hint="@string/enter_merchant_code"
-                        android:background="@drawable/code_field"/>
-
-                    <ImageView
-                        android:id="@+id/verify_merchant_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_alignEnd="@+id/merchant_code_field"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/code_field_btn"/>
-
-                </RelativeLayout>
-
-            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/code_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:orientation="vertical"
+                android:visibility="gone">
+            <Button
+                android:id="@+id/get_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Get Discount"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:textSize="16sp"
+                android:background="@drawable/btn_red_ripple"
+                android:visibility="visible"/>
 
             <TextView
                 android:id="@+id/vouchers_claimed"
@@ -391,7 +412,9 @@
                 android:layout_marginTop="@dimen/_6sdp"
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tos_note"
@@ -402,58 +425,6 @@
                 android:text="@string/tos_note"
                 android:textSize="12sp"
                 android:visibility="gone"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingEnd="@dimen/_12sdp"
-            android:paddingTop="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_8sdp"
-            android:background="@color/grey"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/head_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red"
-                android:textSize="12sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/head_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:textSize="12sp"
-                android:textColor="@color/black"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_16sdp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gallery"
-                android:textSize="16sp"/>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/gallery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/business_border"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -463,44 +434,79 @@
             android:gravity="right|bottom"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/validity"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/gallery_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="8dp"
-                android:paddingBottom="5dp"
-                android:text="Validity"
-                android:textSize="12sp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="@drawable/border_grey">
 
-                android:textColor="@color/slight_grey"/>
+                <TextView
+                    android:id="@+id/gallery_items_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gallery"
+                    android:textAllCaps="true"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:textColor="#787878"/>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/gallery"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:layout_height="@dimen/_96sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/brochure_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:minHeight="@dimen/_50sdp"
+                android:background="@drawable/border_grey"
+                android:visibility="gone">
 
             <TextView
                 android:id="@+id/brochure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:paddingStart="8dp"
-                android:paddingBottom="5dp"
-                android:layout_gravity="start"
-                android:text="View brochure"
-                android:gravity="center"
-                android:drawablePadding="6dp"
-                android:textColor="@color/black"
-
-                android:drawableStart="@drawable/ic_rate"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/how_this_work_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="bottom"
-                android:padding="10dp"
-                android:background="@color/grey"
-                android:text="@string/how_this_works"
-                android:textColor="@color/black"
-                android:visibility="gone"/>
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/download"
+                android:layout_marginTop="2dp"
+
+                android:text="View brochure"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/_18sdp"
+                android:textColor="#787878"
+                android:drawableStart="@drawable/ic_pdf"
+                android:visibility="visible"/>
+
+                <ImageView
+                    android:id="@+id/download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_download"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -528,3 +534,5 @@
 
 
     </RelativeLayout>
+
+    </ScrollView>

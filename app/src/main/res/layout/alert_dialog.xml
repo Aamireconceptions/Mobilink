@@ -33,7 +33,7 @@
 
         <Button
             android:id="@+id/ok"
-            android:layout_width="@dimen/_180sdp"
+            android:layout_width="@dimen/_195sdp"
             android:layout_height="@dimen/_34sdp"
             android:layout_below="@+id/info"
             android:layout_marginTop="@dimen/_20sdp"

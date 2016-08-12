@@ -235,7 +235,7 @@ public class FBUtils
                     public void onCompleted(JSONArray jsonArray, GraphResponse graphResponse)
                     {
                         String placeId = null;
-                        if(jsonArray.length() > 0)
+                        if(jsonArray != null && jsonArray.length() > 0)
                         {
                             try
                             {

@@ -155,7 +155,6 @@ public class DiskCache
     {
         Bitmap bitmap = null;
 
-        Logger.print("Crash on Bitmap: "+key);
         String encryptedKey = CryptoUtils.encryptToMD5(key);
 
         Logger.print("getBitmapFromDiskCache encryptToMD5: " + encryptedKey);

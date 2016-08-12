@@ -107,7 +107,7 @@ public class NotificationUtils
 
         downloadBuilder = new NotificationCompat.Builder(context);
         downloadBuilder.setContentTitle(title);
-        downloadBuilder.setContentText(description);
+       // downloadBuilder.setContentText(description);
         downloadBuilder.setColor(context.getResources().getColor(R.color.red));
         downloadBuilder.setSmallIcon(smallIcon);
         downloadBuilder.setTicker(title);
@@ -122,6 +122,8 @@ public class NotificationUtils
     public void updateNotificationProgress(float progress, final int id)
     {
         downloadBuilder.setProgress(100, (int) progress, false);
+
+        downloadBuilder.setContentText(100 - (int) progress + "% remaining");
         downloadNotification = downloadBuilder.build();
         notificationManager.notify(id, downloadNotification);
 

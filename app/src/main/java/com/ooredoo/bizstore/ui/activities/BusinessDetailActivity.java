@@ -996,7 +996,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         {
             llGallery.setVisibility(View.VISIBLE);
 
-            GalleryStatePagerAdapter galleryAdapter = new GalleryStatePagerAdapter(getFragmentManager(), business.galleries);
+            GalleryStatePagerAdapter galleryAdapter = new GalleryStatePagerAdapter(getFragmentManager(),
+                    business.galleries, true);
 
             galleryPager = (ViewPager) header.findViewById(R.id.gallery_pager);
             galleryPager.setAdapter(galleryAdapter);

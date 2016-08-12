@@ -11,21 +11,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.Gallery;
 import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Babar on 04-Aug-16.
  */
 public class ImageViewerFragment extends Fragment
 {
-    public static ImageViewerFragment newInstance(GalleryStatePagerAdapter adapter, int pos)
+    public static ImageViewerFragment newInstance(List<Gallery> galleryList, int pos)
     {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("adapter", (Serializable) adapter);
+        bundle.putSerializable("gallery_list", (Serializable) galleryList);
         bundle.putInt("pos", pos);
 
         ImageViewerFragment fragment = new ImageViewerFragment();
@@ -49,13 +51,19 @@ public class ImageViewerFragment extends Fragment
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentUtils.removeFragment(getActivity(), ImageViewerFragment.this);
+
+                getFragmentManager().popBackStack();
+               // FragmentUtils.removeFragment(getActivity(), ImageViewerFragment.this);
             }
         });
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        viewPager.setAdapter((PagerAdapter) getArguments().getSerializable("adapter"));
+        List<Gallery> galleryList = (List<Gallery>) getArguments().getSerializable("gallery_list");
 
-        viewPager.setCurrentItem(getArguments().getInt("pos"));
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.view_pager);
+        GalleryStatePagerAdapter adapter = new GalleryStatePagerAdapter(getChildFragmentManager(),
+                galleryList, false);
+        viewPager.setAdapter(adapter);
+
+       viewPager.setCurrentItem(getArguments().getInt("pos"));
     }
 }
