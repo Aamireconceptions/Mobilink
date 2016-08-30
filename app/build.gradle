@@ -29,7 +29,7 @@ android {
         applicationId "com.ooredoo.bizstore"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 12
+        versionCode 13
         versionName "1.0"
 
     }
@@ -65,8 +65,9 @@ android {
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "4e8fc3ee285640c2ab08942dac59ae9a"]
         }
         mobilink {
+            compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
-            versionName = "1.0"
+            versionName = "2.0"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
             signingConfig signingConfigs.JazzDiscountBazar
 
@@ -114,5 +115,6 @@ dependencies {
     //mobilinkCompile(name:'facebook-android-sdk-4.14.0', ext:'aar')
 
    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    compile 'com.github.chrisbanes:PhotoView:1.3.0'
     //mobilinkCompile 'com.facebook.android:facebook-android-sdk:4.14.0@aar'
 }

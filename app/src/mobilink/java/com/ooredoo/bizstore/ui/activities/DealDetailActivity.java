@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
@@ -25,7 +24,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -60,8 +58,8 @@ import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.fragments.ImageViewerFragment;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
-import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.CryptoUtils;
@@ -70,14 +68,13 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FBUtils;
 import com.ooredoo.bizstore.utils.FileUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.IntentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import bolts.AppLinks;
@@ -88,7 +85,6 @@ import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.DIALER_PREFIX;
-import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
@@ -96,18 +92,16 @@ import static java.lang.String.valueOf;
 //import com.ooredoo.bizstore.utils.ScrollViewHelper;
 
 /**
- * @author Pehlaj Rai
- * @since 6/23/2015.
+ * @author Muhammad Babar
  */
+
 public class DealDetailActivity extends BaseActivity implements OnClickListener, LocationListener
 
 {
     public String category;
     static String packageName;
     public boolean showBanner = false;
-    public EditText etMerchantCode;
 
-    RelativeLayout rlMerchandCode;
 
     private String qticketUrl = "https://www.q-tickets.com/";
 
@@ -283,12 +277,6 @@ TextView tvBrochure;
         tvVoucherClaimed = (TextView) findViewById(R.id.vouchers_claimed);
 
 
-        rlMerchandCode = (RelativeLayout) findViewById(R.id.merchant_code_layout);
-
-
-
-
-
         packageName = getPackageName();
         if(genericDeal != null) {
 
@@ -353,11 +341,13 @@ TextView tvBrochure;
         super.setVisible(visible);
     }
 
+    TextView tvDistance;
     TextView tvTimeStamp, tvDiscountAvailed;
     LinearLayout llTimeStamp;
     private long minTimeMillis = 10 * 1000;
     private float distanceMeters = 0;
     LocationManager locationManager;
+     Dialog reportDialog;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
 
@@ -492,13 +482,13 @@ TextView tvBrochure;
                 }
             }
 
+            tvDistance = (TextView) findViewById(R.id.directions);
+
             if(deal.distance != 0)
             {
                 llDirections.setVisibility(View.VISIBLE);
 
-                TextView tvDistance = (TextView) findViewById(R.id.directions);
                 tvDistance.setText(String.format("%.1f", deal.distance) + " km");
-
             }
 
             if(deal.how_works != null && !deal.how_works.isEmpty())
@@ -534,81 +524,32 @@ TextView tvBrochure;
 
 
             TextView tvView = ((TextView) findViewById(R.id.tv_views));
-            final Dialog dialog = new Dialog(DealDetailActivity.this);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.report_dialog_box);
+            reportDialog = new Dialog(DealDetailActivity.this);
+            reportDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            reportDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            reportDialog.setContentView(R.layout.report_dialog_box);
           //  dialog.setTitle("Report Box");
 
-            radioGroup=(RadioGroup) dialog.findViewById(R.id.radioGroup);
-            someOther=(RadioButton) dialog.findViewById(R.id.someOther_radioButton);
+            radioGroup=(RadioGroup) reportDialog.findViewById(R.id.radioGroup);
+            someOther=(RadioButton) reportDialog.findViewById(R.id.someOther_radioButton);
             FontUtils.setFont(this, someOther);
-            other=(RadioButton)  dialog.findViewById(R.id.other_radioButton);
+            other=(RadioButton)  reportDialog.findViewById(R.id.other_radioButton);
             FontUtils.setFont(this, other);
-            reportBtn_dialogBox=(Button) dialog.findViewById(R.id.reportButton_report_dialog_box);
+            reportBtn_dialogBox=(Button) reportDialog.findViewById(R.id.reportButton_report_dialog_box);
             FontUtils.setFont(this, reportBtn_dialogBox);
-            titleReportBox=(TextView) dialog.findViewById(R.id.title_reportBox);
+            titleReportBox=(TextView) reportDialog.findViewById(R.id.title_reportBox);
             FontUtils.setFontWithStyle(this,titleReportBox,Typeface.BOLD);
-            enterReport=(EditText) dialog.findViewById(R.id.enterReport_editText);
+            enterReport=(EditText) reportDialog.findViewById(R.id.enterReport_editText);
 
-            tvView.setOnClickListener(new OnClickListener() {
+            ImageView ivViews = (ImageView)  findViewById(R.id.iv_views);
+            ivViews.setOnClickListener(this);
+            tvView.setOnClickListener(this);
+        /*    tvView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views+ " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
-                    // RadioGroup Check Listener.
-                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-                            if(checkedId==R.id.someOther_radioButton) {
-                                enterReport.setVisibility(View.GONE);
-                                reportMesage=(String) someOther.getText();
-                         //       Toast.makeText(DealDetailActivity.this,reportMesage, Toast.LENGTH_SHORT).show();
-                               reportEdittxt_Check=1;
-                            }
-                            else if(checkedId==R.id.other_radioButton) {
-                                enterReport.setVisibility(View.VISIBLE);
-                               reportMesage="";
-                               reportEdittxt_Check=2;
-                            }
-
-                        }
-                 }); // End RadioGroup Check Listener.
-
-
-                    reportBtn_dialogBox.setOnClickListener(new OnClickListener() {     // Report button on click listener.
-                        @Override
-                        public void onClick(View v) {
-
-
-                            if(reportEdittxt_Check==2) {
-                                reportMesage=enterReport.getText().toString();
-                                if (reportMesage.matches("")) {
-                                    Toast.makeText(getApplicationContext(), "Please type the report", Toast.LENGTH_SHORT).show();
-                                } else {
-                                //    Toast.makeText(getApplicationContext(), "Message is:" + reportMesage, Toast.LENGTH_SHORT).show();
-                                    new ReportAsyncTask(DealDetailActivity.this,reportMesage,genericDeal.businessId,genericDeal.id).execute();
-                                    dialog.dismiss();
-                                }
-                            }
-                            else if(reportEdittxt_Check==1 )  {
-                                  // Toast.makeText(getApplicationContext(), "Message is: without" + reportMesage, Toast.LENGTH_SHORT).show();
-                                    new ReportAsyncTask(DealDetailActivity.this,reportMesage,genericDeal.businessId,genericDeal.id).execute();
-                                    dialog.dismiss();
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), "Please Select the one option", Toast.LENGTH_SHORT).show();
-                            }
-
-                            enterReport.setText("");
-
-                        }
-                    });
-
-                    dialog.show();
 
                 }
-            });   // Report button onClick Listener End.
+            });   // Report button onClick Listener End.*/
 
           //  rlVoucher = (RelativeLayout) findViewById(R.id.voucher_layout);
 
@@ -622,14 +563,6 @@ TextView tvBrochure;
             Logger.print("businessId Deal,"+deal.businessId);
 
             final ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
-            ivBrandLogo.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
-                }
-            });
 
             String brandLogo = deal.businessLogo;
 
@@ -856,26 +789,7 @@ TextView tvBrochure;
                     startDirections();
                 }
             else
-                    if(viewId == R.id.verify_merchant_code)
-                    {
-                        String code = etMerchantCode.getText().toString().trim();
 
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
-                        if(!code.isEmpty())
-                        {
-                            VerifyMerchantCodeTask verifyMerchantCodeTask =
-                                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
-                            verifyMerchantCodeTask
-                                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                            String.valueOf(id), code, String.valueOf(mDeal.businessId));
-                        }
-                        else
-                        {
-                            Toast.makeText(this, R.string.error_empty_voucher, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else
                         if(viewId == R.id.how_this_work_note)
                         {
                             if(llHead.getVisibility()==View.GONE){
@@ -907,7 +821,7 @@ TextView tvBrochure;
                                 tvHeadDescription.setText(mDeal.terms_services);
                             }
         else
-                                if(viewId == R.id.brochure)
+                                if(viewId == R.id.brochure || viewId == R.id.download)
                                 {
                                     Object tag = tvBrochure.getTag();
 
@@ -933,19 +847,76 @@ TextView tvBrochure;
                                         downloadFile();
                                     }
                                 }
+        else
+                                    if(viewId == R.id.view_all)
+                                    {
+                                        FragmentUtils.addFragmentWithBackStack(this, android.R.id.content,
+                                                ImageViewerFragment.newInstance(this.galleryList, 0), "gallery");
+                                    }
+        else
+                                        if(viewId == R.id.iv_views || viewId == R.id.tv_views)
+                                        {
+                                            // Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views+ " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
+                                            // RadioGroup Check Listener.
+                                            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                                @Override
+                                                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                                                    if(checkedId==R.id.someOther_radioButton) {
+                                                        enterReport.setVisibility(View.GONE);
+                                                        reportMesage=(String) someOther.getText();
+                                                        //       Toast.makeText(DealDetailActivity.this,reportMesage, Toast.LENGTH_SHORT).show();
+                                                        reportEdittxt_Check=1;
+                                                    }
+                                                    else if(checkedId==R.id.other_radioButton) {
+                                                        enterReport.setVisibility(View.VISIBLE);
+                                                        reportMesage="";
+                                                        reportEdittxt_Check=2;
+                                                    }
+
+                                                }
+                                            }); // End RadioGroup Check Listener.
+
+
+                                            reportBtn_dialogBox.setOnClickListener(new OnClickListener() {     // Report button on click listener.
+                                                @Override
+                                                public void onClick(View v) {
+
+
+                                                    if(reportEdittxt_Check==2) {
+                                                        reportMesage=enterReport.getText().toString();
+                                                        if (reportMesage.matches("")) {
+                                                            Toast.makeText(getApplicationContext(), "Please enter text", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            //    Toast.makeText(getApplicationContext(), "Message is:" + reportMesage, Toast.LENGTH_SHORT).show();
+                                                            new ReportAsyncTask(DealDetailActivity.this,reportMesage,genericDeal.businessId,genericDeal.id).execute();
+                                                            reportDialog.dismiss();
+                                                        }
+                                                    }
+                                                    else if(reportEdittxt_Check==1 )  {
+                                                        // Toast.makeText(getApplicationContext(), "Message is: without" + reportMesage, Toast.LENGTH_SHORT).show();
+                                                        new ReportAsyncTask(DealDetailActivity.this,reportMesage,genericDeal.businessId,genericDeal.id).execute();
+                                                        reportDialog.dismiss();
+                                                    }
+                                                    else {
+                                                        Toast.makeText(getApplicationContext(), "Please Select the one option", Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                    enterReport.setText("");
+
+                                                }
+                                            });
+
+                                            reportDialog.show();
+
+                                        }
     }
 
     public void showCode(int voucherClaimed, int maxAllowed, boolean hide)
     {
-      String availedText = tvAvailedDeals.getText().toString();
-
-      if(!availedText.isEmpty()) {
-         int availed = Integer.parseInt(availedText) + 1;
-
-         tvAvailedDeals.setText(availed + " AVAILED");
-      }
-
         genericDeal.voucher_count = genericDeal.voucher_count + 1;
+
+        tvAvailedDeals.setText(genericDeal.voucher_count + " AVAILED");
 
         if(genericDeal.date != null && !genericDeal.date.isEmpty())
         {
@@ -956,10 +927,6 @@ TextView tvBrochure;
 
         if(hide)
         {
-
-            etMerchantCode.setText("");
-            rlMerchandCode.setVisibility(View.GONE);
-
             btGetCode.setVisibility(View.VISIBLE);
         }
 
@@ -1123,6 +1090,9 @@ TextView tvBrochure;
             TextView tvGalleryCount = (TextView) findViewById(R.id.gallery_items_count);
             tvGalleryCount.setText(genericDeal.galleryList.size() + " Photos");
 
+            TextView tvViewAll = (TextView) findViewById(R.id.view_all);
+            tvViewAll.setOnClickListener(this);
+
             LinearLayout llGallery = (LinearLayout) findViewById(R.id.gallery_layout);
             llGallery.setVisibility(View.VISIBLE);
 
@@ -1142,6 +1112,7 @@ TextView tvBrochure;
             findViewById(R.id.brochure_layout).setVisibility(View.VISIBLE);
 
             ivDownload = (ImageView) findViewById(R.id.download);
+            ivDownload.setOnClickListener(this);
 
             brochureFile = new File(cacheDir, CryptoUtils.encodeToBase64(fileUrl) + ".pdf");
 
@@ -1229,13 +1200,9 @@ TextView tvBrochure;
 
         if(requestCode == 303 && resultCode == RESULT_OK)
         {
-            etMerchantCode.setText(data.getStringExtra("code"));
-
             Logger.print("Code: "+data.getStringExtra("code"));
 
             btGetCode.setVisibility(View.GONE);
-
-            rlMerchandCode.setVisibility(View.VISIBLE);
         }
     }
 
@@ -1243,6 +1210,16 @@ TextView tvBrochure;
     @Override
     public void onLocationChanged(Location location) {
         userLocation = location;
+
+        float results[] = new float[3];
+
+        Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
+                mDeal.latitude, mDeal.longitude, results);
+        mDeal.distance = results[0] / 1000;
+
+        tvDistance.setText(String.format("%.1f", mDeal.distance) +  " km");
+
+        Logger.print("Distance: "+mDeal.distance);
     }
 
     @Override

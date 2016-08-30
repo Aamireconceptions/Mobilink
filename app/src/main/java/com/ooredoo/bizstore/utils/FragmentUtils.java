@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.DemoFragment;
 
 /**
@@ -70,6 +71,15 @@ public class FragmentUtils {
     {
         FragmentManager fragmentManager = activity.getFragmentManager();
         fragmentManager.popBackStack();
+    }
+
+    public static void replaceFragmentAllowStateLoseAnimation(Activity activity, int containerId, Fragment fragment, String tag) {
+        FragmentManager fragmentManager = activity.getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+        fragmentTransaction.replace(containerId, fragment, tag);
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
 

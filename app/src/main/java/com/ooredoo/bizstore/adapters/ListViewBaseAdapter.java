@@ -49,6 +49,7 @@ import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
+import com.ooredoo.bizstore.model.City;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;

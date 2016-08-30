@@ -18,16 +18,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:background="@drawable/bg_signup">
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:src="@drawable/jdb_logo"/>
 
         <TextView
             android:id="@+id/tv_app_version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-
+            android:layout_above="@+id/tv_copyrights"
             android:background="@android:color/transparent"
             android:gravity="center"
             android:textSize="12sp"
@@ -38,8 +45,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/tv_app_version"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_alignParentBottom="true"
+
+            android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center"
             android:text="@string/copyrights_text"
             android:textSize="12sp"/>

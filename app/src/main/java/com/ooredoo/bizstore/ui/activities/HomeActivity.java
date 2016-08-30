@@ -8,11 +8,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.SystemClock;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -39,9 +37,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
@@ -74,8 +69,8 @@ import com.ooredoo.bizstore.asynctasks.AccountDetailsTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CheckSubscriptionTask;
-import com.ooredoo.bizstore.asynctasks.FileDownloadTask;
 import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
+import com.ooredoo.bizstore.asynctasks.LocationUpdateTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
@@ -102,8 +97,6 @@ import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
-import com.ooredoo.bizstore.utils.FBUtils;
-import com.ooredoo.bizstore.utils.FileUtils;
 import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
@@ -117,7 +110,6 @@ import net.hockeyapp.android.Tracking;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.metrics.MetricsManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -214,7 +206,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.print("hash: " + FacebookSdk.getApplicationSignature(this));
+
+
 
         Logger.print("Base64:"+ CryptoUtils.encodeToBase64("142"));
 
@@ -819,9 +812,6 @@ public CoordinatorLayout coordinatorLayout;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        fbUtils = new FBUtils(this);
-        fbUtils.init();
-
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
         mMenu = menu;
@@ -856,7 +846,7 @@ public CoordinatorLayout coordinatorLayout;
         return ShareDialog.canShow(ShareLinkContent.class);
     }
 
-    FBUtils fbUtils;
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -1110,6 +1100,8 @@ LinearLayout llSearch;
 
         if(BuildConfig.FLAVOR.equals("mobilink"))
         {
+            LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
+           // locationUpdateTask.execute(lat,lng);
 
             NavigationMenuOnClickListener.clearCache(this);
 

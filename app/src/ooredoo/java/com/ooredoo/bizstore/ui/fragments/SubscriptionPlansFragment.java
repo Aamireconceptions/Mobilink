@@ -39,8 +39,8 @@ public class SubscriptionPlansFragment extends BaseFragment {
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
 
-        TextView tvFreeTrial = (TextView) parent.findViewById(R.id.free_trial);
-        tvFreeTrial.setText(Html.fromHtml(getString(R.string.free_trial)));
+        /*TextView tvFreeTrial = (TextView) parent.findViewById(R.id.free_trial);
+        tvFreeTrial.setText(Html.fromHtml(getString(R.string.free_trial)));*/
 
         FontUtils.setFontWithStyle(mainActivity, btnSubscribe, Typeface.BOLD);
 

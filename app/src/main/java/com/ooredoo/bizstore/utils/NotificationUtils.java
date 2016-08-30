@@ -7,6 +7,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.NotificationCompat;
@@ -38,13 +39,13 @@ public class NotificationUtils
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setTicker(desc)
-
                 .setContentText(desc);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.FLAVOR.equals("mobilink"))
         {
-           builder.setColor(context.getResources().getColor(R.color.red));
+            builder.setColor(context.getResources().getColor(R.color.red));
             builder.setSmallIcon(R.drawable.jazz_notification_icon);
+            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
         }
 
         if(bitmap != null)

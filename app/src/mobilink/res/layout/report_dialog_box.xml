@@ -14,8 +14,8 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/red"
         android:textStyle="bold"
-        android:text="Report Box"
-
+        android:text="Report"
+android:textAllCaps="true"
         android:textSize="19sp"
         android:visibility="visible"/>
 
@@ -47,7 +47,7 @@
         android:id="@+id/enterReport_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Short Report Here..."
+        android:hint="Enter short text here..."
         android:paddingTop="20dp"
         android:visibility="gone"
         android:layout_below="@+id/radioGroup"/>

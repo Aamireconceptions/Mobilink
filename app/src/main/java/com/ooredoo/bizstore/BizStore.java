@@ -106,6 +106,11 @@ public class BizStore extends com.activeandroid.app.Application {
 
         ActiveAndroid.initialize(this);
 
+        if(BuildConfig.DEBUG)
+        {
+            GoogleAnalytics.getInstance(this).setDryRun(true);
+        }
+
        // overrideDefaultFonts();
 
        /* setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler()

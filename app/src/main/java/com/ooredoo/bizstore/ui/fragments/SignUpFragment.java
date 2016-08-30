@@ -1,7 +1,11 @@
 package com.ooredoo.bizstore.ui.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -18,7 +22,10 @@ import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NetworkUtils;
+
+import java.util.List;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
@@ -38,12 +45,25 @@ public class SignUpFragment extends BaseFragment {
     boolean isSignin = false;
 
     public boolean login, checkForFOC = false;
+
     public SignUpFragment() {
         super();
         layoutResId = R.layout.fragment_sign_up;
     }
 
     public void init(View parent) {
+
+      /*  if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            SubscriptionManager subscriptionManager = SubscriptionManager.from(getActivity());
+
+           List<SubscriptionInfo> subscriptionInfos =  subscriptionManager.getActiveSubscriptionInfoList();
+
+            for(SubscriptionInfo subscriptionInfo : subscriptionInfos)
+            {
+                Logger.print("Carrier: "+subscriptionInfo.getCarrierName());
+            }
+        }*/
+
 
         if(BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink"))
         {

@@ -87,7 +87,7 @@
         android:padding="@dimen/_12sdp"
         android:text="@string/top_malls"
         android:typeface="serif"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:background="@drawable/heading_bg"
         android:visibility="visible"/>
 

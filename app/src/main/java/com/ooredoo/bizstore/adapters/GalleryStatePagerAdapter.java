@@ -21,7 +21,7 @@ public class GalleryStatePagerAdapter extends FragmentStatePagerAdapter implemen
 {
     private boolean clickable;
 
-    private static float PAGE_WIDTH = 0.38f;
+    private float PAGE_WIDTH = 0.38f;
     public List<Gallery> galleries = new ArrayList<>();
 
     public GalleryStatePagerAdapter(FragmentManager fm, List<Gallery> galleries, boolean clickable)

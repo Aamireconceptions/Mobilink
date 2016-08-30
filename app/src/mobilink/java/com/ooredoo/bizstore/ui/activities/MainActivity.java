@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.webkit.WebView;
 
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
@@ -30,9 +31,12 @@ public class MainActivity extends BaseActivity {
     }
 
     boolean isSplashShowing = true;
-
+    WebView webView;
     @Override
     public void init() {
+
+        webView = (WebView) findViewById(R.id.gif_view);
+        webView.loadUrl("file:///android_asset/gif.html");
         setupToolbar();
         showSplash();
     }
@@ -73,22 +77,27 @@ public class MainActivity extends BaseActivity {
                 });
 
             }
-        }, 2000);
+        }, 4000);
     }
 
     private void hideSplash()
     {
+
         boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
         if(check) {
             startActivity(HomeActivity.class);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
         else
         {
-            FragmentUtils.replaceFragmentAllowStateLose(this, R.id.fragment_container,
+            FragmentUtils.replaceFragmentAllowStateLoseAnimation(this, R.id.fragment_container,
                     new SubscriptionPlansFragment(), "subscription_plan_fragment");
 
             isSplashShowing = false;
         }
+
+        //webView.clearCache(true);
+
     }
 
     @Override
@@ -109,5 +118,12 @@ public class MainActivity extends BaseActivity {
         }
 
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        webView.destroy();
     }
 }

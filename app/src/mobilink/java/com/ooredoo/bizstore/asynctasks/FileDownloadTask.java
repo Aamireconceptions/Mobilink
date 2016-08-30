@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by Babar on 01-Aug-16.
@@ -140,7 +141,8 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
         try
         {
             Logger.print("Document URL:"+fileUrl);
-            URL url = new URL(fileUrl);
+            URL url = new URL(fileUrl.replaceAll(" ", "%20"));
+
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
 

@@ -12,7 +12,7 @@
         android:background="@drawable/heading_bg"
         android:padding="12dp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:text="Most Viewed"/>
 
     <HorizontalScrollView

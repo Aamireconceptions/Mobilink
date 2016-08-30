@@ -1,58 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/congrats_screen"
-    android:padding="@dimen/_20sdp">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:paddingStart="@dimen/_60sdp"
+        android:paddingEnd="@dimen/_60sdp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/congrats_bg">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/congrats_screen_icon"/>
+
 
         <TextView
             android:id="@+id/tv_congratz"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_below="@+id/icon"
             android:gravity="center"
 
-            android:text="@string/CONGRATULATIONS"
-            android:textColor="@color/red"
-            android:textSize="18sp"
+            android:text="CONGRATULATIONS!"
+            android:textColor="#F7C704"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_details"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_congratz"
-            android:padding="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_margin="@dimen/_18sdp"
             android:gravity="center"
-            android:textSize="12sp"
+            android:textSize="13sp"
+            android:textColor="@color/white"
             android:text="@string/TXT_DETAILS"/>
 
 
 
         <Button
             android:id="@+id/btn_next"
-            android:layout_width="225dp"
-            android:layout_height="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tv_details"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_42sdp"
-            android:background="@drawable/btn_red_ripple"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:text="@string/LETS_START"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"/>
-    </RelativeLayout>
-</RelativeLayout>
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:text="Let's Start >"
+            android:textColor="#F7C704" />
+   </LinearLayout>

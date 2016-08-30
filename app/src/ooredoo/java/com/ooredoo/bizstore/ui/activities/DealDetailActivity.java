@@ -42,6 +42,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.Gallery;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
@@ -133,6 +134,8 @@ public EditText etMerchantCode;
 
 
     ListViewBaseAdapter commonAdapter;
+    public List<Gallery> galleryList;
+
     public DealDetailActivity() {
         super();
         layoutResId = R.layout.deal_detail_activity;
