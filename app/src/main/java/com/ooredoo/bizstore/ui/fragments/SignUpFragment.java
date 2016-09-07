@@ -3,9 +3,7 @@ package com.ooredoo.bizstore.ui.fragments;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.telephony.SubscriptionInfo;
-import android.telephony.SubscriptionManager;
-import android.telephony.TelephonyManager;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;

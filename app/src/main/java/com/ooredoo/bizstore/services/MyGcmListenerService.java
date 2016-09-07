@@ -45,6 +45,11 @@ public class MyGcmListenerService extends GcmListenerService
 
             String desc = jsonObject.getString("description");
 
+            if(title.isEmpty())
+            {
+                return;
+            }
+
             String category = jsonObject.getString("category");
 
             List<Notification> notifications = new Select().from(Notification.class).execute();

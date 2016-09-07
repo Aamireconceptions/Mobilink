@@ -393,7 +393,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onLocationChanged() {
-        tvEmptyView.setText("");
+        if(tvEmptyView != null) {tvEmptyView.setText("");}
 
         //isRefreshed = true;
         loadTopDeals(null);

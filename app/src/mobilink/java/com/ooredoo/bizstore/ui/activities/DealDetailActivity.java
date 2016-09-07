@@ -503,7 +503,7 @@ TextView tvBrochure;
             {
                 TextView tvTermsServices = (TextView) findViewById(R.id.tos_note);
 
-                tvTermsServices.setVisibility(View.VISIBLE);
+                //tvTermsServices.setVisibility(View.VISIBLE);
                 tvTermsServices.setOnClickListener(this);
             }
 

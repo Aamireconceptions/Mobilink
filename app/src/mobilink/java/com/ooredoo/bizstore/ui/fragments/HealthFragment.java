@@ -403,7 +403,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onLocationChanged() {
-        tvEmptyView.setText("");
+        if(tvEmptyView != null){tvEmptyView.setText("");}
 
         //isRefreshed = true;
         fetchAndDisplayHealth(null);

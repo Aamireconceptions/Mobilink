@@ -117,7 +117,7 @@
             android:paddingTop="@dimen/_4sdp"
             android:text="@string/sort_by"
 
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
 
         <CheckBox
             android:id="@+id/cb_highest_discount"
@@ -447,7 +447,7 @@
                 android:textStyle="normal"
                 android:textAllCaps="false"
                 android:text="@string/sub_categories"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
             <!--<CheckBox
                 android:id="@+id/cb_top_deals"
