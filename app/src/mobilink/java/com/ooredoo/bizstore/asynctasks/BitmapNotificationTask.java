@@ -1,25 +1,22 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
-import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.NotificationUtils;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.Buffer;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -28,7 +25,6 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -37,117 +33,42 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 
 /**
- * @author  Babar
- * @since 18-Jun-15.
+ * Created by Babar on 31-Jul-15.
  */
-public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
+public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]>
 {
-    private ImageView imageView;
+    private Context context;
 
-    private ProgressBar progressBar;
+    private int id;
 
-    private RelativeLayout rlHeader;
-
-    public String imgUrl;
-
-    private BitmapProcessor bitmapProcessor = new BitmapProcessor();
-
-    private MemoryCache memoryCache = MemoryCache.getInstance();
-
-    private DiskCache diskCache = DiskCache.getInstance();
+    private String title, desc;
 
     private URL url;
 
-    //public static List<String> downloadingPool = new ArrayList<>();
+    private BitmapProcessor bitmapProcessor;
 
-    public static ConcurrentHashMap<String, String> downloadingPool = new ConcurrentHashMap<>();
-
-    public BitmapForceDownloadTask(ImageView imageView, ProgressBar progressBar, RelativeLayout rlHeader)
+    public BitmapNotificationTask(Context context, int id, String title, String desc)
     {
-        this.imageView = imageView;
+        this.context = context;
 
-        this.progressBar = progressBar;
+        this.id = id;
 
-        this.rlHeader = rlHeader;
+        this.title = title;
+
+        this.desc = desc;
+
+        bitmapProcessor = new BitmapProcessor();
     }
 
     @Override
-    protected void onPreExecute()
+    protected Bitmap[] doInBackground(String... params)
     {
-        super.onPreExecute();
-
-        showProgress(View.VISIBLE);
+        return downloadBitmap(params[0], params[1], params[2], params[3]);
     }
 
-    @Override
-    protected Bitmap doInBackground(String... params)
-    {
-        imgUrl = params[0];
-
-        Logger.print("doInBg: ->imgUrl: " + imgUrl);
-
-        return downloadBitmap(imgUrl, params[1], params[2]);
-    }
-
-    @Override
-    protected void onPostExecute(Bitmap bitmap)
-    {
-        super.onPostExecute(bitmap);
-
-        showProgress(View.GONE);
-
-        if(bitmap != null)
-        {
-            Logger.print("x3 Downloaded: " + imgUrl);
-
-            memoryCache.addBitmapToCache(imgUrl, bitmap);
-
-            if(imageView != null)
-            {
-                /*Palette palette = Palette.from(bitmap).generate();
-
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if(swatch != null)
-                {
-                    imageView.setImageBitmap(null);
-                    imageView.setBackgroundColor(swatch.getRgb());
-                }*/
-
-                imageView.setImageBitmap(bitmap);
-                imageView.setTag("loaded");
-
-                /*if(imageView.getId() == R.id.detail_img)
-                {
-                    Palette palette = Palette.from(bitmap).generate();
-
-                    if(palette != null)
-                    {
-                        Palette.Swatch swatch = palette.getLightMutedSwatch();
-                        if(swatch != null)
-                        {
-                            rlHeader.setBackgroundColor(swatch.getRgb());
-                        }
-                    }
-
-                    AnimatorUtils.expandAndFadeIn(imageView);
-                }*/
-            }
-        }
-    }
-
-
-    boolean writing = false;
     HttpsURLConnection connection = null;
-    public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
+    public Bitmap[] downloadBitmap(String imgUrl, String reqWidth, String reqHeight, String brandLogo)
     {
-         if(memoryCache.getBitmapFromCache(imgUrl) != null)
-            {
-                Logger.print("Already downloaded. Cancelling task");
-
-                return memoryCache.getBitmapFromCache(imgUrl);
-            }
-
-
 
 
         try {
@@ -197,7 +118,8 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 }
             };
 
-            Logger.print("Force Bitmap Url: " + imgUrl);
+            Logger.print("notification Bitmap Url: " + imgUrl);
+
             url = new URL(imgUrl);
 
             connection = (HttpsURLConnection) url.openConnection();
@@ -211,27 +133,33 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             connection.setDoInput(true);
             connection.connect();
 
-
-
+            Bitmap[] bitmaps = new Bitmap[2];;
 
             BufferedInputStream inputStream = openStream();
 
-           /* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
-            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*/
+            int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
+            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));
 
-            int width = Integer.parseInt(reqWidth);
+            bitmaps[0] = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
 
-            int height = Integer.parseInt(reqHeight);
+            url = new URL(brandLogo);
 
-            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);
+            connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
+            connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
+            connection.setConnectTimeout(CONNECTION_TIME_OUT);
+            connection.setReadTimeout(READ_TIME_OUT);
+            connection.setRequestMethod(METHOD);
+            connection.setDoInput(true);
+            connection.connect();
 
-            if(bitmap != null)
-            {
-                diskCache.addBitmapToDiskCache(imgUrl, bitmap);
-            }
+            inputStream = openStream();
 
-            return bitmap;
+            bitmaps[1] = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
 
+            return bitmaps;
         }
         catch (CertificateException e)
         {
@@ -250,10 +178,11 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             e.printStackTrace();
         } catch (ProtocolException e) {
             e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 
         return null;
@@ -264,11 +193,20 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         return new BufferedInputStream(connection.getInputStream());
     }
 
-    public void showProgress(int visible)
+    @Override
+    protected void onPostExecute(Bitmap... bitmap)
     {
-        if(progressBar != null)
+        super.onPostExecute(bitmap);
+
+        if(bitmap != null)
         {
-            progressBar.setVisibility(visible);
+            NotificationUtils.showNotification(context, title, desc, id, bitmap);
+        }
+        else
+        {
+            NotificationUtils.showNotification(context, title, desc, id, null);
+
+            Logger.print("Failed to download notification img");
         }
     }
 }

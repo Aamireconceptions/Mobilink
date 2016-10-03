@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.content.Context;
 import android.text.InputType;
 import android.widget.TextView;
 
@@ -24,8 +25,11 @@ public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
 
     TextView tvName;
 
-    public AccountDetailsTask(TextView tvName) {
+    Context context;
+
+    public AccountDetailsTask(TextView tvName, Context context) {
         super();
+        this.context = context;
         this.tvName = tvName;
     }
 

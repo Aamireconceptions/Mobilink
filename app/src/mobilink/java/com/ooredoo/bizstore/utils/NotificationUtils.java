@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.NotificationCompat;
@@ -32,26 +33,27 @@ public class NotificationUtils
         this.context = context;
     }
 
-    public static void showNotification(Context context, String title, String desc, int id, Bitmap bitmap)
+    public static void showNotification(Context context, String title, String desc, int id, Bitmap[] bitmap)
     {
         Notification.Builder builder =
                 new Notification.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                        .setLargeIcon(bitmap[1])
                 .setContentTitle(title)
                 .setTicker(desc)
                 .setContentText(desc);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.FLAVOR.equals("mobilink"))
         {
-            builder.setColor(context.getResources().getColor(R.color.red));
+            builder.setColor(Color.parseColor("#c21a24"));
             builder.setSmallIcon(R.drawable.jazz_notification_icon);
-            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
+            //builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
         }
 
-        if(bitmap != null)
+        if(bitmap[0] != null)
         {
             Notification.BigPictureStyle bigPictureStyle = new Notification.BigPictureStyle();
-            bigPictureStyle.bigPicture(bitmap);
+            bigPictureStyle.bigPicture(bitmap[0]);
             bigPictureStyle.setBigContentTitle(desc);
 
             builder.setStyle(bigPictureStyle);

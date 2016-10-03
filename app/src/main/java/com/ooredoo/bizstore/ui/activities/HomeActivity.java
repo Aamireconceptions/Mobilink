@@ -70,6 +70,7 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CheckSubscriptionTask;
 import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
+import com.ooredoo.bizstore.asynctasks.HttpsTest;
 import com.ooredoo.bizstore.asynctasks.LocationUpdateTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
@@ -203,11 +204,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private long time = 10 * 60 * 1000;
 
     public static TextView tvName;
+
+    public static Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        new HttpsTest(this).execute();
 
+        context = this;
 
         Logger.print("Base64:"+ CryptoUtils.encodeToBase64("142"));
 
@@ -254,7 +259,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         tvName = (TextView) findViewById(R.id.name);
 
-        new AccountDetailsTask(tvName).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
+        new AccountDetailsTask(tvName, this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
 
         BizStore.forceStopTasks = false;
 

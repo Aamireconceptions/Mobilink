@@ -1,13 +1,9 @@
 package com.ooredoo.bizstore.services;
 
-import android.app.Service;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.IBinder;
 
 import com.activeandroid.query.Select;
 import com.google.android.gms.gcm.GcmListenerService;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapNotificationTask;
 import com.ooredoo.bizstore.model.Notification;
@@ -62,7 +58,7 @@ public class MyGcmListenerService extends GcmListenerService
                     Logger.print("GCM my preference: " + notification.category);
 
                     if (category.contains(notification.category)) {
-                        String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
+                        String imgUrl = BaseAsyncTask.SERVER_URL + jsonObject.getString("url");
 
                         String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
 
@@ -81,7 +77,7 @@ public class MyGcmListenerService extends GcmListenerService
 
             if(notifications.size() < 1)
             {
-                String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + jsonObject.getString("url");
+                String imgUrl = BaseAsyncTask.SERVER_URL + jsonObject.getString("url");
 
                 String reqWidth = String.valueOf((int) Converter.convertDpToPixels(350));
 
@@ -99,6 +95,4 @@ public class MyGcmListenerService extends GcmListenerService
             e.printStackTrace();
         }
     }
-
-
 }

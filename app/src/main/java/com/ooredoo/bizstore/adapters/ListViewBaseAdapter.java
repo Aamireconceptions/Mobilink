@@ -49,7 +49,6 @@ import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
-import com.ooredoo.bizstore.model.City;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
@@ -834,7 +833,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 });*/
 
                 googleMap.clear();
-                populateMap(deals);
+                //populateMap(deals);
 return null;
                 //return mapLayout;
 
@@ -853,7 +852,7 @@ return null;
         this.mapLayout = mapLayout;
     }
 
-    private void populateMap(List<GenericDeal> deals)
+  /*  private void populateMap(List<GenericDeal> deals)
     {
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for(final GenericDeal deal : deals)
@@ -910,7 +909,7 @@ return null;
             googleMap.animateCamera(cameraUpdate);
         }
 
-    }
+    }*/
     private void addMarker(Bitmap bitmap, GenericDeal deal)
     {
         linearLayout.setDrawingCacheEnabled(true);
@@ -982,16 +981,16 @@ return null;
         this.genericDealHashMap = genericDealHashMap;
     }
 
-    public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
+    /*public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
     {
         try
         {
             if(memoryCache.getBitmapFromCache(imgUrl) != null)
             {
                 return memoryCache.getBitmapFromCache(imgUrl);
-                /*Logger.print("Already downloaded. Cancelling task");
+                *//*Logger.print("Already downloaded. Cancelling task");
 
-                cancel(true);*/
+                cancel(true);*//*
             }
 
             Bitmap b = diskCache.getBitmapFromDiskCache(imgUrl);
@@ -1012,14 +1011,15 @@ return null;
 
             InputStream inputStream = url.openStream();
 
-           /* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
-            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*/
+           *//* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
+            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*//*
 
             int width = Integer.parseInt(reqWidth);
 
             int height = Integer.parseInt(reqHeight);
 
-            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url, width, height);
+            Bitmap bitmap = bitmapProcessor.decodeSampledBitmapFromStream(inputStream, url,
+                    width, height, connection);
 
             if(bitmap != null)
             {
@@ -1039,7 +1039,7 @@ return null;
         }
 
         return null;
-    }
+    }*/
 
 
     MapView mapView;

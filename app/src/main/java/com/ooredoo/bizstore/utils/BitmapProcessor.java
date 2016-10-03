@@ -12,10 +12,13 @@ import android.media.ExifInterface;
 
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 
+import java.io.BufferedInputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * @author  Babar
@@ -23,7 +26,7 @@ import java.net.URL;
  */
 public class BitmapProcessor
 {
-    public Bitmap decodeSampledBitmapFromStream(InputStream inputStream, URL url,
+    public Bitmap decodeSampledBitmapFromStream(BufferedInputStream inputStream, URL url,
                                                 int reqWidth, int reqHeight) throws IOException {
         Bitmap bitmap;
 
@@ -46,8 +49,7 @@ public class BitmapProcessor
         options.inJustDecodeBounds = false;
         options.inSampleSize = sampleSize;
 
-
-        inputStream = url.openStream();
+        inputStream.reset();
 
         bitmap = BitmapFactory.decodeStream(inputStream, null, options);
 

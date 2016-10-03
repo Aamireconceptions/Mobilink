@@ -1,12 +1,15 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
+import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.BufferedReader;
@@ -17,8 +20,22 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManagerFactory;
 
 /**
  * @author Babar
@@ -35,10 +52,10 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     protected final static String QUESTION_MARK = "?";
 
     public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "http://ooredoo.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
+    ? "https://ooredoo.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("dealionare")
     ? "http://dealionare.bizstore.com.pk/" :
-            BuildConfig.FLAVOR.equals("mobilink") ? "http://188.138.33.11/jdb/"
+            BuildConfig.FLAVOR.equals("mobilink") ? "https://188.138.33.11/jdb/"
             : "http://ufone.bizstore.com.pk/";
 
     /*public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
@@ -47,11 +64,17 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
             ? "http://dealionare.bizstore.com.pk/" : "http://jazz.bizstore.com.pk/";*/
 
     public static String BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "http://ooredoo.bizstore.com.pk/index.php/api/"
+    ? "https://ooredoo.bizstore.com.pk/index.php/api/"
             : BuildConfig.FLAVOR.equals("telenor") ? "http://telenor.bizstore.com.pk/index.php/api/"
             : BuildConfig.FLAVOR.equals("dealionare") ? "http://dealionare.bizstore.com.pk/index.php/api/" :
-            BuildConfig.FLAVOR.equals("mobilink") ? "http://188.138.33.11/jdb/index.php/api/"
+            BuildConfig.FLAVOR.equals("mobilink") ? "https://188.138.33.11/jdb/index.php/api/"
             : "http://ufone.bizstore.com.pk/index.php/api/";
+
+    public final static String IMAGE_BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
+            ? "https://ooredoo.bizstore.com.pk" : BuildConfig.FLAVOR.equals("telenor")
+            ? "http://telenor.bizstore.com.pk" : BuildConfig.FLAVOR.equals("dealionare")
+            ? "http://dealionare.bizstore.com.pk" : BuildConfig.FLAVOR.equals("mobilink")
+            ? "https://188.138.33.11" : "http://ufone.bizstore.com.pk";
 
     /*public static String BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
             ? "http://ooredoostage.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
@@ -89,12 +112,6 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     public final static String HTTP_X_USERNAME = "HTTP_X_USERNAME";
 
     public final static String HTTP_X_PASSWORD = "HTTP_X_PASSWORD";
-
-    public final static String IMAGE_BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "http://ooredoo.bizstore.com.pk" : BuildConfig.FLAVOR.equals("telenor")
-            ? "http://telenor.bizstore.com.pk" : BuildConfig.FLAVOR.equals("dealionare")
-    ? "http://dealionare.bizstore.com.pk" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "http://188.138.33.11" : "http://ufone.bizstore.com.pk";
 
     protected Dialog dialog;
 
@@ -185,20 +202,86 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         }
     }
 
-    public HttpURLConnection openConnectionAndConnect(URL url) throws IOException
-    {
-        String credentials = BizStore.username + ":" + BizStore.password;
+    public HttpURLConnection openConnectionAndConnect(URL url) throws IOException{
+        /*String credentials = BizStore.username + ":" + BizStore.password;
 
-       // String basicAuth = "Basic " + new String(Base64.encode(credentials.getBytes(), Base64.DEFAULT));
+        String basicAuth = "Basic " + new String(Base64.encode(credentials.getBytes(), Base64.DEFAULT));*/
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
-        connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
-        connection.setConnectTimeout(CONNECTION_TIME_OUT);
-        connection.setReadTimeout(READ_TIME_OUT);
-        connection.setRequestMethod(METHOD);
-        connection.setDoInput(true);
-        connection.connect();
+        HttpsURLConnection connection = null;
+
+        try {
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+            InputStream is = HomeActivity.context.getResources().openRawResource(R.raw.cert);
+            Certificate ca;
+            try
+            {
+                ca = cf.generateCertificate(is);
+
+                Logger.print("ca = " + ((X509Certificate) ca).getSubjectDN());
+            }
+            finally
+            {
+                is.close();
+            }
+
+            String keystoreType = KeyStore.getDefaultType();
+            KeyStore keyStore = KeyStore.getInstance(keystoreType);
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry("ca", ca);
+
+            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+            // Initialise the TMF as you normally would, for example:
+            tmf.init(keyStore);
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, tmf.getTrustManagers(), null);
+
+            HostnameVerifier hostnameVerifier = new HostnameVerifier()
+            {
+                @Override
+                public boolean verify(String hostName, SSLSession sslSession)
+                {
+                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                    Logger.print("Https Hostname: "+hostName);
+
+                    return hv.verify(s, sslSession);*/
+
+                    return true;
+                }
+            };
+
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);
+            connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
+            connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
+            connection.setConnectTimeout(CONNECTION_TIME_OUT);
+            connection.setReadTimeout(READ_TIME_OUT);
+            connection.setRequestMethod(METHOD);
+            connection.setDoInput(true);
+            connection.connect();
+        }
+        catch (CertificateException e)
+        {
+            e.printStackTrace();
+        }
+        catch (KeyStoreException e)
+        {
+            e.printStackTrace();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        catch (KeyManagementException e)
+        {
+            e.printStackTrace();
+        }
+
+
+
 
         return connection;
     }

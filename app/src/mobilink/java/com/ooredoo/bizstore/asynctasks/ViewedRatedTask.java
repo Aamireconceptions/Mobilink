@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.DODResponse;
@@ -23,9 +24,24 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManagerFactory;
+
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.*;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.checkIfUpdateData;
@@ -127,50 +143,114 @@ public class ViewedRatedTask extends AsyncTask<String, Void, String>
     }
 
     private String getViewedRated() throws IOException {
-        HashMap<String, String> params = new HashMap<>();
-        params.put(BaseAsyncTask.OS, BaseAsyncTask.ANDROID);
-        params.put("lat", ""+HomeActivity.lat);
-        params.put("lng", ""+HomeActivity.lng);
-        params.put("nearby", "true");
+        HttpsURLConnection connection = null;
 
-        String query = createQuery(params);
-
-        URL url = new URL(BaseAsyncTask.BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
-
-        Logger.print("ViewednRated URL: "+url);
-
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty(BaseAsyncTask.HTTP_X_USERNAME, BizStore.username);
-        connection.setRequestProperty(BaseAsyncTask.HTTP_X_PASSWORD, BizStore.password);
-        connection.setConnectTimeout(BaseAsyncTask.CONNECTION_TIME_OUT);
-        connection.setReadTimeout(BaseAsyncTask.READ_TIME_OUT);
-        connection.setRequestMethod(BaseAsyncTask.METHOD);
-        connection.setDoInput(true);
-        connection.connect();
-
-        InputStream is = connection.getInputStream();
-
-        BufferedReader reader = null;
         try {
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            reader = new BufferedReader(new InputStreamReader(is, BaseAsyncTask.ENCODING));
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-
-            return stringBuilder.toString();
-        }
-        finally {
-            if(reader != null)
+            InputStream isCert = HomeActivity.context.getResources().openRawResource(R.raw.cert);
+            Certificate ca;
+            try
             {
-                reader.close();
+                ca = cf.generateCertificate(isCert);
+
+                Logger.print("ca = " + ((X509Certificate) ca).getSubjectDN());
+            }
+            finally
+            {
+                isCert.close();
+            }
+
+            String keystoreType = KeyStore.getDefaultType();
+            KeyStore keyStore = KeyStore.getInstance(keystoreType);
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry("ca", ca);
+
+            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+            // Initialise the TMF as you normally would, for example:
+            tmf.init(keyStore);
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, tmf.getTrustManagers(), null);
+
+            HostnameVerifier hostnameVerifier = new HostnameVerifier()
+            {
+                @Override
+                public boolean verify(String hostName, SSLSession sslSession)
+                {
+                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                    Logger.print("Https Hostname: "+hostName);
+
+                    return hv.verify(s, sslSession);*/
+
+                    return true;
+                }
+            };
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put(OS, ANDROID);
+            params.put("lat", ""+HomeActivity.lat);
+            params.put("lng", "" + HomeActivity.lng);
+            params.put("nearby", "true");
+
+            String query = createQuery(params);
+
+            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
+
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);
+            connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
+            connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
+            connection.setConnectTimeout(CONNECTION_TIME_OUT);
+            connection.setReadTimeout(READ_TIME_OUT);
+            connection.setRequestMethod(METHOD);
+            connection.setDoInput(true);
+            connection.connect();
+
+            InputStream is = connection.getInputStream();
+
+            BufferedReader reader = null;
+            try {
+
+                reader = new BufferedReader(new InputStreamReader(is, ENCODING));
+
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+
+                return stringBuilder.toString();
+            }
+            finally {
+                if(reader != null)
+                {
+                    reader.close();
+                }
             }
         }
+        catch (CertificateException e)
+        {
+            e.printStackTrace();
+        }
+        catch (KeyStoreException e)
+        {
+            e.printStackTrace();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        catch (KeyManagementException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private String createQuery(HashMap<String, String> params) throws UnsupportedEncodingException
@@ -192,7 +272,7 @@ public class ViewedRatedTask extends AsyncTask<String, Void, String>
 
             stringBuilder.append(entry.getKey());
             stringBuilder.append("=");
-            stringBuilder.append(URLEncoder.encode(entry.getValue(), BaseAsyncTask.ENCODING));
+            stringBuilder.append(URLEncoder.encode(entry.getValue(), ENCODING));
         }
 
         return stringBuilder.toString();
