@@ -74,7 +74,7 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
         try {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            InputStream is = HomeActivity.context.getResources().openRawResource(R.raw.cert);
+            InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
             Certificate ca;
             try
             {

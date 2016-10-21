@@ -21,4 +21,7 @@ public class Response
     public String password;
 
     public String desc;
+
+    @SerializedName("token")
+    public String apiToken;
 }

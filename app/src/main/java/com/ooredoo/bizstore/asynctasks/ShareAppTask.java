@@ -10,6 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Response;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
@@ -105,8 +106,8 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(MSISDN_TO, phoneNum);
-        params.put(MSISDN_FROM, username == null ? "3331234567" : username); //TODO remove temp number i.e 3331234567
+        params.put(MSISDN_TO, CryptoUtils.encodeToBase64(phoneNum));
+        params.put(MSISDN_FROM, CryptoUtils.encodeToBase64(username)); //TODO remove temp number i.e 3331234567
         //params.put(MESSAGE, msg); //MESSAGE IS STORED ON SERVER
 
         String query = createQuery(params);

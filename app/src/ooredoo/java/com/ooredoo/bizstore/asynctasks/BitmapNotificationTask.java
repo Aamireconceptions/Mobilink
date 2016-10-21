@@ -8,6 +8,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NotificationUtils;
 
@@ -72,7 +73,7 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap>
         try {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            InputStream is = HomeActivity.context.getResources().openRawResource(R.raw.cert);
+            InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
             Certificate ca;
             try
             {
@@ -123,8 +124,9 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap>
             connection = (HttpsURLConnection) url.openConnection();
             connection.setSSLSocketFactory(sslContext.getSocketFactory());
             connection.setHostnameVerifier(hostnameVerifier);
-            connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
-            connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
+            connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
+            connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
+
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
             connection.setReadTimeout(READ_TIME_OUT);
             connection.setRequestMethod(METHOD);

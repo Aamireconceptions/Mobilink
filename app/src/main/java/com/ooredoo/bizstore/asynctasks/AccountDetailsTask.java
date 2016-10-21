@@ -83,7 +83,6 @@ public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put("msisdn", msisdn);
 
         String query = createQuery(params);
 

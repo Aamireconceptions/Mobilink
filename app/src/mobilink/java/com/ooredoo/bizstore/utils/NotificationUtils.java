@@ -45,7 +45,7 @@ public class NotificationUtils
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.FLAVOR.equals("mobilink"))
         {
-            builder.setColor(Color.parseColor("#c21a24"));
+            builder.setColor(Color.parseColor("#a6a6a6"));
             builder.setSmallIcon(R.drawable.jazz_notification_icon);
             //builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
         }

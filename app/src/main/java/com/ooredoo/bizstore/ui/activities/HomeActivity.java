@@ -205,22 +205,21 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public static TextView tvName;
 
-    public static Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        new HttpsTest(this).execute();
-
-        context = this;
-
-        Logger.print("Base64:"+ CryptoUtils.encodeToBase64("142"));
+/*CryptoUtils.encryptToAES("Hello World");
+        CryptoUtils.decryptAES(CryptoUtils.encryptToAES("Hello World"));
+        Logger.print("Base64:"+ CryptoUtils.encodeToBase64("142"));*/
 
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
+        String secret = SharedPrefUtils.getStringVal(this, "secret");
 
         HomeActivity.lat = SharedPrefUtils.getFloatValue(this, "lat");
         HomeActivity.lng = SharedPrefUtils.getFloatValue(this, "lng");
+
+
 
         if(!username.equals(SharedPrefUtils.EMPTY)) {
             BizStore.username = username;
@@ -229,6 +228,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(!password.equals(SharedPrefUtils.EMPTY)) {
             BizStore.password = password;
         }
+
+        BizStore.secret = secret;
+
+        Logger.print("*"+secret);
+        Logger.print("*"+CryptoUtils.encodeToBase64(secret));
+        Logger.print("*"+CryptoUtils.decodeBase64(CryptoUtils.encodeToBase64(BizStore.username)));
 
         PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
 
@@ -265,7 +270,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         checkIfGpsEnabled();
 
-        if(!BuildConfig.FLAVOR.equals("dealionare") &&!BuildConfig.DEBUG) {
+        if(!BuildConfig.FLAVOR.equals("dealionare") && !BuildConfig.DEBUG) {
           startSubscriptionCheck();
         }
 
@@ -311,7 +316,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         bizStore.overrideDefaultFonts();
     }
 
-    LocationManager locationManager;
+ LocationManager locationManager;
 
     int minTimeMillis = 5 * (60 * 1 * 1000);
     int distanceMeters = 50;
@@ -473,6 +478,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onResume() {
         super.onResume();
+lat = 33.6975777; lng = 73.0496045;
+        LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
+        locationUpdateTask.execute(lat, lng);
 
         if(BuildConfig.DEBUG) {
             checkForCrashes();
@@ -1106,7 +1114,7 @@ LinearLayout llSearch;
         if(BuildConfig.FLAVOR.equals("mobilink"))
         {
             LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
-           // locationUpdateTask.execute(lat,lng);
+            locationUpdateTask.execute(lat,lng);
 
             NavigationMenuOnClickListener.clearCache(this);
 
@@ -1121,7 +1129,6 @@ LinearLayout llSearch;
                 }
             }
         }
-
     }
 
     @Override
@@ -1515,7 +1522,6 @@ LinearLayout llSearch;
             searchPopup.dismiss();
 
         memoryCache.tearDown();
-
 
         diskCache.requestClose();
 

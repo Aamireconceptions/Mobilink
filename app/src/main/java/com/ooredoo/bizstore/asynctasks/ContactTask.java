@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -23,6 +24,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.*;
 
 /**
  * Created by Babar on 15-Dec-15.
@@ -103,7 +106,7 @@ public class ContactTask extends AsyncTask<String, Void, String>
         String result;
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(BaseAsyncTask.OS, BaseAsyncTask.ANDROID);
+        params.put(OS, ANDROID);
         params.put("feedback", message);
 
         String query;
@@ -130,13 +133,13 @@ public class ContactTask extends AsyncTask<String, Void, String>
 
         query = stringBuilder.toString();
 
-        URL url = new URL(BaseAsyncTask.BASE_URL +BizStore.getLanguage() + SERVICE_NAME + query);
+        URL url = new URL(BASE_URL +BizStore.getLanguage() + SERVICE_NAME + query);
 
         Logger.print("ContactUs URL:"+url);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty(BaseAsyncTask.HTTP_X_USERNAME, BizStore.username);
-        connection.setRequestProperty(BaseAsyncTask.HTTP_X_PASSWORD, BizStore.password);
+        connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
+        connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
         connection.connect();
 
         InputStream is = connection.getInputStream();

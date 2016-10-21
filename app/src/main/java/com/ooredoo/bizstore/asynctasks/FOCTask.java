@@ -15,7 +15,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Subscription;
-import com.ooredoo.bizstore.ui.activities.AlreadyAvailedActivity;
+
 import com.ooredoo.bizstore.ui.fragments.SignUpFragment;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -132,8 +132,6 @@ public class FOCTask extends BaseAsyncTask<String, Void, String> {
 
         HashMap<String, String> params = new HashMap<>();
        params.put(OS, ANDROID);
-        params.put("msisdn", msisdn);
-       // params.put("password", "A33w3zH2OsCMD");
 
         String query = createQuery(params);
 

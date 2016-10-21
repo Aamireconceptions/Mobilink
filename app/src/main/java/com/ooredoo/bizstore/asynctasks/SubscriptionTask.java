@@ -15,6 +15,7 @@ import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -26,7 +27,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
     private SignUpFragment signUpFragment;
 
-    private String SERVICE_NAME = BuildConfig.FLAVOR.equals("mobilink") ? "/signup?" :"/signup?";
+    private String SERVICE_NAME = "/signup?";
 
     public SubscriptionTask(SignUpFragment signUpFragment) {
         this.signUpFragment = signUpFragment;
@@ -111,8 +112,6 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put("msisdn", msisdn);
-       // params.put("password", "A33w3zH2OsCMD");
 
         String query = createQuery(params);
 
@@ -128,5 +127,4 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
         return result;
     }
-
 }

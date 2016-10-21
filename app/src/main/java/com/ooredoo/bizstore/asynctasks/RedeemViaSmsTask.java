@@ -24,6 +24,7 @@ import java.util.HashMap;
 /**
  * Created by Babar on 25-Jun-15.
  */
+@Deprecated
 public class RedeemViaSmsTask extends BaseAsyncTask<String, Void, String>
 {
     private DealDetailActivity detailActivity;

@@ -14,6 +14,7 @@ import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.model.DODResponse;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.BufferedReader;
@@ -148,7 +149,7 @@ public class ViewedRatedTask extends AsyncTask<String, Void, String>
         try {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            InputStream isCert = HomeActivity.context.getResources().openRawResource(R.raw.cert);
+            InputStream isCert = BizStore.context.getResources().openRawResource(R.raw.cert);
             Certificate ca;
             try
             {
@@ -201,8 +202,8 @@ public class ViewedRatedTask extends AsyncTask<String, Void, String>
             connection = (HttpsURLConnection) url.openConnection();
             connection.setSSLSocketFactory(sslContext.getSocketFactory());
             connection.setHostnameVerifier(hostnameVerifier);
-            connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
-            connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
+            connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
+            connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
             connection.setReadTimeout(READ_TIME_OUT);
             connection.setRequestMethod(METHOD);

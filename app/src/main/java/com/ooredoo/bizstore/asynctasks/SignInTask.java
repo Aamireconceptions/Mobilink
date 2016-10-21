@@ -125,7 +125,6 @@ public class SignInTask extends BaseAsyncTask<String, Void, String> {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("msisdn", msisdn);
         params.put(OS, ANDROID);
 
         String query = createQuery(params);

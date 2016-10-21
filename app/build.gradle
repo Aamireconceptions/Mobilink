@@ -1,15 +1,27 @@
 apply plugin: 'com.android.application'
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file('keystore.properties')
 
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
 
     signingConfigs {
         OoredooBizstore {
-            keyAlias 'ooredoobizstore'
+           /* keyAlias 'ooredoobizstore'
             keyPassword 'ooredoobizstore'
             storeFile file('D:/Apk & Keystore/Oreedoo Bizstore/oreedoobizstore.keystore.jks')
-            storePassword 'ooredoobizstore'
+            storePassword 'ooredoobizstore'*/
+            keyAlias keystoreProperties['ooredooKeyAlias']
+            keyPassword keystoreProperties['ooredooKeyPassword']
+            storeFile file(keystoreProperties['ooredooStoreFile'])
+            storePassword keystoreProperties['ooredooStorePassword']
         }
         TelenorBizstore {
             keyAlias 'telenorbizstore'
@@ -18,10 +30,10 @@ android {
             storePassword 'telenorbizstore'
         }
         JazzDiscountBazar {
-            keyAlias 'jazzdiscountbazar'
-            keyPassword 'jazzdiscountbazar'
-            storeFile file('D:/Apk & Keystore/Jazz Discount Bazar/jazzdiscountbazar.jks')
-            storePassword 'jazzdiscountbazar'
+            keyAlias keystoreProperties['mobilinkKeyAlias']
+            keyPassword keystoreProperties['mobilinkKeyPassword']
+            storeFile file(keystoreProperties['mobilinkStoreFile'])
+            storePassword keystoreProperties['mobilinkStorePassword']
         }
     }
     compileSdkVersion 21
@@ -36,13 +48,22 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+        debug{
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     lintOptions{
-        checkReleaseBuilds false
+        //checkReleaseBuilds false
+        disable 'MissingTranslation'
+        disable 'ExtraTranslation'
 
     }
     productFlavors {
@@ -71,7 +92,6 @@ android {
             versionName = "2.0.1"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
             signingConfig signingConfigs.JazzDiscountBazar
-
         }
         ufone{
             applicationId "com.ufone.bizstore"

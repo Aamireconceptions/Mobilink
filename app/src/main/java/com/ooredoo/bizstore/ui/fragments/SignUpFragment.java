@@ -19,6 +19,7 @@ import com.ooredoo.bizstore.asynctasks.SignInTask;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.NetworkUtils;
@@ -62,10 +63,11 @@ public class SignUpFragment extends BaseFragment {
             }
         }*/
 
+        BizStore.secret = CryptoUtils.key;
 
         if(BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink"))
         {
-            checkForFOC = true;
+            //checkForFOC = true;
         }
 
         MainActivity.hideToolbar = false;
@@ -180,24 +182,27 @@ public class SignUpFragment extends BaseFragment {
 
     public void processSubscription(Subscription subscription) {
         String errMsg = "Error";
-        if(subscription != null) {
-            if(subscription.resultCode != -1) {
-
+        if(subscription != null)
+        {
+            if(subscription.resultCode != -1)
+            {
                // BizStore.password = subscription.password;
 
                 showVerificationCodeDialog(mActivity);
 
                // DialogUtils.etCode.setText(subscription.password);
-
-
-            } else {
+            }
+            else
+            {
                 errMsg = subscription.desc;
             }
-        } else {
+        }
+        else {
             errMsg = getString(R.string.error_server_down);
         }
 
-        if(!errMsg.equals("Error")) {
+        if(!errMsg.equals("Error"))
+        {
 
             if(errMsg.equals("-1"))
             {

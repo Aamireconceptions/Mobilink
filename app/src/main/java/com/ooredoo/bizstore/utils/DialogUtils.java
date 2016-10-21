@@ -214,8 +214,8 @@ public class DialogUtils {
         {
             BizStore.password = code;
         }
-
-        if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN && code.equals(password)) {
+//&& code.equals(password
+        if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN ) {
 
            /* SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
             sharedPrefUtils.updateVal(activity, "username", BizStore.username);
@@ -227,11 +227,6 @@ public class DialogUtils {
                 loginTask = new LoginTask(activity);
                 loginTask.execute();
             }
-                    /*dialog.dismiss();
-                    BaseFragment.hideKeyboard(activity);
-                    activity.getWindow().setSoftInputMode(SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                    AppCompatActivity compatActivity = (AppCompatActivity) activity;
-                    replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");*/
         } else {
             Snackbar.make(etCode, activity.getString(R.string.error_invalid_verification_code), Snackbar.LENGTH_SHORT).show();
         }

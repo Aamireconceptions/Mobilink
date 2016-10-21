@@ -1,5 +1,7 @@
 package com.ooredoo.bizstore;
 
+import android.content.Context;
+
 import com.activeandroid.ActiveAndroid;
 
 import com.facebook.AccessToken;
@@ -10,6 +12,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.model.User;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.HashMap;
@@ -24,6 +27,7 @@ import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
 
 public class BizStore extends com.activeandroid.app.Application {
 
+    public static Context context;
     private static final User user = new User();
 
     public static boolean forceStopTasks = false;
@@ -31,19 +35,19 @@ public class BizStore extends com.activeandroid.app.Application {
     private static String language = "en";
 
     public static int lastTab = -1;
-    //public static String username = "123445";
+
      // fatima hubail ooredoo num "33165670", some other num "66934265"
-    public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "50497958"
+    public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "66998917"
             : BuildConfig.FLAVOR.equals("telenor") ? "03454060708"
             : BuildConfig.FLAVOR.equals("mobilink") ? "3000449647"
             : "3215353670";
 
-    //public static String password = "d5pF55dZ";
-
-    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "569015"
+    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "245024"
             : BuildConfig.FLAVOR.equals("telenor") ? "578251"
-            : BuildConfig.FLAVOR.equals("mobilink") ? "472617"
+            : BuildConfig.FLAVOR.equals("mobilink") ? "111636"
             : "568938";
+
+    public static String secret = CryptoUtils.key;
 
     private Tracker tracker, ooredooTracker;
 
@@ -71,7 +75,6 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
-
    /* @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -81,7 +84,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public void onCreate() {
         super.onCreate();
-
+context = this;
         if(BuildConfig.FLAVOR.equals("mobilink"))
         {
             FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
@@ -145,7 +148,6 @@ public class BizStore extends com.activeandroid.app.Application {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
             tracker = analytics.newTracker(R.xml.global_tracker);
-
         }
 
         return tracker;

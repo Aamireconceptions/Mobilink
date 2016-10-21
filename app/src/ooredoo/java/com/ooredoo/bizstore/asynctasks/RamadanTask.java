@@ -36,6 +36,7 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 /**
  * Created by Babar on 13-Jan-16.
  */
+@Deprecated
 public class RamadanTask extends AsyncTask<String, Void, String>
 {
     private Context context;

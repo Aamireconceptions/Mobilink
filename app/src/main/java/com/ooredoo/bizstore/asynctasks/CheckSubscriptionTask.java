@@ -94,8 +94,6 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put(MSISDN, BizStore.username);
-        params.put("password", BizStore.password);
 
         String query = createQuery(params);
 

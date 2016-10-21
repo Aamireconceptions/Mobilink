@@ -11,6 +11,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
@@ -106,8 +107,7 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        params.put("msisdn", msisdn);
-        params.put("password", password);
+        //params.put("pincode", CryptoUtils.encodeToBase64(CryptoUtils.decryptAES(password)));
 
         String query = createQuery(params);
 

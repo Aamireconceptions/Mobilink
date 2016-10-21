@@ -72,12 +72,13 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.signin:
 
-                SignUpFragment signUpFragment = new SignUpFragment();
+
+               /* SignUpFragment signUpFragment = new SignUpFragment();
                 Bundle bundle1 = new Bundle();
                 bundle1.putBoolean("is_signin", true);
                 signUpFragment.setArguments(bundle1);
                replaceFragmentWithBackStack((AppCompatActivity) getActivity(), R.id.fragment_container,
-                       signUpFragment, "signup_fragment");
+                       signUpFragment, "signup_fragment");*/
 
                 break;
             case R.id.signup:

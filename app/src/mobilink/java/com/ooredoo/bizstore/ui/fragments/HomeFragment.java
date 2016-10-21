@@ -176,7 +176,7 @@ dealofDayCalled = false;
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.scrollView, R.id.appBarLayout);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.scrollView, R.id.appBar);
 
        // final ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 

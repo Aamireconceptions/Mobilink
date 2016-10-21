@@ -10,6 +10,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.BufferedReader;
@@ -148,7 +149,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
         URL url = new URL(serviceUrl);
 
-        HttpURLConnection connection = openConnectionAndConnect(url);
+        HttpsURLConnection connection = openConnectionAndConnect(url);
 
         InputStream inputStream = connection.getInputStream();
 
@@ -161,7 +162,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     {
         String result;
 
-        HttpURLConnection connection = openConnectionAndConnect(url);
+        HttpsURLConnection connection = openConnectionAndConnect(url);
 
         InputStream inputStream = connection.getInputStream();
 
@@ -202,7 +203,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         }
     }
 
-    public HttpURLConnection openConnectionAndConnect(URL url) throws IOException{
+    public HttpsURLConnection openConnectionAndConnect(URL url) throws IOException{
         /*String credentials = BizStore.username + ":" + BizStore.password;
 
         String basicAuth = "Basic " + new String(Base64.encode(credentials.getBytes(), Base64.DEFAULT));*/
@@ -212,7 +213,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
         try {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            InputStream is = HomeActivity.context.getResources().openRawResource(R.raw.cert);
+            InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
             Certificate ca;
             try
             {
@@ -255,8 +256,10 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
             connection = (HttpsURLConnection) url.openConnection();
             connection.setSSLSocketFactory(sslContext.getSocketFactory());
             connection.setHostnameVerifier(hostnameVerifier);
-            connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
-            connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
+            connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
+            connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
+            Logger.print("Username: base64: " + CryptoUtils.encodeToBase64(BizStore.username));
+            Logger.print("Password: base64: " + CryptoUtils.encodeToBase64(BizStore.secret));
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
             connection.setReadTimeout(READ_TIME_OUT);
             connection.setRequestMethod(METHOD);
@@ -280,9 +283,6 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
             e.printStackTrace();
         }
 
-
-
-
         return connection;
     }
 
@@ -295,7 +295,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     public void setServiceUrl(String serviceName, HashMap<String, String> params) {
         String lang = BizStore.getLanguage();
         String baseUrl = BASE_URL.concat(lang + SLASH + serviceName + QUESTION_MARK);
-        HashMap<String, String> credentials = BizStore.getUserCredentials();
+//        HashMap<String, String> credentials = BizStore.getUserCredentials();
         HashMap<String, String> serviceParams = new HashMap<>();
         //serviceParams.putAll(credentials);
         serviceParams.put(OS, ANDROID);
