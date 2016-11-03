@@ -59,7 +59,7 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
 
     private Dialog dialog;
 
-    private final static String SERVICE_URL= "/login?";
+    private final static String SERVICE_URL= "/login?os=android";
     private Context activity;
 
     public LoginTask(Context activity) {
@@ -187,7 +187,7 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(OS, ANDROID);
+      //  params.put(OS, ANDROID);
 
         if(!BuildConfig.FLAVOR.equals("dealionare")) {
             params.put("pincode",  BizStore.password);
@@ -197,7 +197,7 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
 
        // URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_URL + query);
 
-        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_URL + query);
+        URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_URL);
 
 
 
@@ -280,18 +280,21 @@ public class LoginTask extends BaseAsyncTask<Void, Void, String> {
             connection.setHostnameVerifier(hostnameVerifier);
             connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
             connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
+
+            Logger.print("Rula: user" + CryptoUtils.encodeToBase64(BizStore.username));
+            Logger.print("Rula: password"+CryptoUtils.encodeToBase64(BizStore.secret));
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
             connection.setReadTimeout(READ_TIME_OUT);
             connection.setRequestMethod(METHOD);
             connection.setDoInput(true);
-           // connection.setDoOutput(true);
+            connection.setDoOutput(true);
 
-            /*OutputStream os = connection.getOutputStream();
+            OutputStream os = connection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
             writer.write(query);
             writer.flush();
             writer.close();
-            os.close();*/
+            os.close();
 
             connection.connect();
         }

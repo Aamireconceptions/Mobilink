@@ -219,8 +219,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         HomeActivity.lat = SharedPrefUtils.getFloatValue(this, "lat");
         HomeActivity.lng = SharedPrefUtils.getFloatValue(this, "lng");
 
-
-
         if(!username.equals(SharedPrefUtils.EMPTY)) {
             BizStore.username = username;
         }
@@ -356,52 +354,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
 
-       /* if(BizStore.getLanguage().equals("en"))
-        {
-            Logger.print("Drawer: " + BizStore.getLanguage());
-
-            DrawerLayout.LayoutParams params = new DrawerLayout
-                    .LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
-
-            params.gravity = Gravity.LEFT;
-
-            expandableListView.setLayoutParams(params);
-
-            DrawerLayout.LayoutParams params2 =new DrawerLayout
-                    .LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
-            params2.gravity = Gravity.RIGHT;
-
-            filterParent.setLayoutParams(params2);
-
-           // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START);
-           // drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START);
-            //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
-    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
-           drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.LEFT);
-        }
-        else
-        {
-            Logger.print("Drawer: " + BizStore.getLanguage());
-
-            DrawerLayout.LayoutParams params = new DrawerLayout
-                    .LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
-
-            params.gravity = Gravity.LEFT;
-
-            filterParent.setLayoutParams(params);
-
-
-            DrawerLayout.LayoutParams params2 =new DrawerLayout
-                    .LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
-
-            params2.gravity = Gravity.RIGHT;
-
-            expandableListView.setLayoutParams(params2);
-
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.RIGHT);
-        }*/
-
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
 
         drawerLayout.setDrawerListener(mDrawerListener);
@@ -426,8 +378,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         viewPager = (ViewPager) findViewById(R.id.home_viewpager);
 
-
-
         mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
         mRecentSearchListView = (ListView) findViewById(R.id.list_recent_searches);
         mPopularSearchGridView = (GridView) findViewById(R.id.grid_popular_searches);
@@ -437,8 +387,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         {
             if(BizStore.getLanguage().equals("ar"))
                 mPopularSearchGridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus2sdp));
-   /*             else
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));*/
         }
 
         setRecentSearches();
@@ -478,9 +426,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onResume() {
         super.onResume();
-lat = 33.6975777; lng = 73.0496045;
-        LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
-        locationUpdateTask.execute(lat, lng);
+//lat = 33.7289785; lng = 73.074157;
+        /*LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
+        locationUpdateTask.execute(lat, lng);*/
 
         if(BuildConfig.DEBUG) {
             checkForCrashes();

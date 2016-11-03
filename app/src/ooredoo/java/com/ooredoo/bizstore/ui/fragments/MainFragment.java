@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
+import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
@@ -78,15 +79,23 @@ public class MainFragment extends Fragment implements View.OnClickListener
 
             NavigationMenuOnClickListener.updateConfiguration(context, language);
 
-            if(BuildConfig.FLAVOR.equals("ooredoo")) {
-                replaceFragmentWithBackStack((AppCompatActivity) getActivity(), R.id.fragment_container,
-                        new SignInFragment(), "signin_frag");
+           /* if(BuildConfig.FLAVOR.equals("ooredoo")) {
+                *//*replaceFragmentWithBackStack((AppCompatActivity) getActivity(), R.id.fragment_container,
+                        new SignInFragment(), "signin_frag");*//*
+
+                FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) getActivity(),
+                        R.id.fragment_container,
+                        new SubscriptionPlansFragment(),
+                        "subscription_fragment");
             }
             else
             {
                 replaceFragmentWithBackStack((AppCompatActivity) getActivity(), R.id.fragment_container,
                         new DemoFragment(), "demo_fragment");
-            }
+            }*/
+
+            replaceFragmentWithBackStack((AppCompatActivity) getActivity(), R.id.fragment_container,
+                    new DemoFragment(), "demo_fragment");
         }
     }
 }

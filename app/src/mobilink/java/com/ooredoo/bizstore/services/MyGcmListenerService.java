@@ -48,6 +48,8 @@ public class MyGcmListenerService extends GcmListenerService
 
             String category = jsonObject.getString("category");
 
+            String type = jsonObject.getString("type");
+
             String brandUrl = BaseAsyncTask.SERVER_URL + jsonObject.getString("brandimage");
 
             List<Notification> notifications = new Select().from(Notification.class).execute();
@@ -70,7 +72,7 @@ public class MyGcmListenerService extends GcmListenerService
 
                         BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
                                 title, desc);
-                        bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight, brandUrl);
+                        bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight, brandUrl, type);
 
                         return;
                     }
@@ -89,7 +91,7 @@ public class MyGcmListenerService extends GcmListenerService
 
                 BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
                         title, desc);
-                bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight, brandUrl);
+                bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight, brandUrl, type);
             }
         }
         catch (JSONException e)

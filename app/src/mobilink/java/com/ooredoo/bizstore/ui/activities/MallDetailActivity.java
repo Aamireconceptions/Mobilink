@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ooredoo.bizstore.AppConstant;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.MallDetailAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
@@ -53,6 +54,7 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
@@ -101,6 +103,23 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void init() {
+
+        String username = SharedPrefUtils.getStringVal(this, "username");
+        String password = SharedPrefUtils.getStringVal(this, "password");
+        String secret = SharedPrefUtils.getStringVal(this, "secret");
+
+        if(!username.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.username = username;
+        }
+
+        if(!password.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.password = password;
+        }
+
+        BizStore.secret = secret;
+
+        diskCache.requestInit(this);
+
         setupToolbar();
 
         handleIntentFilter();
@@ -290,8 +309,9 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
             {
                 String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + brandLogo;
 
+                Logger.print("Brand URL: "+imgUrl);
                 bitmap = memoryCache.getBitmapFromCache(imgUrl);
-
+Logger.print("Brand Bitmap: "+bitmap);
                 if(bitmap != null)
                 {
                     ivBrandLogo.setImageBitmap(bitmap);
@@ -410,22 +430,24 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
     private void fallBackToDiskCache(final String url, final ImageView imageView)
     {
+        Logger.print("dCache Falling back to DiskCache");
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run()
-            {
+            { Logger.print("dCache inside Run");
                 bitmap = diskCache.getBitmapFromDiskCache(url);
 
-                Logger.print("dCache getting bitmap from cache");
+                Logger.print("dCache getting bitmap from cache"+url);
 
                 if(bitmap != null)
                 {
-                    Logger.print("dCache found!");
+                    Logger.print("dCache found!:"+url);
 
                     memoryCache.addBitmapToCache(url, bitmap);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Logger.print("dCache setting "+bitmap+ " on "+imageView);
                             imageView.setImageBitmap(bitmap);
                         }
                     });
@@ -440,6 +462,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    Logger.print("dCache Force Downloading: "+url);
                                     BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
                                             (imageView, progressBar, rlHeader);
                                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,

@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.ui.activities.MallDetailActivity;
 
 import java.io.File;
 
@@ -33,7 +34,8 @@ public class NotificationUtils
         this.context = context;
     }
 
-    public static void showNotification(Context context, String title, String desc, int id, Bitmap[] bitmap)
+    public static void showNotification(Context context, String title, String desc, int id,
+                                        Bitmap[] bitmap, String type)
     {
         Notification.Builder builder =
                 new Notification.Builder(context)
@@ -45,7 +47,7 @@ public class NotificationUtils
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.FLAVOR.equals("mobilink"))
         {
-            builder.setColor(Color.parseColor("#a6a6a6"));
+            builder.setColor(Color.parseColor("#555555"));
             builder.setSmallIcon(R.drawable.jazz_notification_icon);
             //builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
         }
@@ -59,7 +61,15 @@ public class NotificationUtils
             builder.setStyle(bigPictureStyle);
         }
 
-        Intent intent = new Intent(context, DealDetailActivity.class);
+        Intent intent;
+        if(type.equals("business")) {
+             intent = new Intent(context, DealDetailActivity.class);
+        }
+        else
+        {
+            intent = new Intent(context, MallDetailActivity.class);
+        }
+
         intent.putExtra(AppConstant.ID, id);
 
         // The stack builder object will contain an artificial back stack for the

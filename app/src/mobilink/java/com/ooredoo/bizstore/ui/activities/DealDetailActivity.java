@@ -72,6 +72,7 @@ import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.IntentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.io.File;
@@ -160,6 +161,20 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void init() {
+
+        String username = SharedPrefUtils.getStringVal(this, "username");
+        String password = SharedPrefUtils.getStringVal(this, "password");
+        String secret = SharedPrefUtils.getStringVal(this, "secret");
+
+        if(!username.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.username = username;
+        }
+
+        if(!password.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.password = password;
+        }
+
+        BizStore.secret = secret;
 
         diskCache.requestInit(this);
 

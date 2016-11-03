@@ -59,6 +59,7 @@ import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
@@ -112,6 +113,21 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     @Override
     public void init() {
+
+        String username = SharedPrefUtils.getStringVal(this, "username");
+        String password = SharedPrefUtils.getStringVal(this, "password");
+        String secret = SharedPrefUtils.getStringVal(this, "secret");
+
+        if(!username.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.username = username;
+        }
+
+        if(!password.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.password = password;
+        }
+
+        BizStore.secret = secret;
+
         setupToolbar();
 
         handleIntentFilter();

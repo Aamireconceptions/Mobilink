@@ -41,7 +41,7 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
 
     private int id;
 
-    private String title, desc;
+    private String title, desc, type;
 
     private URL url;
 
@@ -63,6 +63,8 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
     @Override
     protected Bitmap[] doInBackground(String... params)
     {
+        type = params[4];
+
         return downloadBitmap(params[0], params[1], params[2], params[3]);
     }
 
@@ -200,11 +202,11 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
 
         if(bitmap != null)
         {
-            NotificationUtils.showNotification(context, title, desc, id, bitmap);
+            NotificationUtils.showNotification(context, title, desc, id, bitmap, type);
         }
         else
         {
-            NotificationUtils.showNotification(context, title, desc, id, null);
+            NotificationUtils.showNotification(context, title, desc, id, null, type);
 
             Logger.print("Failed to download notification img");
         }
