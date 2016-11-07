@@ -487,5 +487,6 @@
     <string name="signout">Sign Out</string>
     <string name="discount_availed">You have availed the discount\nsuccessfully!</string>
     <string name="facebook_app_id" translatable="false">1574024299570067</string>
+
     <string name="fb_authority"></string>
 </resources>

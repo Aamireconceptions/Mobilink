@@ -51,9 +51,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
-import com.facebook.FacebookSdk;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.ooredoo.bizstore.AppData;
@@ -70,7 +67,6 @@ import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CheckSubscriptionTask;
 import com.ooredoo.bizstore.asynctasks.GCMRegisterTask;
-import com.ooredoo.bizstore.asynctasks.HttpsTest;
 import com.ooredoo.bizstore.asynctasks.LocationUpdateTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
@@ -797,15 +793,7 @@ public CoordinatorLayout coordinatorLayout;
         onOptionsItemSelected(miSearch);
     }
 
-    /**
-     * According to this <a href="http://stackoverflow.com/a/33419837/1939564">Guy</a>
-     * To share photos or videos sdk needs facebook for android app to be
-     * installed. If not installed this function will return false.
-     * @return
-     */
-    private boolean canShowShareDialog(){
-        return ShareDialog.canShow(ShareLinkContent.class);
-    }
+
 
 
 
