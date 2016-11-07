@@ -36,16 +36,9 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static int lastTab = -1;
 
-     // fatima hubail ooredoo num "33165670", some other num "66934265"
-    public static String username = BuildConfig.FLAVOR.equals("ooredoo") ? "66998917"
-            : BuildConfig.FLAVOR.equals("telenor") ? "03454060708"
-            : BuildConfig.FLAVOR.equals("mobilink") ? "3000449647"
-            : "3215353670";
+    public static String username ;
 
-    public static String password = BuildConfig.FLAVOR.equals("ooredoo") ? "245024"
-            : BuildConfig.FLAVOR.equals("telenor") ? "578251"
-            : BuildConfig.FLAVOR.equals("mobilink") ? "111636"
-            : "568938";
+    public static String password ;
 
     public static String secret = CryptoUtils.key;
 
