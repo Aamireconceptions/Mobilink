@@ -60,17 +60,22 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FBUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ScrollViewHelper;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import bolts.AppLinks;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -148,6 +153,20 @@ public EditText etMerchantCode;
     @Override
     public void init() {
 
+        String username = SharedPrefUtils.getStringVal(this, "username");
+        String password = SharedPrefUtils.getStringVal(this, "password");
+        String secret = SharedPrefUtils.getStringVal(this, "secret");
+
+        if(!username.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.username = username;
+        }
+
+        if(!password.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.password = password;
+        }
+
+        BizStore.secret = secret;
+
         diskCache.requestInit(this);
 
         header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
@@ -193,7 +212,23 @@ public EditText etMerchantCode;
 
                 Logger.print("Extras: " + paramId);
 
-                getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
+               // getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
+
+                if(paramId == null)
+                {
+                    Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+                    String fbParamId = targetUrl.getQueryParameter("id");
+
+                    String decodedFbParamId = CryptoUtils.decodeBase64(fbParamId);
+
+                    Logger.print("FB targetURL: "+targetUrl+" encoded id: "+fbParamId+", decodedId:"+decodedFbParamId);
+
+                    getIntent().putExtra(AppConstant.ID, Integer.parseInt(decodedFbParamId));
+                }
+                else
+                {
+                    getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
+                }
             }
 
             id = intent.getIntExtra(AppConstant.ID, 0);
@@ -439,9 +474,11 @@ public EditText etMerchantCode;
 
     RelativeLayout rlVoucher;
     GenericDeal mDeal;
-
+    FBUtils fbUtils;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
+            fbUtils = new FBUtils(this);
+            fbUtils.init();
             Dialog dialog = DialogUtils.createRedeemDialog(this);
             tvDialogOutlet = (TextView) dialog.findViewById(R.id.outlet);
 
@@ -1181,7 +1218,7 @@ public EditText etMerchantCode;
                         if(!code.isEmpty())
                         {
                             VerifyMerchantCodeTask verifyMerchantCodeTask =
-                                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
+                                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
                             verifyMerchantCodeTask
                                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                             String.valueOf(id), code, String.valueOf(mDeal.businessId));
@@ -1501,6 +1538,8 @@ public EditText etMerchantCode;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        fbUtils.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 303 && resultCode == RESULT_OK)
         {

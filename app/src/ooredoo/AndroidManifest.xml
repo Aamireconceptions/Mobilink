@@ -50,15 +50,17 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
 
-       <!-- <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>-->
 
-        <provider
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
+        <!--<provider
             android:authorities="@string/fb_authority"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"
-            tools:node="remove"/> <!-- tools:node="remove" tells the manifest merger to block
+            tools:node="remove"/>--> <!-- tools:node="remove" tells the manifest merger to block
                                         out this provider for this specific flavor-->
 
 

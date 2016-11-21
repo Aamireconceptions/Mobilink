@@ -73,6 +73,7 @@ public class FBUtils
 
             @Override
             public void onCancel() {
+                dismissDialog();
                 Logger.logV("FbUtils FacebookCallback ", "onCancel");
             }
 
@@ -146,6 +147,7 @@ public class FBUtils
                         .setContentDescription(contentDescription)
                         .setImageUrl(Uri.parse(imageUrl))
                         .setContentUrl(Uri.parse(contentUrl));
+                Logger.logV("FbUtils", "ImageUrl:"+imageUrl);
 
                 if (placeId != null) {
                     builder.setPlaceId(placeId);
@@ -157,7 +159,7 @@ public class FBUtils
                 {
                     dismissDialog();
 
-                    VerifyMerchantCodeTask.ivClose.performClick();
+                   // VerifyMerchantCodeTask.ivClose.performClick();
 
                     ShareDialog shareDialog =  new ShareDialog(activity);
                     shareDialog.registerCallback(callbackManager,

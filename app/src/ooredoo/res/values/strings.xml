@@ -8,6 +8,6 @@
     <string name="sign_in">Sign in</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
-
+    <string name="facebook_app_id">222312011525639</string>
+    <string name="fb_authority">com.facebook.app.FacebookContentProvider222312011525639</string>
 </resources>

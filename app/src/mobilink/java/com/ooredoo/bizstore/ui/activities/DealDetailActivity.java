@@ -291,6 +291,7 @@ TextView tvBrochure;
 
         tvVoucherClaimed = (TextView) findViewById(R.id.vouchers_claimed);
 
+        llVoucher = (LinearLayout) findViewById(R.id.code_layout);
 
         packageName = getPackageName();
         if(genericDeal != null) {
@@ -345,7 +346,7 @@ TextView tvBrochure;
     LinearLayout llDirections;
     RelativeLayout rlHeader;
 
-    RelativeLayout rlVoucher;
+    LinearLayout llVoucher;
     GenericDeal mDeal;
     TextView tvAvailedDeals;
 
@@ -949,7 +950,8 @@ TextView tvBrochure;
 
         if(voucherClaimed >= maxAllowed)
         {
-            rlVoucher.setVisibility(View.GONE);
+            //llVoucher.setVisibility(View.GONE);
+            btGetCode.setVisibility(View.GONE);
 
             tvVoucherClaimed.setText(getString(R.string.already_availed_discount)+" " + maxAllowed + " " + getString(R.string.timess));
 

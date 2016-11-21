@@ -174,7 +174,10 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                                 if(imageUrl != null)
                                 {
-                                    imageUrl = BaseAsyncTask.IMAGE_BASE_URL + imageUrl;
+                                    // static domain with http is there because the https was
+                                    // not using a trusted certificate (i.e self-signed).
+                                    // And facebook isn't able to download the image
+                                    imageUrl = "http://188.138.33.11" + imageUrl;
                                 }
 
                                 String contentUrl = "https://fb.me/1578100429162454?id="

@@ -15,6 +15,9 @@ import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import io.fabric.sdk.android.Fabric;
 import java.util.HashMap;
 
 import static com.ooredoo.bizstore.utils.CryptoUtils.encodeToBase64;
@@ -26,6 +29,11 @@ import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
  */
 
 public class BizStore extends com.activeandroid.app.Application {
+
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "OKSJJQBBfK1BtHGGSHVihvo1I";
+    private static final String TWITTER_SECRET = "TBrDBDmYUlVKEm8GHbO894trmyq2G77fFIyRBP6F88SuVfmKlA";
+
 
     public static Context context;
     private static final User user = new User();
@@ -77,8 +85,12 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public void onCreate() {
         super.onCreate();
-context = this;
-        if(BuildConfig.FLAVOR.equals("mobilink"))
+        if(BuildConfig.FLAVOR.equals("ooredoo")) {
+            TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+            Fabric.with(this, new Twitter(authConfig));
+        }
+        context = this;
+        if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("ooredoo"))
         {
             FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
                     {
@@ -94,8 +106,9 @@ context = this;
 
             // FacebookSdk.setIsDebugEnabled(true);
            //  FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
-
-            AppEventsLogger.activateApp(this);
+            if(BuildConfig.FLAVOR.equals("mobilink")) {
+                AppEventsLogger.activateApp(this);
+            }
         }
 
         Logger.setEnabled(true);

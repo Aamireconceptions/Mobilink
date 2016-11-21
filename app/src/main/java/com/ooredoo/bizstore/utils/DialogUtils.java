@@ -391,13 +391,22 @@ public class DialogUtils {
 
     public static Dialog createMobilinkRedeemDialog(Context context)
     {
-        RoundedBitmapDrawable roundedBitmapDrawable;
-
 
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_mobilink_redeem);
+
+        return dialog;
+    }
+
+    public static Dialog createOoredooRedeemDialog(Context context)
+    {
+
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_ooredoo_redeem);
 
         return dialog;
     }

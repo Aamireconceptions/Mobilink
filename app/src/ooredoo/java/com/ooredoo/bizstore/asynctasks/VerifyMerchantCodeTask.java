@@ -20,12 +20,17 @@ import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Voucher;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
+import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
+import com.ooredoo.bizstore.utils.FBUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
+import com.ooredoo.bizstore.utils.TwitterUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,18 +48,22 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
     private Tracker tracker, ooredooTracker;
 
+    private FBUtils fbUtils;
+
     private Dialog dialog;
 
     private final static String SERVICE_NAME = "/redeemdiscount?";
 
     public VerifyMerchantCodeTask(DealDetailActivity detailActivity, SnackBarUtils snackBarUtils,
-                                  Tracker tracker)
+                                  Tracker tracker, FBUtils fbUtils)
     {
         this.detailActivity = detailActivity;
 
         this.snackBarUtils = snackBarUtils;
 
         this.tracker = tracker;
+
+        this.fbUtils = fbUtils;
     }
 
     @Override
@@ -80,7 +89,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
         return null;
     }
-
+    public static ImageView ivClose;
     @Override
     protected void onPostExecute(String result)
     {
@@ -107,35 +116,30 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                         tracker.send(redeemEvent);
 
-                        if(BuildConfig.FLAVOR.equals("ooredoo"))
-                        {
-                            BizStore bizStore = (BizStore) detailActivity.getApplication();
+                        BizStore bizStore = (BizStore) detailActivity.getApplication();
 
-                            ooredooTracker = bizStore.getOoredooTracker();
-                            ooredooTracker.send(redeemEvent);
-                        }
+                        ooredooTracker = bizStore.getOoredooTracker();
+                        ooredooTracker.send(redeemEvent);
 
+                        final Dialog dialog = DialogUtils.createOoredooRedeemDialog(detailActivity);
 
-                        if(BuildConfig.FLAVOR.equals("mobilink"))
-                        {
-                            final Dialog dialog = DialogUtils.createMobilinkRedeemDialog(detailActivity);
+                        ivClose = (ImageView)dialog.findViewById(R.id.close);
+                        ivClose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-                            dialog.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
+                                DealDetailActivity.genericDeal.date = voucher.date;
+                                DealDetailActivity.genericDeal.time = voucher.time;
 
-                                    DealDetailActivity.genericDeal.date = voucher.date;
-                                    DealDetailActivity.genericDeal.time = voucher.time;
+                                detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
+                                detailActivity.btGetCode.setText("Get Discount Again");
 
-                                    detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
-                                    detailActivity.btGetCode.setText("Get Discount Again");
-
-                                    dialog.dismiss();
-                                }
-                            });
+                                dialog.dismiss();
+                            }
+                        });
 
                             TextView tvDealDesc = (TextView) dialog.findViewById(R.id.deal_desc);
-                            tvDealDesc.setText(DealDetailActivity.genericDeal.description);
+                            tvDealDesc.setText(DealDetailActivity.genericDeal.title);
 
                             TextView tvUniqueId = (TextView) dialog.findViewById(R.id.unique_id);
                             tvUniqueId.setText("" + DealDetailActivity.genericDeal.id);
@@ -146,11 +150,19 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                             TextView tvTime= (TextView) dialog.findViewById(R.id.time);
                             tvTime.setText(voucher.time);
 
-                            Button btNoThanks = (Button) dialog.findViewById(R.id.no_thanks);
-                            btNoThanks.setOnClickListener(new View.OnClickListener() {
+                            Button btShareTwitter = (Button) dialog.findViewById(R.id.share_twitter);
+                            btShareTwitter.setOnClickListener(new View.OnClickListener() {
+                                String tweet = DealDetailActivity.genericDeal.title
+                                               + " @ "
+                                               + DealDetailActivity.genericDeal.businessName
+                                               + ", "
+                                               + detailActivity.genericDeal.location;
                                 @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
+                                public void onClick(View v)
+                                {
+                                    TwitterUtils.tweet(detailActivity,
+                                                       tweet,
+                                                       DealDetailActivity.genericDeal.image);
                                 }
                             });
 
@@ -159,18 +171,36 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 @Override
                                 public void onClick(View v) {
 
-                                    ShareLinkContent content = new ShareLinkContent.Builder()
-                                            .setContentTitle(detailActivity.genericDeal.businessName)
-                                            .setContentDescription(detailActivity.genericDeal.description)
-                                            //.setContentUrl(Uri.parse("https://developers.facebook.com"))
-                                            //.setImageUrl(Uri.parse(BaseAsyncTask.IMAGE_BASE_URL + detailActivity.genericDeal.image.detailBannerUrl))
-                                            .build();
+                                    GenericDeal genericDeal = DealDetailActivity.genericDeal;
+                                    String imageUrl = getImageURL(genericDeal.image);
+
+                                    if(imageUrl != null)
+                                    {
+                                        // static domain with http is there because the https was
+                                        // not using a trusted certificate (i.e self-signed).
+                                        // And facebook isn't able to download the image
+                                        imageUrl = "http://ooredoo.bizstore.com.pk" + imageUrl;
+
+                                        Logger.print("Fb Image: "+imageUrl);
+                                    }
+
+                                    String contentUrl = "https://fb.me/222374164852757?id="
+                                            + CryptoUtils.encodeToBase64(String.valueOf(genericDeal.id));
+
+                                    String searchText = genericDeal.businessName != null
+                                            ? genericDeal.businessName : null;
+
+                                    if(searchText != null && genericDeal.location != null)
+                                    {
+                                        searchText += ", " + genericDeal.location;
+                                    }
 
 
 
-
-
-                                    ShareDialog.show(detailActivity, content);
+                                    fbUtils.lookupPlaceId = searchText != null ? true : false;
+                                    fbUtils.showDialog();
+                                    fbUtils.checkIn(genericDeal.businessName, genericDeal.description,
+                                            contentUrl, imageUrl, searchText, null);
                                 }
                             });
 
@@ -190,6 +220,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                                     ImageView ivLogo = (ImageView) dialog.findViewById(R.id.brand_logo);
                                     ivLogo.setImageBitmap(bitmap);
+                                    ivLogo.setVisibility(View.VISIBLE);
                                 }
                             }
 
@@ -197,10 +228,10 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                             dialog.setCancelable(false);
                             dialog.show();
 
-                            return;
-                        }
+                          //  return;
 
-                        final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
+
+                       /* final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
                                 R.string.success_redeemed);
                         dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener()
                         {
@@ -214,7 +245,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                         });
                         dialog.setCanceledOnTouchOutside(false);
                         dialog.setCancelable(false);
-                        dialog.show();
+                        dialog.show();*/
                     }
                     else
                         if(voucher.resultCode == 1)
@@ -273,8 +304,22 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
         result = getJson(url);
 
-        Logger.print("getCode: "+result);
+        Logger.print("getCode: " + result);
 
         return result;
+    }
+
+    private String getImageURL(Image image)
+    {
+        if(image != null)
+        {
+            return (image.promotionalUrl != null && !image.promotionalUrl.isEmpty()) ? image.promotionalUrl
+                    : (image.detailBannerUrl != null && !image.detailBannerUrl.isEmpty()) ? image.detailBannerUrl
+                    : (image.bannerUrl != null && !image.bannerUrl.isEmpty()) ? image.bannerUrl
+                    : (image.gridBannerUrl != null && !image.gridBannerUrl.isEmpty()) ? image.gridBannerUrl
+                    : image.logoUrl;
+        }
+
+        return null;
     }
 }
