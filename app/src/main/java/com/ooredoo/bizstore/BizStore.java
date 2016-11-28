@@ -44,9 +44,9 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static int lastTab = -1;
 
-    public static String username ;
+    public static String username = "1234567";
 
-    public static String password ;
+    public static String password = "1234";
 
     public static String secret = CryptoUtils.key;
 

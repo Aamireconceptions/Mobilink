@@ -402,7 +402,6 @@ public class DialogUtils {
 
     public static Dialog createOoredooRedeemDialog(Context context)
     {
-
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

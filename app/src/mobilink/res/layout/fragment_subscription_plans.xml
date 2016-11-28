@@ -72,7 +72,7 @@
                 android:layout_weight="2"
                 android:gravity="end"
                 android:textColor="#878787"
-                android:text="Rs 15+tax/month"/>
+                android:text="Rs 35.85/month"/>
 
         </LinearLayout>
 
@@ -110,7 +110,7 @@
                 android:layout_weight="2"
                 android:textColor="#878787"
                 android:gravity="end"
-                android:text="Rs 2.99+tax/week "/>
+                android:text="Rs 8.36/week"/>
 
         </LinearLayout>
 
