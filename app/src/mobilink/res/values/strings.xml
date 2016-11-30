@@ -19,14 +19,14 @@
     \n\t\t7. Entertainment]]></string>
     <string name="help_question3">How can a user subscribe to Jazz Discount Bazar?</string>
     <string name="help_answer3">User can subscribe to Jazz Discount Bazar via either of the two mediums:</string>
-    <string name="help_answer3a">1. <b>SMS:</b> User must send “SUB” to 5005. Once sent, the user will get a message confirming successful subscription. User will be charged Rs. 0.50+tax/Week as subscription price. However, if the user has already subscribed to the service through Smartphone Application, he will not be charged again.</string>
+    <string name="help_answer3a">1. <b>SMS:</b> User must send “SUB” to 5005. Once sent, the user will get a message confirming successful subscription.\nPrepaid Subscribers will be charged at Rs. 8.36/week inclusive of tax.\nPostpaid Subscribers will be charged at Rs. 35.85/month inclusive of tax.\nIf the user has already subscribed to the service through Smartphone Application, he will not be charged again.</string>
     <string name="help_answer3b">2. <b>Smart Phone Application:</b>
 \n\t\ti. User downloads the Jazz Discount Bazar smartphone application from Jazz App Store.
 \n\t\tii. User enters his Jazz Mobile Number to login.
-\n\t\tiii. On successful login, he becomes the subscriber and is charged Rs. 2.5 + tax/Week (Prepaid) or Rs. 15 + tax/week (Postpaid) for the service.
+\n\t\tiii. On successful login, he becomes the subscriber and is charged Rs. 8.36/week (Prepaid) or Rs. 35.85/month (Postpaid) for the service.
 \n\tiv. However, in case the user has already subscribed to the service through SMS, he will not be charged again.</string>
     <string name="help_question4">What are the Smartphone Application Charges?</string>
-    <string name="help_answer4">Upon successful application installation &amp; login, the user will be charged are Rs. 2.5 + tax/Week (Prepaid) or Rs. 15 + tax/week (Postpaid). However, the user is not charged on downloading the smartphone application.</string>
+    <string name="help_answer4">Upon successful application installation &amp; login, the user will be charged are Rs. 8.36/week (Prepaid) or Rs. 35.85/month (Postpaid). However, the user is not charged on downloading the smartphone application.</string>
     <string name="help_question5">How can a User Get a Discount?</string>
     <string name="help_answer5">The User can get the discount through following steps:</string>
     <string name="help_answer5a">Step 1: User views the deal on APP.

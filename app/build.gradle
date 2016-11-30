@@ -47,9 +47,8 @@ android {
         applicationId "com.ooredoo.bizstore"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 16
+        versionCode 17
         versionName "1.0"
-
     }
     buildTypes {
         release {
@@ -92,7 +91,7 @@ android {
         mobilink {
             compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
-            versionName = "2.0.1"
+            versionName = "2.0.2"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
             signingConfig signingConfigs.JazzDiscountBazar
         }
