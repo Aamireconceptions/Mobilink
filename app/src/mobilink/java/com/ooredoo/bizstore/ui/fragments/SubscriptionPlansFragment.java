@@ -1,22 +1,14 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
-import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
-import com.ooredoo.bizstore.utils.FragmentUtils;
 
 /**
  * @author Pehlaj Rai
@@ -57,8 +49,8 @@ public class SubscriptionPlansFragment extends BaseFragment {
         if(id == R.id.btn_subscribe) {
 
             AppCompatActivity compatActivity = (AppCompatActivity) mActivity;
-            FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container,
-                    new SignUpFragment(), "SignUp");
+            /*FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container,
+                    new SignUpFragment(), "SignUp");*/
         }
     }
 }

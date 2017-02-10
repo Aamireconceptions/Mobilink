@@ -20,7 +20,6 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
-import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
 import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
@@ -77,7 +76,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.shopping_speciality),
 
                 activity.getString(R.string.health_fitness),
-                activity.getString(R.string.entertainment),
+               /* activity.getString(R.string.entertainment),*/
                 activity.getString(R.string.new_arrivals),};
 
         categoriesResIds = new int[]{
@@ -86,7 +85,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
                 R.drawable.ic_health,
-                R.drawable.ic_entertainment,
+               /* R.drawable.ic_entertainment,*/
                 R.drawable.ic_new_deals,};
 
        /* categories = new String[] { activity.getString(R.string.food_dining), activity.getString(R.string.shopping_speciality),
@@ -97,16 +96,18 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_electronics};*/
 
         settings = new String[] {activity.getString(R.string.my_account),
-                activity.getString(R.string.my_city),
+             //   activity.getString(R.string.my_city),
                 activity.getString(R.string.my_notifications),
-                activity.getString(R.string.rate_us), activity.getString(R.string.help),
+             //   activity.getString(R.string.rate_us),
+                activity.getString(R.string.help),
                 activity.getString(R.string.about), activity.getString(R.string.un_subscribe)};
 
         settingsResIds = new int[]{
                 R.drawable.ic_user,
-                R.drawable.ic_business,
+              //  R.drawable.ic_business,
                 R.drawable.ic_notification,
-                R.drawable.ic_rate, R.drawable.ic_help,
+              //  R.drawable.ic_rate,
+                R.drawable.ic_help,
                 R.drawable.ic_about, R.drawable.ic_unsubscribe};
 
         subCategories = new String[] {
@@ -117,7 +118,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.shopping_speciality),
 
                 activity.getString(R.string.health_fitness),
-                activity.getString(R.string.entertainment),
+                /*activity.getString(R.string.entertainment),*/
                 activity.getString(R.string.new_arrivals)};
 
         subGroupResIds = new int[]{
@@ -126,7 +127,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
                 R.drawable.ic_health,
-                R.drawable.ic_entertainment,
+                /*R.drawable.ic_entertainment,*/
                 R.drawable.ic_new_deals};
 
         foodSubCategories = new String[] {activity.getString(R.string.pakistani),
@@ -148,6 +149,20 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         };
     }
 
+    public void onResume()
+    {
+        if(!BizStore.username.isEmpty())
+        {
+            tvNumber.setVisibility(View.VISIBLE);
+            tvNumber.setText(PhoneNumberUtils
+                    .formatNumber(BuildConfig.FLAVOR.equals("ooredoo")
+                            ? "+974"
+                            : "+92" + BizStore.username));
+        }
+    }
+
+
+    TextView tvNumber;
     public void setupNavigationMenu() {
         setIndicatorBounds(expandableListView);
 
@@ -166,7 +181,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         llLangToggle.setVisibility(View.GONE);
      
 
-        TextView tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
+        tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
         tvNumber.setText(PhoneNumberUtils
                 .formatNumber(BuildConfig.FLAVOR.equals("ooredoo")
                         ? "+974"
@@ -338,7 +353,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             healthSubList.add(navigationItem);
         }
 
-        List<NavigationItem> entertainmentSubList = new ArrayList<>();
+        /*List<NavigationItem> entertainmentSubList = new ArrayList<>();
 
         for(int i = 0; i < entertainmentSubCategories.length; i++)
         {
@@ -347,14 +362,14 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             navigationItem.setResId(getTreeNode(i, entertainmentSubCategories));
 
             entertainmentSubList.add(navigationItem);
-        }
+        }*/
 
         subChildList = new HashMap<>();
         subChildList.put(subGroupList.get(1).getItemName(), foodSubList);
         subChildList.put(subGroupList.get(2).getItemName(), shoppingSubList);
 
         subChildList.put(subGroupList.get(3).getItemName(), healthSubList);
-        subChildList.put(subGroupList.get(4).getItemName(), entertainmentSubList);
+      //  subChildList.put(subGroupList.get(4).getItemName(), entertainmentSubList);
     }
 
     private int getTreeNode(int index, String [] array)
@@ -386,8 +401,11 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.dp) {
-            ((HomeActivity) activity).showHideDrawer(GravityCompat.START, false);
-            activity.startActivity(new Intent(activity, MyAccountActivity.class));
+
+            if(!BizStore.username.isEmpty()) {
+                ((HomeActivity) activity).showHideDrawer(GravityCompat.START, false);
+                activity.startActivity(new Intent(activity, MyAccountActivity.class));
+            }
         }
     }
 }

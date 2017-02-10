@@ -19,6 +19,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Home;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -91,6 +92,12 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
+        Resources resources = activity.getResources();
+
+        final int reqWidth = resources.getDisplayMetrics().widthPixels;
+
+        final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._190sdp));
+
         if(imgUrl != null)
         {
             Logger.print("imgUrl was NOT null");
@@ -103,7 +110,8 @@ public class PromoFragment extends Fragment implements View.OnClickListener
 
             if(bitmap == null)
             {
-                fallBackToDiskCache(url);
+                new CommonHelper().fallBackToDiskCache(getActivity(), url, diskCache, memoryCache, imageView,
+                        progressBar, reqWidth, reqHeight);
             }
             else
             {

@@ -50,15 +50,15 @@
         android:padding="@dimen/_12sdp"
         android:typeface="serif"
         android:text="@string/top_brands"
-        android:textColor="@color/heading_gray"
+        android:textColor="@color/black"
         android:background="@drawable/heading_bg"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/_8sdp"
-        android:visibility="gone">
+        android:visibility="visible">
         <android.support.v4.view.ViewPager
             android:id="@+id/top_brands_pager"
             android:layout_width="match_parent"
@@ -79,7 +79,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"/>
 
-
     <TextView
         android:id="@+id/top_malls"
         android:layout_width="match_parent"
@@ -89,12 +88,13 @@
         android:typeface="serif"
         android:textColor="@color/black"
         android:background="@drawable/heading_bg"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <RelativeLayout
+        android:id="@+id/top_mall_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/top_malls_pager"

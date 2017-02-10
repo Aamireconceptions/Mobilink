@@ -21,7 +21,6 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
-import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
@@ -92,13 +91,15 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         settings = new String[] {activity.getString(R.string.my_account),
                 activity.getString(R.string.my_city),
                 activity.getString(R.string.my_notifications),
-                activity.getString(R.string.rate_us), activity.getString(R.string.help),
+                activity.getString(R.string.rate_us),
+                activity.getString(R.string.help),
                 activity.getString(R.string.about), activity.getString(R.string.un_subscribe)};
 
         settingsResIds = new int[]{R.drawable.ic_user,
                 R.drawable.ic_business,
                 R.drawable.ic_notification,
-                R.drawable.ic_rate, R.drawable.ic_help,
+                R.drawable.ic_rate,
+                R.drawable.ic_help,
                 R.drawable.ic_about, R.drawable.ic_unsubscribe};
 
         subCategories = new String[] { activity.getString(R.string.top_deals),

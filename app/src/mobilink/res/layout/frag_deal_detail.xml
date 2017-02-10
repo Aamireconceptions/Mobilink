@@ -258,6 +258,36 @@
         </TableLayout>
 
         <LinearLayout
+            android:id="@+id/code_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <Button
+                android:id="@+id/get_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Get Discount"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:textSize="16sp"
+                android:background="@drawable/btn_green_ripple"
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/vouchers_claimed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:gravity="center_horizontal"
+                android:textColor="#787878"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/discount_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -386,35 +416,7 @@
             </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/code_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:orientation="vertical"
-                android:visibility="gone">
-            <Button
-                android:id="@+id/get_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Get Discount"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:textSize="16sp"
-                android:background="@drawable/btn_red_ripple"
-                android:visibility="visible"/>
 
-            <TextView
-                android:id="@+id/vouchers_claimed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:gravity="center_horizontal"
-                android:textColor="#787878"
-                android:visibility="visible"/>
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/tos_note"

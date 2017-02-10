@@ -19,6 +19,7 @@ import java.io.BufferedInputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
@@ -45,7 +46,7 @@ import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.*;
  */
 public class BitmapProcessor
 {
-    HttpsURLConnection connection;
+    HttpURLConnection connection;
     public Bitmap decodeSampledBitmapFromStream(BufferedInputStream inputStream, URL url,
                                                 int reqWidth, int reqHeight) throws IOException {
         Bitmap bitmap;
@@ -70,7 +71,7 @@ public class BitmapProcessor
         options.inSampleSize = sampleSize;
 
         try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            /*CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
             InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
             Certificate ca;
@@ -98,19 +99,19 @@ public class BitmapProcessor
             HostnameVerifier hostnameVerifier = new HostnameVerifier() {
                 @Override
                 public boolean verify(String hostName, SSLSession sslSession) {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                    *//*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
                     Logger.print("Https Hostname: "+hostName);
 
-                    return hv.verify(s, sslSession);*/
+                    return hv.verify(s, sslSession);*//*
 
                     return true;
                 }
             };
-
+*/
             //inputStream.reset();
-            connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
-            connection.setHostnameVerifier(hostnameVerifier);
+            connection = (HttpURLConnection) url.openConnection();
+            /*connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);*/
             connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
             connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
@@ -135,7 +136,7 @@ public class BitmapProcessor
 
             return bitmap;
         }
-        catch (CertificateException e)
+        /*catch (CertificateException e)
         {
             e.printStackTrace();
         }
@@ -150,7 +151,7 @@ public class BitmapProcessor
         catch (KeyManagementException e)
         {
             e.printStackTrace();
-        } catch (MalformedURLException e) {
+        }*/ catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
             e.printStackTrace();

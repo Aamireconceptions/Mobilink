@@ -39,6 +39,7 @@ import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -299,7 +300,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 {
                     ivBrand.setBackgroundColor(context.getResources().getColor(R.color.banner));
 
-                    fallBackToDiskCache(url);
+                    CommonHelper.fallBackToDiskCache(url, diskCache, memoryCache, this, reqWidth, reqHeight);
                 }
 
                 ivPromotional.setOnClickListener(new View.OnClickListener()
@@ -359,7 +360,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                 }
             });
 
-            String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
+            String promotionalBanner = deal.image != null ? deal.image.detailBannerUrl : null;
 
             Logger.print("promotionalBanner: " + promotionalBanner);
 
@@ -381,7 +382,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
                     ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     progressBar.setVisibility(View.VISIBLE);
 
-                    fallBackToDiskCache(url);
+                    CommonHelper.fallBackToDiskCache(url, diskCache, memoryCache, this, reqWidth, reqHeight);
                 }
 
                 ivPromotional.setOnClickListener(new View.OnClickListener()

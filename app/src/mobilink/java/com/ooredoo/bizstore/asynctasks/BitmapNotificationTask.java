@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
@@ -74,7 +73,7 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
 
 
         try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            /*CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
             InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
             Certificate ca;
@@ -111,22 +110,22 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
                 @Override
                 public boolean verify(String hostName, SSLSession sslSession)
                 {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                    *//*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
                     Logger.print("Https Hostname: "+hostName);
 
-                    return hv.verify(s, sslSession);*/
+                    return hv.verify(s, sslSession);*//*
 
                     return true;
                 }
-            };
+            };*/
 
             Logger.print("notification Bitmap Url: " + imgUrl);
 
             url = new URL(imgUrl);
 
             connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
-            connection.setHostnameVerifier(hostnameVerifier);
+            /*connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);*/
             connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
             connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
@@ -147,8 +146,8 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
             url = new URL(brandLogo);
 
             connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
-            connection.setHostnameVerifier(hostnameVerifier);
+           /* connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);*/
             connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
             connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
@@ -163,7 +162,7 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
 
             return bitmaps;
         }
-        catch (CertificateException e)
+       /* catch (CertificateException e)
         {
             e.printStackTrace();
         }
@@ -178,14 +177,13 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
         catch (KeyManagementException e)
         {
             e.printStackTrace();
-        } catch (ProtocolException e) {
+        }*/ catch (ProtocolException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         return null;
     }
@@ -196,13 +194,13 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
     }
 
     @Override
-    protected void onPostExecute(Bitmap... bitmap)
+    protected void onPostExecute(Bitmap... bitmaps)
     {
-        super.onPostExecute(bitmap);
+        super.onPostExecute(bitmaps);
 
-        if(bitmap != null)
+        if(bitmaps != null)
         {
-            NotificationUtils.showNotification(context, title, desc, id, bitmap, type);
+            NotificationUtils.showNotification(context, title, desc, id, bitmaps, type);
         }
         else
         {

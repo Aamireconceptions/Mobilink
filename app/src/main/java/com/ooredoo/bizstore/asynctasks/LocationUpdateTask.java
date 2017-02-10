@@ -119,7 +119,7 @@ public class LocationUpdateTask extends AsyncTask<Double, Void, Void>
 
                 String query = createQuery(params);
 
-                URL url = new URL(SERVER_URL +  SERVICE_NAME + query);
+                URL url = new URL("https://188.138.33.11/jdb/" +  SERVICE_NAME + query);
 
                 Logger.print("Update Loc Url: "+url.toString());
 

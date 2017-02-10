@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
@@ -56,7 +57,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     ? "https://ooredoo.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("dealionare")
     ? "http://dealionare.bizstore.com.pk/" :
-            BuildConfig.FLAVOR.equals("mobilink") ? "https://188.138.33.11/jdb/"
+            BuildConfig.FLAVOR.equals("mobilink") ? "http://188.138.33.11/jdb/"
             : "http://ufone.bizstore.com.pk/";
 
     /*public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
@@ -68,14 +69,14 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     ? "https://ooredoo.bizstore.com.pk/index.php/api/"
             : BuildConfig.FLAVOR.equals("telenor") ? "http://telenor.bizstore.com.pk/index.php/api/"
             : BuildConfig.FLAVOR.equals("dealionare") ? "http://dealionare.bizstore.com.pk/index.php/api/" :
-            BuildConfig.FLAVOR.equals("mobilink") ? "https://188.138.33.11/jdb/index.php/api/"
+            BuildConfig.FLAVOR.equals("mobilink") ? "https://188.138.33.11/jdb/v2/index.php/api/"
             : "http://ufone.bizstore.com.pk/index.php/api/";
 
     public final static String IMAGE_BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
             ? "https://ooredoo.bizstore.com.pk" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk" : BuildConfig.FLAVOR.equals("dealionare")
             ? "http://dealionare.bizstore.com.pk" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "https://188.138.33.11" : "http://ufone.bizstore.com.pk";
+            ? "http://188.138.33.11/jdb" : "http://ufone.bizstore.com.pk";
 
     /*public static String BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
             ? "http://ooredoostage.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")

@@ -17,6 +17,7 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
@@ -99,13 +100,13 @@ public class ProfilePicDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             }
         }
     }
-    HttpsURLConnection connection = null;
+    HttpURLConnection connection = null;
     public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
     {
 
 
         try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+           /* CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
             InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
             Certificate ca;
@@ -142,21 +143,21 @@ public class ProfilePicDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 @Override
                 public boolean verify(String hostName, SSLSession sslSession)
                 {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                    *//*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
                     Logger.print("Https Hostname: "+hostName);
 
-                    return hv.verify(s, sslSession);*/
+                    return hv.verify(s, sslSession);*//*
 
                     return true;
                 }
             };
-
+*/
             Logger.print("Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);
 
-            connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
-            connection.setHostnameVerifier(hostnameVerifier);
+            connection = (HttpURLConnection) url.openConnection();
+           /* connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);*/
             connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
             connection.setRequestProperty(HTTP_X_PASSWORD,  CryptoUtils.encodeToBase64(BizStore.secret));
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
@@ -183,7 +184,7 @@ public class ProfilePicDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             return bitmap;
         }
-        catch (CertificateException e)
+       /* catch (CertificateException e)
         {
             e.printStackTrace();
         }
@@ -198,7 +199,7 @@ public class ProfilePicDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         catch (KeyManagementException e)
         {
             e.printStackTrace();
-        } catch (ProtocolException e) {
+        }*/ catch (ProtocolException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();

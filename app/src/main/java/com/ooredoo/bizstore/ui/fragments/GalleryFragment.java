@@ -1,14 +1,12 @@
 package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.FloatMath;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,23 +17,17 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.Gallery;
+import com.ooredoo.bizstore.model.Gallery;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
-import com.ooredoo.bizstore.model.Brand;
-import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
-import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
-
-import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 
 /**
  * @author Babar
@@ -88,6 +80,11 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
     PhotoViewAttacher photoViewAttacher;
     private void initAndLoadTopBrand(View v)
     {
+        Resources resources = activity.getResources();
+
+        final int reqWidth = resources.getDisplayMetrics().widthPixels ;
+
+        final int reqHeight = resources.getDisplayMetrics().heightPixels;
 
         pos = getArguments().getInt("pos");
 
@@ -135,7 +132,8 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
 
             if(bitmap == null)
             {
-                fallBackToDiskCache(url);
+                new CommonHelper().fallBackToDiskCache(getActivity(), url, diskCache, memoryCache,
+                        imageView, progressBar, reqWidth, reqHeight);
             }
             else
             {
@@ -148,7 +146,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
         }
     }
 
-    private void fallBackToDiskCache(final String url)
+    /*private void fallBackToDiskCache(final String url)
     {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -190,7 +188,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
                         public void run()
                         {
                             BitmapForceDownloadTask bitmapDownloadTask =
-                                    new BitmapForceDownloadTask(imageView, progressBar, null);
+                                    new BitmapForceDownloadTask(imageView, progressBar);
                             bitmapDownloadTask.executeOnExecutor
                                     (AsyncTask.THREAD_POOL_EXECUTOR, url,
                                             String.valueOf(reqWidth), String.valueOf(reqHeight));
@@ -201,7 +199,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
         });
 
         thread.start();
-    }
+    }*/
 
     @Override
     public void onClick(View v)

@@ -100,6 +100,9 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
 
                 if(response.resultCode != -1) {
 
+                    updateVal(activity, KEY, result);
+                    updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
+
                     List<GenericDeal> deals;
 
                     viewPager.setBackground(null);
@@ -165,12 +168,9 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
-        Logger.print("Promo Url: "+url.toString());
+        Logger.print("Promo Url: " + url.toString());
 
         result = getJson(url);
-
-        updateVal(activity, KEY, result);
-        updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
 
         Logger.print("getPromos: " + result);
 

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/_16sdp">
+
+        <RelativeLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            >
+
+            <!--<com.ooredoo.bizstore.RoundedImageView
+                android:id="@+id/dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:src="@drawable/avatar"/>-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/avatar"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/white"/>
+
+            <ProgressBar
+                android:id="@+id/pbProfilePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+974 434 9900"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@android:color/primary_text_light" />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lang_toggle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/btn_lang_english"
+            android:layout_width="115dp"
+            android:layout_height="@dimen/_35sdp"
+
+            android:background="@drawable/lang_left_selector"
+            android:text="@string/English"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"/>
+
+        <Button
+            android:id="@+id/btn_lang_arabic"
+            android:layout_width="115dp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/lang_right_selector"
+            android:text="@string/arabic"
+            android:textAllCaps="false"
+            android:textColor="@color/black_white_selector"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/app_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_home"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/_15sdp"
+        android:text="@string/home"
+        android:textColor="@android:color/primary_text_light"
+        android:background="@drawable/item_selector_light"/>
+
+    <TextView
+        android:id="@+id/my_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_favourite"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/_15sdp"
+        android:text="@string/my_favorites"
+        android:textColor="@android:color/primary_text_light"
+        android:background="@drawable/item_selector_light"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/redeem_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_deal_tag"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/_15sdp"
+        android:text="@string/redeemed_deals"
+        android:textColor="@android:color/primary_text_light"
+        android:visibility="visible"
+        android:background="@drawable/item_selector_light"/>
+
+    <TextView
+        android:id="@+id/recommended"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_recommended"
+        android:gravity="start|center_vertical"
+
+        android:padding="@dimen/_15sdp"
+        android:text="@string/recommended"
+        android:textColor="@android:color/primary_text_light"
+        android:background="@drawable/item_selector_light"/>
+
+    <TextView
+        android:id="@+id/recent_searches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_recent_searches"
+        android:gravity="start|center_vertical"
+
+        android:padding="@dimen/_16sdp"
+        android:text="@string/recent_searches"
+        android:textColor="@android:color/primary_text_light"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/recent_viewed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_recent_viewed"
+        android:gravity="start|center_vertical"
+
+        android:padding="@dimen/_15sdp"
+        android:text="@string/recent_viewed"
+        android:textColor="@android:color/primary_text_light"
+        android:background="@drawable/item_selector_light"/>
+
+
+</LinearLayout>

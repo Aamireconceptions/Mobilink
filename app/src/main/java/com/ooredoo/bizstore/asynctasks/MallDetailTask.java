@@ -10,8 +10,6 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.BusinessDetail;
-import com.ooredoo.bizstore.model.MallResponse;
-import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.MallDetailActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;

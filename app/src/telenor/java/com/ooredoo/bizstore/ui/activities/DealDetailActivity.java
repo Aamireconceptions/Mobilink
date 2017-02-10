@@ -43,7 +43,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.model.Gallery;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
@@ -91,6 +91,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
 {
 
+    public List<Gallery> galleryList;
+
     public String category;
     static String packageName;
     public boolean showBanner = false;
@@ -123,7 +125,7 @@ public EditText etMerchantCode;
 
     private Dialog ratingDialog;
 
-    private  MemoryCache memoryCache = MemoryCache.getInstance();
+    public  MemoryCache memoryCache = MemoryCache.getInstance();
 
     private DiskCache diskCache = DiskCache.getInstance();
 

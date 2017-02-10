@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/hsv"
+    android:scrollbars="none"
+    android:fillViewport="false">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll_top_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:gravity="center"
+
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/restaurants_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/_6sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/restaurants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restaurants"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableBottom="@drawable/burger_icon"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@string/hotels_deals"
+                android:textSize="12sp"
+                android:textColor="@color/gray_light_shade"/>
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/dashboard_seperator"/>
+
+        <LinearLayout
+            android:id="@+id/shopping_layout"
+            android:layout_width="0dp"
+            android:padding="@dimen/_6sdp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/shopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shopping"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableBottom="@drawable/shopping_bag_icon"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@string/brands_deals"
+                android:textSize="12sp"
+                android:textColor="@color/gray_light_shade"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:src="@drawable/dashboard_seperator"/>
+
+
+        <LinearLayout
+            android:id="@+id/entertainment_layout"
+            android:layout_width="0dp"
+            android:padding="@dimen/_6sdp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/entertainment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/entertainment"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_dark_shade"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableBottom="@drawable/icon_electronics"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@string/deals_discount"
+                android:textSize="12sp"
+                android:textColor="@color/gray_light_shade"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</HorizontalScrollView>

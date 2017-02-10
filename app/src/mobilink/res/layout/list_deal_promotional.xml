@@ -97,7 +97,7 @@
             android:paddingTop="0.8dp"
             android:paddingBottom="0.8dp"
             android:layout_height="@dimen/_105sdp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:src="@color/banner"
             android:background="@drawable/listing_border"/>
@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="@color/red"/>
@@ -159,13 +159,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
+
         <TextView
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#787878"
             android:text="Descriptin"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textColor="@color/black" />
+            android:layout_marginTop="@dimen/_2sdp" />
 
         <TextView
             android:id="@+id/prices"
@@ -180,17 +182,33 @@
 
         </FrameLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/slight_grey"
+                android:textSize="10sp"
+                android:text="Valid till:"/>
         <TextView
             android:id="@+id/validity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_gravity="end"
-            android:textColor="@color/slight_grey"
+
+
+            android:textColor="#069B59"
             android:text="12-43-23"
             android:textSize="10sp"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
+        </LinearLayout>
+        <!--slight_grey-->
     </LinearLayout>
 
 </LinearLayout>

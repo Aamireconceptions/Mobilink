@@ -24,6 +24,7 @@ import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MallDetailActivity;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -110,6 +111,14 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
         if(imgUrl != null)
         {
+            Resources resources = activity.getResources();
+
+            final int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
+
+            final int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._90sdp)
+                    /
+                    resources.getDisplayMetrics().density);
+
             Logger.print("imgUrl was NOT null");
 
             String url = BaseAsyncTask.IMAGE_BASE_URL + imgUrl;
@@ -120,7 +129,8 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
 
             if(bitmap == null)
             {
-                fallBackToDiskCache(url);
+                new CommonHelper().fallBackToDiskCache(getActivity(), url, diskCache, memoryCache,
+                        imageView, progressBar, reqWidth, reqHeight);
             }
             else
             {
@@ -177,7 +187,7 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
                         public void run() {
                             Logger.print("top mall: downloading for :"+mall.title);
                             BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                    (imageView, progressBar, null);
+                                    (imageView, progressBar);
                             bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
                         }
                     });

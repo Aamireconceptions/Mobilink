@@ -10,6 +10,7 @@ import com.ooredoo.bizstore.ui.fragments.HealthFragment;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
 import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
+import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.ui.fragments.NewArrivalsFragment;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
@@ -23,7 +24,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 {
     private Context context;
 
-    public final static int PAGE_COUNT = 7;
+    public final static int PAGE_COUNT = 6;
 
     public HomePagerAdapter(Context context, FragmentManager fragmentManager)
     {
@@ -39,6 +40,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
         switch(position) {
             case 0:
                 return HomeFragment.newInstance();
+            /*case 1:
+                return NearbyFragment.newInstance();*/
             case 1:
                 return TopDealsFragment.newInstance();
             case 2:
@@ -47,9 +50,9 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 return ShoppingFragment.newInstance();
             case 4:
                 return HealthFragment.newInstance();
+            /*case 5:
+                return EntertainmentFragment.newInstance();*/
             case 5:
-                return EntertainmentFragment.newInstance();
-            case 6:
                 return NewArrivalsFragment.newInstance();
         }
 
@@ -70,6 +73,10 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
                 return context.getString(R.string.home);
 
+            /*case 1:
+
+                return context.getString(R.string.nearby);*/
+
             case 1:
 
                 return context.getString(R.string.top_deals);
@@ -86,11 +93,11 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
                 return context.getString(R.string.health_fitness);
 
+           /* case 5:
+
+                return context.getString(R.string.entertainment);*/
+
             case 5:
-
-                return context.getString(R.string.entertainment);
-
-            case 6:
 
                 return context.getString(R.string.new_arrivals);
         }

@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.widget.GridLayout;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +29,7 @@ import com.ooredoo.bizstore.model.DOD;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -142,19 +142,6 @@ public class ViewedRatedAdapter extends BaseAdapter
         FontUtils.changeColor(holder.tvCategory, category.name.toUpperCase(),
                 cats[0].toUpperCase(), context.getResources().getColor(R.color.red));
 
-        //holder.tvCategory.setText(category.name.toUpperCase());
-
-
-        /*if(BizStore.getLanguage().equals("en")) {
-            holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
-                    0, 0);
-        }
-        else
-        {
-            holder.tvDiscount.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
-                    0, 0);
-        }*/
-
         FontUtils.setFontWithStyle(context, holder.tvCategory, Typeface.BOLD);
 
         for(int i = 0, r = 0, c = 0; i < dod.deals.size(); i++, c++)
@@ -191,21 +178,16 @@ public class ViewedRatedAdapter extends BaseAdapter
                     holder.progressBar.setVisibility(View.GONE);
 
                     holder.ivThumbnail.setImageBitmap(bitmap);
-                   // rlCell.setBackground(new BitmapDrawable(resources, bitmap));
                 }
                 else
                 {
                     holder.progressBar.setVisibility(View.VISIBLE);
 
-                   // rlCell.setBackground(null);
-
-                    fallBackToDiskCache(imageUrl);
+                    CommonHelper.fallBackToDiskCache(imageUrl, diskCache, memoryCache, this, reqWidth, reqHeight);
                 }
             }
             else
             {
-               // rlCell.setBackground(null);
-
                 holder.progressBar.setVisibility(View.GONE);
             }
 
@@ -216,7 +198,6 @@ public class ViewedRatedAdapter extends BaseAdapter
 
             if(c == 2)
             {
-                //params.topMargin = (int) Converter.convertDpToPixels(8);
                 c = 0;
 
                 r++;
@@ -237,32 +218,13 @@ public class ViewedRatedAdapter extends BaseAdapter
                 {
                     params.rightMargin = (int) Converter.convertDpToPixels(12);
                 }
-
-              //  params.setMarginStart((int) Converter.convertDpToPixels(12));
             }
-           // params.rowSpec = GridLayout.spec(r);
-            //params.columnSpec = GridLayout.spec(c);
 
             params.setGravity(Gravity.CENTER_HORIZONTAL);
             Logger.print("row:" + r + ", column:" + c);
             holder.gridLayout.addView(rlCell, params);
 
             Logger.print("Specs: "+params.width+", "+params.height);
-
-            /*if(first)
-            {
-                first = false;
-
-                holder.gridLayout.addView(rlCell, new GridLayout.LayoutParams(
-                        GridLayout.spec(0, GridLayout.CENTER),
-                        GridLayout.spec(0, GridLayout.CENTER)));
-            }
-            else
-            {
-                holder.gridLayout.addView(rlCell, new GridLayout.LayoutParams(
-                        GridLayout.spec(0, GridLayout.CENTER),
-                        GridLayout.spec(1, GridLayout.CENTER)));
-            }*/
         }
 
         if(position > 0)

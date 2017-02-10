@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/subscription_bg"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_18sdp"
+            android:paddingEnd="@dimen/_18sdp"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/subscription_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/subscription"/>
+
+        <TextView
+            android:id="@+id/free_trial_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_52sdp"
+
+            android:layout_centerHorizontal="true"
+            android:text="Subscription charges after trial period"
+            android:textAllCaps="true"
+            android:layout_below="@+id/subscription_icon"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
+            android:background="#EDEDED"
+            android:textColor="@color/black"/>
+
+        <LinearLayout
+            android:id="@+id/post_paid_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/free_trial_note"
+            android:gravity="center"
+            android:padding="@dimen/_16sdp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/post_paid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:layout_weight="1"
+                android:textColor="#7A7A7A"
+                android:text="Post Paid"/>
+
+            <TextView
+                android:id="@+id/post_paid_charges"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="2"
+                android:gravity="end"
+                android:textColor="#878787"
+                android:text="Rs 35.85/month"/>
+
+        </LinearLayout>
+
+            <View
+                android:id="@+id/separator_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/post_paid_layout"
+                android:background="#DBDBDB"/>
+
+        <LinearLayout
+            android:id="@+id/prepaid_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_16sdp"
+            android:layout_below="@+id/separator_1"
+            android:gravity="center_horizontal|top"
+
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/pre_paid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:textColor="#7A7A7A"
+                android:text="Pre Paid"/>
+
+            <TextView
+                android:id="@+id/pre_paid_charges"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="#878787"
+                android:gravity="end"
+                android:text="Rs 8.36/week"/>
+
+        </LinearLayout>
+
+            <View
+                android:id="@+id/separator_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/prepaid_layout"
+                android:background="#DBDBDB"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_22sdp"
+                android:layout_below="@+id/separator_2"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/btn_subscribe"
+                    android:layout_width="@dimen/_180sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:alpha="1.0"
+                    android:background="#ED1B24"
+                    android:gravity="center"
+                    android:text="@string/SUBSCRIBE"
+                    android:textSize="15sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"/>
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+
+
+
+
+
+    </RelativeLayout>
+
+</ScrollView>

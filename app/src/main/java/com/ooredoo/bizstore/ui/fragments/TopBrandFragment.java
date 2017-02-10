@@ -20,6 +20,7 @@ import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
@@ -96,6 +97,14 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
 
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
+        Resources resources = activity.getResources();
+
+        final int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
+
+        final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._140sdp)
+                /
+                resources.getDisplayMetrics().density);
+
         if(imgUrl != null)
         {
             Logger.print("Top Brand imgUrl was NOT null");
@@ -108,7 +117,8 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
 
             if(bitmap == null)
             {
-                fallBackToDiskCache(url);
+                new CommonHelper().fallBackToDiskCache(getActivity(), url, diskCache, memoryCache,
+                        imageView, progressBar, reqWidth, reqHeight);
             }
             else
             {
@@ -164,7 +174,7 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                    (imageView, progressBar, null);
+                                    (imageView, progressBar);
                             bitmapDownloadTask.execute(url, String.valueOf(reqWidth),
                                     String.valueOf(reqHeight));
                         }

@@ -44,9 +44,9 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static int lastTab = -1;
 
-    public static String username = "1234567";
+    public static String username = "";
 
-    public static String password = "1234";
+    public static String password = "";
 
     public static String secret = CryptoUtils.key;
 
@@ -60,19 +60,23 @@ public class BizStore extends com.activeandroid.app.Application {
     public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
     public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf": "fonts/OpenSans-Regular.ttf";
+            ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
+            ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
     public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf": "fonts/OpenSans-Regular.ttf";
+            ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
+            ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
     public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf": "fonts/OpenSans-Regular.ttf";
+            ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
+            ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
@@ -111,13 +115,16 @@ public class BizStore extends com.activeandroid.app.Application {
             }
         }
 
-        Logger.setEnabled(true);
-
         ActiveAndroid.initialize(this);
 
         if(BuildConfig.DEBUG)
         {
             GoogleAnalytics.getInstance(this).setDryRun(true);
+
+            Logger.setEnabled(true);
+        }
+        else {
+            Logger.setEnabled(false);
         }
 
        // overrideDefaultFonts();

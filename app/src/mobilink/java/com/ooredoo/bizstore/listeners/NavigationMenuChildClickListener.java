@@ -6,9 +6,9 @@ import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.ui.activities.AboutUsActivity;
-import com.ooredoo.bizstore.ui.activities.CitySelectionActivity;
 import com.ooredoo.bizstore.ui.activities.HelpActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
@@ -44,42 +44,44 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
                 switch(childPosition) {
                     case 0:
 
+                        if(!BizStore.username.isEmpty())
                         startActivity(MyAccountActivity.class);
 
                         break;
 
-                    case 1:
+                   /* case 1:
 
                         activity.startActivityForResult(new Intent(activity, CitySelectionActivity.class),
                                 101);
 
                         break;
-
-                    case 2:
-
-                        startActivity(NotificationsActivity.class);
+*/
+                    case 1:
+                        if(!BizStore.username.isEmpty()) {
+                            startActivity(NotificationsActivity.class);
+                        }
 
                         break;
 
-                    case 3:
+                   /* case 2:
 
                         rateUsOnPlayStore();
 
-                        break;
+                        break;*/
 
-                    case 4:
+                    case 2:
 
                         startActivity(HelpActivity.class);
 
                         break;
 
-                    case 5:
+                    case 3:
 
                         startActivity(AboutUsActivity.class);
 
                         break;
 
-                    case 6:
+                    case 4:
 
                         DialogUtils.showUnSubscribeDialog(activity);
                 }

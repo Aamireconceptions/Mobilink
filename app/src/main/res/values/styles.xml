@@ -42,6 +42,11 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="unsub_dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorAccent">@color/red</item>
+        <item name="android:textColorPrimary">#787878</item>
+    </style>
 
 
 </resources>

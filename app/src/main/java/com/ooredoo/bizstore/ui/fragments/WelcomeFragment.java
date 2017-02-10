@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,12 +13,9 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
-import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
-import com.ooredoo.bizstore.utils.TimeUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -39,8 +35,10 @@ public class WelcomeFragment extends BaseFragment {
     Tracker tracker, ooredooTracker;
 
     public void init(View parent) {
+        parent.setOnClickListener(this);
+
         Button btNext = (Button) parent.findViewById(R.id.btn_next);
-        btNext.setOnClickListener(this);
+
 
         activity = (AppCompatActivity) mActivity;
 

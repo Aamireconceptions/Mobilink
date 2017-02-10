@@ -1,7 +1,6 @@
 package com.ooredoo.bizstore.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ooredoo.bizstore.adapters.Gallery;
 
 import java.io.Serializable;
 import java.util.List;

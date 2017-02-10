@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.GridLayout;
 import android.widget.GridView;
@@ -41,6 +42,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -281,7 +283,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 {
                     ivBrand.setImageBitmap(null);
 
-                    fallBackToDiskCache(url);
+                    CommonHelper.fallBackToDiskCache(url, diskCache, memoryCache, this, reqWidth, reqHeight);
                 }
 
                 ivPromotional.setOnClickListener(new View.OnClickListener()
@@ -341,7 +343,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                 }
             });
 
-            String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
+            String promotionalBanner = deal.image != null ? deal.image.detailBannerUrl : null;
 
             Logger.print("promotionalBanner: " + promotionalBanner);
 
@@ -371,7 +373,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
                     ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     progressBar.setVisibility(View.VISIBLE);
 
-                    fallBackToDiskCache(url);
+                    CommonHelper.fallBackToDiskCache(url, diskCache, memoryCache, this, reqWidth, reqHeight);
                 }
 
                 ivPromotional.setOnClickListener(new View.OnClickListener()
@@ -467,55 +469,7 @@ public class BusinessAdapter extends BaseExpandableListAdapter
         context.startActivity(intent);
     }
 
-    private void fallBackToDiskCache(final String url)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
 
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-
-                    Handler handler = new Handler(Looper.getMainLooper());
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Logger.print(" dCache fallback notifyDataSetChanged");
-                            notifyDataSetChanged();
-                        }
-                    });
-                }
-                else
-                {
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            // holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                            // holder.progressBar.setVisibility(View.VISIBLE);
-
-                            BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                                    new BaseAdapterBitmapDownloadTask(BusinessAdapter.this);
-
-                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                    String.valueOf(reqWidth), String.valueOf(reqHeight));
-                        }
-                    });
-
-                    // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-            }
-        });
-
-        thread.start();
-    }
 
 
 

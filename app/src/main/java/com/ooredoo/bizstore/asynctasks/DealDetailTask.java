@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;

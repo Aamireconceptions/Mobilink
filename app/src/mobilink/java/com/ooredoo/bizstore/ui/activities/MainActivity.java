@@ -3,7 +3,10 @@ package com.ooredoo.bizstore.ui.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
@@ -22,7 +25,6 @@ import java.util.TimerTask;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 public class MainActivity extends BaseActivity {
-
     public static boolean hideToolbar = false;
 
     public MainActivity() {
@@ -82,8 +84,12 @@ public class MainActivity extends BaseActivity {
 
     private void hideSplash()
     {
+        finish();
 
-        boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
+        startActivity(new Intent(this, HomeActivity.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+       /* boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
         if(check) {
             startActivity(HomeActivity.class);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -93,8 +99,10 @@ public class MainActivity extends BaseActivity {
             FragmentUtils.replaceFragmentAllowStateLoseAnimation(this, R.id.fragment_container,
                     new SubscriptionPlansFragment(), "subscription_plan_fragment");
 
+            startActivity(new Intent(this, HomeActivity.class));
+
             isSplashShowing = false;
-        }
+        }*/
 
         //webView.clearCache(true);
 

@@ -39,11 +39,8 @@
     <string name="help_answer6a">User can deactivate the service by simply clicking on ‘Unsubscribe’ button from Main Menu given on the home screen. Once done, the user will have to login again if he wishes to use the smartphone application.</string>
     <string name="num_confirm_text">Please enter your Mobilink Number.</string>
     <string name="qatar_code">92</string>
-    <string name="error_invalid_num">Please enter a valid Mobilink Mobile Number</string>
-    <string name="subscription_charges">Prepaid users will be charged @ Rs.<b>2.5</b>+tax/week\nPostpaid users will be charged @ Rs.<b>15</b>+tax/month</string>
-    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz Discount Bazar."
-                            " Enjoy Premium Discounts of your favorite Top Brands. Simply download the Application "
-                            "from PlayStore &amp; avail the Best Deals in your city!</string>
+    <string name="error_invalid_num">Please enter a valid Mobile Number</string>
+    <string name="subscription_charges">Avail discounts closest to you where ever you are! Deals up to 60% off on food, shopping &amp; entertainment! Download app Now and avail 15 day absolutely free trail!</string>
     <string name="food_dining">Food Deals</string>
     <string name="special_discounts">Special Discounts</string>
     <string name="pakistani">Pakistani</string>
@@ -74,7 +71,7 @@
     <string name="travel">Travel</string>
     <string name="ladies">Ladies</string>
     <string name="tips">Tips</string>
-    <string name="copyrights_text">© Copyright 2016 Jazz Discount Bazar Application\nAll rights reserved.</string>
+    <string name="copyrights_text">© Copyright 2017 Jazz Discount Bazar Application\nAll rights reserved.</string>
     <string name="city_selection_text">Please select your city.</string>
     <string name="my_city">City</string>
     <string name="un_sub_success">Dear User, you have successfully unsubscribed from Jazz Discount Bazar!</string>
@@ -91,10 +88,10 @@
     <string name="movies_cinemas_more">Movies, cinemas &amp; much more! </string>
     <string name="host">jazzdiscountbazar.deal</string>
     <string name="host_business">jazzdiscountbazar</string>
-
+    <string name="share_with_friends_txt">Avail discounts closest to you where ever you are! Deals up to 60% off on food, shopping &amp; entertainment! Download app Now and avail 15 day absolutely free trail!</string>
     <string name="congrats_msg">You have availed this discount\nShow this deal to the outlet and get discounts</string>
     <string name="gcm_sender_id">413872219266</string>
-    <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;15 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Jazz Discount Bazar app @ Rs.<b>2.99</b>+tax/week for Prepaid and Rs.<b>15</b>+tax/month for Postpaid.</string>
+    <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;15 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Jazz Discount Bazar app @ Rs.<b>8.36</b>/week for Prepaid and Rs.<b>35.85</b>/month for Postpaid.</string>
     <string name="free_trial">ENJOY A &lt;font color="#ec1b24"&gt;15 DAYS FREE&lt;/font&gt; TRIAL ON SUBSCRIPTION!</string>
     <string name="error_out_of_range">"Dear user, it seems that you are away from outlet. Please go to the outlet to avail discount."</string>
     <string name="redeem_loc_error">Location must be available to avail discount</string>

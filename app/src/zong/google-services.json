@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "230039508376",
+    "project_id": "zong-bizstore"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230039508376:android:3ec5c2c00e4c1aa4",
+        "android_client_info": {
+          "package_name": "com.zong.bizstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHIIDCqfAb5I-y1QqnZMb-5lUQgiZZkZ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-74816919-12"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

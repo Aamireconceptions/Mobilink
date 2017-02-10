@@ -34,6 +34,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -197,7 +198,7 @@ public class DealOfDayAdapter extends BaseAdapter
 
                    // rlCell.setBackground(null);
 
-                    fallBackToDiskCache(imageUrl);
+                    CommonHelper.fallBackToDiskCache(imageUrl, diskCache, memoryCache, this, reqWidth, reqHeight);
                 }
             }
             else
@@ -274,32 +275,6 @@ public class DealOfDayAdapter extends BaseAdapter
         }
 
         return grid;
-    }
-
-
-    private void fallBackToDiskCache(final String imageUrl)
-    {
-        Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = diskCache.getBitmapFromDiskCache(imageUrl);
-
-                if(bitmap != null)
-                {
-                    memoryCache.addBitmapToCache(imageUrl, bitmap);
-
-                    notifyDataSetChanged();
-                }
-                else
-                {
-                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                            new BaseAdapterBitmapDownloadTask(DealOfDayAdapter.this);
-                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
-                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-            }
-        });
     }
 
     class CellClickListener implements View.OnClickListener

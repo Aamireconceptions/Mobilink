@@ -43,9 +43,10 @@ import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.Gallery;
-import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.dialogs.MsisdnDialog;
+import com.ooredoo.bizstore.model.Gallery;
+import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
@@ -61,6 +62,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.fragments.ImageViewerFragment;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
@@ -159,8 +161,13 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
     Tracker tracker;
 
+    int reqWidth, reqHeight;
     @Override
     public void init() {
+
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        reqWidth = displayMetrics.widthPixels;
+        reqHeight = displayMetrics.heightPixels / 2;
 
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
@@ -193,7 +200,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
         handleIntentFilter();
     }
-
+    private boolean isNotification = false;
     private void handleIntentFilter() {
         Intent intent = getIntent();
 
@@ -227,10 +234,12 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
             }
 
             id = intent.getIntExtra(AppConstant.ID, 0);
+            isNotification = intent.getBooleanExtra("notification", false);
             getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
 
         }
     }
+
 
     TextView tvPrices;
     ScrollViewListener mOnScrollViewListener;
@@ -291,8 +300,6 @@ TextView tvBrochure;
 
         tvVoucherClaimed = (TextView) findViewById(R.id.vouchers_claimed);
 
-        llVoucher = (LinearLayout) findViewById(R.id.code_layout);
-
         packageName = getPackageName();
         if(genericDeal != null) {
 
@@ -346,7 +353,7 @@ TextView tvBrochure;
     LinearLayout llDirections;
     RelativeLayout rlHeader;
 
-    LinearLayout llVoucher;
+
     GenericDeal mDeal;
     TextView tvAvailedDeals;
 
@@ -424,7 +431,19 @@ TextView tvBrochure;
 
             src = new Deal(deal);
             src.id = deal.id;
-            IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "deals", id);
+
+            String type;
+
+            if(isNotification)
+            {
+                type = "notification";
+            }
+            else
+            {
+                type = "deals";
+            }
+
+            IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, type, id);
             incrementViewsTask.execute();
 
             cd = new ColorDrawable(getResources().getColor(R.color.red));
@@ -596,7 +615,8 @@ TextView tvBrochure;
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl, ivBrandLogo);
+                    new CommonHelper().fallBackToDiskCache(this, imgUrl, diskCache, memoryCache,
+                            ivBrandLogo, progressBar, reqWidth, reqHeight);
                 }
             }
             else
@@ -647,7 +667,8 @@ TextView tvBrochure;
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl, ivDetail);
+                    new CommonHelper().fallBackToDiskCache(this, imgUrl, diskCache, memoryCache,
+                            ivDetail, progressBar, reqWidth, reqHeight);
                 }
             }
 
@@ -661,57 +682,7 @@ TextView tvBrochure;
 
     }    //populateData function end.
 
-    private void fallBackToDiskCache(final String url, final ImageView imageView)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-               final Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
 
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-
-                    Logger.print("deal detail_fallback: "+url+ " ,"+bitmap);
-                    memoryCache.addBitmapToCache(url, bitmap);
-                    runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run() {
-
-
-                            imageView.setImageBitmap(bitmap);
-                            //AnimatorUtils.expandAndFadeIn(imageView);
-                        }
-                    });
-                }
-                else
-                {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
-                           BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                    (imageView, progressBar, rlHeader);
-                        /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
-                                String.valueOf(displayMetrics.heightPixels / 2));*/
-                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                    url, String.valueOf(displayMetrics.widthPixels),
-                                    String.valueOf(displayMetrics.heightPixels / 2));
-                        }
-                    });
-                }
-            }
-        });
-
-        thread.start();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -730,7 +701,7 @@ TextView tvBrochure;
     View lastSelected = null;
 
 
-
+public static MsisdnDialog dialog;
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -766,47 +737,53 @@ TextView tvBrochure;
         else
         if(viewId == R.id.get_code)
         {
-            if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            {
-                DialogUtils.createLocationDialog(this,
-                        "Dear user, Please turn on GPS to avail discount").show();
 
-                return;
-            }
+            if(!BizStore.username.isEmpty()) {
 
-            if(userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0)
-            {
-                float results[] = new float[3];
+                if(genericDeal.latitude != 0 && genericDeal.longitude != 0) {
+                    if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        DialogUtils.createLocationDialog(this,
+                                "Dear user, Please turn on GPS to avail discount").show();
 
-                Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
-                        mDeal.latitude, mDeal.longitude, results);
-
-                if(results[0] >= 250)
-                {
-                    DialogUtils.createAlertDialog(this, 0, R.string.error_out_of_range).show();
-
-                    return;
+                        return;
+                    }
                 }
 
-                VerifyMerchantCodeTask verifyMerchantCodeTask =
-                        new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
-                verifyMerchantCodeTask
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                String.valueOf(id), "0", String.valueOf(mDeal.businessId));
+                if (userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0) {
+                    float results[] = new float[3];
+
+                    Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
+                            mDeal.latitude, mDeal.longitude, results);
+
+                    if (results[0] >= 250) {
+                        DialogUtils.createAlertDialog(this, 0, R.string.error_out_of_range).show();
+
+                        return;
+                    }
+
+                    VerifyMerchantCodeTask verifyMerchantCodeTask =
+                            new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
+                    verifyMerchantCodeTask
+                            .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                    String.valueOf(id), "0", String.valueOf(mDeal.businessId));
+                } else {
+                    DialogUtils.createAlertDialog(this, 0, R.string.redeem_loc_error).show();
+                }
             }
             else
             {
-                DialogUtils.createAlertDialog(this, 0, R.string.redeem_loc_error).show();
+                dialog = MsisdnDialog.newInstance();
+                dialog.show(getFragmentManager(), null);
+
             }
         }
-                else
-                if(viewId == R.id.directions)
-                {
+        else
+        if(viewId == R.id.directions)
+        {
                     startDirections();
-                }
-            else
-
-                        if(viewId == R.id.how_this_work_note)
+        }
+        else
+        if(viewId == R.id.how_this_work_note)
                         {
                             if(llHead.getVisibility()==View.GONE){
                                 llHead.setVisibility(View.VISIBLE);
@@ -1102,7 +1079,7 @@ TextView tvBrochure;
     ImageView ivDownload;
     public void onHaveData(GenericDeal genericDeal)
     {
-        if(genericDeal.galleryList != null && genericDeal.galleryList.size() > 0)
+        if( genericDeal.galleryList != null && genericDeal.galleryList.size() > 0)
         {
             TextView tvGalleryCount = (TextView) findViewById(R.id.gallery_items_count);
             tvGalleryCount.setText(genericDeal.galleryList.size() + " Photos");

@@ -1,13 +1,11 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.BusinessDetail;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;

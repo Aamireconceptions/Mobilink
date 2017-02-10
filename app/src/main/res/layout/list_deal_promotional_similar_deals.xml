@@ -101,7 +101,8 @@
             android:paddingTop="0.8dp"
             android:paddingBottom="0.8dp"
             android:layout_height="@dimen/_105sdp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             android:src="@color/banner"
             android:background="@drawable/listing_border"/>
 

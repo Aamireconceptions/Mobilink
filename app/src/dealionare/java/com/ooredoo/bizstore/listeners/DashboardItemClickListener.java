@@ -4,7 +4,6 @@ import android.os.Build;
 import android.view.View;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.fragments.ElectronicsFragment;

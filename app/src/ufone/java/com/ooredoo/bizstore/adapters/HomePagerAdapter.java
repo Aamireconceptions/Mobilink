@@ -12,7 +12,6 @@ import com.ooredoo.bizstore.ui.fragments.LadiesFragment;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
 import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
-import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 import com.ooredoo.bizstore.utils.Logger;

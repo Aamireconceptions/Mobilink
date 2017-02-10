@@ -13,10 +13,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,19 +35,15 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.MallDetailAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
-import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.LocationsTask;
 import com.ooredoo.bizstore.asynctasks.MallDetailTask;
 import com.ooredoo.bizstore.asynctasks.MallsMiscTask;
-import com.ooredoo.bizstore.interfaces.LocationNotifies;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Business;
-import com.ooredoo.bizstore.model.Favorite;
-import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.MallBrands;
 import com.ooredoo.bizstore.model.MallDeals;
 import com.ooredoo.bizstore.model.MallMiscResponse;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -101,8 +95,14 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
         layoutResId = R.layout.mall_detail_activity;
     }
 
+    int reqWidth, reqHeight;
     @Override
     public void init() {
+
+         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+
+        reqWidth = displayMetrics.widthPixels;
+        reqHeight = displayMetrics.heightPixels / 2;
 
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
@@ -272,6 +272,9 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
     public void populateData(final Business business) {
         if(business != null) {
+
+
+
             scrollViewListener.setTitle(business.title);
             color = getIntent().getIntExtra("color", -1);
 
@@ -318,7 +321,8 @@ Logger.print("Brand Bitmap: "+bitmap);
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl, ivBrandLogo);
+                    new CommonHelper().fallBackToDiskCache(this, imgUrl, diskCache, memoryCache,
+                            ivBrandLogo, progressBar, reqWidth, reqHeight);
                 }
             }
             else
@@ -414,7 +418,8 @@ Logger.print("Brand Bitmap: "+bitmap);
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl, ivDetail);
+                    new CommonHelper().fallBackToDiskCache(this, imgUrl, diskCache, memoryCache, ivDetail,
+                            progressBar, reqWidth, reqHeight);
                 }
             }
         } else {
@@ -428,7 +433,7 @@ Logger.print("Brand Bitmap: "+bitmap);
         mallsMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
     }
 
-    private void fallBackToDiskCache(final String url, final ImageView imageView)
+    /*private void fallBackToDiskCache(final String url, final ImageView imageView)
     {
         Logger.print("dCache Falling back to DiskCache");
         Thread thread = new Thread(new Runnable() {
@@ -464,7 +469,7 @@ Logger.print("Brand Bitmap: "+bitmap);
                                 public void run() {
                                     Logger.print("dCache Force Downloading: "+url);
                                     BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                            (imageView, progressBar, rlHeader);
+                                            (imageView, progressBar);
                                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                             url, String.valueOf(displayMetrics.widthPixels),
                                             String.valueOf(displayMetrics.heightPixels / 2));
@@ -477,7 +482,7 @@ Logger.print("Brand Bitmap: "+bitmap);
         });
 
         thread.start();
-    }
+    }*/
 
     View lastSelected = null;
 

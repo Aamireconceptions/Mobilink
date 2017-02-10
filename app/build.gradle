@@ -47,15 +47,18 @@ android {
         applicationId "com.ooredoo.bizstore"
         minSdkVersion 17
         targetSdkVersion 21
-        versionCode 17
+        versionCode 19
         versionName "1.0"
+
+        /*resConfigs "en", "ar"*/
     }
     buildTypes {
         release {
+            // remove unused resources
             shrinkResources true
+            // remove unused code
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
         }
         debug{
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -68,6 +71,11 @@ android {
         disable 'ExtraTranslation'
 
     }
+
+    /*aaptOptions{
+        cruncherEnabled = false
+    }*/
+
     productFlavors {
         telenor {
             applicationId "com.telenor.bizstore"
@@ -91,7 +99,8 @@ android {
         mobilink {
             compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
-            versionName = "2.0.2"
+            versionName = "2.0.5"
+            versionCode = 21
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
             signingConfig signingConfigs.JazzDiscountBazar
         }
@@ -100,10 +109,15 @@ android {
             versionName = "1.0"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "44cc637273d64dcba2bc7fb792de3746"]
         }
+
+        zong{
+            applicationId "com.zong.bizstore"
+            versionName = "1.0"
+            versionCode = 2
+            manifestPlaceholders = [HOCKEYAPP_APP_ID: "af3qfdsgsd3443sfdsfahfdh434hsfsds"]
+        }
     }
 }
-
-
 
 repositories{
     mavenCentral()

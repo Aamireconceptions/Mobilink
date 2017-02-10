@@ -92,6 +92,6 @@
         android:textSize="18sp"
         android:textColor="@android:color/primary_text_dark"
         android:layout_marginBottom="@dimen/_6sdp"
-        android:background="@drawable/btn_red"/>
+        android:background="@drawable/btn_green"/>
 
 </RelativeLayout>

@@ -23,7 +23,6 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.DealOfDayAdapter;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
-import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
@@ -31,7 +30,6 @@ import com.ooredoo.bizstore.asynctasks.DealOfDayTask;
 import com.ooredoo.bizstore.asynctasks.FeaturedTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
-import com.ooredoo.bizstore.asynctasks.TopMallsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
@@ -113,7 +111,7 @@ dealofDayCalled = false;
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.home_list_view, R.id.empty_view, R.id.appBarLayout);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.home_list_view, R.id.empty_view, R.id.appBar);
 
         final ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 
@@ -423,7 +421,7 @@ dealofDayCalled = false;
     private void loadTopMalls(ProgressBar pbTopMalls)
     {
         TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager,
-                                                     pbTopMalls);
+                                                     pbTopMalls, tvTopMalls, rlTopMall);
 
         String cache = topMallsTask.getCache();
 

@@ -12,12 +12,9 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
-import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.TimeUtils;
-
-import java.lang.reflect.Type;
 
 /**
  * @author Pehlaj Rai

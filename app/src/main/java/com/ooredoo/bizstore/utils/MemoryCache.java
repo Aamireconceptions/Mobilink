@@ -81,7 +81,7 @@ public class MemoryCache
 
     public void remove(List<GenericDeal> genericDeals)
     {
-        for(GenericDeal genericDeal : genericDeals)
+        /*for(GenericDeal genericDeal : genericDeals)
         {
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.bannerUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.detailBannerUrl);
@@ -92,12 +92,12 @@ public class MemoryCache
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.businessLogo);
         }
 
-        Logger.print("remove Memory");
+        Logger.print("remove Memory");*/
     }
 
     public void removeBrands(List<Brand> brands)
     {
-        for(Brand brand : brands)
+       /* for(Brand brand : brands)
         {
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.bannerUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.detailBannerUrl);
@@ -106,12 +106,12 @@ public class MemoryCache
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.promotionalUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.image.logoUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + brand.businessLogo);
-        }
+        }*/
     }
 
     public void removeMalls(List<Mall> malls)
     {
-        for(Mall mall : malls)
+        /*for(Mall mall : malls)
         {
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.bannerUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.detailBannerUrl);
@@ -119,7 +119,7 @@ public class MemoryCache
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.gridBannerUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.promotionalUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + mall.image.logoUrl);
-        }
+        }*/
     }
 
     public void tearDown()

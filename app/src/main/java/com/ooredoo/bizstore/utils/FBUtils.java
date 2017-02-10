@@ -23,6 +23,9 @@ import com.facebook.share.ShareApi;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
 
@@ -45,6 +48,8 @@ public class FBUtils
 
     private ProgressDialog progressDialog;
 
+    private Tracker tracker;
+
     public enum PENDING_ACTION
     {
         CHECK_IN,;
@@ -55,6 +60,9 @@ public class FBUtils
     public FBUtils(Activity activity)
     {
         this.activity = activity;
+
+        BizStore bizStore = (BizStore) activity.getApplication();
+        tracker = bizStore.getDefaultTracker();
     }
 
     public void init()
@@ -166,7 +174,10 @@ public class FBUtils
                             new FacebookCallback<Sharer.Result>() {
                                 @Override
                                 public void onSuccess(Sharer.Result result) {
-
+                                    tracker.send(new HitBuilders.EventBuilder()
+                                            .setCategory("Action")
+                                            .setAction("Facebook Check-in")
+                                            .build());
                                 }
 
                                 @Override
@@ -194,7 +205,10 @@ public class FBUtils
                             @Override
                             public void onSuccess(Sharer.Result result)
                             {
-
+                                tracker.send(new HitBuilders.EventBuilder()
+                                        .setCategory("Action")
+                                        .setAction("Facebook Check-in")
+                                        .build());
                             }
 
                             @Override

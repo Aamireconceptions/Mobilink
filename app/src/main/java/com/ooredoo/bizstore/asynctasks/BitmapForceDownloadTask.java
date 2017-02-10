@@ -18,6 +18,7 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.Buffer;
@@ -47,8 +48,6 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     private ProgressBar progressBar;
 
-    private RelativeLayout rlHeader;
-
     public String imgUrl;
 
     private BitmapProcessor bitmapProcessor = new BitmapProcessor();
@@ -63,13 +62,11 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     public static ConcurrentHashMap<String, String> downloadingPool = new ConcurrentHashMap<>();
 
-    public BitmapForceDownloadTask(ImageView imageView, ProgressBar progressBar, RelativeLayout rlHeader)
+    public BitmapForceDownloadTask(ImageView imageView, ProgressBar progressBar)
     {
         this.imageView = imageView;
 
         this.progressBar = progressBar;
-
-        this.rlHeader = rlHeader;
     }
 
     @Override
@@ -138,7 +135,7 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
 
     boolean writing = false;
-    HttpsURLConnection connection = null;
+    HttpURLConnection connection = null;
     public Bitmap downloadBitmap(String imgUrl, String reqWidth, String reqHeight)
     {
          if(memoryCache.getBitmapFromCache(imgUrl) != null)
@@ -152,7 +149,7 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
 
         try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+           /* CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
             InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
             Certificate ca;
@@ -189,21 +186,21 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
                 @Override
                 public boolean verify(String hostName, SSLSession sslSession)
                 {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                    *//*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
                     Logger.print("Https Hostname: "+hostName);
 
-                    return hv.verify(s, sslSession);*/
+                    return hv.verify(s, sslSession);*//*
 
                     return true;
                 }
-            };
+            };*/
 
             Logger.print("Force Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);
 
-            connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
-            connection.setHostnameVerifier(hostnameVerifier);
+            connection = (HttpURLConnection) url.openConnection();
+            /*connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);*/
             connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
             connection.setRequestProperty(HTTP_X_PASSWORD,CryptoUtils.encodeToBase64(BizStore.secret));
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
@@ -211,9 +208,6 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             connection.setRequestMethod(METHOD);
             connection.setDoInput(true);
             connection.connect();
-
-
-
 
             BufferedInputStream inputStream = openStream();
 
@@ -232,9 +226,8 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
             }
 
             return bitmap;
-
         }
-        catch (CertificateException e)
+        /*catch (CertificateException e)
         {
             e.printStackTrace();
         }
@@ -249,13 +242,11 @@ public class BitmapForceDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
         catch (KeyManagementException e)
         {
             e.printStackTrace();
-        } catch (ProtocolException e) {
+        } */catch (ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
         return null;
     }

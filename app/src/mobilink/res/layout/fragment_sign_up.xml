@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/tv_sms_charges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:padding="@dimen/_8sdp"
+        android:visibility="gone"
+        android:text="@string/sms_charges"/>
+
+    <TextView
+        android:id="@+id/tv_confirm_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_sms_charges"
+        android:padding="@dimen/_8sdp"
+        android:text="Please enter your mobile number to redeem discount."/>
+
+    <TextView
+        android:id="@+id/tv_plus_sign"
+        android:layout_width="10dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tv_confirm_code"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:gravity="start|center_vertical"
+        android:text="@string/plus_sign"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/et_country_code"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tv_confirm_code"
+        android:layout_toEndOf="@+id/tv_plus_sign"
+        android:editable="false"
+        android:focusable="false"
+        android:gravity="center_vertical"
+        android:inputType="none"
+        android:text="@string/qatar_code"
+        android:textSize="13sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/et_phone_num"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tv_confirm_code"
+        android:layout_toEndOf="@+id/et_country_code"
+        android:inputType="number"
+        android:layoutDirection="locale"
+        android:gravity="start"
+        android:maxLength="14"
+        android:hint="@string/phone_number"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:theme="@style/editTextTheme"/>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="225dp"
+        android:layout_height="38dp"
+        android:layout_below="@+id/et_phone_num"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/btn_red_ripple"
+        android:gravity="center"
+        android:text="@string/NEXT"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
+
+</RelativeLayout>

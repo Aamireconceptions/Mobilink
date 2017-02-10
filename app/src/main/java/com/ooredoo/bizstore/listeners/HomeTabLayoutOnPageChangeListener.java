@@ -2,7 +2,6 @@ package com.ooredoo.bizstore.listeners;
 
 import android.app.Fragment;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.DealsTask;

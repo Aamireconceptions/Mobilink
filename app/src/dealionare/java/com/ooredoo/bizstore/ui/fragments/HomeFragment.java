@@ -23,7 +23,6 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.DealOfDayAdapter;
 import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
-import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.DealOfDayTask;

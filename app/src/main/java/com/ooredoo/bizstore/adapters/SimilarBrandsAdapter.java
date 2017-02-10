@@ -24,6 +24,7 @@ import com.ooredoo.bizstore.model.Brand;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -157,7 +158,7 @@ public class SimilarBrandsAdapter extends BaseAdapter
                 holder.progressBar.setVisibility(View.VISIBLE);
                 holder.tvBrandText.setVisibility(View.GONE);
 
-                fallBackToDiskCache(brandLogo);
+                CommonHelper.fallBackToDiskCache(brandLogo, diskCache, memoryCache, this, reqWidth, reqHeight);
             }
         }
         else

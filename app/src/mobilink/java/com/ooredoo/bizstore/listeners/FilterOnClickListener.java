@@ -5,8 +5,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
 
-import android.text.Spannable;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;

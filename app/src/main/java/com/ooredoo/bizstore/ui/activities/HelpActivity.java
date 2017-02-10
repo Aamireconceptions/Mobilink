@@ -32,6 +32,7 @@ public class HelpActivity extends BaseActivity {
         setupToolbar();
 
         etHelp = (EditText) findViewById(R.id.your_message);
+        FontUtils.setFontWithStyle(this, etHelp, Typeface.NORMAL);
 
         TextView tvQ1 = (TextView) findViewById(R.id.q1);
         FontUtils.setFontWithStyle(this, tvQ1, Typeface.BOLD);

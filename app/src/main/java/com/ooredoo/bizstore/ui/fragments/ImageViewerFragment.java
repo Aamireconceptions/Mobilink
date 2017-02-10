@@ -3,18 +3,14 @@ package com.ooredoo.bizstore.ui.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.Gallery;
+import com.ooredoo.bizstore.model.Gallery;
 import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
-import com.ooredoo.bizstore.model.Image;
-import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.views.HackyViewpager;
 
 import java.io.Serializable;

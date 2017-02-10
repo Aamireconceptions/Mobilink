@@ -10,11 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.interfaces.LocationNotifies;
-import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.LocationResponse;
-import com.ooredoo.bizstore.model.Response;
-import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
-import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 

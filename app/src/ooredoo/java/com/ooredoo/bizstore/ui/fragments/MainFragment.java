@@ -2,8 +2,6 @@ package com.ooredoo.bizstore.ui.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,16 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
-import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
-import static com.ooredoo.bizstore.utils.FragmentUtils.addFragmentWithBackStack;
 import static com.ooredoo.bizstore.utils.FragmentUtils.replaceFragmentWithBackStack;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 

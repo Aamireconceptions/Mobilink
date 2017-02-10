@@ -27,7 +27,6 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
@@ -37,13 +36,18 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
@@ -51,12 +55,20 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
@@ -101,7 +113,7 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
         } catch(IOException e) {
             e.printStackTrace();
 
-           myAccountActivity.showMessage();
+            myAccountActivity.showMessage();
 
         }
 
@@ -128,10 +140,12 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
                         AppData.userAccount.name = response.getString("name");
                     }
 
+
                     if(HomeActivity.tvName != null && !isNullOrEmpty(AppData.userAccount.name))
                     {
                         HomeActivity.tvName.setText(AppData.userAccount.name);
                     }
+
                 }
                 String path = response.has("image") ? response.getString("image") : "";
                 Logger.logI("UPLOADED_IMG_PATH", path);
@@ -159,93 +173,124 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
      */
     private String updateSettings(String name, String imagePath) throws IOException {
 
-        String url = BASE_URL + BizStore.getLanguage() + "/changesettings?os=android";
+        String baseUrl = BASE_URL + BizStore.getLanguage() + "/changesettings?os=android";
 
         String result = null;
 
-        ArrayList<NameValuePair> params = new ArrayList<>();
+        String encoded_image;
 
-        String encoded_image = null;
+        HashMap<String, String> params = new HashMap<>();
 
+        String query = null;
         if(isNotNullOrEmpty(imagePath)) {
             Logger.print("Image Path: " + imagePath);
 
             byte[] bytes = getImageBytes(imagePath);
 
             encoded_image = Base64.encodeToString(bytes, Base64.DEFAULT);
-            //Logger.logI("Base64 Image", encoded_image);
+
+            params.put("image", encoded_image);
+
+            query = createQuery(params);
         }
 
         if(isNotNullOrEmpty(name)) {
             name = URLEncoder.encode(name, ENCODING);
             Logger.print("Name: " + name);
-            url = url + "&name=" + name;
+            baseUrl = baseUrl + "&name=" + name;
+
         }
 
-        KeyStore trustStore = null;
+        HttpsURLConnection connection;
+
+        URL url = new URL(baseUrl);
+
         try {
-            trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            trustStore.load(null, null);
+            InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
+            Certificate ca;
+            try {
+                ca = cf.generateCertificate(is);
 
-            MySSLSocketFactory sf = new MySSLSocketFactory(trustStore);
-            sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-
-            HttpParams params2 = new BasicHttpParams();
-            HttpProtocolParams.setVersion(params2, HttpVersion.HTTP_1_1);
-            HttpProtocolParams.setContentCharset(params2, HTTP.UTF_8);
-
-            SchemeRegistry registry = new SchemeRegistry();
-            registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-            registry.register(new Scheme("https", sf, 443));
-
-            ClientConnectionManager ccm = new ThreadSafeClientConnManager(params2, registry);
-
-            HttpClient httpclient = new DefaultHttpClient(ccm, params2);
-
-
-            HttpPost httpPost = new HttpPost(url);
-
-            Logger.print("UpdateAccountTask URL:"+url);
-            httpPost.setHeader(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
-            httpPost.setHeader(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
-
-            if(isNotNullOrEmpty(encoded_image)) {
-                NameValuePair nameValuePair = new BasicNameValuePair("image", encoded_image);
-                params.add(nameValuePair);
-                UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(params);
-                httpPost.setEntity(formEntity);
+                Logger.print("ca = " + ((X509Certificate) ca).getSubjectDN());
+            } finally {
+                is.close();
             }
 
-            HttpResponse response = httpclient.execute(httpPost);
+            String keystoreType = KeyStore.getDefaultType();
+            KeyStore keyStore = KeyStore.getInstance(keystoreType);
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry("ca", ca);
 
-            StatusLine statusLine = response.getStatusLine();
+            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+            // Initialise the TMF as you normally would, for example:
+            tmf.init(keyStore);
 
-            int statusCode = statusLine.getStatusCode();
-            if(statusCode == 200) {
-                HttpEntity entity = response.getEntity();
-                InputStream is = entity.getContent();
-                result = readStream(is);
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, tmf.getTrustManagers(), null);
+
+            HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostName, SSLSession sslSession) {
+                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                    Logger.print("Https Hostname: "+hostName);
+
+                    return hv.verify(s, sslSession);*/
+
+                    return true;
+                }
+            };
+
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);
+            connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
+            connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
+
+            Logger.print("Rula: user" + CryptoUtils.encodeToBase64(BizStore.username));
+            Logger.print("Rula: password" + CryptoUtils.encodeToBase64(BizStore.secret));
+            connection.setConnectTimeout(CONNECTION_TIME_OUT);
+            connection.setReadTimeout(READ_TIME_OUT);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            if(query != null) {
+                OutputStream os = connection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
             }
-            Logger.print("STATUS_CODE: " + statusCode);
 
-            return result;
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (UnrecoverableKeyException e) {
+            Logger.print("UpdateAccountTask URL:" + url);
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream();
+
+            result = readStream(inputStream);
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         } catch (CertificateException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
         } catch (KeyManagementException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return result;
     }
 
-    private byte[] getImageBytes(String path) throws FileNotFoundException {
+    private byte[] getImageBytes(String path) throws FileNotFoundException
+    {
         File fileName = new File(path);
         InputStream inputStream = new FileInputStream(fileName);
         byte[] bytes;
@@ -261,39 +306,5 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
         }
         bytes = output.toByteArray();
         return bytes;
-    }
-
-    public class MySSLSocketFactory extends SSLSocketFactory {
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-
-        public MySSLSocketFactory(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
-            super(truststore);
-
-            TrustManager tm = new X509TrustManager() {
-                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                }
-
-                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                }
-
-                public X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
-            };
-
-            sslContext.init(null, new TrustManager[] { tm }, null);
-        }
-
-        @Override
-        public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException, UnknownHostException {
-            return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
-        }
-
-
-
-        @Override
-        public Socket createSocket() throws IOException {
-            return sslContext.getSocketFactory().createSocket();
-        }
     }
 }

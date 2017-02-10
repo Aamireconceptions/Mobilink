@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ooredoo.bizstore.views.MultiSwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollView"
+    android:fillViewport="true"
+    android:scrollbars="none">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_190sdp"
+        android:background="@color/banner">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/promo_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <ProgressBar
+            android:id="@+id/promo_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
+
+        <com.ooredoo.bizstore.ui.CirclePageIndicator
+            android:id="@+id/promo_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4sdp"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/top_brands"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp"
+        android:typeface="serif"
+        android:text="@string/top_brands"
+        android:textColor="@color/heading_gray"
+        android:background="@drawable/heading_bg"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_8sdp"
+        android:visibility="gone">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/top_brands_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp" />
+
+        <ProgressBar
+            android:id="@+id/top_brands_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
+
+    <TextView
+        android:id="@+id/top_malls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp"
+        android:text="@string/top_malls"
+        android:typeface="serif"
+        android:textColor="@color/black"
+        android:background="@drawable/heading_bg"
+        android:visibility="visible"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/top_malls_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_120sdp" />
+
+        <ProgressBar
+            android:id="@+id/top_malls_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/custom_progress"/>
+
+    </RelativeLayout>
+
+    <!--<include layout="@layout/layout_horizontal_top_malls"/>-->
+
+
+</LinearLayout>
+    </ScrollView>
+    </com.ooredoo.bizstore.views.MultiSwipeRefreshLayout>

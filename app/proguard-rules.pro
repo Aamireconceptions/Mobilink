@@ -35,6 +35,7 @@
 -keep class com.ooredoo.bizstore.model.* {*;}
 -keep class com.ooredoo.bizstore.asynctasks.*
 -keep class com.ooredoo.bizstore.ui.**
+-keep class com.ooredoo.bizstore.ui.fragments
 -keep class com.ooredoo.bizstore.listeners.*
 -keep class com.ooredoo.bizstore.views.*
 

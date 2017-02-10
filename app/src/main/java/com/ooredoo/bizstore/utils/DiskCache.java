@@ -301,7 +301,7 @@ public class DiskCache
 
     public void remove(List<GenericDeal> genericDeals)
     {
-        synchronized (mDiskCacheLock)
+        /*synchronized (mDiskCacheLock)
         {
             mDiskCacheStarting = true;
 
@@ -330,12 +330,12 @@ public class DiskCache
             mDiskCacheStarting = false;
         }
 
-        Logger.print("remove: Disk");
+        Logger.print("remove: Disk");*/
     }
 
     public void removeBrands(List<Brand> brands)
     {
-        synchronized (mDiskCacheLock)
+        /*synchronized (mDiskCacheLock)
         {
             mDiskCacheStarting = true;
 
@@ -362,12 +362,12 @@ public class DiskCache
             mDiskCacheStarting = false;
         }
 
-        Logger.print("remove: Done");
+        Logger.print("remove: Done");*/
     }
 
     public void removeMalls(List<Mall> malls)
     {
-        synchronized (mDiskCacheLock)
+        /*synchronized (mDiskCacheLock)
         {
             mDiskCacheStarting = true;
 
@@ -394,7 +394,7 @@ public class DiskCache
             mDiskCacheStarting = false;
         }
 
-        Logger.print("remove: Done");
+        Logger.print("remove: Done");*/
     }
 
     /**
@@ -429,29 +429,4 @@ public class DiskCache
         }
     }
 
-    /*public void fallBackToDiskCache(final BaseAdapter adapter, final MemoryCache memoryCache,
-                                     final String imageUrl, final int reqWidth, final int reqHeight)
-    {
-        Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = diskCache.getBitmapFromDiskCache(imageUrl);
-
-                if(bitmap != null)
-                {
-                    memoryCache.addBitmapToCache(imageUrl, bitmap);
-
-                    adapter.notifyDataSetChanged();
-                }
-                else
-                {
-                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                            new BaseAdapterBitmapDownloadTask(adapter);
-                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
-                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-            }
-        });
-    }*/
 }

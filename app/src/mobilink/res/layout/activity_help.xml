@@ -331,7 +331,9 @@
                         android:gravity="top"
                         android:theme="@style/editTextTheme"
                         android:inputType="textCapSentences|textMultiLine"
-                        android:hint="@string/your_message" />
+                        android:hint="@string/your_message"
+                        android:textSize="14sp"
+                        android:textColor="@color/material_blue_grey_900"/>
 
                     <Button
                         android:layout_width="@dimen/_60sdp"

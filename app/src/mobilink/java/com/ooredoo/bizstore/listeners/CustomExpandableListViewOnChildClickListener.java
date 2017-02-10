@@ -8,7 +8,6 @@ import android.widget.ExpandableListView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.CustomExpandableListViewAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
-import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;

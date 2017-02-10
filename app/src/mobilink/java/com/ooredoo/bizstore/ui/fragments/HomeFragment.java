@@ -1,11 +1,9 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BuildConfig;
@@ -51,6 +50,7 @@ import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -59,8 +59,6 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.MyScroller;
 import com.ooredoo.bizstore.utils.SliderUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
-
-import net.hockeyapp.android.FeedbackManager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -159,6 +157,8 @@ dealofDayCalled = false;
 
     DisplayMetrics displayMetrics;
 
+    TextView tvTopMalls;
+    RelativeLayout rlTopMall;
     private void init(View v) {
 
         activity = (HomeActivity) getActivity();
@@ -184,10 +184,10 @@ dealofDayCalled = false;
 
       //  View header = inflater.inflate(R.layout.layout_dashboard, null);
 
-       /* TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
-        FontUtils.setFont(activity, tvTopBrands);*/
+        TextView tvTopBrands = (TextView) v.findViewById(R.id.top_brands);
+        FontUtils.setFont(activity, tvTopBrands);
 
-        String brands = getString(R.string.brands).toUpperCase();
+        /*String brands = getString(R.string.brands).toUpperCase();
         String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
         String brandsOfTheWeek = brands + " " + ofTheWeek;
 
@@ -195,13 +195,15 @@ dealofDayCalled = false;
                 ? R.color.red : R.color.white;
 
 
-        /*FontUtils.changeColorAndMakeBold(tvTopBrands, brandsOfTheWeek, brands,
+        FontUtils.changeColorAndMakeBold(tvTopBrands, brandsOfTheWeek, brands,
                 getResources().getColor(color));*/
 
         llContainer = (LinearLayout) v.findViewById(R.id.container);
 
-        TextView tvTopMalls = (TextView) v.findViewById(R.id.top_malls);
+        tvTopMalls = (TextView) v.findViewById(R.id.top_malls);
         FontUtils.setFont(activity, tvTopMalls);
+
+        rlTopMall = (RelativeLayout) v.findViewById(R.id.top_mall_layout);
 
         String top = getString(R.string.top).toUpperCase();
         String malls = getString(R.string.Malls).toUpperCase();
@@ -218,7 +220,7 @@ dealofDayCalled = false;
 
         initAndLoadPromotions(v);
 
-       // initAndLoadTopBrands(v);
+        initAndLoadTopBrands(v);
 
         initAndLoadTopMalls(v);
 
@@ -232,7 +234,7 @@ dealofDayCalled = false;
         PromoOnPageChangeListener pageChangeListener = new PromoOnPageChangeListener(swipeRefreshLayout);
 
         promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
-      //  promoPager.addOnPageChangeListener(pageChangeListener);
+        promoPager.addOnPageChangeListener(pageChangeListener);
 
         ProgressBar pbPromo = (ProgressBar) v.findViewById(R.id.promo_progress);
 
@@ -277,7 +279,9 @@ dealofDayCalled = false;
     private void initAndLoadTopBrands(View v) {
         List<Brand> brands = new ArrayList<>();
 
-        topBrandsStatePagerAdapter = new TopBrandsStatePagerAdapter(getFragmentManager(), brands);
+        //ChildFragmentManager is very important
+        //otherwise viewpager will loss state upon navigation
+        topBrandsStatePagerAdapter = new TopBrandsStatePagerAdapter(getChildFragmentManager(), brands);
 
         topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
 
@@ -310,6 +314,8 @@ dealofDayCalled = false;
     private void initAndLoadTopMalls(View v) {
         List<Mall> malls = new ArrayList<>();
 
+        //ChildFragmentManager is very important
+        //otherwise viewpager will loss state upon navigation
         topMallsAdapter = new TopMallsStatePagerAdapter(getChildFragmentManager(), malls);
 
         topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
@@ -324,7 +330,7 @@ dealofDayCalled = false;
     private void loadTopMalls(ProgressBar pbTopMalls)
     {
         TopMallsTask topMallsTask = new TopMallsTask(activity, topMallsAdapter, topMallsPager,
-                                                     pbTopMalls);
+                                                     pbTopMalls, tvTopMalls, rlTopMall);
 
         String cache = topMallsTask.getCache();
 
@@ -439,7 +445,8 @@ dealofDayCalled = false;
 
                         // rlCell.setBackground(null);
 
-                        fallBackToDiskCache(ivThumbnail, progressBar, imageUrl);
+                        new CommonHelper().fallBackToDiskCache(getActivity(), imageUrl, diskCache,
+                                memoryCache, ivThumbnail, progressBar, reqWidth, reqHeight);
                     }
                 } else {
 
@@ -478,7 +485,7 @@ else
     }
     }
 
-    private void fallBackToDiskCache(final ImageView imageView,
+  /*  private void fallBackToDiskCache(final ImageView imageView,
                                      final ProgressBar progressBar, final String imageUrl)
     {
         Handler handler = new Handler();
@@ -498,13 +505,13 @@ else
                 else
                 {
                     BitmapForceDownloadTask bitmapDownloadTask =
-                            new BitmapForceDownloadTask(imageView, progressBar, null);
+                            new BitmapForceDownloadTask(imageView, progressBar);
                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
                             String.valueOf(reqWidth), String.valueOf(reqHeight));
                 }
             }
         });
-    }
+    }*/
 
 
     private void setupScroller(ViewPager viewPager) {
@@ -574,20 +581,19 @@ else
             memoryCache.remove(dod.deals);
         }
 
-     //   diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
+        diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
         diskCache.removeMalls(topMallsAdapter.malls);
-
 
         memoryCache.remove(promoAdapter.deals);
 
-      //  memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
+        memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
         memoryCache.removeMalls(topMallsAdapter.malls);
 
         isRefreshed = true;
 
         loadPromos(null);
 
-      //  loadTopBrands(null);
+        loadTopBrands(null);
         loadTopMalls(null);
         initAndLoadDealsOfTheDay();
 

@@ -3,7 +3,6 @@ package com.ooredoo.bizstore.ui.fragments;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
@@ -39,8 +38,8 @@ public class SubscriptionPlansFragment extends BaseFragment {
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
 
-        TextView tvFreeTrial = (TextView) parent.findViewById(R.id.free_trial);
-        tvFreeTrial.setText(Html.fromHtml(getString(R.string.free_trial)));
+        /*TextView tvFreeTrial = (TextView) parent.findViewById(R.id.free_trial);
+        tvFreeTrial.setText(Html.fromHtml(getString(R.string.free_trial)));*/
 
         FontUtils.setFontWithStyle(mainActivity, btnSubscribe, Typeface.BOLD);
 

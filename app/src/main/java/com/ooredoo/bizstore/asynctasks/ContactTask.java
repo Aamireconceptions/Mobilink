@@ -19,11 +19,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManagerFactory;
 
 import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.*;
 
@@ -135,12 +148,87 @@ public class ContactTask extends AsyncTask<String, Void, String>
 
         URL url = new URL(BASE_URL +BizStore.getLanguage() + SERVICE_NAME + query);
 
-        Logger.print("ContactUs URL:"+url);
+        Logger.print("ContactUs URL:" + url);
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+       /* HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
         connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
-        connection.connect();
+        connection.connect();*/
+
+        HttpsURLConnection connection = null;
+
+        try {
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+            InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
+            Certificate ca;
+            try
+            {
+                ca = cf.generateCertificate(is);
+
+                Logger.print("ca = " + ((X509Certificate) ca).getSubjectDN());
+            }
+            finally
+            {
+                is.close();
+            }
+
+            String keystoreType = KeyStore.getDefaultType();
+            KeyStore keyStore = KeyStore.getInstance(keystoreType);
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry("ca", ca);
+
+            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+            // Initialise the TMF as you normally would, for example:
+            tmf.init(keyStore);
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, tmf.getTrustManagers(), null);
+
+            HostnameVerifier hostnameVerifier = new HostnameVerifier()
+            {
+                @Override
+                public boolean verify(String hostName, SSLSession sslSession)
+                {
+                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+                    Logger.print("Https Hostname: "+hostName);
+
+                    return hv.verify(s, sslSession);*/
+
+                    return true;
+                }
+            };
+
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setHostnameVerifier(hostnameVerifier);
+            connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
+            connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
+            Logger.print("Username: base64: " + CryptoUtils.encodeToBase64(BizStore.username));
+            Logger.print("Password: base64: " + CryptoUtils.encodeToBase64(BizStore.secret));
+            connection.setConnectTimeout(CONNECTION_TIME_OUT);
+            connection.setReadTimeout(READ_TIME_OUT);
+            connection.setRequestMethod(METHOD);
+            connection.setDoInput(true);
+            connection.connect();
+        }
+        catch (CertificateException e)
+        {
+            e.printStackTrace();
+        }
+        catch (KeyStoreException e)
+        {
+            e.printStackTrace();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        catch (KeyManagementException e)
+        {
+            e.printStackTrace();
+        }
 
         InputStream is = connection.getInputStream();
 

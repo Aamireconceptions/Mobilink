@@ -52,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
+                android:text="Anonymous"
                 android:textColor="@android:color/primary_text_light" />
 
             <TextView
@@ -60,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:text="+974 434 9900"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:visibility="gone"/>
 
 
 
@@ -164,15 +166,15 @@
         android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/recent_viewed"
+        android:id="@+id/rate_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/_12sdp"
-        android:drawableStart="@drawable/ic_recent_viewed"
+        android:drawableStart="@drawable/ic_rate"
         android:gravity="start|center_vertical"
 
         android:padding="@dimen/_15sdp"
-        android:text="@string/recent_viewed"
+        android:text="@string/rate_us"
         android:textColor="@android:color/primary_text_light"
         android:background="@drawable/item_selector_light"/>
 

@@ -54,6 +54,7 @@ import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Menu;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -106,6 +107,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     ScrollViewListener scrollViewListener;
 
+    int reqWidth, reqHeight;
+
     public BusinessDetailActivity() {
         super();
         layoutResId = R.layout.business_detail_activity;
@@ -113,6 +116,9 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
     @Override
     public void init() {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        reqWidth = displayMetrics.widthPixels;
+        reqHeight = displayMetrics.heightPixels / 2;
 
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
@@ -444,7 +450,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl, ivBrandLogo);
+                    new CommonHelper().fallBackToDiskCache(this, imgUrl, diskCache, memoryCache, ivBrandLogo,
+                                                           progressBar, reqWidth, reqHeight);
                 }
             }
             else
@@ -578,7 +585,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl, ivDetail);
+                    new CommonHelper().fallBackToDiskCache(this, imgUrl, diskCache, memoryCache,
+                                                           ivDetail, progressBar, reqWidth, reqHeight);
                 }
             }
         } else {
@@ -786,7 +794,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
     }
 
 
-    private void fallBackToDiskCache(final String url, final ImageView imageView)
+/*    private void fallBackToDiskCache(final String url, final ImageView imageView)
     {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -804,7 +812,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            /*Palette palette = Palette.from(bitmap).generate();
+                            *//*Palette palette = Palette.from(bitmap).generate();
 
                             if(palette != null)
                             {
@@ -813,7 +821,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                                 {
                                     rlHeader.setBackgroundColor(swatch.getRgb());
                                 }
-                            }*/
+                            }*//*
 
                             imageView.setImageBitmap(bitmap);
 
@@ -834,8 +842,8 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                                 public void run() {
                                     BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
                                             (imageView, progressBar, rlHeader);
-                        /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
-                                String.valueOf(displayMetrics.heightPixels / 2));*/
+                        *//*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
+                                String.valueOf(displayMetrics.heightPixels / 2));*//*
                                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                             url, String.valueOf(displayMetrics.widthPixels),
                                             String.valueOf(displayMetrics.heightPixels / 2));
@@ -850,7 +858,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         });
 
         thread.start();
-    }
+    }*/
 
     @Override
     public void onClick(View v) {

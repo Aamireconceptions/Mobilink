@@ -12,7 +12,7 @@
             android:id="@+id/location_note"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textColor="@android:color/secondary_text_light"
