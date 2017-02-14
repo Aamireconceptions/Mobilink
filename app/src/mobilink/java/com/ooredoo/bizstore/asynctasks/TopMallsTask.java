@@ -63,7 +63,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            return getTopMalls(params[0]);
+            return getTopMalls();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -124,13 +124,12 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
         adapter.notifyDataSetChanged();
     }
 
-    private String getTopMalls(String category) throws IOException
+    private String getTopMalls() throws IOException
     {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-       // params.put(CATEGORY, category);
 
         String query = createQuery(params);
 
@@ -139,9 +138,6 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
         Logger.print("getTopMalls() URL:" + url.toString());
 
         result = getJson(url);
-
-        /*updateVal(activity, KEY, result);
-        updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());*/
 
         Logger.print("getTopMalls:" + result);
 

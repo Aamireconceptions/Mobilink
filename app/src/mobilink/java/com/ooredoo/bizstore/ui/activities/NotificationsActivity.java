@@ -64,7 +64,6 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
                     cbSelectAll.setChecked(false);
                 }
             }
-
         }
     }
 
@@ -106,11 +105,6 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
     }
 
     public void saveNotification(Notification notification) {
-
-       /* if(!notification.enabled)
-        {
-            cbSelectAll.setChecked(false);
-        }*/
 
         if(notification != null && notification.id > 0) {
             List<Notification> notifications = new Select().all().from(Notification.class).where("notificationId=" + notification.id).execute();

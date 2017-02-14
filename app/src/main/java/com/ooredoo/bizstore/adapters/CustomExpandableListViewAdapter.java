@@ -64,8 +64,6 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
     @Override
     public Object getGroup(int groupPosition)
     {
-        /*return subGroupList.get(groupPosition);*/
-
         return navigationItem.getItemName();
     }
 
@@ -127,23 +125,16 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
             convertView = inflater.inflate(R.layout.list_navigation_sub_group, parent, false);
         }
 
-        /*NavigationItem navigationItem = (NavigationItem) getGroup(groupPosition);
-
-        String name = navigationItem.getItemName();
-        int resId = navigationItem.getResId();*/
-
         ImageView ivIndicator = (ImageView) convertView.findViewById(R.id.indicator);
 
         if(groupExpanded)
         {
-            //convertView.setBackgroundResource(R.drawable.group_expanded_ripple);
             convertView.setBackgroundColor(context.getResources().getColor(R.color.grey));
 
             ivIndicator.setImageResource(R.drawable.ic_group_expand);
         }
         else
         {
-           //convertView.setBackgroundResource(R.drawable.group_collpased_ripple);
             convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
 
             if(BizStore.getLanguage().equals("en"))

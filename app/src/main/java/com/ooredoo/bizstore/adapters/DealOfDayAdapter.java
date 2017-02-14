@@ -190,21 +190,16 @@ public class DealOfDayAdapter extends BaseAdapter
                     holder.progressBar.setVisibility(View.GONE);
 
                     holder.ivThumbnail.setImageBitmap(bitmap);
-                   // rlCell.setBackground(new BitmapDrawable(resources, bitmap));
                 }
                 else
                 {
                     holder.progressBar.setVisibility(View.VISIBLE);
-
-                   // rlCell.setBackground(null);
 
                     CommonHelper.fallBackToDiskCache(imageUrl, diskCache, memoryCache, this, reqWidth, reqHeight);
                 }
             }
             else
             {
-               // rlCell.setBackground(null);
-
                 holder.progressBar.setVisibility(View.GONE);
             }
 
@@ -214,7 +209,6 @@ public class DealOfDayAdapter extends BaseAdapter
 
             if(c == 2)
             {
-                //params.topMargin = (int) Converter.convertDpToPixels(8);
                 c = 0;
 
                 r++;
@@ -235,32 +229,13 @@ public class DealOfDayAdapter extends BaseAdapter
                 {
                     params.rightMargin = (int) Converter.convertDpToPixels(12);
                 }
-
-              //  params.setMarginStart((int) Converter.convertDpToPixels(12));
             }
-           // params.rowSpec = GridLayout.spec(r);
-            //params.columnSpec = GridLayout.spec(c);
 
             params.setGravity(Gravity.CENTER_HORIZONTAL);
             Logger.print("row:" + r + ", column:" + c);
             holder.gridLayout.addView(rlCell, params);
 
             Logger.print("Specs: "+params.width+", "+params.height);
-
-            /*if(first)
-            {
-                first = false;
-
-                holder.gridLayout.addView(rlCell, new GridLayout.LayoutParams(
-                        GridLayout.spec(0, GridLayout.CENTER),
-                        GridLayout.spec(0, GridLayout.CENTER)));
-            }
-            else
-            {
-                holder.gridLayout.addView(rlCell, new GridLayout.LayoutParams(
-                        GridLayout.spec(0, GridLayout.CENTER),
-                        GridLayout.spec(1, GridLayout.CENTER)));
-            }*/
         }
 
         if(position > 0)

@@ -20,11 +20,7 @@ public class SubscriptionProcessor
         {
             if(subscription.resultCode != -1)
             {
-                // BizStore.password = subscription.password;
-
                 showVerificationCodeDialog((Activity) context);
-
-                // DialogUtils.etCode.setText(subscription.password);
             }
             else
             {

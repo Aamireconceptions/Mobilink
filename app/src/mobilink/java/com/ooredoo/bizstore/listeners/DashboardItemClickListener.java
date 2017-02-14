@@ -40,10 +40,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
 
             if(id == R.id.restaurants_layout || id == R.id.shopping_layout ||
                     id == R.id.entertainment_layout ) {
-            /*String subCategory = id == R.id.entertainment ? "entertainment" :
-                                   id == R.id.shopping ? "shopping" :
-                                   id == R.id.fashion ? "fashion" :
-                                                      "restaurants";*/
+
                 switch(id) {
                     case R.id.restaurants_layout:
 
@@ -62,11 +59,7 @@ public class DashboardItemClickListener implements View.OnClickListener {
                         mActivity.selectTab(5);
 
                         break;
-
                 }
-
-            /*TopDealsFragment.subCategory = "top_deals_" + subCategory;
-            mActivity.selectTab(1);*/
             }
 
             if(id == R.id.search_layout)
@@ -85,53 +78,8 @@ public class DashboardItemClickListener implements View.OnClickListener {
                 mActivity.selectTab(1);
                 return;
             }
-
-
-        /*    if(id == R.id.salons || id == R.id.salons || id == R.id.salons) {
-                String subCategory = id == R.id.salons ? "salons" : id == R.id.salons ? "lodging" : "spas";
-
-                HotelsAndSpasFragment.subCategory = "hotels_" + subCategory;
-                String subCategoryName = getHotelsSubCategory(id);
-                mActivity.selectTab(6);
-
-                processSubCategory(subCategoryName);
-            }*/
-
-
-
-            /*if(id == R.id.events || id == R.id.movie_tickets || id == R.id.kids_activities) {
-                String subCategory = id == R.id.events ? "events" : id == R.id.movie_tickets ? "cinemas" : "kids_activities";
-                EntertainmentFragment.subCategory = "entertainment_" + subCategory;
-                String subCategoryName = getEntertainmentSubCategory(id);
-
-                mActivity.selectTab(10);
-
-                processSubCategory(subCategoryName);
-            }*/
-
-            //onFilterChangeListener.onFilterChange();
         }
     }
 
-    /*private String getHotelsSubCategory(int id) {
-        return id == R.id.salons ? mActivity.getString(R.string.Salons) : id == R.id.salons ? mActivity.getString(R.string.Lodging) : mActivity.getString(R.string.Spas);
-    }*/
 
-  /*  private String getEntertainmentSubCategory(int id) {
-        return id == R.id.events ? mActivity.getString(R.string.events) : id == R.id.movie_tickets ? mActivity.getString(R.string.cinemas) : mActivity.getString(R.string.Kids_Activities);
-    }*/
-
-    private void processSubCategory(String subCategoryName) {
-        String filter = getCategoryFilter(subCategoryName);
-
-        int category = getParentCategory(subCategoryName);
-
-        resetSubCategories(category);
-
-        int subCategoryCheckboxId = getCategoryCheckboxId(subCategoryName);
-
-        updateSubCategorySelection(subCategoryCheckboxId, true);
-
-        DealsTask.subCategories = filter;
-    }
 }

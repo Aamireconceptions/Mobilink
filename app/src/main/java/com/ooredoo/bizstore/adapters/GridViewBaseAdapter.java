@@ -28,6 +28,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -251,10 +252,9 @@ public class GridViewBaseAdapter extends BaseAdapter
 
                 } else {
                     holder.ivThumbnail.setImageDrawable(new ColorDrawable(context.getResources().getColor(R.color.banner)));
-                    // holder.ivThumbnail.setBackgroundColor(context.getResources().getColor(R.color.banner));
                     holder.progressBar.setVisibility(View.VISIBLE);
 
-                    fallBackToDiskCache(imgUrl);
+                    CommonHelper.fallBackToDiskCache(imgUrl, diskCache, memoryCache, this, reqWidth, reqHeight);
                 }
             } else {
                 holder.ivThumbnail.setImageDrawable(new ColorDrawable(context.getResources().getColor(R.color.banner)));
@@ -342,75 +342,7 @@ public class GridViewBaseAdapter extends BaseAdapter
         return null;
     }
 
-    private void fallBackToDiskCache(final String url)
-    {
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
 
-                Logger.print("dCache getting bitmap from cache");
-
-                if (bitmap != null) {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-
-                    notifyDataSetChanged();
-
-                   *//* ((Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Logger.print(" dCache fallback notifyDataSetChanged");
-                            notifyDataSetChanged();
-                        }
-                    });*//*
-                } else {
-
-                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                            new BaseAdapterBitmapDownloadTask(GridViewBaseAdapter.this);
-
-                    bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
-                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-            }
-        }, 1000);*/
-
-        new AsyncTask<Void, Void, Bitmap>()
-        {
-            @Override
-            protected Bitmap doInBackground(Void... params) {
-                Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
-                return bitmap;
-            }
-
-            @Override
-            protected void onPostExecute(Bitmap bitmap) {
-                super.onPostExecute(bitmap);
-
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if (bitmap != null) {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-
-                    notifyDataSetChanged();
-
-                } else {
-
-                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                            new BaseAdapterBitmapDownloadTask(GridViewBaseAdapter.this);
-
-                    bitmapDownloadTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, url,
-                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-
-            }
-        }.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-
-    }
 
     List<Brand> brands = new ArrayList<>();
 

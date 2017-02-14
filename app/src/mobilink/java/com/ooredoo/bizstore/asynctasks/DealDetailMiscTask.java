@@ -78,20 +78,19 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
 
                 if(dealMisc.genericDeal != null) {
 
-                    if (BuildConfig.FLAVOR.equals("mobilink")) {
+                    if (BuildConfig.FLAVOR.equals("mobilink"))
+                    {
                         activity.onHaveData(dealMisc.genericDeal);
 
                         return;
                     }
 
-                    similarDeals.clear();
+                    /*similarDeals.clear();
                     nearbyDeals.clear();
                     similarDeals.addAll(dealMisc.genericDeal.similarDeals);
                     nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
 
-                    if (!BuildConfig.FLAVOR.equals("telenor") && !BuildConfig.FLAVOR.equals("ufone")) {
-                        activity.onHaveData(dealMisc.genericDeal);
-                    }
+                    activity.onHaveData(dealMisc.genericDeal);*/
                 }
                 else
                 {
@@ -107,8 +106,6 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         else
         {
             activity.onNoData();
-
-           // Toast.makeText(activity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -121,9 +118,6 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         if(!BizStore.username.isEmpty()) {
             params.put(MSISDN, BizStore.username);
         }
-
-        //HomeActivity.lat = 25.283982;
-       // HomeActivity.lng = 51.563376;
 
         params.put("lat", String.valueOf(HomeActivity.lat));
         params.put("long", String.valueOf(HomeActivity.lng));

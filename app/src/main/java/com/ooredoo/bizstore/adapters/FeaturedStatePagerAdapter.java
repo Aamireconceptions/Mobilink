@@ -28,14 +28,11 @@ public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
         this.deals = deals;
 
         this.featuredSlider = featuredSlider;
-
-        //startSlider(deals, HomeFragment.promoPager);
     }
 
     public void setData(List<GenericDeal> deals)
     {
         this.deals = deals;
-        //startSlider(deals, HomeFragment.promoPager);
 
         featuredSlider.start(getCount());
     }
@@ -43,8 +40,6 @@ public class FeaturedStatePagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        //String url = deals.get(position).image.featured;
-
         GenericDeal genericDeal = deals.get(position);
 
         return FeaturedFragment.newInstance(genericDeal);

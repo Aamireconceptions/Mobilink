@@ -27,7 +27,7 @@ public class SMSReceiver extends BroadcastReceiver
         {
             Bundle bundle = intent.getExtras();
 
-            SmsMessage[] msgs = null;
+            SmsMessage[] msgs;
 
             String msgFrom;
 
@@ -51,8 +51,6 @@ public class SMSReceiver extends BroadcastReceiver
 
                             Logger.print("SMS RECEIVED: " + "FROM: " + msgFrom + ", MSG: " + msgBody);
 
-                            //Toast.makeText(context, "SMS RECEIVED", Toast.LENGTH_SHORT).show();
-
                             if (msgBody.contains("Password for")) {
                                 String code = msgBody.substring(msgBody.length() - 6);
 
@@ -65,7 +63,6 @@ public class SMSReceiver extends BroadcastReceiver
                                 DialogUtils.processVerificationCode();
                             }
                         }
-
                     }
                 }
                 catch (Exception e)

@@ -173,8 +173,6 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
                 }
             }
         }
-
-
     }
 
     @Override
@@ -273,18 +271,11 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
     public void populateData(final Business business) {
         if(business != null) {
 
-
-
             scrollViewListener.setTitle(business.title);
             color = getIntent().getIntExtra("color", -1);
 
             id = business.id;
             mBusiness = business;
-
-          /*  if(mBusiness.description == null || mBusiness.description.isEmpty())
-            {
-                rlDescription.setVisibility(View.GONE);
-            }*/
 
             llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new View.OnClickListener() {
@@ -314,7 +305,7 @@ public class MallDetailActivity extends BaseActivity implements View.OnClickList
 
                 Logger.print("Brand URL: "+imgUrl);
                 bitmap = memoryCache.getBitmapFromCache(imgUrl);
-Logger.print("Brand Bitmap: "+bitmap);
+                Logger.print("Brand Bitmap: "+bitmap);
                 if(bitmap != null)
                 {
                     ivBrandLogo.setImageBitmap(bitmap);
@@ -349,19 +340,13 @@ Logger.print("Brand Bitmap: "+bitmap);
             src = business;
             src.id = business.id;
 
-            //src.isFavorite = Favorite.isFavorite(src.id);
-
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "business", id);
             incrementViewsTask.execute();
-            if(isNotNullOrEmpty(business.title)) {
-               // mActionBar.setTitle(business.title);
-            }
 
             TextView tvTitle = ((TextView) header.findViewById(R.id.tv_title));
             tvTitle.setText(business.title);
 
             FontUtils.setFontWithStyle(this, tvTitle, Typeface.BOLD);
-
 
             tvCity2 = (TextView) header.findViewById(R.id.tv_city);
             tvCity2.setText(business.location);
@@ -432,57 +417,6 @@ Logger.print("Brand Bitmap: "+bitmap);
         MallsMiscTask mallsMiscTask = new MallsMiscTask(this, snackBarUtils, progressBar);
         mallsMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
     }
-
-    /*private void fallBackToDiskCache(final String url, final ImageView imageView)
-    {
-        Logger.print("dCache Falling back to DiskCache");
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            { Logger.print("dCache inside Run");
-                bitmap = diskCache.getBitmapFromDiskCache(url);
-
-                Logger.print("dCache getting bitmap from cache"+url);
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!:"+url);
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Logger.print("dCache setting "+bitmap+ " on "+imageView);
-                            imageView.setImageBitmap(bitmap);
-                        }
-                    });
-                }
-                else
-                {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Logger.print("dCache Force Downloading: "+url);
-                                    BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                            (imageView, progressBar);
-                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                            url, String.valueOf(displayMetrics.widthPixels),
-                                            String.valueOf(displayMetrics.heightPixels / 2));
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-        });
-
-        thread.start();
-    }*/
 
     View lastSelected = null;
 
@@ -583,7 +517,7 @@ Logger.print("Brand Bitmap: "+bitmap);
 
         Logger.print("Uri: " + uri);
 
-        uri = "View this restaurant on BizStore http://ooredoo.bizstore/business_detail?id=" + businessId+
+        uri = "View this Mall on BizStore http://ooredoo.bizstore/business_detail?id=" + businessId+
                 "\n\nor download app from play.google.com/store/apps/details?id="+packageName;
 
         DealDetailActivity.startShareIntent(activity, uri, businessId);
@@ -627,60 +561,6 @@ Logger.print("Brand Bitmap: "+bitmap);
         }
 
         return;
-
-       /* if( response.result.brands.size() > 0
-                ||  response.result.deals.size() > 0)
-        {
-            llSimilarNearby.setVisibility(View.VISIBLE);
-
-            this.response = response;
-
-            if(response.result.brands.size() > 0)
-            {
-                groupList.clear();
-                childList.clear();
-
-                for(MallBrands brand : response.result.brands)
-                {
-                    groupList.add(brand.category);
-                    childList.add(brand.brands);
-                }
-
-                btBrands.setSelected(true);
-                lastSelected = btBrands;
-
-                //adapter.notifyDataSetChanged();
-            }
-            else
-            {
-                btBrands.setVisibility(View.GONE);
-            }
-
-            if(response.result.deals.size() > 0)
-            {
-                if(response.result.brands.size() < 1) {
-
-                    groupList.clear();
-                    childList.clear();
-
-                    for(MallDeals deal : response.result.deals)
-                    {
-                        groupList.add(deal.category);
-                        childList.add(deal.deals);
-                    }
-
-                    btDeals.setSelected(true);
-                    lastSelected = btDeals;
-                }
-            }
-            else
-            {
-                btDeals.setVisibility(View.GONE);
-            }
-
-            //setupDealsAndBrands(response);
-        }*/
-
     }
 
     private void startDirections()
@@ -689,10 +569,6 @@ Logger.print("Brand Bitmap: "+bitmap);
         double mLong = HomeActivity.lng;
 
         String src = null, dest = null;
-
-        // src = "saddr=" + mLat + "," + mLong + "&";
-
-        // dest = "daddr="+mBusiness.latitude + "," + mBusiness.longitude;
 
         if(mLat != 0 && mLong != 0)
         {
@@ -705,9 +581,6 @@ Logger.print("Brand Bitmap: "+bitmap);
         }
 
         String uri = "http://maps.google.com/maps?";
-
-        // uri += src;
-        // uri += dest;
 
         if(src != null)
         {
@@ -746,5 +619,4 @@ Logger.print("Brand Bitmap: "+bitmap);
             e.printStackTrace();
         }
     }
-
 }

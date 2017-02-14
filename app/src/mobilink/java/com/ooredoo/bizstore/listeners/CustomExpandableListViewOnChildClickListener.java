@@ -72,17 +72,6 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
         DealsTask.subCategories = filter;
 
-       /* if(getTabPosition() != 3)
-        {
-            DealsTask.subCategories = filter;
-        }
-        else
-        {
-            ShoppingTask.subCategories = filter;
-        }*/
-       /* homeActivity.selectTab(tabPos);
-        homeActivity.drawerLayout.closeDrawer(GravityCompat.START);*/
-
         updateSubCategorySelection(subCategoryCheckboxId, true);
 
         subCategorySelectedListener.onSubCategorySelected();

@@ -44,7 +44,7 @@ public class NotificationUtils
                 .setTicker(desc)
                 .setContentText(desc);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.FLAVOR.equals("mobilink"))
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             builder.setColor(Color.parseColor("#555555"));
             builder.setSmallIcon(R.drawable.jazz_notification_icon);
@@ -103,7 +103,6 @@ public class NotificationUtils
 
         // mId allows you to update the notification later on.
 
-
         Notification notification = builder.build();
 
         //notification.defaults |= Notification.DEFAULT_ALL;
@@ -128,7 +127,6 @@ public class NotificationUtils
 
         downloadBuilder = new NotificationCompat.Builder(context);
         downloadBuilder.setContentTitle(title);
-       // downloadBuilder.setContentText(description);
         downloadBuilder.setColor(context.getResources().getColor(R.color.red));
         downloadBuilder.setSmallIcon(smallIcon);
         downloadBuilder.setTicker(title);
@@ -147,9 +145,6 @@ public class NotificationUtils
         downloadBuilder.setContentText(100 - (int) progress + "% remaining");
         downloadNotification = downloadBuilder.build();
         notificationManager.notify(id, downloadNotification);
-
-
-
     }
 
     public void onDownloadFinish(String msg, String subMsg, int id, File file)

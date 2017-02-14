@@ -22,12 +22,8 @@ import com.ooredoo.bizstore.utils.DialogUtils;
 public class NavigationMenuChildClickListener implements ExpandableListView.OnChildClickListener {
     private HomeActivity activity;
 
-    private ExpandableListAdapter adapter;
-
-    public NavigationMenuChildClickListener(HomeActivity activity, ExpandableListAdapter adapter) {
+    public NavigationMenuChildClickListener(HomeActivity activity) {
         this.activity = activity;
-
-        this.adapter = adapter;
     }
 
     @Override
@@ -63,12 +59,6 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
 
                         break;
 
-                   /* case 2:
-
-                        rateUsOnPlayStore();
-
-                        break;*/
-
                     case 2:
 
                         startActivity(HelpActivity.class);
@@ -82,6 +72,12 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
                         break;
 
                     case 4:
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("http://econceptions.mobi/jazzdiscountbazarapp/privacypolicy"));
+                        activity.startActivity(intent);
+                        break;
+
+                    case 5:
 
                         DialogUtils.showUnSubscribeDialog(activity);
                 }
@@ -98,12 +94,5 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
         Intent intent = new Intent(activity, cls);
 
         activity.startActivity(intent);
-    }
-
-    private void rateUsOnPlayStore() {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-
-        i.setData(Uri.parse("market://details?id="+activity.getPackageName()));//TODO replace package name -> + activity.getPackageName()));
-        activity.startActivity(i);
     }
 }

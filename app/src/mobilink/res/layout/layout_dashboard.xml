@@ -52,13 +52,13 @@
         android:text="@string/top_brands"
         android:textColor="@color/black"
         android:background="@drawable/heading_bg"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/_8sdp"
-        android:visibility="visible">
+        android:visibility="gone">
         <android.support.v4.view.ViewPager
             android:id="@+id/top_brands_pager"
             android:layout_width="match_parent"

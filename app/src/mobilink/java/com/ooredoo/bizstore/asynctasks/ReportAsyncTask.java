@@ -49,8 +49,6 @@ public class ReportAsyncTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String result=null;
-
         HashMap<String, String> parmeters = new HashMap<>();
 
         parmeters.put("os", ANDROID);

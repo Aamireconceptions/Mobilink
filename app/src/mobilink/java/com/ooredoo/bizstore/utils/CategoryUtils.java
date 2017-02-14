@@ -208,14 +208,6 @@ public class CategoryUtils {
             {
                 if(subCategory.isSelected)
                 {
-                    /*if(i != 0)
-                    {
-                        categories += ", " + subCategory.title;
-                    }
-                    else
-                    {
-                        categories = subCategory.title;
-                    }*/
                     categories += subCategory.title + ", ";
                 }
             }

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -27,11 +26,10 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
-import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
 import com.ooredoo.bizstore.asynctasks.TopMallsTask;
@@ -126,17 +124,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         }
 
         this.inflater = inflater;
-dealofDayCalled = false;
+        dealofDayCalled = false;
         init(v);
 
         return v;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        Logger.print("Home onDestroyView");
     }
 
 
@@ -144,11 +135,7 @@ dealofDayCalled = false;
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            System.out.println("HomeFragmental called");
-            menu.findItem(R.id.action_filter).setVisible(false);
-        }
+        menu.findItem(R.id.action_filter).setVisible(false);
     }
 
     boolean dealofDayCalled = false;
@@ -187,17 +174,6 @@ dealofDayCalled = false;
         TextView tvTopBrands = (TextView) v.findViewById(R.id.top_brands);
         FontUtils.setFont(activity, tvTopBrands);
 
-        /*String brands = getString(R.string.brands).toUpperCase();
-        String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
-        String brandsOfTheWeek = brands + " " + ofTheWeek;
-
-        int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
-                ? R.color.red : R.color.white;
-
-
-        FontUtils.changeColorAndMakeBold(tvTopBrands, brandsOfTheWeek, brands,
-                getResources().getColor(color));*/
-
         llContainer = (LinearLayout) v.findViewById(R.id.container);
 
         tvTopMalls = (TextView) v.findViewById(R.id.top_malls);
@@ -205,22 +181,13 @@ dealofDayCalled = false;
 
         rlTopMall = (RelativeLayout) v.findViewById(R.id.top_mall_layout);
 
-        String top = getString(R.string.top).toUpperCase();
-        String malls = getString(R.string.Malls).toUpperCase();
-        String topMalls = top + " " + malls;
-
-       /* FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top,
-                getResources().getColor(color));*/
-
-
-
         List<DOD> dods = new ArrayList<>();
 
         viewedRatedAdapter = new ViewedRatedAdapter(activity, R.layout.layout_deal_of_day, dods);
 
         initAndLoadPromotions(v);
 
-        initAndLoadTopBrands(v);
+        // initAndLoadTopBrands(v);
 
         initAndLoadTopMalls(v);
 
@@ -340,7 +307,7 @@ dealofDayCalled = false;
         }
         else
         {
-            topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
+            topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -485,35 +452,6 @@ else
     }
     }
 
-  /*  private void fallBackToDiskCache(final ImageView imageView,
-                                     final ProgressBar progressBar, final String imageUrl)
-    {
-        Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = diskCache.getBitmapFromDiskCache(imageUrl);
-
-                if(bitmap != null)
-                {
-                    memoryCache.addBitmapToCache(imageUrl, bitmap);
-
-                    imageView.setImageBitmap(bitmap);
-
-                    progressBar.setVisibility(View.GONE);
-                }
-                else
-                {
-                    BitmapForceDownloadTask bitmapDownloadTask =
-                            new BitmapForceDownloadTask(imageView, progressBar);
-                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
-                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-            }
-        });
-    }*/
-
-
     private void setupScroller(ViewPager viewPager) {
         try {
             Field mScroller = ViewPager.class.getDeclaredField("mScroller");
@@ -539,7 +477,6 @@ else
     @Override
     public void onResume()
     {
-
         super.onResume();
 
         resumeSliders();

@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.dialogs;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,6 +44,8 @@ public class MsisdnDialog extends DialogFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sign_up, container, false);
+
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         init(v);
 
@@ -89,6 +93,7 @@ public class MsisdnDialog extends DialogFragment implements View.OnClickListener
         checkOperator();
     }
 
+    public static ChargesDialog chargesDialog;
     public void checkOperator()
     {
         String msisdn = etMsisdn.getText().toString();
@@ -97,8 +102,8 @@ public class MsisdnDialog extends DialogFragment implements View.OnClickListener
         if(NetworkUtils.hasInternetConnection(getActivity())) {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
 
-                CheckOperatorTask task = new CheckOperatorTask(getActivity(), this);
-                task.execute(msisdn);
+                chargesDialog = ChargesDialog.newInstance(msisdn);
+                chargesDialog.show(getFragmentManager(), null);
 
             } else {
                 errMsg = getString(R.string.error_invalid_num);

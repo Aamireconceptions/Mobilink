@@ -78,7 +78,6 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
                 else
                 {
                     SubscriptionProcessor.processSubscription(context, subscription);
-                    //DialogUtils.processVerificationCode();
                 }
 
             } catch(JsonSyntaxException e) {
@@ -115,8 +114,6 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
         Logger.print("subscribe URL:" + url.toString());
 
         result = getJson(url);
-
-       // result = getJson();
 
         Logger.print("SubscrAibe: " + result);
 

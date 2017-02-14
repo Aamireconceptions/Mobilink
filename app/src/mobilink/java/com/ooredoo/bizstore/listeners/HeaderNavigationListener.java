@@ -49,27 +49,14 @@ public class HeaderNavigationListener implements View.OnClickListener {
                 break;
             case R.id.recommended:
 
-                if(BuildConfig.FLAVOR.equals("dealionare") || BuildConfig.FLAVOR.equals("mobilink"))
-                {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_SEND);
-                    intent.putExtra(Intent.EXTRA_TEXT, mActivity.getString(R.string.share_with_friends_txt)
-                            + "\n" + "https://play.google.com/store/apps/details?id="+mActivity.getPackageName());
-                    intent.setType("text/plain");
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, mActivity.getString(R.string.share_with_friends_txt)
+                        + "\n" + "https://goo.gl/L1qJkn");
+                intent.setType("text/plain");
 
-                    mActivity.startActivity(Intent.createChooser(intent, "Tell using"));
+                mActivity.startActivity(Intent.createChooser(intent, "Tell using"));
 
-                    return;
-                }
-
-
-                mActivity.startActivity(new Intent(mActivity, ShareAppActivity.class));
-
-
-
-                break;
-            case R.id.recent_searches:
-               // mActivity.startActivity(new Intent(mActivity, RecentSearchesActivity.class));
                 break;
             case R.id.rate_us:
                 rateUsOnPlayStore();
@@ -88,5 +75,4 @@ public class HeaderNavigationListener implements View.OnClickListener {
         i.setData(Uri.parse("market://details?id=" + mActivity.getPackageName()));
         mActivity.startActivity(i);
     }
-
 }

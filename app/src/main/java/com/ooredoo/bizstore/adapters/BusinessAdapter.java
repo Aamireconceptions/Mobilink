@@ -465,12 +465,8 @@ public class BusinessAdapter extends BaseExpandableListAdapter
         intent.setClass(context, DealDetailActivity.class);
         intent.putExtra("generic_deal", genericDeal);
         intent.putExtra(CATEGORY, dealCategory);
-      //  context.startActivityForResult(intent, 1);
         context.startActivity(intent);
     }
-
-
-
 
 
     @Override

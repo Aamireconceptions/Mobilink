@@ -46,15 +46,6 @@ public class MainActivity extends BaseActivity {
     public Toolbar toolbar;
     private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("dealionare"))
-        {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.red));
-        }
-
-        if(BuildConfig.FLAVOR.equals("dealionare"))
-        {
-            toolbar.setBackgroundColor(Color.parseColor("#fb9900"));
-        }
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

@@ -64,17 +64,10 @@ public class CitiesAdapter extends ArrayAdapter<City> {
             view.setTag(holder);
         }
 
-        /*List<City> cities = new Select().all().from(City.class).where("cityId=" + city.id).execute();
-        if(cities != null && cities.size() > 0) {
-            city.isChecked = cities.get(0).isChecked;
-            Log.i("ENABLED: " + city.id, position + " - " + city.isChecked);
-        }*/
-
         holder.checkBox.setOnCheckedChangeListener(new CheckBoxChangeListener(position, city));
 
         holder.tvTitle.setText(city.name);
         holder.checkBox.setChecked(city.isChecked);
-        //holder.ivCategory.setImageResource(city.resId);
 
         holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +90,6 @@ public class CitiesAdapter extends ArrayAdapter<City> {
         boolean isChecked = checkBox.isChecked();
         checkBox.setChecked(!isChecked);
         city.isChecked = !isChecked;
-        //((CitySelectionActivity) mActivity).saveCity(city);
     }
 
     public void updateItems(List<City> cities) {
@@ -115,10 +107,8 @@ public class CitiesAdapter extends ArrayAdapter<City> {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            //City city = getItem(position);
             city.isChecked = isChecked;
             cities.get(position).isChecked = isChecked;
-            //((CitySelectionActivity) mActivity).saveCity(city);
         }
     }
 

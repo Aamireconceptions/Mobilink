@@ -97,4 +97,5 @@
     <string name="redeem_loc_error">Location must be available to avail discount</string>
     <string name="facebook_app_id" translatable="false">1574024299570067</string>
     <string name="fb_authority">com.facebook.app.FacebookContentProvider1574024299570067</string>
+    <string name="privacy_policy">Privacy Policy</string>
 </resources>

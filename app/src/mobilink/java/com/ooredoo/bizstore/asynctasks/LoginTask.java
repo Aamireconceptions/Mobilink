@@ -3,16 +3,14 @@ package com.ooredoo.bizstore.asynctasks;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
+import com.ooredoo.bizstore.dialogs.MsisdnDialog;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.utils.CryptoUtils;
@@ -20,39 +18,16 @@ import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManagerFactory;
 
 /**
  * @author Babar
  * @since 25-Jun-15.
  */
 public class LoginTask extends BaseAsyncTask<String, Void, String> {
-
-    private TopBrandsStatePagerAdapter adapter;
-
-    private ViewPager viewPager;
 
     private Dialog dialog;
 
@@ -69,11 +44,8 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        if(BuildConfig.FLAVOR.equals("dealionare") || BuildConfig.FLAVOR.equals("ufone")
-                || BuildConfig.FLAVOR.equals("mobilink")) {
-            dialog = DialogUtils.createCustomLoader((Activity) activity, "Logging In....");
-            dialog.show();
-        }
+        dialog = DialogUtils.createCustomLoader((Activity) activity, "Logging In....");
+        dialog.show();
     }
 
     String msisdn;
@@ -95,7 +67,9 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
         super.onPostExecute(result);
 
        if(dialog != null)
+       {
            dialog.dismiss();
+       }
 
         if(result != null)
         {
@@ -139,9 +113,11 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
 
                     DialogUtils.dialog.dismiss();
 
-                    CheckOperatorTask.chargesDialog.dismiss();
                     DealDetailActivity.dialog.dismiss();
 
+                    MsisdnDialog.chargesDialog.dismiss();
+
+                    DealDetailActivity.btGetCode.callOnClick();
 
                     Tracker tracker = ((BizStore) ((Activity) activity).getApplication()).getDefaultTracker();
                     Map<String, String> loginEvent = new HitBuilders.EventBuilder()
@@ -150,8 +126,6 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
                             .build();
 
                     tracker.send(loginEvent);
-
-                    //DialogUtils.startWelcomeFragment();
                 }
                 else
                 if(response.desc.equals("password msg is sent to user"))
@@ -199,130 +173,19 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
         params.put(MSISDN, msisdn);
-
-        if(!BuildConfig.FLAVOR.equals("dealionare")) {
-            params.put("password",  BizStore.password);
-        }
+        params.put("password",  BizStore.password);
 
         String query = createQuery(params);
 
          URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_URL + query);
 
-        //URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_URL);
-
         Logger.print("login() URL:" + url.toString());
 
-        result = getJson(url, query);
+        result = getJson(url);
 
         Logger.print("Login result:" + result);
 
         return result;
     }
 
-
-    public HttpsURLConnection openConnectionAndConnect(URL url, String query) throws IOException{
-        /*String credentials = BizStore.username + ":" + BizStore.password;
-
-        String basicAuth = "Basic " + new String(Base64.encode(credentials.getBytes(), Base64.DEFAULT));*/
-
-        HttpsURLConnection connection = null;
-
-        try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-
-            InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
-            Certificate ca;
-            try
-            {
-                ca = cf.generateCertificate(is);
-
-                Logger.print("ca = " + ((X509Certificate) ca).getSubjectDN());
-            }
-            finally
-            {
-                is.close();
-            }
-
-            String keystoreType = KeyStore.getDefaultType();
-            KeyStore keyStore = KeyStore.getInstance(keystoreType);
-            keyStore.load(null, null);
-            keyStore.setCertificateEntry("ca", ca);
-
-            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
-            // Initialise the TMF as you normally would, for example:
-            tmf.init(keyStore);
-
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, tmf.getTrustManagers(), null);
-
-            HostnameVerifier hostnameVerifier = new HostnameVerifier()
-            {
-                @Override
-                public boolean verify(String hostName, SSLSession sslSession)
-                {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Logger.print("Https Hostname: "+hostName);
-
-                    return hv.verify(s, sslSession);*/
-
-                    return true;
-                }
-            };
-
-            connection = (HttpsURLConnection) url.openConnection();
-            connection.setSSLSocketFactory(sslContext.getSocketFactory());
-            connection.setHostnameVerifier(hostnameVerifier);
-     /*       connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
-            connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));*/
-
-            /*Logger.print("Base64 user" + CryptoUtils.encodeToBase64(BizStore.username));
-            Logger.print("Base64 password"+CryptoUtils.encodeToBase64(BizStore.secret));*/
-            connection.setConnectTimeout(CONNECTION_TIME_OUT);
-            connection.setReadTimeout(READ_TIME_OUT);
-            connection.setRequestMethod(METHOD);
-            connection.setDoInput(true);
-           // connection.setDoOutput(true);
-
-        /*    OutputStream os = connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(query);
-            writer.flush();
-            writer.close();
-            os.close();*/
-
-            connection.connect();
-        }
-        catch (CertificateException e)
-        {
-            e.printStackTrace();
-        }
-        catch (KeyStoreException e)
-        {
-            e.printStackTrace();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        catch (KeyManagementException e)
-        {
-            e.printStackTrace();
-        }
-
-        return connection;
-    }
-
-    public String getJson(URL url, String query) throws IOException
-    {
-        String result;
-
-        HttpURLConnection connection = openConnectionAndConnect(url, query);
-
-        InputStream inputStream = connection.getInputStream();
-
-        result = readStream(inputStream);
-
-        return result;
-    }
 }

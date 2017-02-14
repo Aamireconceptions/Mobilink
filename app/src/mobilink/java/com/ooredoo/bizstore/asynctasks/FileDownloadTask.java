@@ -89,10 +89,6 @@ public class FileDownloadTask extends BaseAsyncTask<String, Float, String>
     protected void onProgressUpdate(Float... values)
     {
         super.onProgressUpdate(values);
-
-        //Logger.print("onProgressUpdate:" + values[0]);
-
-
     }
 
     @Override

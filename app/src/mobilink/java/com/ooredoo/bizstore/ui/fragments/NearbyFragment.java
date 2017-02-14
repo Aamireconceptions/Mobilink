@@ -207,42 +207,6 @@ RelativeLayout rlParent;
        mapView = (MapView) inflater.inflate(R.layout.layout_map, rlParent, false);
 
 
-
-        //ImageView imageView =  (ImageView) linearLayout.findViewById(R.id.dummy);
-
-        /*imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    Logger.print("down");
-                   // listView.setScrollContainer(false);
-
-                    return true;
-                }
-
-                if(event.getAction() == MotionEvent.ACTION_UP)
-                {Logger.print("up");
-                   // listView.setScrollContainer(true);
-
-                    return true;
-                }
-
-                return false;
-            }
-        });*/
-
-       // mapView = (MapView) linearLayout.findViewById(R.id.mapView);
-      /*  mapView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-
-                return false;
-            }
-        });*/
-
         mapView.onCreate(savedInstanceState);
 
         try

@@ -106,18 +106,9 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view, R.id.appBar);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-       /* ivBanner = (ImageView) v.findViewById(R.id.banner);
-
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
-
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
          clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_NEW_ARRIVALS);
-
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
-            clickListener.setLayout(rlHeader);
-        }
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -129,9 +120,6 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
-        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
-        //listView.setOnScrollListener(new FabScrollListener(activity));
-        //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -165,9 +153,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if(!BuildConfig.FLAVOR.equals("mobilink")){
-            menu.findItem(R.id.action_filter).setVisible(true);
-        }
+        menu.findItem(R.id.action_filter).setVisible(false);
     }
 
     @Override
@@ -254,21 +240,12 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.new_arrivals_banner);
 
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader.setVisibility(View.VISIBLE);
-        }
-
         tvEmptyView.setText("");
     }
 
     @Override
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
-
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader.setVisibility(View.GONE);
-        }
-        //adapter.clearData();
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
@@ -279,12 +256,6 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onSubCategorySelected() {
-        /*if(!isCreated) {
-            onFilterChange();
-        } else {
-            isCreated = false;
-        }*/
-
         onFilterChange();
     }
 
@@ -395,7 +366,6 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onLocationChanged() {
         if(tvEmptyView != null) {tvEmptyView.setText("");}
 
-        //isRefreshed = true;
         loadTopDeals(null);
     }
 }

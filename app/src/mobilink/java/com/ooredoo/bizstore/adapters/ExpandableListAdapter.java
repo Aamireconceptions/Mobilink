@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.adapters;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,6 +168,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             tvName.setLayoutDirection(direction);
             tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
             tvName.setText(name);
+
+            if(groupPosition == 1 && childPosition == 5 && BizStore.username.isEmpty())
+            {
+                convertView.setVisibility(View.GONE);
+            }
+            else
+            {
+                convertView.setVisibility(View.VISIBLE);
+            }
 
             return convertView;
         } else {

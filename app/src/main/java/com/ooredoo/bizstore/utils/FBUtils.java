@@ -167,13 +167,16 @@ public class FBUtils
                 {
                     dismissDialog();
 
-                   // VerifyMerchantCodeTask.ivClose.performClick();
+//                   VerifyMerchantCodeTask.ivClose.performClick();
 
                     ShareDialog shareDialog =  new ShareDialog(activity);
                     shareDialog.registerCallback(callbackManager,
                             new FacebookCallback<Sharer.Result>() {
                                 @Override
                                 public void onSuccess(Sharer.Result result) {
+
+                                    VerifyMerchantCodeTask.ivClose.performClick();
+
                                     tracker.send(new HitBuilders.EventBuilder()
                                             .setCategory("Action")
                                             .setAction("Facebook Check-in")
@@ -205,6 +208,8 @@ public class FBUtils
                             @Override
                             public void onSuccess(Sharer.Result result)
                             {
+                                VerifyMerchantCodeTask.ivClose.performClick();
+
                                 tracker.send(new HitBuilders.EventBuilder()
                                         .setCategory("Action")
                                         .setAction("Facebook Check-in")

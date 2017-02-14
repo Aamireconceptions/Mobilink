@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/_70sdp"
+    android:paddingBottom="@dimen/_70sdp"
+    android:background="@drawable/subscription_bg"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-   >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_18sdp"
+        android:paddingEnd="@dimen/_18sdp"
+        android:layout_centerInParent="true">
 
 
 
@@ -18,13 +19,10 @@
             android:id="@+id/free_trial_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/_46sdp"
-
             android:layout_centerHorizontal="true"
-            android:text="Do you wish to subscribe?"
+            android:text="Subscription charges Jazz"
             android:textAllCaps="true"
-            android:layout_below="@+id/subscription_icon"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:gravity="center"
             android:padding="@dimen/_12sdp"
             android:background="#EDEDED"
@@ -36,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/free_trial_note"
             android:gravity="center"
-            android:padding="@dimen/_14sdp"
+            android:padding="@dimen/_16sdp"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -61,18 +59,18 @@
 
         </LinearLayout>
 
-            <View
-                android:id="@+id/separator_1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/post_paid_layout"
-                android:background="#DBDBDB"/>
+        <View
+            android:id="@+id/separator_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/post_paid_layout"
+            android:background="#DBDBDB"/>
 
         <LinearLayout
             android:id="@+id/prepaid_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_14sdp"
+            android:padding="@dimen/_16sdp"
             android:layout_below="@+id/separator_1"
             android:gravity="center_horizontal|top"
 
@@ -99,36 +97,35 @@
 
         </LinearLayout>
 
-            <View
-                android:id="@+id/separator_2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/prepaid_layout"
-                android:background="#DBDBDB"/>
+        <View
+            android:id="@+id/separator_2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/prepaid_layout"
+            android:background="#DBDBDB"/>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_18sdp"
-                android:layout_below="@+id/separator_2"
-                android:background="@color/white">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_22sdp"
+            android:layout_below="@+id/separator_2"
+            android:background="@color/white">
 
-                <Button
-                    android:id="@+id/btn_subscribe"
-                    android:layout_width="@dimen/_180sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_gravity="center_horizontal"
-                    android:alpha="1.0"
-                    android:background="#ED1B24"
-                    android:gravity="center"
-                    android:text="@string/SUBSCRIBE"
-                    android:textSize="15sp"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"/>
+            <Button
+                android:id="@+id/btn_subscribe"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center_horizontal"
+                android:alpha="1.0"
+                android:background="#ED1B24"
+                android:gravity="center"
+                android:text="@string/SUBSCRIBE"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
 
-            </FrameLayout>
-
-        </RelativeLayout>
+        </FrameLayout>
 
     </RelativeLayout>
 
+</RelativeLayout>
