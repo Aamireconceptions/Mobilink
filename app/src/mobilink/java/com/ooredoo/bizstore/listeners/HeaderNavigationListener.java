@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.view.GravityCompat;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
@@ -24,11 +25,14 @@ public class HeaderNavigationListener implements View.OnClickListener {
     View navHeaderView;
     HomeActivity mActivity;
 
+    TextView tvRedeemed;
+
     public HeaderNavigationListener(HomeActivity mActivity, View navHeaderView) {
         this.mActivity = mActivity;
         this.navHeaderView = navHeaderView;
         navHeaderView.findViewById(R.id.app_home).setOnClickListener(this);
-        navHeaderView.findViewById(R.id.my_deals).setOnClickListener(this);
+        tvRedeemed = (TextView) navHeaderView.findViewById(R.id.my_deals);
+        tvRedeemed.setOnClickListener(this);
         navHeaderView.findViewById(R.id.recommended).setOnClickListener(this);
         navHeaderView.findViewById(R.id.rate_us).setOnClickListener(this);
         navHeaderView.findViewById(R.id.recent_searches).setOnClickListener(this);
@@ -74,5 +78,10 @@ public class HeaderNavigationListener implements View.OnClickListener {
 
         i.setData(Uri.parse("market://details?id=" + mActivity.getPackageName()));
         mActivity.startActivity(i);
+    }
+
+    public void resume()
+    {
+        tvRedeemed.setVisibility(View.VISIBLE);
     }
 }

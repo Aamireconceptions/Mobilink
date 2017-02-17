@@ -121,6 +121,8 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 detailActivity.btGetCode.setText("Get Discount Again");
 
                                 redeemDialog.dismiss();
+
+                                DialogUtils.showRateUsDialog(detailActivity);
                             }
                         });
 
@@ -147,6 +149,8 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 detailActivity.btGetCode.setText("Get Discount Again");
 
                                 redeemDialog.dismiss();
+
+                                DialogUtils.showRateUsDialog(detailActivity);
                             }
                         });
 
@@ -162,7 +166,9 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                     // static domain with http is there because the https was
                                     // not using a trusted certificate (i.e self-signed).
                                     // And facebook isn't able to download the image
-                                    imageUrl = "http://188.138.33.11" + imageUrl;
+                                    imageUrl = IMAGE_BASE_URL + imageUrl;
+
+                                    Logger.print("Image share url: "+imageUrl);
                                 }
 
                                 String contentUrl = "https://fb.me/1578100429162454?id="
@@ -207,6 +213,8 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                         redeemDialog.setCanceledOnTouchOutside(false);
                         redeemDialog.setCancelable(false);
                         redeemDialog.show();
+
+
 
                         return;
                     }

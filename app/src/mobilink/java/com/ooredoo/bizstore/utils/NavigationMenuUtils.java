@@ -160,10 +160,17 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             tvNumber.setVisibility(View.VISIBLE);
             tvNumber.setText(PhoneNumberUtils
                     .formatNumber("+92" + BizStore.username));
+
+            headerNavigationListener.resume();
+
+            adapter.notifyDataSetChanged();
         }
     }
 
     TextView tvNumber;
+    HeaderNavigationListener headerNavigationListener;
+
+    ExpandableListAdapter adapter;
     public void setupNavigationMenu() {
         setIndicatorBounds(expandableListView);
 
@@ -179,9 +186,9 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         tvNumber.setText(PhoneNumberUtils
                 .formatNumber("+92" + BizStore.username));
 
-        new HeaderNavigationListener(homeActivity, navigationHeader);
+        headerNavigationListener = new HeaderNavigationListener(homeActivity, navigationHeader);
 
-        ExpandableListAdapter adapter = new ExpandableListAdapter(this, activity, groupList, childList, navigationHeader);
+        adapter = new ExpandableListAdapter(this, activity, groupList, childList, navigationHeader);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {

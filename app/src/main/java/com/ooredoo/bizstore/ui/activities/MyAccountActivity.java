@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.activities;
 
+import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -420,6 +421,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
      * @param uri The Uri to query.
      * @author paulburke
      */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String getPath(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -654,15 +656,27 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         MemoryCache memoryCache = MemoryCache.getInstance();
         memoryCache.removeBitmapFromCache(PROFILE_PIC_URL);
 
-        if(bitmap != null){
-        memoryCache.addBitmapToCache(PROFILE_PIC_URL, bitmap);
+        int reqWidth = (int) convertDpToPixels(200);
+        int reqHeight = reqWidth;
+        ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(profilePicture, null);
+        profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL,
+                valueOf(reqWidth), valueOf(reqHeight));
+
+/*
+        if(bitmap != null)
+        {
+            memoryCache.addBitmapToCache(PROFILE_PIC_URL, bitmap);
+            iv
+        }
+        else
+        {
 
         int reqWidth = (int) convertDpToPixels(200);
         int reqHeight = reqWidth;
         ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(profilePicture, null);
         profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL,
                 valueOf(reqWidth), valueOf(reqHeight));
-        }
+        }*/
 
         /*loadPicture();
 

@@ -78,6 +78,20 @@ public class SharedPrefUtils {
         return false;
     }
 
+    public static boolean canShowRate(Activity activity, final String KEY) {
+        try {
+            sharedPreferences = getSharedPreferences(activity);
+            if(sharedPreferences != null) {
+                if(sharedPreferences.contains(KEY)) {
+                    return sharedPreferences.getBoolean(KEY, true);
+                }
+            }
+        } catch(Throwable e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public static boolean isFirstTime(Context activity, String key)
     {
         return getSharedPreferences((Activity) activity).getBoolean(key, true);

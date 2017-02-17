@@ -7,6 +7,7 @@ import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -169,13 +170,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
             tvName.setText(name);
 
-            if(groupPosition == 1 && childPosition == 5 && BizStore.username.isEmpty())
+            if(((groupPosition == 1 && childPosition == 5) ||(groupPosition == 1 && childPosition == 0))
+                    && BizStore.username.isEmpty())
             {
-                convertView.setVisibility(View.GONE);
-            }
-            else
-            {
-                convertView.setVisibility(View.VISIBLE);
+                return new View(context);
             }
 
             return convertView;

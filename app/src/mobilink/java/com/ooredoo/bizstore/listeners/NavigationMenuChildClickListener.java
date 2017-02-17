@@ -53,9 +53,7 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
                         break;
 */
                     case 1:
-                        if(!BizStore.username.isEmpty()) {
-                            startActivity(NotificationsActivity.class);
-                        }
+                        startActivity(NotificationsActivity.class);
 
                         break;
 

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
 
+import com.activeandroid.Configuration;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.FacebookSdk;
@@ -11,6 +12,8 @@ import com.facebook.LoggingBehavior;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.model.Notification;
+import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -19,6 +22,7 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import io.fabric.sdk.android.Fabric;
 import java.util.HashMap;
+
 
 import static com.ooredoo.bizstore.utils.CryptoUtils.encodeToBase64;
 import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
@@ -88,7 +92,16 @@ public class BizStore extends com.activeandroid.app.Application {
     }*/
 
     public void onCreate() {
+
         super.onCreate();
+        /*Configuration dbConfiguration = new Configuration.Builder(this)
+                .setDatabaseName("ooredoo_bizstore.db")
+                .addModelClass(SearchItem.class)
+
+                .create();*/
+
+        ActiveAndroid.initialize(this);
+
         if(BuildConfig.FLAVOR.equals("ooredoo")) {
             TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
             Fabric.with(this, new Twitter(authConfig));
@@ -115,8 +128,6 @@ public class BizStore extends com.activeandroid.app.Application {
             }
         }
 
-        ActiveAndroid.initialize(this);
-
         if(BuildConfig.DEBUG)
         {
             GoogleAnalytics.getInstance(this).setDryRun(true);
@@ -126,17 +137,6 @@ public class BizStore extends com.activeandroid.app.Application {
         else {
             Logger.setEnabled(false);
         }
-
-       // overrideDefaultFonts();
-
-       /* setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler()
-        {
-            @Override
-            public void uncaughtException(Thread thread, Throwable e)
-            {
-                e.printStackTrace();
-            }
-        });*/
     }
 
     public void overrideDefaultFonts()

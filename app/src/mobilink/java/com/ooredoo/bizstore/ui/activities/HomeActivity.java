@@ -50,6 +50,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -212,8 +213,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new TwitterCore(authConfig), new TweetComposer());
+        ActiveAndroid.initialize(getApplication());
+
+      /*  TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new TwitterCore(authConfig), new TweetComposer());*/
 
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
@@ -263,7 +266,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         checkIfGpsEnabled();
 
         if(!BuildConfig.DEBUG) {
-          startSubscriptionCheck();
+          //startSubscriptionCheck();
         }
 
         MetricsManager.register(this, getApplication());
@@ -408,6 +411,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         super.onResume();
 
         Logger.print("Home onResume");
+
+        PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
 
         navigationMenuUtils.onResume();
 

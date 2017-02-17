@@ -345,4 +345,43 @@ public class DialogUtils {
         return dialog;
     }
 
+    public static void showRateUsDialog(final Context context)
+    {
+        boolean canShow = SharedPrefUtils.canShowRate((Activity) context, "can_show_rate");
+
+        if(canShow) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.unsub_dialog);
+            builder.setMessage("Enjoyed discount, let's rate us on play store.");
+            builder.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    SharedPrefUtils.updateVal((Activity) context, "can_show_rate", false);
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                    intent.setData(Uri.parse("market://details?id=" + context.getPackageName()));
+                    context.startActivity(intent);
+
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+            builder.setNeutralButton("Don't ask again", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    SharedPrefUtils.updateVal((Activity) context, "can_show_rate", false);
+                }
+            });
+
+            builder.show();
+        }
+    }
+
+
 }

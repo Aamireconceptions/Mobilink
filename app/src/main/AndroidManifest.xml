@@ -95,6 +95,11 @@
             android:name="AA_DB_VERSION"
             android:value="1"/>
 
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.ooredoo.bizstore.model.SearchItem, com.ooredoo.bizstore.model.Notification,
+            com.ooredoo.bizstore.model.Deal, com.ooredoo.bizstore.model.RecentItem" />
+
         <!--<meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value=" AIzaSyD8thjWWw0Stqgh_dmg8JUFJCufr3AsXw0"/>-->
@@ -340,6 +345,19 @@
             </intent-filter>
 
         </receiver>
+
+        <!-- Used for Google Play Store Campaign Measurement-->
+        <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+        
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService"
+            android:enabled="true"
+            android:exported="false"/>
 
 
     </application>

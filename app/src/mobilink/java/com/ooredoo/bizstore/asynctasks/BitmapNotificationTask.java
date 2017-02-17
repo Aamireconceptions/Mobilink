@@ -13,6 +13,7 @@ import com.ooredoo.bizstore.utils.NotificationUtils;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
@@ -67,7 +68,7 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
         return downloadBitmap(params[0], params[1], params[2], params[3]);
     }
 
-    HttpsURLConnection connection = null;
+    HttpURLConnection connection = null;
     public Bitmap[] downloadBitmap(String imgUrl, String reqWidth, String reqHeight, String brandLogo)
     {
         try
@@ -76,7 +77,7 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
 
             url = new URL(imgUrl);
 
-            connection = (HttpsURLConnection) url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
             connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
             connection.setConnectTimeout(CONNECTION_TIME_OUT);

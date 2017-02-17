@@ -4,6 +4,8 @@ apply plugin: 'io.fabric'
 
 repositories{
     maven {url 'https://maven.fabric.io/public'}
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
@@ -41,8 +43,8 @@ android {
             storePassword keystoreProperties['mobilinkStorePassword']
         }
     }
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.ooredoo.bizstore"
         minSdkVersion 17
@@ -99,8 +101,8 @@ android {
         mobilink {
             compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
-            versionName = "2.0.5"
-            versionCode = 21
+            versionName = "2.1.0"
+            versionCode = 22
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
             signingConfig signingConfigs.JazzDiscountBazar
         }
@@ -138,7 +140,7 @@ dependencies {
     compile 'com.android.support:support-v13:22.2.0'
     compile 'com.intuit.sdp:sdp-android:1.0.0'
     compile 'com.google.code.gson:gson:2.3.1'
-    compile files('libs/activeandroid-3.0.jar')
+   // compile files('libs/activeandroid-3.1-beta.jar')
 
     compile 'com.google.android.gms:play-services-maps:8.3.0'
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
@@ -162,8 +164,7 @@ dependencies {
         transitive = true;
         exclude module: 'support-v4'
     }
-
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }
-
 
 apply plugin: 'com.google.gms.google-services'

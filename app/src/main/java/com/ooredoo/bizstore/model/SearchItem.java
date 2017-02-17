@@ -1,7 +1,5 @@
 package com.ooredoo.bizstore.model;
 
-import android.database.DatabaseUtils;
-
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -18,19 +16,20 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 @Table(name = "obs_recent_searches")
 public class SearchItem extends Model {
 
-    @Column(name = "searchId", notNull = true)
-    public int id;
+    @Column(name = "searchId")
+    public int id = 0;
 
     @Column(name = "keyword")
-    public String keyword;
+    public String keyword = "";
 
     @Column(name = "results")
-    public int resultCount;
+    public int resultCount = 0;
 
     public SearchItem() {
-        this.id = 0;
+       // super();
+       /* this.id = 0;
         this.keyword = "";
-        this.resultCount = 0;
+        this.resultCount = 0;*/
     }
 
     public SearchItem(int id, String keyword, int resultCount) {

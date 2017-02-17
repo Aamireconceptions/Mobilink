@@ -13,6 +13,7 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -67,7 +68,9 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
 
             activity.finish();
 
-            activity.startActivity(new Intent(activity, MainActivity.class));
+            if(!BuildConfig.FLAVOR.equals("mobilink")) {
+                activity.startActivity(new Intent(activity, MainActivity.class));
+            }
 
             BizStore bizStore = (BizStore) activity.getApplication();
             Tracker tracker = bizStore.getDefaultTracker();
@@ -83,6 +86,16 @@ public class UnSubTask extends BaseAsyncTask<String, Void, String> {
             {
                 Tracker ooredooTracker = bizStore.getOoredooTracker();
                 ooredooTracker.send(unsubEvent);
+            }
+
+            if(BuildConfig.FLAVOR.equals("mobilink"))
+            {
+                SharedPrefUtils.clearCache(activity, "username");
+
+                BizStore.username = "";
+                BizStore.password = "";
+
+                activity.finish();
             }
 
             Toast.makeText(activity, R.string.un_sub_success, Toast.LENGTH_SHORT).show();

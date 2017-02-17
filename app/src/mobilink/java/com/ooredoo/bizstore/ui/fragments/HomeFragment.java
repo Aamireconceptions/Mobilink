@@ -518,19 +518,19 @@ else
             memoryCache.remove(dod.deals);
         }
 
-        diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
+     //   diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
         diskCache.removeMalls(topMallsAdapter.malls);
 
         memoryCache.remove(promoAdapter.deals);
 
-        memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
+     //   memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
         memoryCache.removeMalls(topMallsAdapter.malls);
 
         isRefreshed = true;
 
         loadPromos(null);
 
-        loadTopBrands(null);
+       // loadTopBrands(null);
         loadTopMalls(null);
         initAndLoadDealsOfTheDay();
 

@@ -152,7 +152,9 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
                 /*if(pathProfilePic != null) {
                     myAccountActivity.updateProfilePicture();
                 }*/
-                myAccountActivity.updateProfilePicture();
+                if(path != null && !path.isEmpty()) {
+                    myAccountActivity.updateProfilePicture();
+                }
             } catch(JSONException jse) {
                 jse.printStackTrace();
             }

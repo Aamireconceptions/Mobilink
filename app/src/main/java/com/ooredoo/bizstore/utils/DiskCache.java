@@ -301,7 +301,7 @@ public class DiskCache
 
     public void remove(List<GenericDeal> genericDeals)
     {
-        /*synchronized (mDiskCacheLock)
+        synchronized (mDiskCacheLock)
         {
             mDiskCacheStarting = true;
 
@@ -330,7 +330,7 @@ public class DiskCache
             mDiskCacheStarting = false;
         }
 
-        Logger.print("remove: Disk");*/
+        Logger.print("remove: Disk");
     }
 
     public void removeBrands(List<Brand> brands)
