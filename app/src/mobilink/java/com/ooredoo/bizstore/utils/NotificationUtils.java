@@ -69,7 +69,7 @@ public class NotificationUtils
         }
 
         Intent intent;
-        if(type.equals("business")) {
+        if(!type.equals("business")) {
              intent = new Intent(context, DealDetailActivity.class);
         }
         else

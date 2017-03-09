@@ -31,12 +31,13 @@ public class HeaderNavigationListener implements View.OnClickListener {
         this.mActivity = mActivity;
         this.navHeaderView = navHeaderView;
         navHeaderView.findViewById(R.id.app_home).setOnClickListener(this);
-        tvRedeemed = (TextView) navHeaderView.findViewById(R.id.my_deals);
-        tvRedeemed.setOnClickListener(this);
+      //  tvRedeemed = (TextView) navHeaderView.findViewById(R.id.my_deals);
+      //  tvRedeemed.setOnClickListener(this);
         navHeaderView.findViewById(R.id.recommended).setOnClickListener(this);
         navHeaderView.findViewById(R.id.rate_us).setOnClickListener(this);
         navHeaderView.findViewById(R.id.recent_searches).setOnClickListener(this);
-        navHeaderView.findViewById(R.id.redeem_deals).setOnClickListener(this);
+        tvRedeemed = (TextView) navHeaderView.findViewById(R.id.redeem_deals);
+        tvRedeemed.setOnClickListener(this);
     }
 
     @Override

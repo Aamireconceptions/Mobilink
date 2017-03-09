@@ -97,7 +97,7 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
 
             url = new URL(brandLogo);
 
-            connection = (HttpsURLConnection) url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty(HTTP_X_USERNAME, BizStore.username);
             connection.setRequestProperty(HTTP_X_PASSWORD, BizStore.password);
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
