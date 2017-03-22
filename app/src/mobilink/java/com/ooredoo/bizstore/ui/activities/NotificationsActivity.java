@@ -14,6 +14,9 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.NotificationsAdapter;
 import com.ooredoo.bizstore.model.Notification;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +24,13 @@ import java.util.List;
  * @author Pehlaj Rai
  * @since 6/24/2015.
  */
+@EActivity
 public class NotificationsActivity extends BaseActivity implements View.OnClickListener {
 
     public List<Notification> notifications = new ArrayList<>();
 
-    private ListView mListView;
+    @ViewById(R.id.lv_notifications)
+    public ListView mListView;
     private NotificationsAdapter mAdapter;
 
     public NotificationsActivity() {
@@ -33,12 +38,12 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         layoutResId = R.layout.activity_my_notifications;
     }
 
+    @ViewById(R.id.rl_select_all)
     RelativeLayout rlSelectAll;
 
     @Override
     public void init() {
         setupToolbar();
-        mListView = (ListView) findViewById(R.id.lv_notifications);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -52,10 +57,8 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         mAdapter = new NotificationsAdapter(this, R.layout.list_item_notification, notifications);
         mListView.setAdapter(mAdapter);
 
-        rlSelectAll = (RelativeLayout) findViewById(R.id.rl_select_all);
         rlSelectAll.setOnClickListener(this);
 
-        cbSelectAll = (CheckBox) findViewById(R.id.cb_select_all);
         cbSelectAll.setChecked(true);
         List<Notification> n = new Select().all().from(Notification.class).execute();
         if(n != null && n.size() > 0) {
@@ -67,6 +70,7 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    @ViewById(R.id.cb_select_all)
     CheckBox cbSelectAll;
     @Override
     public void onClick(View v) {
@@ -84,8 +88,9 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    @ViewById
+    Toolbar toolbar;
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -132,7 +137,6 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
                     cbSelectAll.setChecked(false);
                 }
             }
-
         }
     }
 }

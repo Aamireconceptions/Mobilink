@@ -24,7 +24,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 {
     private Context context;
 
-    public final static int PAGE_COUNT = 6;
+    public final static int PAGE_COUNT = 7;
 
     public HomePagerAdapter(Context context, FragmentManager fragmentManager)
     {
@@ -50,9 +50,9 @@ public class HomePagerAdapter extends FragmentPagerAdapter
                 return ShoppingFragment.newInstance();
             case 4:
                 return HealthFragment.newInstance();
-            /*case 5:
-                return EntertainmentFragment.newInstance();*/
             case 5:
+                return EntertainmentFragment.newInstance();
+            case 6:
                 return NewArrivalsFragment.newInstance();
         }
 
@@ -93,11 +93,11 @@ public class HomePagerAdapter extends FragmentPagerAdapter
 
                 return context.getString(R.string.health_fitness);
 
-           /* case 5:
-
-                return context.getString(R.string.entertainment);*/
-
             case 5:
+
+                return context.getString(R.string.entertainment);
+
+            case 6:
 
                 return context.getString(R.string.new_arrivals);
         }

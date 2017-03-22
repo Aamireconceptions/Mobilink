@@ -120,6 +120,7 @@
             </intent-filter>
         </activity>
 
+
         <activity
             android:name=".ui.activities.HomeActivity_"
             android:label="@string/app_name"
@@ -132,24 +133,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>-->
         </activity>
-        <activity android:name=".ui.activities.FilterActivity"/>
-        <activity
-            android:name=".ui.activities.ShareAppActivity"
-            android:label="@string/share_app_with_friends"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".ui.activities.HomeActivity_"
-            android:windowSoftInputMode="stateAlwaysHidden|"/>
-         <activity
-             android:name=".ui.activities.MyDealsActivity"
-             android:label="@string/my_deals"
-             android:screenOrientation="portrait"
-             android:parentActivityName=".ui.activities.HomeActivity_"/>
-        <activity
-            android:name=".ui.activities.MyFavoritesActivity"
-            android:label="@string/my_favorites"
-            android:configChanges="locale"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".ui.activities.HomeActivity_"/>
+
         <activity
             android:name=".ui.activities.DealDetailActivity_"
             android:configChanges="locale|layoutDirection"
@@ -181,36 +165,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.activities.BusinessDetailActivity"
-            android:configChanges="locale|layoutDirection"
-            android:label="@string/app_name"
 
-            android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait">
-            <intent-filter>
-
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <action android:name="com.ooredoo.bizstore.business_detail"/>
-
-                <data
-                    android:scheme="http"
-                    android:host="@string/host_business"
-                    android:pathPrefix="/business_detail"
-                    android:pathPattern=".*"/>
-
-                <data
-                    android:scheme="http"
-                    android:host="@string/host_business"
-                    android:pathPrefix="/business_detail"/>
-
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".ui.activities.AboutUsActivity_"
@@ -227,28 +182,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.activities.RecentViewedActivity"
-            android:configChanges="locale|layoutDirection"
-            android:label="@string/recent_viewed"
-            android:launchMode="singleTop"
-            android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.activities.RecentSearchesActivity"
-            android:configChanges="locale|layoutDirection"
-            android:label="@string/recent_searches"
-            android:launchMode="singleTop"
-            android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait"/>
 
-        <activity
-            android:name=".ui.activities.CitySelectionActivity"
-            android:configChanges="locale|layoutDirection"
-
-            android:launchMode="singleTop"
-            android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.activities.NotificationsActivity_"
@@ -264,12 +198,6 @@
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait"/>
 
-        <activity
-            android:name=".ui.activities.RedeemedDealsActivity"
-            android:configChanges="locale|layoutDirection"
-            android:label="@string/redeemed_deals"
-            android:parentActivityName=".ui.activities.HomeActivity"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.activities.HelpActivity_"
@@ -278,21 +206,7 @@
             android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait"/>
-<!--
-        <activity
-            android:name=".ui.activities.CitySelectionActivity"
-            android:configChanges="locale|layoutDirection"
-            android:label="@string/my_city"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".ui.activities.HomeActivity"
-            android:screenOrientation="portrait"/>-->
 
-            <activity android:name="com.ooredoo.bizstore.ui.activities.CaptureActivity"
-                android:screenOrientation="sensorLandscape"
-                android:clearTaskOnLaunch="true"
-                android:stateNotNeeded="true"
-                android:theme="@style/CaptureTheme"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

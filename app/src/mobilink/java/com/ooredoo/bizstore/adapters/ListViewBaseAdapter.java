@@ -51,6 +51,7 @@ import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity_;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
@@ -830,7 +831,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
     {
         genericDeal.views += 1;
         Intent intent = new Intent();
-        intent.setClass(activity, DealDetailActivity.class);
+        intent.setClass(activity, DealDetailActivity_.class);
         intent.putExtra("generic_deal", genericDeal);
         intent.putExtra(CATEGORY, dealCategory);
 

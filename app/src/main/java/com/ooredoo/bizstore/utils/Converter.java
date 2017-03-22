@@ -115,6 +115,11 @@ public class Converter
             {
                 return new Category("New Arrivals", R.drawable.ic_shopping);
             }
+            else
+            if(target.equals("mostredeemed"))
+            {
+                return new Category("Most Redeemed", R.drawable.ic_shopping);
+            }
 
 
         return new Category("Invalid Category", R.drawable.ic_sports);

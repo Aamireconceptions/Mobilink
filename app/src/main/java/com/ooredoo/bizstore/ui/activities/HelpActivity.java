@@ -13,10 +13,14 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.ContactTask;
 import com.ooredoo.bizstore.utils.FontUtils;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 /**
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
+@EActivity
 public class HelpActivity extends BaseActivity {
 
     ActionBar mActionBar;
@@ -25,37 +29,41 @@ public class HelpActivity extends BaseActivity {
         layoutResId = R.layout.activity_help;
     }
 
+    @ViewById(R.id.your_message)
     EditText etHelp;
+
+    @ViewById(R.id.q1)
+    TextView tvQ1;
+
+    @ViewById(R.id.q2)
+    TextView tvQ2;
+
+    @ViewById(R.id.q3)
+    TextView tvQ3;
+
+    @ViewById(R.id.q4)
+    TextView tvQ4;
+
+    @ViewById(R.id.q5)
+    TextView tvQ5;
+
+    @ViewById(R.id.q6)
+    TextView tvQ6;
+
+    @ViewById(R.id.your_feedback)
+    TextView tvYourFeedback;
 
     @Override
     public void init() {
         setupToolbar();
 
-        etHelp = (EditText) findViewById(R.id.your_message);
         FontUtils.setFontWithStyle(this, etHelp, Typeface.NORMAL);
-
-        TextView tvQ1 = (TextView) findViewById(R.id.q1);
         FontUtils.setFontWithStyle(this, tvQ1, Typeface.BOLD);
-
-        TextView tvQ2 = (TextView) findViewById(R.id.q2);
         FontUtils.setFontWithStyle(this, tvQ2, Typeface.BOLD);
-
-        TextView tvQ3 = (TextView) findViewById(R.id.q3);
         FontUtils.setFontWithStyle(this, tvQ3, Typeface.BOLD);
-
-        TextView tvQ4 = (TextView) findViewById(R.id.q4);
         FontUtils.setFontWithStyle(this, tvQ4, Typeface.BOLD);
-
-        TextView tvQ5 = (TextView) findViewById(R.id.q5);
         FontUtils.setFontWithStyle(this, tvQ5, Typeface.BOLD);
-
-
-        TextView tvQ6 = (TextView) findViewById(R.id.q6);
         FontUtils.setFontWithStyle(this, tvQ6, Typeface.BOLD);
-
-
-
-        TextView tvYourFeedback = (TextView) findViewById(R.id.your_feedback);
         FontUtils.setFontWithStyle(this, tvYourFeedback, Typeface.BOLD);
     }
 
@@ -70,8 +78,9 @@ public class HelpActivity extends BaseActivity {
         }
     }
 
+    @ViewById
+    Toolbar toolbar;
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);

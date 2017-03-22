@@ -111,6 +111,10 @@ import net.hockeyapp.android.Tracking;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.metrics.MetricsManager;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -129,16 +133,24 @@ import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
+@EActivity
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
         OnFilterChangeListener, TextView.OnEditorActionListener, OnSubCategorySelectedListener,
         LocationListener {
     public static boolean rtl = false;
 
+    @ViewById(R.id.drawer_layout)
     public DrawerLayout drawerLayout;
     private DrawerChangeListener mDrawerListener = new DrawerChangeListener(this);
 
+    @ViewById(R.id.grid_popular_searches)
     public GridView mPopularSearchGridView;
-    public ListView mRecentSearchListView, mSearchResultsListView, mSearchSuggestionListView;
+
+    @ViewById(R.id.list_recent_searches)
+    public ListView mRecentSearchListView;
+
+    @ViewById(R.id.lv_search_results)
+    public ListView mSearchResultsListView;
 
     public SearchSuggestionsAdapter mSearchSuggestionsAdapter;
     public RecentSearchesAdapter mRecentSearchesAdapter;
@@ -152,13 +164,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     Menu mMenu;
     MenuItem loaderItem;
 
+    @ViewById(R.id.ac_search)
     public AutoCompleteTextView acSearch;
 
     public HomePagerAdapter homePagerAdapter;
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ExpandableListView expandableListView;
+    @ViewById(R.id.tab_layout)
+    TabLayout tabLayout;
+
+    @ViewById(R.id.home_viewpager)
+    ViewPager viewPager;
+
+    @ViewById(R.id.expandable_list_view)
+    ExpandableListView expandableListView;
 
     public boolean isSearchEnabled = false;
     public boolean isSearchTextWatcherEnabled = true;
@@ -173,9 +191,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public View searchView;
 
+    @ViewById(R.id.discount_seekbar)
     public RangeSeekBar<Integer> rangeSeekBar;
-
-    private TextView tvRating1, tvRating2, tvRating3, tvRating4, tvRating5;
 
     SubCategoryChangeListener subCategoryChangeListener;
 
@@ -183,7 +200,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public static boolean isShowResults = false;
 
-    public TextView searchDeals, searchBusinesses;
+    @ViewById(R.id.search_deals)
+    public TextView searchDeals;
+
+    @ViewById(R.id.search_business)
+    public TextView searchBusinesses;
 
     public static ImageView profilePicture;
 
@@ -314,7 +335,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     int minTimeMillis = 15 * (60 * 1 * 1000);
     int distanceMeters = 50;
+
+    @ViewById(R.id.scrollToTop)
     public FloatingActionButton fab;
+
     NavigationMenuUtils navigationMenuUtils;
     private void init() {
 
@@ -331,9 +355,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchView = getLayoutInflater().inflate(R.layout.search_popup, null);
         searchPopup = new PopupWindow(searchView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        searchDeals = (TextView) findViewById(R.id.search_deals);
-        searchBusinesses = (TextView) findViewById(R.id.search_business);
-
         searchBusinesses.setVisibility(View.GONE);
 
         setSearchCheckboxSelection();
@@ -342,10 +363,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchBusinesses.setOnClickListener(this);
 
         homePagerAdapter = new HomePagerAdapter(this, getFragmentManager());
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
 
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
 
@@ -369,13 +386,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             SharedPrefUtils.updateVal(this, "lng", (float) location.getLongitude());
         }
 
-        viewPager = (ViewPager) findViewById(R.id.home_viewpager);
-
-        mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
-        mRecentSearchListView = (ListView) findViewById(R.id.list_recent_searches);
-        mPopularSearchGridView = (GridView) findViewById(R.id.grid_popular_searches);
-        mSearchSuggestionListView = (ListView) searchView.findViewById(R.id.list_search_suggestions);
-
         setRecentSearches();
 
         mPopularSearchesGridAdapter = new PopularSearchesGridAdapter(this, R.layout.list_popular_search, new ArrayList<KeywordSearch>());
@@ -383,11 +393,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         setSearchSuggestions(new ArrayList<String>());
 
-        acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
-
-        llSearch = (LinearLayout) findViewById(R.id.layout_search);
-
-        fab = (FloatingActionButton) findViewById(R.id.scrollToTop);
         fab.setOnClickListener(this);
 
         setupSearchField();
@@ -400,10 +405,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setupTabs();
 
         setupPager();
-
-        popularGrid = findViewById(R.id.grid_popular_searches);
-        searchLayout = findViewById(R.id.layout_search_filter);
-        searchResultView = findViewById(R.id.lv_search_results);
     }
 
     @Override
@@ -429,6 +430,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void setSearchSuggestions(List<String> list) {
+
+        ListView mSearchSuggestionListView = (ListView) searchView.findViewById(R.id.list_search_suggestions);
+
         mSearchSuggestionsAdapter = new SearchSuggestionsAdapter(this, R.layout.list_search_suggestion, list);
         mSearchSuggestionListView.setAdapter(mSearchSuggestionsAdapter);
         int height = (int) Converter.convertDpToPixels(160);
@@ -448,15 +452,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         acSearch.setOnEditorActionListener(this);
     }
 
+    @ViewById(R.id.appBar)
     public static AppBarLayout appBarLayout;
-public CoordinatorLayout coordinatorLayout;
+
+    @ViewById(R.id.coordinatorLayout)
+    public CoordinatorLayout coordinatorLayout;
+
+    @ViewById
+    Toolbar toolbar;
+
     private void setupToolbar() {
-
-        appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
-
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
@@ -507,7 +512,6 @@ public CoordinatorLayout coordinatorLayout;
     }
 
     private void setupTabs() {
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
     }
 
@@ -518,15 +522,59 @@ public CoordinatorLayout coordinatorLayout;
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
     }
 
-    TextView tvDistance5, tvDistance10, tvDistance20, tvDistance35, tvDistance50;
+    @ViewById(R.id.back)
+    ImageView ivBack;
+
+    @ViewById(R.id.done)
+    TextView tvDone;
+
+    @ViewById(R.id.sort_by)
+    TextView tvSortBy;
+
+    @ViewById(R.id.rating_checkbox)
+    TextView tvRating;
+
+    @ViewById(R.id.rating_1)
+    TextView tvRating1;
+
+    @ViewById(R.id.rating_2)
+    TextView tvRating2;
+
+    @ViewById(R.id.rating_3)
+    TextView tvRating3;
+
+    @ViewById(R.id.rating_4)
+    TextView tvRating4;
+
+    @ViewById(R.id.rating_5)
+    TextView tvRating5;
+
+    @ViewById(R.id._5)
+    TextView tvDistance5;
+
+    @ViewById(R.id._10)
+    TextView tvDistance10;
+
+    @ViewById(R.id._20)
+    TextView tvDistance20;
+
+    @ViewById(R.id._35)
+    TextView tvDistance35;
+
+    @ViewById(R.id._50)
+    TextView tvDistance50;
+
+    @ViewById(R.id.discount_checkbox)
+    TextView tvDiscount;
+
+    @ViewById(R.id.cb_highest_discount)
+    CheckBox cbHighestDiscount;
 
     private void initFilter() {
         FilterOnClickListener clickListener = new FilterOnClickListener(this, 0);
 
-        ImageView ivBack = (ImageView) findViewById(R.id.back);
         ivBack.setOnClickListener(clickListener);
 
-        TextView tvDone = (TextView) findViewById(R.id.done);
         tvDone.setOnClickListener(clickListener);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -537,48 +585,25 @@ public CoordinatorLayout coordinatorLayout;
         String sort = getString(R.string.sort).toUpperCase();
         String by = getString(R.string.by).toUpperCase();
 
-        TextView tvSortBy = (TextView) findViewById(R.id.sort_by);
         tvSortBy.setText(sort + " " + by, TextView.BufferType.SPANNABLE);
 
-        TextView tvRating = (TextView) findViewById(R.id.rating_checkbox);
         tvRating.setOnClickListener(clickListener);
-
-        tvRating1 = (TextView) findViewById(R.id.rating_1);
         tvRating1.setOnClickListener(clickListener);
-
-        tvRating2 = (TextView) findViewById(R.id.rating_2);
         tvRating2.setOnClickListener(clickListener);
-
-        tvRating3 = (TextView) findViewById(R.id.rating_3);
         tvRating3.setOnClickListener(clickListener);
-
-        tvRating4 = (TextView) findViewById(R.id.rating_4);
         tvRating4.setOnClickListener(clickListener);
-
-        tvRating5 = (TextView) findViewById(R.id.rating_5);
         tvRating5.setOnClickListener(clickListener);
 
-        tvDistance5 = (TextView) findViewById(R.id._5);
         tvDistance5.setOnClickListener(clickListener);
-
-        tvDistance10 = (TextView) findViewById(R.id._10);
         tvDistance10.setOnClickListener(clickListener);
-
-        tvDistance20 = (TextView) findViewById(R.id._20);
         tvDistance20.setOnClickListener(clickListener);
-
-        tvDistance35 = (TextView) findViewById(R.id._35);
         tvDistance35.setOnClickListener(clickListener);
-
-        tvDistance50 = (TextView) findViewById(R.id._50);
         tvDistance50.setOnClickListener(clickListener);
 
-        TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
         tvDiscount.setOnClickListener(clickListener);
 
-        findViewById(R.id.cb_highest_discount).setOnClickListener(clickListener);
+        cbHighestDiscount.setOnClickListener(clickListener);
 
-        rangeSeekBar = (RangeSeekBar) findViewById(R.id.discount_seekbar);
         rangeSeekBar.setEnabled(false);
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
 
@@ -595,10 +620,10 @@ public CoordinatorLayout coordinatorLayout;
         tvRating3.setSelected(false);
         tvRating4.setSelected(false);
         tvRating5.setSelected(false);
-        CheckBox discountCheckBox = (CheckBox) findViewById(R.id.cb_highest_discount);
+
         doApplyDiscount = false;
-        discountCheckBox.setChecked(doApplyDiscount);
-        discountCheckBox.setText(getString(R.string.sort_discount));
+        cbHighestDiscount.setChecked(doApplyDiscount);
+        cbHighestDiscount.setText(getString(R.string.sort_discount));
 
         doApplyRating = false;
         ratingFilter = null;
@@ -785,7 +810,14 @@ public CoordinatorLayout coordinatorLayout;
         }
     }
 
-    View popularGrid, searchLayout, searchResultView;
+    @ViewById(R.id.grid_popular_searches)
+    View popularGrid;
+
+    @ViewById(R.id.layout_search_filter)
+    View searchLayout;
+
+    @ViewById(R.id.lv_search_results)
+    View searchResultView;
 
     public void showHideSearchBar(boolean show) {
         isSearchEnabled = show;
@@ -821,7 +853,10 @@ public CoordinatorLayout coordinatorLayout;
             hideSearchPopup();
         }
     }
-LinearLayout llSearch;
+
+    @ViewById(R.id.layout_search)
+    LinearLayout llSearch;
+
     public void showSearchPopup() {
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -834,7 +869,7 @@ LinearLayout llSearch;
 
         llSearch.setVisibility(View.VISIBLE);
         mRecentSearchListView.setVisibility(View.VISIBLE);
-        findViewById(R.id.layout_search_filter).setVisibility(View.GONE);
+        searchLayout.setVisibility(View.GONE);
     }
 
     public void setRecentSearches() {
@@ -853,11 +888,15 @@ LinearLayout llSearch;
         mRecentSearchListView.setVisibility(searchItems.size() == 0 ? View.GONE : View.VISIBLE);
     }
 
+    @ViewById(R.id.layout_popular_searches)
+    LinearLayout layoutPopularSearches;
+
     public void setPopularSearches(List<KeywordSearch> list) {
         if(list != null) {
             mPopularSearchesGridAdapter = new PopularSearchesGridAdapter(this, R.layout.list_popular_search, list);
             mPopularSearchGridView.setAdapter(mPopularSearchesGridAdapter);
-            findViewById(R.id.layout_popular_searches).setVisibility(list.size() == 0 ? View.GONE : View.VISIBLE);
+
+            layoutPopularSearches.setVisibility(list.size() == 0 ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -1008,7 +1047,7 @@ LinearLayout llSearch;
 
     public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal) {
         Intent intent = new Intent();
-        intent.setClass(this, DealDetailActivity.class);
+        intent.setClass(this, DealDetailActivity_.class);
         intent.putExtra("generic_deal", genericDeal);
         intent.putExtra(CATEGORY, dealCategory);
         startActivity(intent);
@@ -1056,14 +1095,14 @@ LinearLayout llSearch;
 
         populateSearchResults(results);
 
-        findViewById(R.id.layout_popular_searches).setAlpha(MAX_ALPHA);
+        layoutPopularSearches.setAlpha(MAX_ALPHA);
 
         mRecentSearchListView.setVisibility(View.GONE);
 
         llSearch.setVisibility(View.VISIBLE);
-        findViewById(R.id.lv_search_results).setVisibility(View.VISIBLE);
-        findViewById(R.id.layout_popular_searches).setVisibility(View.GONE);
-        findViewById(R.id.layout_search_filter).setVisibility(View.VISIBLE);
+        searchResultView.setVisibility(View.VISIBLE);
+        layoutPopularSearches.setVisibility(View.GONE);
+        searchLayout.setVisibility(View.VISIBLE);
 
         searchDeals.setText(getDealsCount() + " " + getString(R.string.deals));
 
@@ -1123,7 +1162,7 @@ LinearLayout llSearch;
             if(isSearchTextWatcherEnabled) {
                 if(edt.toString().length() == 0) {
                     mRecentSearchListView.setAlpha(MAX_ALPHA);
-                    findViewById(R.id.layout_popular_searches).setAlpha(MAX_ALPHA);
+                    layoutPopularSearches.setAlpha(MAX_ALPHA);
                     searchPopup.dismiss();
                 } else {
                     String filter = edt.toString();
@@ -1138,7 +1177,7 @@ LinearLayout llSearch;
                     setSearchSuggestions(filterResults);
                     if(!searchPopup.isShowing()) {
                         mRecentSearchListView.setAlpha(0f);
-                        findViewById(R.id.layout_popular_searches).setAlpha(0f);
+                        layoutPopularSearches.setAlpha(0f);
                         int offset = (int) Converter.convertDpToPixels(15);
                         searchPopup.showAsDropDown(acSearch, 0, offset);
                     }

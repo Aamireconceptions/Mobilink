@@ -52,6 +52,13 @@ android {
         versionCode 19
         versionName "1.0"
 
+        // If you have different applicationIds for buildTypes or productFlavors uncomment this block.
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["resourcePackageName": android.defaultConfig.applicationId]
+            }
+        }
+
         /*resConfigs "en", "ar"*/
     }
     buildTypes {
@@ -101,8 +108,8 @@ android {
         mobilink {
             compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
-            versionName = "2.1.0"
-            versionCode = 22
+            versionName = "2.1.1"
+            versionCode = 23
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
             signingConfig signingConfigs.JazzDiscountBazar
         }
@@ -119,16 +126,23 @@ android {
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "af3qfdsgsd3443sfdsfahfdh434hsfsds"]
         }
     }
+
+
 }
 
 repositories{
     mavenCentral()
+    mavenLocal()
     flatDir{
         dirs '/src/mobilink/libs'
     }
 }
 
+def AAVersion = "4.3.0"
 dependencies {
+    annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile 'com.android.support:appcompat-v7:22.2.0'

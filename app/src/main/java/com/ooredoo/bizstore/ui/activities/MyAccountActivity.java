@@ -48,6 +48,9 @@ import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -67,12 +70,18 @@ import static java.lang.String.valueOf;
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
+@EActivity
 public class MyAccountActivity extends BaseActivity implements View.OnClickListener {
 
     boolean hasUserSelectedPic, canEditDp = true, canEditName;
 
-    EditText etName, etNumber;
+    @ViewById(R.id.et_name)
+    EditText etName;
 
+    @ViewById(R.id.et_number)
+    EditText etNumber;
+
+    @ViewById(R.id.iv_profile_pic)
     ImageView ivProfilePic;
 
     public MyAccountActivity() {
@@ -83,11 +92,17 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
     }
 
     ImageView ivEdit;
+
+    @ViewById(R.id.iv_edit_name)
+    ImageView ivEditName;
+
+    @ViewById(R.id.iv_edit_dp)
+    ImageView ivEditDp;
+
     @Override
     public void init() {
         setupToolbar();
-        final ImageView ivEditName = (ImageView) findViewById(R.id.iv_edit_name);
-        etName = (EditText) findViewById(R.id.et_name);
+
         FontUtils.setFont(this, etName);
         etName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -103,11 +118,9 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 return false;
             }
         });
-        etNumber = (EditText) findViewById(R.id.et_number);
 
         FontUtils.setFont(this, etNumber);
-        ivProfilePic = (ImageView) findViewById(R.id.iv_profile_pic);
-        ImageView ivEditDp = (ImageView) findViewById(R.id.iv_edit_dp);
+
         ivEditDp.setOnClickListener(this);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -129,6 +142,9 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         loadPicture();
     }
 
+    @ViewById(R.id.progress_bar)
+    ProgressBar progressBar;
+
     private void loadPicture() {
         Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
@@ -145,7 +161,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         } else {
             int width = (int) convertDpToPixels(250);
             int height = width;
-            ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
             //ExecutorService executorService = Executors.newSingleThreadExecutor();
             ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(ivProfilePic, progressBar);
             profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
@@ -640,9 +655,10 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         UpdateAccountTask uploadTask = new UpdateAccountTask(this, null, path);
         uploadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+    @ViewById
+    Toolbar toolbar;
 
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

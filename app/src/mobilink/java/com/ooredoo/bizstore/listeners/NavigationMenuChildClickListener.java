@@ -7,12 +7,11 @@ import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
-import com.ooredoo.bizstore.ui.activities.AboutUsActivity;
-import com.ooredoo.bizstore.ui.activities.HelpActivity;
+import com.ooredoo.bizstore.ui.activities.AboutUsActivity_;
+import com.ooredoo.bizstore.ui.activities.HelpActivity_;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
-import com.ooredoo.bizstore.ui.activities.NotificationsActivity;
+import com.ooredoo.bizstore.ui.activities.MyAccountActivity_;
+import com.ooredoo.bizstore.ui.activities.NotificationsActivity_;
 import com.ooredoo.bizstore.utils.DialogUtils;
 
 /**
@@ -41,7 +40,7 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
                     case 0:
 
                         if(!BizStore.username.isEmpty())
-                        startActivity(MyAccountActivity.class);
+                        startActivity(MyAccountActivity_.class);
 
                         break;
 
@@ -53,19 +52,19 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
                         break;
 */
                     case 1:
-                        startActivity(NotificationsActivity.class);
+                        startActivity(NotificationsActivity_.class);
 
                         break;
 
                     case 2:
 
-                        startActivity(HelpActivity.class);
+                        startActivity(HelpActivity_.class);
 
                         break;
 
                     case 3:
 
-                        startActivity(AboutUsActivity.class);
+                        startActivity(AboutUsActivity_.class);
 
                         break;
 

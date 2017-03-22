@@ -17,7 +17,6 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.Mall;
@@ -29,8 +28,6 @@ import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-
-import java.util.Random;
 
 /**
  * @author Babar

@@ -27,6 +27,7 @@ import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
+import com.ooredoo.bizstore.ui.activities.MyAccountActivity_;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,7 +77,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.shopping_speciality),
 
                 activity.getString(R.string.health_fitness),
-               /* activity.getString(R.string.entertainment),*/
+                activity.getString(R.string.entertainment),
                 activity.getString(R.string.new_arrivals),};
 
         categoriesResIds = new int[]{
@@ -85,7 +86,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
                 R.drawable.ic_health,
-               /* R.drawable.ic_entertainment,*/
+                R.drawable.ic_entertainment,
                 R.drawable.ic_new_deals,};
 
        /* categories = new String[] { activity.getString(R.string.food_dining), activity.getString(R.string.shopping_speciality),
@@ -122,7 +123,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 activity.getString(R.string.shopping_speciality),
 
                 activity.getString(R.string.health_fitness),
-                /*activity.getString(R.string.entertainment),*/
+                activity.getString(R.string.entertainment),
                 activity.getString(R.string.new_arrivals)};
 
         subGroupResIds = new int[]{
@@ -131,7 +132,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
                 R.drawable.ic_health,
-                /*R.drawable.ic_entertainment,*/
+                R.drawable.ic_entertainment,
                 R.drawable.ic_new_deals};
 
         foodSubCategories = new String[] {activity.getString(R.string.pakistani),
@@ -332,7 +333,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             healthSubList.add(navigationItem);
         }
 
-        /*List<NavigationItem> entertainmentSubList = new ArrayList<>();
+        List<NavigationItem> entertainmentSubList = new ArrayList<>();
 
         for(int i = 0; i < entertainmentSubCategories.length; i++)
         {
@@ -341,14 +342,14 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             navigationItem.setResId(getTreeNode(i, entertainmentSubCategories));
 
             entertainmentSubList.add(navigationItem);
-        }*/
+        }
 
         subChildList = new HashMap<>();
         subChildList.put(subGroupList.get(1).getItemName(), foodSubList);
         subChildList.put(subGroupList.get(2).getItemName(), shoppingSubList);
 
         subChildList.put(subGroupList.get(3).getItemName(), healthSubList);
-      //  subChildList.put(subGroupList.get(4).getItemName(), entertainmentSubList);
+        subChildList.put(subGroupList.get(4).getItemName(), entertainmentSubList);
     }
 
     private int getTreeNode(int index, String [] array)
@@ -383,7 +384,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
             if(!BizStore.username.isEmpty()) {
                 ((HomeActivity) activity).showHideDrawer(GravityCompat.START, false);
-                activity.startActivity(new Intent(activity, MyAccountActivity.class));
+                activity.startActivity(new Intent(activity, MyAccountActivity_.class));
             }
         }
     }

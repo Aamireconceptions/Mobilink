@@ -19,11 +19,15 @@ import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
+@EActivity
 public class MainActivity extends BaseActivity {
     public static boolean hideToolbar = false;
 
@@ -33,19 +37,19 @@ public class MainActivity extends BaseActivity {
     }
 
     boolean isSplashShowing = true;
+    @ViewById(R.id.gif_view)
     WebView webView;
     @Override
     public void init() {
-
-        webView = (WebView) findViewById(R.id.gif_view);
         webView.loadUrl("file:///android_asset/gif.html");
         setupToolbar();
         showSplash();
     }
 
+    @ViewById
     public Toolbar toolbar;
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -77,7 +81,7 @@ public class MainActivity extends BaseActivity {
     {
         finish();
 
-        startActivity(new Intent(this, HomeActivity.class));
+        startActivity(new Intent(this, HomeActivity_.class));
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
        /* boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);

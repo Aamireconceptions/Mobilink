@@ -13,7 +13,6 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
-import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.FragmentUtils;
 

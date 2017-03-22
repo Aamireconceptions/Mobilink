@@ -9,21 +9,28 @@ import android.widget.TextView;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.FontUtils;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 /**
  * @author Pehlaj Rai
  * @since 6/23/2015.
  */
+
+@EActivity
 public class AboutUsActivity extends BaseActivity {
     public AboutUsActivity() {
         super();
         layoutResId = R.layout.activity_about_us;
     }
 
+    @ViewById(R.id.tv_app_version)
+    TextView tvVersion;
+
     @Override
     public void init() {
         setupToolbar();
 
-        TextView tvVersion = (TextView) findViewById(R.id.tv_app_version);
         FontUtils.setFontWithStyle(this, tvVersion, Typeface.BOLD);
 
         try {
@@ -33,8 +40,9 @@ public class AboutUsActivity extends BaseActivity {
         }
     }
 
+    @ViewById
+    Toolbar toolbar;
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

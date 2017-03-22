@@ -47,6 +47,7 @@ import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity_;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
@@ -59,7 +60,10 @@ import com.ooredoo.bizstore.utils.SliderUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.lang.reflect.Field;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
@@ -113,10 +117,16 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         super.onCreate(savedInstanceState);
     }
 
+    TextView tvGreetings;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.layout_dashboard, container, false);
+
+        tvGreetings = (TextView) v.findViewById(R.id.greetings);
+
+        greet();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -128,6 +138,28 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         init(v);
 
         return v;
+    }
+
+    private void greet()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        System.out.println("Hour: "+hour);
+
+        if(hour >= 5 && hour < 12)
+        {
+            tvGreetings.setText("Good Morning");
+        }
+        else
+        if ((hour >= 12 && hour <= 18))
+        {
+            tvGreetings.setText("Good Evening");
+        }
+        else
+            {
+                tvGreetings.setText("Good Night");
+            }
     }
 
 
@@ -360,7 +392,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
                 TextView tvCategory = (TextView) v.findViewById(R.id.category);
 
-
                 Category category = Converter.convertCategoryText(activity, dod.category);
                 tvCategory.setText(category.name);
 
@@ -368,10 +399,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
                 String cats[] = category.name.split(" ");
 
-           /* FontUtils.changeColor(tvCategory, category.name.toUpperCase(), cats[0].toUpperCase(),
+                /* FontUtils.changeColor(tvCategory, category.name.toUpperCase(), cats[0].toUpperCase(),
                     getResources().getColor(R.color.red));
 
-            FontUtils.changeColorAndMakeBold();*/
+                FontUtils.changeColorAndMakeBold();*/
 
                /* FontUtils.changeColorAndMakeBold(tvCategory, category.name.toUpperCase(),
                         cats[0].toUpperCase(), getResources().getColor(R.color.red));*/
@@ -438,7 +469,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-          /*  if(row > 1)
+            /*  if(row > 1)
             {
                 params.topMargin = (int)Converter.convertDpToPixels(12);
             }*/
@@ -586,7 +617,7 @@ else
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(activity, DealDetailActivity.class);
+        Intent intent = new Intent(activity, DealDetailActivity_.class);
         intent.putExtra("generic_deal",(GenericDeal) v.getTag());
 
         activity.startActivity(intent);

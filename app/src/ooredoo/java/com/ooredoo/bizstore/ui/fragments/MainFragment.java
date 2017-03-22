@@ -13,7 +13,6 @@ import android.widget.Button;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
-import com.ooredoo.bizstore.ui.activities.SignUpActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.StringUtils;

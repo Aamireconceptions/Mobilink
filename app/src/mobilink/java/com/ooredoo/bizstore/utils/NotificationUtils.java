@@ -17,6 +17,7 @@ import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity_;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MallDetailActivity;
 
@@ -88,7 +89,7 @@ public class NotificationUtils
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(context);
 
         // Adds the back stack for the Intent (but not the Intent itself)
-        taskStackBuilder.addParentStack(DealDetailActivity.class);
+        taskStackBuilder.addParentStack(DealDetailActivity_.class);
 
         // Adds the Intent that starts the Activity to the top of the stack
         taskStackBuilder.addNextIntent(intent);
