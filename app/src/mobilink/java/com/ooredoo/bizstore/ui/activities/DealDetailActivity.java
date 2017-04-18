@@ -76,10 +76,6 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.ViewsById;
-
 import java.io.File;
 import java.util.List;
 
@@ -100,7 +96,6 @@ import static java.lang.String.valueOf;
  * @author Muhammad Babar
  */
 
-@EActivity
 public class DealDetailActivity extends BaseActivity implements OnClickListener, LocationListener
 
 {
@@ -114,10 +109,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
    // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
-    @ViewById(R.id.scrollView1)
     ScrollView scrollView;
 
-    @ViewById(R.id.get_code)
     public static Button btGetCode;
 
     RadioGroup radioGroup;    // declare in report_dialog_box.
@@ -162,7 +155,6 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
         layoutResId = R.layout.frag_deal_detail;
     }
 
-    @ViewById(R.id.vouchers_claimed)
     TextView tvVoucherClaimed;
 
     Tracker tracker;
@@ -246,42 +238,22 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
         }
     }
 
-    @ViewById(R.id.prices)
+
     TextView tvPrices;
-
     ScrollViewListener mOnScrollViewListener;
-
-    @ViewById(R.id.head)
-    LinearLayout llHead;
-
-    @ViewById(R.id.discount_layout)
-    LinearLayout llDiscount;
-
-    @ViewById(R.id.head_title)
-    TextView tvHeadTitle;
-
-    @ViewById(R.id.head_description)
-    TextView tvHeadDescription;
-
-    @ViewById(R.id.table)
+    LinearLayout llHead, llDiscount;
+    TextView tvHeadTitle, tvHeadDescription;
     TableLayout tableLayout;
-
-    @ViewById(R.id.ll_details)
     RelativeLayout rlDetails;
 
-    @ViewById(R.id.brochure)
-    TextView tvBrochure;
+TextView tvBrochure;
 
     File cacheDir;
 
-    @ViewById
-    Toolbar toolbar;
-
-    @ViewById(R.id.progressBar)
-    ProgressBar progressBar;
-
     private void initViews()
     {
+        tvBrochure = (TextView) findViewById(R.id.brochure);
+
         tvBrochure.setOnClickListener(this);
 
         cacheDir = FileUtils.getDiskCacheDir(this, "Pdf Docs");
@@ -299,8 +271,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
         Logger.print("Cache Dir: " + cacheDir);
 
-        cd = new ColorDrawable(getResources().getColor(R.color.red));
-
+        scrollView=(ScrollView) findViewById(R.id.scrollView1);
+         cd = new ColorDrawable(getResources().getColor(R.color.red));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mActionBar  = getSupportActionBar();
@@ -316,7 +289,14 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
+        llHead = (LinearLayout) findViewById(R.id.head);
+        tvHeadTitle = (TextView) findViewById(R.id.head_title);
         FontUtils.setFontWithStyle(this, tvHeadTitle, Typeface.BOLD);
+        tvHeadDescription = (TextView) findViewById(R.id.head_description);
+
+        tvPrices = (TextView) findViewById(R.id.prices);
+
+        tvVoucherClaimed = (TextView) findViewById(R.id.vouchers_claimed);
 
         packageName = getPackageName();
         if(genericDeal != null) {
@@ -326,12 +306,19 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
             Logger.logI("DETAIL_ID", valueOf(id));
         }
 
+        llDiscount = (LinearLayout) findViewById(R.id.discount_layout);
+
+        tableLayout = (TableLayout) findViewById(R.id.table);
+
+        rlDetails = (RelativeLayout) findViewById(R.id.ll_details);
+
         mOnScrollViewListener = new ScrollViewListener(mActionBar);
 
         category = intent.getStringExtra(CATEGORY);
 
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
+       ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
        if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
@@ -343,6 +330,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
         findViewById(R.id.share).setOnClickListener(this);
         findViewById(R.id.iv_share).setOnClickListener(this);
 
+        btGetCode = (Button) findViewById(R.id.get_code);
         btGetCode.setOnClickListener(this);
 
         FontUtils.setFontWithStyle(this, btGetCode, Typeface.BOLD);
@@ -358,17 +346,13 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
         }
     }
 
-    @ViewById(R.id.detail_img)
     ImageView ivDetail;
-
-    @ViewById(R.id.directions_layout)
+    ProgressBar progressBar;
     LinearLayout llDirections;
-
-    @ViewById(R.id.rl_header)
     RelativeLayout rlHeader;
 
+
     GenericDeal mDeal;
-    @ViewById(R.id.tv_share)
     TextView tvAvailedDeals;
 
     FBUtils fbUtils;
@@ -378,51 +362,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
         super.setVisible(visible);
     }
 
-    @ViewById(R.id.directions)
     TextView tvDistance;
-
-    @ViewById(R.id.time_stamp)
-    TextView tvTimeStamp;
-
-    @ViewById(R.id.discount_availed)
-    TextView tvDiscountAvailed;
-
-    @ViewById(R.id.last_redeemed_layout)
+    TextView tvTimeStamp, tvDiscountAvailed;
     LinearLayout llTimeStamp;
-
-    @ViewById(R.id.brand_name)
-    TextView tvBrand;
-
-    @ViewById(R.id.brand_address)
-    TextView tvBrandAddress;
-
-    @ViewById(R.id.validity)
-    TextView tvValidity;
-
-    @ViewById(R.id.how_this_work_note)
-    TextView tvHTWNote;
-
-    @ViewById(R.id.tos_note)
-    TextView tvTermsServices;
-
-    @ViewById(R.id.description)
-    TextView tvDescription;
-
-    @ViewById(R.id.rating_bar)
-    RatingBar ratingBar;
-
-    @ViewById(R.id.tv_views)
-    TextView tvView;
-
-    @ViewById(R.id.iv_views)
-    ImageView ivViews;
-
-    @ViewById(R.id.brand_logo)
-    ImageView ivBrandLogo;
-
-    @ViewById(R.id.brand_txt)
-    TextView tvBrandTxt;
-
     private long minTimeMillis = 10 * 1000;
     private float distanceMeters = 0;
     LocationManager locationManager;
@@ -454,8 +396,13 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
                 }
             }
 
+            llTimeStamp = (LinearLayout) findViewById(R.id.last_redeemed_layout);
+            tvTimeStamp = (TextView) findViewById(R.id.time_stamp);
+            tvDiscountAvailed = (TextView) findViewById(R.id.discount_availed);
             FontUtils.setFontWithStyle(this, tvDiscountAvailed, Typeface.BOLD);
             FontUtils.setFont(this, tvTimeStamp);
+
+             tvAvailedDeals = (TextView) findViewById(R.id.tv_share);
 
             genericDeal = deal;
 
@@ -494,12 +441,19 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
             IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, type, id);
             incrementViewsTask.execute();
 
+
+            rlHeader = (RelativeLayout) findViewById(R.id.rl_header);
+
+            TextView tvBrand = (TextView) findViewById(R.id.brand_name);
             tvBrand.setText(deal.businessName);
 
+            TextView tvBrandAddress = (TextView) findViewById(R.id.brand_address);
             tvBrandAddress.setText(deal.address);
 
+            TextView tvValidity = (TextView) findViewById(R.id.validity);
             tvValidity.setText("Validity Date: " + deal.endDate);
 
+            llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -523,6 +477,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
                 }
             }
 
+            tvDistance = (TextView) findViewById(R.id.directions);
+
             if(deal.distance != 0)
             {
                 llDirections.setVisibility(View.VISIBLE);
@@ -532,12 +488,16 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 
             if(deal.how_works != null && !deal.how_works.isEmpty())
             {
+                TextView tvHTWNote = (TextView) findViewById(R.id.how_this_work_note);
+
                 tvHTWNote.setVisibility(View.VISIBLE);
                 tvHTWNote.setOnClickListener(this);
             }
 
             if(deal.terms_services != null && !deal.terms_services.isEmpty())
             {
+                TextView tvTermsServices = (TextView) findViewById(R.id.tos_note);
+
                 tvTermsServices.setOnClickListener(this);
             }
 
@@ -545,10 +505,12 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
                 deal.category = deal.category.replace(".", ",");
             }
 
-            tvDescription.setText(deal.description);
+            ((TextView) findViewById(R.id.description)).setText(deal.description);
 
-            ratingBar.setRating(deal.rating);
+            ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
 
+
+            TextView tvView = ((TextView) findViewById(R.id.tv_views));
             reportDialog = new Dialog(DealDetailActivity.this);
             reportDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
             reportDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -565,6 +527,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
             FontUtils.setFontWithStyle(this,titleReportBox,Typeface.BOLD);
             enterReport=(EditText) reportDialog.findViewById(R.id.enterReport_editText);
 
+            ImageView ivViews = (ImageView)  findViewById(R.id.iv_views);
             ivViews.setOnClickListener(this);
             tvView.setOnClickListener(this);
 
@@ -574,6 +537,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
             }
 
             Logger.print("businessId Deal,"+deal.businessId);
+
+            final ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
 
             String brandLogo = deal.businessLogo;
 
@@ -597,6 +562,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
             }
             else
             {
+                TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
                 FontUtils.setFontWithStyle(this, tvBrandTxt, Typeface.BOLD);
 
                 if(deal.businessName != null && !deal.businessName.isEmpty())
@@ -611,6 +577,10 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
             }
 
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
+
+            ivDetail = (ImageView) findViewById(R.id.detail_img);
+
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
             String detailImageUrl = null;
             if(deal.image != null)
@@ -1037,42 +1007,25 @@ public static MsisdnDialog dialog;
    public GalleryStatePagerAdapter adapter;
 
     public List<Gallery> galleryList;
-
-    @ViewById(R.id.download)
     ImageView ivDownload;
-
-    @ViewById(R.id.gallery_items_count)
-    TextView tvGalleryCount;
-
-    @ViewById(R.id.view_all)
-    TextView tvViewAll;
-
-    @ViewById(R.id.gallery_layout)
-    LinearLayout llGallery;
-
-    @ViewById(R.id.gallery)
-    ViewPager galleryPager;
-
-    @ViewById(R.id.code_layout)
-    LinearLayout llCode;
-
-    @ViewById(R.id.brochure_layout)
-    RelativeLayout rlBrochure;
-
     public void onHaveData(GenericDeal genericDeal)
     {
         if( genericDeal.galleryList != null && genericDeal.galleryList.size() > 0)
         {
+            TextView tvGalleryCount = (TextView) findViewById(R.id.gallery_items_count);
             tvGalleryCount.setText(genericDeal.galleryList.size() + " Photos");
 
+            TextView tvViewAll = (TextView) findViewById(R.id.view_all);
             tvViewAll.setOnClickListener(this);
 
+            LinearLayout llGallery = (LinearLayout) findViewById(R.id.gallery_layout);
             llGallery.setVisibility(View.VISIBLE);
 
             this.galleryList = genericDeal.galleryList;
 
             adapter = new GalleryStatePagerAdapter(getFragmentManager(), genericDeal.galleryList, true);
 
+            ViewPager galleryPager = (ViewPager) findViewById(R.id.gallery);
             galleryPager.setPageMargin((int) Converter.convertDpToPixels(4));
             galleryPager.setAdapter(adapter);
         }
@@ -1081,8 +1034,9 @@ public static MsisdnDialog dialog;
 
             fileUrl = BaseAsyncTask.SERVER_URL + genericDeal.document;
 
-            rlBrochure.setVisibility(View.VISIBLE);
+            findViewById(R.id.brochure_layout).setVisibility(View.VISIBLE);
 
+            ivDownload = (ImageView) findViewById(R.id.download);
             ivDownload.setOnClickListener(this);
 
             brochureFile = new File(cacheDir, CryptoUtils.encodeToBase64(fileUrl) + ".pdf");
@@ -1122,6 +1076,8 @@ public static MsisdnDialog dialog;
        {
            return;
        }
+
+        LinearLayout llCode = (LinearLayout) findViewById(R.id.code_layout);
         llCode.setVisibility(View.VISIBLE);
 
        if(genericDeal.vouchers_claimed == 0)

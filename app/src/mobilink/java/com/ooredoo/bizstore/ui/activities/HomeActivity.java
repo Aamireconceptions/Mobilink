@@ -11,7 +11,6 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -28,13 +27,10 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -45,8 +41,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,11 +82,9 @@ import com.ooredoo.bizstore.model.KeywordSearch;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
-import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
-import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.GcmPreferences;
@@ -100,11 +92,7 @@ import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
-import com.ooredoo.bizstore.utils.StringUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterCore;
-import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.Tracking;
@@ -113,14 +101,11 @@ import net.hockeyapp.android.metrics.MetricsManager;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import io.fabric.sdk.android.Fabric;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
@@ -130,7 +115,6 @@ import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.AppData.searchResults;
 import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
 @EActivity
@@ -286,8 +270,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         checkIfGpsEnabled();
 
-        if(!BuildConfig.DEBUG) {
-          //startSubscriptionCheck();
+        if(!BuildConfig.DEBUG && !BizStore.username.isEmpty()) {
+          startSubscriptionCheck();
         }
 
         MetricsManager.register(this, getApplication());
@@ -1047,7 +1031,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal) {
         Intent intent = new Intent();
-        intent.setClass(this, DealDetailActivity_.class);
+        intent.setClass(this, DealDetailActivity.class);
         intent.putExtra("generic_deal", genericDeal);
         intent.putExtra(CATEGORY, dealCategory);
         startActivity(intent);

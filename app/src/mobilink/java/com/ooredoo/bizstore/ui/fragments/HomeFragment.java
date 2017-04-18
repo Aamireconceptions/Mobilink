@@ -22,7 +22,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
@@ -47,7 +46,6 @@ import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
-import com.ooredoo.bizstore.ui.activities.DealDetailActivity_;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
@@ -60,10 +58,8 @@ import com.ooredoo.bizstore.utils.SliderUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.lang.reflect.Field;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
@@ -617,7 +613,7 @@ else
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(activity, DealDetailActivity_.class);
+        Intent intent = new Intent(activity, DealDetailActivity.class);
         intent.putExtra("generic_deal",(GenericDeal) v.getTag());
 
         activity.startActivity(intent);

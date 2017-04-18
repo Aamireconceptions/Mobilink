@@ -106,6 +106,7 @@ android {
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "4e8fc3ee285640c2ab08942dac59ae9a"]
         }
         mobilink {
+            minSdkVersion 14
             compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
             versionName = "2.1.1"

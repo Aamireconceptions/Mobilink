@@ -20,9 +20,14 @@ import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.UiThread;
+
 /**
  * Created by Babar on 10-Feb-17.
  */
+@EBean
 public class CommonHelper
 {
     public static void fallBackToDiskCache(final String url, final DiskCache diskCache,
@@ -116,15 +121,59 @@ public class CommonHelper
                 }
             }
         }.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-
     }
 
     Bitmap bitmap;
+    @Background
     public void fallBackToDiskCache(final Activity activity, final String url, final DiskCache diskCache,
                                      final MemoryCache memoryCache, final ImageView imageView,
                                      final ProgressBar progressBar, final int reqWidth, final int reqHeight)
     {
-        Thread thread = new Thread(new Runnable() {
+        bitmap = diskCache.getBitmapFromDiskCache(url);
+
+        Logger.print("dCache getting bitmap from cache");
+
+        if(bitmap != null)
+        {
+            Logger.print("dCache found!");
+
+            memoryCache.addBitmapToCache(url, bitmap);
+                   /* activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageView.setImageBitmap(bitmap);
+                            imageView.setTag("loaded");
+                        }
+                    });*/
+            setBitmap(bitmap, imageView);
+        }
+        else
+        {
+            /*activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
+                                    (imageView, progressBar);
+
+                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                    url, String.valueOf(reqWidth),
+                                    String.valueOf(reqHeight));
+                        }
+                    });
+
+                }
+            });*/
+
+            downloadBitmap(imageView, progressBar, url, reqWidth, reqHeight);
+        }
+
+
+        /*Thread thread = new Thread(new Runnable() {
             @Override
             public void run()
             {
@@ -137,13 +186,14 @@ public class CommonHelper
                     Logger.print("dCache found!");
 
                     memoryCache.addBitmapToCache(url, bitmap);
-                    activity.runOnUiThread(new Runnable() {
+                   *//* activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             imageView.setImageBitmap(bitmap);
                             imageView.setTag("loaded");
                         }
-                    });
+                    });*//*
+                   setBitmap(bitmap, imageView);
                 }
                 else
                 {
@@ -170,8 +220,27 @@ public class CommonHelper
             }
         });
 
-        thread.start();
+        thread.start();*/
     }
+
+    @UiThread
+    void downloadBitmap(ImageView imageView, ProgressBar progressBar, String url, int reqWidth, int reqHeight)
+    {
+        BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
+                (imageView, progressBar);
+
+        bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                url, String.valueOf(reqWidth),
+                String.valueOf(reqHeight));
+    }
+
+    @UiThread
+    void setBitmap(Bitmap bitmap, ImageView imageView)
+    {
+        imageView.setImageBitmap(bitmap);
+        imageView.setTag("loaded");
+    }
+
 
     public static void startDirections(Context context, GenericDeal genericDeal)
     {

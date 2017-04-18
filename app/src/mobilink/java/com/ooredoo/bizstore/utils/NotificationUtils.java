@@ -7,19 +7,13 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
 import android.support.v7.app.NotificationCompat;
 
 import com.ooredoo.bizstore.AppConstant;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
-import com.ooredoo.bizstore.ui.activities.DealDetailActivity_;
-import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.MallDetailActivity;
 
 import java.io.File;
 
@@ -70,13 +64,15 @@ public class NotificationUtils
         }
 
         Intent intent;
-        if(!type.equals("business")) {
+        /*if(!type.equals("business")) {
              intent = new Intent(context, DealDetailActivity.class);
         }
         else
         {
             intent = new Intent(context, MallDetailActivity.class);
-        }
+        }*/
+
+        intent = new Intent(context, DealDetailActivity.class);
 
         intent.putExtra(AppConstant.ID, id);
         intent.putExtra("notification", true);
@@ -89,7 +85,7 @@ public class NotificationUtils
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(context);
 
         // Adds the back stack for the Intent (but not the Intent itself)
-        taskStackBuilder.addParentStack(DealDetailActivity_.class);
+        taskStackBuilder.addParentStack(DealDetailActivity.class);
 
         // Adds the Intent that starts the Activity to the top of the stack
         taskStackBuilder.addNextIntent(intent);
