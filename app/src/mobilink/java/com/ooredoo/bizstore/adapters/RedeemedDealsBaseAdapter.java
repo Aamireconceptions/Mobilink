@@ -37,8 +37,6 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
 
     private Holder holder;
 
-    private int prevItem = -1;
-
     public boolean available = false;
 
     public RedeemedDealsBaseAdapter(Context context, int layoutResId, List<GenericDeal> deals) {

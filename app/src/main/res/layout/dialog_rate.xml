@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rating_bar"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="0dp"
             android:background="@drawable/bg_grey_rad2"
             android:gravity="center"
             android:text="@string/cancel"

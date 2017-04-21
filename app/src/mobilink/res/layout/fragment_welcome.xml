@@ -5,8 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:paddingStart="@dimen/_60sdp"
-        android:paddingEnd="@dimen/_60sdp"
+        android:paddingLeft="@dimen/_60sdp"
+        android:paddingRight="@dimen/_60sdp"
         android:gravity="center"
         android:orientation="vertical"
         android:background="@drawable/congrats_bg">

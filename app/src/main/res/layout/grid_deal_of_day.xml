@@ -23,7 +23,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/red_arrow"
-                android:paddingStart="@dimen/_8sdp">
+                android:paddingStart="@dimen/_8sdp"
+                android:layout_toLeftOf="@+id/red_arrow"
+                android:paddingLeft="@dimen/_8sdp">
 
             <TextView
                 android:id="@+id/title"
@@ -53,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow_next"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true" />
 
         </RelativeLayout>

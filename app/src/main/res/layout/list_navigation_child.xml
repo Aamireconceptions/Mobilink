@@ -11,6 +11,7 @@
         android:drawablePadding="@dimen/_12sdp"
         android:layoutDirection="locale"
         android:paddingStart="@dimen/_15sdp"
+        android:paddingLeft="@dimen/_15sdp"
         android:padding="@dimen/_12sdp"
         android:text="Top Deals"
         android:gravity="center_vertical"

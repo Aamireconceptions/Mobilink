@@ -3,9 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="@dimen/_8sdp"
+    android:paddingLeft= "@dimen/_8sdp"
     android:clickable="true"
-    android:paddingEnd="@dimen/_8sdp">
+    android:paddingRight="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/category_icon"
@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:padding="@dimen/_12sdp"
-        android:drawableStart="@drawable/ic_shopping"
+        android:drawableLeft="@drawable/ic_shopping"
         android:drawablePadding="@dimen/_6sdp"
         android:text="Shopping"
         android:visibility="gone"

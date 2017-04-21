@@ -9,10 +9,10 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_6sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_6sdp"
         android:background="@drawable/list_border_head">
 
         <FrameLayout
@@ -45,11 +45,11 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/logo_frame"
-            android:layout_toStartOf="@+id/directions"
+            android:layout_toRightOf="@+id/logo_frame"
+            android:layout_toLeftOf="@+id/directions"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginLeft="@dimen/_6sdp"
             android:layout_centerVertical="true">
 
         <TextView
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:drawableTop="@drawable/ic_directions_big"
             android:textSize="10sp"
             android:textStyle="bold"
@@ -110,25 +110,6 @@
             android:indeterminateDrawable="@drawable/custom_progress"
             android:visibility="visible"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/discount_tag"
-            android:src="@drawable/list_discount_tag"/>
-
-        <TextView
-            android:id="@+id/discount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_7sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textAllCaps="true"
-            android:rotation="-40"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
     </RelativeLayout>
 
     <LinearLayout
@@ -138,10 +119,10 @@
         android:gravity="center_vertical"
         android:paddingTop="@dimen/_4sdp"
         android:paddingBottom="@dimen/_4sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingEnd="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:paddingLeft="@dimen/_16sdp"
+        android:paddingRight="@dimen/_16sdp"
         android:orientation="vertical"
         android:background="@drawable/list_border_footer">
 
@@ -185,7 +166,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="right"
             android:layout_marginTop="2dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">

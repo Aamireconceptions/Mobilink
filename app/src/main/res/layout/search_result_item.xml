@@ -11,7 +11,6 @@
         android:id="@+id/iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
         android:src="@drawable/ic_deal_tag"/>
@@ -20,7 +19,8 @@
         android:id="@+id/rl_search_result"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/iv">
+        android:layout_toEndOf="@+id/iv"
+        android:layout_toRightOf="@+id/iv">
 
         <TextView
             android:id="@+id/tv_title"
@@ -65,6 +65,7 @@
         android:layout_below="@+id/rl_search_result"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/iv"
+        android:layout_toRightOf="@+id/iv"
         android:progressDrawable="@drawable/deal_rating_bar"
         android:rating="0"/>
 
@@ -73,11 +74,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/rl_search_result"
         android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_12sdp"
         android:layout_marginTop="10dp"
         android:drawablePadding="@dimen/_4sdp"
         android:drawableStart="@drawable/ic_views"
+        android:drawableLeft="@drawable/ic_views"
         android:gravity="center"
         android:text="0"/>
 

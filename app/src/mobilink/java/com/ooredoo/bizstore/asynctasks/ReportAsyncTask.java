@@ -45,12 +45,10 @@ public class ReportAsyncTask extends BaseAsyncTask<String, Void, String> {
         dialog.show();
     }
 
-
     @Override
     protected String doInBackground(String... params) {
 
         HashMap<String, String> parmeters = new HashMap<>();
-
         parmeters.put("os", ANDROID);
         parmeters.put("reportmessage", reportMessage);
         parmeters.put("dealId",dealId);

@@ -98,4 +98,5 @@
     <string name="facebook_app_id" translatable="false">1574024299570067</string>
     <string name="fb_authority">com.facebook.app.FacebookContentProvider1574024299570067</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="qar">PKR</string>
 </resources>

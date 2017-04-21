@@ -241,32 +241,6 @@ public class ViewedRatedAdapter extends BaseAdapter
         return grid;
     }
 
-
-    private void fallBackToDiskCache(final String imageUrl)
-    {
-        Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = diskCache.getBitmapFromDiskCache(imageUrl);
-
-                if(bitmap != null)
-                {
-                    memoryCache.addBitmapToCache(imageUrl, bitmap);
-
-                    notifyDataSetChanged();
-                }
-                else
-                {
-                    BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                            new BaseAdapterBitmapDownloadTask(ViewedRatedAdapter.this);
-                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
-                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-            }
-        });
-    }
-
     class CellClickListener implements View.OnClickListener
     {
         GenericDeal genericDeal;

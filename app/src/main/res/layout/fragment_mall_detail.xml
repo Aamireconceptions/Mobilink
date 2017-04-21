@@ -47,6 +47,7 @@
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
                     android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginLeft="@dimen/_12sdp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/business_border">
 
@@ -71,10 +72,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/directions_layout"
+                    android:layout_toLeftOf="@+id/directions_layout"
                     android:orientation="vertical"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_toEndOf="@+id/brand_logo_layout"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_toRightOf="@+id/brand_logo_layout"
                     android:layout_alignTop="@+id/brand_logo_layout"
                     android:layout_alignBottom="@+id/brand_logo_layout">
 
@@ -113,8 +114,11 @@
                     android:layout_height="match_parent"
                     android:paddingStart="@dimen/_6sdp"
                     android:paddingEnd="@dimen/_6sdp"
+                    android:paddingLeft="@dimen/_6sdp"
+                    android:paddingRight="@dimen/_6sdp"
                     android:gravity="center_vertical"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:background="@color/transparent_white"
                     android:visibility="gone">
 
@@ -229,6 +233,8 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_8sdp"
+                android:paddingLeft="@dimen/_8sdp"
+                android:paddingRight="@dimen/_8sdp"
                 android:background="@drawable/location_header_layer">
 
                 <TextView
@@ -240,6 +246,8 @@
                     android:singleLine="true"
                     android:layout_toStartOf="@+id/locations"
                     android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_toLeftOf="@+id/locations"
+                    android:layout_marginRight="@dimen/_4sdp"
                     android:textSize="13sp"
                     android:textColor="@color/red"/>
 
@@ -250,6 +258,8 @@
                     android:text="@string/locations"
                     android:drawableEnd="@drawable/ic_arrow_down"
                     android:layout_alignParentEnd="true"
+                    android:drawableRight="@drawable/ic_arrow_down"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="@dimen/_5sdp"
                     android:textColor="@color/red"
@@ -268,6 +278,8 @@
                 android:minHeight="@dimen/_46sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:background="@drawable/layer_list">
@@ -280,6 +292,7 @@
                     android:gravity="center_vertical"
                     android:autoLink="phone"
                     android:drawableStart="@drawable/ic_call"
+                    android:drawableLeft="@drawable/ic_call"
                     android:drawablePadding="@dimen/_10sdp"
                     android:textSize="12sp"
                     android:textColor="@color/black"/>
@@ -291,8 +304,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
                 android:minHeight="@dimen/_46sdp"
                 android:paddingEnd="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:background="@drawable/layer_list">
@@ -303,10 +318,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
                     android:gravity="center_vertical"
                     android:autoLink="map"
                     android:layout_toStartOf="@+id/address_arrow"
                     android:drawableStart="@drawable/ic_location"
+                    android:layout_toLeftOf="@+id/address_arrow"
+                    android:drawableLeft= "@drawable/ic_location"
                     android:drawablePadding="@dimen/_10sdp"
                     android:textSize="12sp"
                     android:textColor="@color/black"/>
@@ -317,6 +335,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_next_arrow"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:visibility="visible"/>
 
@@ -344,6 +363,9 @@
                     android:layout_marginEnd="@dimen/_6sdp"
                     android:layout_toStartOf="@+id/distance_arrow"
                     android:drawableStart="@drawable/ic_directions_small"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    android:layout_toLeftOf="@+id/distance_arrow"
+                    android:drawableLeft="@drawable/ic_directions_small"
                     android:drawablePadding="@dimen/_10sdp"
                     android:text=""
 
@@ -367,6 +389,8 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
                 android:minHeight="@dimen/_46sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
@@ -380,6 +404,9 @@
                     android:layout_marginEnd="@dimen/_6sdp"
                     android:layout_toStartOf="@+id/timing_arrow"
                     android:drawableStart="@drawable/ic_clock"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    android:layout_toLeftOf="@+id/timing_arrow"
+                    android:drawableLeft="@drawable/ic_clock"
                     android:drawablePadding="@dimen/_10sdp"
                     android:textSize="12sp"
                     android:gravity="center_vertical"

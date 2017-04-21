@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_8sdp"
         android:paddingBottom="@dimen/_8sdp"
-        android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_8sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
         android:gravity="center"
 
         android:orientation="horizontal"
@@ -62,7 +62,7 @@
             android:padding="@dimen/_6sdp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginLeft= "@dimen/_6sdp"
             android:orientation="vertical">
 
             <TextView
@@ -99,7 +99,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft= "@dimen/_5sdp"
             android:src="@drawable/dashboard_seperator"/>
 
 
@@ -109,7 +109,7 @@
             android:padding="@dimen/_6sdp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginLeft= "@dimen/_6sdp"
             android:orientation="vertical">
 
             <TextView

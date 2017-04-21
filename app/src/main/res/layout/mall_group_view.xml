@@ -25,7 +25,8 @@
        android:id="@+id/indicator"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_marginEnd="@dimen/_10sdp"/>
+       android:layout_marginEnd="@dimen/_10sdp"
+       android:layout_marginRight="@dimen/_10sdp"/>
 
 </LinearLayout>
 

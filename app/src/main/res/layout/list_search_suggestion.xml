@@ -14,6 +14,7 @@
         android:layout_height="50dp"
         android:gravity="start|center_vertical"
         android:paddingStart="12dp"
+        android:paddingLeft="12dp"
         android:textSize="13sp"
         android:text="Categories"
         android:textAlignment="viewStart"

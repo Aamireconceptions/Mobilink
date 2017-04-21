@@ -5,14 +5,14 @@
               android:layout_gravity="start|center_vertical"
               android:layout_marginRight="10dp"
               android:background="@color/white"
-              android:gravity="start|center_vertical"
+              android:gravity="center_vertical"
               android:padding="@dimen/_6sdp">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="fill_parent"
         android:layout_height="32dp"
-        android:gravity="start|center_vertical"
+        android:gravity="center_vertical"
         android:text="@string/search"
         android:textColor="@color/hex808080"
         android:textSize="14sp"/>
