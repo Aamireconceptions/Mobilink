@@ -110,9 +110,6 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        /* ivBanner = (ImageView) v.findViewById(R.id.banner);
-
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
@@ -292,15 +289,6 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onSubCategorySelected()
     {
-        /*if(!isCreated)
-        {
-            onFilterChange();
-        }
-        else
-        {
-            isCreated = false;
-        }*/
-
         onFilterChange();
     }
 

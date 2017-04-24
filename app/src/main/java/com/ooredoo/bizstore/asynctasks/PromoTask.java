@@ -138,29 +138,6 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
     private String getPromos() throws IOException {
         String result;
 
-        /*final String KEY = "PROMO_DEALS";
-
-        final String cachedData = getStringVal(activity, KEY);
-
-        boolean updateFromServer = checkIfUpdateData(activity, KEY.concat("_UPDATE"));
-
-        if(hasInternetConnection(activity) && (isNullOrEmpty(cachedData) || updateFromServer)) {
-
-            HashMap<String, String> params = new HashMap<>();
-            params.put(OS, ANDROID);
-
-            String query = createQuery(params);
-
-            URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
-
-            result = getJson(url);
-
-            updateVal(activity, KEY, result);
-            updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
-        } else {
-            result = cachedData;
-        }*/
-
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
 

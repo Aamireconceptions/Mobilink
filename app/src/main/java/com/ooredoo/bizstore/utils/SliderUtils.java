@@ -121,13 +121,6 @@ public class SliderUtils
                                 }
                             }
                         });
-                        /*viewPager.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                viewPager.setCurrentItem(pos, true);
-                            }
-                        });*/
-
                     }
                     else
                     {

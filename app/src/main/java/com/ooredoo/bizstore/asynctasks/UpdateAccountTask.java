@@ -236,10 +236,6 @@ public class UpdateAccountTask extends BaseAsyncTask<Void, Void, String> {
             HostnameVerifier hostnameVerifier = new HostnameVerifier() {
                 @Override
                 public boolean verify(String hostName, SSLSession sslSession) {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Logger.print("Https Hostname: "+hostName);
-
-                    return hv.verify(s, sslSession);*/
 
                     return true;
                 }

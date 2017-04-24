@@ -37,25 +37,13 @@ public class ScrollViewListener  {
         mSpannableString = new SpannableString(title);
     }
 
-
-
-   /* public void onScrollChanged(ScrollViewHelper v, int l, int t, int oldl, int oldt) {
-        setTitleAlpha(scrollOffset - getAlphaforActionBar(v.getScrollY()));
-        cd.setAlpha(getAlphaforActionBar(v.getScrollY()));
-    }*/
-
     public void onScrollChanged(View v) {
 
-       // View v = av.getChildAt(0);
 
         if(v != null) {
 
-
                 setTitleAlpha(scrollOffset - getAlphaforActionBar(-v.getTop()));
                 cd.setAlpha(getAlphaforActionBar(-v.getTop()));
-
-               // Logger.print("onScroll Alpha: " + v.getTop());
-
         }
 
     }

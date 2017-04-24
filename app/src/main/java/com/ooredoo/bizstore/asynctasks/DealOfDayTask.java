@@ -110,12 +110,6 @@ public class DealOfDayTask extends AsyncTask<String, Void, String>
                     if(response.dods != null && response.dods.size() > 0)
                     {
                         dealsTaskFinishedListener.onHaveDeals();
-
-                       /* final String KEY = PREFIX_DEALS.concat(category);
-                        final String UPDATE_KEY = KEY.concat("_UPDATE");
-
-                        updateVal((Activity) context, KEY, result);
-                        updateVal((Activity) context, UPDATE_KEY, currentTimeMillis());*/
                     }
 
                     adapter.setData(response.dods);
@@ -137,8 +131,6 @@ public class DealOfDayTask extends AsyncTask<String, Void, String>
         params.put(OS, ANDROID);
 
         String query = createQuery(params);
-
-
 
         try {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
@@ -174,10 +166,6 @@ public class DealOfDayTask extends AsyncTask<String, Void, String>
                 @Override
                 public boolean verify(String hostName, SSLSession sslSession)
                 {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Logger.print("Https Hostname: "+hostName);
-
-                    return hv.verify(s, sslSession);*/
 
                     return true;
                 }

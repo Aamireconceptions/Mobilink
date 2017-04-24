@@ -63,7 +63,6 @@ public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
                     AppData.userAccount.picture = SERVER_URL + userAccount.picture;
 
                     tvName.setText(userAccount.name);
-                    //tvName.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
                 }
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
@@ -91,9 +90,6 @@ public class AccountDetailsTask extends BaseAsyncTask<String, Void, String> {
         Logger.print("getAccountDetails() URL:" + url.toString());
 
         result = getJson(url);
-       // setServiceUrl("viewprofile", params);
-
-       // result = getJson();
 
         Logger.print("viewprofile result: " + result);
 

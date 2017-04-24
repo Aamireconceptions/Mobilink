@@ -11,14 +11,6 @@ public class DiskCacheTask extends BaseAsyncTask<Integer, Void, Void>
 {
     private DiskCache diskCache;
 
-   /* private final Object mDiskCacheLock;
-
-    private File file;*/
-
-    /*private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
-
-    public static boolean mDiskCacheStarting = true;*/
-
     public static final int INIT = 1;
 
     public static final int FLUSH = 2;
@@ -32,10 +24,6 @@ public class DiskCacheTask extends BaseAsyncTask<Integer, Void, Void>
     public DiskCacheTask(DiskCache diskCache)
     {
         this.diskCache = diskCache;
-
-       /* this.file = file;
-
-        this.mDiskCacheLock = mDiskCacheLock;*/
     }
 
     @Override

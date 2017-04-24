@@ -245,10 +245,6 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
                 @Override
                 public boolean verify(String hostName, SSLSession sslSession)
                 {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Logger.print("Https Hostname: "+hostName);
-
-                    return hv.verify(s, sslSession);*/
 
                     return true;
                 }

@@ -269,8 +269,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
             rlHeader.setVisibility(View.GONE);
         }
 
-        //adapter.clearData();
-
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
 
@@ -280,11 +278,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onSubCategorySelected() {
-       /* if(!isCreated) {
-            onFilterChange();
-        } else {
-            isCreated = false;
-        }*/
 
         onFilterChange();
     }

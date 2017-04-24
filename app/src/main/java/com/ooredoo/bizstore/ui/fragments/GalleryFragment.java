@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -50,8 +52,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
     public static GalleryFragment newInstance(Gallery gallery, int position, boolean clickable)
     {
         Bundle bundle = new Bundle();
-        /*bundle.putInt("id", id);
-        bundle.putString("image_url", imgUrl);*/
         bundle.putSerializable("gallery", gallery);
         bundle.putInt("pos", position);
         bundle.putBoolean("clickable", clickable);
@@ -112,8 +112,14 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
             rlImage.setLayoutParams(params);
 
             imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageView.setBackground(null);
-           // imageView.setOnTouchListener(this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground(null);
+            }
+            else
+            {
+                imageView.setBackgroundDrawable(null);
+            }
+            // imageView.setOnTouchListener(this);
 
             photoViewAttacher = new PhotoViewAttacher(imageView);
         }
@@ -145,61 +151,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
             Logger.print("Top Brand imgUrl was null");
         }
     }
-
-    /*private void fallBackToDiskCache(final String url)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                bitmap = diskCache.getBitmapFromDiskCache(url);
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Logger.print("Setting bitmap: "+bitmap);
-                            imageView.setImageBitmap(bitmap);
-                            imageView.setTag("loaded");
-                        }
-                    });
-                }
-                else
-                {
-                    Resources resources = activity.getResources();
-
-                    final int reqWidth = resources.getDisplayMetrics().widthPixels ;
-
-                    final int reqHeight = resources.getDisplayMetrics().heightPixels;
-
-                    Logger.print("req Width Pixels:" + reqWidth);
-                    Logger.print("req Height Pixels:" + reqHeight);
-
-                    activity.runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            BitmapForceDownloadTask bitmapDownloadTask =
-                                    new BitmapForceDownloadTask(imageView, progressBar);
-                            bitmapDownloadTask.executeOnExecutor
-                                    (AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                        }
-                    });
-                }
-            }
-        });
-
-        thread.start();
-    }*/
 
     @Override
     public void onClick(View v)
@@ -287,12 +238,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener, V
                 {
                     //movement of first finger
                     matrix.set(saveMatrix);
-                   /* if(view.getLeft() >= -392)
-                    {
-                        matrix.postTranslate(event.getX() - start.x, event.getY() - start.y);
-                    }*/
-
-
                 }
                 else
                     if(mode == ZOOM)

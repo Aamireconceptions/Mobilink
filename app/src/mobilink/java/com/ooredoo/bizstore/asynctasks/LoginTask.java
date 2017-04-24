@@ -3,6 +3,7 @@ package com.ooredoo.bizstore.asynctasks;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -117,7 +118,13 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
 
                     MsisdnDialog.chargesDialog.dismiss();
 
-                    DealDetailActivity.btGetCode.callOnClick();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                        DealDetailActivity.btGetCode.callOnClick();
+                    }
+                    else
+                    {
+                        DealDetailActivity.btGetCode.performClick();
+                    }
 
                     Tracker tracker = ((BizStore) ((Activity) activity).getApplication()).getDefaultTracker();
                     Map<String, String> loginEvent = new HitBuilders.EventBuilder()

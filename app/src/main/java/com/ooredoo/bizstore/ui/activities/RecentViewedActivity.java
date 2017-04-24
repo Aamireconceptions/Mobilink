@@ -85,10 +85,6 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
         int count = recentItems.size();
 
         toggleEmptyView(count);
-/*
-        btnClearAll = (Button) findViewById(R.id.btn_clear);
-        btnClearAll.setOnClickListener(this);
-        btnClearAll.setVisibility(count == 0 ? View.GONE : View.VISIBLE);*/
     }
 
     private void toggleEmptyView(int count) {
@@ -193,12 +189,8 @@ public class RecentViewedActivity extends AppCompatActivity implements View.OnCl
             rd.address = result.address;
             rd.contact = result.contact;
 
-     /*       rd.detailBanner = result.detailBanner;
-            rd.latitude = result.lat;
-            rd.longitude = result.lng;*/
             rd.businessLogo = result.businessLogo;
             rd.businessName = result.businessName;
-           // rd.brandAddress = result.brandAddress;
             rd.location = result.location;
             rd.businessId = result.businessId;
             rd.endDate = result.endDate;

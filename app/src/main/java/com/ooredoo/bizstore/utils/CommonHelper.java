@@ -138,89 +138,12 @@ public class CommonHelper
             Logger.print("dCache found!");
 
             memoryCache.addBitmapToCache(url, bitmap);
-                   /* activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            imageView.setImageBitmap(bitmap);
-                            imageView.setTag("loaded");
-                        }
-                    });*/
             setBitmap(bitmap, imageView);
         }
         else
         {
-            /*activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                    (imageView, progressBar);
-
-                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                    url, String.valueOf(reqWidth),
-                                    String.valueOf(reqHeight));
-                        }
-                    });
-
-                }
-            });*/
-
             downloadBitmap(imageView, progressBar, url, reqWidth, reqHeight);
         }
-
-
-        /*Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                bitmap = diskCache.getBitmapFromDiskCache(url);
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-                   *//* activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            imageView.setImageBitmap(bitmap);
-                            imageView.setTag("loaded");
-                        }
-                    });*//*
-                   setBitmap(bitmap, imageView);
-                }
-                else
-                {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                            (imageView, progressBar);
-
-                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                            url, String.valueOf(reqWidth),
-                                            String.valueOf(reqHeight));
-                                }
-                            });
-
-                        }
-                    });
-                }
-            }
-        });
-
-        thread.start();*/
     }
 
     @UiThread

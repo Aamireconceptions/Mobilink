@@ -48,7 +48,6 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
         super.onPreExecute();
 
         dialog = createCustomLoader((Activity) context, "Sharing...");
-        /*progressDialog = ProgressDialog.show(context, "", context.getString(R.string.please_wait));*/
     }
 
     @Override
@@ -108,7 +107,6 @@ public class ShareAppTask extends BaseAsyncTask<String, Void, String>
         params.put(OS, ANDROID);
         params.put(MSISDN_TO, CryptoUtils.encodeToBase64(phoneNum));
         params.put(MSISDN_FROM, CryptoUtils.encodeToBase64(username)); //TODO remove temp number i.e 3331234567
-        //params.put(MESSAGE, msg); //MESSAGE IS STORED ON SERVER
 
         String query = createQuery(params);
 

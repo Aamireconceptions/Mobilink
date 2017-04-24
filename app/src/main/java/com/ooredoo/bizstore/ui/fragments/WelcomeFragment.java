@@ -59,18 +59,10 @@ public class WelcomeFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
 
-        /*FragmentUtils.replaceFragmentWithBackStack(activity, R.id.fragment_container,
-                                        DemoFragment.newInstance(), "demo_fragment");*/
-
         SharedPrefUtils.updateVal(activity, SharedPrefUtils.LOGIN_STATUS, true);
-
-        //activity.finish();
 
         MainActivity activity = (MainActivity) mActivity;
        activity.startActivity(HomeActivity.class);
-
-        /*getActivity().finish();
-        getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));*/
 
         Map<String, String> loginEvent = new HitBuilders.EventBuilder()
                 .setCategory("Action")

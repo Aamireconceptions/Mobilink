@@ -49,7 +49,6 @@ public class SearchSuggestionsTask extends BaseAsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        //closeDialog(dialog);
 
         if(result != null) {
             try {
@@ -76,7 +75,6 @@ public class SearchSuggestionsTask extends BaseAsyncTask<Void, Void, String> {
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-        //params.put("keyword", keyword);
 
         setServiceUrl("autosuggestions", params);
 

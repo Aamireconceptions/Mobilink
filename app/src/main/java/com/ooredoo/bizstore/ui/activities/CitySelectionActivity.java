@@ -51,9 +51,6 @@ public class CitySelectionActivity extends BaseActivity implements View.OnClickL
         mAdapter = new CitiesAdapter(this, R.layout.list_item_notification, cities);
         mListView.setAdapter(mAdapter);
 
-        RelativeLayout rlSelectAll = (RelativeLayout) findViewById(R.id.rl_select_all);
-       // rlSelectAll.setOnClickListener(this);
-
         findViewById(R.id.save).setOnClickListener(this);
     }
 
@@ -144,11 +141,6 @@ public class CitySelectionActivity extends BaseActivity implements View.OnClickL
     }
 
     public void initCitiesData() {
-        /*cities = new ArrayList<>();
-        cities.add(new City(1, true, R.drawable.ic_shopping, citiesList[0]));
-        cities.add(new City(2, true, R.drawable.ic_shopping, citiesList[1]));
-        cities.add(new City(3, true, R.drawable.ic_shopping, citiesList[2]));
-        cities.add(new City(4, true, R.drawable.ic_shopping, citiesList[3]));*/
 
         cities = new Select().all().from(City.class).execute();
 

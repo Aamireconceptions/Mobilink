@@ -103,7 +103,6 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
         GetRedeemedDealsTask getRedeemedDealsTask = new GetRedeemedDealsTask(this, adapter,
                                                                              progressBar, deals);
         getRedeemedDealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type);
-        //getRedeemedDealsTask.execute(type);
 
         if(type.equals("Available"))
         {
@@ -127,7 +126,6 @@ public class RedeemedDealsActivity extends AppCompatActivity implements OnDealsT
 
     @Override
     public void onRefreshCompleted() {
-        //swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

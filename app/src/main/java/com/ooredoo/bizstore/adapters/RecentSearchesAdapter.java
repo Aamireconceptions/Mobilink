@@ -89,10 +89,6 @@ public class RecentSearchesAdapter extends ArrayAdapter<SearchItem> {
             }
         });
 
-        //AnimUtils.slideView(mActivity, view, prevItem < position);
-
-        prevItem = position;
-
         return view;
     }
 

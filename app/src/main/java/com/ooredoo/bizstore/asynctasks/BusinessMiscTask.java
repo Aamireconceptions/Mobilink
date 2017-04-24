@@ -42,10 +42,6 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
-       // dialog = DialogUtils.createCustomLoader(detailActivity, "Loading...");
-
-       // if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
 
     @Override
@@ -63,16 +59,12 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        ///closeDialog(dialog);
-
         if(progressBar != null) { progressBar.setVisibility(View.GONE); }
 
         if(result != null) {
             Business business = null;
 
             Gson gson = new Gson();
-
-            //Logger.print("Business Misc: " + result);
             try {
                 BusinessDetail businessDetail = gson.fromJson(result, BusinessDetail.class);
 
@@ -93,10 +85,6 @@ public class BusinessMiscTask extends BaseAsyncTask<String, Void, String> {
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }
-        }
-        else
-        {
-           // snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
     }
 

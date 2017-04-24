@@ -50,7 +50,7 @@ public class ImageViewerFragment extends Fragment
             public void onClick(View v) {
 
                 getFragmentManager().popBackStack();
-               // FragmentUtils.removeFragment(getActivity(), ImageViewerFragment.this);
+
             }
         });
 

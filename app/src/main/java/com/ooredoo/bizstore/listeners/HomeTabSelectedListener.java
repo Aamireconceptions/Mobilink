@@ -78,13 +78,7 @@ public class HomeTabSelectedListener extends TabLayout.ViewPagerOnTabSelectedLis
     public void onTabUnselected(TabLayout.Tab tab) {
         DealsTask.sortColumn = "createdate";
         ShoppingTask.sortColumn = "createdate";
-        //DealsTask.subCategories = "";
-        //NearbyFragment.categories = "";
-        //DealsTask.categories = "";
-        //NearbyFragment.isMultipleCategoriesFilter = false;
-        //DealsTask.isMultipleCategoriesFilter = false;
 
-       // homeActivity.resetFilters();
     }
 
     @Override

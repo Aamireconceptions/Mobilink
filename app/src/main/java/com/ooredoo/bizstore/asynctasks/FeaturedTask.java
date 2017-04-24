@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -92,7 +93,13 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
 
         if(result != null)
         {
-            viewPager.setBackground(null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewPager.setBackground(null);
+            }
+            else
+            {
+                viewPager.setBackgroundDrawable(null);
+            }
 
             Gson gson = new Gson();
 
@@ -103,7 +110,13 @@ public class FeaturedTask extends BaseAsyncTask<String, Void, String>
                 {
                     List<GenericDeal> deals;
 
-                    viewPager.setBackground(null);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        viewPager.setBackground(null);
+                    }
+                    else
+                    {
+                        viewPager.setBackgroundDrawable(null);
+                    }
 
                     deals = response.deals;
 

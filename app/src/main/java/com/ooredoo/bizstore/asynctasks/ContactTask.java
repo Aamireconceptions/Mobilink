@@ -57,8 +57,6 @@ public class ContactTask extends AsyncTask<String, Void, String>
         this.etHelp = etHelp;
     }
 
-
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -70,7 +68,6 @@ public class ContactTask extends AsyncTask<String, Void, String>
     private static final String SERVICE_NAME = "/sendfeedback?";
     @Override
     protected String doInBackground(String... params) {
-
         try
         {
             return sendMessage(params[0]);
@@ -150,11 +147,6 @@ public class ContactTask extends AsyncTask<String, Void, String>
 
         Logger.print("ContactUs URL:" + url);
 
-       /* HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
-        connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
-        connection.connect();*/
-
         HttpsURLConnection connection = null;
 
         try {
@@ -191,10 +183,6 @@ public class ContactTask extends AsyncTask<String, Void, String>
                 @Override
                 public boolean verify(String hostName, SSLSession sslSession)
                 {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Logger.print("Https Hostname: "+hostName);
-
-                    return hv.verify(s, sslSession);*/
 
                     return true;
                 }

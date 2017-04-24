@@ -55,7 +55,6 @@ public class PromoFragment extends Fragment implements View.OnClickListener
     public static PromoFragment newInstance(GenericDeal genericDeal)
     {
         Bundle bundle = new Bundle();
-        //bundle.putString("image_url", imgUrl);
         bundle.putSerializable("generic_deal", genericDeal);
 
         PromoFragment fragment = new PromoFragment();
@@ -81,8 +80,6 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         Bundle bundle = getArguments();
 
         genericDeal = (GenericDeal) bundle.getSerializable("generic_deal");
-
-        /*String imgUrl = bundle.getString("image_url");*/
 
         String imgUrl = genericDeal.image.promotionalUrl;
 
@@ -126,64 +123,9 @@ public class PromoFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    private void fallBackToDiskCache(final String url)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                bitmap = diskCache.getBitmapFromDiskCache(url);
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            imageView.setImageBitmap(bitmap);
-                            imageView.setTag("loaded");
-                        }
-                    });
-                }
-                else
-                {
-                    Logger.print("Root Width:" + v.getWidth());
-
-                    Resources resources = activity.getResources();
-
-                    final int reqWidth = resources.getDisplayMetrics().widthPixels;
-
-                    final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._190sdp)
-                            /
-                            resources.getDisplayMetrics().density);
-
-                    Logger.print("req Width Pixels:" + reqWidth);
-                    Logger.print("req Height Pixels:" + reqHeight);
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(imageView, progressBar);
-                            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
-                        }
-                    });
-                }
-            }
-        });
-
-        thread.start();
-    }
-
     @Override
     public void onClick(View v)
     {
-        //activity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], id);
-
         genericDeal.views = ++genericDeal.views;
 
         Deal recentDeal = new Deal(genericDeal);

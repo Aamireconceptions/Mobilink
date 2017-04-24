@@ -110,10 +110,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     ivEditName.performClick();
                     etName.clearFocus();
-
-
-                    //etName.setFocusable(false);
-                    // ivEditName.setFocusableInTouchMode(false);
                 }
                 return false;
             }
@@ -151,17 +147,10 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         if(bitmap != null) {
 
             ivProfilePic.setImageBitmap(bitmap);
-            /*Bitmap rotatedBitmap = bitmap;
-            try {
-                rotatedBitmap = rotateBitmapIfNeeded(PROFILE_PIC_URL, bitmap);
-            } catch(IOException ioe) {
-                ioe.printStackTrace();
-            }
-            ivProfilePic.setImageBitmap(rotatedBitmap);*/
+
         } else {
             int width = (int) convertDpToPixels(250);
             int height = width;
-            //ExecutorService executorService = Executors.newSingleThreadExecutor();
             ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(ivProfilePic, progressBar);
             profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
         }
@@ -179,23 +168,12 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             if(canEditName || isValidName) {
                 etName.setFocusable(canEditName);
                 etName.setFocusableInTouchMode(canEditName);
-                // etName.requestFocus();
                 ivEdit.setImageResource(canEditName ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
             }
 
             if(canEditName) {
                 etName.setFocusable(true);
                etName.requestFocus();
-
-
-                /*etName.performClick();
-
-                InputMethodManager keyboard = (InputMethodManager)
-                        getSystemService(Context.INPUT_METHOD_SERVICE);
-              //  keyboard.showSoftInput(etName, 0);
-
-                keyboard.showSoftInput(etName, InputMethodManager.SHOW_IMPLICIT);*/
-
                 long downTime = SystemClock.uptimeMillis();
                 long eventTime = SystemClock.uptimeMillis() + 100;
                 float x = 0.0f;
@@ -216,17 +194,8 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 etName.setCursorVisible(true);
                 etName.setSelection(etName.getText().length());
             } else {
-
-                /*InputMethodManager keyboard = (InputMethodManager)
-                        getSystemService(Context.INPUT_METHOD_SERVICE);
-                //  keyboard.showSoftInput(etName, 0);
-
-                keyboard.hideSoftInputFromInputMethod(etName.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);*/
-               // etName.clearFocus();
-
                 String name = etName.getText().toString();
                 if(isNotNullOrEmpty(name)) {
-                    isValidName = true;
                     ivEdit.setImageResource(R.drawable.ic_edit_white);
                     updateVal(this, NAME, name);
                     UpdateAccountTask uploadTask = new UpdateAccountTask(this, name, null);
@@ -242,18 +211,13 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                     String msg = getString(R.string.provide_name);
                     Snackbar.make(etName, msg, Snackbar.LENGTH_SHORT).show();
                 }
-
-
-               // etName.setFocusable(false);
             }
 
 
 
         } else if(viewId == R.id.iv_edit_dp) {
-           // canEditDp = !canEditDp;
             ivEdit = (ImageView) v;
             ivEdit.setImageResource(R.drawable.ic_edit_white);
-            //ivEdit.setImageResource(canEditDp ? R.drawable.ic_done_white : R.drawable.ic_edit_white);
             if(canEditDp) {
                 takePicture();
             } else {
@@ -292,17 +256,9 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         File file = new File(path);
         Uri outputFileUri = Uri.fromFile(file);
 
-        /*Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        intent.putExtra("return-data", true);*/
-
-        /*List<Intent> cameraIntent = new ArrayList<Intent>();
-        Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)*/
-
         Intent pickIntent = new Intent();
         pickIntent.setType("image/*");
         pickIntent.setAction(Intent.ACTION_GET_CONTENT);
-        //pickIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
@@ -322,58 +278,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
         Log.i("RequestCode: " + requestCode, "resultCode: " + resultCode);
 
-        //hasUserSelectedPic = true;
-
-        /*if(resultCode == RESULT_OK && null != intent) {
-
-            Uri selectedImage = intent.getData();
-
-            String[] orientationColumn = { MediaStore.Images.Media.ORIENTATION };
-            Cursor cur = managedQuery(selectedImage, orientationColumn, null, null, null);
-            if(cur != null && cur.moveToFirst()) {
-                rotation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
-                Matrix matrix = new Matrix();
-                matrix.postRotate(rotation);
-            }
-
-            path = selectedImage.getPath();
-
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-
-            BitmapFactory.decodeFile(path, bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
-
-            Logger.logI("PIC_WIDTH", String.valueOf(photoW));
-            Logger.logI("PIC_HEIGHT", String.valueOf(photoH));
-
-            int targetHeight = (int) Converter.convertDpToPixels(225);
-            int scaleFactor = Math.min(photoW, photoH / targetHeight);
-
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
-
-            int height = (int) Converter.convertDpToPixels(225);
-            // decode with inSampleSize
-            Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), height, true);
-            Log.i("PIC", path);
-
-        } else {
-
-            switch(resultCode) {
-                case 0:
-                    hasUserSelectedPic = false;
-                    Log.i("SonaSys", "User cancelled");
-                    break;
-                case -1:
-                    processImage();
-                    break;
-            }
-        }*/
-
         if(resultCode == RESULT_OK)
         {
             if(intent != null)
@@ -390,8 +294,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 }
             }
 
-            Resources res= getResources();
-
             try {
                 hasUserSelectedPic = true;
                 canEditDp = false;
@@ -403,7 +305,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
                 FileUtils.saveBitmap(bitmap, path);
 
                 ivProfilePic.setImageBitmap(bitmap);
-                //profilePicture.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -415,16 +316,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
 
             hasUserSelectedPic = false;
         }
-
-       /* switch(resultCode) {
-            case 0:
-                hasUserSelectedPic = false;
-                Log.i("SonaSys", "User cancelled");
-                break;
-            case -1:
-                processImage();
-                break;
-        }*/
     }
 
     /**
@@ -570,86 +461,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
-   /* private String getPath(Uri uri) {
-        if( uri == null ) {
-            return null;
-        }
-
-        String[] projection = { MediaStore.Images.Media.DATA };
-
-        Cursor cursor;
-        if(Build.VERSION.SDK_INT >19)
-        {
-            // Will return "image:x*"
-            String wholeID = DocumentsContract.getDocumentId(uri);
-            // Split at colon, use second item in the array
-            String id = wholeID.split(":")[1];
-            // where id is equal to
-            String sel = MediaStore.Images.Media._ID + "=?";
-
-            cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    projection, sel, new String[]{ id }, null);
-        }
-        else
-        {
-            cursor = getContentResolver().query(uri, projection, null, null, null);
-        }
-        String path = null;
-        try
-        {
-            int column_index = cursor
-                    .getColumnIndex(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            path = cursor.getString(column_index).toString();
-            cursor.close();
-        }
-        catch(NullPointerException e) {
-
-        }
-        return path;
-    }*/
-
-    private void processImage() {
-        Bitmap bitmap = decodeFile(path);
-
-        int height = (int) Converter.convertDpToPixels(225);
-
-        Bitmap rotatedBitmap = bitmap;
-        try {
-            rotatedBitmap = rotateBitmapIfNeeded(path, bitmap);
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-
-        // decode with inSampleSize
-        //Bitmap scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap, rotatedBitmap.getWidth(), height, true);
-
-        ivProfilePic.setImageBitmap(rotatedBitmap);
-        profilePicture.setImageBitmap(rotatedBitmap);
-
-        //cropImage();
-    }
-
-    boolean isCropEnabled = false;
-
-    private void cropImage() {
-
-        Intent cropIntent = new Intent("com.android.camera.action.CROP");
-        File file = new File(path);
-        Uri uri = Uri.fromFile(file);
-        cropIntent.setType("image/*");
-        cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        cropIntent.setDataAndType(uri, "image/*");
-        cropIntent.putExtra("outputX", 1440);
-        cropIntent.putExtra("outputY", 1440);
-        cropIntent.putExtra("aspectX", 1);
-        cropIntent.putExtra("aspectY", 1);
-        cropIntent.putExtra("scale", "true");
-        cropIntent.putExtra("return-data", true);
-        startActivityForResult(cropIntent, 1);
-        isCropEnabled = true;
-    }
-
     public void uploadImageToServer(String path) {
         Logger.print("IMG_PATH: " + path);
         UpdateAccountTask uploadTask = new UpdateAccountTask(this, null, path);
@@ -677,109 +488,6 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
         ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(profilePicture, null);
         profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL,
                 valueOf(reqWidth), valueOf(reqHeight));
-
-/*
-        if(bitmap != null)
-        {
-            memoryCache.addBitmapToCache(PROFILE_PIC_URL, bitmap);
-            iv
-        }
-        else
-        {
-
-        int reqWidth = (int) convertDpToPixels(200);
-        int reqHeight = reqWidth;
-        ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(profilePicture, null);
-        profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL,
-                valueOf(reqWidth), valueOf(reqHeight));
-        }*/
-
-        /*loadPicture();
-
-        Bitmap dpBitmap = memoryCache.getBitmapFromCache(PROFILE_PIC_URL);
-
-        if(dpBitmap != null) {
-            profilePicture.setImageBitmap(dpBitmap);
-        } else {
-            int reqWidth = (int) convertDpToPixels(225);
-            int reqHeight = reqWidth;
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
-            BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(profilePicture, null);
-            bitmapDownloadTask.executeOnExecutor(executorService, PROFILE_PIC_URL, valueOf(reqWidth), valueOf(reqHeight));
-        }*/
-    }
-
-    private Bitmap decodeFile(String path) {
-        int orientation;
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        display.getRealMetrics(displayMetrics);
-
-        if(path == null) {
-            return null;
-        }
-
-        try {
-
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(path, bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
-
-            Logger.logI("PIC_WIDTH", String.valueOf(photoW));
-            Logger.logI("PIC_HEIGHT", String.valueOf(photoH));
-
-            int targetHeight = (int) Converter.convertDpToPixels(225);
-            int scaleFactor = Math.min(photoW, photoH / targetHeight);
-
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
-
-            // decode with inSampleSize
-            Bitmap bm = BitmapFactory.decodeFile(path, bmOptions);
-            Bitmap bitmap = bm;
-
-            ExifInterface exif = new ExifInterface(path);
-
-            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-
-            int width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0);
-
-            Log.e("ExifInteface ........." + width, "orientation =" + orientation);
-
-            Matrix m = new Matrix();
-
-            m.postRotate(rotation);
-
-            if(orientation == ExifInterface.ORIENTATION_NORMAL) {
-                Log.e("ORIENTATION", "NORMAL");
-                m.postRotate(0);
-            } else if((orientation == ExifInterface.ORIENTATION_ROTATE_180)) {
-                m.preRotate(180);
-                Log.e("in orientation", "" + orientation);
-                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
-                return bitmap;
-            } else if(orientation == ExifInterface.ORIENTATION_ROTATE_90) {
-                m.postRotate(0);
-                Log.e("in orientation", "" + orientation);
-                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
-                return bitmap;
-            } else if(orientation == ExifInterface.ORIENTATION_ROTATE_270) {
-                m.postRotate(270);
-                Log.e("in orientation", "" + orientation);
-                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, true);
-                return bitmap;
-            }
-            return bitmap;
-        } catch(OutOfMemoryError e) {
-            MemoryCache.getInstance().tearDown();
-            return null;
-        } catch(IOException ioe) {
-            return null;
-        }
     }
 
     public void showMessage() {

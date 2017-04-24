@@ -71,47 +71,8 @@ public class BitmapProcessor
         options.inSampleSize = sampleSize;
 
         try {
-            /*CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
-            Certificate ca;
-            try {
-                ca = cf.generateCertificate(is);
-
-                Logger.print("ca = " + ((X509Certificate) ca).getSubjectDN());
-            } finally {
-                is.close();
-            }
-
-            String keystoreType = KeyStore.getDefaultType();
-            KeyStore keyStore = KeyStore.getInstance(keystoreType);
-            keyStore.load(null, null);
-            keyStore.setCertificateEntry("ca", ca);
-
-            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
-            // Initialise the TMF as you normally would, for example:
-            tmf.init(keyStore);
-
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, tmf.getTrustManagers(), null);
-
-            HostnameVerifier hostnameVerifier = new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostName, SSLSession sslSession) {
-                    *//*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Logger.print("Https Hostname: "+hostName);
-
-                    return hv.verify(s, sslSession);*//*
-
-                    return true;
-                }
-            };
-*/
-            //inputStream.reset();
             connection = (HttpURLConnection) url.openConnection();
-            /*connection.setSSLSocketFactory(sslContext.getSocketFactory());
-            connection.setHostnameVerifier(hostnameVerifier);*/
             connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
             connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
@@ -135,23 +96,7 @@ public class BitmapProcessor
             }
 
             return bitmap;
-        }
-        /*catch (CertificateException e)
-        {
-            e.printStackTrace();
-        }
-        catch (KeyStoreException e)
-        {
-            e.printStackTrace();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        catch (KeyManagementException e)
-        {
-            e.printStackTrace();
-        }*/ catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
             e.printStackTrace();
@@ -169,15 +114,6 @@ public class BitmapProcessor
 
     public Bitmap decodeSampledBitmapFromDescriptor(FileDescriptor fd)
     {
-        /*final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-
-        BitmapFactory.decodeFileDescriptor(fd, null, options);
-
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        options.inJustDecodeBounds = false;*/
-
         return BitmapFactory.decodeFileDescriptor(fd);
 
     }
@@ -296,10 +232,5 @@ public class BitmapProcessor
         matrix.postRotate(degree);
 
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-    }
-
-    public Bitmap downsizeBitmap(Bitmap bitmap, int width, int height)
-    {
-        return Bitmap.createBitmap(bitmap, 0, 0, width, height);
     }
 }

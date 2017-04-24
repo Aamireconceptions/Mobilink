@@ -102,11 +102,6 @@ public class LocationUpdateTask extends AsyncTask<Double, Void, Void>
                     @Override
                     public boolean verify(String hostName, SSLSession sslSession)
                     {
-                    /*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Logger.print("Https Hostname: "+hostName);
-
-                    return hv.verify(s, sslSession);*/
-
                         return true;
                     }
                 };

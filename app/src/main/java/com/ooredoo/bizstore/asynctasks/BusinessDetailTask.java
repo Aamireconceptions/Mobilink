@@ -96,7 +96,6 @@ public class BusinessDetailTask extends BaseAsyncTask<String, Void, String> {
         {
             Toast.makeText(detailActivity, R.string.error_no_internet, Toast.LENGTH_LONG).show();
             detailActivity.finish();
-           // snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
     }
 

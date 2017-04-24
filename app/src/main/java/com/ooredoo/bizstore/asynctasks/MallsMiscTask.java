@@ -44,10 +44,6 @@ public class MallsMiscTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
-       // dialog = DialogUtils.createCustomLoader(detailActivity, "Loading...");
-
-       // if(progressBar != null) { progressBar.setVisibility(View.VISIBLE); }
     }
 
     @Override
@@ -74,22 +70,11 @@ public class MallsMiscTask extends BaseAsyncTask<String, Void, String> {
 
             Gson gson = new Gson();
 
-            //Logger.print("Business Misc: " + result);
             try {
                 MallMiscResponse response = gson.fromJson(result, MallMiscResponse.class);
 
                 if(response.resultCode != -1) {
 
-                    /*if(businessDetail.src != null)
-                    {
-                        business = businessDetail.src;
-                    }
-*/
-                    /*if(business != null)
-                    {
-                        Logger.print("title:" + business.title);
-                        detailActivity.populateMisc(business);
-                    }*/
 
                     detailActivity.populateMisc(response);
 
@@ -98,10 +83,6 @@ public class MallsMiscTask extends BaseAsyncTask<String, Void, String> {
             } catch(JsonSyntaxException e) {
                 e.printStackTrace();
             }
-        }
-        else
-        {
-           // snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
     }
 

@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.PopupMenu;
@@ -73,6 +75,7 @@ import static com.ooredoo.bizstore.AppConstant.ACTION_BUSINESS_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.DIALER_PREFIX;
+import static com.ooredoo.bizstore.utils.DialogUtils.activity;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
@@ -267,9 +270,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         category = intent.getStringExtra(CATEGORY);
 
-        //scrollViewHelper = (ScrollViewHelper) findViewById(R.id.scrollViewHelper);
-       // scrollViewHelper.setOnScrollViewListener(new ScrollViewListener(mActionBar));
-
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
         ProgressBar progressBar = (ProgressBar) header.findViewById(R.id.progress_bar);
@@ -288,7 +288,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         tvLocations.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-               // popupMenu.show();
 
                 registerForContextMenu(v);
 
@@ -375,50 +374,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 }
             });
 
-            /*RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
-
-            if((business.latitude == 0 && business.longitude == 0)
-                    || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
-            {
-                llDirections.setVisibility(View.GONE);
-                rlDistance.setVisibility(View.GONE);
-            }
-            else
-            {
-                float results[] = new float[3];
-                Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
-                        business.latitude, business.longitude,
-                        results);
-
-                TextView tvDirections = (TextView) findViewById(R.id.directions);
-
-                tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
-                tvDirections.setOnClickListener(this);
-
-                TextView tvDistance= (TextView) findViewById(R.id.mDistance);
-                tvDistance.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        startDirections();
-                    }
-                });
-
-                tvDistance.setText(String.format("%.2f",results[0]) + " km away");
-            }
-
-            RelativeLayout rltiming = (RelativeLayout) findViewById(R.id.timing_layout);
-
-            if(business.timing == null || business.timing.isEmpty())
-            {
-                rltiming.setVisibility(View.GONE);
-            }
-            TextView tvTiming = (TextView) findViewById(R.id.timing);
-            if(business.timing != null)
-            {
-                tvTiming.setText(business.timing);
-            }*/
-
             ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
 
             String brandLogo = business.businessLogo;
@@ -430,11 +385,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                     brandLogo = business.image.logoUrl;
                 }
             }
-
-           /* if(business.image != null)
-            {
-                brandLogo = business.image.logoUrl;
-            }*/
 
             Logger.print("BrandLogo: "+brandLogo);
 
@@ -456,8 +406,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             }
             else
             {
-                //ivBrandLogo.setVisibility(View.GONE);
-
                 TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
                 FontUtils.setFontWithStyle(this, tvBrandTxt, Typeface.BOLD);
 
@@ -569,19 +517,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
                 if(bitmap != null)
                 {
-                    /*Palette palette = Palette.from(bitmap).generate();
-                    if(palette != null)
-                    {
-                        Palette.Swatch swatch = palette.getLightMutedSwatch();
-                        if(swatch != null)
-                        {
-                            rlHeader.setBackgroundColor(swatch.getRgb());
-                        }
-                    }*/
-
                     ivDetail.setImageBitmap(bitmap);
-
-                   // AnimatorUtils.expandAndFadeIn(ivDetail);
                 }
                 else
                 {
@@ -663,16 +599,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
         else
         {
-            /*float results[] = new float[3];
-            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
-                    business.latitude, business.longitude,
-                    results);*/
-
             TextView tvDirections = (TextView) header.findViewById(R.id.directions);
 
             ivArrow.setVisibility(View.VISIBLE);
 
-            //tvDirections.setText(String.format("%.1f",results[0] / 1000) + "km");
             tvDirections.setOnClickListener(this);
 
             TextView tvDistance= (TextView) header.findViewById(R.id.distance);
@@ -691,11 +621,7 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             CalculateDistanceTask calculateDistanceTask = new CalculateDistanceTask(this, business, tvDistance, tvDirections,
                     rlDistance, llDirections);
             calculateDistanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
-
-            //tvDistance.setText(String.format("%.1f", results[0] / 1000) + " " + getString(R.string.km_away));
         }
-
-
 
         RelativeLayout rlAddress = (RelativeLayout) header.findViewById(R.id.address_layout);
         rlAddress.setOnClickListener(new OnClickListener() {
@@ -711,14 +637,10 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         {
             rlAddress.setVisibility(View.VISIBLE);
             tvAddress.setText(business.address);
-
-
         }
         else
         {
             rlAddress.setVisibility(View.GONE);
-
-
         }
 
         RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
@@ -735,130 +657,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
             rlTiming.setVisibility(View.GONE);
         }
     }
-
-    private void startShareIntent()
-    {
-        double mLat = HomeActivity.lat;
-        double mLong = HomeActivity.lng;
-
-        String src = null, dest = null;
-
-        if(mLat != 0 && mLong != 0)
-        {
-            src = "saddr=" + mLat + "," + mLong + "&";
-        }
-
-        if(mBusiness.latitude != 0 && mBusiness.longitude != 0)
-        {
-            dest = "daddr="+mBusiness.latitude + "," + mBusiness.longitude;
-        }
-
-        String uri = "http://maps.google.com/maps?";
-
-        if(src != null)
-        {
-            uri += src;
-        }
-
-        if(dest != null)
-        {
-            uri += dest;
-        }
-
-        System.out.println("Directions URI:" + uri);
-
-        if(src == null)
-        {
-            Toast.makeText(this, "Location not available. Please enable location services!", Toast.LENGTH_SHORT).show();
-
-            return;
-        }
-
-        if(dest == null)
-        {
-            Toast.makeText(this, "Deal location is not available!", Toast.LENGTH_SHORT).show();
-
-            return;
-        }
-
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-
-        try
-        {
-            startActivity(intent);
-        }
-        catch (ActivityNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-
-/*    private void fallBackToDiskCache(final String url, final ImageView imageView)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                bitmap = diskCache.getBitmapFromDiskCache(url);
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            *//*Palette palette = Palette.from(bitmap).generate();
-
-                            if(palette != null)
-                            {
-                                Palette.Swatch swatch = palette.getLightMutedSwatch();
-                                if(swatch != null)
-                                {
-                                    rlHeader.setBackgroundColor(swatch.getRgb());
-                                }
-                            }*//*
-
-                            imageView.setImageBitmap(bitmap);
-
-                           // AnimatorUtils.expandAndFadeIn(imageView);
-                        }
-                    });
-
-                }
-                else
-                {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                            (imageView, progressBar, rlHeader);
-                        *//*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
-                                String.valueOf(displayMetrics.heightPixels / 2));*//*
-                                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                            url, String.valueOf(displayMetrics.widthPixels),
-                                            String.valueOf(displayMetrics.heightPixels / 2));
-                                }
-                            });
-
-                        }
-                    });
-
-                }
-            }
-        });
-
-        thread.start();
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -895,15 +693,28 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                 if(rlDescription.getTag().equals("collapsed"))
                 {
                     tvDescription.setVisibility(View.VISIBLE);
-                    tvDescriptionArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow, 0);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        tvDescriptionArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow, 0);
+                    }
+                    else
+                    {
+                        tvDescriptionArrow.setCompoundDrawables(null, null,
+                                ContextCompat.getDrawable(activity, R.drawable.ic_down_arrow), null);
+                    }
 
                     rlDescription.setTag("expanded");
                 }
                 else
                 {
                     tvDescription.setVisibility(View.GONE);
-                    tvDescriptionArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        tvDescriptionArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
+                    }
+                    else
+                    {
+                        tvDescriptionArrow.setCompoundDrawables(null, null,
+                                    ContextCompat.getDrawable(activity, R.drawable.ic_next_arrow), null);
+                    }
                     rlDescription.setTag("collapsed");
                 }
             }
@@ -913,14 +724,28 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
                     if(v.getTag().equals("collapsed"))
                     {
                         llMenu.setVisibility(View.VISIBLE);
-                        tvMenuArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow, 0);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                            tvMenuArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow, 0);
+                        }
+                        else
+                        {
+                            tvMenuArrow.setCompoundDrawables(null, null,
+                                    ContextCompat.getDrawable(activity, R.drawable.ic_down_arrow), null);
+                        }
 
                         v.setTag("expanded");
                     }
                     else
                     {
                         llMenu.setVisibility(View.GONE);
-                        tvMenuArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                            tvMenuArrow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next_arrow, 0);
+                        }
+                        else
+                            {
+                                tvMenuArrow.setCompoundDrawables(null, null,
+                                        ContextCompat.getDrawable(activity, R.drawable.ic_next_arrow), null);
+                            }
 
                         v.setTag("collapsed");
                     }
@@ -1056,10 +881,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
 
         String src = null, dest = null;
 
-       // src = "saddr=" + mLat + "," + mLong + "&";
-
-       // dest = "daddr="+mBusiness.latitude + "," + mBusiness.longitude;
-
         if(mLat != 0 && mLong != 0)
         {
             src = "saddr=" + mLat + "," + mLong + "&";
@@ -1071,9 +892,6 @@ public class BusinessDetailActivity extends BaseActivity implements OnClickListe
         }
 
         String uri = "http://maps.google.com/maps?";
-
-       // uri += src;
-       // uri += dest;
 
         if(src != null)
         {

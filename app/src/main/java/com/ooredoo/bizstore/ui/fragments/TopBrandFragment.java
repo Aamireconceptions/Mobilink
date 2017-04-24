@@ -53,8 +53,6 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
     public static TopBrandFragment newInstance(Brand brand)
     {
         Bundle bundle = new Bundle();
-        /*bundle.putInt("id", id);
-        bundle.putString("image_url", imgUrl);*/
         bundle.putSerializable("brand", brand);
 
         TopBrandFragment fragment = new TopBrandFragment();
@@ -131,76 +129,9 @@ public class TopBrandFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void fallBackToDiskCache(final String url)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                bitmap = diskCache.getBitmapFromDiskCache(url);
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            imageView.setImageBitmap(bitmap);
-                            imageView.setTag("loaded");
-                        }
-                    });
-                }
-                else
-                {
-                    //Logger.print("Root Width:" + v.getWidth());
-
-                    Resources resources = activity.getResources();
-
-                    final int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
-
-                    final int reqHeight =  (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._140sdp)
-                            /
-                            resources.getDisplayMetrics().density);
-
-                    Logger.print("req Width Pixels:" + reqWidth);
-                    Logger.print("req Height Pixels:" + reqHeight);
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                    (imageView, progressBar);
-                            bitmapDownloadTask.execute(url, String.valueOf(reqWidth),
-                                    String.valueOf(reqHeight));
-                        }
-                    });
-
-                }
-            }
-        });
-
-        thread.start();
-
-      /*  try
-        {
-            thread.join();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }*/
-    }
-
     @Override
     public void onClick(View v)
     {
-        //activity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[1], id);
-
         brand.views += 1;
         activity.showBusinessDetailActivity(DEAL_CATEGORIES[1], new Business(brand));
     }

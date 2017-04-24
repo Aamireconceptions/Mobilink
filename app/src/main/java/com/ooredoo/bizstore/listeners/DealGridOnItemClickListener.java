@@ -52,15 +52,12 @@ public class DealGridOnItemClickListener implements AdapterView.OnItemClickListe
             {
                 genericDeal = (GenericDeal) parent.getItemAtPosition(position);
 
-                //int dealId = gDeal.id;
-
                 Deal recentDeal = new Deal((GenericDeal) parent.getItemAtPosition(position));
                 RecentViewedActivity.addToRecentViewed(recentDeal);
                 DealDetailActivity.selectedDeal = (GenericDeal) parent.getItemAtPosition(position);
 
                 Intent intent = new Intent(activity, DealDetailActivity.class);
                 intent.putExtra("generic_deal", genericDeal);
-                //intent.putExtra(AppConstant.ID, dealId);
                 intent.putExtra(CATEGORY, DEAL_CATEGORIES[0]); //TODO set proper deal category
 
                 fragment.startActivityForResult(intent, 2);

@@ -106,7 +106,6 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
         params.put(OS, ANDROID);
         params.put(MSISDN, msisdn);
 
-
         String query = createQuery(params);
 
         URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);

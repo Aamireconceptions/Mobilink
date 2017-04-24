@@ -84,21 +84,10 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
-   /* @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-
-        MultiDex.install(this);
-    }*/
 
     public void onCreate() {
 
         super.onCreate();
-        /*Configuration dbConfiguration = new Configuration.Builder(this)
-                .setDatabaseName("ooredoo_bizstore.db")
-                .addModelClass(SearchItem.class)
-
-                .create();*/
 
         ActiveAndroid.initialize(this);
 

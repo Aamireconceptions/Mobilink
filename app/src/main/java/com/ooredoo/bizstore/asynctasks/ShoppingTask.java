@@ -182,8 +182,6 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
                     {
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
-
-                  //  adapter.notifyDataSetChanged();
                 }
         }
         else
@@ -192,8 +190,6 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
             adapter.notifyDataSetChanged();
 
             dealsTaskFinishedListener.onNoDeals(R.string.error_no_internet);
-
-           // snackBarUtils.showSimple(R.string.error_no_internet, Snackbar.LENGTH_SHORT);
         }
 
     }
@@ -262,12 +258,6 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
             params.put("subcategories", subCategories);
         }
 
-        /*if(homeActivity.doApplyDiscount) {
-            isFilterEnabled = true;
-            params.put("min_discount", String.valueOf(homeActivity.minDiscount));
-            params.put("max_discount", String.valueOf(homeActivity.maxDiscount));
-        }*/
-
         final String KEY = PREFIX_DEALS.concat(category);
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
@@ -278,11 +268,6 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         Logger.print("Shopping url: " + url.toString());
 
         result = getJson(url);
-
-            /*if(!isFilterEnabled) {
-                updateVal(homeActivity, KEY, result);
-                updateVal(homeActivity, UPDATE_KEY, currentTimeMillis());
-            }*/
 
         if(!isFilterEnabled && !result.contains("No item Found"))
         {

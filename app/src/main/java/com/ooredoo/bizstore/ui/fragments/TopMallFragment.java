@@ -50,9 +50,6 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
     public static TopMallFragment newInstance(Mall mall)
     {
         Bundle bundle = new Bundle();
-        /*bundle.putInt("id", id);
-        bundle.putString("name", name);
-        bundle.putString("image_url", imgUrl);*/
         bundle.putSerializable("mall", mall);
 
         TopMallFragment fragment = new TopMallFragment();
@@ -86,12 +83,6 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
         {
             mall.color = Color.parseColor(ColorUtils.getColorCode());
         }
-
-        /*id = bundle.getInt("id");
-
-        String name = bundle.getString("name");
-
-        String imgUrl = bundle.getString("image_url");*/
 
         id = mall.id;
 
@@ -140,75 +131,9 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void fallBackToDiskCache(final String url)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                bitmap = diskCache.getBitmapFromDiskCache(url);
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            imageView.setImageBitmap(bitmap);
-                            imageView.setTag("loaded");
-                        }
-                    });
-                }
-                else
-                {
-                   // Logger.print("Root Width:" + v.getWidth());
-
-                    Resources resources = activity.getResources();
-
-                    final int reqWidth = resources.getDisplayMetrics().widthPixels / 3;
-
-                    final int reqHeight = (int) Converter.convertDpToPixels(resources.getDimension(R.dimen._90sdp)
-                            /
-                            resources.getDisplayMetrics().density);
-
-                    Logger.print("req Width Pixels:" + reqWidth);
-                    Logger.print("req Height Pixels:" + reqHeight);
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Logger.print("top mall: downloading for :"+mall.title);
-                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                    (imageView, progressBar);
-                            bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
-                        }
-                    });
-                }
-            }
-        });
-
-        thread.start();
-
-  /*      try
-        {
-            thread.join();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }*/
-    }
-
     @Override
     public void onClick(View v)
     {
-        //activity.showDetailActivity(AppConstant.BUSINESS, AppConstant.DEAL_CATEGORIES[6], id);
-
         mall.views += 1;
 
         if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("mobilink")) {

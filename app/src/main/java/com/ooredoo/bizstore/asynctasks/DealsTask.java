@@ -138,21 +138,14 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         dealsTaskFinishedListener.onRefreshCompleted();
 
-        //adapter.clearData();
-
         subCategories = "";
 
         if (result != null) {
             if (sortColumn.equals("createdate") || category.equals("nearby")
                     || (category.equals("nearby") && sortColumn.equals("views"))) {
-               // subCategories = "";
 
-                //This was a criminal act
-                //sortColumn = "createdate";
 
                 Logger.logI("DEALS: " + category, result);
-
-                // adapter.clearData();
 
                 Gson gson = new Gson();
 
@@ -203,26 +196,11 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                         }
                         else
                         if (deals != null) {
-                            //adapter.clearData();
 
                             adapter.setData(deals);
 
                             dealsTaskFinishedListener.onHaveDeals();
 
-                            /*String bannerUrl = response.topBannerUrl;
-
-                            if (bannerUrl != null) {
-                                String imgUrl = BaseAsyncTask.IMAGE_BASE_URL + bannerUrl;
-
-                                Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
-
-                                if (bitmap != null) {
-                                    ivBanner.setImageBitmap(bitmap);
-                                } else {
-                                    BitmapDownloadTask bitmapDownloadTask = new BitmapDownloadTask(ivBanner, null);
-                                    bitmapDownloadTask.execute(imgUrl, String.valueOf(reqWidth), String.valueOf(reqHeight));
-                                }
-                            }*/
                         } else {
                             adapter.clearData();
                             adapter.notifyDataSetChanged();
@@ -259,8 +237,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                     if(brand.brands != null)
                     {
-                        // adapter.clearData();
-
                         if(brand.brands.size() > 0)
                         {
                             adapter.setBrandsList(brand.brands);
@@ -278,8 +254,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
                         dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
                     }
-
-
                 }
                 else
                 {
@@ -319,33 +293,17 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             {
                 float distance = Float.parseFloat(homeActivity.distanceFilter);
 
-                //mDistance = mDistance * 1.60934f;
-
                 params.put("distance", String.valueOf(distance));
             }
 
             params.put("nearby", "true");
-
-            // HomeActivity.lat = 25.283982;
-            // HomeActivity.lng = 51.563376;
 
             params.put("lat", String.valueOf(HomeActivity.lat));
             params.put("lng", String.valueOf(HomeActivity.lng));
         }
         else
         {
-            /*if(sortColumn.equals("views"))
-            {
-                category =
-                params.put(CATEGORY, "top_brands");
-            }
-            else
-            {
-                params.put(CATEGORY, category);
-            }*/
-
             params.put(CATEGORY, category);
-
         }
 
         Logger.print("Sort by: " + sortColumn);
@@ -379,11 +337,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             isFilterEnabled = true;
             params.put("subcategories", subCategories);
         }
-
-        /*if(homeActivity.doApplyRating && homeActivity.ratingFilter != null) {
-            isFilterEnabled = true;
-            params.put("rating", homeActivity.ratingFilter);
-        }*/
 
         if(homeActivity.ratingFilter != null) {
             isFilterEnabled = true;

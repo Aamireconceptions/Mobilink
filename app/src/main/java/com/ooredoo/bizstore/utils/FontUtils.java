@@ -140,8 +140,7 @@ public class FontUtils
         Spannable spannable = new SpannableString(text);
         spannable.setSpan(new ForegroundColorSpan(color), 0, part.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, part.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-       // spannable.setSpan(new TypefaceSpan(Typeface.createFromAsset(context.getAssets(), path),
-       //         0, part.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE));
+
         textView.setText(spannable);
     }
 }

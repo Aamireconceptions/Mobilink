@@ -80,13 +80,6 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
             }
         });
 
-        /*holder.ivCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleCheckBox(holder.checkBox, notification);
-            }
-        });*/
-
         return view;
     }
 

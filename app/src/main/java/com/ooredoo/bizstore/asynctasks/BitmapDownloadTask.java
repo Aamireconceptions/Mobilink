@@ -62,8 +62,6 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
     private URL url;
 
-    //public static List<String> downloadingPool = new ArrayList<>();
-
     public static ConcurrentHashMap<String, String> downloadingPool = new ConcurrentHashMap<>();
 
     public BitmapDownloadTask(ImageView imageView, ProgressBar progressBar)
@@ -98,25 +96,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
         showProgress(View.GONE);
 
-/*
-            Iterator<String> iterator = downloadingPool.iterator();
-
-            while (iterator.hasNext()) {
-
-                String str = iterator.next();
-
-
-                if (str.equals(imgUrl)) ;
-                {
-                    // downloadingPool.remove(imgUrl)
-                    iterator.remove();
-
-                    Logger.print("x3 " + imgUrl + " removed from pool");
-                }
-            }*/
-
         downloadingPool.remove(imgUrl);
-
 
         if(bitmap != null)
         {
@@ -174,59 +154,14 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             Logger.print("x3 " + imgUrl + " added to pool");
 
-           // downloadingPool.add(imgUrl);
-
             downloadingPool.put(imgUrl, imgUrl);
 
         try {
-            /*CertificateFactory cf = CertificateFactory.getInstance("X.509");
-
-            InputStream is = BizStore.context.getResources().openRawResource(R.raw.cert);
-            Certificate ca;
-            try
-            {
-                ca = cf.generateCertificate(is);
-
-                Logger.print("ca = " + ((X509Certificate) ca).getSubjectDN());
-            }
-            finally
-            {
-                is.close();
-            }
-
-            String keystoreType = KeyStore.getDefaultType();
-            KeyStore keyStore = KeyStore.getInstance(keystoreType);
-            keyStore.load(null, null);
-            keyStore.setCertificateEntry("ca", ca);
-
-            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
-            // Initialise the TMF as you normally would, for example:
-            tmf.init(keyStore);
-
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, tmf.getTrustManagers(), null);
-
-            HostnameVerifier hostnameVerifier = new HostnameVerifier()
-            {
-                @Override
-                public boolean verify(String hostName, SSLSession sslSession)
-                {
-                    *//*HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Logger.print("Https Hostname: "+hostName);
-
-                    return hv.verify(s, sslSession);*//*
-
-                    return true;
-                }
-            };*/
 
             Logger.print("Bitmap Url: " + imgUrl);
             url = new URL(imgUrl);
 
             connection = (HttpURLConnection) url.openConnection();
-            /*connection.setSSLSocketFactory(sslContext.getSocketFactory());
-            connection.setHostnameVerifier(hostnameVerifier);*/
             connection.setRequestProperty(HTTP_X_USERNAME, CryptoUtils.encodeToBase64(BizStore.username));
             connection.setRequestProperty(HTTP_X_PASSWORD, CryptoUtils.encodeToBase64(BizStore.secret));
             connection.setConnectTimeout(CONNECTION_TIME_OUT);
@@ -238,9 +173,6 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
 
             BufferedInputStream inputStream = openStream();
-
-           /* int width = (int) Converter.convertDpToPixels(Integer.parseInt(reqWidth));
-            int height = (int) Converter.convertDpToPixels(Integer.parseInt(reqHeight));*/
 
             int width = Integer.parseInt(reqWidth);
 
@@ -255,22 +187,7 @@ public class BitmapDownloadTask extends BaseAsyncTask<String, Void, Bitmap>
 
             return bitmap;
         }
-        /*catch (CertificateException e)
-        {
-            e.printStackTrace();
-        }
-        catch (KeyStoreException e)
-        {
-            e.printStackTrace();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        catch (KeyManagementException e)
-        {
-            e.printStackTrace();
-        }*/ catch (MalformedURLException e) {
+         catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
             e.printStackTrace();

@@ -17,8 +17,6 @@ public class AppConstant {
     public final static String ACTION_DEAL_DETAIL = "com.ooredoo.bizstore.deal_detail";
     public final static String ACTION_BUSINESS_DETAIL = "com.ooredoo.bizstore.business_detail";
 
-    public static int NOTIFICATION_COUNT = 11;
-
     public static int DEAL = 1;
     public static int BUSINESS = 2;
 

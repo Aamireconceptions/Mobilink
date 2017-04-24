@@ -40,9 +40,6 @@ public class TopMallsStatePagerAdapter extends FragmentStatePagerAdapter
         Mall mall = malls.get(position);
 
         System.out.println("TOPMALL getItem: "+position);
-        /*return TopMallFragment.newInstance(mall.id,
-                                           mall.title,
-                                           mall.image.logoUrl);*/
 
         return TopMallFragment.newInstance(mall);
     }
