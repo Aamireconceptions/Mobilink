@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -44,11 +45,12 @@ import java.util.List;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 
-public class NewArrivalsFragment extends Fragment implements OnFilterChangeListener,
+public class TopDealsFragment extends Fragment implements OnFilterChangeListener,
                                                           OnDealsTaskFinishedListener,
                                                           OnSubCategorySelectedListener,
                                                           SwipeRefreshLayout.OnRefreshListener,
-        ScrollToTop, LocationChangeListener{
+        LocationChangeListener,
+        ScrollToTop{
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -56,6 +58,8 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     private ProgressBar progressBar;
 
     private ImageView ivBanner;
+
+    private RelativeLayout rlHeader;
 
     private TextView tvEmptyView;
 
@@ -69,8 +73,8 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     DiskCache diskCache = DiskCache.getInstance();
 
-    public static NewArrivalsFragment newInstance() {
-        NewArrivalsFragment fragment = new NewArrivalsFragment();
+    public static TopDealsFragment newInstance() {
+        TopDealsFragment fragment = new TopDealsFragment();
 
         return fragment;
     }
@@ -79,7 +83,6 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         setHasOptionsMenu(true);
-
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
         init(v, inflater);
@@ -88,8 +91,8 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         return v;
     }
-    FilterOnClickListener clickListener;
 
+    FilterOnClickListener clickListener;
     private void init(View v, LayoutInflater inflater)
     {
         activity = (HomeActivity) getActivity();
@@ -101,12 +104,12 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_NEW_ARRIVALS);
+        clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_TOP);
 
         List<GenericDeal> deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
-        adapter.setCategory(ResourceUtils.NEW_ARRIVALS);
+        adapter.setCategory(ResourceUtils.TOP_DEALS);
         adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
@@ -130,7 +133,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
-        String cache = dealsTask.getCache("new_arrivals");
+        String cache = dealsTask.getCache("top_deals");
 
         if(cache != null && !isRefreshed)
         {
@@ -138,7 +141,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         }
         else
         {
-            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "new_arrivals");
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "top_deals");
         }
     }
 
@@ -146,7 +149,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        menu.findItem(R.id.action_filter).setVisible(false);
+        menu.findItem(R.id.action_filter).setVisible(true);
     }
 
     @Override
@@ -154,8 +157,9 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         if(item.getItemId() == R.id.action_filter)
         {
-            clickListener.filter();;
+            clickListener.filter();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -188,7 +192,6 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onRefresh() {
-
         if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
         {
             adapter.filterHeaderDeal = null;
@@ -207,7 +210,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     memoryCache.remove(adapter.deals);
 
-    final String KEY = PREFIX_DEALS.concat("new_arrivals");
+    final String KEY = PREFIX_DEALS.concat("top_deals");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
@@ -217,7 +220,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     DealsTask.subCategories = null;
 
-    CategoryUtils.showSubCategories(activity, CategoryUtils.CT_NEW_ARRIVALS);
+    CategoryUtils.showSubCategories(activity, CategoryUtils.CT_TOP);
 
     isRefreshed = true;
     loadTopDeals(null);
@@ -231,7 +234,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.new_arrivals_banner);
+        ivBanner.setImageResource(R.drawable.exlusive_banner);
 
         tvEmptyView.setText("");
     }
@@ -249,6 +252,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onSubCategorySelected() {
+
         onFilterChange();
     }
 
@@ -297,7 +301,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
             filter += "Rating " + activity.ratingFilter +", ";
         }
 
-        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_NEW_ARRIVALS);
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_TOP);
 
         if(!categories.isEmpty())
         {
@@ -313,7 +317,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_NEW_ARRIVALS;
+                adapter.subcategoryParent = CategoryUtils.CT_TOP;
                 adapter.filterHeaderDeal = new GenericDeal(true);
             }
             else
@@ -335,7 +339,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_NEW_ARRIVALS;
+                adapter.subcategoryParent = CategoryUtils.CT_TOP;
                 adapter.filterHeaderBrand = new Brand(true);
             }
             else
@@ -357,8 +361,10 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onLocationChanged() {
-        if(tvEmptyView != null) {tvEmptyView.setText("");}
+       if(tvEmptyView != null){tvEmptyView.setText("");}
 
+       isRefreshed = true;
         loadTopDeals(null);
+        isRefreshed = false;
     }
 }

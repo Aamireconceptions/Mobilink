@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.ui.fragments;
 
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -13,12 +14,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -34,6 +38,7 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
@@ -44,11 +49,12 @@ import java.util.List;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 
-public class NewArrivalsFragment extends Fragment implements OnFilterChangeListener,
-                                                          OnDealsTaskFinishedListener,
-                                                          OnSubCategorySelectedListener,
-                                                          SwipeRefreshLayout.OnRefreshListener,
-        ScrollToTop, LocationChangeListener{
+public class FoodAndDiningFragment extends Fragment implements OnFilterChangeListener,
+                                                               OnDealsTaskFinishedListener,
+                                                               OnSubCategorySelectedListener,
+                                                               SwipeRefreshLayout.OnRefreshListener,
+        ScrollToTop,
+        LocationChangeListener{
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -57,64 +63,91 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     private ImageView ivBanner;
 
+    private RelativeLayout rlHeader;
+
     private TextView tvEmptyView;
 
     private ListView listView;
 
-    private MultiSwipeRefreshLayout swipeRefreshLayout;
-
     private boolean isRefreshed = false;
 
-    MemoryCache memoryCache = MemoryCache.getInstance();
+    private MultiSwipeRefreshLayout swipeRefreshLayout;
 
-    DiskCache diskCache = DiskCache.getInstance();
+    private MemoryCache memoryCache = MemoryCache.getInstance();
 
-    public static NewArrivalsFragment newInstance() {
-        NewArrivalsFragment fragment = new NewArrivalsFragment();
+    private DiskCache diskCache = DiskCache.getInstance();
+
+    public static FoodAndDiningFragment newInstance() {
+        FoodAndDiningFragment fragment = new FoodAndDiningFragment();
 
         return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
         init(v, inflater);
 
-        loadTopDeals(progressBar);
+        fetchAndDisplayFoodAndDining(progressBar);
 
         return v;
     }
-    FilterOnClickListener clickListener;
 
+    private RelativeLayout rlFilterTags;
+
+    private TextView tvFilter;
+    List<GenericDeal> deals;
+    FilterOnClickListener clickListener;
     private void init(View v, LayoutInflater inflater)
     {
+
         activity = (HomeActivity) getActivity();
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view, R.id.appBar);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
+
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_NEW_ARRIVALS);
+        FrameLayout flWrapper = (FrameLayout) inflater.inflate(R.layout.layout_filter_tags, null);
 
-        List<GenericDeal> deals = new ArrayList<>();
+        rlFilterTags = (RelativeLayout) flWrapper.findViewById(R.id.tags_wrapper);
+
+        tvFilter = (TextView) rlFilterTags.findViewById(R.id.filter);
+
+        ImageView ivCloseFilerTag = (ImageView) rlFilterTags.findViewById(R.id.close);
+        ivCloseFilerTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tvFilter.setText("");
+
+                rlFilterTags.setVisibility(View.GONE);
+            }
+        });
+
+         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
+
+        deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
-        adapter.setCategory(ResourceUtils.NEW_ARRIVALS);
+        adapter.setCategory(ResourceUtils.FOOD_AND_DINING);
         adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        listView = (ListView) v.findViewById(R.id.list_view);
+        listView = (ListView) v.findViewById(R.id.list_view); listView.setHeaderDividersEnabled(true);
+
         listView.addHeaderView(ivBanner);
+
+
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             listView.setNestedScrollingEnabled(true);
@@ -124,13 +157,14 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     }
 
     DealsTask dealsTask;
-    private void loadTopDeals(ProgressBar progressBar)
-    {
-        tvEmptyView.setVisibility(View.GONE);
+    private void fetchAndDisplayFoodAndDining(ProgressBar progressBar) {
 
-        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+        if(tvEmptyView != null) {tvEmptyView.setVisibility(View.GONE);}
+        dealsTask = new DealsTask(activity, adapter,
+                                            progressBar, ivBanner,
+                                            this);
 
-        String cache = dealsTask.getCache("new_arrivals");
+        String cache = dealsTask.getCache("food");
 
         if(cache != null && !isRefreshed)
         {
@@ -138,7 +172,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         }
         else
         {
-            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "new_arrivals");
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "food");
         }
     }
 
@@ -146,7 +180,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        menu.findItem(R.id.action_filter).setVisible(false);
+        menu.findItem(R.id.action_filter).setVisible(true);
     }
 
     @Override
@@ -154,19 +188,20 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         if(item.getItemId() == R.id.action_filter)
         {
-            clickListener.filter();;
+            clickListener.filter();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onFilterChange() {
-
+    public void onFilterChange()
+    {
         isRefreshed = true;
+        Logger.print("FoodAndDiningFragment onFilterChange");
+
         adapter.clearData();
         adapter.notifyDataSetChanged();
-
-        tvEmptyView.setText("");
 
         dealsTask.cancel(true);
 
@@ -181,14 +216,14 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         filterTagUpdate();
 
-        loadTopDeals(progressBar);
+        fetchAndDisplayFoodAndDining(progressBar);
 
         isRefreshed = false;
     }
 
     @Override
-    public void onRefresh() {
-
+    public void onRefresh()
+    {
         if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
         {
             adapter.filterHeaderDeal = null;
@@ -203,25 +238,25 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
             adapter.notifyDataSetChanged();
         }
 
-    diskCache.remove(adapter.deals);
+        diskCache.remove(adapter.deals);
 
-    memoryCache.remove(adapter.deals);
+        memoryCache.remove(adapter.deals);
 
-    final String KEY = PREFIX_DEALS.concat("new_arrivals");
+        final String KEY = PREFIX_DEALS.concat("food");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
         clearCache(activity, UPDATE_KEY);
 
-    activity.resetFilters();
+        activity.resetFilters();
 
-    DealsTask.subCategories = null;
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_FOOD);
 
-    CategoryUtils.showSubCategories(activity, CategoryUtils.CT_NEW_ARRIVALS);
+        isRefreshed = true;
 
-    isRefreshed = true;
-    loadTopDeals(null);
-    isRefreshed = false;
+        fetchAndDisplayFoodAndDining(null);
+
+        isRefreshed = false;
     }
 
     @Override
@@ -230,8 +265,9 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     }
 
     @Override
-    public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.new_arrivals_banner);
+    public void onHaveDeals()
+    {
+        ivBanner.setImageResource(R.drawable.food_dinning_banner);
 
         tvEmptyView.setText("");
     }
@@ -248,7 +284,8 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     }
 
     @Override
-    public void onSubCategorySelected() {
+    public void onSubCategorySelected()
+    {
         onFilterChange();
     }
 
@@ -280,6 +317,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void scroll() {
+
         listView.setSelection(0);
     }
 
@@ -297,7 +335,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
             filter += "Rating " + activity.ratingFilter +", ";
         }
 
-        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_NEW_ARRIVALS);
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_FOOD);
 
         if(!categories.isEmpty())
         {
@@ -313,7 +351,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_NEW_ARRIVALS;
+                adapter.subcategoryParent = CategoryUtils.CT_FOOD;
                 adapter.filterHeaderDeal = new GenericDeal(true);
             }
             else
@@ -335,7 +373,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_NEW_ARRIVALS;
+                adapter.subcategoryParent = CategoryUtils.CT_FOOD;
                 adapter.filterHeaderBrand = new Brand(true);
             }
             else
@@ -357,8 +395,8 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onLocationChanged() {
-        if(tvEmptyView != null) {tvEmptyView.setText("");}
+        if(tvEmptyView != null){tvEmptyView.setText("");}
 
-        loadTopDeals(null);
+        fetchAndDisplayFoodAndDining(null);
     }
 }

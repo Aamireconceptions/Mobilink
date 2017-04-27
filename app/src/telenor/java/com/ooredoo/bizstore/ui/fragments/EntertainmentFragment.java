@@ -1,10 +1,10 @@
 package com.ooredoo.bizstore.ui.fragments;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -43,11 +44,12 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-public class NewArrivalsFragment extends Fragment implements OnFilterChangeListener,
-                                                          OnDealsTaskFinishedListener,
-                                                          OnSubCategorySelectedListener,
-                                                          SwipeRefreshLayout.OnRefreshListener,
+public class EntertainmentFragment extends Fragment implements OnFilterChangeListener,
+                                                               OnDealsTaskFinishedListener,
+                                                               OnSubCategorySelectedListener,
+                                                               SwipeRefreshLayout.OnRefreshListener,
         ScrollToTop, LocationChangeListener{
     private HomeActivity activity;
 
@@ -55,22 +57,29 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     private ProgressBar progressBar;
 
+    public static String subCategory;
+
     private ImageView ivBanner;
+
+    private RelativeLayout rlHeader;
 
     private TextView tvEmptyView;
 
     private ListView listView;
 
+    private boolean isCreated = false;
+
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     private boolean isRefreshed = false;
 
-    MemoryCache memoryCache = MemoryCache.getInstance();
+    private MemoryCache memoryCache = MemoryCache.getInstance();
 
-    DiskCache diskCache = DiskCache.getInstance();
+    private DiskCache diskCache = DiskCache.getInstance();
 
-    public static NewArrivalsFragment newInstance() {
-        NewArrivalsFragment fragment = new NewArrivalsFragment();
+    public static EntertainmentFragment newInstance()
+    {
+        EntertainmentFragment fragment = new EntertainmentFragment();
 
         return fragment;
     }
@@ -84,35 +93,49 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         init(v, inflater);
 
-        loadTopDeals(progressBar);
+        fetchAndDisplayEntertainment(progressBar);
+
+        isCreated = true;
 
         return v;
     }
-    FilterOnClickListener clickListener;
 
+    FilterOnClickListener clickListener;
     private void init(View v, LayoutInflater inflater)
     {
         activity = (HomeActivity) getActivity();
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view, R.id.appBar);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
+
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_NEW_ARRIVALS);
+        clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_ENTERTAINMENT);
+
+        if(!BuildConfig.FLAVOR.equals("mobilinl")) {
+            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
+            clickListener.setLayout(rlHeader);
+        }
+
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_ENTERTAINMENT);
+
+
 
         List<GenericDeal> deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
-        adapter.setCategory(ResourceUtils.NEW_ARRIVALS);
+        adapter.setCategory(ResourceUtils.ENTERTAINMENT);
         adapter.setListingType("deals");
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
+        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
+        //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -124,13 +147,19 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     }
 
     DealsTask dealsTask;
-    private void loadTopDeals(ProgressBar progressBar)
+
+    private void fetchAndDisplayEntertainment(ProgressBar progressBar)
     {
         tvEmptyView.setVisibility(View.GONE);
 
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
-        String cache = dealsTask.getCache("new_arrivals");
+        if(isNotNullOrEmpty(subCategory)) {
+            DealsTask.subCategories = subCategory;
+            subCategory = ""; //Reset sub category filter.
+        }
+
+        String cache = dealsTask.getCache("entertainment");
 
         if(cache != null && !isRefreshed)
         {
@@ -138,7 +167,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         }
         else
         {
-            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "new_arrivals");
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "entertainment");
         }
     }
 
@@ -146,7 +175,10 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        menu.findItem(R.id.action_filter).setVisible(false);
+        if(BuildConfig.FLAVOR.equals("mobilink"))
+        {
+            menu.findItem(R.id.action_filter).setVisible(true);
+        }
     }
 
     @Override
@@ -154,15 +186,16 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         if(item.getItemId() == R.id.action_filter)
         {
-            clickListener.filter();;
+            clickListener.filter();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onFilterChange() {
-
+    public void onFilterChange()
+    {
         isRefreshed = true;
+
         adapter.clearData();
         adapter.notifyDataSetChanged();
 
@@ -181,14 +214,15 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
         filterTagUpdate();
 
-        loadTopDeals(progressBar);
+        fetchAndDisplayEntertainment(progressBar);
 
         isRefreshed = false;
     }
 
+
+
     @Override
     public void onRefresh() {
-
         if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
         {
             adapter.filterHeaderDeal = null;
@@ -203,25 +237,23 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
             adapter.notifyDataSetChanged();
         }
 
-    diskCache.remove(adapter.deals);
+        diskCache.remove(adapter.deals);
 
-    memoryCache.remove(adapter.deals);
+        memoryCache.remove(adapter.deals);
 
-    final String KEY = PREFIX_DEALS.concat("new_arrivals");
+        final String KEY = PREFIX_DEALS.concat("entertainment");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
         clearCache(activity, UPDATE_KEY);
 
-    activity.resetFilters();
+        activity.resetFilters();
 
-    DealsTask.subCategories = null;
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_ENTERTAINMENT);
 
-    CategoryUtils.showSubCategories(activity, CategoryUtils.CT_NEW_ARRIVALS);
-
-    isRefreshed = true;
-    loadTopDeals(null);
-    isRefreshed = false;
+        isRefreshed = true;
+        fetchAndDisplayEntertainment(null);
+        isRefreshed = false;
     }
 
     @Override
@@ -231,14 +263,21 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.new_arrivals_banner);
+        ivBanner.setImageResource(R.drawable.entertainment_banner);
 
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.VISIBLE);
+        }
         tvEmptyView.setText("");
     }
 
     @Override
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
+
+        if(!BuildConfig.FLAVOR.equals("mobilink")) {
+            rlHeader.setVisibility(View.GONE);
+        }
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
@@ -248,7 +287,8 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     }
 
     @Override
-    public void onSubCategorySelected() {
+    public void onSubCategorySelected()
+    {
         onFilterChange();
     }
 
@@ -297,7 +337,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
             filter += "Rating " + activity.ratingFilter +", ";
         }
 
-        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_NEW_ARRIVALS);
+        String categories = CategoryUtils.getSelectedSubCategoriesForTag(CategoryUtils.CT_ENTERTAINMENT);
 
         if(!categories.isEmpty())
         {
@@ -313,7 +353,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_NEW_ARRIVALS;
+                adapter.subcategoryParent = CategoryUtils.CT_ENTERTAINMENT;
                 adapter.filterHeaderDeal = new GenericDeal(true);
             }
             else
@@ -335,7 +375,7 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
         {
             if(!filter.isEmpty())
             {
-                adapter.subcategoryParent = CategoryUtils.CT_NEW_ARRIVALS;
+                adapter.subcategoryParent = CategoryUtils.CT_ENTERTAINMENT;
                 adapter.filterHeaderBrand = new Brand(true);
             }
             else
@@ -357,8 +397,9 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
 
     @Override
     public void onLocationChanged() {
-        if(tvEmptyView != null) {tvEmptyView.setText("");}
+        if(tvEmptyView != null){tvEmptyView.setText("");}
 
-        loadTopDeals(null);
+        //isRefreshed = true;
+        fetchAndDisplayEntertainment(null);
     }
 }

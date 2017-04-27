@@ -1,10 +1,11 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -19,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -66,8 +66,6 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
     private ListView listView;
 
-    private boolean isCreated = false;
-
     public static String subCategory;
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
@@ -95,8 +93,6 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
         init(v, inflater);
 
         fetchAndDisplayHealth(progressBar);
-
-        isCreated = true;
 
         return v;
     }

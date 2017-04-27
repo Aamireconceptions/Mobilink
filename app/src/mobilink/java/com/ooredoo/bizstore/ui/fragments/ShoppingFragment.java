@@ -1,10 +1,11 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -60,13 +61,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private ImageView ivBanner;
 
-    private RelativeLayout rlHeader;
-
     private TextView tvEmptyView;
 
     private ListView listView;
-
-    private boolean isCreated = false;
 
     public static String subCategory;
 
@@ -97,8 +94,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         fetchAndDisplayShopping(progressBar);
 
-        isCreated = true;
-
         return v;
     }
 
@@ -125,7 +120,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
-        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -177,7 +171,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             clickListener.filter();
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     @Override
@@ -367,11 +360,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
                 adapter.filterHeaderBrand = null;
             }
         }
-    }
-
-    // Dummy method for Shopping Task
-    public void showBrands(List<Brand> brands)
-    {
     }
 
     @Override

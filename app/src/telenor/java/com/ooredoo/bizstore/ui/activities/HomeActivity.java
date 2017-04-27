@@ -575,7 +575,7 @@ public CoordinatorLayout coordinatorLayout;
     private void setupPager() {
         viewPager.setAdapter(null);
         viewPager.setAdapter(homePagerAdapter);
-       //viewPager.addOnPageChangeListener(new HomeTabLayoutOnPageChangeListener(tabLayout, this));
+
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
 

@@ -1,7 +1,5 @@
 package com.ooredoo.bizstore.ui.activities;
 
-import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +13,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -95,9 +94,6 @@ import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
 
 import net.hockeyapp.android.CrashManager;
-import net.hockeyapp.android.Tracking;
-import net.hockeyapp.android.UpdateManager;
-import net.hockeyapp.android.metrics.MetricsManager;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -121,11 +117,11 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
         OnFilterChangeListener, TextView.OnEditorActionListener, OnSubCategorySelectedListener,
         LocationListener {
-    public static boolean rtl = false;
+
+    private DrawerChangeListener mDrawerListener = new DrawerChangeListener(this);
 
     @ViewById(R.id.drawer_layout)
     public DrawerLayout drawerLayout;
-    private DrawerChangeListener mDrawerListener = new DrawerChangeListener(this);
 
     @ViewById(R.id.grid_popular_searches)
     public GridView mPopularSearchGridView;
@@ -139,19 +135,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public SearchSuggestionsAdapter mSearchSuggestionsAdapter;
     public RecentSearchesAdapter mRecentSearchesAdapter;
     public PopularSearchesGridAdapter mPopularSearchesGridAdapter;
-
     public SearchBaseAdapter mSearchResultsAdapter;
+    public HomePagerAdapter homePagerAdapter;
 
     public PopupWindow searchPopup;
     public ActionBar mActionBar;
-
-    Menu mMenu;
-    MenuItem loaderItem;
+    private Menu mMenu;
 
     @ViewById(R.id.ac_search)
     public AutoCompleteTextView acSearch;
-
-    public HomePagerAdapter homePagerAdapter;
 
     @ViewById(R.id.tab_layout)
     TabLayout tabLayout;
@@ -162,11 +154,18 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @ViewById(R.id.expandable_list_view)
     ExpandableListView expandableListView;
 
+    @ViewById(R.id.discount_seekbar)
+    public RangeSeekBar<Integer> rangeSeekBar;
+
+    @ViewById(R.id.search_deals)
+    public TextView searchDeals;
+
+    @ViewById(R.id.search_business)
+    public TextView searchBusinesses;
+
     public boolean isSearchEnabled = false;
     public boolean isSearchTextWatcherEnabled = true;
-
     public boolean doApplyDiscount = false;
-
     public boolean doApplyRating = true;
 
     public String ratingFilter, distanceFilter;
@@ -175,30 +174,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public View searchView;
 
-    @ViewById(R.id.discount_seekbar)
-    public RangeSeekBar<Integer> rangeSeekBar;
-
     SubCategoryChangeListener subCategoryChangeListener;
 
     public static String searchType = "deals";
 
     public static boolean isShowResults = false;
 
-    @ViewById(R.id.search_deals)
-    public TextView searchDeals;
-
-    @ViewById(R.id.search_business)
-    public TextView searchBusinesses;
-
     public static ImageView profilePicture;
-
-    public static Dialog loader;
-
-    private LinearLayout llTopDeals;
-
-    private SwipeRefreshLayout swipeRefreshLayout;
-
-    private SharedPrefUtils sharedPrefUtils;
 
     private GcmPreferences gcmPreferences;
 
@@ -206,22 +188,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    private HomeActivity activity = this;
-
     private long time = 10 * 60 * 1000;
 
     public static TextView tvName;
-    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "09355UIf3GHEqIHvRgoWmkJsx";
-    private static final String TWITTER_SECRET = "n8y9eQK5uAWvTFUQnJZU6KYO2GU7U9wJoZ4zzab72BKaYA5Gor";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ActiveAndroid.initialize(getApplication());
-
-      /*  TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new TwitterCore(authConfig), new TweetComposer());*/
 
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
@@ -243,20 +218,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
 
         CategoryUtils.setUpSubCategories(this);
-        
-        Logger.print("HomeActivity onCreate");
         overrideFonts();
         setContentView(R.layout.activity_home);
-
         CategoryUtils.setUpSubCategories(this);
-
         init();
-
         registeredWithGcmIfRequired();
-
-        /*new SearchKeywordsTask(this).execute();
-
-        new AccountDetailsTask().execute(BizStore.username);*/
 
         new SearchKeywordsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -273,18 +239,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(!BuildConfig.DEBUG && !BizStore.username.isEmpty()) {
           startSubscriptionCheck();
         }
-
-        MetricsManager.register(this, getApplication());
-
-        if(BuildConfig.DEBUG) {
-            checkForUpdates();
-        }
-    }
-
-    private void checkForUpdates()
-    {
-        // Remove this for store builds!
-        UpdateManager.register(this);
     }
 
     Timer timer;
@@ -315,7 +269,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         bizStore.overrideDefaultFonts();
     }
 
- LocationManager locationManager;
+    private LocationManager locationManager;
 
     int minTimeMillis = 15 * (60 * 1 * 1000);
     int distanceMeters = 50;
@@ -324,11 +278,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public FloatingActionButton fab;
 
     NavigationMenuUtils navigationMenuUtils;
+
     private void init() {
 
         diskCache.requestInit(this);
-
-        sharedPrefUtils = new SharedPrefUtils(this);
 
         gcmPreferences = new GcmPreferences(this);
 
@@ -346,7 +299,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchDeals.setOnClickListener(this);
         searchBusinesses.setOnClickListener(this);
 
-        homePagerAdapter = new HomePagerAdapter(this, getFragmentManager());
+        homePagerAdapter = new HomePagerAdapter(this, getSupportFragmentManager());
 
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
 
@@ -395,8 +348,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onResume() {
         super.onResume();
 
-        Logger.print("Home onResume");
-
         PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
 
         navigationMenuUtils.onResume();
@@ -404,8 +355,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         if(BuildConfig.DEBUG) {
             checkForCrashes();
         }
-
-        Tracking.startUsage(this);
     }
 
     private void checkForCrashes()
@@ -668,20 +617,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvRating5.setEnabled(enabled);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Logger.print("Home onStart");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        Logger.print("Home onStop");
-    }
-
     public static MenuItem miSearch, miFilter;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -689,16 +624,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
         mMenu = menu;
-        loaderItem = mMenu.findItem(R.id.action_loading);
-        loaderItem.setActionView(R.layout.loader);
-        loaderItem.setVisible(false);
 
         miSearch = menu.findItem(R.id.action_search);
 
-        if(BuildConfig.FLAVOR.equals("mobilink")) {
-            miFilter = menu.findItem(R.id.action_filter);
-            miFilter.setVisible(true);
-        }
+        miFilter = menu.findItem(R.id.action_filter);
+        miFilter.setVisible(true);
 
         return true;
     }
@@ -734,26 +664,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                     miFilter.setVisible(true);
                 }
             }
-
             if(!show) {
-
                 isShowResults = false;
                 acSearch.setText("");
                 acSearch.setHint(R.string.search);
-
             } else {
-
-
                 if(searchSuggestions == null || searchSuggestions.list == null || searchSuggestions.list.size() == 0) {
                     new SearchSuggestionsTask(this).execute();
                 }
             }
             showHideSearchBar(show);
-        }
-        else
-        if(id == R.id.action_filter)
-        {
-            System.out.println("Home Filter pressed");
         }
 
         return super.onOptionsItemSelected(item);
@@ -763,27 +683,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onPause() {
         super.onPause();
 
-        Logger.print("Home onPause");
-
         diskCache.requestFlush();
-
-        unregisterManagers();
-
-        Tracking.stopUsage(this);
-    }
-
-    private void unregisterManagers()
-    {
-        UpdateManager.unregister();
     }
 
     public void hideSearchResults() {
-
         isShowResults = false;
-
         llSearch.setVisibility(View.VISIBLE);
-
-       showHideSearchBar(false);
+        showHideSearchBar(false);
     }
 
     public void showHideDrawer(int gravity, boolean show) {
@@ -807,7 +713,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         isSearchEnabled = show;
         mMenu.findItem(R.id.search).setVisible(show);
         mMenu.findItem(R.id.action_search).setVisible(!show);
-
 
         mActionBar.setDisplayUseLogoEnabled(!show);
         popularGrid.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -842,7 +747,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     LinearLayout llSearch;
 
     public void showSearchPopup() {
-
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
         isShowResults = false;
@@ -885,7 +789,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void hideSearchPopup() {
-
         isShowResults = true;
 
         llSearch.setVisibility(View.GONE);
@@ -921,22 +824,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         SharedPrefUtils.updateVal(this, "lat", (float) lat);
         SharedPrefUtils.updateVal(this, "lng", (float) lng);
 
-       /* int nearbyIndex = 1;
-
-       Fragment nearbyFragment = getFragmentManager().findFragmentByTag("android:switcher:"
-               + R.id.home_viewpager + ":" + nearbyIndex);
-
-        if(nearbyFragment != null && !BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            ((NearbyFragment) nearbyFragment).onLocationFound();
-        }*/
-
         LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
         locationUpdateTask.execute(lat, lng);
 
         for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
         {
-            Fragment fragment = getFragmentManager().findFragmentByTag("android:switcher:"
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
                     +R.id.home_viewpager + ":" + i);
 
             if(fragment != null && !(fragment instanceof HomeFragment))
@@ -946,21 +839,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                 ((LocationChangeListener) fragment).onLocationChanged();
             }
         }
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
     }
 
     public void setSearchCheckboxSelection() {
@@ -1261,7 +1139,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
                 }
                 else
                 {
-                    HomeFragment homeFragment = (HomeFragment) getFragmentManager().
+                    HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().
                         findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + 0);
 
                     if(homeFragment != null)
@@ -1278,8 +1156,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         super.onDestroy();
 
         Logger.print("Home onDestroy");
-
-        unregisterManagers();
 
         if(timer != null)
         {
@@ -1301,4 +1177,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         BitmapDownloadTask.downloadingPool.clear();
     }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+    @Override
+    public void onProviderEnabled(String provider) {}
+
+    @Override
+    public void onProviderDisabled(String provider) {}
 }

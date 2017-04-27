@@ -1,12 +1,13 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -107,7 +108,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Logger.print("HomeFragment onCreate");
 
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
@@ -157,7 +157,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
                 tvGreetings.setText("Good Night");
             }
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -369,7 +368,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     }
 
     public void addMostViewedAndTopRated(List<DOD> dods)
-    {if(isAdded()) {
+    {if(isAdded())
+    {
         llContainer.removeAllViews();
 
         int row = 0;
@@ -393,16 +393,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
                 FontUtils.setFont(activity, tvCategory);
 
-                String cats[] = category.name.split(" ");
-
-                /* FontUtils.changeColor(tvCategory, category.name.toUpperCase(), cats[0].toUpperCase(),
-                    getResources().getColor(R.color.red));
-
-                FontUtils.changeColorAndMakeBold();*/
-
-               /* FontUtils.changeColorAndMakeBold(tvCategory, category.name.toUpperCase(),
-                        cats[0].toUpperCase(), getResources().getColor(R.color.red));*/
-
 
                 View gridDealOfDay = inflater.inflate(R.layout.grid_generic, null);
                 gridDealOfDay.setTag(genericDeal);
@@ -412,10 +402,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
                 ProgressBar progressBar = (ProgressBar) gridDealOfDay.findViewById(R.id.progress_bar);
 
-                /*TextView tvTitle = (TextView) gridDealOfDay.findViewById(R.id.title);
-                tvTitle.setText(genericDeal.businessName.toUpperCase());
-                FontUtils.setFontWithStyle(activity, tvTitle, Typeface.BOLD);*/
-
                 TextView tvDescription = (TextView) gridDealOfDay.findViewById(R.id.desc);
                 tvDescription.setText(genericDeal.description);
 
@@ -424,28 +410,28 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
                 Image image = genericDeal.image;
 
-                if (image != null && image.gridBannerUrl != null && !image.gridBannerUrl.isEmpty()) {
+                if (image != null && image.gridBannerUrl != null && !image.gridBannerUrl.isEmpty())
+                {
                     String imageUrl = BaseAsyncTask.IMAGE_BASE_URL + image.gridBannerUrl;
 
                     Bitmap bitmap = memoryCache.getBitmapFromCache(imageUrl);
 
-                    if (bitmap != null) {
+                    if (bitmap != null)
+                    {
                         progressBar.setVisibility(View.GONE);
 
                         ivThumbnail.setImageBitmap(bitmap);
-                        // rlCell.setBackground(new BitmapDrawable(resources, bitmap));
-                    } else {
-                        // progressBar.setVisibility(View.VISIBLE);
-
-                        // rlCell.setBackground(null);
-
-                        new CommonHelper().fallBackToDiskCache(getActivity(), imageUrl, diskCache,
-                                memoryCache, ivThumbnail, progressBar, reqWidth, reqHeight);
                     }
-                } else {
-
-                    progressBar.setVisibility(View.GONE);
+                    else
+                        {
+                            new CommonHelper().fallBackToDiskCache(getActivity(), imageUrl, diskCache,
+                                memoryCache, ivThumbnail, progressBar, reqWidth, reqHeight);
+                        }
                 }
+                else
+                    {
+                        progressBar.setVisibility(View.GONE);
+                    }
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -465,18 +451,14 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            /*  if(row > 1)
-            {
-                params.topMargin = (int)Converter.convertDpToPixels(12);
-            }*/
-
             llContainer.addView(v, params);
         }
     }
-else
+    else
     {
         Logger.print("Removed");
     }
+
     }
 
     private void setupScroller(ViewPager viewPager) {
@@ -497,9 +479,7 @@ else
     }
 
     @Override
-    public void filterTagUpdate() {
-
-    }
+    public void filterTagUpdate() {}
 
     @Override
     public void onResume()
@@ -517,13 +497,6 @@ else
         {
             promoSlider.start(promosCount);
         }
-
-       /* int featuredCount = featuredAdapter.getCount();
-
-        if(featuredCount > 0)
-        {
-            featuredSlider.start(featuredCount);
-        }*/
     }
 
     @Override

@@ -8,12 +8,6 @@ import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 
-import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryCheckboxId;
-import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryFilter;
-import static com.ooredoo.bizstore.utils.CategoryUtils.getParentCategory;
-import static com.ooredoo.bizstore.utils.CategoryUtils.resetSubCategories;
-import static com.ooredoo.bizstore.utils.CategoryUtils.updateSubCategorySelection;
-
 /**
  * @author Pehlaj Rai
  * @since 6/19/2015.
