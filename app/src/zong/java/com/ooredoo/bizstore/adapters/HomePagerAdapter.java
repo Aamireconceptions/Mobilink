@@ -1,9 +1,11 @@
 package com.ooredoo.bizstore.adapters;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+
 import android.content.Context;
-import android.support.v13.app.FragmentPagerAdapter;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.HealthFragment;
@@ -39,6 +41,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter
         switch(position) {
             case 0:
                 return HomeFragment.newInstance();
+            /*case 1:
+                return NearbyFragment.newInstance();*/
             case 1:
                 return TopDealsFragment.newInstance();
             case 2:
@@ -69,6 +73,10 @@ public class HomePagerAdapter extends FragmentPagerAdapter
             case 0:
 
                 return context.getString(R.string.home);
+
+            /*case 1:
+
+                return context.getString(R.string.nearby);*/
 
             case 1:
 

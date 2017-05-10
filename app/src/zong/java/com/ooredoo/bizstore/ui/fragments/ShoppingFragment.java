@@ -1,10 +1,12 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -19,8 +21,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.LocationChangeListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -58,13 +65,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private ImageView ivBanner;
 
-    private RelativeLayout rlHeader;
-
     private TextView tvEmptyView;
 
     private ListView listView;
-
-    private boolean isCreated = false;
 
     public static String subCategory;
 
@@ -83,6 +86,16 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Shopping");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
     FilterOnClickListener clickListener;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -94,8 +107,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         init(v, inflater);
 
         fetchAndDisplayShopping(progressBar);
-
-        isCreated = true;
 
         return v;
     }
@@ -109,18 +120,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        /* ivBanner = (ImageView) v.findViewById(R.id.banner);
-
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
-
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_SHOPPING);
-
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
-            clickListener.setLayout(rlHeader);
-        }
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -132,8 +134,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
-        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
-        //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -174,10 +174,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            menu.findItem(R.id.action_filter).setVisible(true);
-        }
+        menu.findItem(R.id.action_filter).setVisible(true);
     }
 
     @Override
@@ -188,8 +185,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             clickListener.filter();
         }
         return super.onOptionsItemSelected(item);
-
-
     }
 
     @Override
@@ -262,10 +257,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onHaveDeals() {
         ivBanner.setImageResource(R.drawable.shopping_banner);
 
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader.setVisibility(View.VISIBLE);
-        }
-
         tvEmptyView.setText("");
     }
 
@@ -273,11 +264,9 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader.setVisibility(View.GONE);
-        }
+
         tvEmptyView.setText(stringResId);
-        //tvEmptyView.setVisibility(View.VISIBLE);
+
         listView.setEmptyView(tvEmptyView);
 
         adapter.filterHeaderDeal = null;
@@ -287,15 +276,6 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onSubCategorySelected()
     {
-       /* if(!isCreated)
-        {
-            onFilterChange();
-        }
-        else
-        {
-            isCreated = false;
-        }*/
-
         onFilterChange();
     }
 
@@ -396,19 +376,12 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         }
     }
 
-    // Dummy method for Shopping Task
-    public void showBrands(List<Brand> brands)
-    {
-    }
-
     @Override
     public void onLocationChanged() {
         if(tvEmptyView != null) {
             tvEmptyView.setText("");
         }
 
-        //isRefreshed = true;
         fetchAndDisplayShopping(null);
     }
-
 }

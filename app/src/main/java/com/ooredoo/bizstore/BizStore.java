@@ -3,26 +3,20 @@ package com.ooredoo.bizstore;
 import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
-
-import com.activeandroid.Configuration;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.FacebookSdk;
-import com.facebook.LoggingBehavior;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.ooredoo.bizstore.model.Notification;
-import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
-
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-import io.fabric.sdk.android.Fabric;
+
 import java.util.HashMap;
 
+import io.fabric.sdk.android.Fabric;
 
 import static com.ooredoo.bizstore.utils.CryptoUtils.encodeToBase64;
 import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
@@ -40,6 +34,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
 
     public static Context context;
+
     private static final User user = new User();
 
     public static boolean forceStopTasks = false;
@@ -96,7 +91,8 @@ public class BizStore extends com.activeandroid.app.Application {
             Fabric.with(this, new Twitter(authConfig));
         }
         context = this;
-        if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("ooredoo"))
+        if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("ooredoo")
+                || BuildConfig.FLAVOR.equals("zong"))
         {
             FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
                     {
@@ -112,7 +108,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
             // FacebookSdk.setIsDebugEnabled(true);
            //  FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
-            if(BuildConfig.FLAVOR.equals("mobilink")) {
+            if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("zong")) {
                 AppEventsLogger.activateApp(this);
             }
         }
@@ -150,6 +146,9 @@ public class BizStore extends com.activeandroid.app.Application {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
             tracker = analytics.newTracker(R.xml.global_tracker);
+
+            // Enable Display Feature
+            tracker.enableAdvertisingIdCollection(true);
         }
 
         return tracker;

@@ -1,6 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -159,30 +159,6 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
                 adapter.notifyDataSetChanged();
             }
-            else
-                if(sortColumn.equals("views"))
-                {
-                    Gson gson = new Gson();
-
-                    BrandResponse brand = gson.fromJson(result, BrandResponse.class);
-
-                    if(brand.resultCode != - 1)
-                    {
-                        if(brand.brands != null)
-                        {
-                            dealsTaskFinishedListener.onHaveDeals();
-
-                            //adapter.setBrandsList(brand.brands);
-                            //adapter.notifyDataSetChanged();
-
-                            shoppingFragment.showBrands(brand.brands);
-                        }
-                    }
-                    else
-                    {
-                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
-                    }
-                }
         }
         else
         {

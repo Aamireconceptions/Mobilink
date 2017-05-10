@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
@@ -81,6 +85,16 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         EntertainmentFragment fragment = new EntertainmentFragment();
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Entertainment");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

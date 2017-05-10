@@ -36,7 +36,7 @@ public class FontUtils
     private static String LOLLIPOP_DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf":  BuildConfig.FLAVOR.equals("zong")
+            ? "fonts/lato_regular.ttf" :  BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
 
     private final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";

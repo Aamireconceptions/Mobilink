@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.Toast;
@@ -7,11 +8,12 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.dialogs.ChargesDialog;
 import com.ooredoo.bizstore.model.Subscription;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.SubscriptionProcessor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,25 +25,25 @@ import java.util.HashMap;
  */
 public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
-    private SignUpFragment signUpFragment;
+    private Context context;
 
     private String SERVICE_NAME = "/signup?";
 
-    public SubscriptionTask(SignUpFragment signUpFragment) {
-        this.signUpFragment = signUpFragment;
+    public SubscriptionTask(Context context) {
 
-        this.context = signUpFragment.getActivity();
+
+        this.context = context;
     }
 
     Dialog dialog;
 
-    Context context;
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-        dialog = DialogUtils.createCustomLoader(signUpFragment.getActivity(),
-                signUpFragment.getActivity().getString(R.string.subscribing));
+        dialog = DialogUtils.createCustomLoader((Activity) context,
+                context.getString(R.string.subscribing));
         dialog.show();;
     }
 
@@ -74,16 +76,8 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
                     Toast.makeText(context, context.getString(R.string.error_invalid_num), Toast.LENGTH_SHORT).show();
                 }
                 else
-                if(BuildConfig.FLAVOR.equals("telenor") && subscription.resultCode == 3
-                        && subscription.desc.equals("Not Billed"))
                 {
-                    Toast.makeText(context, "Dear user, either you have insufficient balance or " +
-                            "you have entered an invalid Telenor number", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    signUpFragment.processSubscription(subscription);
-                    //DialogUtils.processVerificationCode();
+                    SubscriptionProcessor.processSubscription(context, subscription);
                 }
 
             } catch(JsonSyntaxException e) {
@@ -110,6 +104,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
+        params.put(MSISDN, msisdn);
 
         String query = createQuery(params);
 
@@ -118,8 +113,6 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
         Logger.print("subscribe URL:" + url.toString());
 
         result = getJson(url);
-
-       // result = getJson();
 
         Logger.print("SubscrAibe: " + result);
 

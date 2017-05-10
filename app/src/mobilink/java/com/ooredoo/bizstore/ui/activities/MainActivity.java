@@ -1,31 +1,18 @@
 package com.ooredoo.bizstore.ui.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.fragments.SplashFragment;
-import com.ooredoo.bizstore.ui.fragments.SubscriptionPlansFragment;
-import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
 
 @EActivity
 public class MainActivity extends BaseActivity {

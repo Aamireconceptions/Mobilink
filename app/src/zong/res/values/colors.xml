@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="red">#ec1b24</color>
+    <color name="red">#E2067A</color>
     <color name="mobilink_grey">#AAB7B8</color>
 
-    <color name="status_bar">#BC1A22</color>
+    <color name="status_bar">#c40067</color>
     <color name="auto_complete_text">#000000</color>
 </resources>

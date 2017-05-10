@@ -177,10 +177,12 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                     // static domain with http is there because the https was
                                     // not using a trusted certificate (i.e self-signed).
                                     // And facebook isn't able to download the image
-                                    imageUrl = "http://188.138.33.11" + imageUrl;
+                                    imageUrl = "http://188.138.33.11/jdb" + imageUrl;
                                 }
 
-                                String contentUrl = "https://fb.me/1578100429162454?id="
+                                // Facebook applink (deep link) created via
+                                // https://developers.facebook.com/quickstarts/?platform=app-links-host
+                                String contentUrl = detailActivity.getString(R.string.fb_deep_link)+"?id="
                                         + CryptoUtils.encodeToBase64(String.valueOf(genericDeal.id));
 
                                 String searchText = genericDeal.businessName != null
@@ -190,7 +192,6 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 {
                                     searchText += ", " + genericDeal.location;
                                 }
-
 
                                 fbUtils.lookupPlaceId = searchText != null ? true : false;
                                 fbUtils.showDialog();

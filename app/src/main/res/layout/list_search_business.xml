@@ -7,6 +7,8 @@
     android:paddingBottom="@dimen/_8sdp"
     android:paddingStart="@dimen/_8sdp"
     android:paddingEnd="@dimen/_6sdp"
+    android:paddingLeft="@dimen/_8sdp"
+    android:paddingRight="@dimen/_6sdp"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -76,6 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:drawableTop="@drawable/ic_directions_big"
         android:textSize="10sp"
         android:textStyle="bold"

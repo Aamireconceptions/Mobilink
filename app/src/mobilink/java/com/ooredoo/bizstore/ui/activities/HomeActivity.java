@@ -45,6 +45,7 @@ import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
+import com.facebook.applinks.AppLinkData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.ooredoo.bizstore.AppData;
@@ -195,6 +196,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+       /* AppLinkData.fetchDeferredAppLinkData(this, new AppLinkData.CompletionHandler()
+        {
+
+            @Override
+            public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+                appLinkData.
+            }
+        });*/
 
         ActiveAndroid.initialize(getApplication());
 

@@ -457,7 +457,7 @@ Logger.print("Brand Bitmap: "+bitmap);
                                 public void run() {
                                     Logger.print("dCache Force Downloading: "+url);
                                     BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                            (imageView, progressBar, rlHeader);
+                                            (imageView, progressBar);
                                     bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                             url, String.valueOf(displayMetrics.widthPixels),
                                             String.valueOf(displayMetrics.heightPixels / 2));

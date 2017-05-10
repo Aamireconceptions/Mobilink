@@ -485,7 +485,7 @@
     <string name="redeem_times">Choose number of times you want to avail discount</string>
     <string name="choose_outlet">Choose Outlet</string>
     <string name="signout">Sign Out</string>
-    <string name="discount_availed">You have availed the discount\nsuccessfully!</string>
+    <string name="discount_availed">You have availed the discount successfully!\nShow this screen at the outlet to avail discount</string>
     <string name="facebook_app_id" translatable="false"></string>
 
     <string name="fb_authority"></string>

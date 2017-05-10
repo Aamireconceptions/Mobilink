@@ -8,7 +8,6 @@ import android.support.v13.app.FragmentPagerAdapter;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.fragments.EducationFragment;
 import com.ooredoo.bizstore.ui.fragments.HealthFragment;
-import com.ooredoo.bizstore.ui.fragments.LadiesFragment;
 import com.ooredoo.bizstore.ui.fragments.EntertainmentFragment;
 import com.ooredoo.bizstore.ui.fragments.FoodAndDiningFragment;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;

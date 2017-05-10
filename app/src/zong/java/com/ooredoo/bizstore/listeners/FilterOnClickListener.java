@@ -4,14 +4,13 @@ import android.content.Context;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -38,8 +37,6 @@ public class FilterOnClickListener implements View.OnClickListener {
 
     LocationManager locationManager;
 
-    private View layout;
-
     public FilterOnClickListener(HomeActivity activity, int category) {
         this.activity = activity;
 
@@ -50,15 +47,12 @@ public class FilterOnClickListener implements View.OnClickListener {
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
     }
 
-    Button btList, btMap;
-
     public void setCategory(int category)
     {
         this.category = category;
     }
 
     public void setLayout(View layout) {
-        this.layout = layout;
 
         Button btList = (Button) layout.findViewById(R.id.new_deals);
         btList.setText(R.string.deals);
@@ -83,8 +77,6 @@ public class FilterOnClickListener implements View.OnClickListener {
             ivFilter.setBackgroundResource(R.drawable.filter_ripple);
         }
     }
-
-    static int saveCategory;
 
     @Override
     public void onClick(View v) {
@@ -147,8 +139,6 @@ public class FilterOnClickListener implements View.OnClickListener {
 
             case R.id.done:
 
-                //Logger.print("CAT: "+saveCategory);
-
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
 
                 Logger.print("FilterOnClickListener: CATEGORY -> Apply Filter: " + String.valueOf(category));
@@ -160,15 +150,13 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 onFilterChangeListener.onFilterChange();
 
-               // onFilterChangeListener.filterTagUpdate();
-
                 break;
 
             case R.id.rating_checkbox:
 
                 setCheckboxSelected(v);
 
-                activity.doApplyRating = true;//v.isSelected();
+                activity.doApplyRating = true;
 
                 activity.setRatingEnabled(v.isSelected());
 
@@ -276,9 +264,6 @@ public class FilterOnClickListener implements View.OnClickListener {
     }
     public void filter()
     {
-        // saveCategory = category;
-
-        // Logger.print("CAT: "+saveCategory);
 
         if(category == CategoryUtils.CT_NEARBY &&
                 (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -303,29 +288,19 @@ public class FilterOnClickListener implements View.OnClickListener {
             }
 
             TextView tvCategory = (TextView) activity.findViewById(R.id.category_selection);
-            //tvCategory.setAllCaps(true);
             String sub = activity.getString(R.string.sub).toUpperCase();
             String all = activity.getString(R.string.all).toUpperCase();
             String categories = activity.getString(R.string.categories).toUpperCase();
 
-            int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
-                    ? R.color.red : R.color.white;
+
 
             if(category == CategoryUtils.CT_NEARBY || category == CategoryUtils.CT_TOP)
             {
                 tvCategory.setText(all + " " + categories, TextView.BufferType.SPANNABLE);
-
-               /* Spannable word = (Spannable) tvCategory.getText();
-                word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
-                        0, all.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);*/
             }
             else
             {
                 tvCategory.setText(sub + " " + categories, TextView.BufferType.SPANNABLE);
-
-                /*Spannable word = (Spannable) tvCategory.getText();
-                word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
-                        0, sub.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);*/
             }
 
             if(category == CategoryUtils.CT_NEW_ARRIVALS)
@@ -336,11 +311,6 @@ public class FilterOnClickListener implements View.OnClickListener {
             {
                 tvCategory.setVisibility(View.VISIBLE);
             }
-
-            // tvCategory.setAllCaps(true);
-
-            //activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
-            //activity.findViewById(R.id.line1).setVisibility(View.GONE);
 
             if(category == CategoryUtils.CT_LADIES) {
                 //There are no sub categories in LADIES categories
@@ -392,8 +362,6 @@ public class FilterOnClickListener implements View.OnClickListener {
     }
 
     public void setDistanceSelected(View v) {
-        // activity.setRatingEnabled(true);
-
         boolean isDistanceEnabled = !v.isSelected();
 
         Logger.logI("DISTANCE_ENABLED", v.getId() + "," + isDistanceEnabled);

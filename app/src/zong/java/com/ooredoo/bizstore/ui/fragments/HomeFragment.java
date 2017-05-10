@@ -1,13 +1,13 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,18 +20,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BuildConfig;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
-import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
+import com.ooredoo.bizstore.asynctasks.TopMallsTask;
 import com.ooredoo.bizstore.asynctasks.ViewedRatedTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
@@ -47,6 +51,7 @@ import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -58,6 +63,7 @@ import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
@@ -105,16 +111,26 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Logger.print("HomeFragment onCreate");
 
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Dashboard");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
+
+    TextView tvGreetings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.layout_dashboard, container, false);
+
+        tvGreetings = (TextView) v.findViewById(R.id.greetings);
+
+        greet();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -122,29 +138,39 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         }
 
         this.inflater = inflater;
-dealofDayCalled = false;
+        dealofDayCalled = false;
         init(v);
 
         return v;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    private void greet()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-        Logger.print("Home onDestroyView");
+        System.out.println("Hour: "+hour);
+
+        if(hour >= 5 && hour < 12)
+        {
+            tvGreetings.setText("Good Morning");
+        }
+        else
+        if ((hour >= 12 && hour <= 18))
+        {
+            tvGreetings.setText("Good Evening");
+        }
+        else
+            {
+                tvGreetings.setText("Good Night");
+            }
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            System.out.println("HomeFragmental called");
-            menu.findItem(R.id.action_filter).setVisible(false);
-        }
+        menu.findItem(R.id.action_filter).setVisible(false);
     }
 
     boolean dealofDayCalled = false;
@@ -153,6 +179,8 @@ dealofDayCalled = false;
 
     DisplayMetrics displayMetrics;
 
+    TextView tvTopMalls;
+    RelativeLayout rlTopMall;
     private void init(View v) {
 
         activity = (HomeActivity) getActivity();
@@ -178,33 +206,15 @@ dealofDayCalled = false;
 
       //  View header = inflater.inflate(R.layout.layout_dashboard, null);
 
-       /* TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
-        FontUtils.setFont(activity, tvTopBrands);*/
-
-        String brands = getString(R.string.brands).toUpperCase();
-        String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
-        String brandsOfTheWeek = brands + " " + ofTheWeek;
-
-        int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
-                ? R.color.red : R.color.white;
-
-
-        /*FontUtils.changeColorAndMakeBold(tvTopBrands, brandsOfTheWeek, brands,
-                getResources().getColor(color));*/
+        TextView tvTopBrands = (TextView) v.findViewById(R.id.top_brands);
+        FontUtils.setFont(activity, tvTopBrands);
 
         llContainer = (LinearLayout) v.findViewById(R.id.container);
 
-        TextView tvTopMalls = (TextView) v.findViewById(R.id.top_malls);
+        tvTopMalls = (TextView) v.findViewById(R.id.top_malls);
         FontUtils.setFont(activity, tvTopMalls);
 
-        String top = getString(R.string.top).toUpperCase();
-        String malls = getString(R.string.Malls).toUpperCase();
-        String topMalls = top + " " + malls;
-
-       /* FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top,
-                getResources().getColor(color));*/
-
-
+        rlTopMall = (RelativeLayout) v.findViewById(R.id.top_mall_layout);
 
         List<DOD> dods = new ArrayList<>();
 
@@ -212,7 +222,7 @@ dealofDayCalled = false;
 
         initAndLoadPromotions(v);
 
-       // initAndLoadTopBrands(v);
+        // initAndLoadTopBrands(v);
 
         initAndLoadTopMalls(v);
 
@@ -226,7 +236,7 @@ dealofDayCalled = false;
         PromoOnPageChangeListener pageChangeListener = new PromoOnPageChangeListener(swipeRefreshLayout);
 
         promoPager = (ViewPager) v.findViewById(R.id.promo_pager);
-      //  promoPager.addOnPageChangeListener(pageChangeListener);
+        promoPager.addOnPageChangeListener(pageChangeListener);
 
         ProgressBar pbPromo = (ProgressBar) v.findViewById(R.id.promo_progress);
 
@@ -271,7 +281,9 @@ dealofDayCalled = false;
     private void initAndLoadTopBrands(View v) {
         List<Brand> brands = new ArrayList<>();
 
-        topBrandsStatePagerAdapter = new TopBrandsStatePagerAdapter(getFragmentManager(), brands);
+        //ChildFragmentManager is very important
+        //otherwise viewpager will loss state upon navigation
+        topBrandsStatePagerAdapter = new TopBrandsStatePagerAdapter(getChildFragmentManager(), brands);
 
         topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
 
@@ -304,6 +316,8 @@ dealofDayCalled = false;
     private void initAndLoadTopMalls(View v) {
         List<Mall> malls = new ArrayList<>();
 
+        //ChildFragmentManager is very important
+        //otherwise viewpager will loss state upon navigation
         topMallsAdapter = new TopMallsStatePagerAdapter(getChildFragmentManager(), malls);
 
         topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
@@ -328,7 +342,7 @@ dealofDayCalled = false;
         }
         else
         {
-            topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
+            topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -362,7 +376,8 @@ dealofDayCalled = false;
     }
 
     public void addMostViewedAndTopRated(List<DOD> dods)
-    {if(isAdded()) {
+    {if(isAdded())
+    {
         llContainer.removeAllViews();
 
         int row = 0;
@@ -381,21 +396,10 @@ dealofDayCalled = false;
 
                 TextView tvCategory = (TextView) v.findViewById(R.id.category);
 
-
                 Category category = Converter.convertCategoryText(activity, dod.category);
                 tvCategory.setText(category.name);
 
                 FontUtils.setFont(activity, tvCategory);
-
-                String cats[] = category.name.split(" ");
-
-           /* FontUtils.changeColor(tvCategory, category.name.toUpperCase(), cats[0].toUpperCase(),
-                    getResources().getColor(R.color.red));
-
-            FontUtils.changeColorAndMakeBold();*/
-
-               /* FontUtils.changeColorAndMakeBold(tvCategory, category.name.toUpperCase(),
-                        cats[0].toUpperCase(), getResources().getColor(R.color.red));*/
 
 
                 View gridDealOfDay = inflater.inflate(R.layout.grid_generic, null);
@@ -406,10 +410,6 @@ dealofDayCalled = false;
 
                 ProgressBar progressBar = (ProgressBar) gridDealOfDay.findViewById(R.id.progress_bar);
 
-                /*TextView tvTitle = (TextView) gridDealOfDay.findViewById(R.id.title);
-                tvTitle.setText(genericDeal.businessName.toUpperCase());
-                FontUtils.setFontWithStyle(activity, tvTitle, Typeface.BOLD);*/
-
                 TextView tvDescription = (TextView) gridDealOfDay.findViewById(R.id.desc);
                 tvDescription.setText(genericDeal.description);
 
@@ -418,27 +418,28 @@ dealofDayCalled = false;
 
                 Image image = genericDeal.image;
 
-                if (image != null && image.gridBannerUrl != null && !image.gridBannerUrl.isEmpty()) {
+                if (image != null && image.gridBannerUrl != null && !image.gridBannerUrl.isEmpty())
+                {
                     String imageUrl = BaseAsyncTask.IMAGE_BASE_URL + image.gridBannerUrl;
 
                     Bitmap bitmap = memoryCache.getBitmapFromCache(imageUrl);
 
-                    if (bitmap != null) {
+                    if (bitmap != null)
+                    {
                         progressBar.setVisibility(View.GONE);
 
                         ivThumbnail.setImageBitmap(bitmap);
-                        // rlCell.setBackground(new BitmapDrawable(resources, bitmap));
-                    } else {
-                        // progressBar.setVisibility(View.VISIBLE);
-
-                        // rlCell.setBackground(null);
-
-                        fallBackToDiskCache(ivThumbnail, progressBar, imageUrl);
                     }
-                } else {
-
-                    progressBar.setVisibility(View.GONE);
+                    else
+                        {
+                            new CommonHelper().fallBackToDiskCache(getActivity(), imageUrl, diskCache,
+                                memoryCache, ivThumbnail, progressBar, reqWidth, reqHeight);
+                        }
                 }
+                else
+                    {
+                        progressBar.setVisibility(View.GONE);
+                    }
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -458,48 +459,15 @@ dealofDayCalled = false;
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-          /*  if(row > 1)
-            {
-                params.topMargin = (int)Converter.convertDpToPixels(12);
-            }*/
-
             llContainer.addView(v, params);
         }
     }
-else
+    else
     {
         Logger.print("Removed");
     }
+
     }
-
-    private void fallBackToDiskCache(final ImageView imageView,
-                                     final ProgressBar progressBar, final String imageUrl)
-    {
-        Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = diskCache.getBitmapFromDiskCache(imageUrl);
-
-                if(bitmap != null)
-                {
-                    memoryCache.addBitmapToCache(imageUrl, bitmap);
-
-                    imageView.setImageBitmap(bitmap);
-
-                    progressBar.setVisibility(View.GONE);
-                }
-                else
-                {
-                    BitmapForceDownloadTask bitmapDownloadTask =
-                            new BitmapForceDownloadTask(imageView, progressBar, null);
-                    bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageUrl,
-                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-            }
-        });
-    }
-
 
     private void setupScroller(ViewPager viewPager) {
         try {
@@ -519,14 +487,11 @@ else
     }
 
     @Override
-    public void filterTagUpdate() {
-
-    }
+    public void filterTagUpdate() {}
 
     @Override
     public void onResume()
     {
-
         super.onResume();
 
         resumeSliders();
@@ -540,13 +505,6 @@ else
         {
             promoSlider.start(promosCount);
         }
-
-       /* int featuredCount = featuredAdapter.getCount();
-
-        if(featuredCount > 0)
-        {
-            featuredSlider.start(featuredCount);
-        }*/
     }
 
     @Override
@@ -573,14 +531,14 @@ else
 
         memoryCache.remove(promoAdapter.deals);
 
-      //  memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
+     //   memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
         memoryCache.removeMalls(topMallsAdapter.malls);
 
         isRefreshed = true;
 
         loadPromos(null);
 
-      //  loadTopBrands(null);
+       // loadTopBrands(null);
         loadTopMalls(null);
         initAndLoadDealsOfTheDay();
 

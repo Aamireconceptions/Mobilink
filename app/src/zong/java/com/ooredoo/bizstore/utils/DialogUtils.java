@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -23,18 +22,17 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.LoginTask;
 import com.ooredoo.bizstore.asynctasks.UnSubTask;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
+import com.ooredoo.bizstore.dialogs.ChargesDialog;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
@@ -114,49 +112,7 @@ public class DialogUtils {
 
     public static void showUnSubscribeDialog(final Activity activity) {
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            jdbUnsubscribe(activity);
-            return;
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        LayoutInflater inflater = activity.getLayoutInflater();
-
-        View view = inflater.inflate(R.layout.dialog_unsub, null);
-        builder.setView(view);
-
-        final Dialog dialog = builder.create();
-
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        Button btCancel = (Button) view.findViewById(R.id.btn_cancel);
-        FontUtils.setFont(activity, btCancel);
-        btCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        Button btUnSub = (Button) view.findViewById(R.id.btn_unsub);
-        FontUtils.setFont(activity, btUnSub);
-        btUnSub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new UnSubTask(activity).execute(BizStore.username, BizStore.password);
-                dialog.dismiss();
-            }
-        });
-
-        TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        FontUtils.setFontWithStyle(activity, tvTitle, Typeface.BOLD);
-
-        dialog.setCancelable(true);
-        builder.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        jdbUnsubscribe(activity);
     }
 
     private static void jdbUnsubscribe(final Activity activity)
@@ -180,7 +136,6 @@ public class DialogUtils {
         });
 
 
-       // dialog.setCancelable(true);
         builder.setCancelable(true);
         dialog = builder.create();
 
@@ -191,7 +146,7 @@ public class DialogUtils {
     public static Activity activity;
 
     public static EditText etCode;
-    static Dialog dialog;
+    public static Dialog dialog;
     public static ProgressBar progressBar;
     public static void showVerificationCodeDialog(final Activity activity) {
 
@@ -216,11 +171,6 @@ public class DialogUtils {
         view.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // dialog.dismiss();
-                //BaseFragment.hideKeyboard(activity);
-                //AppCompatActivity compatActivity = (AppCompatActivity) activity;
-                //replaceFragmentWithBackStack(compatActivity, R.id.fragment_container, new WelcomeFragment(), "welcome_fragment");
-                //TODO un-comment & remove above 3 lines processVerificationCode();
 
                 processVerificationCode();
             }
@@ -229,7 +179,6 @@ public class DialogUtils {
         });
 
         dialog.setCancelable(true);
-        //builder.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
@@ -237,27 +186,19 @@ public class DialogUtils {
     static LoginTask loginTask = new LoginTask(null);
     public static void processVerificationCode() {
 
-
-       // etCode.setText(BizStore.password);
-
         String code = etCode.getText().toString().trim();
 
         if(!code.isEmpty())
         {
             BizStore.password = code;
         }
-//&& code.equals(password
+
         if(isNotNullOrEmpty(code) && code.length() >= VERIFICATION_CODE_MIN_LEN ) {
-
-           /* SharedPrefUtils sharedPrefUtils = new SharedPrefUtils(activity);
-            sharedPrefUtils.updateVal(activity, "username", BizStore.username);
-            sharedPrefUtils.updateVal(activity, "password", BizStore.password);*/
-
 
             if(loginTask.getStatus() != AsyncTask.Status.RUNNING)
             {
                 loginTask = new LoginTask(activity);
-                loginTask.execute();
+                loginTask.execute(ChargesDialog.msisdn);
             }
         } else {
             Snackbar.make(etCode, activity.getString(R.string.error_invalid_verification_code), Snackbar.LENGTH_SHORT).show();
@@ -305,9 +246,6 @@ public class DialogUtils {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable((new ColorDrawable(Color.TRANSPARENT)));
         dialog.setContentView(view);
-        //dialog.setContentView(R.layout.alert_dialog);
-
-
         dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -341,9 +279,7 @@ public class DialogUtils {
             }
         });
 
-        if(BuildConfig.FLAVOR.equals("mobilink")){
-            tvTos.setVisibility(View.GONE);
-        }
+        tvTos.setVisibility(View.GONE);
 
         if(titleResId != 0)
         {
@@ -362,11 +298,10 @@ public class DialogUtils {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable((new ColorDrawable(Color.TRANSPARENT)));
         dialog.setContentView(view);
-        //dialog.setContentView(R.layout.alert_dialog);
-
 
         return dialog;
     }
+
     static boolean goingForLoc = false;
     public static Dialog createLocationDialog(final Context context, String str)
     {
@@ -393,31 +328,6 @@ public class DialogUtils {
             }
         });
 
-       /* dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if(!goingForLoc && SharedPrefUtils.isFirstTime(context, "first_time")
-                        && BuildConfig.FLAVOR.equals("mobilink"))
-                {
-                    Logger.print("Dialog dismissed");
-
-                    SharedPrefUtils.updateVal(((Activity) context), "first_time", false);
-
-                    context.startActivity(new Intent(context, CitySelectionActivity.class));
-                }
-            }
-        });*/
-
-        return dialog;
-    }
-
-    public static Dialog createRedeemDialog(Context context)
-    {
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable((new ColorDrawable(Color.TRANSPARENT)));
-        dialog.setContentView(R.layout.dialog_redeem);
-
         return dialog;
     }
 
@@ -432,13 +342,43 @@ public class DialogUtils {
         return dialog;
     }
 
-    public static Dialog createOoredooRedeemDialog(Context context)
+    public static void showRateUsDialog(final Context context)
     {
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setContentView(R.layout.dialog_ooredoo_redeem);
+        boolean canShow = SharedPrefUtils.canShowRate((Activity) context, "can_show_rate");
 
-        return dialog;
+        if(canShow) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.unsub_dialog);
+            builder.setMessage("Enjoyed discount, let's rate us on play store.");
+            builder.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    SharedPrefUtils.updateVal((Activity) context, "can_show_rate", false);
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                    intent.setData(Uri.parse("market://details?id=" + context.getPackageName()));
+                    context.startActivity(intent);
+
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+            builder.setNeutralButton("Don't ask again", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    SharedPrefUtils.updateVal((Activity) context, "can_show_rate", false);
+                }
+            });
+
+            builder.show();
+        }
     }
+
+
 }

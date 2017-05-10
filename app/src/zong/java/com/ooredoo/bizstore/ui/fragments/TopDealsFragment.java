@@ -1,10 +1,11 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -19,6 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
@@ -44,7 +48,6 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 
 public class TopDealsFragment extends Fragment implements OnFilterChangeListener,
                                                           OnDealsTaskFinishedListener,
@@ -66,8 +69,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     private ListView listView;
 
-    private boolean isCreated = false;
-
     private MultiSwipeRefreshLayout swipeRefreshLayout;
 
     private boolean isRefreshed = false;
@@ -83,6 +84,16 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Exclusive Discounts");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         setHasOptionsMenu(true);
@@ -91,8 +102,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         init(v, inflater);
 
         loadTopDeals(progressBar);
-
-        isCreated = true;
 
         return v;
     }
@@ -110,10 +119,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_TOP);
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
-            clickListener.setLayout(rlHeader);
-        }
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -125,9 +130,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
-
-        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
-
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -161,10 +163,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            menu.findItem(R.id.action_filter).setVisible(true);
-        }
+        menu.findItem(R.id.action_filter).setVisible(true);
     }
 
     @Override
@@ -172,7 +171,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
         if(item.getItemId() == R.id.action_filter)
         {
-            System.out.println("TopDeals Filter pressed");
             clickListener.filter();
         }
 
@@ -250,13 +248,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("ufone")
-                ? R.drawable.exlusive_banner
-        :R.drawable.top_deals_banner);
-
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader.setVisibility(View.VISIBLE);
-        }
+        ivBanner.setImageResource(R.drawable.exlusive_banner);
 
         tvEmptyView.setText("");
     }
@@ -264,10 +256,6 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     @Override
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
-
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader.setVisibility(View.GONE);
-        }
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);

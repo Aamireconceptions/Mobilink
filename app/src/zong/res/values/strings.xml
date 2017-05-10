@@ -36,11 +36,11 @@
     \niii. Merchant codes will be put on display in their shops and User can enter it himself.</string>
     <string name="help_question6">How can a user Unsubscribe from this service?</string>
     <string name="help_answer6a">User can deactivate the service by simply clicking on ‘Unsubscribe’ button from Main Menu given on the home screen. Once done, the user will have to login again if he wishes to use the smartphone application.</string>
-    <string name="num_confirm_text">Please enter your Mobilink Number.</string>
+    <string name="num_confirm_text">Please enter your Zong Number.</string>
     <string name="qatar_code">92</string>
     <string name="error_invalid_num">Please enter a valid Mobilink Mobile Number</string>
     <string name="subscription_charges">Prepaid users will be charged @ Rs.<b>2.5</b>+tax/week\nPostpaid users will be charged @ Rs.<b>15</b>+tax/month</string>
-    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Jazz Discount Bazar."
+    <string name="share_with_friends_txt">"Hi, I just found this great App for you called Zong Discount Bazar."
                             " Enjoy Premium Discounts of your favorite Top Brands. Simply download the Application "
                             "from PlayStore &amp; avail the Best Deals in your city!</string>
     <string name="food_dining">Food Deals</string>
@@ -73,17 +73,17 @@
     <string name="travel">Travel</string>
     <string name="ladies">Ladies</string>
     <string name="tips">Tips</string>
-    <string name="copyrights_text">© Copyright 2016 Jazz Discount Bazar Application\nAll rights reserved.</string>
+    <string name="copyrights_text">© Copyright 2017 Zong Discount Bazar Application\nAll rights reserved.</string>
     <string name="city_selection_text">Please select your city.</string>
     <string name="my_city">City</string>
-    <string name="un_sub_success">Dear User, you have successfully unsubscribed from Jazz Discount Bazar!</string>
-    <string name="Unsubscribe_Bizstore">Unsubscribe Jazz Discount Bazar</string>
-    <string name="unsub_details">By unsubscribing Jazz Discount Bazar, you will no longer get promotion or service alerts from application.</string>
-    <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Jazz Discount Bazar, discover deals, products and services closest to you where ever you are!]]></string>
-    <string name="sms_charges">Jazz Discount Bazar app will send a one time sms to verify your phone number.</string>
+    <string name="un_sub_success">Dear User, you have successfully unsubscribed from Zong Discount Bazar!</string>
+    <string name="Unsubscribe_Bizstore">Unsubscribe Zong Discount Bazar</string>
+    <string name="unsub_details">By unsubscribing Zong Discount Bazar, you will no longer get promotion or service alerts from application.</string>
+    <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Zong Discount Bazar, discover deals, products and services closest to you where ever you are!]]></string>
+    <string name="sms_charges">Zong Discount Bazar app will send a one time sms to verify your phone number.</string>
     <string name="kids">Kids</string>
     <string name="other_activities">Other Activities</string>
-    <string name="unsub_from_service">You have been Unsubscribed from Jazz Discount Bazar</string>
+    <string name="unsub_from_service">You have been Unsubscribed from Zong Discount Bazar</string>
     <string name="find_popular_venues">Get Promotions Near You</string>
     <string name="get_restaurants_deals">Get Restaurant Deals</string>
     <string name="discounts_on_fav_brands">Discounts on your favourite brands</string>
@@ -93,10 +93,13 @@
 
     <string name="congrats_msg">You have availed this discount\nShow this deal to the outlet and get discounts</string>
     <string name="gcm_sender_id">230039508376</string>
-    <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;15 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Jazz Discount Bazar app @ Rs.<b>2.99</b>+tax/week for Prepaid and Rs.<b>15</b>+tax/month for Postpaid.</string>
+    <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;15 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Zong Discount Bazar app @ Rs.<b>2.99</b>+tax/week for Prepaid and Rs.<b>15</b>+tax/month for Postpaid.</string>
     <string name="free_trial">ENJOY A &lt;font color="#ec1b24"&gt;15 DAYS FREE&lt;/font&gt; TRIAL ON SUBSCRIPTION!</string>
     <string name="error_out_of_range">"Dear user, it seems that you are away from outlet. Please go to the outlet to avail discount."</string>
     <string name="redeem_loc_error">Location must be available to avail discount</string>
     <string name="facebook_app_id" translatable="false">763485257150985</string>
     <string name="fb_authority">com.facebook.app.FacebookContentProvider763485257150985</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="qar">PKR</string>
+    <string name="fb_deep_link">https://fb.me/828002477365929</string>
 </resources>

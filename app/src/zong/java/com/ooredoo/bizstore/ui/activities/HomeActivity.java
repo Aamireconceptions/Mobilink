@@ -1,7 +1,5 @@
 package com.ooredoo.bizstore.ui.activities;
 
-import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -11,11 +9,11 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -28,13 +26,10 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -45,11 +40,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -87,11 +81,9 @@ import com.ooredoo.bizstore.model.KeywordSearch;
 import com.ooredoo.bizstore.model.SearchItem;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.fragments.HomeFragment;
-import com.ooredoo.bizstore.ui.fragments.NearbyFragment;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.Converter;
-import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.GcmPreferences;
@@ -99,24 +91,17 @@ import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.NavigationMenuUtils;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
-import com.ooredoo.bizstore.utils.StringUtils;
 import com.ooredoo.bizstore.views.RangeSeekBar;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterCore;
-
-import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import net.hockeyapp.android.CrashManager;
-import net.hockeyapp.android.Tracking;
-import net.hockeyapp.android.UpdateManager;
-import net.hockeyapp.android.metrics.MetricsManager;
+
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import io.fabric.sdk.android.Fabric;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
@@ -126,45 +111,61 @@ import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.AppData.searchResults;
 import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.APP_LANGUAGE;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
+@EActivity
 public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
         OnFilterChangeListener, TextView.OnEditorActionListener, OnSubCategorySelectedListener,
         LocationListener {
-    public static boolean rtl = false;
 
-    public DrawerLayout drawerLayout;
     private DrawerChangeListener mDrawerListener = new DrawerChangeListener(this);
 
+    @ViewById(R.id.drawer_layout)
+    public DrawerLayout drawerLayout;
+
+    @ViewById(R.id.grid_popular_searches)
     public GridView mPopularSearchGridView;
-    public ListView mRecentSearchListView, mSearchResultsListView, mSearchSuggestionListView;
+
+    @ViewById(R.id.list_recent_searches)
+    public ListView mRecentSearchListView;
+
+    @ViewById(R.id.lv_search_results)
+    public ListView mSearchResultsListView;
 
     public SearchSuggestionsAdapter mSearchSuggestionsAdapter;
     public RecentSearchesAdapter mRecentSearchesAdapter;
     public PopularSearchesGridAdapter mPopularSearchesGridAdapter;
-
     public SearchBaseAdapter mSearchResultsAdapter;
+    public HomePagerAdapter homePagerAdapter;
 
     public PopupWindow searchPopup;
     public ActionBar mActionBar;
+    private Menu mMenu;
 
-    Menu mMenu;
-    MenuItem loaderItem;
-
+    @ViewById(R.id.ac_search)
     public AutoCompleteTextView acSearch;
 
-    public HomePagerAdapter homePagerAdapter;
+    @ViewById(R.id.tab_layout)
+    TabLayout tabLayout;
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ExpandableListView expandableListView;
+    @ViewById(R.id.home_viewpager)
+    ViewPager viewPager;
+
+    @ViewById(R.id.expandable_list_view)
+    ExpandableListView expandableListView;
+
+    @ViewById(R.id.discount_seekbar)
+    public RangeSeekBar<Integer> rangeSeekBar;
+
+    @ViewById(R.id.search_deals)
+    public TextView searchDeals;
+
+    @ViewById(R.id.search_business)
+    public TextView searchBusinesses;
 
     public boolean isSearchEnabled = false;
     public boolean isSearchTextWatcherEnabled = true;
-
     public boolean doApplyDiscount = false;
-
     public boolean doApplyRating = true;
 
     public String ratingFilter, distanceFilter;
@@ -173,27 +174,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     public View searchView;
 
-    public RangeSeekBar<Integer> rangeSeekBar;
-
-    private TextView tvRating1, tvRating2, tvRating3, tvRating4, tvRating5;
-
     SubCategoryChangeListener subCategoryChangeListener;
 
     public static String searchType = "deals";
 
     public static boolean isShowResults = false;
 
-    public TextView searchDeals, searchBusinesses;
-
     public static ImageView profilePicture;
-
-    public static Dialog loader;
-
-    private LinearLayout llTopDeals;
-
-    private SwipeRefreshLayout swipeRefreshLayout;
-
-    private SharedPrefUtils sharedPrefUtils;
 
     private GcmPreferences gcmPreferences;
 
@@ -201,25 +188,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    private HomeActivity activity = this;
-
     private long time = 10 * 60 * 1000;
 
     public static TextView tvName;
-    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "09355UIf3GHEqIHvRgoWmkJsx";
-    private static final String TWITTER_SECRET = "n8y9eQK5uAWvTFUQnJZU6KYO2GU7U9wJoZ4zzab72BKaYA5Gor";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       // Logger.print("TImage: "+CryptoUtils.encryptToMD5("https://ooredoo.bizstore.com.pk/uploads/android/1/deals/360_xxhdpi_promotional.jpg.0"));
-/*CryptoUtils.encryptToAES("Hello World");
-        CryptoUtils.decryptAES(CryptoUtils.encryptToAES("Hello World"));
-        Logger.print("Base64:"+ CryptoUtils.encodeToBase64("142"));*/
-
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new TwitterCore(authConfig), new TweetComposer());
+        ActiveAndroid.initialize(getApplication());
 
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
@@ -238,60 +215,30 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         BizStore.secret = secret;
 
-        Logger.print("*"+secret);
-        Logger.print("*"+CryptoUtils.encodeToBase64(secret));
-        Logger.print("*"+CryptoUtils.decodeBase64(CryptoUtils.encodeToBase64(BizStore.username)));
-
         PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
 
         CategoryUtils.setUpSubCategories(this);
-
-        String language = SharedPrefUtils.getStringVal(this, APP_LANGUAGE);
-
-        if(StringUtils.isNotNullOrEmpty(language)) {
-            BizStore.setLanguage(language);
-            NavigationMenuOnClickListener.updateConfiguration(this, language);
-        }
-
-        Logger.print("HomeActivity onCreate");
         overrideFonts();
         setContentView(R.layout.activity_home);
-
         CategoryUtils.setUpSubCategories(this);
-
         init();
-
         registeredWithGcmIfRequired();
-
-        /*new SearchKeywordsTask(this).execute();
-
-        new AccountDetailsTask().execute(BizStore.username);*/
 
         new SearchKeywordsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         tvName = (TextView) findViewById(R.id.name);
 
-        new AccountDetailsTask(tvName, this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
+        if(!BizStore.username.isEmpty()) {
+            new AccountDetailsTask(tvName, this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, BizStore.username);
+        }
 
         BizStore.forceStopTasks = false;
 
         checkIfGpsEnabled();
 
-        if(!BuildConfig.FLAVOR.equals("dealionare") && !BuildConfig.DEBUG) {
+        if(!BuildConfig.DEBUG && !BizStore.username.isEmpty()) {
           startSubscriptionCheck();
         }
-
-        MetricsManager.register(this, getApplication());
-
-        if(BuildConfig.DEBUG) {
-            checkForUpdates();
-        }
-    }
-
-    private void checkForUpdates()
-    {
-        // Remove this for store builds!
-        UpdateManager.register(this);
     }
 
     Timer timer;
@@ -314,7 +261,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     private void startSubscriptionCheck() {
         timer = new Timer();
 
-
         timer.schedule(timerTask, 0, time);
     }
 
@@ -323,17 +269,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         bizStore.overrideDefaultFonts();
     }
 
- LocationManager locationManager;
+    private LocationManager locationManager;
 
     int minTimeMillis = 15 * (60 * 1 * 1000);
     int distanceMeters = 50;
-    RelativeLayout filterParent;
+
+    @ViewById(R.id.scrollToTop)
     public FloatingActionButton fab;
+
+    NavigationMenuUtils navigationMenuUtils;
+
     private void init() {
 
         diskCache.requestInit(this);
-
-        sharedPrefUtils = new SharedPrefUtils(this);
 
         gcmPreferences = new GcmPreferences(this);
 
@@ -344,24 +292,14 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         searchView = getLayoutInflater().inflate(R.layout.search_popup, null);
         searchPopup = new PopupWindow(searchView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        searchDeals = (TextView) findViewById(R.id.search_deals);
-        searchBusinesses = (TextView) findViewById(R.id.search_business);
-
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            searchBusinesses.setVisibility(View.GONE);
-        }
+        searchBusinesses.setVisibility(View.GONE);
 
         setSearchCheckboxSelection();
 
         searchDeals.setOnClickListener(this);
         searchBusinesses.setOnClickListener(this);
 
-        homePagerAdapter = new HomePagerAdapter(this, getFragmentManager());
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view);
+        homePagerAdapter = new HomePagerAdapter(this, getSupportFragmentManager());
 
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
 
@@ -385,19 +323,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             SharedPrefUtils.updateVal(this, "lng", (float) location.getLongitude());
         }
 
-        viewPager = (ViewPager) findViewById(R.id.home_viewpager);
-
-        mSearchResultsListView = (ListView) findViewById(R.id.lv_search_results);
-        mRecentSearchListView = (ListView) findViewById(R.id.list_recent_searches);
-        mPopularSearchGridView = (GridView) findViewById(R.id.grid_popular_searches);
-        mSearchSuggestionListView = (ListView) searchView.findViewById(R.id.list_search_suggestions);
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        {
-            if(BizStore.getLanguage().equals("ar"))
-                mPopularSearchGridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus2sdp));
-        }
-
         setRecentSearches();
 
         mPopularSearchesGridAdapter = new PopularSearchesGridAdapter(this, R.layout.list_popular_search, new ArrayList<KeywordSearch>());
@@ -405,20 +330,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         setSearchSuggestions(new ArrayList<String>());
 
-        acSearch = (AutoCompleteTextView) findViewById(R.id.ac_search);
-
-        llSearch = (LinearLayout) findViewById(R.id.layout_search);
-
-       /* swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setOnRefreshListener(this);*/
-
-        fab = (FloatingActionButton) findViewById(R.id.scrollToTop);
         fab.setOnClickListener(this);
 
         setupSearchField();
 
-        NavigationMenuUtils navigationMenuUtils = new NavigationMenuUtils(this, expandableListView);
+        navigationMenuUtils = new NavigationMenuUtils(this, expandableListView);
         navigationMenuUtils.setupNavigationMenu();
 
         setupToolbar();
@@ -426,24 +342,19 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         setupTabs();
 
         setupPager();
-
-        popularGrid = findViewById(R.id.grid_popular_searches);
-        searchLayout = findViewById(R.id.layout_search_filter);
-        searchResultView = findViewById(R.id.lv_search_results);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//lat = 33.7289785; lng = 73.074157;
-        /*LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
-        locationUpdateTask.execute(lat, lng);*/
+
+        PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
+
+        navigationMenuUtils.onResume();
 
         if(BuildConfig.DEBUG) {
             checkForCrashes();
         }
-
-        Tracking.startUsage(this);
     }
 
     private void checkForCrashes()
@@ -452,6 +363,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     }
 
     public void setSearchSuggestions(List<String> list) {
+
+        ListView mSearchSuggestionListView = (ListView) searchView.findViewById(R.id.list_search_suggestions);
+
         mSearchSuggestionsAdapter = new SearchSuggestionsAdapter(this, R.layout.list_search_suggestion, list);
         mSearchSuggestionListView.setAdapter(mSearchSuggestionsAdapter);
         int height = (int) Converter.convertDpToPixels(160);
@@ -471,25 +385,16 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         acSearch.setOnEditorActionListener(this);
     }
 
+    @ViewById(R.id.appBar)
     public static AppBarLayout appBarLayout;
-public CoordinatorLayout coordinatorLayout;
+
+    @ViewById(R.id.coordinatorLayout)
+    public CoordinatorLayout coordinatorLayout;
+
+    @ViewById
+    Toolbar toolbar;
+
     private void setupToolbar() {
-
-        appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
-
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        if(BuildConfig.FLAVOR.equals("telenor"))
-        {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.status_bar));
-        }
-        else
-        if(BuildConfig.FLAVOR.equals("dealionare"))
-        {
-            toolbar.setBackgroundResource(R.drawable.dealionare_toolbar_bg);
-        }
 
         setSupportActionBar(toolbar);
 
@@ -497,30 +402,16 @@ public CoordinatorLayout coordinatorLayout;
         mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowTitleEnabled(false);
+        mActionBar.setLogo( R.drawable.ic_bizstore);
 
-        View logoView;
-        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("dealionare"))
-        {
-            logoView = getLayoutInflater().inflate(R.layout.layout_actionbar, null);
-            mActionBar.setDisplayShowCustomEnabled(true);
-            mActionBar.setCustomView(logoView);
-        }
-        else {
-            boolean isArabic = BizStore.getLanguage().equals("ar");
-            mActionBar.setLogo(isArabic ? R.drawable.ic_bizstore : R.drawable.ic_bizstore);
-
-            logoView = getToolbarLogoIcon(toolbar);
-        }
+        View logoView = getToolbarLogoIcon(toolbar);
 
         logoView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logger.print("Logo clicked");
-                selectTab(BizStore.getLanguage().equals("en") ? 0 : 12);
+                selectTab(0);
             }
         });
-
-
     }
 
     public void resetToolBarPosition()
@@ -554,81 +445,69 @@ public CoordinatorLayout coordinatorLayout;
     }
 
     private void setupTabs() {
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
-        /*if(BuildConfig.FLAVOR.equals("dealionare"))
-        {
-            tabLayout.setBackgroundColor(Color.parseColor("#232f3e"));
-        }*/
-
-        //tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-
-      // tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
-
-       // tabLayout.addTab(tabLayout.newTab());
-
         tabLayout.setTabsFromPagerAdapter(homePagerAdapter);
-
-
     }
 
     private void setupPager() {
         viewPager.setAdapter(null);
         viewPager.setAdapter(homePagerAdapter);
-
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new HomeTabSelectedListener(this, viewPager));
-
-        if(BuildConfig.FLAVOR.equals("ooredoo")) {
-            if (BizStore.lastTab != -1 && BizStore.lastTab != 0) {
-                Logger.print("LastTab: " + BizStore.lastTab);
-                final int correctTab;
-
-                if (BizStore.getLanguage().equals("en")) {
-                    correctTab = 12 - BizStore.lastTab;
-                } else {
-                    correctTab = Math.abs(BizStore.lastTab - 12);
-                }
-
-                Logger.print("CorrectTab: " + correctTab);
-
-                tabLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        tabLayout.getTabAt(correctTab).select();
-                    }
-                }, 500);
-            } else {
-                tabLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        int pos = BizStore.getLanguage().equals("en") ? 0 : 12;
-
-                        tabLayout.getTabAt(pos).select();
-                    }
-                }, 500);
-
-          /*  if(BizStore.getLanguage().equals("ar")) {
-
-                tabLayout.getTabAt(12).select();
-            }
-            else
-            {
-                tabLayout.getTabAt(0).select();
-            }*/
-            }
-        }
     }
 
-    TextView tvDistance5, tvDistance10, tvDistance20, tvDistance35, tvDistance50;
+    @ViewById(R.id.back)
+    ImageView ivBack;
+
+    @ViewById(R.id.done)
+    TextView tvDone;
+
+    @ViewById(R.id.sort_by)
+    TextView tvSortBy;
+
+    @ViewById(R.id.rating_checkbox)
+    TextView tvRating;
+
+    @ViewById(R.id.rating_1)
+    TextView tvRating1;
+
+    @ViewById(R.id.rating_2)
+    TextView tvRating2;
+
+    @ViewById(R.id.rating_3)
+    TextView tvRating3;
+
+    @ViewById(R.id.rating_4)
+    TextView tvRating4;
+
+    @ViewById(R.id.rating_5)
+    TextView tvRating5;
+
+    @ViewById(R.id._5)
+    TextView tvDistance5;
+
+    @ViewById(R.id._10)
+    TextView tvDistance10;
+
+    @ViewById(R.id._20)
+    TextView tvDistance20;
+
+    @ViewById(R.id._35)
+    TextView tvDistance35;
+
+    @ViewById(R.id._50)
+    TextView tvDistance50;
+
+    @ViewById(R.id.discount_checkbox)
+    TextView tvDiscount;
+
+    @ViewById(R.id.cb_highest_discount)
+    CheckBox cbHighestDiscount;
 
     private void initFilter() {
         FilterOnClickListener clickListener = new FilterOnClickListener(this, 0);
 
-        ImageView ivBack = (ImageView) findViewById(R.id.back);
         ivBack.setOnClickListener(clickListener);
 
-        TextView tvDone = (TextView) findViewById(R.id.done);
         tvDone.setOnClickListener(clickListener);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -636,63 +515,28 @@ public CoordinatorLayout coordinatorLayout;
             tvDone.setBackgroundResource(R.drawable.white_btn_ripple);
         }
 
-        /*TextView tvDealsAndDiscount = (TextView) findViewById(R.id.deals_discount_checkbox);
-        tvDealsAndDiscount.setOnClickListener(clickListener);
-
-        TextView tvBusinessAndDirectory = (TextView) findViewById(R.id.business_directory_checkbox);
-        tvBusinessAndDirectory.setOnClickListener(clickListener);*/
-
         String sort = getString(R.string.sort).toUpperCase();
         String by = getString(R.string.by).toUpperCase();
 
-        TextView tvSortBy = (TextView) findViewById(R.id.sort_by);
         tvSortBy.setText(sort + " " + by, TextView.BufferType.SPANNABLE);
 
-       /* int color = BuildConfig.FLAVOR.equals("ooredoo") || BuildConfig.FLAVOR.equals("mobilink")
-                ? R.color.red : R.color.white;
-        Spannable spannable = (Spannable) tvSortBy.getText();
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(color)),
-                0, sort.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);*/
-
-        TextView tvRating = (TextView) findViewById(R.id.rating_checkbox);
         tvRating.setOnClickListener(clickListener);
-
-        tvRating1 = (TextView) findViewById(R.id.rating_1);
         tvRating1.setOnClickListener(clickListener);
-
-        tvRating2 = (TextView) findViewById(R.id.rating_2);
         tvRating2.setOnClickListener(clickListener);
-
-        tvRating3 = (TextView) findViewById(R.id.rating_3);
         tvRating3.setOnClickListener(clickListener);
-
-        tvRating4 = (TextView) findViewById(R.id.rating_4);
         tvRating4.setOnClickListener(clickListener);
-
-        tvRating5 = (TextView) findViewById(R.id.rating_5);
         tvRating5.setOnClickListener(clickListener);
 
-        tvDistance5 = (TextView) findViewById(R.id._5);
         tvDistance5.setOnClickListener(clickListener);
-
-        tvDistance10 = (TextView) findViewById(R.id._10);
         tvDistance10.setOnClickListener(clickListener);
-
-        tvDistance20 = (TextView) findViewById(R.id._20);
         tvDistance20.setOnClickListener(clickListener);
-
-        tvDistance35 = (TextView) findViewById(R.id._35);
         tvDistance35.setOnClickListener(clickListener);
-
-        tvDistance50 = (TextView) findViewById(R.id._50);
         tvDistance50.setOnClickListener(clickListener);
 
-        TextView tvDiscount = (TextView) findViewById(R.id.discount_checkbox);
         tvDiscount.setOnClickListener(clickListener);
 
-        findViewById(R.id.cb_highest_discount).setOnClickListener(clickListener);
+        cbHighestDiscount.setOnClickListener(clickListener);
 
-        rangeSeekBar = (RangeSeekBar) findViewById(R.id.discount_seekbar);
         rangeSeekBar.setEnabled(false);
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
 
@@ -709,10 +553,10 @@ public CoordinatorLayout coordinatorLayout;
         tvRating3.setSelected(false);
         tvRating4.setSelected(false);
         tvRating5.setSelected(false);
-        CheckBox discountCheckBox = (CheckBox) findViewById(R.id.cb_highest_discount);
+
         doApplyDiscount = false;
-        discountCheckBox.setChecked(doApplyDiscount);
-        discountCheckBox.setText(getString(R.string.sort_discount));
+        cbHighestDiscount.setChecked(doApplyDiscount);
+        cbHighestDiscount.setText(getString(R.string.sort_discount));
 
         doApplyRating = false;
         ratingFilter = null;
@@ -741,7 +585,7 @@ public CoordinatorLayout coordinatorLayout;
     }
 
     private void registeredWithGcmIfRequired() {
-        if(isGPlayServicesAvailable()) {
+        if(isGPlayServicesAvailable() && !BizStore.username.isEmpty()) {
             Logger.print("GPlayServicesAvailable");
 
             String deviceGcmToken = gcmPreferences.getDeviceGCMToken();
@@ -773,11 +617,6 @@ public CoordinatorLayout coordinatorLayout;
         tvRating5.setEnabled(enabled);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
     public static MenuItem miSearch, miFilter;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -785,18 +624,11 @@ public CoordinatorLayout coordinatorLayout;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
         mMenu = menu;
-        loaderItem = mMenu.findItem(R.id.action_loading);
-        loaderItem.setActionView(R.layout.loader);
-        loaderItem.setVisible(false);
 
         miSearch = menu.findItem(R.id.action_search);
 
-        if(BuildConfig.FLAVOR.equals("mobilink")) {
-            miFilter = menu.findItem(R.id.action_filter);
-            miFilter.setVisible(true);
-        }
-
-
+        miFilter = menu.findItem(R.id.action_filter);
+        miFilter.setVisible(true);
 
         return true;
     }
@@ -805,10 +637,6 @@ public CoordinatorLayout coordinatorLayout;
     {
         onOptionsItemSelected(miSearch);
     }
-
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -823,46 +651,29 @@ public CoordinatorLayout coordinatorLayout;
                 acSearch.setHint(R.string.search);
                 hideSearchResults();
                 hideSearchPopup();
-
-
-                //viewPager.invalidate();
-                //viewPager.requestFocus();
-                //showHideSearchBar(false);
             } else {
                 showHideDrawer(GravityCompat.START, true);
             }
         } else if(id == R.id.action_search || id == R.id.search) {
             boolean show = id == R.id.action_search;
 
-            if(BuildConfig.FLAVOR.equals("mobilink")) {
-                if (id == R.id.action_search) {
-                    miFilter.setVisible(false);
-                } else {
-                    if (currentFragment != null && !(currentFragment instanceof HomeFragment)) {
-                        miFilter.setVisible(true);
-                    }
+            if (id == R.id.action_search) {
+                miFilter.setVisible(false);
+            } else {
+                if (currentFragment != null && !(currentFragment instanceof HomeFragment)) {
+                    miFilter.setVisible(true);
                 }
             }
-
             if(!show) {
-
                 isShowResults = false;
                 acSearch.setText("");
                 acSearch.setHint(R.string.search);
-
             } else {
-
-
                 if(searchSuggestions == null || searchSuggestions.list == null || searchSuggestions.list.size() == 0) {
                     new SearchSuggestionsTask(this).execute();
                 }
             }
             showHideSearchBar(show);
-        }
-        else
-        if(id == R.id.action_filter)
-        {
-            System.out.println("Home Filter pressed");
         }
 
         return super.onOptionsItemSelected(item);
@@ -873,25 +684,12 @@ public CoordinatorLayout coordinatorLayout;
         super.onPause();
 
         diskCache.requestFlush();
-
-        unregisterManagers();
-
-        Tracking.stopUsage(this);
-    }
-
-    private void unregisterManagers()
-    {
-        UpdateManager.unregister();
     }
 
     public void hideSearchResults() {
-
-
         isShowResults = false;
-
         llSearch.setVisibility(View.VISIBLE);
-        //findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
-       showHideSearchBar(false);
+        showHideSearchBar(false);
     }
 
     public void showHideDrawer(int gravity, boolean show) {
@@ -902,13 +700,19 @@ public CoordinatorLayout coordinatorLayout;
         }
     }
 
-    View popularGrid, searchLayout, searchResultView;
+    @ViewById(R.id.grid_popular_searches)
+    View popularGrid;
+
+    @ViewById(R.id.layout_search_filter)
+    View searchLayout;
+
+    @ViewById(R.id.lv_search_results)
+    View searchResultView;
 
     public void showHideSearchBar(boolean show) {
         isSearchEnabled = show;
         mMenu.findItem(R.id.search).setVisible(show);
         mMenu.findItem(R.id.action_search).setVisible(!show);
-
 
         mActionBar.setDisplayUseLogoEnabled(!show);
         popularGrid.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -925,27 +729,8 @@ public CoordinatorLayout coordinatorLayout;
 
         acSearch.requestFocus();
 
-        long downTime = SystemClock.uptimeMillis();
-        long eventTime = SystemClock.uptimeMillis() + 100;
-        float x = 0.0f;
-        float y = 0.0f;
-        // List of meta states found here: developer.android.com/reference/android/view/KeyEvent.html#getMetaState()
-        int metaState = 0;
-        MotionEvent motionEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_UP, x, y, metaState);
-
-        // Dispatch touch event to view
-       // acSearch.dispatchTouchEvent(motionEvent);
-
-
-
-        if(show) {
-           /* new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    showSearchPopup();
-                }
-            }, 100);*/
-
+        if(show)
+        {
             showSearchPopup();
 
             if(fab.getVisibility() == View.VISIBLE)
@@ -957,24 +742,22 @@ public CoordinatorLayout coordinatorLayout;
             hideSearchPopup();
         }
     }
-LinearLayout llSearch;
-    public void showSearchPopup() {
 
+    @ViewById(R.id.layout_search)
+    LinearLayout llSearch;
+
+    public void showSearchPopup() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0);
         isShowResults = false;
-       // tabLayout.setAlpha(0f);
-        //viewPager.setAlpha(0f);
         tabLayout.setVisibility(View.GONE);
         viewPager.setVisibility(View.GONE);
         setRecentSearches();
         setPopularSearches(AppData.popularSearches.list);
-       // findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
 
         llSearch.setVisibility(View.VISIBLE);
         mRecentSearchListView.setVisibility(View.VISIBLE);
-        findViewById(R.id.layout_search_filter).setVisibility(View.GONE);
-        //searchPopup.showAsDropDown(acSearch, 10, 25);
+        searchLayout.setVisibility(View.GONE);
     }
 
     public void setRecentSearches() {
@@ -993,41 +776,33 @@ LinearLayout llSearch;
         mRecentSearchListView.setVisibility(searchItems.size() == 0 ? View.GONE : View.VISIBLE);
     }
 
+    @ViewById(R.id.layout_popular_searches)
+    LinearLayout layoutPopularSearches;
+
     public void setPopularSearches(List<KeywordSearch> list) {
         if(list != null) {
             mPopularSearchesGridAdapter = new PopularSearchesGridAdapter(this, R.layout.list_popular_search, list);
             mPopularSearchGridView.setAdapter(mPopularSearchesGridAdapter);
-            findViewById(R.id.layout_popular_searches).setVisibility(list.size() == 0 ? View.GONE : View.VISIBLE);
+
+            layoutPopularSearches.setVisibility(list.size() == 0 ? View.GONE : View.VISIBLE);
         }
     }
 
     public void hideSearchPopup() {
-
         isShowResults = true;
-        //findViewById(R.id.layout_search).setVisibility(View.GONE);
 
         llSearch.setVisibility(View.GONE);
         mSearchResultsListView.setVisibility(View.GONE);
         mRecentSearchListView.setVisibility(View.GONE);
-       // tabLayout.setAlpha(MAX_ALPHA);
-        //viewPager.setAlpha(MAX_ALPHA);
 
         tabLayout.setVisibility(View.VISIBLE);
         viewPager.setVisibility(View.VISIBLE);
 
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-
-
-        //searchPopup.dismiss();
-        //acSearch.setText(null);
-
     }
 
     public void selectTab(int tabPosition) {
-
-       //viewPager.setCurrentItem(tabPosition, true);
-
         tabLayout.getTabAt(tabPosition).select();
     }
 
@@ -1049,49 +824,21 @@ LinearLayout llSearch;
         SharedPrefUtils.updateVal(this, "lat", (float) lat);
         SharedPrefUtils.updateVal(this, "lng", (float) lng);
 
-        int nearbyIndex = BizStore.getLanguage().equals("en") ? 1 : 11;
+        LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
+        locationUpdateTask.execute(lat, lng);
 
-       Fragment nearbyFragment = getFragmentManager().findFragmentByTag("android:switcher:"
-               + R.id.home_viewpager + ":" + nearbyIndex);
-
-        if(nearbyFragment != null && !BuildConfig.FLAVOR.equals("mobilink"))
+        for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
         {
-            ((NearbyFragment) nearbyFragment).onLocationFound();
-        }
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
+                    +R.id.home_viewpager + ":" + i);
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
-            locationUpdateTask.execute(lat,lng);
-
-            NavigationMenuOnClickListener.clearCache(this);
-
-            for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
+            if(fragment != null && !(fragment instanceof HomeFragment))
             {
-                Fragment fragment = getFragmentManager().findFragmentByTag("android:switcher:"
-                        +R.id.home_viewpager + ":" + i);
+                NavigationMenuOnClickListener.clearCache(this);
 
-                if(fragment != null && !(fragment instanceof HomeFragment))
-                {
-                    ((LocationChangeListener) fragment).onLocationChanged();
-                }
+                ((LocationChangeListener) fragment).onLocationChanged();
             }
         }
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
     }
 
     public void setSearchCheckboxSelection() {
@@ -1106,7 +853,6 @@ LinearLayout llSearch;
         List<SearchResult> results;
 
         if(viewId == R.id.search_deals || viewId == R.id.search_business) {
-            //((CheckBox)searchView.findViewById(v.getId())).setChecked(((CheckBox)v).isChecked());
             boolean showDeals = (viewId == R.id.search_deals);
             searchType = showDeals ? "deals" : "business";
             Logger.print("SEARCH_FILTER: " + searchType);
@@ -1161,14 +907,6 @@ LinearLayout llSearch;
         return results;
     }
 
-    /*public void showDetailActivity(int detailType, String dealCategory, int typeId) {
-        Intent intent = new Intent();
-        intent.setClass(this, detailType == BUSINESS ? BusinessDetailActivity.class : DealDetailActivity.class);
-        intent.putExtra(AppConstant.ID, typeId);
-        intent.putExtra(CATEGORY, dealCategory);
-        startActivity(intent);
-    }*/
-
     public void showDealDetailActivity(String dealCategory, GenericDeal genericDeal) {
         Intent intent = new Intent();
         intent.setClass(this, DealDetailActivity.class);
@@ -1199,16 +937,8 @@ LinearLayout llSearch;
     }
 
     public void populateSearchResults(List<SearchResult> searchResultList) {
-        //if(searchResultList.size() > 0) {
             mSearchResultsAdapter = new SearchBaseAdapter(this, R.layout.list_deal_promotional, searchResultList);
             mSearchResultsListView.setAdapter(mSearchResultsAdapter);
-        //mSearchResultsAdapter.setData(searchResultList);
-        //mSearchResultsAdapter.notifyDataSetChanged();
-        /*} else {
-            Toast.makeText(getApplicationContext(), R.string.error_no_data, LENGTH_SHORT).show();
-            hideSearchResults();
-            showHideSearchBar(true);
-        }*/
     }
 
     public void setupSearchResults(String keyword, List<SearchResult> results, boolean isKeywordSearch) {
@@ -1222,25 +952,19 @@ LinearLayout llSearch;
         if(results == null)
             results = new ArrayList<>();
 
-        if(!isKeywordSearch && results.size() > 0) {
-           // SearchItem searchItem = new SearchItem(0, keyword, results.size());
-            //SearchItem.addToRecentSearches(searchItem);
-        }
-
         hideSearchPopup();
         HomeActivity.isShowResults = true;
-       // results = getDeals();
+
         populateSearchResults(results);
 
-        findViewById(R.id.layout_popular_searches).setAlpha(MAX_ALPHA);
+        layoutPopularSearches.setAlpha(MAX_ALPHA);
 
         mRecentSearchListView.setVisibility(View.GONE);
-        //findViewById(R.id.layout_search).setVisibility(View.VISIBLE);
 
         llSearch.setVisibility(View.VISIBLE);
-        findViewById(R.id.lv_search_results).setVisibility(View.VISIBLE);
-        findViewById(R.id.layout_popular_searches).setVisibility(View.GONE);
-        findViewById(R.id.layout_search_filter).setVisibility(View.VISIBLE);
+        searchResultView.setVisibility(View.VISIBLE);
+        layoutPopularSearches.setVisibility(View.GONE);
+        searchLayout.setVisibility(View.VISIBLE);
 
         searchDeals.setText(getDealsCount() + " " + getString(R.string.deals));
 
@@ -1287,7 +1011,6 @@ LinearLayout llSearch;
         new SearchTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, keyword);
     }
 
-
     public class SearchTextWatcher implements TextWatcher {
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1301,7 +1024,7 @@ LinearLayout llSearch;
             if(isSearchTextWatcherEnabled) {
                 if(edt.toString().length() == 0) {
                     mRecentSearchListView.setAlpha(MAX_ALPHA);
-                    findViewById(R.id.layout_popular_searches).setAlpha(MAX_ALPHA);
+                    layoutPopularSearches.setAlpha(MAX_ALPHA);
                     searchPopup.dismiss();
                 } else {
                     String filter = edt.toString();
@@ -1316,7 +1039,7 @@ LinearLayout llSearch;
                     setSearchSuggestions(filterResults);
                     if(!searchPopup.isShowing()) {
                         mRecentSearchListView.setAlpha(0f);
-                        findViewById(R.id.layout_popular_searches).setAlpha(0f);
+                        layoutPopularSearches.setAlpha(0f);
                         int offset = (int) Converter.convertDpToPixels(15);
                         searchPopup.showAsDropDown(acSearch, 0, offset);
                     }
@@ -1339,7 +1062,6 @@ LinearLayout llSearch;
 
     public void performSearch(String keyword) {
         if(hasInternetConnection(this)) {
-            //String keyword = v.getText().toString();
             if(isNotNullOrEmpty(keyword)) {
                 Logger.print("SEARCH_KEYWORD: " + keyword);
                 executeSearchTask(keyword);
@@ -1370,30 +1092,6 @@ LinearLayout llSearch;
         }
 
         return true;
-    }
-
-    public void showLoader() {
-        if(loaderItem != null) {
-            loaderItem.setVisible(true);
-            ProgressBar pb = (ProgressBar) loaderItem.getActionView().findViewById(R.id.progressBar);
-            pb.setVisibility(View.VISIBLE);
-            Animation rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
-            pb.startAnimation(rotateAnimation);
-            ViewGroup.LayoutParams params = pb.getLayoutParams();
-            int bounds = (int) Converter.convertDpToPixels(24);
-            params.width = bounds;
-            params.height = bounds;
-            pb.setLayoutParams(params);
-        }
-    }
-
-    public void hideLoader() {
-        if(loaderItem != null) {
-            ProgressBar pb = (ProgressBar) loaderItem.getActionView().findViewById(R.id.progressBar);
-            pb.setVisibility(View.GONE);
-            pb.clearAnimation();
-            loaderItem.setVisible(false);
-        }
     }
 
     public void filterTagUpdate()
@@ -1441,7 +1139,7 @@ LinearLayout llSearch;
                 }
                 else
                 {
-                    HomeFragment homeFragment = (HomeFragment) getFragmentManager().
+                    HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().
                         findFragmentByTag("android:switcher:" + R.id.home_viewpager + ":" + 0);
 
                     if(homeFragment != null)
@@ -1449,8 +1147,6 @@ LinearLayout llSearch;
                         homeFragment.onRefresh();
                     }
                 }
-
-
             }
         }
     }
@@ -1459,7 +1155,7 @@ LinearLayout llSearch;
     protected void onDestroy() {
         super.onDestroy();
 
-        unregisterManagers();
+        Logger.print("Home onDestroy");
 
         if(timer != null)
         {
@@ -1475,14 +1171,19 @@ LinearLayout llSearch;
 
         BitmapDownloadTask.downloadingPool.clear();
 
-        Logger.print("HomeActivity onDestroy");
-
         locationManager.removeUpdates(this);
 
         AppData.searchSuggestions = null;
 
         BitmapDownloadTask.downloadingPool.clear();
-
-        //timer.cancel();
     }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+    @Override
+    public void onProviderEnabled(String provider) {}
+
+    @Override
+    public void onProviderDisabled(String provider) {}
 }

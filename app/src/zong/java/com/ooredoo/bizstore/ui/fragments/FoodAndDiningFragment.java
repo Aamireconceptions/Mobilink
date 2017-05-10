@@ -1,10 +1,12 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -21,6 +23,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
@@ -68,10 +73,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     private ListView listView;
 
-    private GridView gridView;
-
-    private boolean isCreated = false;
-
     private boolean isRefreshed = false;
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
@@ -87,6 +88,16 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Food");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
@@ -94,8 +105,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         init(v, inflater);
 
         fetchAndDisplayFoodAndDining(progressBar);
-
-        isCreated = true;
 
         return v;
     }
@@ -115,13 +124,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        /* ivBanner = (ImageView) v.findViewById(R.id.banner);
-
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
-
-
 
         FrameLayout flWrapper = (FrameLayout) inflater.inflate(R.layout.layout_filter_tags, null);
 
@@ -142,12 +146,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
          clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
 
-        if(!BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
-            clickListener.setLayout(rlHeader);
-        }
-
         deals = new ArrayList<>();
 
         adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
@@ -159,18 +157,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         listView = (ListView) v.findViewById(R.id.list_view); listView.setHeaderDividersEnabled(true);
 
         listView.addHeaderView(ivBanner);
-        if(!BuildConfig.FLAVOR.equals("mobilink")){listView.addHeaderView(rlHeader);}
-        //flWrapper.setPadding(0, -1000, 0, 0);
-        //flWrapper.setLayoutParams(new AbsListView.LayoutParams(0, 0));
-       // listView.addHeaderView(flWrapper);
 
-        //rlFilterTags.setVisibility(View.GONE);
 
-        //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
-
-        //gridView = (GridView) v.findViewById(R.id.grid_view)
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -204,9 +194,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if(BuildConfig.FLAVOR.equals("mobilink")) {
-            menu.findItem(R.id.action_filter).setVisible(true);
-        }
+        menu.findItem(R.id.action_filter).setVisible(true);
     }
 
     @Override
@@ -295,18 +283,12 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     {
         ivBanner.setImageResource(R.drawable.food_dinning_banner);
 
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            rlHeader.setVisibility(View.VISIBLE);
-        }
-
         tvEmptyView.setText("");
     }
 
     @Override
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
-
-        //rlHeader.setVisibility(View.GONE);
 
         tvEmptyView.setText(stringResId);
         listView.setEmptyView(tvEmptyView);
@@ -318,22 +300,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onSubCategorySelected()
     {
-
         onFilterChange();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Logger.print("Testing: FoodOnResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        Logger.print("onPause: FoodANdDiinignFrag");
     }
 
     @Override
@@ -444,7 +411,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     public void onLocationChanged() {
         if(tvEmptyView != null){tvEmptyView.setText("");}
 
-        //isRefreshed = true;
         fetchAndDisplayFoodAndDining(null);
     }
 }

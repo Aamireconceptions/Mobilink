@@ -9,23 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
+import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
-import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
+import com.ooredoo.bizstore.ui.activities.MyAccountActivity_;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,17 +92,23 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_electronics};*/
 
         settings = new String[] {activity.getString(R.string.my_account),
-                activity.getString(R.string.my_city),
+             //   activity.getString(R.string.my_city),
                 activity.getString(R.string.my_notifications),
-                activity.getString(R.string.rate_us), activity.getString(R.string.help),
-                activity.getString(R.string.about), activity.getString(R.string.un_subscribe)};
+             //   activity.getString(R.string.rate_us),
+                activity.getString(R.string.help),
+                activity.getString(R.string.about),
+                activity.getString(R.string.privacy_policy),
+                activity.getString(R.string.un_subscribe)};
 
         settingsResIds = new int[]{
                 R.drawable.ic_user,
-                R.drawable.ic_business,
+              //  R.drawable.ic_business,
                 R.drawable.ic_notification,
-                R.drawable.ic_rate, R.drawable.ic_help,
-                R.drawable.ic_about, R.drawable.ic_unsubscribe};
+              //  R.drawable.ic_rate,
+                R.drawable.ic_help,
+                R.drawable.ic_about,
+                R.drawable.ic_privacy,
+                R.drawable.ic_unsubscribe};
 
         subCategories = new String[] {
                 activity.getString(R.string.top_deals),
@@ -146,43 +149,42 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         };
     }
 
+    public void onResume()
+    {
+        if(!BizStore.username.isEmpty())
+        {
+            tvNumber.setVisibility(View.VISIBLE);
+            tvNumber.setText(PhoneNumberUtils
+                    .formatNumber("+92" + BizStore.username));
+
+            headerNavigationListener.resume();
+
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    TextView tvNumber;
+    HeaderNavigationListener headerNavigationListener;
+
+    ExpandableListAdapter adapter;
     public void setupNavigationMenu() {
         setIndicatorBounds(expandableListView);
 
         prepareNavigationMenuData();
 
         View navigationHeader = activity.getLayoutInflater().inflate(R.layout.layout_navigation_header, null);
-        View navigationFooter = activity.getLayoutInflater().inflate(R.layout.layout_navigation_footer, null);
 
         setProfilePicture(navigationHeader);
 
         HomeActivity homeActivity = (HomeActivity) activity;
 
-        NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
-
-        LinearLayout llLangToggle = (LinearLayout) navigationHeader.findViewById(R.id.lang_toggle_layout);
-        llLangToggle.setVisibility(View.GONE);
-     
-
-        TextView tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
+        tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
         tvNumber.setText(PhoneNumberUtils
-                .formatNumber(BuildConfig.FLAVOR.equals("ooredoo")
-                        ? "+974"
-                        : "+92" + BizStore.username));
+                .formatNumber("+92" + BizStore.username));
 
-        Button btEnglish = (Button) navigationHeader.findViewById(R.id.btn_lang_english);
-        btEnglish.setOnClickListener(clickListener);
-        if(BizStore.getLanguage().equals("en")) clickListener.setSelected(btEnglish);
-        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btEnglish);
+        headerNavigationListener = new HeaderNavigationListener(homeActivity, navigationHeader);
 
-        Button btArabic = (Button) navigationHeader.findViewById(R.id.btn_lang_arabic);
-        btArabic.setOnClickListener(clickListener);
-        if(BizStore.getLanguage().equals("ar")) clickListener.setSelected(btArabic);
-        FontUtils.setFont(activity, BizStore.ARABIC_DEFAULT_FONT, btArabic);
-
-        new HeaderNavigationListener(homeActivity, navigationHeader);
-
-        ExpandableListAdapter adapter = new ExpandableListAdapter(this, activity, groupList, childList, navigationHeader);
+        adapter = new ExpandableListAdapter(this, activity, groupList, childList, navigationHeader);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -190,11 +192,10 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         }
 
         expandableListView.addHeaderView(navigationHeader);
-        //expandableListView.addFooterView(navigationFooter);
         expandableListView.setAdapter(adapter);
         expandableListView.setOnGroupCollapseListener(this);
         expandableListView.setOnGroupExpandListener(this);
-        expandableListView.setOnChildClickListener(new NavigationMenuChildClickListener(homeActivity, adapter));
+        expandableListView.setOnChildClickListener(new NavigationMenuChildClickListener(homeActivity));
     }
 
     public void setProfilePicture(View navigationHeader) {
@@ -212,16 +213,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
             Logger.print("profile before: "+bitmap.getWidth()+", "+bitmap.getHeight());
 
-           // BitmapProcessor bitmapProcessor = new BitmapProcessor();
-           // bitmap = bitmapProcessor.downsizeBitmap(bitmap, width, height);
-
-            //Logger.print("profile after: "+bitmap.getWidth()+", "+bitmap.getHeight());
-
             profilePicture.setImageBitmap(bitmap);
         } else {
-           // ExecutorService executorService = Executors.newSingleThreadExecutor();
-            //int width = (int) Converter.convertDpToPixels(100);
-            //int height = width;
             ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
             ProfilePicDownloadTask bitmapTask = new ProfilePicDownloadTask(profilePicture, progressBar);
             bitmapTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
@@ -249,7 +242,6 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         int end = expandableListView.getWidth();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            //expandableListView.setIndicatorBoundsRelative(start, end);
             expandableListView.setIndicatorBounds(start, end);
         } else {
             expandableListView.setIndicatorBounds(start, end);
@@ -384,8 +376,11 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.dp) {
-            ((HomeActivity) activity).showHideDrawer(GravityCompat.START, false);
-            activity.startActivity(new Intent(activity, MyAccountActivity.class));
+
+            if(!BizStore.username.isEmpty()) {
+                ((HomeActivity) activity).showHideDrawer(GravityCompat.START, false);
+                activity.startActivity(new Intent(activity, MyAccountActivity_.class));
+            }
         }
     }
 }

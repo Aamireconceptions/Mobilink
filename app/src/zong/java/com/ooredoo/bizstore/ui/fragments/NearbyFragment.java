@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -11,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -43,6 +43,7 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
+import com.ooredoo.bizstore.interfaces.LocationChangeListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
@@ -86,7 +87,10 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
-import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.*;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.CONNECTION_TIME_OUT;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.IMAGE_BASE_URL;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.METHOD;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.READ_TIME_OUT;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 
@@ -94,7 +98,8 @@ public class NearbyFragment extends Fragment implements OnFilterChangeListener,
         OnDealsTaskFinishedListener,
         OnSubCategorySelectedListener,
         SwipeRefreshLayout.OnRefreshListener,
-        ScrollToTop{
+        ScrollToTop,
+        LocationChangeListener {
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -201,42 +206,6 @@ RelativeLayout rlParent;
 
        mapView = (MapView) inflater.inflate(R.layout.layout_map, rlParent, false);
 
-
-
-        //ImageView imageView =  (ImageView) linearLayout.findViewById(R.id.dummy);
-
-        /*imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    Logger.print("down");
-                   // listView.setScrollContainer(false);
-
-                    return true;
-                }
-
-                if(event.getAction() == MotionEvent.ACTION_UP)
-                {Logger.print("up");
-                   // listView.setScrollContainer(true);
-
-                    return true;
-                }
-
-                return false;
-            }
-        });*/
-
-       // mapView = (MapView) linearLayout.findViewById(R.id.mapView);
-      /*  mapView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-
-                return false;
-            }
-        });*/
 
         mapView.onCreate(savedInstanceState);
 
@@ -1027,5 +996,13 @@ RelativeLayout rlParent;
         {
             layoutFilterTags.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onLocationChanged() {
+        if(tvEmptyView != null){tvEmptyView.setText("");}
+
+        //isRefreshed = true;
+        fetchAndDisplayNearby(null);
     }
 }

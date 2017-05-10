@@ -170,8 +170,9 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                                     Logger.print("Image share url: "+imageUrl);
                                 }
-
-                                String contentUrl = "https://fb.me/1578100429162454?id="
+                                // Facebook applink (deep link) created via
+                                // https://developers.facebook.com/quickstarts/?platform=app-links-host
+                                String contentUrl = detailActivity.getString(R.string.fb_deep_link)+"?id="
                                         + CryptoUtils.encodeToBase64(String.valueOf(genericDeal.id));
 
                                 String searchText = genericDeal.businessName != null

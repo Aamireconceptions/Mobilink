@@ -81,7 +81,7 @@ public class MemoryCache
 
     public void remove(List<GenericDeal> genericDeals)
     {
-        for(GenericDeal genericDeal : genericDeals)
+        /*for(GenericDeal genericDeal : genericDeals)
         {
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.bannerUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.detailBannerUrl);
@@ -90,7 +90,7 @@ public class MemoryCache
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.promotionalUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.image.logoUrl);
             lruCache.remove(BaseAsyncTask.IMAGE_BASE_URL + genericDeal.businessLogo);
-        }
+        }*/
 
         Logger.print("remove Memory");
     }

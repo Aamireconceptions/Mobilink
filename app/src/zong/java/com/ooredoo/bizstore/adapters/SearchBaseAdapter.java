@@ -20,18 +20,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.BaseAdapterBitmapDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.model.Business;
-import com.ooredoo.bizstore.model.Favorite;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.SearchResult;
 import com.ooredoo.bizstore.ui.activities.BusinessDetailActivity;
@@ -39,6 +35,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
@@ -48,10 +45,8 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.utils.StringUtils;
 
 import java.util.List;
-import java.util.Random;
 
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
-import static java.lang.String.valueOf;
 
 /**
  * @author Babar
@@ -79,10 +74,7 @@ public class SearchBaseAdapter extends BaseAdapter {
 
     private int reqWidth, reqHeight;
 
-    private int prevItem = -1;
-
     public boolean doAnimate = true;
-
 
     public SearchBaseAdapter(Context context, int layoutResId, List<SearchResult> deals) {
         this.context = context;
@@ -136,134 +128,10 @@ public class SearchBaseAdapter extends BaseAdapter {
         return deals.get(position).id;
     }
 
-    private View doItBusinessWay(final SearchResult result, int position, View convertView, ViewGroup parent)
-    {
-        View row = convertView;
-
-        if(row == null) {
-            row = inflater.inflate(R.layout.list_search_business, parent, false);
-
-            holder = new Holder();
-
-            holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
-            holder.tvBrandName = (TextView) row.findViewById(R.id.brand_name);
-            FontUtils.setFontWithStyle(context, holder.tvBrandName, Typeface.BOLD);
-            holder.tvBrandAddress = (TextView) row.findViewById(R.id.brand_address);
-            holder.tvDirections = (TextView) row.findViewById(R.id.directions);
-            FontUtils.setFontWithStyle(context, holder.tvDirections, Typeface.BOLD);
-            holder.tvBrandText = (TextView) row.findViewById(R.id.brand_txt);
-            FontUtils.setFontWithStyle(context, holder.tvBrandText, Typeface.BOLD);
-            holder.rlHeader = (RelativeLayout) row.findViewById(R.id.header);
-
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
-                row.setBackgroundResource(R.drawable.masked_ripple_light);
-            }
-
-
-
-            row.setTag(holder);
-        } else {
-            holder = (Holder) row.getTag();
-        }
-
-        holder.tvBrandName.setText(result.businessName);
-
-        holder.tvBrandAddress.setText(result.location);
-
-        //deal.isFav = Favorite.isFavorite(deal.id);
-
-        // holder.ivFav.setSelected(deal.isFav);
-        //holder.ivFav.setOnClickListener(new FavouriteOnClickListener(position));
-
-        String brandLogoUrl = result.businessLogo != null ? result.businessLogo : null;
-
-        Logger.print("BrandLogo: " + brandLogoUrl);
-
-        if(brandLogoUrl != null )
-        {
-            holder.tvBrandText.setVisibility(View.GONE);
-            String url = BaseAsyncTask.IMAGE_BASE_URL + brandLogoUrl;
-
-            Bitmap bitmap = memoryCache.getBitmapFromCache(url);
-
-            if(bitmap != null)
-            {
-                holder.ivBrand.setImageBitmap(bitmap);
-                //holder.progressBar.setVisibility(View.GONE);
-            }
-            else
-            {
-                holder.ivBrand.setImageBitmap(null);
-                //holder.progressBar.setVisibility(View.VISIBLE);
-
-                fallBackToDiskCache(url);
-            }
-        }
-        else
-        {
-            holder.tvBrandText.setVisibility(View.VISIBLE);
-            if(result.businessName != null && !result.businessName.isEmpty())
-            {
-                if(result.color == 0)
-                {
-                    result.color = Color.parseColor(ColorUtils.getColorCode());
-                }
-
-                holder.tvBrandText.setText(String.valueOf(result.businessName.charAt(0)));
-                holder.tvBrandText.setBackgroundColor(result.color);
-            }
-
-            holder.ivBrand.setImageBitmap(null);
-        }
-
-        holder.tvDirections.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startDirections(result);
-            }
-        });
-
-        if((result.latitude != 0 && result.longitude != 0)
-                && (HomeActivity.lat != 0 && HomeActivity.lng != 0 ))
-        {
-            holder.tvDirections.setVisibility(View.VISIBLE);
-            float results[] = new float[3];
-            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng, result.latitude, result.longitude,
-                    results);
-
-            holder.tvDirections.setText(String.format("%.1f", (results[0] / 1000)) + " " + context.getString(R.string.km));
-
-            result.mDistance = results[0] / 1000;
-
-        }
-        else
-        {
-            holder.tvDirections.setVisibility(View.GONE);
-        }
-
-        holder.rlHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDetail(result);
-            }
-        });
-
-        return row;
-
-    }
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final SearchResult deal = getItem(position);
-
-        if(HomeActivity.searchType.equals("business"))
-        {
-            return doItBusinessWay(deal, position, convertView, parent);
-        }
 
         View row = convertView;
 
@@ -275,12 +143,7 @@ public class SearchBaseAdapter extends BaseAdapter {
             holder.tvTitle = (TextView) row.findViewById(R.id.title);
             FontUtils.setFontWithStyle(context, holder.tvTitle, Typeface.BOLD);
             holder.tvDetail = (TextView) row.findViewById(R.id.detail);
-            holder.tvDiscount = (TextView) row.findViewById(R.id.discount);
-            FontUtils.setFontWithStyle(context,  holder.tvDiscount, Typeface.BOLD);
-            holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
-
             holder.ivPromotional = (ImageView) row.findViewById(R.id.promotional_banner);
-            holder.ivDiscountTag = (ImageView) row.findViewById(R.id.discount_tag);
             holder.progressBar = (ProgressBar) row.findViewById(R.id.progress_bar);
             holder.rlPromotionalLayout = (RelativeLayout) row.findViewById(R.id.promotion_layout);
             holder.ivBrand = (ImageView) row.findViewById(R.id.brand_logo);
@@ -301,30 +164,21 @@ public class SearchBaseAdapter extends BaseAdapter {
                 holder.llFooter.setBackgroundResource(R.drawable.list_footer);
             }
 
-            if(BuildConfig.FLAVOR.equals("mobilink"))
-            {
-                holder.tvValidity = (TextView) row.findViewById(R.id.validity);
-                holder.tvTitle.setVisibility(View.GONE);
-                holder.tvDiscount.setVisibility(View.GONE);
-                holder.ivDiscountTag.setVisibility(View.GONE);
-            }
+            holder.tvValidity = (TextView) row.findViewById(R.id.validity);
 
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
         }
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
+        if(deal.endDate != null && !deal.endDate.isEmpty())
         {
-            if(deal.endDate != null && !deal.endDate.isEmpty())
-            {
-                holder.tvValidity.setText("Valid Till: " + deal.endDate);
-                holder.tvValidity.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                holder.tvValidity.setVisibility(View.GONE);
-            }
+            holder.tvValidity.setText(" " + deal.endDate);
+            holder.tvValidity.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.tvValidity.setVisibility(View.GONE);
         }
 
         if(deal.actualPrice > 0 && deal.discountedPrice > 0)
@@ -389,7 +243,7 @@ public class SearchBaseAdapter extends BaseAdapter {
                 holder.ivBrand.setImageBitmap(null);
                 holder.progressBar.setVisibility(View.VISIBLE);
 
-                fallBackToDiskCache(url);
+                CommonHelper.fallBackToDiskCache(url, diskCache, memoryCache, this, reqWidth, reqHeight);
             }
         }
         else
@@ -409,34 +263,7 @@ public class SearchBaseAdapter extends BaseAdapter {
             holder.ivBrand.setImageBitmap(null);
         }
 
-        if(!BuildConfig.FLAVOR.equals("mobilink")) {
-            if (deal.discount == 0) {
-                holder.tvDiscount.setVisibility(View.GONE);
-                holder.ivDiscountTag.setVisibility(View.GONE);
-            } else {
-                holder.tvDiscount.setText(valueOf(deal.discount) + "%\n" + context.getString(R.string.off));
-
-                holder.tvDiscount.setVisibility(View.VISIBLE);
-                holder.ivDiscountTag.setVisibility(View.VISIBLE);
-            }
-        }
-
-        if(BizStore.getLanguage().equals("en"))
-        {
-            holder.tvDiscount.setRotation(-40);
-        }
-        else
-        {
-            holder.tvDiscount.setRotation(40);
-        }
-
-        if(BizStore.getLanguage().equals("en")) {
-            holder.tvDiscount.setRotation(-40);
-        } else {
-            holder.tvDiscount.setRotation(40);
-        }
-
-        String promotionalBanner = deal.image != null ? deal.image.bannerUrl : null;
+        String promotionalBanner = deal.image != null ? deal.image.detailBannerUrl : null;
 
         Logger.print("promotionalBanner: " + promotionalBanner);
 
@@ -467,7 +294,7 @@ public class SearchBaseAdapter extends BaseAdapter {
                 holder.ivPromotional.setImageBitmap(null);
                 holder.ivPromotional.setBackgroundColor(context.getResources().getColor(R.color.banner));
 
-                fallBackToDiskCache(url);
+                CommonHelper.fallBackToDiskCache(url, diskCache, memoryCache, this, reqWidth, reqHeight);
             }
 
             holder.ivPromotional.setOnClickListener(new View.OnClickListener()
@@ -475,13 +302,6 @@ public class SearchBaseAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v)
                 {
-                   /* if(isSearchEnabled()) {
-                        HomeActivity homeActivity = (HomeActivity) activity;
-                        homeActivity.showHideSearchBar(false);
-                    } else {
-                        showDetail(deal);
-                    }*/
-
                     showDetail(deal);
                 }
             });
@@ -491,15 +311,6 @@ public class SearchBaseAdapter extends BaseAdapter {
             if(holder.ivPromotional != null)
             {
                 holder.rlPromotionalLayout.setVisibility(View.GONE);
-
-               /* holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                holder.progressBar.setVisibility(View.GONE);
-                holder.ivPromotional.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showDetail(deal);
-                    }
-                });*/
             }
         }
 
@@ -542,87 +353,11 @@ public class SearchBaseAdapter extends BaseAdapter {
             }
         });
 
-        if(doAnimate && position > 0)
-        {
-            //AnimUtils.slideView(activity, row, prevItem < position);
-        }
-        else
-        {
-            doAnimate = true;
-        }
-
-
-
-
-        prevItem = position;
-
         return row;
-    }
-
-    private void fallBackToDiskCache(final String url)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-               Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-                    memoryCache.addBitmapToCache(url, bitmap);
-
-                    activity.runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run() {
-                            Logger.print(" dCache fallback notifyDataSetChanged");
-                            notifyDataSetChanged();
-                        }
-                    });
-                }
-                else
-                {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //holder.ivPromotional.setImageResource(R.drawable.deal_banner);
-                            //holder.progressBar.setVisibility(View.VISIBLE);
-
-                            BaseAdapterBitmapDownloadTask bitmapDownloadTask =
-                                    new BaseAdapterBitmapDownloadTask(SearchBaseAdapter.this);
-
-                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url,
-                                            String.valueOf(reqWidth), String.valueOf(reqHeight));
-                        }
-                    });
-
-                   // bitmapDownloadTask.execute(url, String.valueOf(reqWidth), String.valueOf(reqHeight));
-                }
-            }
-        });
-
-        thread.start();
-    }
-
-    private boolean isSearchEnabled() {
-        return activity instanceof HomeActivity && ((HomeActivity) activity).isSearchEnabled;
     }
 
     private void showDetail(SearchResult result)
     {
-        /*this.genericDeal = deal;
-
-        Deal recentDeal = new Deal(deal);
-        RecentViewedActivity.addToRecentViewed(recentDeal);
-        DealDetailActivity.selectedDeal = deal;
-
-
-        showDealDetailActivity(category, deal);*/
-
         RecentViewedActivity.addToRecentViewed(result);
         Log.i("ITEM", String.valueOf(result.type));
         result.views += 1;
@@ -633,30 +368,23 @@ public class SearchBaseAdapter extends BaseAdapter {
 
             BusinessDetailActivity.selectedBusiness = new Business(result);
 
-            //mActivity.showDetailActivity(BUSINESS, DEAL_CATEGORIES[2], result.id);
-            //showBusinessDetailActivity("", new Business(result));
             ((HomeActivity) context).showBusinessDetailActivity(DEAL_CATEGORIES[2], new Business(result));
         } else {
 
-            //mActivity.showDetailActivity(DEAL, DEAL_CATEGORIES[0], result.id);
-            //showDealDetailActivity("", new GenericDeal(result));
             ((HomeActivity) context).showDealDetailActivity(DEAL_CATEGORIES[0], new GenericDeal(result));
         }
 
         notifyDataSetChanged();
     }
 
-
     private static class Holder {
 
         View layout;
 
-        ImageView ivFav, ivShare, ivPromotional, ivBrand, ivDiscountTag;
+        ImageView ivPromotional, ivBrand;
 
-        TextView tvCategory, tvTitle, tvDetail, tvDiscount, tvViews, tvBrandName, tvBrandAddress,
+        TextView tvCategory, tvTitle, tvDetail, tvBrandName, tvBrandAddress,
                 tvDirections, tvBrandText, tvPrice, tvValidity;
-
-        RatingBar rbRatings;
 
         ProgressBar progressBar;
 

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey"
-        android:gravity="center_vertical|start"
+        android:gravity="center_vertical|left"
         android:padding="@dimen/_16sdp">
 
         <RelativeLayout
@@ -44,7 +44,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginLeft="@dimen/_12sdp"
             android:orientation="vertical">
 
             <TextView
@@ -52,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
+                android:text="Guest"
                 android:textColor="@android:color/primary_text_light" />
 
             <TextView
@@ -60,42 +61,12 @@
                 android:layout_height="wrap_content"
                 android:text="+974 434 9900"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:textColor="@android:color/primary_text_light" />
+                android:textColor="@android:color/primary_text_light"
+                android:visibility="gone"/>
 
 
 
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lang_toggle_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutDirection="ltr"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
-        android:visibility="visible">
-
-        <Button
-            android:id="@+id/btn_lang_english"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/_35sdp"
-
-            android:background="@drawable/lang_left_selector"
-            android:text="@string/English"
-            android:textAllCaps="false"
-            android:textColor="@color/black_white_selector"/>
-
-        <Button
-            android:id="@+id/btn_lang_arabic"
-            android:layout_width="115dp"
-            android:layout_height="@dimen/_35sdp"
-            android:background="@drawable/lang_right_selector"
-            android:text="@string/arabic"
-            android:textAllCaps="false"
-            android:textColor="@color/black_white_selector"/>
 
     </LinearLayout>
 
@@ -104,8 +75,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/_12sdp"
-        android:drawableStart="@drawable/ic_home"
-        android:gravity="start|center_vertical"
+        android:drawableLeft="@drawable/ic_home"
+        android:gravity="left|center_vertical"
         android:padding="@dimen/_15sdp"
         android:text="@string/home"
         android:textColor="@android:color/primary_text_light"
@@ -116,8 +87,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/_12sdp"
-        android:drawableStart="@drawable/ic_favourite"
-        android:gravity="start|center_vertical"
+        android:drawableLeft="@drawable/ic_favourite"
+        android:gravity="left|center_vertical"
         android:padding="@dimen/_15sdp"
         android:text="@string/my_favorites"
         android:textColor="@android:color/primary_text_light"
@@ -129,12 +100,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/_12sdp"
-        android:drawableStart="@drawable/ic_deal_tag"
-        android:gravity="start|center_vertical"
+        android:drawableLeft="@drawable/ic_deal_tag"
+        android:gravity="left|center_vertical"
         android:padding="@dimen/_15sdp"
         android:text="@string/redeemed_deals"
         android:textColor="@android:color/primary_text_light"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@drawable/item_selector_light"/>
 
     <TextView
@@ -142,8 +113,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/_12sdp"
-        android:drawableStart="@drawable/ic_recommended"
-        android:gravity="start|center_vertical"
+        android:drawableLeft="@drawable/ic_recommended"
+        android:gravity="left|center_vertical"
 
         android:padding="@dimen/_15sdp"
         android:text="@string/recommended"
@@ -155,8 +126,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/_12sdp"
-        android:drawableStart="@drawable/ic_recent_searches"
-        android:gravity="start|center_vertical"
+        android:drawableLeft="@drawable/ic_recent_searches"
+        android:gravity="left|center_vertical"
 
         android:padding="@dimen/_16sdp"
         android:text="@string/recent_searches"
@@ -164,15 +135,15 @@
         android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/recent_viewed"
+        android:id="@+id/rate_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/_12sdp"
-        android:drawableStart="@drawable/ic_recent_viewed"
-        android:gravity="start|center_vertical"
+        android:drawableLeft="@drawable/ic_rate"
+        android:gravity="left|center_vertical"
 
         android:padding="@dimen/_15sdp"
-        android:text="@string/recent_viewed"
+        android:text="@string/rate_us"
         android:textColor="@android:color/primary_text_light"
         android:background="@drawable/item_selector_light"/>
 

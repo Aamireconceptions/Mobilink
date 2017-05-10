@@ -23,6 +23,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
@@ -111,6 +114,11 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Dashboard");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     TextView tvGreetings;

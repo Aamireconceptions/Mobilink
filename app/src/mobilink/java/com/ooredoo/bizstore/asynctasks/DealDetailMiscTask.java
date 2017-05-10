@@ -78,12 +78,9 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
 
                 if(dealMisc.genericDeal != null) {
 
-                    if (BuildConfig.FLAVOR.equals("mobilink"))
-                    {
-                        activity.onHaveData(dealMisc.genericDeal);
+                    activity.onHaveData(dealMisc.genericDeal);
 
-                        return;
-                    }
+                    return;
 
                     /*similarDeals.clear();
                     nearbyDeals.clear();

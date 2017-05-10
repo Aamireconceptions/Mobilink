@@ -6,13 +6,13 @@ import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
-import com.ooredoo.bizstore.ui.activities.AboutUsActivity;
-import com.ooredoo.bizstore.ui.activities.CitySelectionActivity;
-import com.ooredoo.bizstore.ui.activities.HelpActivity;
+import com.ooredoo.bizstore.BizStore;
+import com.ooredoo.bizstore.ui.activities.AboutUsActivity_;
+import com.ooredoo.bizstore.ui.activities.HelpActivity_;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
-import com.ooredoo.bizstore.ui.activities.NotificationsActivity;
+import com.ooredoo.bizstore.ui.activities.MyAccountActivity_;
+
+import com.ooredoo.bizstore.ui.activities.NotificationsActivity_;
 import com.ooredoo.bizstore.utils.DialogUtils;
 
 /**
@@ -22,12 +22,8 @@ import com.ooredoo.bizstore.utils.DialogUtils;
 public class NavigationMenuChildClickListener implements ExpandableListView.OnChildClickListener {
     private HomeActivity activity;
 
-    private ExpandableListAdapter adapter;
-
-    public NavigationMenuChildClickListener(HomeActivity activity, ExpandableListAdapter adapter) {
+    public NavigationMenuChildClickListener(HomeActivity activity) {
         this.activity = activity;
-
-        this.adapter = adapter;
     }
 
     @Override
@@ -44,42 +40,42 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
                 switch(childPosition) {
                     case 0:
 
-                        startActivity(MyAccountActivity.class);
+                        if(!BizStore.username.isEmpty())
+                        startActivity(MyAccountActivity_.class);
 
                         break;
 
-                    case 1:
+                   /* case 1:
 
                         activity.startActivityForResult(new Intent(activity, CitySelectionActivity.class),
                                 101);
 
                         break;
+*/
+                    case 1:
+                        startActivity(NotificationsActivity_.class);
+
+                        break;
 
                     case 2:
 
-                        startActivity(NotificationsActivity.class);
+                        startActivity(HelpActivity_.class);
 
                         break;
 
                     case 3:
 
-                        rateUsOnPlayStore();
+                        startActivity(AboutUsActivity_.class);
 
                         break;
 
                     case 4:
-
-                        startActivity(HelpActivity.class);
-
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("http://econceptions.mobi/jazzdiscountbazarapp/privacypolicy"));
+                        activity.startActivity(intent);
                         break;
 
                     case 5:
-
-                        startActivity(AboutUsActivity.class);
-
-                        break;
-
-                    case 6:
 
                         DialogUtils.showUnSubscribeDialog(activity);
                 }
@@ -96,12 +92,5 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
         Intent intent = new Intent(activity, cls);
 
         activity.startActivity(intent);
-    }
-
-    private void rateUsOnPlayStore() {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-
-        i.setData(Uri.parse("market://details?id="+activity.getPackageName()));//TODO replace package name -> + activity.getPackageName()));
-        activity.startActivity(i);
     }
 }

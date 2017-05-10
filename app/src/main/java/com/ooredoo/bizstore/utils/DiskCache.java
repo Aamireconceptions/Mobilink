@@ -305,7 +305,7 @@ public class DiskCache
         {
             mDiskCacheStarting = true;
 
-            if (mDiskLruCache != null && !mDiskLruCache.isClosed())
+            /*if (mDiskLruCache != null && !mDiskLruCache.isClosed())
             {
                 for(GenericDeal genericDeal : genericDeals)
                 {
@@ -325,7 +325,7 @@ public class DiskCache
                     }
 
                 }
-            }
+            }*/
 
             mDiskCacheStarting = false;
         }

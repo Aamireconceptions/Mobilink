@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/bizstore"/>
+            android:src="@drawable/ic_bizstore"/>
 
         <ImageView
             android:layout_width="@dimen/_220sdp"

@@ -21,10 +21,10 @@ android {
 
     signingConfigs {
         OoredooBizstore {
-           /* keyAlias 'ooredoobizstore'
-            keyPassword 'ooredoobizstore'
-            storeFile file('D:/Apk & Keystore/Oreedoo Bizstore/oreedoobizstore.keystore.jks')
-            storePassword 'ooredoobizstore'*/
+            /* keyAlias 'ooredoobizstore'
+             keyPassword 'ooredoobizstore'
+             storeFile file('D:/Apk & Keystore/Oreedoo Bizstore/oreedoobizstore.keystore.jks')
+             storePassword 'ooredoobizstore'*/
             keyAlias keystoreProperties['ooredooKeyAlias']
             keyPassword keystoreProperties['ooredooKeyPassword']
             storeFile file(keystoreProperties['ooredooStoreFile'])
@@ -41,6 +41,12 @@ android {
             keyPassword keystoreProperties['mobilinkKeyPassword']
             storeFile file(keystoreProperties['mobilinkStoreFile'])
             storePassword keystoreProperties['mobilinkStorePassword']
+        }
+        ZongBizStore {
+            keyAlias 'zongbizstore'
+            keyPassword 'zongbizstore'
+            storeFile file('D:/Apk & Keystore/Zong Bizstore/zongbizstore.keystore.jks')
+            storePassword 'zongbizstore'
         }
     }
     compileSdkVersion 22
@@ -114,17 +120,18 @@ android {
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
             signingConfig signingConfigs.JazzDiscountBazar
         }
-        ufone{
+        ufone {
             applicationId "com.ufone.bizstore"
             versionName = "1.0"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "44cc637273d64dcba2bc7fb792de3746"]
         }
-
-        zong{
+        zong {
+            minSdkVersion 14
             applicationId "com.zong.bizstore"
             versionName = "1.0"
             versionCode = 2
-            manifestPlaceholders = [HOCKEYAPP_APP_ID: "af3qfdsgsd3443sfdsfahfdh434hsfsds"]
+            manifestPlaceholders = [HOCKEYAPP_APP_ID: "4e8fc3ee285640c2ab08942dac59ae9a"]
+            signingConfig signingConfigs.ZongBizStore
         }
     }
 
@@ -143,39 +150,32 @@ def AAVersion = "4.3.0"
 dependencies {
     annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     compile 'com.android.support:appcompat-v7:22.2.0'
-
     compile 'com.android.support:design:22.2.0'
-  // compile 'com.android.support:cardview-v7:23.1.1'
-
-
+    // compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:support-v13:22.2.0'
     compile 'com.intuit.sdp:sdp-android:1.0.0'
     compile 'com.google.code.gson:gson:2.3.1'
-   // compile files('libs/activeandroid-3.1-beta.jar')
-
+    // compile files('libs/activeandroid-3.1-beta.jar')
     compile 'com.google.android.gms:play-services-maps:8.3.0'
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
     compile 'com.android.support:gridlayout-v7:22.1.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
     /*compile 'com.google.zxing:core:3.0.1'*/
-   /* compile files('libs/android-core-3.2.1.jar')
-    compile files('libs/core-3.2.1.jar') */
+    /* compile files('libs/android-core-3.2.1.jar')
+            compile files('libs/core-3.2.1.jar') */
     compile 'net.hockeyapp.android:HockeySDK:4.0.0'
     //mobilinkCompile(name:'facebook-android-sdk-4.14.0', ext:'aar')
-
-   compile 'com.facebook.android:facebook-android-sdk:4.6.0' // mobilinkCompile can be used if
-   // its only needed for mobilink flavor
-    compile ('com.github.chrisbanes:PhotoView:1.3.0'){
+    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    // mobilinkCompile can be used if
+    // its only needed for mobilink flavor
+    compile('com.github.chrisbanes:PhotoView:1.3.0') {
         exclude module: 'support-v4'
     }
     //mobilinkCompile 'com.facebook.android:facebook-android-sdk:4.14.0@aar'
-
-    compile('com.twitter.sdk.android:twitter:2.2.0@aar'){
+    compile('com.twitter.sdk.android:twitter:2.2.0@aar') {
         transitive = true;
         exclude module: 'support-v4'
     }
