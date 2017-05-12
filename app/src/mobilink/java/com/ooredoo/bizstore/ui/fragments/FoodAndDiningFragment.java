@@ -331,7 +331,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
     @Override
     public void scroll() {
-
         listView.setSelection(0);
     }
 

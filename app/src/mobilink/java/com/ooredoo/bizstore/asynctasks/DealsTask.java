@@ -433,6 +433,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             isFilterEnabled = true;
         }
 
+        if(homeActivity.doApplyDistance) {
+            isFilterEnabled = true;
+        }
+
         String cacheData = getStringVal(homeActivity, KEY);
 
         boolean updateFromServer = checkIfUpdateData(homeActivity, UPDATE_KEY);

@@ -45,6 +45,7 @@ import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
+import com.facebook.applinks.AppLinkData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.ooredoo.bizstore.AppData;
@@ -166,6 +167,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public boolean isSearchEnabled = false;
     public boolean isSearchTextWatcherEnabled = true;
     public boolean doApplyDiscount = false;
+    public boolean doApplyDistance = false;
     public boolean doApplyRating = true;
 
     public String ratingFilter, distanceFilter;
@@ -195,6 +197,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+       /* AppLinkData.fetchDeferredAppLinkData(this, new AppLinkData.CompletionHandler()
+        {
+
+            @Override
+            public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+                appLinkData.
+            }
+        });*/
 
         ActiveAndroid.initialize(getApplication());
 
@@ -503,6 +514,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @ViewById(R.id.cb_highest_discount)
     CheckBox cbHighestDiscount;
 
+    @ViewById(R.id.cb_distance)
+    CheckBox cbDistance;
+
     private void initFilter() {
         FilterOnClickListener clickListener = new FilterOnClickListener(this, 0);
 
@@ -536,6 +550,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvDiscount.setOnClickListener(clickListener);
 
         cbHighestDiscount.setOnClickListener(clickListener);
+        cbDistance.setOnClickListener(clickListener);
 
         rangeSeekBar.setEnabled(false);
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
@@ -557,6 +572,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         doApplyDiscount = false;
         cbHighestDiscount.setChecked(doApplyDiscount);
         cbHighestDiscount.setText(getString(R.string.sort_discount));
+
+        doApplyDistance = false;
+        cbDistance.setChecked(doApplyDistance);
 
         doApplyRating = false;
         ratingFilter = null;

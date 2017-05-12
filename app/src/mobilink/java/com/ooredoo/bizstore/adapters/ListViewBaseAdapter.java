@@ -192,7 +192,7 @@ public class ListViewBaseAdapter extends BaseAdapter {
 
                 if(homeActivity.doApplyDistance)
                 {
-                    filter =  "Distance: Nearest First, ";
+                    filter +=  "Distance: Nearest First, ";
                 }
 
                 if(homeActivity.doApplyRating)

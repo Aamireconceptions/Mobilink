@@ -573,6 +573,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         cbHighestDiscount.setChecked(doApplyDiscount);
         cbHighestDiscount.setText(getString(R.string.sort_discount));
 
+        doApplyDistance = false;
         cbDistance.setChecked(doApplyDistance);
 
         doApplyRating = false;

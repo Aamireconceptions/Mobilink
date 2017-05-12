@@ -8,7 +8,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="right"
         android:background="@color/white">
 
         <RelativeLayout
@@ -18,14 +18,14 @@
             android:background="@color/red"
             android:clickable="true"
             android:minHeight="?attr/actionBarSize"
-            android:paddingEnd="@dimen/_4sdp"
-            android:paddingStart="@dimen/_4sdp">
+            android:paddingRight="@dimen/_4sdp"
+            android:paddingLeft="@dimen/_4sdp">
 
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_back_white"/>
 
@@ -34,9 +34,9 @@
                 android:layout_height="wrap_content"
 
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_toStartOf="@+id/done"
-                android:layout_toEndOf="@+id/back"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_toLeftOf="@+id/done"
+                android:layout_toRightOf="@+id/back"
 
                 android:text="@string/filter_results"
                 android:textColor="@color/white"
@@ -47,7 +47,7 @@
                 android:id="@+id/done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:padding="@dimen/_4sdp"
@@ -112,8 +112,8 @@
             android:background="@drawable/heading_bg"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingStart="@dimen/_16sdp"
+            android:paddingRight="@dimen/_16sdp"
+            android:paddingLeft="@dimen/_16sdp"
             android:paddingTop="@dimen/_4sdp"
             android:text="@string/sort_by"
 
@@ -125,25 +125,38 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/sort_by"
             android:button="@drawable/checkbox_button"
-            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_16sdp"
             android:gravity="center_vertical"
             android:padding="@dimen/_12sdp"
 
             android:textColor="@color/hex808080"
             android:text="@string/sort_discount"/>
 
+                <CheckBox
+                    android:id="@+id/cb_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cb_highest_discount"
+                    android:button="@drawable/checkbox_button"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_12sdp"
+
+                    android:textColor="@color/hex808080"
+                    android:text="Distance"/>
+
         <View
             android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
-            android:layout_below="@+id/cb_highest_discount"
+            android:layout_below="@+id/cb_distance"
             android:background="@color/grey"/>
 
         <RelativeLayout
             android:id="@+id/distance_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cb_highest_discount"
+            android:layout_below="@+id/cb_distance"
             android:padding="@dimen/_14sdp"
             android:visibility="visible">
 
@@ -161,8 +174,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/distance_checkbox"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:layout_toEndOf="@+id/distance_checkbox"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_toRightOf="@+id/distance_checkbox"
                 android:text="@string/km_bracket"/>
 
             <LinearLayout
@@ -307,7 +320,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
 
                 android:drawablePadding="@dimen/_8sdp"
                 android:gravity="center_vertical"
@@ -317,7 +330,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rating_checkbox"
-                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/red_border"
                 android:orientation="horizontal">
@@ -410,9 +423,9 @@
                 android:id="@+id/discount_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
                 android:drawablePadding="@dimen/_8sdp"
-                android:drawableStart="@drawable/checkbox_selector"
+                android:drawableLeft="@drawable/checkbox_selector"
                 android:gravity="center_vertical"
                 android:text="@string/discount_offer"/>
 
@@ -421,7 +434,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/discount_checkbox"
-                android:layout_marginStart="-0dp"
+                android:layout_marginLeft="-0dp"
                 android:layout_marginTop="@dimen/_10sdp"/>
 
         </RelativeLayout>
@@ -441,8 +454,8 @@
                 android:background="@drawable/heading_bg"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:paddingStart="@dimen/_16sdp"
+                android:paddingRight="@dimen/_16sdp"
+                android:paddingLeft="@dimen/_16sdp"
                 android:paddingTop="@dimen/_4sdp"
                 android:textStyle="normal"
                 android:textAllCaps="false"
@@ -467,11 +480,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/food_dining"/>
 
@@ -480,11 +493,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/shopping"/>
 
@@ -493,11 +506,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/ladies_section"/>
 
@@ -506,11 +519,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/health_fitness"/>
 
@@ -519,11 +532,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/education"/>
 
@@ -532,11 +545,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/entertainment"/>
 
@@ -547,10 +560,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/food_dining"/>
@@ -560,11 +573,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/shopping"/>
 
@@ -575,11 +588,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/health_fitness"/>
 
@@ -590,11 +603,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/entertainment"/>
 
@@ -603,11 +616,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/pakistani"/>
 
@@ -616,11 +629,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/Fast_Food"/>
 
@@ -629,11 +642,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/Chinese"/>
 
@@ -642,11 +655,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/free_delivery"/>
 
@@ -656,11 +669,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/clothing"/>
 
@@ -669,10 +682,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/home_appliances"/>
@@ -682,10 +695,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/others"/>
@@ -695,11 +708,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/Spas"/>
 
@@ -708,11 +721,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/beauty_parlors"/>
 
@@ -721,11 +734,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/gyms"/>
 
@@ -734,10 +747,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/beauty_clinics"/>
@@ -747,11 +760,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/cinemas"
                 android:visibility="gone"/>
@@ -763,10 +776,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/travel"/>
@@ -776,11 +789,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/events"/>
 
@@ -789,11 +802,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/kids"/>
 
@@ -802,11 +815,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_button"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingStart="@dimen/_6sdp"
+                android:paddingRight="@dimen/_6sdp"
+                android:paddingLeft="@dimen/_6sdp"
                 android:paddingTop="@dimen/_16sdp"
                 android:text="@string/other_activities"/>
 

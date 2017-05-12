@@ -221,6 +221,13 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 break;
 
+            case R.id.cb_distance:
+
+                activity.doApplyDistance = ((CheckBox) v).isChecked();
+                Logger.logI("DISTANCE_FILTER", String.valueOf(activity.doApplyDistance));
+
+                break;
+
             case R.id._5:
 
                 activity.distanceFilter = "5";
@@ -275,6 +282,8 @@ public class FilterOnClickListener implements View.OnClickListener {
         Logger.print("FilterOnClickListener: CATEGORY -> Filter: " + String.valueOf(category));
 
         ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_highest_discount)).setChecked(activity.doApplyDiscount);
+
+        ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_distance)).setChecked(activity.doApplyDistance);
 
         activity.drawerLayout.openDrawer(GravityCompat.END);
 
