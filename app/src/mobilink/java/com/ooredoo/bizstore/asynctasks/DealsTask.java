@@ -352,6 +352,16 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             isFilterEnabled = true;
         }
 
+        if(homeActivity.doApplyDistance) {
+            if(isNotNullOrEmpty(sortColumns)) {
+                sortColumns = "distance,".concat(sortColumns);
+            } else {
+                sortColumns = "distance";
+            }
+            isFilterEnabled = true;
+        }
+
+
         if(isNotNullOrEmpty(sortColumns)) {
             params.put("sort", sortColumns);
         }

@@ -150,7 +150,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
     DealsTask dealsTask = new DealsTask(null, null, null, null, null);
     private void fetchAndDisplayHealth(ProgressBar progressBar)
     {
-        tvEmptyView.setVisibility(View.GONE);
+        if(tvEmptyView != null){tvEmptyView.setVisibility(View.GONE);}
 
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
@@ -318,6 +318,11 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
         if(activity.doApplyDiscount)
         {
             filter = "Discount: Highest to lowest, ";
+        }
+
+        if(activity.doApplyDistance)
+        {
+            filter = "Distance: Nearest first, ";
         }
 
         if(activity.doApplyRating)

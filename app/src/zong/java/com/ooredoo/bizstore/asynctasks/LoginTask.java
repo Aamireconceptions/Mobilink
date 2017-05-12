@@ -116,8 +116,6 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
 
                     DealDetailActivity.dialog.dismiss();
 
-                    MsisdnDialog.chargesDialog.dismiss();
-
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                         DealDetailActivity.btGetCode.callOnClick();
                     }

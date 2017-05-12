@@ -143,21 +143,24 @@
             android:windowSoftInputMode="adjustPan"
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
             <intent-filter>
 
-                <action android:name="android.intent.action.VIEW"/>
+               <!-- <action android:name="android.intent.action.VIEW"/>-->
 
                 <category android:name="android.intent.category.DEFAULT"/>
 
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <action android:name="com.ooredoo.bizstore.deal_detail"/>
+                <!--<action android:name="com.ooredoo.bizstore.deal_detail"/>-->
 
-                <data
+                <!--<data
                     android:scheme="http"
                     android:host="@string/host"
                     android:pathPrefix="/deal_detail"
-                    android:pathPattern=".*"/>
+                    android:pathPattern=".*"/>-->
 
                 <data
                     android:scheme="http"
@@ -175,7 +178,12 @@
             android:label="@string/About_Us"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activities.HomeActivity_" />
+        </activity>
+
         <activity
             android:name=".ui.activities.MyAccountActivity_"
             android:configChanges="locale|layoutDirection"
@@ -183,7 +191,11 @@
             android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activities.HomeActivity_" />
+        </activity>
 
 
         <activity
@@ -192,13 +204,21 @@
             android:label="@string/my_notifications"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activities.HomeActivity_" />
+        </activity>
 
         <activity
             android:name=".ui.activities.MallDetailActivity"
             android:configChanges="locale|layoutDirection"
             android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activities.HomeActivity_" />
+        </activity>
 
 
         <activity
@@ -207,7 +227,11 @@
             android:label="@string/help"
             android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".ui.activities.HomeActivity_"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activities.HomeActivity_" />
+        </activity>
 
 
         <receiver
@@ -271,6 +295,17 @@
             android:enabled="true"
             android:exported="false"/>
 
+        <activity
+            android:name=".ui.activities.RedeemedDealsActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/redeemed_deals"
+            android:parentActivityName=".ui.activities.HomeActivity"
+            android:screenOrientation="portrait">
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activities.HomeActivity_" />
+        </activity>
 
     </application>
 

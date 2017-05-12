@@ -132,18 +132,31 @@
             android:textColor="@color/hex808080"
             android:text="@string/sort_discount"/>
 
+                <CheckBox
+                    android:id="@+id/cb_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cb_highest_discount"
+                    android:button="@drawable/checkbox_button"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_12sdp"
+
+                    android:textColor="@color/hex808080"
+                    android:text="Distance"/>
+
         <View
             android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
-            android:layout_below="@+id/cb_highest_discount"
+            android:layout_below="@+id/cb_distance"
             android:background="@color/grey"/>
 
         <RelativeLayout
             android:id="@+id/distance_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cb_highest_discount"
+            android:layout_below="@+id/cb_distance"
             android:padding="@dimen/_14sdp"
             android:visibility="visible">
 

@@ -167,6 +167,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     public boolean isSearchEnabled = false;
     public boolean isSearchTextWatcherEnabled = true;
     public boolean doApplyDiscount = false;
+    public boolean doApplyDistance = false;
     public boolean doApplyRating = true;
 
     public String ratingFilter, distanceFilter;
@@ -513,6 +514,9 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @ViewById(R.id.cb_highest_discount)
     CheckBox cbHighestDiscount;
 
+    @ViewById(R.id.cb_distance)
+    CheckBox cbDistance;
+
     private void initFilter() {
         FilterOnClickListener clickListener = new FilterOnClickListener(this, 0);
 
@@ -546,6 +550,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         tvDiscount.setOnClickListener(clickListener);
 
         cbHighestDiscount.setOnClickListener(clickListener);
+        cbDistance.setOnClickListener(clickListener);
 
         rangeSeekBar.setEnabled(false);
         rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
@@ -567,6 +572,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         doApplyDiscount = false;
         cbHighestDiscount.setChecked(doApplyDiscount);
         cbHighestDiscount.setText(getString(R.string.sort_discount));
+
+        cbDistance.setChecked(doApplyDistance);
 
         doApplyRating = false;
         ratingFilter = null;

@@ -190,6 +190,11 @@ public class ListViewBaseAdapter extends BaseAdapter {
                             + context.getString(R.string.sort_discount) + ", ";
                 }
 
+                if(homeActivity.doApplyDistance)
+                {
+                    filter =  "Distance: Nearest First, ";
+                }
+
                 if(homeActivity.doApplyRating)
                 {
                     filter += context.getString(R.string.rating) + ": " + homeActivity.ratingFilter + ", ";

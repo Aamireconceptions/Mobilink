@@ -76,6 +76,9 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EApplication;
+
 import java.io.File;
 import java.util.List;
 
@@ -96,13 +99,13 @@ import static java.lang.String.valueOf;
  * @author Muhammad Babar
  */
 
+@EActivity
 public class DealDetailActivity extends BaseActivity implements OnClickListener, LocationListener
 
 {
     public String category;
     static String packageName;
     public boolean showBanner = false;
-
 
     private String qticketUrl = "https://www.q-tickets.com/";
 
@@ -886,7 +889,7 @@ public static MsisdnDialog dialog;
 
         String appName = activity.getString(R.string.app_name);
 
-        uri = "View this awesome deal on " + appName + " http://jazzdiscountbazar.deal/deal_detail?id=" + dealId +
+        uri = "View this awesome deal on " + appName + " http://"+activity.getString(R.string.host)+"/deal_detail?id=" + dealId +
                 "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);

@@ -33,6 +33,7 @@ import com.ooredoo.bizstore.asynctasks.LoginTask;
 import com.ooredoo.bizstore.asynctasks.UnSubTask;
 import com.ooredoo.bizstore.asynctasks.UpdateRatingTask;
 import com.ooredoo.bizstore.dialogs.ChargesDialog;
+import com.ooredoo.bizstore.dialogs.MsisdnDialog;
 import com.ooredoo.bizstore.ui.fragments.BaseFragment;
 import com.ooredoo.bizstore.ui.fragments.WelcomeFragment;
 
@@ -198,7 +199,7 @@ public class DialogUtils {
             if(loginTask.getStatus() != AsyncTask.Status.RUNNING)
             {
                 loginTask = new LoginTask(activity);
-                loginTask.execute(ChargesDialog.msisdn);
+                loginTask.execute(MsisdnDialog.msisdn);
             }
         } else {
             Snackbar.make(etCode, activity.getString(R.string.error_invalid_verification_code), Snackbar.LENGTH_SHORT).show();

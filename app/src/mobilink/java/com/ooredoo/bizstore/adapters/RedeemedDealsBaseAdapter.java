@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -134,12 +135,17 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
     }
 
     private void showDetail(GenericDeal deal) {
-        Deal recentDeal = new Deal(deal);
+        /*Deal recentDeal = new Deal(deal);
         RecentViewedActivity.addToRecentViewed(recentDeal);
         DealDetailActivity.selectedDeal = deal;
         Intent intent = new Intent();
         intent.setClass(context, DealDetailActivity.class);
-        intent.putExtra("generic_deal", deal);
+        intent.putExtra("generic_deal", deal);*/
+
+        Intent intent = new Intent(context, DealDetailActivity.class);
+
+        intent.putExtra(AppConstant.ID, deal.id);
+        intent.putExtra("notification", true);
         context.startActivity(intent);
     }
 

@@ -27,7 +27,6 @@ import java.util.List;
  */
 public class DiskCache
 {
-
     private Context context;
 
     private static DiskCache diskCache;

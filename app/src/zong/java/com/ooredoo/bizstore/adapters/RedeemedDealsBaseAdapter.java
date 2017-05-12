@@ -24,6 +24,7 @@ import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
+import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
 
 /**
@@ -147,12 +148,20 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
     }
 
     private void showDetail(GenericDeal deal) {
-        Deal recentDeal = new Deal(deal);
+        /*Deal recentDeal = new Deal(deal);
         RecentViewedActivity.addToRecentViewed(recentDeal);
         DealDetailActivity.selectedDeal = deal;
         Intent intent = new Intent();
         intent.setClass(context, DealDetailActivity.class);
         intent.putExtra("generic_deal", deal);
+        context.startActivity(intent);*/
+
+
+        Intent intent = new Intent();
+        intent.setClass(context, DealDetailActivity.class);
+        intent.putExtra("generic_deal", deal);
+        //intent.putExtra(CATEGORY, dealCategory);
+
         context.startActivity(intent);
     }
 

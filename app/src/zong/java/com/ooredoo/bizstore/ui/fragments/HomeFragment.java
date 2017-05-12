@@ -519,6 +519,8 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
         diskCache.remove(promoAdapter.deals);
 
+        memoryCache.remove(promoAdapter.deals);
+
         for(DOD dod : viewedRatedAdapter.dods)
         {
             diskCache.remove(dod.deals);
@@ -529,7 +531,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
      //   diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
         diskCache.removeMalls(topMallsAdapter.malls);
 
-        memoryCache.remove(promoAdapter.deals);
+
 
      //   memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
         memoryCache.removeMalls(topMallsAdapter.malls);

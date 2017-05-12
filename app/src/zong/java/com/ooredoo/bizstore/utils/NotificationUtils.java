@@ -3,7 +3,6 @@ package com.ooredoo.bizstore.utils;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,7 +10,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BuildConfig;
@@ -37,8 +37,8 @@ public class NotificationUtils
     public static void showNotification(Context context, String title, String desc, int id,
                                         Bitmap[] bitmap, String type)
     {
-        Notification.Builder builder =
-                new Notification.Builder(context)
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setTicker(desc)
@@ -55,9 +55,11 @@ public class NotificationUtils
         {
             if (bitmap[0] != null)
             {
-                Notification.BigPictureStyle bigPictureStyle = new Notification.BigPictureStyle();
+
+                NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
                 bigPictureStyle.bigPicture(bitmap[0]);
                 bigPictureStyle.setBigContentTitle(desc);
+
 
                 builder.setStyle(bigPictureStyle);
             }

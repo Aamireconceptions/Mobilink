@@ -1,16 +1,13 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
-import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
@@ -19,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;

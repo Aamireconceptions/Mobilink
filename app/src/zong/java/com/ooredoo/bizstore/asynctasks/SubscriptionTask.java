@@ -43,7 +43,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
         super.onPreExecute();
 
         dialog = DialogUtils.createCustomLoader((Activity) context,
-                context.getString(R.string.subscribing));
+                context.getString(R.string.please_wait));
         dialog.show();;
     }
 

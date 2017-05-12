@@ -310,6 +310,11 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
             filter = "Discount: Highest to lowest, ";
         }
 
+        if(activity.doApplyDistance)
+        {
+            filter = "Distance: Nearest first, ";
+        }
+
         if(activity.doApplyRating)
         {
             filter += "Rating " + activity.ratingFilter +", ";

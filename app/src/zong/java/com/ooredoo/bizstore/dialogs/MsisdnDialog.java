@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.NetworkUtils;
@@ -92,16 +93,16 @@ public class MsisdnDialog extends DialogFragment implements View.OnClickListener
     }
 
     public static ChargesDialog chargesDialog;
+    public static String msisdn;
     public void checkOperator()
     {
-        String msisdn = etMsisdn.getText().toString();
+         msisdn = etMsisdn.getText().toString();
 
         String errMsg = "Error";
         if(NetworkUtils.hasInternetConnection(getActivity())) {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
 
-                chargesDialog = ChargesDialog.newInstance(msisdn);
-                chargesDialog.show(getFragmentManager(), null);
+                new SubscriptionTask(getActivity()).execute(msisdn);
 
             } else {
                 errMsg = getString(R.string.error_invalid_num);
