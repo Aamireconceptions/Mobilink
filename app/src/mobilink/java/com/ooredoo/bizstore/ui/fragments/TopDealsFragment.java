@@ -143,7 +143,7 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
     DealsTask dealsTask;
     private void loadTopDeals(ProgressBar progressBar)
     {
-        tvEmptyView.setVisibility(View.GONE);
+        if(tvEmptyView != null) tvEmptyView.setVisibility(View.GONE);
 
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
