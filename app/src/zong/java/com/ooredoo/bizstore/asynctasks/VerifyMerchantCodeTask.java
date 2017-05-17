@@ -39,7 +39,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
     private SnackBarUtils snackBarUtils;
 
-    private Tracker tracker, ooredooTracker;
+    private Tracker tracker;
 
     private FBUtils fbUtils;
 
@@ -98,7 +98,6 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                 if (voucher.resultCode != -1)
                 {
-                    //detailActivity.showCode(voucher.code);
                     if(voucher.resultCode == 0)
                     {
                         Map<String, String> redeemEvent = new HitBuilders.EventBuilder()
@@ -108,9 +107,9 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
 
                         tracker.send(redeemEvent);
 
-                        final Dialog dialog = DialogUtils.createMobilinkRedeemDialog(detailActivity);
+                        final Dialog redeemDialog = DialogUtils.createMobilinkRedeemDialog(detailActivity);
 
-                        ivClose = (ImageView)dialog.findViewById(R.id.close);
+                        ivClose = (ImageView)redeemDialog.findViewById(R.id.close);
                         ivClose.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -121,23 +120,25 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
                                 detailActivity.btGetCode.setText("Get Discount Again");
 
-                                dialog.dismiss();
+                                redeemDialog.dismiss();
+
+                                DialogUtils.showRateUsDialog(detailActivity);
                             }
                         });
 
-                        TextView tvDealDesc = (TextView) dialog.findViewById(R.id.deal_desc);
+                        TextView tvDealDesc = (TextView) redeemDialog.findViewById(R.id.deal_desc);
                         tvDealDesc.setText(DealDetailActivity.genericDeal.description);
 
-                        TextView tvUniqueId = (TextView) dialog.findViewById(R.id.unique_id);
+                        TextView tvUniqueId = (TextView) redeemDialog.findViewById(R.id.unique_id);
                         tvUniqueId.setText("" + DealDetailActivity.genericDeal.id);
 
-                        TextView tvDate = (TextView) dialog.findViewById(R.id.date);
+                        TextView tvDate = (TextView) redeemDialog.findViewById(R.id.date);
                         tvDate.setText(voucher.date);
 
-                        TextView tvTime= (TextView) dialog.findViewById(R.id.time);
+                        TextView tvTime= (TextView) redeemDialog.findViewById(R.id.time);
                         tvTime.setText(voucher.time);
 
-                        Button btNoThanks = (Button) dialog.findViewById(R.id.no_thanks);
+                        Button btNoThanks = (Button) redeemDialog.findViewById(R.id.no_thanks);
                         btNoThanks.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -147,28 +148,16 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
                                 detailActivity.btGetCode.setText("Get Discount Again");
 
-                                dialog.dismiss();
+                                redeemDialog.dismiss();
+
+                                DialogUtils.showRateUsDialog(detailActivity);
                             }
                         });
 
-                        Button btShareFb = (Button) dialog.findViewById(R.id.share_fb);
+                        Button btShareFb = (Button) redeemDialog.findViewById(R.id.share_fb);
                         btShareFb.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
-                                /*ShareLinkContent content = new ShareLinkContent.Builder()
-                                        .setContentTitle(detailActivity.genericDeal.businessName)
-                                        .setContentDescription(detailActivity.genericDeal.description)
-                                                //.setContentUrl(Uri.parse("https://developers.facebook.com"))
-                                                //.setImageUrl(Uri.parse(BaseAsyncTask.IMAGE_BASE_URL + detailActivity.genericDeal.image.detailBannerUrl))
-                                        .build();
-
-
-
-
-
-                                ShareDialog.show(detailActivity, content);*/
-
                                 GenericDeal genericDeal = DealDetailActivity.genericDeal;
                                 String imageUrl = getImageURL(genericDeal.image);
 
@@ -177,9 +166,10 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                     // static domain with http is there because the https was
                                     // not using a trusted certificate (i.e self-signed).
                                     // And facebook isn't able to download the image
-                                    imageUrl = "http://188.138.33.11/jdb" + imageUrl;
-                                }
+                                    imageUrl = IMAGE_BASE_URL + imageUrl;
 
+                                    Logger.print("Image share url: "+imageUrl);
+                                }
                                 // Facebook applink (deep link) created via
                                 // https://developers.facebook.com/quickstarts/?platform=app-links-host
                                 String contentUrl = detailActivity.getString(R.string.fb_deep_link)+"?id="
@@ -192,6 +182,7 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                                 {
                                     searchText += ", " + genericDeal.location;
                                 }
+
 
                                 fbUtils.lookupPlaceId = searchText != null ? true : false;
                                 fbUtils.showDialog();
@@ -214,33 +205,19 @@ public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>
                             {
                                 bitmap = BitmapProcessor.makeBitmapRound(bitmap);
 
-                                ImageView ivLogo = (ImageView) dialog.findViewById(R.id.brand_logo);
+                                ImageView ivLogo = (ImageView) redeemDialog.findViewById(R.id.brand_logo);
                                 ivLogo.setImageBitmap(bitmap);
                                 ivLogo.setVisibility(View.VISIBLE);
                             }
                         }
 
-                        dialog.setCanceledOnTouchOutside(false);
-                        dialog.setCancelable(false);
-                        dialog.show();
+                        redeemDialog.setCanceledOnTouchOutside(false);
+                        redeemDialog.setCancelable(false);
+                        redeemDialog.show();
+
+
 
                         return;
-
-                       /* final Dialog dialog = DialogUtils.createAlertDialog(detailActivity, R.string.discount_redeemed,
-                                R.string.success_redeemed);
-                        dialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(View v) {
-
-                                detailActivity.showCode(voucher.vouchers_claimed, voucher.max_allowed, true);
-
-                                dialog.dismiss();
-                            }
-                        });
-                        dialog.setCanceledOnTouchOutside(false);
-                        dialog.setCancelable(false);
-                        dialog.show();*/
                     }
                     else
                         if(voucher.resultCode == 1)

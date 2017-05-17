@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -157,8 +158,21 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             convertView = inflater.inflate(R.layout.mall_group_view, parent, false);
-           convertView.setPaddingRelative(padding, 0, padding, 0);
-            convertView.setBackground(null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                convertView.setPaddingRelative(padding, 0, padding, 0);
+            }
+            else
+            {
+                convertView.setPadding(padding, 0, padding, 0);
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                convertView.setBackground(null);
+            }
+            else
+            {
+                convertView.setBackgroundDrawable(null);
+            }
         }
 
         TextView textView = (TextView) convertView.findViewById(R.id.name);
@@ -205,15 +219,28 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
         {
             if(childView == null || ! (childView instanceof LinearLayout)) {
                 childView = layoutInflater.inflate(R.layout.list_deal_promotional, parent, false);
-                childView.setPaddingRelative((int) ( padding -
-                                Converter.convertDpToPixels(context.getResources().getDimension(R.dimen._8sdp))/
-                                        context.getResources().getDisplayMetrics().density),
-                        0,
-                        (int) (padding -
-                                 Converter.convertDpToPixels(context.getResources().getDimension(R.dimen._8sdp))/
-                                context.getResources().getDisplayMetrics().density)
-                        , 0);
-           }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    childView.setPaddingRelative((int) ( padding -
+                                    Converter.convertDpToPixels(context.getResources().getDimension(R.dimen._8sdp))/
+                                            context.getResources().getDisplayMetrics().density),
+                            0,
+                            (int) (padding -
+                                     Converter.convertDpToPixels(context.getResources().getDimension(R.dimen._8sdp))/
+                                    context.getResources().getDisplayMetrics().density)
+                            , 0);
+                }
+                else
+                    {
+                        childView.setPadding((int) ( padding -
+                                        Converter.convertDpToPixels(context.getResources().getDimension(R.dimen._8sdp))/
+                                                context.getResources().getDisplayMetrics().density),
+                                0,
+                                (int) (padding -
+                                        Converter.convertDpToPixels(context.getResources().getDimension(R.dimen._8sdp))/
+                                                context.getResources().getDisplayMetrics().density)
+                                , 0);
+                    }
+            }
 
             final GenericDeal deal = (GenericDeal) getChild(groupPosition, childPosition);
 
@@ -431,7 +458,13 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             /*gridView.setPadding((int) resources.getDimension(R.dimen._9sdp), 0,
                    (int) resources.getDimension(R.dimen._9sdp), 0);*/
 
-            gridView.setPaddingRelative(padding, 0, padding, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                gridView.setPaddingRelative(padding, 0, padding, 0);
+            }
+            else
+            {
+                gridView.setPadding(padding, 0, padding, 0);
+            }
 
             gridView.setVerticalSpacing((int) resources.getDimension(R.dimen._12sdp));
 

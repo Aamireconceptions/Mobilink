@@ -112,14 +112,14 @@
         android:id="@+id/recommended"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/_12sdp"
+        android:background="@drawable/item_selector_light"
         android:drawableLeft="@drawable/ic_recommended"
-        android:gravity="left|center_vertical"
+        android:drawablePadding="@dimen/_12sdp"
 
+        android:gravity="left|center_vertical"
         android:padding="@dimen/_15sdp"
         android:text="@string/recommended"
-        android:textColor="@android:color/primary_text_light"
-        android:background="@drawable/item_selector_light"/>
+        android:textColor="@android:color/primary_text_light" />
 
     <TextView
         android:id="@+id/recent_searches"

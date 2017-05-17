@@ -1,6 +1,9 @@
 package com.ooredoo.bizstore.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,8 +155,12 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
         int resId = navigationItem.getResId();
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
-        tvName.setLayoutDirection(direction);
-        tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            tvName.setLayoutDirection(direction);
+        }
+        Drawable drawable = ContextCompat.getDrawable(context, resId);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        tvName.setCompoundDrawables(drawable, null, null, null);
         tvName.setText(groupName);
 
         return convertView;
@@ -176,8 +183,12 @@ public class CustomExpandableListViewAdapter extends BaseExpandableListAdapter
         int resId = navigationItem.getResId();
         Logger.print("Name: "+name);
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
-        tvName.setLayoutDirection(direction);
-        tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            tvName.setLayoutDirection(direction);
+        }
+        Drawable drawable = ContextCompat.getDrawable(context, resId);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        tvName.setCompoundDrawables(drawable, null, null, null);
         tvName.setText(name);
 
         return convertView;

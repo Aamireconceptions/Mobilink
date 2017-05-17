@@ -6,8 +6,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -145,13 +147,21 @@ public class DealOfDayAdapter extends BaseAdapter
         holder.tvCategory.setText(category.name.toUpperCase());
 
         if(BizStore.getLanguage().equals("en")) {
-            holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
-                    0, 0);
+            /*holder.tvCategory.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
+                    0, 0);*/
+
+            Drawable drawable = ContextCompat.getDrawable(context, category.drawableResId);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            holder.tvCategory.setCompoundDrawables(drawable, null, null, null);
         }
         else
         {
-            holder.tvDiscount.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
-                    0, 0);
+            /*holder.tvDiscount.setCompoundDrawablesRelativeWithIntrinsicBounds(category.drawableResId, 0,
+                    0, 0);*/
+
+            Drawable drawable = ContextCompat.getDrawable(context, category.drawableResId);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            holder.tvDiscount.setCompoundDrawables(drawable, null, null, null);
         }
 
         FontUtils.setFontWithStyle(context, holder.tvCategory, Typeface.BOLD);

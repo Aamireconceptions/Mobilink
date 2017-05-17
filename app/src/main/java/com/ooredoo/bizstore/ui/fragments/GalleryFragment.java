@@ -1,14 +1,13 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,9 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.model.Gallery;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
+import com.ooredoo.bizstore.model.Gallery;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.utils.CommonHelper;
 import com.ooredoo.bizstore.utils.DiskCache;

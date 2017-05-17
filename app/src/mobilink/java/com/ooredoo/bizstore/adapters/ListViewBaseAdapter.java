@@ -316,7 +316,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                params.topMargin = -24;
+               // params.topMargin = -24;
+                params.topMargin = (int) context.getResources().getDimension(R.dimen._12sdp);
             }
 
             if(deal.actualPrice > 0 && deal.discountedPrice > 0)

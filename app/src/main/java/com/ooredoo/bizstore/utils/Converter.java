@@ -120,6 +120,11 @@ public class Converter
             {
                 return new Category("Most Redeemed", R.drawable.ic_shopping);
             }
+            else
+                if(target.equals("recommended"))
+                {
+                    return new Category("Recommended for you", R.drawable.ic_shopping);
+                }
 
 
         return new Category("Invalid Category", R.drawable.ic_sports);

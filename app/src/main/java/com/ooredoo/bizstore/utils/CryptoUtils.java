@@ -79,7 +79,6 @@ public class CryptoUtils
             }
         }
 
-
         return tmp;
     }
 

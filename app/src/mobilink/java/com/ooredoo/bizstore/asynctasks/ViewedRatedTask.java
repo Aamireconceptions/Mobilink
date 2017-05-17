@@ -128,6 +128,8 @@ public class ViewedRatedTask extends BaseAsyncTask<String, Void, String>
 
             URL url = new URL(BASE_URL + BizStore.getLanguage() + SERVICE_NAME + query);
 
+            Logger.print("URL: "+url.toString());
+
             String json = getJson(url);
 
             return json;

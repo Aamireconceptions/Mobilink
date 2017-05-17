@@ -105,7 +105,7 @@ public class PromoTask extends BaseAsyncTask<String, Void, String> {
 
                     List<GenericDeal> deals;
 
-                    viewPager.setBackground(null);
+                    viewPager.setBackgroundDrawable(null);
 
                     deals = response.deals;
 

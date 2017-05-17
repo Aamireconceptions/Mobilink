@@ -1026,7 +1026,7 @@ public static MsisdnDialog dialog;
 
             this.galleryList = genericDeal.galleryList;
 
-            adapter = new GalleryStatePagerAdapter(getFragmentManager(), genericDeal.galleryList, true);
+            adapter = new GalleryStatePagerAdapter(getSupportFragmentManager(), genericDeal.galleryList, true);
 
             ViewPager galleryPager = (ViewPager) findViewById(R.id.gallery);
             galleryPager.setPageMargin((int) Converter.convertDpToPixels(4));

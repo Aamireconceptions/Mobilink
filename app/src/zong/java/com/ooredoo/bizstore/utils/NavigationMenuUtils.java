@@ -206,8 +206,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
-        int width = (int) Converter.convertDpToPixels(600);
-        int height = (int) Converter.convertDpToPixels(600);
+        int width = (int) Converter.convertDpToPixels(300);
+        int height = (int) Converter.convertDpToPixels(300);
 
         if(bitmap != null) {
 
