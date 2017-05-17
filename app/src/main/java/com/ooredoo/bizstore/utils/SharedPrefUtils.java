@@ -21,7 +21,7 @@ public class SharedPrefUtils {
 
     public static final long CACHE_TIME = BuildConfig.FLAVOR.equals("mobilink")
             ? 30 * 60 * 1000
-            : 24 * 60 * 60 * 1000;
+            : 30 * 60 * 1000;
 
     public static final String MyPREFERENCES = "OrdBsPrefs";
 

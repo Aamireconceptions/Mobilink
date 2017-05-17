@@ -366,13 +366,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             params.put("sort", sortColumns);
         }
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            params.put("lat", String.valueOf(HomeActivity.lat));
-            params.put("lng", String.valueOf(HomeActivity.lng));
+        params.put("lat", String.valueOf(HomeActivity.lat));
+        params.put("lng", String.valueOf(HomeActivity.lng));
 
-            params.put("nearby", "true");
-        }
+        params.put("nearby", "true");
 
         Logger.logI("SORT BY", "Columns->" + sortColumns);
 

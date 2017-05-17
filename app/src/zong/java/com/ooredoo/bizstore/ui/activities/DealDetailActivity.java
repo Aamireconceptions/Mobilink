@@ -52,7 +52,6 @@ import com.ooredoo.bizstore.asynctasks.FileDownloadTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
 import com.ooredoo.bizstore.asynctasks.ReportAsyncTask;
 import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
-
 import com.ooredoo.bizstore.dialogs.MsisdnDialog;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
@@ -78,6 +77,7 @@ import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EApplication;
 
 import java.io.File;
 import java.util.List;
@@ -101,11 +101,11 @@ import static java.lang.String.valueOf;
 
 @EActivity
 public class DealDetailActivity extends BaseActivity implements OnClickListener, LocationListener
+
 {
     public String category;
     static String packageName;
     public boolean showBanner = false;
-
 
     private String qticketUrl = "https://www.q-tickets.com/";
 
