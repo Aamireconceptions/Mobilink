@@ -115,9 +115,9 @@ android {
             minSdkVersion 14
             compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
-            versionName = "2.2.0"
-            versionCode = 24
-            manifestPlaceholders = [HOCKEYAPP_APP_ID: "78918496a92e4e23882193a8ee9b9e1c"]
+            versionName = "2.2.1"
+            versionCode = 25
+            manifestPlaceholders = [HOCKEYAPP_APP_ID: "2acc48ed8b70415a96aa62db6ae3d0aa"]
             signingConfig signingConfigs.JazzDiscountBazar
         }
         ufone {

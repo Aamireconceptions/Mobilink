@@ -296,15 +296,16 @@
             android:exported="false"/>
 
         <activity
+            tools:replace="android:parentActivityName"
             android:name=".ui.activities.RedeemedDealsActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/redeemed_deals"
-            android:parentActivityName=".ui.activities.HomeActivity"
+            android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait">
 
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.activities.HomeActivity_" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
         </activity>
 
     </application>

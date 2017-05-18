@@ -401,7 +401,6 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
                 FontUtils.setFont(activity, tvCategory);
 
-
                 View gridDealOfDay = inflater.inflate(R.layout.grid_generic, null);
                 gridDealOfDay.setTag(genericDeal);
                 gridDealOfDay.setOnClickListener(this);

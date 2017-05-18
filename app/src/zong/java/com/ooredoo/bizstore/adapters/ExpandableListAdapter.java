@@ -2,7 +2,9 @@ package com.ooredoo.bizstore.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +41,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
     private View navigationHeader;
 
-    private int direction;
-
     private ExpandableListView lastExpandableListView;
 
     private CustomExpandableListViewAdapter lastAdapter;
@@ -58,8 +58,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         this.childList = childList;
 
         this.navigationHeader = navigationHeader;
-
-        direction = BizStore.getLanguage().equals("en") ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL;
     }
 
     @Override
@@ -135,8 +133,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
 
         TextView tvName = (TextView) convertView.findViewById(R.id.name);
         FontUtils.setFontWithStyle(context, tvName, Typeface.BOLD);
-        tvName.setLayoutDirection(direction);
-        tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
+      //  tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
+        Drawable drawable = ContextCompat.getDrawable(context, resId);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        tvName.setCompoundDrawables(drawable, null, null, null);
+
         tvName.setText(name);
 
         return convertView;
@@ -164,9 +165,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             int resId = navigationItem.getResId();
 
             TextView tvName = (TextView) convertView.findViewById(R.id.name);
-            tvName.setLayoutDirection(direction);
-            tvName.setCompoundDrawablesRelativeWithIntrinsicBounds(resId, 0, 0, 0);
+            Drawable drawable = ContextCompat.getDrawable(context, resId);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            tvName.setCompoundDrawables(drawable, null, null, null);
             tvName.setText(name);
+
+            if(((groupPosition == 1 && childPosition == 5) ||(groupPosition == 1 && childPosition == 0))
+                    && BizStore.username.isEmpty())
+            {
+                return new View(context);
+            }
 
             return convertView;
         } else {
@@ -190,7 +198,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             }
 
             customExpandableListView.setGroupIndicator(null);
-           // customExpandableListView.setSelector(R.color.transparent);
             customExpandableListView.setAdapter(adapter);
             customExpandableListView.setDivider(null);
             customExpandableListView.setOnChildClickListener(onChildClickListener);

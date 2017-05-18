@@ -6,39 +6,24 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.graphics.Shader;
 import android.media.ExifInterface;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapDownloadTask;
 
 import java.io.BufferedInputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManagerFactory;
-
-import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.*;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.CONNECTION_TIME_OUT;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.HTTP_X_PASSWORD;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.HTTP_X_USERNAME;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.METHOD;
+import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.READ_TIME_OUT;
 
 /**
  * @author  Babar

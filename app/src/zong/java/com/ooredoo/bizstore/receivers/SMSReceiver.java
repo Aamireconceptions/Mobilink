@@ -19,7 +19,7 @@ import com.ooredoo.bizstore.utils.Logger;
 public class SMSReceiver extends BroadcastReceiver
 {
 
-    private final static String SERVICE_NUM = "5005";
+    private final static String SERVICE_NUM = "7700";
     @Override
     public void onReceive(Context context, Intent intent)
     {
