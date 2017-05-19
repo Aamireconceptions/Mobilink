@@ -43,11 +43,10 @@
     <uses-sdk tools:overrideLibrary="com.facebook"/>
 
     <application
-        android:name=".BizStore"
+        android:name="com.ooredoo.bizstore.BizStore"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
 
@@ -147,8 +146,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.HomeActivity_" />
             <intent-filter>
-
-               <!-- <action android:name="android.intent.action.VIEW"/>-->
+                <!--<action android:name="android.intent.action.VIEW"/>-->
 
                 <category android:name="android.intent.category.DEFAULT"/>
 
@@ -179,9 +177,9 @@
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.activities.HomeActivity_" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
         </activity>
 
         <activity
@@ -192,9 +190,9 @@
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.activities.HomeActivity_" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
         </activity>
 
 
@@ -205,9 +203,9 @@
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.activities.HomeActivity_" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
         </activity>
 
         <activity
@@ -215,9 +213,9 @@
             android:configChanges="locale|layoutDirection"
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.activities.HomeActivity_" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
         </activity>
 
 
@@ -228,9 +226,9 @@
             android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".ui.activities.HomeActivity_"
             android:screenOrientation="portrait">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.activities.HomeActivity_" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
         </activity>
 
 
@@ -290,7 +288,7 @@
                 <action android:name="com.android.vending.INSTALL_REFERRER"/>
             </intent-filter>
         </receiver>
-        
+
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService"
             android:enabled="true"
             android:exported="false"/>

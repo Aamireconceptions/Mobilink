@@ -17,14 +17,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
         android:layout_below="@+id/toolbar"
         android:background="@color/white">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_28sdp"
+            android:adjustViewBounds="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_45sdp"
             android:src="@drawable/jdb_logo"/>
 
         <TextView
@@ -46,8 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:gravity="center"
             android:text="@string/copyrights_text"
             android:textSize="12sp"/>

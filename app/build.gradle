@@ -140,7 +140,7 @@ repositories{
     mavenCentral()
     mavenLocal()
     flatDir{
-        dirs '/src/mobilink/libs'
+        dirs '/src/mobilink/libs', '/src/zong/libs'
     }
 }
 

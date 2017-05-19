@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -12,19 +11,16 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BuildConfig;
+import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
-import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
-import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
-import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static java.lang.String.valueOf;
 
 /**
@@ -41,8 +37,6 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     private Holder holder;
-
-    private int prevItem = -1;
 
     public boolean available = false;
 
@@ -101,21 +95,14 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
                         .setBackgroundResource(R.drawable.redeemed_ripple);
             }
 
-            if(BuildConfig.FLAVOR.equals("mobilink"))
-            {
-                FontUtils.setFontWithStyle(context, holder.tvDiscountAvailed, Typeface.BOLD);
-            }
+            FontUtils.setFontWithStyle(context, holder.tvDiscountAvailed, Typeface.BOLD);
 
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
         }
 
-        if(BuildConfig.FLAVOR.equals("mobilink")) {
-            holder.tvTimeStamp.setText(deal.date + " at " + deal.time);
-
-
-        }
+        holder.tvTimeStamp.setText(deal.date + " at " + deal.time);
 
         row.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,15 +140,12 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
         DealDetailActivity.selectedDeal = deal;
         Intent intent = new Intent();
         intent.setClass(context, DealDetailActivity.class);
-        intent.putExtra("generic_deal", deal);
-        context.startActivity(intent);*/
+        intent.putExtra("generic_deal", deal);*/
 
+        Intent intent = new Intent(context, DealDetailActivity.class);
 
-        Intent intent = new Intent();
-        intent.setClass(context, DealDetailActivity.class);
-        intent.putExtra("generic_deal", deal);
-        //intent.putExtra(CATEGORY, dealCategory);
-
+        intent.putExtra(AppConstant.ID, deal.id);
+        intent.putExtra("notification", true);
         context.startActivity(intent);
     }
 

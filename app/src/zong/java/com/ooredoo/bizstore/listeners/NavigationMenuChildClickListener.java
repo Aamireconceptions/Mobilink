@@ -71,7 +71,7 @@ public class NavigationMenuChildClickListener implements ExpandableListView.OnCh
 
                     case 4:
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse("http://econceptions.mobi/jazzdiscountbazarapp/privacypolicy"));
+                        intent.setData(Uri.parse("http://econceptions.mobi/zongbizstoreapp/privacypolicy/"));
                         activity.startActivity(intent);
                         break;
 
