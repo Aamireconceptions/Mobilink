@@ -264,7 +264,7 @@ public class MallDetailAdapter extends BaseExpandableListAdapter
             RelativeLayout rlHeader = (RelativeLayout) childView.findViewById(R.id.header);
             LinearLayout llFooter = (LinearLayout) childView.findViewById(R.id.footer);
 
-            if(BuildConfig.FLAVOR.equals("mobilink"))
+            if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("zong"))
             {
                 TextView tvValidity = (TextView) childView.findViewById(R.id.validity);
                 tvTitle.setVisibility(View.GONE);
