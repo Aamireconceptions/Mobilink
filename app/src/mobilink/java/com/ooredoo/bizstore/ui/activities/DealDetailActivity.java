@@ -105,11 +105,7 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
 {
     public String category;
     static String packageName;
-    public boolean showBanner = false;
 
-    private String qticketUrl = "https://www.q-tickets.com/";
-
-   // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
     ScrollView scrollView;
@@ -339,6 +335,8 @@ TextView tvBrochure;
         FontUtils.setFontWithStyle(this, btGetCode, Typeface.BOLD);
 
 
+        // if genericDeal is null that's mean user is visiting this
+        // activity either via push notification or deep link
         if(genericDeal == null) {
             DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
             dealDetailTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
@@ -424,8 +422,6 @@ TextView tvBrochure;
                 FontUtils.strikeThrough(tvPrices, discountedPrice + "  -  " + actualPrice,
                         actualPrice, getResources().getColor(R.color.slight_grey));
             }
-
-
 
             src = new Deal(deal);
             src.id = deal.id;
@@ -533,11 +529,6 @@ TextView tvBrochure;
             ImageView ivViews = (ImageView)  findViewById(R.id.iv_views);
             ivViews.setOnClickListener(this);
             tvView.setOnClickListener(this);
-
-            if(deal.isQticket == 1)
-            {
-                btGetCode.setText(R.string.get_qticket);
-            }
 
             Logger.print("businessId Deal,"+deal.businessId);
 

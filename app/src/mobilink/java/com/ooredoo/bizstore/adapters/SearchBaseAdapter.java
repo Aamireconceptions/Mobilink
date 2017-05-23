@@ -54,8 +54,6 @@ import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
  */
 public class SearchBaseAdapter extends BaseAdapter {
 
-    private Activity activity;
-
     private Context context;
 
     private int layoutResId;
@@ -78,8 +76,6 @@ public class SearchBaseAdapter extends BaseAdapter {
 
     public SearchBaseAdapter(Context context, int layoutResId, List<SearchResult> deals) {
         this.context = context;
-
-        this.activity = (Activity) context;
 
         this.layoutResId = layoutResId;
 

@@ -38,7 +38,7 @@ import com.ooredoo.bizstore.utils.MemoryCache;
 
 import java.util.List;
 
-/**
+/** Adapter for Most Redeemed and Recommended deals
  * Created by Babar on 12-Jan-16.
  */
 public class ViewedRatedAdapter extends BaseAdapter

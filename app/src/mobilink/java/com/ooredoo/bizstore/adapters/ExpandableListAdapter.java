@@ -25,7 +25,7 @@ import com.ooredoo.bizstore.views.CustomExpandableListView;
 import java.util.HashMap;
 import java.util.List;
 
-/**
+/** Adapter for Left Drawer menu
  * @author  Babar
  * @since 12-Jun-15.
  */

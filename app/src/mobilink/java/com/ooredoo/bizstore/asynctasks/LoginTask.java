@@ -38,7 +38,6 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
     public LoginTask(Context activity) {
 
         this.activity = activity;
-
     }
 
     @Override

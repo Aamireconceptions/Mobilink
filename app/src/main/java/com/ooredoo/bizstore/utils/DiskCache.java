@@ -57,6 +57,10 @@ public class DiskCache
 
     private DiskCache() {}
 
+    /**
+     * Request disk cache to initialize on the background thread
+     * @param context
+     */
     public void requestInit(Context context)
     {
         this.context = context;

@@ -135,13 +135,6 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
     }
 
     private void showDetail(GenericDeal deal) {
-        /*Deal recentDeal = new Deal(deal);
-        RecentViewedActivity.addToRecentViewed(recentDeal);
-        DealDetailActivity.selectedDeal = deal;
-        Intent intent = new Intent();
-        intent.setClass(context, DealDetailActivity.class);
-        intent.putExtra("generic_deal", deal);*/
-
         Intent intent = new Intent(context, DealDetailActivity.class);
 
         intent.putExtra(AppConstant.ID, deal.id);

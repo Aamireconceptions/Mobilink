@@ -5,6 +5,7 @@ import android.content.Context;
 import com.activeandroid.ActiveAndroid;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
+import com.facebook.LoggingBehavior;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -79,7 +80,6 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
-
     public void onCreate() {
 
         super.onCreate();
@@ -107,7 +107,7 @@ public class BizStore extends com.activeandroid.app.Application {
             });
 
             // FacebookSdk.setIsDebugEnabled(true);
-           //  FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
+            //FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
             if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("zong")) {
                 AppEventsLogger.activateApp(this);
             }

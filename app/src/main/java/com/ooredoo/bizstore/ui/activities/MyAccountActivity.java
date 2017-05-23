@@ -149,7 +149,7 @@ public class MyAccountActivity extends BaseActivity implements View.OnClickListe
             ivProfilePic.setImageBitmap(bitmap);
 
         } else {
-            int width = (int) convertDpToPixels(250);
+            int width = (int) convertDpToPixels(300);
             int height = width;
             ProfilePicDownloadTask profilePicDownloadTask = new ProfilePicDownloadTask(ivProfilePic, progressBar);
             profilePicDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));

@@ -25,13 +25,23 @@ import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.HTTP_X_USERNAME;
 import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.METHOD;
 import static com.ooredoo.bizstore.asynctasks.BaseAsyncTask.READ_TIME_OUT;
 
-/**
+/** Class responsible for all bitmaps related operations
  * @author  Babar
  * @since 15-Jun-15.
  */
 public class BitmapProcessor
 {
     HttpURLConnection connection;
+
+    /**
+     * Decode and downsize the bitmap from steam
+     * @param inputStream the buffered input stream of bitmap
+     * @param url Url of the bitmap
+     * @param reqWidth required width
+     * @param reqHeight required height
+     * @return bitmap
+     * @throws IOException
+     */
     public Bitmap decodeSampledBitmapFromStream(BufferedInputStream inputStream, URL url,
                                                 int reqWidth, int reqHeight) throws IOException {
         Bitmap bitmap;
@@ -103,6 +113,14 @@ public class BitmapProcessor
 
     }
 
+    /**
+     * Decodes bitmap from file
+     * @param pathName path of the file on disk
+     * @param reqWidth required width
+     * @param reqHeight required height
+     * @return bitmap
+     * @throws IOException
+     */
     public  Bitmap decodeSampledBitmapFromFile(String pathName, int reqWidth, int reqHeight) throws IOException {
         Bitmap bitmap;
 

@@ -17,7 +17,7 @@ import com.ooredoo.bizstore.ui.fragments.ShoppingFragment;
 import com.ooredoo.bizstore.ui.fragments.TopDealsFragment;
 import com.ooredoo.bizstore.utils.Logger;
 
-/**
+/** This adapter is creating all the tabs
  * @author Babar
  * @since 11-Jun-15.
  */

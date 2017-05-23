@@ -42,7 +42,7 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 import static java.lang.System.currentTimeMillis;
 
-/**
+/** This class fetches deals for all the fragments except home & shopping
  * @author Babar
  * @since 26-Jun-15.
  */
@@ -116,7 +116,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         return null;
     }
 
-
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
@@ -168,8 +167,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                             }
                         }
                     }
-
-                    Logger.print("Testing :"+jsonElement.toString());
 
                     Response response = gson.fromJson(jsonElement, Response.class);
 
@@ -225,8 +222,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                     dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
                 }
             } else
-            if(sortColumn.equals("views"))
+            if(sortColumn.equals("views")) // views are for brand
             {
+                // This block will never get call because we are
+                // not showing brands in the app
                 Gson gson = new Gson();
 
                 BrandResponse brand = gson.fromJson(result, BrandResponse.class);
@@ -285,7 +284,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-
 
         if(category.equals("nearby"))
         {

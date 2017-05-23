@@ -375,6 +375,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         }
     }
 
+    /**
+     * Render the most redeem and recommended deals layout
+     * @param dods
+     */
     public void addMostViewedAndTopRated(List<DOD> dods)
     {if(isAdded())
     {

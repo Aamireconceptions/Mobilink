@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
+/** This asynctask is called when get discount button is clicked
  * Created by Babar on 25-Jun-15.
  */
 public class VerifyMerchantCodeTask extends BaseAsyncTask<String, Void, String>

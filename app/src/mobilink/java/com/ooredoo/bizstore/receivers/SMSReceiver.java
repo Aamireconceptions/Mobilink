@@ -13,7 +13,7 @@ import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 
-/**
+/** Use for auto reading the pincode from the inbox
  * Created by Babar on 06-Oct-15.
  */
 public class SMSReceiver extends BroadcastReceiver

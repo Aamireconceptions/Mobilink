@@ -39,7 +39,7 @@
     <string name="help_answer6a">User can deactivate the service by simply clicking on ‘Unsubscribe’ button from Main Menu given on the home screen. Once done, the user will have to login again if he wishes to use the smartphone application.</string>
     <string name="num_confirm_text">Please enter your Jazz Number.</string>
     <string name="qatar_code">92</string>
-    <string name="error_invalid_num">Please enter a valid Mobile Number</string>
+    <string name="error_invalid_num">Please enter a valid mobile number</string>
     <string name="subscription_charges">Avail discounts closest to you where ever you are! Deals up to 60% off on food, shopping &amp; entertainment! Download app Now and avail 15 day absolutely free trail!</string>
     <string name="food_dining">Food Deals</string>
     <string name="special_discounts">Special Discounts</string>

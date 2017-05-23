@@ -26,7 +26,8 @@ import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 import static java.lang.System.currentTimeMillis;
 
-/**
+/** This is the async task for fetching MostRedeemed
+ * and recommended deals
  * Created by Babar on 13-Jan-16.
  */
 public class ViewedRatedTask extends BaseAsyncTask<String, Void, String>

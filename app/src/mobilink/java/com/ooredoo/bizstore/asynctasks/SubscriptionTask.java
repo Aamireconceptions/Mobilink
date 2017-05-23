@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 
-/**
+/** Responsible for subscription of the msisdn.
  * @author Pehlaj Rai
  * @since 09-Jul-15
  */

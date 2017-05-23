@@ -33,7 +33,8 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 import static java.lang.System.currentTimeMillis;
 
-/**
+/** This class was previously being used for shoppingFragment
+ * because the deals was shown in gridview.
  * @author Babar
  * @since 18-Jun-15.
  */

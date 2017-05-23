@@ -21,7 +21,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 
-/**
+/** This class will only be called when user is visiting the deal detail
+ * either via Push Notification or from a deep link.
  * @author Babar
  * @since 26-Jun-15.
  */
@@ -126,7 +127,6 @@ public class DealDetailTask extends BaseAsyncTask<String, Void, String> {
                 inputStream.close();
             }
         }
-
         return result;
     }
 }

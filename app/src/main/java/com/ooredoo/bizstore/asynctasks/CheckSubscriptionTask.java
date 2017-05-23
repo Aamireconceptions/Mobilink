@@ -9,7 +9,7 @@ import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.MainActivity;
+import com.ooredoo.bizstore.ui.activities.MainActivity_;
 import com.ooredoo.bizstore.utils.Logger;
 
 import java.io.IOException;
@@ -19,7 +19,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.LOGIN_STATUS;
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.PASSWORD;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.updateVal;
 
 /**
@@ -82,7 +81,7 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
 
                 updateVal(activity, LOGIN_STATUS, false);
                 activity.finish();
-                activity.startActivity(new Intent(activity, MainActivity.class));
+                activity.startActivity(new Intent(activity, MainActivity_.class));
             }
 
         }

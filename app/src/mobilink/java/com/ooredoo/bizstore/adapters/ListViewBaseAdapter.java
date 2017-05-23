@@ -44,7 +44,8 @@ import java.util.List;
 
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 
-/**
+/** The main adapter that is used to show all the deals
+ * in TabLayout fragments i.e food, shopping etc
  * @author Babar
  * @since 19-Jun-15.
  */
@@ -71,10 +72,6 @@ public class ListViewBaseAdapter extends BaseAdapter {
     private String category;
 
     private int reqWidth, reqHeight;
-
-    private int prevItem = -1;
-
-    public boolean doAnimate = true;
 
     public GenericDeal genericDeal;
 
@@ -179,6 +176,8 @@ public class ListViewBaseAdapter extends BaseAdapter {
             Logger.print("getView");
             final GenericDeal deal = getItem(position);
 
+            // If isHeader is TRUE this means that the current fragment has filter applied
+            // and instead of adding normal deal inflate and add a header
             if(deal.isHeader)
             {
                 final HomeActivity homeActivity = (HomeActivity) activity;

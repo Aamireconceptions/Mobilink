@@ -5,6 +5,7 @@ import com.ooredoo.bizstore.utils.DiskCache;
 import java.io.IOException;
 
 /**
+ * A helper class for all disk cache requests that run on background
  * Created by Babar on 12-Aug-15.
  */
 public class DiskCacheTask extends BaseAsyncTask<Integer, Void, Void>

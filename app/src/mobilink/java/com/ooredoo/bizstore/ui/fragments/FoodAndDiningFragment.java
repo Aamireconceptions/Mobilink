@@ -334,6 +334,10 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         listView.setSelection(0);
     }
 
+    /**
+     * This will setup the header needs to be displayed in ListViewAdapter
+     * only if user has selected any filter from the right drawer layout.
+     */
     public void filterTagUpdate()
     {
         String filter = "";
@@ -389,6 +393,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         }
         else
         {
+            // This code will never get called as we are not showing brands
             if(!filter.isEmpty())
             {
                 adapter.subcategoryParent = CategoryUtils.CT_FOOD;

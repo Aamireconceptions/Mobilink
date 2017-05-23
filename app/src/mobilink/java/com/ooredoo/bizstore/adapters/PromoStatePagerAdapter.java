@@ -71,8 +71,10 @@ public class PromoStatePagerAdapter extends FragmentStatePagerAdapter
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        // Yet another bug in FragmentStatePagerAdapter that destroyItem is called on fragment that hasnt been added. Need to catch
+    public void destroyItem(ViewGroup container, int position, Object object)
+    {
+        // Yet another bug in FragmentStatePagerAdapter that destroyItem
+        // is called on fragment that hasnt been added. Need to catch
         try {
             super.destroyItem(container, position, object);
         } catch (IllegalStateException ex) {

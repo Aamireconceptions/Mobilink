@@ -155,6 +155,7 @@ public class FBUtils
                         .setContentDescription(contentDescription)
                         .setImageUrl(Uri.parse(imageUrl))
                         .setContentUrl(Uri.parse(contentUrl));
+
                 Logger.logV("FbUtils", "ImageUrl:"+imageUrl);
 
                 if (placeId != null) {

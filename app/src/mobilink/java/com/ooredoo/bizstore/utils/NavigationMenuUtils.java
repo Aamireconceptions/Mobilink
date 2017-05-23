@@ -32,7 +32,7 @@ import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.profilePicture;
 import static java.lang.String.valueOf;
 
-/**
+/** Helper class for setting up the left drawer menu
  * @author Babar
  * @since 12-Jun-15.
  */
@@ -206,8 +206,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
-        int width = (int) Converter.convertDpToPixels(600);
-        int height = (int) Converter.convertDpToPixels(600);
+        int width = (int) Converter.convertDpToPixels(300);
+        int height = (int) Converter.convertDpToPixels(300);
 
         if(bitmap != null) {
 
@@ -215,9 +215,11 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
             profilePicture.setImageBitmap(bitmap);
         } else {
-            ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
-            ProfilePicDownloadTask bitmapTask = new ProfilePicDownloadTask(profilePicture, progressBar);
-            bitmapTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
+            if(!BizStore.username.isEmpty()) {
+                ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
+                ProfilePicDownloadTask bitmapTask = new ProfilePicDownloadTask(profilePicture, progressBar);
+                bitmapTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
+            }
         }
     }
 
@@ -248,6 +250,10 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         }
     }
 
+    /**
+     * fill up the data structure to be passed
+     * to the expandableListView.
+     */
     private void prepareNavigationMenuData() {
         groupList = new ArrayList<>();
 

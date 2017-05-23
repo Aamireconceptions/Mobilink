@@ -1,30 +1,24 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
-/**
+/** This class will get the full details for the deals
+ * Also the redeem button and redeem count of the deal
+ * will only be shown after this thread finish its work
  * Created by Babar on 03-Nov-15.
  */
 public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
@@ -81,6 +75,9 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
                     activity.onHaveData(dealMisc.genericDeal);
 
                     return;
+
+                    // If some day you were asked to bring back the similar
+                    // and nearby deals then uncomment the code below.
 
                     /*similarDeals.clear();
                     nearbyDeals.clear();

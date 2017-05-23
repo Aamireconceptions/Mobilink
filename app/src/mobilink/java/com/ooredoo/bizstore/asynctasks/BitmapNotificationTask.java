@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.BitmapProcessor;
 import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.Logger;
@@ -12,27 +11,10 @@ import com.ooredoo.bizstore.utils.NotificationUtils;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManagerFactory;
-
-/**
+/** This is used to download the image and show as notification
  * Created by Babar on 31-Jul-15.
  */
 public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]>
@@ -130,7 +112,9 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
     {
         super.onPostExecute(bitmaps);
 
-        if(bitmaps != null)
+        NotificationUtils.showNotification(context, title, desc, id, bitmaps, type);
+
+        /*if(bitmaps != null)
         {
             NotificationUtils.showNotification(context, title, desc, id, bitmaps, type);
         }
@@ -139,6 +123,6 @@ public class BitmapNotificationTask extends BaseAsyncTask<String, Void, Bitmap[]
             NotificationUtils.showNotification(context, title, desc, id, null, type);
 
             Logger.print("Failed to download notification img");
-        }
+        }*/
     }
 }

@@ -18,7 +18,7 @@ import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
-/**
+/** Listen events for all the filter aka right drawer layout
  * @author Babar
  * @since 23-Jun-15.
  */
@@ -204,16 +204,6 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 break;
 
-            case R.id.discount_checkbox:
-
-                setCheckboxSelected(v);
-
-                activity.doApplyDiscount = v.isSelected();
-
-                activity.rangeSeekBar.setEnabled(v.isSelected());
-
-                break;
-
             case R.id.cb_highest_discount:
 
                 activity.doApplyDiscount = ((CheckBox) v).isChecked();
@@ -221,50 +211,11 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 break;
 
+            // This filter is used to sort deals on the base of nearest first.
             case R.id.cb_distance:
 
                 activity.doApplyDistance = ((CheckBox) v).isChecked();
                 Logger.logI("DISTANCE_FILTER", String.valueOf(activity.doApplyDistance));
-
-                break;
-
-            case R.id._5:
-
-                activity.distanceFilter = "5";
-
-                setDistanceSelected(v);
-
-                break;
-
-            case R.id._10:
-
-                activity.distanceFilter = "10";
-
-                setDistanceSelected(v);
-
-                break;
-
-            case R.id._20:
-
-                activity.distanceFilter = "20";
-
-                setDistanceSelected(v);
-
-                break;
-
-            case R.id._35:
-
-                activity.distanceFilter = "35";
-
-                setDistanceSelected(v);
-
-                break;
-
-            case R.id._50:
-
-                activity.distanceFilter = "50";
-
-                setDistanceSelected(v);
 
                 break;
         }
@@ -288,20 +239,10 @@ public class FilterOnClickListener implements View.OnClickListener {
         activity.drawerLayout.openDrawer(GravityCompat.END);
 
         if(category > 0) {
-            if(category == CategoryUtils.CT_NEARBY) {
-                activity.findViewById(R.id.distance_layout).setVisibility(View.VISIBLE);
-                activity.findViewById(R.id.line1).setVisibility(View.VISIBLE);
-            } else {
-                activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
-                activity.findViewById(R.id.line1).setVisibility(View.GONE);
-            }
-
             TextView tvCategory = (TextView) activity.findViewById(R.id.category_selection);
             String sub = activity.getString(R.string.sub).toUpperCase();
             String all = activity.getString(R.string.all).toUpperCase();
             String categories = activity.getString(R.string.categories).toUpperCase();
-
-
 
             if(category == CategoryUtils.CT_NEARBY || category == CategoryUtils.CT_TOP)
             {

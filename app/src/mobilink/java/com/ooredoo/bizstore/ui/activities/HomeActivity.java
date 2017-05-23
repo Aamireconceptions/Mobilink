@@ -114,8 +114,11 @@ import static com.ooredoo.bizstore.AppData.searchSuggestions;
 import static com.ooredoo.bizstore.utils.NetworkUtils.hasInternetConnection;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
+/**
+ * The main viewpager that holds all the fragments like home, food, top deals
+ */
 @EActivity
-public class HomeActivity extends AppCompatActivity implements OnClickListener, OnKeyListener,
+public class HomeActivity extends AppCompatActivity implements OnClickListener,
         OnFilterChangeListener, TextView.OnEditorActionListener, OnSubCategorySelectedListener,
         LocationListener {
 
@@ -154,9 +157,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     @ViewById(R.id.expandable_list_view)
     ExpandableListView expandableListView;
-
-    @ViewById(R.id.discount_seekbar)
-    public RangeSeekBar<Integer> rangeSeekBar;
 
     @ViewById(R.id.search_deals)
     public TextView searchDeals;
@@ -198,17 +198,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       /* AppLinkData.fetchDeferredAppLinkData(this, new AppLinkData.CompletionHandler()
-        {
-
-            @Override
-            public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
-                appLinkData.
-            }
-        });*/
-
-        ActiveAndroid.initialize(getApplication());
-
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
         String secret = SharedPrefUtils.getStringVal(this, "secret");
@@ -228,11 +217,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         PROFILE_PIC_URL = BaseAsyncTask.SERVER_URL + "uploads/user/" + BizStore.username + ".jpg";
 
-        CategoryUtils.setUpSubCategories(this);
         overrideFonts();
         setContentView(R.layout.activity_home);
+
         CategoryUtils.setUpSubCategories(this);
+
         init();
+
         registeredWithGcmIfRequired();
 
         new SearchKeywordsTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -363,6 +354,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
         navigationMenuUtils.onResume();
 
+        // Hockey app crash checker
         if(BuildConfig.DEBUG) {
             checkForCrashes();
         }
@@ -390,8 +382,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         acSearch.setThreshold(1);
 
         acSearch.addTextChangedListener(new SearchTextWatcher());
-
-        acSearch.setOnKeyListener(this);
 
         acSearch.setOnEditorActionListener(this);
     }
@@ -472,12 +462,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @ViewById(R.id.done)
     TextView tvDone;
 
-    @ViewById(R.id.sort_by)
-    TextView tvSortBy;
-
-    @ViewById(R.id.rating_checkbox)
-    TextView tvRating;
-
     @ViewById(R.id.rating_1)
     TextView tvRating1;
 
@@ -493,30 +477,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     @ViewById(R.id.rating_5)
     TextView tvRating5;
 
-    @ViewById(R.id._5)
-    TextView tvDistance5;
-
-    @ViewById(R.id._10)
-    TextView tvDistance10;
-
-    @ViewById(R.id._20)
-    TextView tvDistance20;
-
-    @ViewById(R.id._35)
-    TextView tvDistance35;
-
-    @ViewById(R.id._50)
-    TextView tvDistance50;
-
-    @ViewById(R.id.discount_checkbox)
-    TextView tvDiscount;
-
     @ViewById(R.id.cb_highest_discount)
     CheckBox cbHighestDiscount;
 
     @ViewById(R.id.cb_distance)
     CheckBox cbDistance;
 
+    /**
+     * Initialize the right drawer i.e filter layout
+     */
     private void initFilter() {
         FilterOnClickListener clickListener = new FilterOnClickListener(this, 0);
 
@@ -529,31 +498,15 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
             tvDone.setBackgroundResource(R.drawable.white_btn_ripple);
         }
 
-        String sort = getString(R.string.sort).toUpperCase();
-        String by = getString(R.string.by).toUpperCase();
-
-        tvSortBy.setText(sort + " " + by, TextView.BufferType.SPANNABLE);
-
-        tvRating.setOnClickListener(clickListener);
         tvRating1.setOnClickListener(clickListener);
         tvRating2.setOnClickListener(clickListener);
         tvRating3.setOnClickListener(clickListener);
         tvRating4.setOnClickListener(clickListener);
         tvRating5.setOnClickListener(clickListener);
 
-        tvDistance5.setOnClickListener(clickListener);
-        tvDistance10.setOnClickListener(clickListener);
-        tvDistance20.setOnClickListener(clickListener);
-        tvDistance35.setOnClickListener(clickListener);
-        tvDistance50.setOnClickListener(clickListener);
-
-        tvDiscount.setOnClickListener(clickListener);
 
         cbHighestDiscount.setOnClickListener(clickListener);
         cbDistance.setOnClickListener(clickListener);
-
-        rangeSeekBar.setEnabled(false);
-        rangeSeekBar.setOnRangeSeekBarChangeListener(new DiscountOnSeekChangeListener(this));
 
         CategoryUtils.subCategories.clear();
         CategoryUtils.setUpSubCategories(this);
@@ -580,12 +533,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         ratingFilter = null;
 
         distanceFilter = null;
-
-        tvDistance5.setSelected(false);
-        tvDistance10.setSelected(false);
-        tvDistance20.setSelected(false);
-        tvDistance35.setSelected(false);
-        tvDistance50.setSelected(false);
 
         CategoryUtils.resetCheckboxes();
     }
@@ -701,7 +648,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
     protected void onPause() {
         super.onPause();
 
-        diskCache.requestFlush();
+      //  diskCache.requestFlush();
     }
 
     public void hideSearchResults() {
@@ -845,7 +792,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
         locationUpdateTask.execute(lat, lng);
 
-        for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
+        // This code used to tell all the fragments that
+        // the user location has been updated so that they can
+        // update themselves to show updated distance and deals
+        // But now by default we show the newest deals first
+        // so no need any more
+        /*for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
         {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
                     +R.id.home_viewpager + ":" + i);
@@ -856,7 +808,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
                 ((LocationChangeListener) fragment).onLocationChanged();
             }
-        }
+        }*/
     }
 
     public void setSearchCheckboxSelection() {
@@ -943,6 +895,11 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
     private Fragment currentFragment;
 
+    /**
+     * This helps in determining which fragment is currently
+     * user viewing and can help in interfacing calls etc
+     * @param currentFragment
+     */
     public void setCurrentFragment(Fragment currentFragment) {
         this.currentFragment = currentFragment;
     }
@@ -1066,17 +1023,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         }
     }
 
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        int viewId = v.getId();
-        if(viewId == R.id.ac_search) {
-            if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                //performSearch(acSearch.getText().toString().trim());
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void performSearch(String keyword) {
         if(hasInternetConnection(this)) {

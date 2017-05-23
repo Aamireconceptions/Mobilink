@@ -45,6 +45,10 @@ public class CategoryUtils {
 
     public static final List<SubCategory> subCategories = new ArrayList();
 
+    /**
+     * Initialize the subcategories to be used through out the app
+     * @param activity
+     */
     public static void setUpSubCategories(Activity activity) {
 
         if(subCategories.size() == 0) {
@@ -246,17 +250,5 @@ public class CategoryUtils {
         {
             s.isSelected = false;
         }
-    }
-
-    public static void uncheckCheckBoxes(Activity activity)
-    {
-        for(SubCategory sc : subCategories) {
-
-                CheckBox checkBox = (CheckBox) activity.findViewById(sc.checkBoxId);
-
-                checkBox.setChecked(false);
-                checkBox.setSelected(false);
-
-            }
     }
 }
