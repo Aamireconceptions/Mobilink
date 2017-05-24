@@ -49,7 +49,7 @@ android {
             storePassword 'zongbizstore'
         }
     }
-    compileSdkVersion 22
+
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.ooredoo.bizstore"
@@ -93,6 +93,7 @@ android {
 
     productFlavors {
         telenor {
+            compileSdkVersion 22
             applicationId "com.telenor.bizstore"
             versionName "1.1"
             buildConfigField "String", "BASE_URL", "\"http://telenor.bizstore.com.pk/\""
@@ -100,6 +101,7 @@ android {
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "5730f78d81ec4ad5a734d9f9ffdb2e18"]
         }
         ooredoo {
+            compileSdkVersion 22
             applicationId "com.ooredoobizstore"
             versionName = "1.2.0"
             signingConfig signingConfigs.OoredooBizstore
@@ -107,6 +109,7 @@ android {
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "58b4efad8e3248c8b5232d705e0d5781"]
         }
         dealionare {
+            compileSdkVersion 22
             applicationId "mobi.econceptions.dealionare"
             versionName = "1.0"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "4e8fc3ee285640c2ab08942dac59ae9a"]
@@ -115,23 +118,37 @@ android {
             minSdkVersion 14
             compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
-            versionName = "2.2.1"
-            versionCode = 25
+            versionName = "2.2.2"
+            versionCode = 26
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "2acc48ed8b70415a96aa62db6ae3d0aa"]
             signingConfig signingConfigs.JazzDiscountBazar
         }
+
         ufone {
+            compileSdkVersion 22
             applicationId "com.ufone.bizstore"
             versionName = "1.0"
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "44cc637273d64dcba2bc7fb792de3746"]
         }
         zong {
+            compileSdkVersion 22
             minSdkVersion 14
             applicationId "com.zong.bizstore"
             versionName = "1.0"
             versionCode = 2
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "4e8fc3ee285640c2ab08942dac59ae9a"]
             signingConfig signingConfigs.ZongBizStore
+        }
+
+        motoMobilink {
+            minSdkVersion 14
+            compileSdkVersion 25
+            targetSdkVersion 25
+            applicationId "pk.com.mobilink.bizstore"
+            versionName = "2.2.1"
+            versionCode = 25
+            manifestPlaceholders = [HOCKEYAPP_APP_ID: "2acc48ed8b70415a96aa62db6ae3d0aa"]
+            signingConfig signingConfigs.JazzDiscountBazar
         }
     }
 }
@@ -150,6 +167,7 @@ dependencies {
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
+    motoMobilinkCompile 'com.android.support:support-v4:23.0.0'
     compile 'com.android.support:design:22.2.0'
     // compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:support-v13:22.2.0'

@@ -61,22 +61,25 @@ public class BizStore extends com.activeandroid.app.Application {
     ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+
     public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+
     public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+
     public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/OpenSans-Regular.ttf";
+            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
@@ -92,7 +95,7 @@ public class BizStore extends com.activeandroid.app.Application {
         }
         context = this;
         if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("ooredoo")
-                || BuildConfig.FLAVOR.equals("zong"))
+                || BuildConfig.FLAVOR.equals("zong") || BuildConfig.FLAVOR.equals("motoMobilink"))
         {
             FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
                     {
@@ -108,7 +111,9 @@ public class BizStore extends com.activeandroid.app.Application {
 
             // FacebookSdk.setIsDebugEnabled(true);
             //FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
-            if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("zong")) {
+            if(BuildConfig.FLAVOR.equals("mobilink")
+                    || BuildConfig.FLAVOR.equals("zong")
+                    || BuildConfig.FLAVOR.equals("motoMobilink")) {
                 AppEventsLogger.activateApp(this);
             }
         }

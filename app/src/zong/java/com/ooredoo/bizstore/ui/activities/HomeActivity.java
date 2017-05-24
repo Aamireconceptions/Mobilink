@@ -842,10 +842,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
         SharedPrefUtils.updateVal(this, "lat", (float) lat);
         SharedPrefUtils.updateVal(this, "lng", (float) lng);
 
-        LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
-        locationUpdateTask.execute(lat, lng);
+        if(!BizStore.username.isEmpty()) {
+            LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
+            locationUpdateTask.execute(lat, lng);
+        }
 
-        for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
+       /* for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
         {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
                     +R.id.home_viewpager + ":" + i);
@@ -856,7 +858,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener, 
 
                 ((LocationChangeListener) fragment).onLocationChanged();
             }
-        }
+        }*/
     }
 
     public void setSearchCheckboxSelection() {

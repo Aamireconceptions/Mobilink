@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:gravity="center_vertical|left"
+        android:padding="@dimen/_16sdp">
+
+        <RelativeLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            >
+
+            <!--<com.ooredoo.bizstore.RoundedImageView
+                android:id="@+id/dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:src="@drawable/avatar"/>-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/avatar"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/white"/>
+
+            <ProgressBar
+                android:id="@+id/pbProfilePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:text="Guest"
+                android:textColor="@android:color/primary_text_light" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+974 434 9900"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@android:color/primary_text_light"
+                android:visibility="gone"/>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/app_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableLeft="@drawable/ic_home"
+        android:gravity="left|center_vertical"
+        android:padding="@dimen/_15sdp"
+        android:text="@string/home"
+        android:textColor="@android:color/primary_text_light"
+        android:background="@drawable/item_selector_light"/>
+
+    <TextView
+        android:id="@+id/my_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableLeft="@drawable/ic_favourite"
+        android:gravity="left|center_vertical"
+        android:padding="@dimen/_15sdp"
+        android:text="@string/my_favorites"
+        android:textColor="@android:color/primary_text_light"
+        android:background="@drawable/item_selector_light"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/redeem_deals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableLeft="@drawable/ic_deal_tag"
+        android:gravity="left|center_vertical"
+        android:padding="@dimen/_15sdp"
+        android:text="@string/redeemed_deals"
+        android:textColor="@android:color/primary_text_light"
+        android:visibility="gone"
+        android:background="@drawable/item_selector_light"/>
+
+    <TextView
+        android:id="@+id/recommended"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_selector_light"
+        android:drawableLeft="@drawable/ic_recommended"
+        android:drawablePadding="@dimen/_12sdp"
+
+        android:gravity="left|center_vertical"
+        android:padding="@dimen/_15sdp"
+        android:text="@string/recommended"
+        android:textColor="@android:color/primary_text_light" />
+
+    <TextView
+        android:id="@+id/recent_searches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableLeft="@drawable/ic_recent_searches"
+        android:gravity="left|center_vertical"
+
+        android:padding="@dimen/_16sdp"
+        android:text="@string/recent_searches"
+        android:textColor="@android:color/primary_text_light"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/rate_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_12sdp"
+        android:drawableLeft="@drawable/ic_rate"
+        android:gravity="left|center_vertical"
+
+        android:padding="@dimen/_15sdp"
+        android:text="@string/rate_us"
+        android:textColor="@android:color/primary_text_light"
+        android:background="@drawable/item_selector_light"/>
+
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+>
+
+    <LinearLayout
+        android:id="@+id/cat_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_12sdp"
+        android:background="@drawable/heading_bg">
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fashion Deals"
+            android:textColor="@color/heading_gray"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:layout_gravity="center"
+        app:columnCount="2"
+        app:useDefaultMargins="false"
+        app:alignmentMode="alignBounds"
+         />
+
+</LinearLayout>

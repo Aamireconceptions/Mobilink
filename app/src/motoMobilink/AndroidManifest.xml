@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.ooredoo.bizstore"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!--<uses-permission android:name="android.permission.CAMERA"/>-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
+
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>-->
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+
+    <uses-permission android:name="com.ooredoo.bizstore.permission.C2D_MESSAGE"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!--<uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>-->
+    <!--<uses-permission android:name="android.permission.READ_CONTACTS"/>-->
+    <!--<uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>-->
+    <!--<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>-->
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
+
+
+    <!-- Don't require camera, as this requires a rear camera. This allows it to work on the Nexus 7 -->
+    <!--<uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>-->
+    <!-- TODO replace above two with next line after Android 4.2 -->
+    <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
+    <!--<uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
+    <uses-feature android:name="android.hardware.screen.landscape"/>
+    <uses-feature android:name="android.hardware.wifi" android:required="false"/>-->
+    <!-- This excludes Google TV, which is unfortunately included by virtue of not requiring a camera -->
+    <!--<uses-feature android:name="android.hardware.touchscreen"/>-->
+
+    <uses-sdk tools:overrideLibrary="com.facebook"/>
+
+    <application
+        android:name=".BizStore"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="fe18f629dd6b0c94e3c9b1e0cfe51a40deafa426"
+            />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
+        <provider
+            android:authorities="@string/fb_authority"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name"/>
+
+
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}"/>
+
+        <!-- Register AnalyticsReceiver and AnalyticsService to support background
+       dispatching on non-Google Play devices. -->
+        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
+            </intent-filter>
+
+        </receiver>
+
+        <service android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <!-- metadata for version and database name -->
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="ooredoo_bizstore.db"/>
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1"/>
+
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.ooredoo.bizstore.model.SearchItem, com.ooredoo.bizstore.model.Notification,
+            com.ooredoo.bizstore.model.Deal, com.ooredoo.bizstore.model.RecentItem" />
+
+        <!--<meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value=" AIzaSyD8thjWWw0Stqgh_dmg8JUFJCufr3AsXw0"/>-->
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_debug_api_key"/>
+
+        <activity
+            android:name=".ui.activities.MainActivity_"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".ui.activities.HomeActivity_"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan|adjustNothing"
+            android:screenOrientation="portrait">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".ui.activities.DealDetailActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName=".ui.activities.HomeActivity_"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
+            <intent-filter>
+                <!--<action android:name="android.intent.action.VIEW"/>-->
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!--<action android:name="com.ooredoo.bizstore.deal_detail"/>-->
+
+                <!--<data
+                    android:scheme="http"
+                    android:host="@string/host"
+                    android:pathPrefix="/deal_detail"
+                    android:pathPattern=".*"/>-->
+
+                <data
+                    android:scheme="http"
+                    android:host="@string/host"
+                    android:pathPrefix="/deal_detail"/>
+
+            </intent-filter>
+        </activity>
+
+
+
+        <activity
+            android:name=".ui.activities.AboutUsActivity_"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/About_Us"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity_"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
+        </activity>
+
+        <activity
+            android:name=".ui.activities.MyAccountActivity_"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/my_account"
+            android:windowSoftInputMode="adjustResize"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity_"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
+        </activity>
+
+
+        <activity
+            android:name=".ui.activities.NotificationsActivity_"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/my_notifications"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.HomeActivity_"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
+        </activity>
+
+        <activity
+            android:name=".ui.activities.MallDetailActivity"
+            android:configChanges="locale|layoutDirection"
+            android:parentActivityName=".ui.activities.HomeActivity_"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
+        </activity>
+
+
+        <activity
+            android:name=".ui.activities.HelpActivity_"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/help"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ui.activities.HomeActivity_"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
+        </activity>
+
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <category android:name="com.ooredoo.bizstore"/>
+            </intent-filter>
+
+        </receiver>
+
+        <service
+            android:name="com.ooredoo.bizstore.services.MyGcmListenerService"
+            android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+
+            </intent-filter>
+
+        </service>
+
+        <service
+            android:name="com.ooredoo.bizstore.services.MyInstanceIDListenerService"
+            android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+
+            </intent-filter>
+
+        </service>
+
+
+        <receiver android:name="com.ooredoo.bizstore.receivers.SMSReceiver">
+
+            <intent-filter>
+
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+
+            </intent-filter>
+
+        </receiver>
+
+        <!-- Used for Google Play Store Campaign Measurement-->
+        <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <activity
+            tools:replace="android:parentActivityName"
+            android:name=".ui.activities.RedeemedDealsActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/redeemed_deals"
+            android:parentActivityName=".ui.activities.HomeActivity_"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity_" />
+        </activity>
+
+    </application>
+
+</manifest>

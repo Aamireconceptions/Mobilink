@@ -1,0 +1,103 @@
+<resources>
+    <string name="app_name">Jazz Discount Bazar</string>
+    <string name="slide_2_text_1">MOVIES, CINEMAS, EVENTS</string>
+    <string name="slide_2_text_2">&amp; ENTERTAINMENT</string>
+    <string name="slide_2_text_3">ON YOUR FINGER TIPS</string>
+    <string name="slide_3_text_1">SPAS &amp; SALONS</string>
+    <string name="slide_3_text_2">SPORTS &amp; FITNESS</string>
+    <string name="slide_3_text_3">&amp; MUCH MORE!</string>
+    <string name="help_question1">What is Jazz Discount Bazar Service all about?</string>
+    <string name="help_answer1"><![CDATA[Jazz Discount Bazar is an SMS and Mobile Application based service which provides a platform to view best Deals & Discounts on Top Brands in Pakistan. With major brands on-board ranging from fashion & lifestyle to health & fitness, Shopping, Restaurants and much more, Discount Bazar has it All!\nJazz Discount Bazar also offers a variety of Exclusive Deals available to Discount Bazar users only who can later avail them from the respective stores/outlets via discount redemption process.]]></string>
+    <string name="help_question2">What do I get from Jazz Discount Bazar?</string>
+    <string name="help_answer2"><![CDATA[Jazz Discount Bazar users get Exclusive Deals & Discounts along with latest updates of the related categories. The user can also search any business of their liking and get the contact details. The categories for which deals & updates are offered are as follows:
+    \n\t\t1. Top Deals
+    \n\t\t2. Food Deals
+    \n\t\t3. Shopping and Fashion
+    \n\t\t4. Ladies Section
+    \n\t\t5. Health and Fitness
+    \n\t\t6. Education
+    \n\t\t7. Entertainment]]></string>
+    <string name="help_question3">How can a user subscribe to Jazz Discount Bazar?</string>
+    <string name="help_answer3">User can subscribe to Jazz Discount Bazar via either of the two mediums:</string>
+    <string name="help_answer3a">1. <b>SMS:</b> User must send “SUB” to 5005. Once sent, the user will get a message confirming successful subscription.\nPrepaid Subscribers will be charged at Rs. 8.36/week inclusive of tax.\nPostpaid Subscribers will be charged at Rs. 35.85/month inclusive of tax.\nIf the user has already subscribed to the service through Smartphone Application, he will not be charged again.</string>
+    <string name="help_answer3b">2. <b>Smart Phone Application:</b>
+\n\t\ti. User downloads the Jazz Discount Bazar smartphone application from Jazz App Store.
+\n\t\tii. User enters his Jazz Mobile Number to login.
+\n\t\tiii. On successful login, he becomes the subscriber and is charged Rs. 8.36/week (Prepaid) or Rs. 35.85/month (Postpaid) for the service.
+\n\tiv. However, in case the user has already subscribed to the service through SMS, he will not be charged again.</string>
+    <string name="help_question4">What are the Smartphone Application Charges?</string>
+    <string name="help_answer4">Upon successful application installation &amp; login, the user will be charged are Rs. 8.36/week (Prepaid) or Rs. 35.85/month (Postpaid). However, the user is not charged on downloading the smartphone application.</string>
+    <string name="help_question5">How can a User Get a Discount?</string>
+    <string name="help_answer5">The User can get the discount through following steps:</string>
+    <string name="help_answer5a">Step 1: User views the deal on APP.
+    \nStep 2: User will have to click on Get Discount Button. (Only for Exclusive Deals)
+    \nStep 3: Congratulations. You have availed the discount.</string>
+    <string name="help_answer5b">i.	Merchant can enter the code for User on their mobile.
+    \nii. Merchant can share the code with User.
+    \niii. Merchant codes will be put on display in their shops and User can enter it himself.</string>
+    <string name="help_question6">How can a user Unsubscribe from this service?</string>
+    <string name="help_answer6a">User can deactivate the service by simply clicking on ‘Unsubscribe’ button from Main Menu given on the home screen. Once done, the user will have to login again if he wishes to use the smartphone application.</string>
+    <string name="num_confirm_text">Please enter your Jazz Number.</string>
+    <string name="qatar_code">92</string>
+    <string name="error_invalid_num">Please enter a valid mobile number</string>
+    <string name="subscription_charges">Avail discounts closest to you where ever you are! Deals up to 60% off on food, shopping &amp; entertainment! Download app Now and avail 15 day absolutely free trail!</string>
+    <string name="food_dining">Food Deals</string>
+    <string name="special_discounts">Special Discounts</string>
+    <string name="pakistani">Pakistani</string>
+    <string name="hot_deals">Hot Deals</string>
+    <string name="restaurants_menu">Restaurants and Menu</string>
+    <string name="shopping_speciality">Shopping and Fashion</string>
+    <string name="clothing">Clothing</string>
+    <string name="home_appliances">Home Appliances</string>
+    <string name="others">Others</string>
+    <string name="ladies_section">Ladies Section</string>
+    <string name="health_fitness">Health and Fitness</string>
+    <string name="beauty_fitness_tips">Beauty and Fitness Tips</string>
+    <string name="health_care_center">Health Care Center</string>
+    <string name="beauty_parlors">Beauty Parlors</string>
+    <string name="weight_gain_tips">Weight Gain Tips</string>
+    <string name="gyms">Gyms</string>
+    <string name="weight_loss_tips">Weight Loss Tips</string>
+    <string name="beauty_clinics">Beauty Clinics</string>
+    <string name="education">Education</string>
+    <string name="universities_institutes">Universities and Institutes</string>
+    <string name="colleges_schools">Colleges &amp; Schools</string>
+    <string name="tuition_centers">Tuition Centers</string>
+    <string name="day_care">Day Care &amp; Pre School</string>
+    <string name="overseas_consultants">Overseas Consultants</string>
+    <string name="cinemas">Cinemas</string>
+    <string name="talk_shows">Talk Shows and Alerts</string>
+    <string name="funny_sms">Funny Sms</string>
+    <string name="travel">Travel</string>
+    <string name="ladies">Ladies</string>
+    <string name="tips">Tips</string>
+    <string name="copyrights_text">© Copyright 2017 Jazz Discount Bazar Application\nAll rights reserved.</string>
+    <string name="city_selection_text">Please select your city.</string>
+    <string name="my_city">City</string>
+    <string name="un_sub_success">Dear User, you have successfully unsubscribed from Jazz Discount Bazar!</string>
+    <string name="Unsubscribe_Bizstore">Unsubscribe Jazz Discount Bazar</string>
+    <string name="unsub_details">By unsubscribing Jazz Discount Bazar, you will no longer get promotion or service alerts from application.</string>
+    <string name="TXT_DETAILS"><![CDATA[You have successfully signed in on Jazz Discount Bazar, discover deals, products and services closest to you where ever you are!]]></string>
+    <string name="sms_charges">Jazz Discount Bazar app will send a one time sms to verify your phone number.</string>
+    <string name="kids">Kids</string>
+    <string name="other_activities">Other Activities</string>
+    <string name="unsub_from_service">You have been Unsubscribed from Jazz Discount Bazar</string>
+    <string name="find_popular_venues">Get Promotions Near You</string>
+    <string name="get_restaurants_deals">Get Restaurant Deals</string>
+    <string name="discounts_on_fav_brands">Discounts on your favourite brands</string>
+    <string name="movies_cinemas_more">Movies, cinemas &amp; much more! </string>
+    <string name="host">jazzdiscountbazar.deal</string>
+    <string name="host_business">jazzdiscountbazar</string>
+    <string name="share_with_friends_txt">Avail discounts closest to you where ever you are! Deals up to 60% off on food, shopping &amp; entertainment! Download app Now!</string>
+    <string name="congrats_msg">You have availed this discount\nShow this deal to the outlet and get discounts</string>
+    <string name="gcm_sender_id">413872219266</string>
+    <string name="foc_already_availed">Dear User, You have already availed the &lt;font color="#ec1b24"&gt;15 Days free trial&lt;/font&gt; once! Subscribe now &amp; confirm your subscription to Jazz Discount Bazar app @ Rs.<b>8.36</b>/week for Prepaid and Rs.<b>35.85</b>/month for Postpaid.</string>
+    <string name="free_trial">ENJOY A &lt;font color="#ec1b24"&gt;15 DAYS FREE&lt;/font&gt; TRIAL ON SUBSCRIPTION!</string>
+    <string name="error_out_of_range">"Dear user, it seems that you are away from outlet. Please go to the outlet to avail discount."</string>
+    <string name="redeem_loc_error">Location must be available to avail discount</string>
+    <string name="facebook_app_id" translatable="false">1574024299570067</string>
+    <string name="fb_authority">com.facebook.app.FacebookContentProvider1574024299570067</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="qar">PKR</string>
+    <string name="fb_deep_link">https://fb.me/1578100429162454</string>
+</resources>

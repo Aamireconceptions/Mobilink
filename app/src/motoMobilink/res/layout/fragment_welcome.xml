@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:paddingLeft="@dimen/_60sdp"
+        android:paddingRight="@dimen/_60sdp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/congrats_bg">
+
+
+
+        <TextView
+            android:id="@+id/tv_congratz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_below="@+id/icon"
+            android:gravity="center"
+
+            android:text="CONGRATULATIONS!"
+            android:textColor="#F7C704"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_congratz"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_margin="@dimen/_18sdp"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:text="@string/TXT_DETAILS"/>
+
+
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_details"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:text="Let's Start >"
+            android:textColor="#F7C704" />
+   </LinearLayout>

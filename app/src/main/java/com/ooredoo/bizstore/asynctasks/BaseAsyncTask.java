@@ -52,7 +52,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     public static String SERVER_URL = BuildConfig.FLAVOR.equals("ooredoo")
     ? "https://ooredoo.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("dealionare")
-    ? "http://dealionare.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("mobilink")
+    ? "http://dealionare.bizstore.com.pk/" : BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("motoMobilink")
             ? "http://188.138.33.11/jdb/" : BuildConfig.FLAVOR.equals("zong")
             ? "http://zong.bizstore.com.pk/" : "";
 
@@ -65,14 +65,15 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
     ? "https://ooredoo.bizstore.com.pk/index.php/api/"
             : BuildConfig.FLAVOR.equals("telenor") ? "http://telenor.bizstore.com.pk/index.php/api/"
             : BuildConfig.FLAVOR.equals("dealionare") ? "http://dealionare.bizstore.com.pk/index.php/api/" :
-            BuildConfig.FLAVOR.equals("mobilink") ? "https://188.138.33.11/jdb/v2/index.php/api/"
+              BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("motoMobilink")
+                      ? "https://188.138.33.11/jdb/v2/index.php/api/"
             : BuildConfig.FLAVOR.equals("zong") ? "https://zong.bizstore.com.pk/v2/index.php/api/"
             : "";
 
     public final static String IMAGE_BASE_URL = BuildConfig.FLAVOR.equals("ooredoo")
             ? "https://ooredoo.bizstore.com.pk" : BuildConfig.FLAVOR.equals("telenor")
             ? "http://telenor.bizstore.com.pk" : BuildConfig.FLAVOR.equals("dealionare")
-            ? "http://dealionare.bizstore.com.pk" : BuildConfig.FLAVOR.equals("mobilink")
+            ? "http://dealionare.bizstore.com.pk" : BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("motoMobilink")
             ? "http://188.138.33.11/jdb" : BuildConfig.FLAVOR.equals("zong")
             ? "http://zong.bizstore.com.pk" : "";
 

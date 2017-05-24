@@ -789,8 +789,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener,
         SharedPrefUtils.updateVal(this, "lat", (float) lat);
         SharedPrefUtils.updateVal(this, "lng", (float) lng);
 
-        LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
-        locationUpdateTask.execute(lat, lng);
+        if(!BizStore.username.isEmpty()) {
+            LocationUpdateTask locationUpdateTask = new LocationUpdateTask();
+            locationUpdateTask.execute(lat, lng);
+        }
 
         // This code used to tell all the fragments that
         // the user location has been updated so that they can
