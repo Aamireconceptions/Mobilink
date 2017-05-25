@@ -63,12 +63,14 @@ import com.ooredoo.bizstore.asynctasks.LocationUpdateTask;
 import com.ooredoo.bizstore.asynctasks.SearchKeywordsTask;
 import com.ooredoo.bizstore.asynctasks.SearchSuggestionsTask;
 import com.ooredoo.bizstore.asynctasks.SearchTask;
+import com.ooredoo.bizstore.interfaces.LocationChangeListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.interfaces.ScrollToTop;
 import com.ooredoo.bizstore.listeners.DrawerChangeListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.listeners.HomeTabSelectedListener;
+import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.listeners.SubCategoryChangeListener;
 import com.ooredoo.bizstore.model.Business;
 import com.ooredoo.bizstore.model.GenericDeal;
@@ -790,9 +792,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener,
         // This code used to tell all the fragments that
         // the user location has been updated so that they can
         // update themselves to show updated distance and deals
-        // But now by default we show the newest deals first
-        // so no need any more
-        /*for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
+        for(int i = 0; i < HomePagerAdapter.PAGE_COUNT; i++)
         {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:"
                     +R.id.home_viewpager + ":" + i);
@@ -803,7 +803,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener,
 
                 ((LocationChangeListener) fragment).onLocationChanged();
             }
-        }*/
+        }
     }
 
     public void setSearchCheckboxSelection() {
