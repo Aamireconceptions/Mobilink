@@ -647,7 +647,10 @@ public static MsisdnDialog dialog;
             }
         }
         else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
+            if(!BizStore.username.isEmpty())
             ratingDialog = showRatingDialog(this, "deals", id);
+            else
+                Toast.makeText(this, "You are only able to rate, once subscribed.", Toast.LENGTH_SHORT).show();
         } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {
             if(src != null && isNotNullOrEmpty(src.contact)) {
                 String phoneNumber = src.contact.trim();
