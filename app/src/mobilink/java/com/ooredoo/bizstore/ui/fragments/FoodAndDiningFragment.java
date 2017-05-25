@@ -15,8 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -26,7 +24,6 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.DealsTask;
@@ -116,7 +113,6 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     FilterOnClickListener clickListener;
     private void init(View v, LayoutInflater inflater)
     {
-
         activity = (HomeActivity) getActivity();
 
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
@@ -127,24 +123,7 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-        FrameLayout flWrapper = (FrameLayout) inflater.inflate(R.layout.layout_filter_tags, null);
-
-        rlFilterTags = (RelativeLayout) flWrapper.findViewById(R.id.tags_wrapper);
-
-        tvFilter = (TextView) rlFilterTags.findViewById(R.id.filter);
-
-        ImageView ivCloseFilerTag = (ImageView) rlFilterTags.findViewById(R.id.close);
-        ivCloseFilerTag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                tvFilter.setText("");
-
-                rlFilterTags.setVisibility(View.GONE);
-            }
-        });
-
-         clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
+        clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_FOOD);
 
         deals = new ArrayList<>();
 
@@ -154,7 +133,8 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
 
         tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
 
-        listView = (ListView) v.findViewById(R.id.list_view); listView.setHeaderDividersEnabled(true);
+        listView = (ListView) v.findViewById(R.id.list_view);
+        listView.setHeaderDividersEnabled(true);
 
         listView.addHeaderView(ivBanner);
 

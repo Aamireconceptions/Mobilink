@@ -1,7 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
 import android.content.Context;
-import android.text.InputType;
 import android.widget.TextView;
 
 import com.google.gson.Gson;

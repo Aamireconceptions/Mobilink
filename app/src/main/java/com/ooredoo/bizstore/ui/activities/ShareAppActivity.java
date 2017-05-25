@@ -24,8 +24,6 @@ import com.ooredoo.bizstore.asynctasks.ShareAppTask;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
-import org.w3c.dom.Text;
-
 public class ShareAppActivity extends AppCompatActivity {
     private EditText etPhoneNum;
 

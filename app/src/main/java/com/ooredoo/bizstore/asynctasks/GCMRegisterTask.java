@@ -11,7 +11,6 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.utils.GcmPreferences;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import java.io.IOException;
 import java.net.URL;

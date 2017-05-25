@@ -1,25 +1,16 @@
 package com.ooredoo.bizstore.utils;
 
 import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.R;
 
 /**
  * Created by Babar on 01-Jan-16.

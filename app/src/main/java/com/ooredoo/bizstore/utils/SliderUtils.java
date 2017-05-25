@@ -11,7 +11,7 @@ import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
+/** Class responsible for auto scrolling the viewpager
  * Created by Babar on 03-Aug-15.
  */
 public class SliderUtils

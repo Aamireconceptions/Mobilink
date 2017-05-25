@@ -191,7 +191,7 @@ dependencies {
         exclude module: 'support-v4'
     }
     //mobilinkCompile 'com.facebook.android:facebook-android-sdk:4.14.0@aar'
-    compile('com.twitter.sdk.android:twitter:2.2.0@aar') {
+    ooredooCompile('com.twitter.sdk.android:twitter:2.2.0@aar') {
         transitive = true;
         exclude module: 'support-v4'
     }

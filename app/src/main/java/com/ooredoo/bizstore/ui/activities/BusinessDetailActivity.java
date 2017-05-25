@@ -43,7 +43,6 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.BusinessAdapter;
 import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
 import com.ooredoo.bizstore.asynctasks.BusinessDetailTask;
 import com.ooredoo.bizstore.asynctasks.BusinessMiscTask;
 import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;

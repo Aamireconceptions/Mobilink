@@ -12,8 +12,6 @@ import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import java.util.HashMap;
 
@@ -28,11 +26,6 @@ import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
  */
 
 public class BizStore extends com.activeandroid.app.Application {
-
-    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "OKSJJQBBfK1BtHGGSHVihvo1I";
-    private static final String TWITTER_SECRET = "TBrDBDmYUlVKEm8GHbO894trmyq2G77fFIyRBP6F88SuVfmKlA";
-
 
     public static Context context;
 
@@ -50,7 +43,7 @@ public class BizStore extends com.activeandroid.app.Application {
 
     public static String secret = CryptoUtils.key;
 
-    private Tracker tracker, ooredooTracker;
+    private Tracker tracker, ooredooTracker ;
 
     private final static String DEFAULT = "DEFAULT";
     private final static String MONOSPACE = "MONOSPACE";
@@ -66,19 +59,19 @@ public class BizStore extends com.activeandroid.app.Application {
     public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
     public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
     public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf": BuildConfig.FLAVOR.equals("zong")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
@@ -94,29 +87,21 @@ public class BizStore extends com.activeandroid.app.Application {
             Fabric.with(this, new Twitter(authConfig));
         }
         context = this;
-        if(BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("ooredoo")
-                || BuildConfig.FLAVOR.equals("zong") || BuildConfig.FLAVOR.equals("motoMobilink"))
+        FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
         {
-            FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
-                    {
-                @Override
-                public void onInitialized() {
-                    if(AccessToken.getCurrentAccessToken() == null){
-                        System.out.println("not logged in yet");
-                    } else {
-                        System.out.println("Logged in");
-                    }
+            @Override
+            public void onInitialized() {
+                if(AccessToken.getCurrentAccessToken() == null){
+                    System.out.println("not logged in yet");
+                } else {
+                    System.out.println("Logged in");
                 }
-            });
-
-            // FacebookSdk.setIsDebugEnabled(true);
-            //FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
-            if(BuildConfig.FLAVOR.equals("mobilink")
-                    || BuildConfig.FLAVOR.equals("zong")
-                    || BuildConfig.FLAVOR.equals("motoMobilink")) {
-                AppEventsLogger.activateApp(this);
             }
-        }
+        });
+
+        // FacebookSdk.setIsDebugEnabled(true);
+        //FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
+        AppEventsLogger.activateApp(this);
 
         if(BuildConfig.DEBUG)
         {

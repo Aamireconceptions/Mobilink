@@ -7,14 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MyFavoritesActivity;
-import com.ooredoo.bizstore.ui.activities.RecentSearchesActivity;
-import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
 import com.ooredoo.bizstore.ui.activities.RedeemedDealsActivity;
-import com.ooredoo.bizstore.ui.activities.ShareAppActivity;
 
 /**
  * @author Pehlaj Rai

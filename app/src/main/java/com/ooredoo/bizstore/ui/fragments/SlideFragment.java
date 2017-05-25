@@ -16,7 +16,6 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.utils.ColorUtils;
-import com.ooredoo.bizstore.utils.FontUtils;
 
 /**
  * @author Babar

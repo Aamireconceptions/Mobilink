@@ -69,7 +69,7 @@ import java.util.List;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 
-/**
+/** Dashboard
  * @author Babar
  */
 public class HomeFragment extends Fragment implements OnFilterChangeListener,
@@ -116,6 +116,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
         super.onCreate(savedInstanceState);
 
         BizStore bizStore = (BizStore) getActivity().getApplication();
+
         Tracker tracker = bizStore.getDefaultTracker();
         tracker.setScreenName("Dashboard");
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
@@ -517,6 +518,7 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
        // featuredSlider.stop();
     }
 
+    // Called when pull to refresh action is performed
     @Override
     public void onRefresh() {
 
