@@ -233,7 +233,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener,
 
         checkIfGpsEnabled();
 
-        if(!BuildConfig.DEBUG && !BizStore.username.isEmpty()) {
+        if(!BizStore.username.isEmpty()) {
           startSubscriptionCheck();
         }
     }
@@ -274,7 +274,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener,
     @ViewById(R.id.scrollToTop)
     public FloatingActionButton fab;
 
-    NavigationMenuUtils navigationMenuUtils;
+    public NavigationMenuUtils navigationMenuUtils;
 
     private void init() {
 

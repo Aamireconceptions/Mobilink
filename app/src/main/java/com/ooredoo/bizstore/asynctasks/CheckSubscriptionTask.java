@@ -11,6 +11,7 @@ import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.ui.activities.MainActivity_;
 import com.ooredoo.bizstore.utils.Logger;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -80,8 +81,20 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
                 timer.cancel();
 
                 updateVal(activity, LOGIN_STATUS, false);
-                activity.finish();
-                activity.startActivity(new Intent(activity, MainActivity_.class));
+                if(!BuildConfig.FLAVOR.equals("mobilink") || BuildConfig.FLAVOR.equals("zong")) {
+                    activity.finish();
+                    activity.startActivity(new Intent(activity, MainActivity_.class));
+                }
+                else
+                {
+                    SharedPrefUtils.updateVal(activity, "username", "");
+                    SharedPrefUtils.updateVal(activity, "password", "");
+                    BizStore.username = "";
+                    BizStore.password = "";
+
+                    activity.navigationMenuUtils.onResume();
+                }
+
             }
 
         }
