@@ -82,9 +82,9 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
             ? "http://telenor.bizstore.com.pk/index.php/api/" : BuildConfig.FLAVOR.equals("dealionare")
             ? "http://dealionare.bizstore.com.pk/index.php/api/" : "http://jazz.bizstore.com.pk/index.php/api/";*/
 
-    public final static int CONNECTION_TIME_OUT = 30 * 1000;
+    public final static int CONNECTION_TIME_OUT = 40 * 1000;
 
-    public final static int  READ_TIME_OUT = 30 * 1000;
+    public final static int  READ_TIME_OUT = 40 * 1000;
 
     public final static String METHOD = "GET";
 
