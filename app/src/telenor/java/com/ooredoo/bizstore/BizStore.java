@@ -5,7 +5,6 @@ import android.content.Context;
 import com.activeandroid.ActiveAndroid;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
-import com.facebook.LoggingBehavior;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -13,11 +12,6 @@ import com.ooredoo.bizstore.model.User;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
-import java.util.HashMap;
-
-import io.fabric.sdk.android.Fabric;
-
-import static com.ooredoo.bizstore.utils.CryptoUtils.encodeToBase64;
 import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
 
 /**
@@ -26,6 +20,7 @@ import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
  */
 
 public class BizStore extends com.activeandroid.app.Application {
+
 
     public static Context context;
 
@@ -51,30 +46,30 @@ public class BizStore extends com.activeandroid.app.Application {
     private final static String SANS_SERIF = "SANS_SERIF";
 
     public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
     public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
     public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
     public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
-    public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
+    public final static String ARABIC_DEFAULT_FONT = "fonts/lato_regular.ttf";
 
     public void onCreate() {
 
@@ -82,8 +77,8 @@ public class BizStore extends com.activeandroid.app.Application {
 
         ActiveAndroid.initialize(this);
 
-
         context = this;
+
         FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
         {
             @Override
@@ -119,12 +114,6 @@ public class BizStore extends com.activeandroid.app.Application {
         setDefaultFont(this, SANS_SERIF, language.equals("en") ? SANS_SERIF_FONT : ARABIC_DEFAULT_FONT);
     }
 
-    public static HashMap<String, String> getUserCredentials() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("msisdn", user.username);
-        params.put("password", encodeToBase64(user.password));
-        return params;
-    }
 
     synchronized public Tracker getDefaultTracker()
     {

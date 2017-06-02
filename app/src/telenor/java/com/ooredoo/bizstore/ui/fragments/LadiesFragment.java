@@ -1,10 +1,10 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
@@ -100,10 +102,6 @@ public class LadiesFragment extends Fragment implements OnFilterChangeListener,
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        /* ivBanner = (ImageView) v.findViewById(R.id.banner);
-
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
-
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
         rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
@@ -122,7 +120,6 @@ public class LadiesFragment extends Fragment implements OnFilterChangeListener,
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
         listView.addHeaderView(rlHeader);
-        //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -186,8 +183,6 @@ public class LadiesFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onRefresh() {
-
-
         if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
         {
             adapter.filterHeaderDeal = null;
@@ -238,7 +233,6 @@ public class LadiesFragment extends Fragment implements OnFilterChangeListener,
         listView.setEmptyView(tvEmptyView);
 
         adapter.filterHeaderDeal = null;
-
     }
 
     @Override
@@ -253,8 +247,6 @@ public class LadiesFragment extends Fragment implements OnFilterChangeListener,
             isCreated = false;
         }
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -294,6 +286,11 @@ public class LadiesFragment extends Fragment implements OnFilterChangeListener,
         if(activity.doApplyDiscount)
         {
             filter = "Discount: Highest to lowest, ";
+        }
+
+        if(activity.doApplyDistance)
+        {
+            filter = "Distance: Nearest first, ";
         }
 
         if(activity.doApplyRating)

@@ -48,6 +48,10 @@ public class MyGcmListenerService extends GcmListenerService
 
             String category = jsonObject.getString("category");
 
+            String type = jsonObject.getString("type");
+
+            String brandUrl = BaseAsyncTask.SERVER_URL + jsonObject.getString("brandimage");
+
             List<Notification> notifications = new Select().from(Notification.class).execute();
 
             Logger.print("GCM: category: "+category);
@@ -58,7 +62,7 @@ public class MyGcmListenerService extends GcmListenerService
                     Logger.print("GCM my preference: " + notification.category);
 
                     if (category.contains(notification.category)) {
-                        String imgUrl = BaseAsyncTask.SERVER_URL + jsonObject.getString("url");
+                        String imgUrl = BaseAsyncTask.SERVER_URL  + jsonObject.getString("url");
 
                         String reqWidth = String.valueOf((int) Converter.convertDpToPixels(256));
 
@@ -68,7 +72,7 @@ public class MyGcmListenerService extends GcmListenerService
 
                         BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
                                 title, desc);
-                        bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight);
+                        bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight, brandUrl, type);
 
                         return;
                     }
@@ -87,7 +91,7 @@ public class MyGcmListenerService extends GcmListenerService
 
                 BitmapNotificationTask bitmapNotificationTask = new BitmapNotificationTask(this, id,
                         title, desc);
-                bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight);
+                bitmapNotificationTask.execute(imgUrl, reqWidth, reqHeight, brandUrl, type);
             }
         }
         catch (JSONException e)

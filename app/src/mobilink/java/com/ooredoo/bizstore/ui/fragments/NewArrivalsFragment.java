@@ -377,6 +377,11 @@ public class NewArrivalsFragment extends Fragment implements OnFilterChangeListe
     public void onLocationChanged() {
         if(tvEmptyView != null) {tvEmptyView.setText("");}
 
-        loadTopDeals(null);
+        try {
+            loadTopDeals(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

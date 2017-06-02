@@ -1,5 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -41,12 +42,16 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
 
     private HomeActivity activity;
 
+    TextView tvTopMalls; RelativeLayout rlTopMall;
+
     public TopMallsTask(HomeActivity activity, TopMallsStatePagerAdapter adapter, ViewPager viewPager,
-                        ProgressBar pbTopMalls) {
+                        ProgressBar pbTopMalls, TextView tvTopMalls, RelativeLayout rlTopMall) {
         this.adapter = adapter;
         this.activity = activity;
         this.viewPager = viewPager;
         this.pbTopMalls = pbTopMalls;
+        this.tvTopMalls = tvTopMalls;
+        this.rlTopMall = rlTopMall;
     }
 
     @Override
@@ -59,7 +64,7 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            return getTopMalls(params[0]);
+            return getTopMalls();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -80,12 +85,20 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
         adapter.clear();
 
         if(result != null) {
-            viewPager.setBackground(null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewPager.setBackground(null);
+            }
+            else
+            {
+                viewPager.setBackgroundDrawable(null);
+            }
 
             Gson gson = new Gson();
 
             try
             {
+                tvTopMalls.setVisibility(View.VISIBLE);
+                rlTopMall.setVisibility(View.VISIBLE);
 
                 MallResponse mallResponse = gson.fromJson(result, MallResponse.class);
 
@@ -102,6 +115,11 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
                     updateVal(activity, KEY, result);
                     updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());
                 }
+                else
+                {
+                    tvTopMalls.setVisibility(View.GONE);
+                    rlTopMall.setVisibility(View.GONE);
+                }
             }
             catch (JsonSyntaxException e) {
                 e.printStackTrace();
@@ -113,13 +131,12 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
         adapter.notifyDataSetChanged();
     }
 
-    private String getTopMalls(String category) throws IOException
+    private String getTopMalls() throws IOException
     {
         String result;
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-       // params.put(CATEGORY, category);
 
         String query = createQuery(params);
 
@@ -128,9 +145,6 @@ public class TopMallsTask extends BaseAsyncTask<String, Void, String> {
         Logger.print("getTopMalls() URL:" + url.toString());
 
         result = getJson(url);
-
-        /*updateVal(activity, KEY, result);
-        updateVal(activity, KEY.concat("_UPDATE"), currentTimeMillis());*/
 
         Logger.print("getTopMalls:" + result);
 

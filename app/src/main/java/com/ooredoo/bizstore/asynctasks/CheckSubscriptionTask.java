@@ -92,7 +92,7 @@ public class CheckSubscriptionTask extends BaseAsyncTask<Void, Void, String>
                     BizStore.username = "";
                     BizStore.password = "";
 
-                    activity.navigationMenuUtils.onResume();
+                  //  activity.navigationMenuUtils.onResume();
                 }
 
             }

@@ -145,6 +145,7 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     DealsTask dealsTask = new DealsTask(null, null, null, null, null);
     private void fetchAndDisplayShopping(ProgressBar progressBar)
     {
+//        if()
         tvEmptyView.setVisibility(View.GONE);
 
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
@@ -384,7 +385,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         if(tvEmptyView != null) {
             tvEmptyView.setText("");
         }
-
-        fetchAndDisplayShopping(null);
+        try {
+            fetchAndDisplayShopping(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

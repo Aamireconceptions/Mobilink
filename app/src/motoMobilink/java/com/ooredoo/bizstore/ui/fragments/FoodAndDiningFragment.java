@@ -419,7 +419,11 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onLocationChanged() {
         if(tvEmptyView != null){tvEmptyView.setText("");}
-
-        fetchAndDisplayFoodAndDining(null);
+        try {
+            fetchAndDisplayFoodAndDining(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

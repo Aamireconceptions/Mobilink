@@ -392,6 +392,11 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
     public void onLocationChanged() {
         if(tvEmptyView != null){tvEmptyView.setText("");}
 
-        fetchAndDisplayHealth(null);
+        try {
+            fetchAndDisplayHealth(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

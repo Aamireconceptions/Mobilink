@@ -1,31 +1,36 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
-import com.ooredoo.bizstore.adapters.SimilarBrandsAdapter;
-import com.ooredoo.bizstore.asynctasks.ShoppingTask;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
+import com.ooredoo.bizstore.interfaces.LocationChangeListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.interfaces.ScrollToTop;
-import com.ooredoo.bizstore.listeners.DealGridOnItemClickListener;
 import com.ooredoo.bizstore.listeners.FabScrollListener;
 import com.ooredoo.bizstore.listeners.FilterOnClickListener;
 import com.ooredoo.bizstore.model.Brand;
@@ -33,52 +38,38 @@ import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
-import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.SnackBarUtils;
-import com.ooredoo.bizstore.views.HeaderGridView;
+import com.ooredoo.bizstore.utils.ResourceUtils;
 import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ooredoo.bizstore.utils.CategoryUtils.CT_SHOPPING;
-import static com.ooredoo.bizstore.utils.CategoryUtils.showSubCategories;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
+import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 
-/**
- * @author Babar
- */
 public class ShoppingFragment extends Fragment implements OnFilterChangeListener,
-                                                          OnDealsTaskFinishedListener,
-                                                          OnSubCategorySelectedListener,
-                                                          SwipeRefreshLayout.OnRefreshListener,
-        ScrollToTop{
+        OnDealsTaskFinishedListener,
+        OnSubCategorySelectedListener,
+        SwipeRefreshLayout.OnRefreshListener,
+        ScrollToTop, LocationChangeListener{
     private HomeActivity activity;
 
-    private List<GenericDeal> deals;
-
-    private GridViewBaseAdapter adapter;
+    private ListViewBaseAdapter adapter;
 
     private ProgressBar progressBar;
 
-    private SnackBarUtils snackBarUtils;
-
-    private RelativeLayout rlHeader;
+    private ImageView ivBanner;
 
     private TextView tvEmptyView;
 
-    private ImageView ivBanner;
+    private ListView listView;
 
-    private HeaderGridView gridView;
-
-    private boolean isCreated = false;
+    public static String subCategory;
 
     private MultiSwipeRefreshLayout swipeRefreshLayout;
-
-    private DealGridOnItemClickListener dealGridOnItemClickListener;
 
     private boolean isRefreshed = false;
 
@@ -86,243 +77,172 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     private DiskCache diskCache = DiskCache.getInstance();
 
-    private View layoutFilterTags;
-
-    private TextView tvFilter;
-
-    private ImageView ivClose;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_shopping, container, false);
-
-        init(v, inflater);
-
-        isCreated = true;
-
-        return v;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    private void init(View v, LayoutInflater inflater) {
-        activity = (HomeActivity) getActivity();
-
-        snackBarUtils = new SnackBarUtils(activity, v);
-
-        deals = new ArrayList<>();
-
-        swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.shopping_gridview);
-        swipeRefreshLayout.setOnRefreshListener(this);
-
-       // rlHeader = (RelativeLayout) v.findViewById(R.id.header);
-
-        //rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
-
-        //ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
-
-        adapter = new GridViewBaseAdapter(activity, R.layout.grid_generic, deals);
-        adapter.setListingType("deals");
-
-        tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
-
-        gridView = (HeaderGridView) v.findViewById(R.id.shopping_gridview);
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        {
-            if(BizStore.getLanguage().equals("ar"))
-                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus3sdp));
-           /* else
-                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));*/
-        }
-
-        //gridView.addHeaderView(ivBanner);
-        //gridView.addHeaderView(rlHeader);
-
-        //gridView.setEmptyView(tvEmptyView);
-        dealGridOnItemClickListener = new DealGridOnItemClickListener(activity, adapter, this);
-        gridView.setOnItemClickListener(dealGridOnItemClickListener);
-        gridView.setAdapter(adapter);
-        gridView.setOnScrollListener(new FabScrollListener(activity));
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            gridView.setNestedScrollingEnabled(true);
-            gridView.setDrawSelectorOnTop(true);
-        }
-        else
-        {
-            gridView.setSelector(new ColorDrawable());
-        }
-
-        layoutFilterTags = v.findViewById(R.id.filter_tags);
-
-        tvFilter = (TextView) layoutFilterTags.findViewById(R.id.filter);
-        FontUtils.setFont(activity, tvFilter);
-
-        ivClose = (ImageView) layoutFilterTags.findViewById(R.id.close);
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                layoutFilterTags.setVisibility(View.GONE);
-
-                activity.resetFilters();
-
-                onFilterChange();
-            }
-        });
-
-        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CT_SHOPPING);
-        clickListener.setLayout(v);
-
-        activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
-
-        showSubCategories(activity, CT_SHOPPING);
-
-        loadDeals(progressBar);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Logger.print("Testing: ShoppingOnResume");
-    }
-
-    /*@Override
-    public void onConfigurationChanged(Configuration newConfig)
+    public static ShoppingFragment newInstance()
     {
-        super.onConfigurationChanged(newConfig);
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        {
-            if(BizStore.getLanguage().equals("ar"))
-                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus1sdp));
-            else
-                gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));
-        }
-    }*/
-
-    ShoppingTask shoppingTask;
-
-    private void loadDeals(ProgressBar progressBar)
-    {
-        tvEmptyView.setVisibility(View.GONE);
-
-        shoppingTask = new ShoppingTask(activity, adapter, progressBar, snackBarUtils, this);
-
-        String cache = shoppingTask.getCache("shopping");
-
-        if(cache != null && !isRefreshed)
-        {
-            shoppingTask.setData(cache);
-        }
-        else
-        {
-            shoppingTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "shopping");
-        }
-    }
-
-    public static ShoppingFragment newInstance() {
         ShoppingFragment fragment = new ShoppingFragment();
 
         return fragment;
     }
 
     @Override
-    public void onFilterChange() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        isRefreshed = true;
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Shopping");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
 
-        if(brandsAdapter!= null)
+    FilterOnClickListener clickListener;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        setHasOptionsMenu(true);
+
+        View v = inflater.inflate(R.layout.fragment_listing, container, false);
+
+        init(v, inflater);
+
+        fetchAndDisplayShopping(progressBar);
+
+        return v;
+    }
+
+    private void init(View v, LayoutInflater inflater)
+    {
+        activity = (HomeActivity) getActivity();
+
+        swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
+
+        clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_SHOPPING);
+
+        List<GenericDeal> deals = new ArrayList<>();
+
+        adapter = new ListViewBaseAdapter(activity, R.layout.list_deal_promotional, deals, this);
+        adapter.setCategory(ResourceUtils.SHOPPING);
+        adapter.setListingType("deals");
+
+        tvEmptyView = (TextView) v.findViewById(R.id.empty_view);
+
+        listView = (ListView) v.findViewById(R.id.list_view);
+        listView.addHeaderView(ivBanner);
+        listView.setAdapter(adapter);
+        listView.setOnScrollListener(new FabScrollListener(activity));
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            brandsAdapter.clearData();
-            brandsAdapter.notifyDataSetChanged();
+            listView.setNestedScrollingEnabled(true);
         }
-        adapter.clearData();
 
-        adapter.notifyDataSetChanged();
-        tvEmptyView.setText("");
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+    }
 
-        shoppingTask.cancel(true);
+    DealsTask dealsTask = new DealsTask(null, null, null, null, null);
+    private void fetchAndDisplayShopping(ProgressBar progressBar)
+    {
+        tvEmptyView.setVisibility(View.GONE);
 
-        if(ShoppingTask.sortColumn.equals("createdate"))
+        dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
+
+        if(isNotNullOrEmpty(subCategory)) {
+            DealsTask.subCategories = subCategory;
+            subCategory = ""; //Reset sub category filter.
+        }
+
+        String cache = dealsTask.getCache("shopping");
+
+        if(cache != null && !isRefreshed)
         {
-            gridView.setAdapter(adapter);
-            gridView.setNumColumns(2);
-            adapter.setListingType("deals");
-
-            /*gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._6sdp));
-            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));*/
-
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            {
-                if(BizStore.getLanguage().equals("ar"))
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus3sdp));
-/*                else
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._6sdp));*/
-            }
+            dealsTask.setData(cache);
         }
         else
         {
-            gridView.setNumColumns(3);
+            Logger.print("Culprit");
 
+            dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "shopping");
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        menu.findItem(R.id.action_filter).setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.action_filter)
+        {
+            clickListener.filter();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFilterChange() {
+        isRefreshed = true;
+        adapter.clearData();
+        adapter.notifyDataSetChanged();
+        tvEmptyView.setText("");
+
+        dealsTask.cancel(true);
+
+        if(DealsTask.sortColumn.equals("createdate"))
+        {
+            adapter.setListingType("deals");
+        }
+        else
+        {
             adapter.setListingType("brands");
-
-          /*  gridView.setHorizontalSpacing((int) getResources().getDimension(R.dimen._22sdp));
-            gridView.setVerticalSpacing((int) getResources().getDimension(R.dimen._6sdp));*/
-
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            {
-                if(BizStore.getLanguage().equals("ar"))
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._minus1sdp));
-   /*             else
-                    gridView.setHorizontalSpacing((int) activity.getResources().getDimension(R.dimen._8sdp));*/
-            }
         }
 
         filterTagUpdate();
 
-        loadDeals(progressBar);
+        fetchAndDisplayShopping(progressBar);
 
         isRefreshed = false;
     }
 
-    SimilarBrandsAdapter brandsAdapter;
-    public void showBrands(List<Brand> brands)
-    {
-        brandsAdapter = new SimilarBrandsAdapter(activity, R.layout.grid_brand, brands);
-        gridView.setAdapter(brandsAdapter);
-    }
-
     @Override
-    public void onRefresh() {
-       layoutFilterTags.setVisibility(View.GONE);
+    public void onRefresh()
+    {
+        if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+        {
+            adapter.filterHeaderDeal = null;
+            adapter.deals.remove(0);
+            adapter.notifyDataSetChanged();
+        }
 
-        tvEmptyView.setText("");
-        memoryCache.remove(adapter.deals);
+        if(adapter.brands != null && adapter.brands.size() > 0 && adapter.filterHeaderBrand != null)
+        {
+            adapter.filterHeaderBrand = null;
+            adapter.brands.remove(0);
+            adapter.notifyDataSetChanged();
+        }
 
         diskCache.remove(adapter.deals);
+
+        memoryCache.remove(adapter.deals);
 
         final String KEY = PREFIX_DEALS.concat("shopping");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
         clearCache(activity, UPDATE_KEY);
-        activity.resetFilters();
 
-        ShoppingTask.subCategories = null;
+        activity.resetFilters();
 
         CategoryUtils.showSubCategories(activity, CategoryUtils.CT_SHOPPING);
 
         isRefreshed = true;
-        loadDeals(null);
+        fetchAndDisplayShopping(null);
         isRefreshed = false;
     }
 
@@ -332,38 +252,29 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
     }
 
     @Override
-    public void onHaveDeals()
-    {
-        //rlHeader.setVisibility(View.VISIBLE);
-
-        //ivBanner.setImageResource(R.drawable.shopping_banner);
+    public void onHaveDeals() {
+        ivBanner.setImageResource(R.drawable.shopping_banner);
 
         tvEmptyView.setText("");
     }
 
     @Override
     public void onNoDeals(int stringResId) {
-       // rlHeader.setVisibility(View.GONE);
+        ivBanner.setImageDrawable(null);
 
-      //  ivBanner.setImageBitmap(null);
-        //ivBanner.setImageResource(R.drawable.shopping_banner);
 
-        tvEmptyView.setVisibility(View.VISIBLE);
         tvEmptyView.setText(stringResId);
-        //gridView.setEmptyView(tvEmptyView);
+
+        listView.setEmptyView(tvEmptyView);
+
+        adapter.filterHeaderDeal = null;
+        adapter.filterHeaderBrand = null;
     }
 
     @Override
     public void onSubCategorySelected()
     {
-        if(!isCreated)
-        {
-            onFilterChange();
-        }
-        else
-        {
-            isCreated = false;
-        }
+        onFilterChange();
     }
 
     @Override
@@ -374,19 +285,19 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         {
             boolean isFav = data.getBooleanExtra("is_fav", false);
 
-            dealGridOnItemClickListener.genericDeal.isFav = isFav;
+            adapter.genericDeal.isFav = isFav;
 
             String voucher = data.getStringExtra("voucher");
 
             if(voucher != null)
             {
-                dealGridOnItemClickListener.genericDeal.voucher = voucher;
-                dealGridOnItemClickListener.genericDeal.status = "Available";
+                adapter.genericDeal.voucher = voucher;
+                adapter.genericDeal.status = "Available";
             }
 
             int views = data.getIntExtra("views", -1);
 
-            dealGridOnItemClickListener.genericDeal.views = views;
+            adapter.genericDeal.views = views;
 
             adapter.notifyDataSetChanged();
         }
@@ -394,16 +305,21 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
 
     @Override
     public void scroll() {
-        gridView.setSelection(0);
+        listView.setSelection(0);
     }
 
-    @Override
-    public void filterTagUpdate() {
+    public void filterTagUpdate()
+    {
         String filter = "";
 
         if(activity.doApplyDiscount)
         {
             filter = "Discount: Highest to lowest, ";
+        }
+
+        if(activity.doApplyDistance)
+        {
+            filter = "Distance: Nearest first, ";
         }
 
         if(activity.doApplyRating)
@@ -423,17 +339,56 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             filter = filter.substring(0, filter.length() - 2);
         }
 
-        if(!filter.isEmpty())
+        if(adapter.listingType.equals("deals"))
         {
-            layoutFilterTags.setVisibility(View.VISIBLE);
+            if(!filter.isEmpty())
+            {
+                adapter.subcategoryParent = CategoryUtils.CT_SHOPPING;
+                adapter.filterHeaderDeal = new GenericDeal(true);
+            }
+            else
+            {
+                if(adapter.deals != null && adapter.deals.size() > 0 && adapter.filterHeaderDeal != null)
+                {
+                    adapter.filterHeaderDeal = null;
+                    adapter.deals.remove(0);
+                    adapter.notifyDataSetChanged();
+                }
 
-            FontUtils.changeColorAndMakeBold(tvFilter,
-                    activity.getString(R.string.filter) + " : " + filter,
-                    activity.getString(R.string.filter) + " : ", activity.getResources().getColor(R.color.black));
+                adapter.filterHeaderDeal = null;
+            }
         }
         else
         {
-            layoutFilterTags.setVisibility(View.GONE);
+            if(!filter.isEmpty())
+            {
+                adapter.subcategoryParent = CategoryUtils.CT_SHOPPING;
+                adapter.filterHeaderBrand = new Brand(true);
+            }
+            else
+            {
+                if(adapter.brands != null && adapter.brands.size() > 0 && adapter.filterHeaderBrand != null)
+                {
+                    adapter.filterHeaderBrand = null;
+                    adapter.brands.remove(0);
+                    adapter.notifyDataSetChanged();
+                }
+
+                adapter.filterHeaderBrand = null;
+            }
+        }
+    }
+
+    @Override
+    public void onLocationChanged() {
+        if(tvEmptyView != null) {
+            tvEmptyView.setText("");
+        }
+        try {
+            fetchAndDisplayShopping(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 }

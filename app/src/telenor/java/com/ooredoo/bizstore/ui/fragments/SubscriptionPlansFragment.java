@@ -1,20 +1,14 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.ui.activities.MainActivity;
 import com.ooredoo.bizstore.utils.FontUtils;
-import com.ooredoo.bizstore.utils.FragmentUtils;
 
 /**
  * @author Pehlaj Rai
@@ -37,75 +31,26 @@ public class SubscriptionPlansFragment extends BaseFragment {
         btnSubscribe = (Button) parent.findViewById(R.id.btn_subscribe);
         btnSubscribe.setOnClickListener(this);
 
-        /*TextView tvFreeTrial = (TextView) parent.findViewById(R.id.free_trial);
-        tvFreeTrial.setText(Html.fromHtml(getString(R.string.free_trial)));*/
-
         FontUtils.setFontWithStyle(mainActivity, btnSubscribe, Typeface.BOLD);
 
-     //   btLogin = (Button) parent.findViewById(R.id.btn_login);
-     //   btLogin.setOnClickListener(this);
+        TextView tvFreeTrialNote = (TextView) parent.findViewById(R.id.free_trial_note);
+        FontUtils.setFontWithStyle(mainActivity, tvFreeTrialNote, Typeface.BOLD);
 
-        TextView tvCharges = (TextView) parent.findViewById(R.id.tv_sub_charges);
+        TextView tvPostPaid = (TextView) parent.findViewById(R.id.post_paid);
+        FontUtils.setFontWithStyle(mainActivity, tvPostPaid, Typeface.BOLD);
 
-        if(BuildConfig.FLAVOR.equals("dealionare"))
-        {
-            tvCharges.setVisibility(View.GONE);
-        }
-
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            FontUtils.setFontWithStyle(getActivity(), tvCharges, Typeface.BOLD);
-        }
-
-        TextView tvTOS = (TextView ) parent.findViewById(R.id.agree_terms_services);
-        tvTOS.setText(Html.fromHtml(mainActivity.getString(R.string.subscription_terms_services)));
-        tvTOS.setOnClickListener(this);
-
-        if(BuildConfig.FLAVOR.equals("telenor")
-                || BuildConfig.FLAVOR.equals("mobilink")
-                || BuildConfig.FLAVOR.equals("dealionare")){
-            tvTOS.setVisibility(View.GONE);
-        }
-
+        TextView tvPrePaid = (TextView) parent.findViewById(R.id.pre_paid);
+        FontUtils.setFontWithStyle(mainActivity, tvPrePaid, Typeface.BOLD);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.btn_subscribe) {
-            /*updateVal(mActivity, LOGIN_STATUS, true);
-            SignUpActivity activity = (SignUpActivity) mActivity;
-            activity.startActivity(HomeActivity.class);*/
 
             AppCompatActivity compatActivity = (AppCompatActivity) mActivity;
-            FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container,
-                                                       new SignUpFragment(), "SignUp");
-        }
-
-       /* if (id == R.id.btn_login) {
-
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("login", true);
-
-            SignUpFragment signUpFragment = new SignUpFragment();
-            signUpFragment.setArguments(bundle);
-
-            FragmentUtils.replaceFragmentWithBackStack((AppCompatActivity) mActivity, R.id.fragment_container,
-                   signUpFragment, "LogIn");
-        }*/
-
-        if(id == R.id.agree_terms_services)
-        {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-
-            String uriString = BizStore.getLanguage().equals("en")
-                    ? "http://ooredoo.bizstore.com.pk/index.php/other/terms/android?language=en"
-                    : "http://ooredoo.bizstore.com.pk/index.php/other/terms/android?language=ar";
-
-            intent.setData(Uri.parse(uriString));
-
-            startActivity(intent);
-
+            /*FragmentUtils.replaceFragmentWithBackStack(compatActivity, R.id.fragment_container,
+                    new SignUpFragment(), "SignUp");*/
         }
     }
 }

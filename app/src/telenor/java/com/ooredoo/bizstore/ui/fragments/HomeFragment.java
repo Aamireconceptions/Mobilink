@@ -1,46 +1,58 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.adapters.DealOfDayAdapter;
-import com.ooredoo.bizstore.adapters.FeaturedStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.adapters.PromoStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopBrandsStatePagerAdapter;
 import com.ooredoo.bizstore.adapters.TopMallsStatePagerAdapter;
-import com.ooredoo.bizstore.asynctasks.DealOfDayTask;
-import com.ooredoo.bizstore.asynctasks.FeaturedTask;
+import com.ooredoo.bizstore.adapters.ViewedRatedAdapter;
+import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
 import com.ooredoo.bizstore.asynctasks.PromoTask;
 import com.ooredoo.bizstore.asynctasks.TopBrandsTask;
+import com.ooredoo.bizstore.asynctasks.TopMallsTask;
+import com.ooredoo.bizstore.asynctasks.ViewedRatedTask;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.listeners.DashboardItemClickListener;
 import com.ooredoo.bizstore.listeners.PromoOnPageChangeListener;
 import com.ooredoo.bizstore.listeners.SliderOnTouchListener;
 import com.ooredoo.bizstore.model.Brand;
+import com.ooredoo.bizstore.model.Category;
 import com.ooredoo.bizstore.model.DOD;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.model.Image;
 import com.ooredoo.bizstore.model.Mall;
 import com.ooredoo.bizstore.ui.CirclePageIndicator;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
+import com.ooredoo.bizstore.utils.CommonHelper;
+import com.ooredoo.bizstore.utils.Converter;
 import com.ooredoo.bizstore.utils.DiskCache;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
@@ -51,30 +63,31 @@ import com.ooredoo.bizstore.views.MultiSwipeRefreshLayout;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.PREFIX_DEALS;
 import static com.ooredoo.bizstore.utils.SharedPrefUtils.clearCache;
 
-/**
+/** Dashboard
  * @author Babar
  */
 public class HomeFragment extends Fragment implements OnFilterChangeListener,
                                                       OnDealsTaskFinishedListener,
-                                                      SwipeRefreshLayout.OnRefreshListener {
+                                                      SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     private HomeActivity activity;
 
     private TextView tvDealsOfTheDay;
 
     private ListViewBaseAdapter listAdapter;
 
-    private DealOfDayAdapter dealOfDayAdapter;
+    private ViewedRatedAdapter viewedRatedAdapter;
 
     DashboardItemClickListener dashboardItemClickListener;
 
-    public static ViewPager featuredPager, promoPager, topBrandsPager, topMallsPager;
+    public static ViewPager promoPager, topBrandsPager, topMallsPager;
 
-    private CirclePageIndicator promoIndicator, featuredIndicator;
+    private CirclePageIndicator promoIndicator;
 
     public SliderUtils promoSlider, featuredSlider;
 
@@ -86,6 +99,10 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
 
     DiskCache diskCache = DiskCache.getInstance();
 
+    LinearLayout llContainer;
+
+    private LayoutInflater inflater;
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
 
@@ -93,17 +110,88 @@ public class HomeFragment extends Fragment implements OnFilterChangeListener,
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Dashboard");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    TextView tvGreetings;
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
-dealofDayCalled = false;
+
+        View v = inflater.inflate(R.layout.layout_dashboard, container, false);
+
+        tvGreetings = (TextView) v.findViewById(R.id.greetings);
+
+        greet();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            v.findViewById(R.id.scrollView).setNestedScrollingEnabled(true);
+        }
+
+        this.inflater = inflater;
+        dealofDayCalled = false;
         init(v);
 
         return v;
     }
 
+    private void greet()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        System.out.println("Hour: "+hour);
+
+        if(hour >= 5 && hour < 12)
+        {
+            tvGreetings.setText("Good Morning");
+        }
+        else
+        if ((hour >= 12 && hour <= 18))
+        {
+            tvGreetings.setText("Good Evening");
+        }
+        else
+            {
+                tvGreetings.setText("Good Night");
+            }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        menu.findItem(R.id.action_filter).setVisible(false);
+    }
+
     boolean dealofDayCalled = false;
+
+    int reqWidth, reqHeight;
+
+    DisplayMetrics displayMetrics;
+
+    TextView tvTopMalls;
+    RelativeLayout rlTopMall;
     private void init(View v) {
+
         activity = (HomeActivity) getActivity();
+
+        Resources resources = getResources();
+
+        displayMetrics = resources.getDisplayMetrics();
+
+        reqWidth = displayMetrics.widthPixels / 2;
+        reqHeight = reqWidth;
 
         // This was killing the whole thing!
         //activity.setCurrentFragment(this);
@@ -111,170 +199,35 @@ dealofDayCalled = false;
         swipeRefreshLayout = (MultiSwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.random, R.color.black);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setSwipeableChildrens(R.id.home_list_view, R.id.empty_view, R.id.appBar);
+        swipeRefreshLayout.setSwipeableChildrens(R.id.scrollView, R.id.appBar);
 
-        final ListView listView = (ListView) v.findViewById(R.id.home_list_view);
+       // final ListView listView = (ListView) v.findViewById(R.id.home_list_view);
 
-        LayoutInflater inflater = activity.getLayoutInflater();
+       // LayoutInflater inflater = activity.getLayoutInflater();
 
-        View header = inflater.inflate(R.layout.layout_dashboard, null);
+      //  View header = inflater.inflate(R.layout.layout_dashboard, null);
 
-        setDashboardItemsClickListener(header);
-
-        String font = BizStore.getLanguage().equals("en") ? BizStore.MONOSPACE_FONT : BizStore.ARABIC_DEFAULT_FONT;
-
-        TextView tvRestaurants = (TextView) header.findViewById(R.id.restaurants);
-        FontUtils.setFontWithStyle(activity, tvRestaurants, Typeface.BOLD);
-
-        TextView tvShopping = (TextView) header.findViewById(R.id.shopping);
-        FontUtils.setFontWithStyle(activity, tvShopping, Typeface.BOLD);
-
-        TextView tvEntertainment = (TextView) header.findViewById(R.id.entertainment);
-        FontUtils.setFontWithStyle(activity, tvEntertainment, Typeface.BOLD);
-
-        TextView tvTopBrands = (TextView) header.findViewById(R.id.top_brands);
+        TextView tvTopBrands = (TextView) v.findViewById(R.id.top_brands);
         FontUtils.setFont(activity, tvTopBrands);
 
-        TextView tvSearch = (TextView) header.findViewById(R.id.search);
-        FontUtils.setFontWithStyle(activity, tvSearch, Typeface.BOLD);
+        llContainer = (LinearLayout) v.findViewById(R.id.container);
 
-        TextView tvDeals = (TextView) header.findViewById(R.id.deals);
-        FontUtils.setFontWithStyle(activity, tvDeals, Typeface.BOLD);
-
-        TextView tvTopDeals = (TextView) header.findViewById(R.id.top_deals);
-        FontUtils.setFontWithStyle(activity, tvTopDeals, Typeface.BOLD);
-
-        TextView tvLadies = (TextView) header.findViewById(R.id.ladies);
-        FontUtils.setFontWithStyle(activity, tvLadies, Typeface.BOLD);
-
-        TextView tvBeauty = (TextView) header.findViewById(R.id.beauty);
-        FontUtils.setFontWithStyle(activity, tvBeauty, Typeface.BOLD);
-
-        TextView tvweightLoss= (TextView) header.findViewById(R.id.weight_loss);
-        FontUtils.setFontWithStyle(activity,  tvweightLoss, Typeface.BOLD);
-
-        TextView tvClothing = (TextView) header.findViewById(R.id.clothing);
-        FontUtils.setFontWithStyle(activity, tvClothing, Typeface.BOLD);
-
-        TextView tvEducation = (TextView) header.findViewById(R.id.education);
-        FontUtils.setFontWithStyle(activity, tvEducation, Typeface.BOLD);
-
-        String brands = getString(R.string.brands).toUpperCase();
-        String ofTheWeek = getString(R.string.off_the_week).toUpperCase();
-        String brandsOfTheWeek = brands + " " + ofTheWeek;
-
-        int color = BuildConfig.FLAVOR.equals("ooredoo") ? R.color.red : R.color.white;
-
-
-        FontUtils.changeColorAndMakeBold(tvTopBrands, brandsOfTheWeek, brands,
-                getResources().getColor(color));
-
-        TextView tvFeaturedCategories = (TextView) header.findViewById(R.id.featured_categories);
-        FontUtils.setFont(activity, tvFeaturedCategories);
-
-        String featured = getString(R.string.featured).toUpperCase();
-        String categories = getString(R.string.categories).toUpperCase();
-
-        String featuredCategories = featured + " " + categories;
-
-        FontUtils.changeColorAndMakeBold(tvFeaturedCategories, featuredCategories, featured,
-                getResources().getColor(color));
-
-        TextView tvTopMalls = (TextView) header.findViewById(R.id.top_malls);
+        tvTopMalls = (TextView) v.findViewById(R.id.top_malls);
         FontUtils.setFont(activity, tvTopMalls);
 
-        String top = getString(R.string.top).toUpperCase();
-        String malls = getString(R.string.Malls).toUpperCase();
-        String topMalls = top + " " + malls;
-
-        FontUtils.changeColorAndMakeBold(tvTopMalls, topMalls, top,
-                getResources().getColor(color));
-
-        tvDealsOfTheDay = (TextView) header.findViewById(R.id.deals_of_day);
-        FontUtils.setFont(activity, tvDealsOfTheDay);
-
-        String deals = getString(R.string.deals).toUpperCase();
-        String ofTheDay = getString(R.string.of_the_day).toUpperCase();
-        String dealsOfTheDay = deals + " " + ofTheDay;
-
-        FontUtils.changeColorAndMakeBold(tvDealsOfTheDay, dealsOfTheDay, deals,
-                getResources().getColor(color));
+        rlTopMall = (RelativeLayout) v.findViewById(R.id.top_mall_layout);
 
         List<DOD> dods = new ArrayList<>();
 
-        dealOfDayAdapter = new DealOfDayAdapter(activity, R.layout.layout_deal_of_day, dods);
-
-        listView.addHeaderView(header);
-        listView.setAdapter(dealOfDayAdapter);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            listView.setNestedScrollingEnabled(true);
-        }
-
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                final int lastItem = firstVisibleItem + visibleItemCount;
-
-
-                if (listView.getLastVisiblePosition() == listView.getAdapter().getCount() - 1 &&
-                        listView.getChildAt(listView.getChildCount() - 1).getBottom() <= listView.getHeight()) {
-                    //It is scrolled all the way down here
-                    if (!dealofDayCalled) {
-                        dealofDayCalled = true;
-
-                        initAndLoadDealsOfTheDay();
-
-                        Logger.print("Last Item");
-                    }
-                }
-            }
-        });
+        viewedRatedAdapter = new ViewedRatedAdapter(activity, R.layout.layout_deal_of_day, dods);
 
         initAndLoadPromotions(v);
 
-        initAndLoadFeaturedDeals(v);
-
-        initAndLoadTopBrands(v);
+        // initAndLoadTopBrands(v);
 
         initAndLoadTopMalls(v);
 
-       // initAndLoadDealsOfTheDay();
-    }
-
-    private void setDashboardItemsClickListener(View parent) {
-        dashboardItemClickListener = new DashboardItemClickListener(activity);
-
-        LinearLayout llRestaurant = (LinearLayout) parent.findViewById(R.id.restaurants_layout);
-        llRestaurant.setOnClickListener(dashboardItemClickListener);
-
-        LinearLayout llShopping = (LinearLayout) parent.findViewById(R.id.shopping_layout);
-        llShopping.setOnClickListener(dashboardItemClickListener);
-
-        LinearLayout llEntertainment = (LinearLayout) parent.findViewById(R.id.entertainment_layout);
-        llEntertainment.setOnClickListener(dashboardItemClickListener);
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            llRestaurant.setBackgroundResource(R.drawable.masked_ripple_light);
-            llShopping.setBackgroundResource(R.drawable.masked_ripple_light);
-            llEntertainment.setBackgroundResource(R.drawable.masked_ripple_light);
-        }
-
-        parent.findViewById(R.id.search_layout).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.nearby_layout).setOnClickListener(dashboardItemClickListener);
-
-        parent.findViewById(R.id.top_deals_layout).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.ladies_layout).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.beauty_layout).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.weight_loss_layout).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.clothing_layout).setOnClickListener(dashboardItemClickListener);
-        parent.findViewById(R.id.education_layout).setOnClickListener(dashboardItemClickListener);
+        initAndLoadDealsOfTheDay();
     }
 
     PromoStatePagerAdapter promoAdapter;
@@ -292,7 +245,7 @@ dealofDayCalled = false;
 
         promoPager.setOnTouchListener(new SliderOnTouchListener(promoSlider));
 
-        promoAdapter = new PromoStatePagerAdapter(getFragmentManager(), deals, promoSlider);
+        promoAdapter = new PromoStatePagerAdapter(getChildFragmentManager(), deals, promoSlider);
 
         promoPager.setAdapter(promoAdapter);
 
@@ -324,57 +277,14 @@ dealofDayCalled = false;
         }
     }
 
-    private FeaturedStatePagerAdapter featuredAdapter;
-
-    private void initAndLoadFeaturedDeals(View v) {
-        List<GenericDeal> deals = new ArrayList<>();
-
-        featuredPager = (ViewPager) v.findViewById(R.id.featured_pager);
-
-        ProgressBar pbFeatued = (ProgressBar) v.findViewById(R.id.featured_progress);
-
-        featuredSlider = new SliderUtils(activity, featuredPager);
-
-        featuredPager.setOnTouchListener(new SliderOnTouchListener(featuredSlider));
-
-        featuredAdapter = new FeaturedStatePagerAdapter(getFragmentManager(), deals, featuredSlider);
-
-        featuredPager.setAdapter(featuredAdapter);
-
-        setupScroller(featuredPager);
-
-        featuredIndicator = (CirclePageIndicator) v.findViewById(R.id.featured_indicator);
-        featuredIndicator.setViewPager(featuredPager);
-        featuredIndicator.setVisibility(View.GONE);
-        featuredIndicator.setAlpha(0.6f);
-        featuredIndicator.setPageColor(getResources().getColor(R.color.home_mall_title));
-
-        loadFeatured(pbFeatued);
-    }
-
-    private void loadFeatured(ProgressBar pbFeatued)
-    {
-        FeaturedTask featuredTask = new FeaturedTask(activity, featuredAdapter, featuredPager,
-                                                     featuredIndicator, pbFeatued);
-
-        String cache = featuredTask.getCache();
-
-        if(cache != null && !isRefreshed)
-        {
-            featuredTask.setData(cache);
-        }
-        else
-        {
-            featuredTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
-    }
-
     private TopBrandsStatePagerAdapter topBrandsStatePagerAdapter;
 
     private void initAndLoadTopBrands(View v) {
         List<Brand> brands = new ArrayList<>();
 
-        topBrandsStatePagerAdapter = new TopBrandsStatePagerAdapter(getFragmentManager(), brands);
+        //ChildFragmentManager is very important
+        //otherwise viewpager will loss state upon navigation
+        topBrandsStatePagerAdapter = new TopBrandsStatePagerAdapter(getChildFragmentManager(), brands);
 
         topBrandsPager = (ViewPager) v.findViewById(R.id.top_brands_pager);
 
@@ -407,7 +317,9 @@ dealofDayCalled = false;
     private void initAndLoadTopMalls(View v) {
         List<Mall> malls = new ArrayList<>();
 
-        topMallsAdapter = new TopMallsStatePagerAdapter(getFragmentManager(), malls);
+        //ChildFragmentManager is very important
+        //otherwise viewpager will loss state upon navigation
+        topMallsAdapter = new TopMallsStatePagerAdapter(getChildFragmentManager(), malls);
 
         topMallsPager = (ViewPager) v.findViewById(R.id.top_malls_pager);
 
@@ -431,13 +343,13 @@ dealofDayCalled = false;
         }
         else
         {
-            topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "malls");
+            topMallsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
     private void initAndLoadDealsOfTheDay() {
 
-        Logger.print("DealOfDay Called");
+        Logger.print("Viewed Rated Called");
         /*DealsTask dealsTask = new DealsTask(activity, listAdapter, null, null, this);
 
         String cache = dealsTask.getCache("dealofday");
@@ -451,17 +363,114 @@ dealofDayCalled = false;
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealofday");
         }*/
 
-        DealOfDayTask dealOfDayTask = new DealOfDayTask(activity, dealOfDayAdapter, this);
+        ViewedRatedTask viewedRatedTask = new ViewedRatedTask(activity, viewedRatedAdapter, this);
 
-        String cache = dealOfDayTask.getCache("dealofday");
+        String cache = viewedRatedTask.getCache("viewednrated");
 
         if(cache != null && !isRefreshed)
         {
-            dealOfDayTask.setData(cache);
+            viewedRatedTask.setData(cache);
         }
         else {
-            dealOfDayTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "dealofday");
+            viewedRatedTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "viewednrated");
         }
+    }
+
+    /**
+     * Render the most redeem and recommended deals layout
+     * @param dods
+     */
+    public void addMostViewedAndTopRated(List<DOD> dods)
+    {if(isAdded())
+    {
+        llContainer.removeAllViews();
+
+        int row = 0;
+        int column = 0;
+        for (DOD dod : dods) {
+
+            row += 1;
+
+            View v = inflater.inflate(R.layout.layout_horizontal_rated_viewed, null);
+
+            for (GenericDeal genericDeal : dod.deals) {
+
+                column += 1;
+
+                LinearLayout llHorizontalLayout = (LinearLayout) v.findViewById(R.id.horizontal_layout);
+
+                TextView tvCategory = (TextView) v.findViewById(R.id.category);
+
+                Category category = Converter.convertCategoryText(activity, dod.category);
+                tvCategory.setText(category.name);
+
+                FontUtils.setFont(activity, tvCategory);
+
+                View gridDealOfDay = inflater.inflate(R.layout.grid_generic, null);
+                gridDealOfDay.setTag(genericDeal);
+                gridDealOfDay.setOnClickListener(this);
+
+                ImageView ivThumbnail = (ImageView) gridDealOfDay.findViewById(R.id.thumbnail);
+
+                ProgressBar progressBar = (ProgressBar) gridDealOfDay.findViewById(R.id.progress_bar);
+
+                TextView tvDescription = (TextView) gridDealOfDay.findViewById(R.id.desc);
+                tvDescription.setText(genericDeal.description);
+
+                TextView tvValidity = (TextView) gridDealOfDay.findViewById(R.id.validity);
+                tvValidity.setText("Valid Till: " + genericDeal.endDate);
+
+                Image image = genericDeal.image;
+
+                if (image != null && image.gridBannerUrl != null && !image.gridBannerUrl.isEmpty())
+                {
+                    String imageUrl = BaseAsyncTask.IMAGE_BASE_URL + image.gridBannerUrl;
+
+                    Bitmap bitmap = memoryCache.getBitmapFromCache(imageUrl);
+
+                    if (bitmap != null)
+                    {
+                        progressBar.setVisibility(View.GONE);
+
+                        ivThumbnail.setImageBitmap(bitmap);
+                    }
+                    else
+                        {
+                            new CommonHelper().fallBackToDiskCache(getActivity(), imageUrl, diskCache,
+                                memoryCache, ivThumbnail, progressBar, reqWidth, reqHeight);
+                        }
+                }
+                else
+                    {
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                params.width = displayMetrics.widthPixels / 2;
+                params.height = params.width + (int) ((params.width * (5f / 100f)));
+
+                if (column > 1) {
+                    params.leftMargin = (int) Converter.convertDpToPixels(12);
+                }
+
+                llHorizontalLayout.addView(gridDealOfDay, params);
+            }
+
+            column = 0;
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            llContainer.addView(v, params);
+        }
+    }
+    else
+    {
+        Logger.print("Removed");
+    }
+
     }
 
     private void setupScroller(ViewPager viewPager) {
@@ -482,9 +491,7 @@ dealofDayCalled = false;
     }
 
     @Override
-    public void filterTagUpdate() {
-
-    }
+    public void filterTagUpdate() {}
 
     @Override
     public void onResume()
@@ -502,52 +509,45 @@ dealofDayCalled = false;
         {
             promoSlider.start(promosCount);
         }
-
-        int featuredCount = featuredAdapter.getCount();
-
-        if(featuredCount > 0)
-        {
-            featuredSlider.start(featuredCount);
-        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         promoSlider.stop();
-        featuredSlider.stop();
+       // featuredSlider.stop();
     }
 
+    // Called when pull to refresh action is performed
     @Override
     public void onRefresh() {
-        diskCache.remove(featuredAdapter.deals);
+
         diskCache.remove(promoAdapter.deals);
 
-        for(DOD dod : dealOfDayAdapter.dods)
+        for(DOD dod : viewedRatedAdapter.dods)
         {
             diskCache.remove(dod.deals);
 
             memoryCache.remove(dod.deals);
         }
 
-        diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
+     //   diskCache.removeBrands(topBrandsStatePagerAdapter.brands);
         diskCache.removeMalls(topMallsAdapter.malls);
 
-        memoryCache.remove(featuredAdapter.deals);
         memoryCache.remove(promoAdapter.deals);
 
-        memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
+     //   memoryCache.removeBrands(topBrandsStatePagerAdapter.brands);
         memoryCache.removeMalls(topMallsAdapter.malls);
 
         isRefreshed = true;
 
         loadPromos(null);
-        loadFeatured(null);
-        loadTopBrands(null);
+
+       // loadTopBrands(null);
         loadTopMalls(null);
         initAndLoadDealsOfTheDay();
 
-        final String KEY = PREFIX_DEALS.concat("dealofday");
+        final String KEY = PREFIX_DEALS.concat("viewednrated");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
@@ -563,12 +563,12 @@ dealofDayCalled = false;
 
     @Override
     public void onHaveDeals() {
-        tvDealsOfTheDay.setVisibility(View.VISIBLE);
+       // tvDealsOfTheDay.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onNoDeals(int stringResId) {
-        tvDealsOfTheDay.setVisibility(View.GONE);
+        //tvDealsOfTheDay.setVisibility(View.GONE);
     }
 
     @Override
@@ -595,5 +595,13 @@ dealofDayCalled = false;
 
             listAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(activity, DealDetailActivity.class);
+        intent.putExtra("generic_deal",(GenericDeal) v.getTag());
+
+        activity.startActivity(intent);
     }
 }

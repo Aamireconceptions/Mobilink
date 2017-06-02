@@ -4,16 +4,13 @@ import android.content.Context;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
-
-import android.text.Spannable;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.asynctasks.ShoppingTask;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -21,7 +18,7 @@ import com.ooredoo.bizstore.utils.CategoryUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
-/**
+/** Listen events for all the filter aka right drawer layout
  * @author Babar
  * @since 23-Jun-15.
  */
@@ -40,8 +37,6 @@ public class FilterOnClickListener implements View.OnClickListener {
 
     LocationManager locationManager;
 
-    private View layout;
-
     public FilterOnClickListener(HomeActivity activity, int category) {
         this.activity = activity;
 
@@ -52,10 +47,12 @@ public class FilterOnClickListener implements View.OnClickListener {
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
     }
 
-    Button btList, btMap;
+    public void setCategory(int category)
+    {
+        this.category = category;
+    }
 
     public void setLayout(View layout) {
-        this.layout = layout;
 
         Button btList = (Button) layout.findViewById(R.id.new_deals);
         btList.setText(R.string.deals);
@@ -80,8 +77,6 @@ public class FilterOnClickListener implements View.OnClickListener {
             ivFilter.setBackgroundResource(R.drawable.filter_ripple);
         }
     }
-
-    static int saveCategory;
 
     @Override
     public void onClick(View v) {
@@ -132,10 +127,6 @@ public class FilterOnClickListener implements View.OnClickListener {
 
             case R.id.filter:
 
-               // saveCategory = category;
-
-               // Logger.print("CAT: "+saveCategory);
-
                 filter();
 
                 break;
@@ -148,8 +139,6 @@ public class FilterOnClickListener implements View.OnClickListener {
 
             case R.id.done:
 
-                //Logger.print("CAT: "+saveCategory);
-
                 activity.drawerLayout.closeDrawer(GravityCompat.END);
 
                 Logger.print("FilterOnClickListener: CATEGORY -> Apply Filter: " + String.valueOf(category));
@@ -161,15 +150,13 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 onFilterChangeListener.onFilterChange();
 
-               // onFilterChangeListener.filterTagUpdate();
-
                 break;
 
             case R.id.rating_checkbox:
 
                 setCheckboxSelected(v);
 
-                activity.doApplyRating = true;//v.isSelected();
+                activity.doApplyRating = true;
 
                 activity.setRatingEnabled(v.isSelected());
 
@@ -217,16 +204,6 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 break;
 
-            case R.id.discount_checkbox:
-
-                setCheckboxSelected(v);
-
-                activity.doApplyDiscount = v.isSelected();
-
-                activity.rangeSeekBar.setEnabled(v.isSelected());
-
-                break;
-
             case R.id.cb_highest_discount:
 
                 activity.doApplyDiscount = ((CheckBox) v).isChecked();
@@ -234,45 +211,64 @@ public class FilterOnClickListener implements View.OnClickListener {
 
                 break;
 
-            case R.id._5:
+            // This filter is used to sort deals on the base of nearest first.
+            case R.id.cb_distance:
 
-                activity.distanceFilter = "5";
-
-                setDistanceSelected(v);
-
-                break;
-
-            case R.id._10:
-
-                activity.distanceFilter = "10";
-
-                setDistanceSelected(v);
+                activity.doApplyDistance = ((CheckBox) v).isChecked();
+                Logger.logI("DISTANCE_FILTER", String.valueOf(activity.doApplyDistance));
 
                 break;
+        }
+    }
+    public void filter()
+    {
 
-            case R.id._20:
+        if(category == CategoryUtils.CT_NEARBY &&
+                (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                        && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
+        {
+            return;
+        }
 
-                activity.distanceFilter = "20";
+        Logger.print("FilterOnClickListener: CATEGORY -> Filter: " + String.valueOf(category));
 
-                setDistanceSelected(v);
+        ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_highest_discount)).setChecked(activity.doApplyDiscount);
 
-                break;
+        ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_distance)).setChecked(activity.doApplyDistance);
 
-            case R.id._35:
+        activity.drawerLayout.openDrawer(GravityCompat.END);
 
-                activity.distanceFilter = "35";
+        if(category > 0) {
+            TextView tvCategory = (TextView) activity.findViewById(R.id.category_selection);
+            String sub = activity.getString(R.string.sub).toUpperCase();
+            String all = activity.getString(R.string.all).toUpperCase();
+            String categories = activity.getString(R.string.categories).toUpperCase();
 
-                setDistanceSelected(v);
+            if(category == CategoryUtils.CT_NEARBY || category == CategoryUtils.CT_TOP)
+            {
+                tvCategory.setText(all + " " + categories, TextView.BufferType.SPANNABLE);
+            }
+            else
+            {
+                tvCategory.setText(sub + " " + categories, TextView.BufferType.SPANNABLE);
+            }
 
-                break;
+            if(category == CategoryUtils.CT_NEW_ARRIVALS)
+            {
+                tvCategory.setVisibility(View.GONE);
+            }
+            else
+            {
+                tvCategory.setVisibility(View.VISIBLE);
+            }
 
-            case R.id._50:
-
-                activity.distanceFilter = "50";
-
-                setDistanceSelected(v);
-
-                break;
+            if(category == CategoryUtils.CT_LADIES) {
+                //There are no sub categories in LADIES categories
+                activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
+            } else {
+                activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
+            }
+            CategoryUtils.showSubCategories(activity, category);
         }
     }
 
@@ -315,73 +311,7 @@ public class FilterOnClickListener implements View.OnClickListener {
         }
     }
 
-    public void filter()
-    {
-        if(category == CategoryUtils.CT_NEARBY &&
-                (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                        && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
-        {
-            return;
-        }
-
-        Logger.print("FilterOnClickListener: CATEGORY -> Filter: " + String.valueOf(category));
-
-        ((CheckBox) activity.drawerLayout.findViewById(R.id.cb_highest_discount)).setChecked(activity.doApplyDiscount);
-
-        activity.drawerLayout.openDrawer(GravityCompat.END);
-
-        if(category > 0) {
-            if(category == CategoryUtils.CT_NEARBY) {
-                activity.findViewById(R.id.distance_layout).setVisibility(View.VISIBLE);
-                activity.findViewById(R.id.line1).setVisibility(View.VISIBLE);
-            } else {
-                activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
-                activity.findViewById(R.id.line1).setVisibility(View.GONE);
-            }
-
-            TextView tvCategory = (TextView) activity.findViewById(R.id.category_selection);
-            //tvCategory.setAllCaps(true);
-            String sub = activity.getString(R.string.sub).toUpperCase();
-            String all = activity.getString(R.string.all).toUpperCase();
-            String categories = activity.getString(R.string.categories).toUpperCase();
-
-            int color = BuildConfig.FLAVOR.equals("ooredoo") ? R.color.red : R.color.white;
-
-            if(category == CategoryUtils.CT_NEARBY || category == CategoryUtils.CT_TOP)
-            {
-                tvCategory.setText(all + " " + categories, TextView.BufferType.SPANNABLE);
-
-                Spannable word = (Spannable) tvCategory.getText();
-                word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
-                        0, all.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-            }
-            else
-            {
-                tvCategory.setText(sub + " " + categories, TextView.BufferType.SPANNABLE);
-
-                Spannable word = (Spannable) tvCategory.getText();
-                word.setSpan(new ForegroundColorSpan(activity.getResources().getColor(color)),
-                        0, sub.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-            }
-
-            // tvCategory.setAllCaps(true);
-
-            //activity.findViewById(R.id.distance_layout).setVisibility(View.GONE);
-            //activity.findViewById(R.id.line1).setVisibility(View.GONE);
-
-            if(category == CategoryUtils.CT_LADIES) {
-                //There are no sub categories in LADIES categories
-                activity.findViewById(R.id.layout_sub_categories).setVisibility(View.GONE);
-            } else {
-                activity.findViewById(R.id.layout_sub_categories).setVisibility(View.VISIBLE);
-            }
-            CategoryUtils.showSubCategories(activity, category);
-        }
-    }
-
     public void setDistanceSelected(View v) {
-        // activity.setRatingEnabled(true);
-
         boolean isDistanceEnabled = !v.isSelected();
 
         Logger.logI("DISTANCE_ENABLED", v.getId() + "," + isDistanceEnabled);

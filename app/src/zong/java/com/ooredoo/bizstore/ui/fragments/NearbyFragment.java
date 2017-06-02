@@ -1008,6 +1008,11 @@ RelativeLayout rlParent;
         if(tvEmptyView != null){tvEmptyView.setText("");}
 
         //isRefreshed = true;
-        fetchAndDisplayNearby(null);
+        try {
+            fetchAndDisplayNearby(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

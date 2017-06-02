@@ -9,23 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ExpandableListAdapter;
 import com.ooredoo.bizstore.asynctasks.ProfilePicDownloadTask;
+import com.ooredoo.bizstore.listeners.HeaderNavigationListener;
 import com.ooredoo.bizstore.listeners.NavigationMenuChildClickListener;
-import com.ooredoo.bizstore.listeners.NavigationMenuOnClickListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
-import com.ooredoo.bizstore.ui.activities.MyAccountActivity;
+import com.ooredoo.bizstore.ui.activities.MyAccountActivity_;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +32,7 @@ import static com.ooredoo.bizstore.AppConstant.PROFILE_PIC_URL;
 import static com.ooredoo.bizstore.ui.activities.HomeActivity.profilePicture;
 import static java.lang.String.valueOf;
 
-/**
+/** Helper class for setting up the left drawer menu
  * @author Babar
  * @since 12-Jun-15.
  */
@@ -45,7 +42,7 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
     private final int[] groupResIds, categoriesResIds, settingsResIds;
     public final String[] subCategories;
     public final String[] foodSubCategories, shoppingSubCategories, healthSubCategories,
-                          educationSubCategories, entertainmentSubCategories;
+                          entertainmentSubCategories;
 
     public final int[] subGroupResIds;
     private AppCompatActivity activity;
@@ -68,19 +65,24 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         groupResIds = new int[] { R.drawable.ic_categories, R.drawable.ic_settings };
 
-        categories = new String[] {activity.getString(R.string.top_deals),
+        categories = new String[] {
+
+                activity.getString(R.string.top_deals),
                 activity.getString(R.string.food_dining),
                 activity.getString(R.string.shopping_speciality),
-                activity.getString(R.string.ladies_section),
+
                 activity.getString(R.string.health_fitness),
-                activity.getString(R.string.education),
-                activity.getString(R.string.entertainment)};
+                activity.getString(R.string.entertainment),
+                activity.getString(R.string.new_arrivals),};
 
         categoriesResIds = new int[]{
-                R.drawable.ic_top_deals, R.drawable.ic_food_dining,
+                R.drawable.ic_top_deals,
+
+                R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
-                R.drawable.ic_ladies, R.drawable.ic_health,
-                R.drawable.ic_education, R.drawable.ic_entertainment};
+                R.drawable.ic_health,
+                R.drawable.ic_entertainment,
+                R.drawable.ic_new_deals,};
 
        /* categories = new String[] { activity.getString(R.string.food_dining), activity.getString(R.string.shopping_speciality),
                 activity.getString(R.string.electronics)};
@@ -90,91 +92,99 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
                 R.drawable.ic_electronics};*/
 
         settings = new String[] {activity.getString(R.string.my_account),
-                activity.getString(R.string.my_city),
+             //   activity.getString(R.string.my_city),
                 activity.getString(R.string.my_notifications),
-                activity.getString(R.string.rate_us), activity.getString(R.string.help),
-                activity.getString(R.string.about), activity.getString(R.string.un_subscribe)};
+             //   activity.getString(R.string.rate_us),
+                activity.getString(R.string.help),
+                activity.getString(R.string.about),
+                activity.getString(R.string.privacy_policy),
+                activity.getString(R.string.un_subscribe)};
 
-        settingsResIds = new int[]{R.drawable.ic_user,
-                R.drawable.ic_business,
+        settingsResIds = new int[]{
+                R.drawable.ic_user,
+              //  R.drawable.ic_business,
                 R.drawable.ic_notification,
-                R.drawable.ic_rate, R.drawable.ic_help,
-                R.drawable.ic_about, R.drawable.ic_unsubscribe};
+              //  R.drawable.ic_rate,
+                R.drawable.ic_help,
+                R.drawable.ic_about,
+                R.drawable.ic_privacy,
+                R.drawable.ic_unsubscribe};
 
-        subCategories = new String[] { activity.getString(R.string.top_deals),
+        subCategories = new String[] {
+                activity.getString(R.string.top_deals),
+
+
                 activity.getString(R.string.food_dining),
                 activity.getString(R.string.shopping_speciality),
-                activity.getString(R.string.ladies_section),
-                activity.getString(R.string.health_fitness),
-                activity.getString(R.string.education),
-                activity.getString(R.string.entertainment)};
 
-        subGroupResIds = new int[]{ R.drawable.ic_top_deals,
+                activity.getString(R.string.health_fitness),
+                activity.getString(R.string.entertainment),
+                activity.getString(R.string.new_arrivals)};
+
+        subGroupResIds = new int[]{
+                R.drawable.ic_top_deals,
+
                 R.drawable.ic_food_dining,
                 R.drawable.ic_shopping,
-                R.drawable.ic_ladies, R.drawable.ic_health,
-                R.drawable.ic_education, R.drawable.ic_entertainment};
+                R.drawable.ic_health,
+                R.drawable.ic_entertainment,
+                R.drawable.ic_new_deals};
 
-        foodSubCategories = new String[] {activity.getString(R.string.special_discounts),
-        activity.getString(R.string.hot_deals), activity.getString(R.string.restaurants_menu)};
+        foodSubCategories = new String[] {activity.getString(R.string.pakistani),
+        activity.getString(R.string.Fast_Food), activity.getString(R.string.Chinese),
+        activity.getString(R.string.free_delivery)};
 
         shoppingSubCategories = new String[] {activity.getString(R.string.clothing),
         activity.getString(R.string.home_appliances), activity.getString(R.string.others)};
 
-        healthSubCategories = new String[] {activity.getString(R.string.beauty_fitness_tips),
-        activity.getString(R.string.health_care_center), activity.getString(R.string.weight_gain_tips),
-        activity.getString(R.string.weight_loss_tips)};
+        healthSubCategories = new String[] {activity.getString(R.string.Spas),
+        activity.getString(R.string.beauty_parlors), activity.getString(R.string.gyms),
+        activity.getString(R.string.beauty_clinics)};
 
-        educationSubCategories = new String[] { activity.getString(R.string.universities_institutes),
-                activity.getString(R.string.colleges_schools), activity.getString(R.string.tuition_centers),
-        activity.getString(R.string.day_care), activity.getString(R.string.overseas_consultants)};
-
-        entertainmentSubCategories = new String[] { activity.getString(R.string.cinemas_entertainment),
-                activity.getString(R.string.talk_shows), activity.getString(R.string.funny_sms),
-                activity.getString(R.string.travel)};
+        entertainmentSubCategories = new String[] {
+                activity.getString(R.string.travel),
+                activity.getString(R.string.events),
+                activity.getString(R.string.kids),
+                activity.getString(R.string.other_activities)
+        };
     }
 
+    public void onResume()
+    {
+        if(!BizStore.username.isEmpty())
+        {
+            tvNumber.setVisibility(View.VISIBLE);
+            tvNumber.setText(PhoneNumberUtils
+                    .formatNumber("+92" + BizStore.username));
+
+            headerNavigationListener.resume();
+
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    TextView tvNumber;
+    HeaderNavigationListener headerNavigationListener;
+
+    ExpandableListAdapter adapter;
     public void setupNavigationMenu() {
         setIndicatorBounds(expandableListView);
 
         prepareNavigationMenuData();
 
         View navigationHeader = activity.getLayoutInflater().inflate(R.layout.layout_navigation_header, null);
-        View navigationFooter = activity.getLayoutInflater().inflate(R.layout.layout_navigation_footer, null);
 
         setProfilePicture(navigationHeader);
 
         HomeActivity homeActivity = (HomeActivity) activity;
 
-        NavigationMenuOnClickListener clickListener = new NavigationMenuOnClickListener(activity);
-
-        LinearLayout llLangToggle = (LinearLayout) navigationHeader.findViewById(R.id.lang_toggle_layout);
-
-        if(BuildConfig.FLAVOR.equals("telenor"))
-        {
-            llLangToggle.setVisibility(View.GONE);
-        }
-
-        TextView tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
+        tvNumber = (TextView) navigationHeader.findViewById(R.id.number);
         tvNumber.setText(PhoneNumberUtils
-                .formatNumber(BuildConfig.FLAVOR.equals("ooredoo")
-                        ? "+974"
-                        : "+92" + BizStore.username));
+                .formatNumber("+92" + BizStore.username));
 
-        Button btEnglish = (Button) navigationHeader.findViewById(R.id.btn_lang_english);
-        btEnglish.setOnClickListener(clickListener);
-        if(BizStore.getLanguage().equals("en")) clickListener.setSelected(btEnglish);
-        FontUtils.setFont(activity, BizStore.DEFAULT_FONT, btEnglish);
+        headerNavigationListener = new HeaderNavigationListener(homeActivity, navigationHeader);
 
-        Button btArabic = (Button) navigationHeader.findViewById(R.id.btn_lang_arabic);
-        btArabic.setOnClickListener(clickListener);
-        if(BizStore.getLanguage().equals("ar")) clickListener.setSelected(btArabic);
-        FontUtils.setFont(activity, BizStore.ARABIC_DEFAULT_FONT, btArabic);
-
-        new HeaderNavigationListener(homeActivity, navigationHeader);
-
-        ExpandableListAdapter adapter = new ExpandableListAdapter(this, activity, groupList,
-                childList, navigationHeader);
+        adapter = new ExpandableListAdapter(this, activity, groupList, childList, navigationHeader);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -182,11 +192,10 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         }
 
         expandableListView.addHeaderView(navigationHeader);
-        //expandableListView.addFooterView(navigationFooter);
         expandableListView.setAdapter(adapter);
         expandableListView.setOnGroupCollapseListener(this);
         expandableListView.setOnGroupExpandListener(this);
-        expandableListView.setOnChildClickListener(new NavigationMenuChildClickListener(homeActivity, adapter));
+        expandableListView.setOnChildClickListener(new NavigationMenuChildClickListener(homeActivity));
     }
 
     public void setProfilePicture(View navigationHeader) {
@@ -197,26 +206,20 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
 
         Bitmap bitmap = MemoryCache.getInstance().getBitmapFromCache(PROFILE_PIC_URL);
 
-        int width = (int) Converter.convertDpToPixels(600);
-        int height = (int) Converter.convertDpToPixels(600);
+        int width = (int) Converter.convertDpToPixels(300);
+        int height = (int) Converter.convertDpToPixels(300);
 
         if(bitmap != null) {
 
             Logger.print("profile before: "+bitmap.getWidth()+", "+bitmap.getHeight());
 
-           // BitmapProcessor bitmapProcessor = new BitmapProcessor();
-           // bitmap = bitmapProcessor.downsizeBitmap(bitmap, width, height);
-
-            //Logger.print("profile after: "+bitmap.getWidth()+", "+bitmap.getHeight());
-
             profilePicture.setImageBitmap(bitmap);
         } else {
-           // ExecutorService executorService = Executors.newSingleThreadExecutor();
-            //int width = (int) Converter.convertDpToPixels(100);
-            //int height = width;
-            ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
-            ProfilePicDownloadTask bitmapTask = new ProfilePicDownloadTask(profilePicture, progressBar);
-            bitmapTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
+            if(!BizStore.username.isEmpty()) {
+                ProgressBar progressBar = (ProgressBar) navigationHeader.findViewById(R.id.pbProfilePic);
+                ProfilePicDownloadTask bitmapTask = new ProfilePicDownloadTask(profilePicture, progressBar);
+                bitmapTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, PROFILE_PIC_URL, valueOf(width), valueOf(height));
+            }
         }
     }
 
@@ -241,13 +244,16 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         int end = expandableListView.getWidth();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            //expandableListView.setIndicatorBoundsRelative(start, end);
             expandableListView.setIndicatorBounds(start, end);
         } else {
             expandableListView.setIndicatorBounds(start, end);
         }
     }
 
+    /**
+     * fill up the data structure to be passed
+     * to the expandableListView.
+     */
     private void prepareNavigationMenuData() {
         groupList = new ArrayList<>();
 
@@ -328,17 +334,6 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
             healthSubList.add(navigationItem);
         }
 
-        List<NavigationItem> educationSubList = new ArrayList<>();
-
-        for(int i = 0; i < educationSubCategories.length; i++)
-        {
-            NavigationItem navigationItem = new NavigationItem();
-            navigationItem.setItemName(educationSubCategories[i]);
-            navigationItem.setResId(getTreeNode(i, educationSubCategories));
-
-            educationSubList.add(navigationItem);
-        }
-
         List<NavigationItem> entertainmentSubList = new ArrayList<>();
 
         for(int i = 0; i < entertainmentSubCategories.length; i++)
@@ -354,9 +349,8 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
         subChildList.put(subGroupList.get(1).getItemName(), foodSubList);
         subChildList.put(subGroupList.get(2).getItemName(), shoppingSubList);
 
-        subChildList.put(subGroupList.get(4).getItemName(), healthSubList);
-        subChildList.put(subGroupList.get(5).getItemName(), educationSubList);
-        subChildList.put(subGroupList.get(6).getItemName(), entertainmentSubList);
+        subChildList.put(subGroupList.get(3).getItemName(), healthSubList);
+        subChildList.put(subGroupList.get(4).getItemName(), entertainmentSubList);
     }
 
     private int getTreeNode(int index, String [] array)
@@ -388,8 +382,11 @@ public class NavigationMenuUtils implements ExpandableListView.OnGroupCollapseLi
     public void onClick(View v) {
         int viewId = v.getId();
         if(viewId == R.id.dp) {
-            ((HomeActivity) activity).showHideDrawer(GravityCompat.START, false);
-            activity.startActivity(new Intent(activity, MyAccountActivity.class));
+
+            if(!BizStore.username.isEmpty()) {
+                ((HomeActivity) activity).showHideDrawer(GravityCompat.START, false);
+                activity.startActivity(new Intent(activity, MyAccountActivity_.class));
+            }
         }
     }
 }

@@ -29,12 +29,12 @@ public class FontUtils
     private static String lollipopTypefaceFieldName = "sSystemFontMap";
 
     private static String LOLLIPOP_DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
+    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
+            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf" :  BuildConfig.FLAVOR.equals("zong")
             ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
 
-    private final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
+    private final static String ARABIC_DEFAULT_FONT = "fonts/lato_regular.ttf";
 
     public static void setDefaultFont(Context context, String staticTypefaceFieldName,
                                       String fontAssetName)

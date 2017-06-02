@@ -1,11 +1,12 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,14 +137,9 @@ public class TopMallFragment extends Fragment implements View.OnClickListener {
     {
         mall.views += 1;
 
-        if(BuildConfig.FLAVOR.equals("telenor") || BuildConfig.FLAVOR.equals("mobilink")) {
-            Intent intent = new Intent(activity, MallDetailActivity.class);
-            intent.putExtra("business", new Business(mall));
-            intent.putExtra(AppConstant.CATEGORY, AppConstant.DEAL_CATEGORIES[6]);
-            startActivity(intent);
-        }
-        else {
-            activity.showBusinessDetailActivity(AppConstant.DEAL_CATEGORIES[6], new Business(mall));
-        }
+        Intent intent = new Intent(activity, MallDetailActivity.class);
+        intent.putExtra("business", new Business(mall));
+        intent.putExtra(AppConstant.CATEGORY, AppConstant.DEAL_CATEGORIES[6]);
+        startActivity(intent);
     }
 }

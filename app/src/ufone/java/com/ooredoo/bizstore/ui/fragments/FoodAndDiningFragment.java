@@ -445,6 +445,11 @@ public class FoodAndDiningFragment extends Fragment implements OnFilterChangeLis
         if(tvEmptyView != null){tvEmptyView.setText("");}
 
         //isRefreshed = true;
-        fetchAndDisplayFoodAndDining(null);
+        try{
+            fetchAndDisplayFoodAndDining(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

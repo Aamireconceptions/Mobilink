@@ -14,6 +14,9 @@ import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.NotificationsAdapter;
 import com.ooredoo.bizstore.model.Notification;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +24,13 @@ import java.util.List;
  * @author Pehlaj Rai
  * @since 6/24/2015.
  */
+@EActivity
 public class NotificationsActivity extends BaseActivity implements View.OnClickListener {
 
     public List<Notification> notifications = new ArrayList<>();
 
-    private ListView mListView;
+    @ViewById(R.id.lv_notifications)
+    public ListView mListView;
     private NotificationsAdapter mAdapter;
 
     public NotificationsActivity() {
@@ -33,12 +38,12 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         layoutResId = R.layout.activity_my_notifications;
     }
 
+    @ViewById(R.id.rl_select_all)
     RelativeLayout rlSelectAll;
 
     @Override
     public void init() {
         setupToolbar();
-        mListView = (ListView) findViewById(R.id.lv_notifications);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -52,10 +57,8 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         mAdapter = new NotificationsAdapter(this, R.layout.list_item_notification, notifications);
         mListView.setAdapter(mAdapter);
 
-        rlSelectAll = (RelativeLayout) findViewById(R.id.rl_select_all);
         rlSelectAll.setOnClickListener(this);
 
-        cbSelectAll = (CheckBox) findViewById(R.id.cb_select_all);
         cbSelectAll.setChecked(true);
         List<Notification> n = new Select().all().from(Notification.class).execute();
         if(n != null && n.size() > 0) {
@@ -64,10 +67,10 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
                     cbSelectAll.setChecked(false);
                 }
             }
-
         }
     }
 
+    @ViewById(R.id.cb_select_all)
     CheckBox cbSelectAll;
     @Override
     public void onClick(View v) {
@@ -85,8 +88,9 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    @ViewById
+    Toolbar toolbar;
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -98,18 +102,14 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
         notifications.add(new Notification(1, true, R.drawable.ic_top_deals, getString(R.string.top_deals), "top_deals"));
         notifications.add(new Notification(2, true, R.drawable.ic_food_dining, getString(R.string.food_dining), "food"));
         notifications.add(new Notification(3, true, R.drawable.ic_shopping, getString(R.string.shopping), "shopping"));
-        notifications.add(new Notification(4, true, R.drawable.ic_electronics, getString(R.string.ladies_section), "ladies"));
+       // notifications.add(new Notification(4, true, R.drawable.ic_electronics, getString(R.string.ladies_section), "ladies"));
         notifications.add(new Notification(5, true, R.drawable.ic_hotels, getString(R.string.health_fitness), "health"));
-        notifications.add(new Notification(6, true, R.drawable.ic_malls, getString(R.string.education), "education"));
-        notifications.add(new Notification(7, true, R.drawable.ic_automotive, getString(R.string.entertainment), "entertainment"));
+      //  notifications.add(new Notification(6, true, R.drawable.ic_malls, getString(R.string.education), "education"));
+      //  notifications.add(new Notification(7, true, R.drawable.ic_automotive, getString(R.string.entertainment), "entertainment"));
+        notifications.add(new Notification(8, true, R.drawable.ic_new_deals, getString(R.string.new_arrivals), "new_arrivals"));
     }
 
     public void saveNotification(Notification notification) {
-
-       /* if(!notification.enabled)
-        {
-            cbSelectAll.setChecked(false);
-        }*/
 
         if(notification != null && notification.id > 0) {
             List<Notification> notifications = new Select().all().from(Notification.class).where("notificationId=" + notification.id).execute();
@@ -137,7 +137,6 @@ public class NotificationsActivity extends BaseActivity implements View.OnClickL
                     cbSelectAll.setChecked(false);
                 }
             }
-
         }
     }
 }

@@ -400,6 +400,11 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
         if(tvEmptyView != null){tvEmptyView.setText("");}
 
         //isRefreshed = true;
-        fetchAndDisplayEntertainment(null);
+        try {
+            fetchAndDisplayEntertainment(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

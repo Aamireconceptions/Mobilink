@@ -36,22 +36,28 @@ public class CategoryUtils {
     public static final int CT_NEARBY = 12;
     public static final int CT_SPORTS = 14;
     public static final int CT_TRAVEL = 15;
+    public static final int CT_NEW_ARRIVALS = 16;
 
     public static final String[] CACHE_KEYS = { "TOP_BRANDS", "TOP_MALLS", "PROMO_DEALS", "FEATURED_DEALS" };
 
     public static final String[] categories = { "dealofday", "top_deals", "food", "shopping", "ladies",
-            "health", "education", "entertainment" };
+            "health", "education", "entertainment", "new_arrivals" };
 
     public static final List<SubCategory> subCategories = new ArrayList();
 
+    /**
+     * Initialize the subcategories to be used through out the app
+     * @param activity
+     */
     public static void setUpSubCategories(Activity activity) {
 
         if(subCategories.size() == 0) {
 
         /* FOOD & DINING */
-            subCategories.add(new SubCategory(1, R.id.cb_food_special_discounts, activity.getString(R.string.special_discounts), "food_special_discount", CT_FOOD, false, false));
-            subCategories.add(new SubCategory(2, R.id.cb_food_hot_deals, activity.getString(R.string.hot_deals), "food_hot_deals", CT_FOOD, false, false));
-            subCategories.add(new SubCategory(3, R.id.cb_food_restaurant, activity.getString(R.string.restaurants_menu), "food_restaurants_menu", CT_FOOD, false, false));
+            subCategories.add(new SubCategory(1, R.id.cb_food_pakistani, activity.getString(R.string.pakistani), "food_pakistani", CT_FOOD, false, false));
+            subCategories.add(new SubCategory(2, R.id.cb_food_fast_food, activity.getString(R.string.Fast_Food), "food_fast_food", CT_FOOD, false, false));
+            subCategories.add(new SubCategory(3, R.id.cb_food_chinese, activity.getString(R.string.Chinese), "food_chinese", CT_FOOD, false, false));
+            subCategories.add(new SubCategory(3, R.id.cb_food_free_delivery, activity.getString(R.string.free_delivery), "food_free_home_delivery", CT_FOOD, false, false));
 
         /* SHOPPING */
             subCategories.add(new SubCategory(11, R.id.cb_clothing, activity.getString(R.string.clothing), "shopping_clothing", CT_SHOPPING, false, false));
@@ -59,38 +65,31 @@ public class CategoryUtils {
             subCategories.add(new SubCategory(13, R.id.cb_others, activity.getString(R.string.others), "shopping_others", CT_SHOPPING, false, false));
 
         /* HEALTH & FITNESS */
-            subCategories.add(new SubCategory(16, R.id.cb_beauty_fitness, activity.getString(R.string.beauty_fitness_tips), "health_beauty_fitness_tips", CT_HEALTH, false, false));
-            subCategories.add(new SubCategory(17, R.id.cb_health_care, activity.getString(R.string.health_care_center), "health_care", CT_HEALTH, false, false));
-            subCategories.add(new SubCategory(18, R.id.cb_weight_gain, activity.getString(R.string.weight_gain_tips), "health_weight_gain_tips", CT_HEALTH, false, false));
-            subCategories.add(new SubCategory(19, R.id.cb_weight_loss, activity.getString(R.string.weight_loss_tips), "health_weight_loss_tips", CT_HEALTH, false, false));
-
-        /* EDUCATION */
-            subCategories.add(new SubCategory(20, R.id.cb_universities_institutes, activity.getString(R.string.universities_institutes), "education_universities_institutes", CT_EDUCATION, false, false));
-            subCategories.add(new SubCategory(21, R.id.cb_colleges_schools, activity.getString(R.string.colleges_schools), "education_colleges_schools", CT_EDUCATION, false, false));
-            subCategories.add(new SubCategory(22, R.id.cb_tuition, activity.getString(R.string.tuition_centers), "education_tution_centers", CT_EDUCATION, false, false));
-            subCategories.add(new SubCategory(23, R.id.cb_day_care, activity.getString(R.string.day_care), "education_day_care_pre_school", CT_EDUCATION, false, false));
-            subCategories.add(new SubCategory(24, R.id.cb_overseas, activity.getString(R.string.overseas_consultants), "education_overseas_consultants", CT_EDUCATION, false, false));
+            subCategories.add(new SubCategory(16, R.id.cb_health_spas, activity.getString(R.string.Spas), "health_spas", CT_HEALTH, false, false));
+            subCategories.add(new SubCategory(17, R.id.cb_health_beauty_parlors, activity.getString(R.string.beauty_parlors), "health_beauty_parlors", CT_HEALTH, false, false));
+            subCategories.add(new SubCategory(18, R.id.cb_health_gyms, activity.getString(R.string.gyms), "health_gyms", CT_HEALTH, false, false));
+            subCategories.add(new SubCategory(19, R.id.cb_health_beauty_clinics, activity.getString(R.string.beauty_clinics), "health_beauty_clinics", CT_HEALTH, false, false));
 
         /* ENTERTAINMENT */
-            subCategories.add(new SubCategory(28, R.id.cb_cinemas_entertainment, activity.getString(R.string.cinemas_entertainment), "entertainment_cinemas_and_entertainment", CT_ENTERTAINMENT, false, false));
-            subCategories.add(new SubCategory(29, R.id.cb_talk_shows, activity.getString(R.string.talk_shows), "entertainment_talk_shows_alerts", CT_ENTERTAINMENT, false, false));
-            subCategories.add(new SubCategory(30, R.id.cb_funny_sms, activity.getString(R.string.funny_sms), "entertainment_funny_sms", CT_ENTERTAINMENT, false, false));
             subCategories.add(new SubCategory(31, R.id.cb_travel, activity.getString(R.string.travel), "entertainment_travel", CT_ENTERTAINMENT, false, false));
+            subCategories.add(new SubCategory(32, R.id.cb_events, activity.getString(R.string.events), "entertainment_events", CT_ENTERTAINMENT, false, false));
+            subCategories.add(new SubCategory(31, R.id.cb_kids, activity.getString(R.string.kids), "entertainment_kids", CT_ENTERTAINMENT, false, false));
+            subCategories.add(new SubCategory(31, R.id.cb_other_activities, activity.getString(R.string.other_activities), "entertainment_other_activities", CT_ENTERTAINMENT, false, false));
 
         /* NEAR BY */
             subCategories.add(new SubCategory(36, R.id.cb_food_dining, activity.getString(R.string.food_dining), "food", CT_NEARBY, false, false));
             subCategories.add(new SubCategory(37, R.id.cb_shopping, activity.getString(R.string.shopping), "shopping", CT_NEARBY, false, false));
             subCategories.add(new SubCategory(38, R.id.cb_ladies, activity.getString(R.string.ladies_section), "ladies", CT_NEARBY, false, false));
-            subCategories.add(new SubCategory(39, R.id.cb_health, activity.getString(R.string.health_fitness), "health_fitness", CT_NEARBY, false, false));
+            subCategories.add(new SubCategory(39, R.id.cb_health, activity.getString(R.string.health_fitness), "health", CT_NEARBY, false, false));
             subCategories.add(new SubCategory(40, R.id.cb_education, activity.getString(R.string.education), "education", CT_NEARBY, false, false));
             subCategories.add(new SubCategory(41, R.id.cb_entertainment, activity.getString(R.string.entertainment), "entertainment", CT_NEARBY, false, false));
 
         /* TOP */
             subCategories.add(new SubCategory(46, R.id.cb_food_dining1, activity.getString(R.string.food_dining), "food", CT_TOP, false, false));
             subCategories.add(new SubCategory(47, R.id.cb_shopping1, activity.getString(R.string.shopping), "shopping", CT_TOP, false, false));
-            subCategories.add(new SubCategory(48, R.id.cb_ladies1, activity.getString(R.string.ladies_section), "ladies", CT_TOP, false, false));
-            subCategories.add(new SubCategory(49, R.id.cb_health1, activity.getString(R.string.health_fitness), "health_fitness", CT_TOP, false, false));
-            subCategories.add(new SubCategory(50, R.id.cb_education1, activity.getString(R.string.education), "education", CT_TOP, false, false));
+
+            subCategories.add(new SubCategory(49, R.id.cb_health1, activity.getString(R.string.health_fitness), "health", CT_TOP, false, false));
+
             subCategories.add(new SubCategory(53, R.id.cb_entertainment1, activity.getString(R.string.entertainment), "entertainment", CT_TOP, false, false));
         }
     }
@@ -213,14 +212,6 @@ public class CategoryUtils {
             {
                 if(subCategory.isSelected)
                 {
-                    /*if(i != 0)
-                    {
-                        categories += ", " + subCategory.title;
-                    }
-                    else
-                    {
-                        categories = subCategory.title;
-                    }*/
                     categories += subCategory.title + ", ";
                 }
             }
@@ -259,17 +250,5 @@ public class CategoryUtils {
         {
             s.isSelected = false;
         }
-    }
-
-    public static void uncheckCheckBoxes(Activity activity)
-    {
-        for(SubCategory sc : subCategories) {
-
-                CheckBox checkBox = (CheckBox) activity.findViewById(sc.checkBoxId);
-
-                checkBox.setChecked(false);
-                checkBox.setSelected(false);
-
-            }
     }
 }

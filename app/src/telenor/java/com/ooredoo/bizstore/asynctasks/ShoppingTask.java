@@ -1,6 +1,6 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -10,7 +10,6 @@ import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.GridViewBaseAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
-import com.ooredoo.bizstore.model.BrandResponse;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -33,7 +32,8 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 import static java.lang.System.currentTimeMillis;
 
-/**
+/** This class was previously being used for shoppingFragment
+ * because the deals was shown in gridview.
  * @author Babar
  * @since 18-Jun-15.
  */
@@ -159,30 +159,6 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
 
                 adapter.notifyDataSetChanged();
             }
-            else
-                if(sortColumn.equals("views"))
-                {
-                    Gson gson = new Gson();
-
-                    BrandResponse brand = gson.fromJson(result, BrandResponse.class);
-
-                    if(brand.resultCode != - 1)
-                    {
-                        if(brand.brands != null)
-                        {
-                            dealsTaskFinishedListener.onHaveDeals();
-
-                            //adapter.setBrandsList(brand.brands);
-                            //adapter.notifyDataSetChanged();
-
-                            shoppingFragment.showBrands(brand.brands);
-                        }
-                    }
-                    else
-                    {
-                        dealsTaskFinishedListener.onNoDeals(R.string.error_no_data);
-                    }
-                }
         }
         else
         {
@@ -249,6 +225,15 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
             isFilterEnabled = true;
         }
 
+        if(homeActivity.doApplyDistance) {
+            if(isNotNullOrEmpty(sortColumns)) {
+                sortColumns = "distance,".concat(sortColumns);
+            } else {
+                sortColumns = "distance";
+            }
+            isFilterEnabled = true;
+        }
+
         if(isNotNullOrEmpty(sortColumns)) {
             params.put("sort", sortColumns);
         }
@@ -303,6 +288,10 @@ public class ShoppingTask extends BaseAsyncTask<String, Void, String>
         }
 
         if(homeActivity.doApplyDiscount) {
+            isFilterEnabled = true;
+        }
+
+        if(homeActivity.doApplyDistance) {
             isFilterEnabled = true;
         }
 

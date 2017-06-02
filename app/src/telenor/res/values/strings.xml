@@ -81,4 +81,16 @@
     <string name="host">telenor.bizstore.deal</string>
     <string name="host_business">telenor.bizstore</string>
 
+    <string name="pakistani">Pakistani</string>
+    <string name="beauty_parlors">Beauty Parlors</string>
+    <string name="gyms">Gyms</string>
+    <string name="beauty_clinics">Beauty Clinics</string>
+    <string name="kids">Kids</string>
+    <string name="other_activities">Other Activities</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="error_out_of_range">"Dear user, it seems that you are away from outlet. Please go to the outlet to avail discount."</string>
+    <string name="redeem_loc_error">Location must be available to avail discount</string>
+
+    <string name="fb_deep_link">https://fb.me/1578100429162454</string>
+
 </resources>

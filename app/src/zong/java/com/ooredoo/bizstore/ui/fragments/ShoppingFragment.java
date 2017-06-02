@@ -387,6 +387,11 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
             tvEmptyView.setText("");
         }
 
-        fetchAndDisplayShopping(null);
+        try {
+            fetchAndDisplayShopping(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

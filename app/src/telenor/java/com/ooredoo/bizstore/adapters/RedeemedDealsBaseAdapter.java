@@ -1,6 +1,5 @@
 package com.ooredoo.bizstore.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -12,15 +11,13 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ooredoo.bizstore.BuildConfig;
+import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.GenericDeal;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.RecentViewedActivity;
-import com.ooredoo.bizstore.utils.AnimUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
-import com.ooredoo.bizstore.utils.ResourceUtils;
 
 import java.util.List;
 
@@ -40,8 +37,6 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     private Holder holder;
-
-    private int prevItem = -1;
 
     public boolean available = false;
 
@@ -91,7 +86,8 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
             holder.tvCode = (TextView) row.findViewById(R.id.code);
             holder.tvRedeemedOn = (TextView) row.findViewById(R.id.redeemed_on);
             holder.llRedeemOn = (LinearLayout) row.findViewById(R.id.redeem_on_layout);
-
+            holder.tvTimeStamp = (TextView) row.findViewById(R.id.time_stamp);
+            holder.tvDiscountAvailed = (TextView) row.findViewById(R.id.discount_availed);
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
@@ -99,10 +95,14 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
                         .setBackgroundResource(R.drawable.redeemed_ripple);
             }
 
+            FontUtils.setFontWithStyle(context, holder.tvDiscountAvailed, Typeface.BOLD);
+
             row.setTag(holder);
         } else {
             holder = (Holder) row.getTag();
         }
+
+        holder.tvTimeStamp.setText(deal.date + " at " + deal.time);
 
         row.findViewById(R.id.layout_deal_detail).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,12 +135,10 @@ public class RedeemedDealsBaseAdapter extends BaseAdapter {
     }
 
     private void showDetail(GenericDeal deal) {
-        Deal recentDeal = new Deal(deal);
-        RecentViewedActivity.addToRecentViewed(recentDeal);
-        DealDetailActivity.selectedDeal = deal;
-        Intent intent = new Intent();
-        intent.setClass(context, DealDetailActivity.class);
-        intent.putExtra("generic_deal", deal);
+        Intent intent = new Intent(context, DealDetailActivity.class);
+
+        intent.putExtra(AppConstant.ID, deal.id);
+        intent.putExtra("notification", true);
         context.startActivity(intent);
     }
 

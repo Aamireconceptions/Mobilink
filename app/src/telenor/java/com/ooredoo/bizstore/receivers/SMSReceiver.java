@@ -13,7 +13,7 @@ import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.Logger;
 
 
-/**
+/** Use for auto reading the pincode from the inbox
  * Created by Babar on 06-Oct-15.
  */
 public class SMSReceiver extends BroadcastReceiver
@@ -27,7 +27,7 @@ public class SMSReceiver extends BroadcastReceiver
         {
             Bundle bundle = intent.getExtras();
 
-            SmsMessage[] msgs = null;
+            SmsMessage[] msgs;
 
             String msgFrom;
 
@@ -51,10 +51,7 @@ public class SMSReceiver extends BroadcastReceiver
 
                             Logger.print("SMS RECEIVED: " + "FROM: " + msgFrom + ", MSG: " + msgBody);
 
-                            //Toast.makeText(context, "SMS RECEIVED", Toast.LENGTH_SHORT).show();
-
-
-                            if (msgBody.contains("Password for Telenor Bizstore application is")) {
+                            if (msgBody.contains("Password for")) {
                                 String code = msgBody.substring(msgBody.length() - 6);
 
                                 BizStore.password = code;
@@ -63,11 +60,9 @@ public class SMSReceiver extends BroadcastReceiver
                                 DialogUtils.etCode.setSelection(code.length());
                                 DialogUtils.progressBar.setVisibility(View.GONE);
 
-                                    // DialogUtils.processVerificationCode();
+                                DialogUtils.processVerificationCode();
                             }
-
                         }
-
                     }
                 }
                 catch (Exception e)

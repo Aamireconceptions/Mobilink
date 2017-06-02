@@ -1,8 +1,8 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +14,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
@@ -42,7 +41,7 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static com.ooredoo.bizstore.utils.StringUtils.isNullOrEmpty;
 import static java.lang.System.currentTimeMillis;
 
-/**
+/** This class fetches deals for all the fragments except home & shopping
  * @author Babar
  * @since 26-Jun-15.
  */
@@ -116,7 +115,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         return null;
     }
 
-
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
@@ -168,8 +166,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                             }
                         }
                     }
-
-                    Logger.print("Testing :"+jsonElement.toString());
 
                     Response response = gson.fromJson(jsonElement, Response.class);
 
@@ -225,8 +221,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
                     dealsTaskFinishedListener.onNoDeals(R.string.error_server_down);
                 }
             } else
-            if(sortColumn.equals("views"))
+            if(sortColumn.equals("views")) // views are for brand
             {
+                // This block will never get call because we are
+                // not showing brands in the app
                 Gson gson = new Gson();
 
                 BrandResponse brand = gson.fromJson(result, BrandResponse.class);
@@ -285,7 +283,6 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
 
         HashMap<String, String> params = new HashMap<>();
         params.put(OS, ANDROID);
-
 
         if(category.equals("nearby"))
         {
@@ -352,17 +349,24 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
             isFilterEnabled = true;
         }
 
+        if(homeActivity.doApplyDistance) {
+            if(isNotNullOrEmpty(sortColumns)) {
+                sortColumns = "distance,".concat(sortColumns);
+            } else {
+                sortColumns = "distance";
+            }
+            isFilterEnabled = true;
+        }
+
+
         if(isNotNullOrEmpty(sortColumns)) {
             params.put("sort", sortColumns);
         }
 
-        if(BuildConfig.FLAVOR.equals("mobilink"))
-        {
-            params.put("lat", String.valueOf(HomeActivity.lat));
-            params.put("lng", String.valueOf(HomeActivity.lng));
+        params.put("lat", String.valueOf(HomeActivity.lat));
+        params.put("lng", String.valueOf(HomeActivity.lng));
 
-            params.put("nearby", "true");
-        }
+        params.put("nearby", "true");
 
         Logger.logI("SORT BY", "Columns->" + sortColumns);
 
@@ -420,6 +424,10 @@ public class DealsTask extends BaseAsyncTask<String, Void, String>
         }
 
         if(homeActivity.doApplyDiscount) {
+            isFilterEnabled = true;
+        }
+
+        if(homeActivity.doApplyDistance) {
             isFilterEnabled = true;
         }
 

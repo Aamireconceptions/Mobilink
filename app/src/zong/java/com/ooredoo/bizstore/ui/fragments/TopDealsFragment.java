@@ -378,7 +378,13 @@ public class TopDealsFragment extends Fragment implements OnFilterChangeListener
        if(tvEmptyView != null){tvEmptyView.setText("");}
 
        isRefreshed = true;
-        loadTopDeals(null);
         isRefreshed = false;
+        try {
+            loadTopDeals(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

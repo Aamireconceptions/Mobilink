@@ -7,7 +7,7 @@ import android.widget.ExpandableListView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.adapters.CustomExpandableListViewAdapter;
-import com.ooredoo.bizstore.asynctasks.ShoppingTask;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
 import com.ooredoo.bizstore.model.NavigationItem;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
@@ -66,16 +66,10 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
 
         Logger.print("Sub-Category: " + tabPos + ", " + subCategory);
 
-        if(getTabPosition() != 4)
-        {
-            DealsTask.subCategories = filter;
-        }
-        else
-        {
-            ShoppingTask.subCategories = filter;
-        }
         homeActivity.selectTab(tabPos);
         homeActivity.drawerLayout.closeDrawer(GravityCompat.START);
+
+        DealsTask.subCategories = filter;
 
         updateSubCategorySelection(subCategoryCheckboxId, true);
 
@@ -90,32 +84,22 @@ public class CustomExpandableListViewOnChildClickListener implements ExpandableL
     {
         if(groupName.equals(context.getString(R.string.food_dining)))
         {
-            return 3;
+            return 2;
         }
         else
             if(groupName.equals(context.getString(R.string.shopping_speciality)))
             {
-                return 4;
-            }
-        else
-            if(groupName.equals(context.getString(R.string.ladies_section)))
-            {
-                return 5;
+                return 3;
             }
         else
             if(groupName.equals(context.getString(R.string.health_fitness)))
             {
-                return 6;
-            }
-        else
-            if(groupName.equals(context.getString(R.string.education)))
-            {
-                return 7;
+                return 4;
             }
         else
             if(groupName.equals(context.getString(R.string.entertainment)))
             {
-                return 8;
+                return 5;
             }
 
         return -1;

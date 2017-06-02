@@ -1,30 +1,24 @@
 package com.ooredoo.bizstore.asynctasks;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
-import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.model.GenericDeal;
-import com.ooredoo.bizstore.model.Response;
 import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.ui.activities.HomeActivity;
 import com.ooredoo.bizstore.utils.Logger;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
-/**
+/** This class will get the full details for the deals
+ * Also the redeem button and redeem count of the deal
+ * will only be shown after this thread finish its work
  * Created by Babar on 03-Nov-15.
  */
 public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
@@ -78,20 +72,19 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
 
                 if(dealMisc.genericDeal != null) {
 
-                    if (BuildConfig.FLAVOR.equals("mobilink")) {
-                        activity.onHaveData(dealMisc.genericDeal);
+                    activity.onHaveData(dealMisc.genericDeal);
 
-                        return;
-                    }
+                    return;
 
-                    similarDeals.clear();
+                    // If some day you were asked to bring back the similar
+                    // and nearby deals then uncomment the code below.
+
+                    /*similarDeals.clear();
                     nearbyDeals.clear();
                     similarDeals.addAll(dealMisc.genericDeal.similarDeals);
                     nearbyDeals.addAll(dealMisc.genericDeal.nearbyDeals);
 
-                    if (!BuildConfig.FLAVOR.equals("telenor") && !BuildConfig.FLAVOR.equals("ufone")) {
-                        activity.onHaveData(dealMisc.genericDeal);
-                    }
+                    activity.onHaveData(dealMisc.genericDeal);*/
                 }
                 else
                 {
@@ -107,8 +100,6 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         else
         {
             activity.onNoData();
-
-           // Toast.makeText(activity, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -118,9 +109,9 @@ public class DealDetailMiscTask extends BaseAsyncTask<String, Void, String>
         params.put(ID, id);
         params.put("businessDetail", businessId);
         params.put("type", "deals");
-
-        //HomeActivity.lat = 25.283982;
-       // HomeActivity.lng = 51.563376;
+        if(!BizStore.username.isEmpty()) {
+            params.put(MSISDN, BizStore.username);
+        }
 
         params.put("lat", String.valueOf(HomeActivity.lat));
         params.put("long", String.valueOf(HomeActivity.lng));

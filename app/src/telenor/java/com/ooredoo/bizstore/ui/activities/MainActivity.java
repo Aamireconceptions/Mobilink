@@ -1,24 +1,21 @@
 package com.ooredoo.bizstore.ui.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.webkit.WebView;
 
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.ui.fragments.SplashFragment;
-import com.ooredoo.bizstore.utils.FragmentUtils;
 import com.ooredoo.bizstore.utils.Logger;
-import com.ooredoo.bizstore.utils.SharedPrefUtils;
+
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.ooredoo.bizstore.utils.SharedPrefUtils.getBooleanVal;
-
+@EActivity
 public class MainActivity extends BaseActivity {
-
     public static boolean hideToolbar = false;
 
     public MainActivity() {
@@ -27,50 +24,31 @@ public class MainActivity extends BaseActivity {
     }
 
     boolean isSplashShowing = true;
-
+    @ViewById(R.id.gif_view)
+    WebView webView;
     @Override
     public void init() {
-
+        webView.loadUrl("file:///android_asset/gif.html");
         setupToolbar();
         showSplash();
-
-        FragmentUtils.replaceFragment(this, R.id.fragment_container, new MainFragment(),
-        "main_fragment");
-
     }
 
+    @ViewById
     public Toolbar toolbar;
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         setTitle("");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        //actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        //actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setLogo(R.drawable.ic_bizstore);
     }
 
-    SplashFragment splashFragment;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-
     private void showSplash()
     {
-        splashFragment = new SplashFragment();
-
-        fragmentManager = getFragmentManager();
-
-        fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentTransaction.setCustomAnimations(R.animator.slide_up_animator, R.animator.fade_out);
-        //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.add(android.R.id.content, splashFragment, null);
-        fragmentTransaction.commit();
-
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -83,27 +61,33 @@ public class MainActivity extends BaseActivity {
                 });
 
             }
-        }, 2000);
+        }, 4000);
     }
 
     private void hideSplash()
     {
-        boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
+        finish();
+
+        startActivity(new Intent(this, HomeActivity_.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+       /* boolean check = getBooleanVal(this, SharedPrefUtils.LOGIN_STATUS);
         if(check) {
             startActivity(HomeActivity.class);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
         else
         {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.remove(splashFragment);
-            fragmentTransaction.commitAllowingStateLoss();
+            FragmentUtils.replaceFragmentAllowStateLoseAnimation(this, R.id.fragment_container,
+                    new SubscriptionPlansFragment(), "subscription_plan_fragment");
 
-            fragmentManager.executePendingTransactions();
+            startActivity(new Intent(this, HomeActivity.class));
 
             isSplashShowing = false;
+        }*/
 
+        //webView.clearCache(true);
 
-        }
     }
 
     @Override
@@ -124,5 +108,12 @@ public class MainActivity extends BaseActivity {
         }
 
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        webView.destroy();
     }
 }

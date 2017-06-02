@@ -1,13 +1,18 @@
 package com.ooredoo.bizstore.ui.fragments;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +21,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
+import com.ooredoo.bizstore.asynctasks.DealsTask;
+import com.ooredoo.bizstore.interfaces.LocationChangeListener;
 import com.ooredoo.bizstore.interfaces.OnDealsTaskFinishedListener;
 import com.ooredoo.bizstore.interfaces.OnFilterChangeListener;
 import com.ooredoo.bizstore.interfaces.OnSubCategorySelectedListener;
@@ -44,7 +55,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
                                                                OnDealsTaskFinishedListener,
                                                                OnSubCategorySelectedListener,
                                                                SwipeRefreshLayout.OnRefreshListener,
-        ScrollToTop{
+        ScrollToTop, LocationChangeListener{
     private HomeActivity activity;
 
     private ListViewBaseAdapter adapter;
@@ -58,8 +69,6 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
     private TextView tvEmptyView;
 
     private ListView listView;
-
-    private boolean isCreated = false;
 
     public static String subCategory;
 
@@ -79,18 +88,30 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        BizStore bizStore = (BizStore) getActivity().getApplication();
+        Tracker tracker = bizStore.getDefaultTracker();
+        tracker.setScreenName("Health");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        setHasOptionsMenu(true);
+
         View v = inflater.inflate(R.layout.fragment_listing, container, false);
 
         init(v, inflater);
 
         fetchAndDisplayHealth(progressBar);
 
-        isCreated = true;
-
         return v;
     }
+
+    FilterOnClickListener clickListener;
 
     private void init(View v, LayoutInflater inflater)
     {
@@ -101,16 +122,9 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
         swipeRefreshLayout.setSwipeableChildrens(R.id.list_view, R.id.empty_view);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        /* ivBanner = (ImageView) v.findViewById(R.id.banner);
-
-        rlHeader = (RelativeLayout) v.findViewById(R.id.header);*/
-
         ivBanner = (ImageView) inflater.inflate(R.layout.image_view, null);
 
-        rlHeader = (RelativeLayout) inflater.inflate(R.layout.layout_filter_header, null);
-
-        FilterOnClickListener clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_HEALTH);
-        clickListener.setLayout(rlHeader);
+        clickListener = new FilterOnClickListener(activity, CategoryUtils.CT_HEALTH);
 
         List<GenericDeal> deals = new ArrayList<>();
 
@@ -122,8 +136,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         listView = (ListView) v.findViewById(R.id.list_view);
         listView.addHeaderView(ivBanner);
-        listView.addHeaderView(rlHeader);
-        //listView.setOnItemClickListener(new ListViewOnItemClickListener(activity));
+
         listView.setAdapter(adapter);
         listView.setOnScrollListener(new FabScrollListener(activity));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -137,7 +150,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
     DealsTask dealsTask = new DealsTask(null, null, null, null, null);
     private void fetchAndDisplayHealth(ProgressBar progressBar)
     {
-        tvEmptyView.setVisibility(View.GONE);
+        if(tvEmptyView != null){tvEmptyView.setVisibility(View.GONE);}
 
         dealsTask = new DealsTask(activity, adapter, progressBar, ivBanner, this);
 
@@ -158,6 +171,22 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
             dealsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "health");
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        menu.findItem(R.id.action_filter).setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_filter)
+        {
+            clickListener.filter();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -206,7 +235,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         memoryCache.remove(adapter.deals);
 
-        final String KEY = PREFIX_DEALS.concat("hotels_spas");
+        final String KEY = PREFIX_DEALS.concat("health");
         final String UPDATE_KEY = KEY.concat("_UPDATE");
 
         clearCache(activity, KEY);
@@ -214,7 +243,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
         activity.resetFilters();
 
-        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_HOTELS);
+        CategoryUtils.showSubCategories(activity, CategoryUtils.CT_HEALTH);
 
         isRefreshed = true;
         fetchAndDisplayHealth(null);
@@ -228,9 +257,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
 
     @Override
     public void onHaveDeals() {
-        ivBanner.setImageResource(R.drawable.hotels_spa_banner);
-
-        rlHeader.setVisibility(View.VISIBLE);
+        ivBanner.setImageResource(R.drawable.health_banner);
 
         tvEmptyView.setText("");
     }
@@ -239,10 +266,8 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
     public void onNoDeals(int stringResId) {
         ivBanner.setImageDrawable(null);
 
-        rlHeader.setVisibility(View.GONE);
-
         tvEmptyView.setText(stringResId);
-        //tvEmptyView.setVisibility(View.VISIBLE);
+
         listView.setEmptyView(tvEmptyView);
 
         adapter.filterHeaderDeal = null;
@@ -252,14 +277,7 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
     @Override
     public void onSubCategorySelected()
     {
-        if(!isCreated)
-        {
-            onFilterChange();
-        }
-        else
-        {
-            isCreated = false;
-        }
+        onFilterChange();
     }
 
     @Override
@@ -302,6 +320,11 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
             filter = "Discount: Highest to lowest, ";
         }
 
+        if(activity.doApplyDistance)
+        {
+            filter = "Distance: Nearest first, ";
+        }
+
         if(activity.doApplyRating)
         {
             filter += "Rating " + activity.ratingFilter +", ";
@@ -335,7 +358,10 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
                     adapter.notifyDataSetChanged();
                 }
 
-                adapter.filterHeaderDeal = null;
+                if(adapter.filterHeaderDeal != null)
+                {
+                    adapter.filterHeaderDeal = null;
+                }
             }
         }
         else
@@ -354,8 +380,24 @@ public class HealthFragment extends Fragment implements OnFilterChangeListener,
                     adapter.notifyDataSetChanged();
                 }
 
-                adapter.filterHeaderBrand = null;
+                if(adapter.filterHeaderBrand != null)
+                {
+                    adapter.filterHeaderBrand = null;
+                }
             }
         }
+    }
+
+    @Override
+    public void onLocationChanged() {
+        if(tvEmptyView != null){tvEmptyView.setText("");}
+
+        try{
+            fetchAndDisplayHealth(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

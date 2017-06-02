@@ -8,68 +8,79 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
-import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-
 import com.ooredoo.bizstore.AppConstant;
 import com.ooredoo.bizstore.BizStore;
-import com.ooredoo.bizstore.BuildConfig;
 import com.ooredoo.bizstore.R;
-import com.ooredoo.bizstore.model.Gallery;
+import com.ooredoo.bizstore.adapters.GalleryStatePagerAdapter;
+import com.ooredoo.bizstore.adapters.ListViewBaseAdapter;
 import com.ooredoo.bizstore.asynctasks.BaseAsyncTask;
-import com.ooredoo.bizstore.asynctasks.BitmapForceDownloadTask;
-import com.ooredoo.bizstore.asynctasks.CalculateDistanceTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailMiscTask;
 import com.ooredoo.bizstore.asynctasks.DealDetailTask;
-import com.ooredoo.bizstore.asynctasks.RedeemViaSmsTask;
-import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
+import com.ooredoo.bizstore.asynctasks.FileDownloadTask;
 import com.ooredoo.bizstore.asynctasks.IncrementViewsTask;
-import com.ooredoo.bizstore.asynctasks.LocationsTask;
-import com.ooredoo.bizstore.interfaces.LocationNotifies;
+import com.ooredoo.bizstore.asynctasks.ReportAsyncTask;
+import com.ooredoo.bizstore.asynctasks.VerifyMerchantCodeTask;
+import com.ooredoo.bizstore.dialogs.MsisdnDialog;
 import com.ooredoo.bizstore.listeners.ScrollViewListener;
 import com.ooredoo.bizstore.model.Deal;
 import com.ooredoo.bizstore.model.Favorite;
+import com.ooredoo.bizstore.model.Gallery;
 import com.ooredoo.bizstore.model.GenericDeal;
+import com.ooredoo.bizstore.ui.fragments.ImageViewerFragment;
 import com.ooredoo.bizstore.utils.AnimatorUtils;
 import com.ooredoo.bizstore.utils.ColorUtils;
+import com.ooredoo.bizstore.utils.CommonHelper;
+import com.ooredoo.bizstore.utils.Converter;
+import com.ooredoo.bizstore.utils.CryptoUtils;
+import com.ooredoo.bizstore.utils.DialogUtils;
 import com.ooredoo.bizstore.utils.DiskCache;
+import com.ooredoo.bizstore.utils.FBUtils;
+import com.ooredoo.bizstore.utils.FileUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
-
+import com.ooredoo.bizstore.utils.FragmentUtils;
+import com.ooredoo.bizstore.utils.IntentUtils;
 import com.ooredoo.bizstore.utils.Logger;
 import com.ooredoo.bizstore.utils.MemoryCache;
-import com.ooredoo.bizstore.utils.ScrollViewHelper;
+import com.ooredoo.bizstore.utils.SharedPrefUtils;
 import com.ooredoo.bizstore.utils.SnackBarUtils;
 
-import java.util.ArrayList;
+import org.androidannotations.annotations.EActivity;
+
+import java.io.File;
 import java.util.List;
+
+import bolts.AppLinks;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
@@ -77,43 +88,47 @@ import static com.ooredoo.bizstore.AppConstant.ACTION_DEAL_DETAIL;
 import static com.ooredoo.bizstore.AppConstant.CATEGORY;
 import static com.ooredoo.bizstore.AppConstant.DEAL_CATEGORIES;
 import static com.ooredoo.bizstore.AppConstant.DIALER_PREFIX;
-import static com.ooredoo.bizstore.utils.CategoryUtils.getCategoryIcon;
 import static com.ooredoo.bizstore.utils.DialogUtils.showRatingDialog;
 import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
 import static java.lang.String.valueOf;
 
+
 /**
- * @author Pehlaj Rai
- * @since 6/23/2015.
+ * @author Muhammad Babar
  */
-public class DealDetailActivity extends BaseActivity implements OnClickListener,
-        LocationNotifies
+
+@EActivity
+public class DealDetailActivity extends BaseActivity implements OnClickListener, LocationListener
 
 {
-
-    public List<Gallery> galleryList;
-
     public String category;
     static String packageName;
-    public boolean showBanner = false;
-public EditText etMerchantCode;
 
-    RelativeLayout rlMerchandCode;
-
-    private String qticketUrl = "https://www.q-tickets.com/";
-
-   // public int bannerResId = R.drawable.tmp_banner;
     private ActionBar mActionBar;
 
-    ScrollViewHelper scrollViewHelper;
+    ScrollView scrollView;
 
-    public Button btGetCode;
+    public static Button btGetCode;
 
-    private ImageView ivLine, ivVerifyMerchantCode;
+    RadioGroup radioGroup;    // declare in report_dialog_box.
 
-    private LinearLayout llVoucherCode;
+    RadioButton someOther;    // declare in report_dialog_box.
 
-    private TextView tvDiscount, tvValidity, tvCode, tvNote, tvDiscountVoucher;
+    RadioButton other;        // declare in report_dialog_box.
+
+    EditText enterReport;    // declare in report_dialog_box.
+
+    String reportMesage;     // Use for send the report according to deal.
+
+    TextView titleReportBox;
+
+    int reportEdittxt_Check=0;
+
+    Button reportBtn_dialogBox;
+
+    private ImageView ivVerifyMerchantCode;
+
+    ColorDrawable cd;
 
     private int id = -1;
 
@@ -125,46 +140,49 @@ public EditText etMerchantCode;
 
     private Dialog ratingDialog;
 
-    public  MemoryCache memoryCache = MemoryCache.getInstance();
+    public MemoryCache memoryCache = MemoryCache.getInstance();
 
     private DiskCache diskCache = DiskCache.getInstance();
 
     private SnackBarUtils snackBarUtils;
 
-    LinearLayout llSimilarNearby;
-
-
     ListViewBaseAdapter commonAdapter;
     public DealDetailActivity() {
         super();
-        layoutResId = R.layout.deal_detail_activity;
+        layoutResId = R.layout.frag_deal_detail;
     }
 
     TextView tvVoucherClaimed;
 
     Tracker tracker;
 
+    int reqWidth, reqHeight;
     @Override
     public void init() {
 
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        reqWidth = displayMetrics.widthPixels;
+        reqHeight = displayMetrics.heightPixels / 2;
+
+        String username = SharedPrefUtils.getStringVal(this, "username");
+        String password = SharedPrefUtils.getStringVal(this, "password");
+        String secret = SharedPrefUtils.getStringVal(this, "secret");
+
+        if(!username.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.username = username;
+        }
+
+        if(!password.equals(SharedPrefUtils.EMPTY)) {
+            BizStore.password = password;
+        }
+
+        BizStore.secret = secret;
+
         diskCache.requestInit(this);
-
-        header = getLayoutInflater().inflate(R.layout.frag_deal_detail, null);
-
-        setupToolbar();
 
         handleIntentFilter();
 
         initViews();
-    }
-
-
-    private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setShowHideAnimationEnabled(false);
     }
 
     @Override
@@ -177,7 +195,7 @@ public EditText etMerchantCode;
 
         handleIntentFilter();
     }
-
+    private boolean isNotification = false;
     private void handleIntentFilter() {
         Intent intent = getIntent();
 
@@ -192,73 +210,72 @@ public EditText etMerchantCode;
 
                 Logger.print("Extras: " + paramId);
 
-                getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
+                if(paramId == null)
+                {
+                    Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+                    String fbParamId = targetUrl.getQueryParameter("id");
+
+                    String decodedFbParamId = CryptoUtils.decodeBase64(fbParamId);
+
+                    Logger.print("FB targetURL: "+targetUrl+" encoded id: "+fbParamId+", decodedId:"+decodedFbParamId);
+
+                    getIntent().putExtra(AppConstant.ID, Integer.parseInt(decodedFbParamId));
+                }
+                else
+                {
+                    getIntent().putExtra(AppConstant.ID, Integer.parseInt(paramId));
+                }
+
             }
 
             id = intent.getIntExtra(AppConstant.ID, 0);
+            isNotification = intent.getBooleanExtra("notification", false);
             getIntent().putExtra(CATEGORY, DEAL_CATEGORIES[0]);
 
         }
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
 
-        Logger.print("OnCreateContextMenu");
-
-        if(mDeal.locations != null && mDeal.locations.size() > 0) {
-            for (int i = 0; i <= mDeal.locations.size() - 1; i++) {
-                /*if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
-                {
-                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
-                }*/
-                if (mDeal.locations.size() > 1 ||
-                        (mDeal.location != null
-                                &&
-                                (!mDeal.location.equalsIgnoreCase(mDeal.locations.get(i).title))))
-
-                {
-                    menu.add(1, mDeal.locations.get(i).id, 0, mDeal.locations.get(i).title);
-                }
-            }
-        }
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        mDeal.businessId = id;
-
-        Logger.print("menuId: "+id);
-
-        LocationsTask locationsTask = new LocationsTask(DealDetailActivity.this);
-        locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
-
-        return super.onContextItemSelected(item);
-    }
-
-    Spinner spinner;
-    View header;
-    ListView listView;
-    PopupMenu popupMenu;
-    TextView tvLocations;
     TextView tvPrices;
-    ListViewBaseAdapter similarAdapter, nearbyAdapter;
-
-    List<GenericDeal> similarDeals = new ArrayList<>(),  nearbyDeals = new ArrayList<>();
     ScrollViewListener mOnScrollViewListener;
     LinearLayout llHead, llDiscount;
     TextView tvHeadTitle, tvHeadDescription;
     TableLayout tableLayout;
     RelativeLayout rlDetails;
 
+TextView tvBrochure;
 
+    File cacheDir;
 
     private void initViews()
     {
+        tvBrochure = (TextView) findViewById(R.id.brochure);
+
+        tvBrochure.setOnClickListener(this);
+
+        cacheDir = FileUtils.getDiskCacheDir(this, "Pdf Docs");
+
+        if(!cacheDir.exists())
+        {
+            Logger.print("Creating Dir: ");
+
+            cacheDir.mkdir();
+        }
+        else
+        {
+            Logger.print("Dir Exists: ");
+        }
+
+        Logger.print("Cache Dir: " + cacheDir);
+
+        scrollView=(ScrollView) findViewById(R.id.scrollView1);
+         cd = new ColorDrawable(getResources().getColor(R.color.red));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mActionBar  = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+
         BizStore bizStore = (BizStore) getApplication();
         tracker = bizStore.getDefaultTracker();
 
@@ -269,27 +286,14 @@ public EditText etMerchantCode;
 
         genericDeal = (GenericDeal) intent.getSerializableExtra("generic_deal");
 
-        llHead = (LinearLayout) header.findViewById(R.id.head);
-        tvHeadTitle = (TextView) header.findViewById(R.id.head_title);
+        llHead = (LinearLayout) findViewById(R.id.head);
+        tvHeadTitle = (TextView) findViewById(R.id.head_title);
         FontUtils.setFontWithStyle(this, tvHeadTitle, Typeface.BOLD);
-        tvHeadDescription = (TextView) header.findViewById(R.id.head_description);
+        tvHeadDescription = (TextView) findViewById(R.id.head_description);
 
-        tvPrices = (TextView) header.findViewById(R.id.prices);
+        tvPrices = (TextView) findViewById(R.id.prices);
 
-        tvVoucherClaimed = (TextView) header.findViewById(R.id.vouchers_claimed);
-
-        ivVerifyMerchantCode = (ImageView) header.findViewById(R.id.verify_merchant_code);
-        ivVerifyMerchantCode.setOnClickListener(this);
-
-        rlMerchandCode = (RelativeLayout) header.findViewById(R.id.merchant_code_layout);
-
-        etMerchantCode = (EditText) header.findViewById(R.id.merchant_code_field);
-        etMerchantCode.setMaxWidth(etMerchantCode.getWidth());
-        etMerchantCode.setMaxLines(4);
-
-        FontUtils.setFontWithStyle(this, etMerchantCode, Typeface.BOLD);
-
-        Logger.print("etMerchant Code width:"+etMerchantCode.getWidth());
+        tvVoucherClaimed = (TextView) findViewById(R.id.vouchers_claimed);
 
         packageName = getPackageName();
         if(genericDeal != null) {
@@ -299,118 +303,38 @@ public EditText etMerchantCode;
             Logger.logI("DETAIL_ID", valueOf(id));
         }
 
-        llDiscount = (LinearLayout) header.findViewById(R.id.discount_layout);
+        llDiscount = (LinearLayout) findViewById(R.id.discount_layout);
 
-        tableLayout = (TableLayout) header.findViewById(R.id.table);
+        tableLayout = (TableLayout) findViewById(R.id.table);
 
-        rlDetails = (RelativeLayout) header.findViewById(R.id.ll_details);
-
-        scrollViewHelper = new ScrollViewHelper(this);
+        rlDetails = (RelativeLayout) findViewById(R.id.ll_details);
 
         mOnScrollViewListener = new ScrollViewListener(mActionBar);
-        llSimilarNearby = (LinearLayout) header.findViewById(R.id.similar_nearby);
-
-        listView = (ListView) findViewById(R.id.list_view);
-        listView.addHeaderView(header);
-        listView.setAdapter(null);
-        header.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    View view = getCurrentFocus();
-                    if (view != null) {
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-
-                        etMerchantCode.clearFocus();
-                    }
-                }
-
-                return false;
-            }
-        });
-
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (mOnScrollViewListener != null) {
-
-                }
-
-                View currentFcous = getCurrentFocus();
-                if(currentFcous != null)
-                {
-                    currentFcous.clearFocus();
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                mOnScrollViewListener.onScrollChanged( header);
-            }
-
-        });
 
         category = intent.getStringExtra(CATEGORY);
 
         snackBarUtils = new SnackBarUtils(this, findViewById(R.id.root));
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        if(progressBar != null) {
+       ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+       if(progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
 
-        header.findViewById(R.id.tv_call).setOnClickListener(this);
-        header.findViewById(R.id.iv_call).setOnClickListener(this);
-        header.findViewById(R.id.tv_rate).setOnClickListener(this);
-        header.findViewById(R.id.iv_rate).setOnClickListener(this);
-        header.findViewById(R.id.tv_share).setOnClickListener(this);
-        header.findViewById(R.id.iv_share).setOnClickListener(this);
-        findViewById(R.id.iv_favorite).setOnClickListener(this);
+        findViewById(R.id.tv_call).setOnClickListener(this);
+        findViewById(R.id.iv_call).setOnClickListener(this);
+        findViewById(R.id.tv_rate).setOnClickListener(this);
+        findViewById(R.id.iv_rate).setOnClickListener(this);
+        findViewById(R.id.share).setOnClickListener(this);
+        findViewById(R.id.iv_share).setOnClickListener(this);
 
-        tvLocations = (TextView) header.findViewById(R.id.locations);
-
-        FontUtils.setFontWithStyle(this, tvLocations, Typeface.BOLD);
-
-        tvLocations.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // popupMenu.show();
-
-                registerForContextMenu(v);
-
-                openContextMenu(v);
-
-                unregisterForContextMenu(v);
-            }
-        });
-
-        popupMenu = new PopupMenu(this, tvLocations, Gravity.BOTTOM);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
-        {
-            @Override
-            public boolean onMenuItemClick(MenuItem item)
-            {
-                int id = item.getItemId();
-
-                Logger.print("menuId: "+id);
-
-                LocationsTask locationsTask = new LocationsTask(DealDetailActivity.this);
-                locationsTask.execute(String.valueOf(id), "deals", item.getTitle().toString());
-
-                return false;
-            }
-        });
-
-        btGetCode = (Button) header.findViewById(R.id.get_code);
+        btGetCode = (Button) findViewById(R.id.get_code);
         btGetCode.setOnClickListener(this);
 
         FontUtils.setFontWithStyle(this, btGetCode, Typeface.BOLD);
 
-        tvDiscount = (TextView) findViewById(R.id.discount);
 
+        // if genericDeal is null that's mean user is visiting this
+        // activity either via push notification or deep link
         if(genericDeal == null) {
             DealDetailTask dealDetailTask = new DealDetailTask(this, null, snackBarUtils);
             dealDetailTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(id));
@@ -421,18 +345,63 @@ public EditText etMerchantCode;
         }
     }
 
-    Button btSimilarDeals, btNearbyDeals;
     ImageView ivDetail;
     ProgressBar progressBar;
     LinearLayout llDirections;
     RelativeLayout rlHeader;
-    TextView tvCity;
 
-    RelativeLayout rlVoucher;
+
     GenericDeal mDeal;
+    TextView tvAvailedDeals;
 
+    FBUtils fbUtils;
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+    }
+
+    TextView tvDistance;
+    TextView tvTimeStamp, tvDiscountAvailed;
+    LinearLayout llTimeStamp;
+    private long minTimeMillis = 10 * 1000;
+    private float distanceMeters = 0;
+    LocationManager locationManager;
+     Dialog reportDialog;
     public void populateData(final GenericDeal deal) {
         if(deal != null) {
+
+            fbUtils = new FBUtils(this);
+            fbUtils.init();
+
+            if(HomeActivity.lat != 0 && HomeActivity.lng != 0 )
+            {
+                userLocation = new Location("");
+                userLocation.setLatitude(HomeActivity.lat);
+                userLocation.setLongitude(HomeActivity.lng);
+            }
+
+            if(deal.latitude != 0 && deal.longitude != 0) {
+                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTimeMillis, distanceMeters, this);
+
+                }
+
+                if(locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null)
+                {
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTimeMillis,
+                            distanceMeters, this);
+                }
+            }
+
+            llTimeStamp = (LinearLayout) findViewById(R.id.last_redeemed_layout);
+            tvTimeStamp = (TextView) findViewById(R.id.time_stamp);
+            tvDiscountAvailed = (TextView) findViewById(R.id.discount_availed);
+            FontUtils.setFontWithStyle(this, tvDiscountAvailed, Typeface.BOLD);
+            FontUtils.setFont(this, tvTimeStamp);
+
+             tvAvailedDeals = (TextView) findViewById(R.id.tv_share);
 
             genericDeal = deal;
 
@@ -452,23 +421,34 @@ public EditText etMerchantCode;
                         actualPrice, getResources().getColor(R.color.slight_grey));
             }
 
-
-            mOnScrollViewListener.setTitle(deal.title.toUpperCase());
-
             src = new Deal(deal);
             src.id = deal.id;
-            IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, "deals", id);
+
+            String type;
+
+            if(isNotification)
+            {
+                type = "notification";
+            }
+            else
+            {
+                type = "deals";
+            }
+
+            IncrementViewsTask incrementViewsTask = new IncrementViewsTask(this, type, id);
             incrementViewsTask.execute();
 
-            mActionBar.setTitle(deal.title);
 
-            rlHeader = (RelativeLayout) header.findViewById(R.id.rl_header);
+            rlHeader = (RelativeLayout) findViewById(R.id.rl_header);
 
             TextView tvBrand = (TextView) findViewById(R.id.brand_name);
             tvBrand.setText(deal.businessName);
 
+            TextView tvBrandAddress = (TextView) findViewById(R.id.brand_address);
+            tvBrandAddress.setText(deal.address);
+
             TextView tvValidity = (TextView) findViewById(R.id.validity);
-            tvValidity.setText(getString(R.string.deal_valid_till) + " " + deal.endDate);
+            tvValidity.setText("Validity Date: " + deal.endDate);
 
             llDirections = (LinearLayout) findViewById(R.id.directions_layout);
             llDirections.setOnClickListener(new OnClickListener() {
@@ -478,14 +458,34 @@ public EditText etMerchantCode;
                 }
             });
 
-            TextView tvCategory = (TextView) findViewById(R.id.cat);
-            tvCategory.setText(deal.category);
+            if(deal.distance == 0)
+            {
+                if(HomeActivity.lat != 0 && HomeActivity.lng != 0
+                        && deal.latitude != 0 && deal.longitude != 0)
+                {
+                    float results[] = new float[3];
 
-            FontUtils.setFontWithStyle(this, tvCategory, Typeface.BOLD);
+                    Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
+                            deal.latitude, deal.longitude, results);
+
+                    float distance = results[0];
+
+                    deal.distance = Double.parseDouble(String.format("%.1f", distance / 1000));
+                }
+            }
+
+            tvDistance = (TextView) findViewById(R.id.directions);
+
+            if(deal.distance != 0)
+            {
+                llDirections.setVisibility(View.VISIBLE);
+
+                tvDistance.setText(String.format("%.1f", deal.distance) + " km");
+            }
 
             if(deal.how_works != null && !deal.how_works.isEmpty())
             {
-                TextView tvHTWNote = (TextView) header.findViewById(R.id.how_this_work_note);
+                TextView tvHTWNote = (TextView) findViewById(R.id.how_this_work_note);
 
                 tvHTWNote.setVisibility(View.VISIBLE);
                 tvHTWNote.setOnClickListener(this);
@@ -493,106 +493,44 @@ public EditText etMerchantCode;
 
             if(deal.terms_services != null && !deal.terms_services.isEmpty())
             {
-                TextView tvTermsServices = (TextView) header.findViewById(R.id.tos_note);
+                TextView tvTermsServices = (TextView) findViewById(R.id.tos_note);
 
-                tvTermsServices.setVisibility(View.VISIBLE);
                 tvTermsServices.setOnClickListener(this);
             }
-
 
             if(isNotNullOrEmpty(deal.category) && deal.category.contains(".")) {
                 deal.category = deal.category.replace(".", ",");
             }
-            TextView tvTitle = ((TextView) header.findViewById(R.id.title));
-            tvTitle.setText(deal.title);
 
-            FontUtils.setFontWithStyle(this, tvTitle, Typeface.BOLD);
-            //((TextView) header.findViewById(R.id.phone)).setText(deal.contact);
+            ((TextView) findViewById(R.id.description)).setText(deal.description);
 
-            ((TextView) header.findViewById(R.id.description)).setText(deal.description);
-            //((TextView) header.findViewById(R.id.address)).setText(deal.address);
-
-            //((TextView) findViewById(R.id.tv_category)).setText(deal.category);
-            ((RatingBar) header.findViewById(R.id.rating_bar)).setRating(deal.rating);
+            ((RatingBar) findViewById(R.id.rating_bar)).setRating(deal.rating);
 
 
-            header.findViewById(R.id.iv_views).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views + " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
-                }
-            });
+            TextView tvView = ((TextView) findViewById(R.id.tv_views));
+            reportDialog = new Dialog(DealDetailActivity.this);
+            reportDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            reportDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            reportDialog.setContentView(R.layout.report_dialog_box);
 
-            TextView tvView = ((TextView) header.findViewById(R.id.tv_views));
-            tvView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(DealDetailActivity.this, getString(R.string.deal_has_been_viewed) + " "+deal.views+ " " + getString(R.string.times), Toast.LENGTH_SHORT).show();
-                }
-            });
-            tvView.setText(valueOf(deal.views));
+            radioGroup=(RadioGroup) reportDialog.findViewById(R.id.radioGroup);
+            someOther=(RadioButton) reportDialog.findViewById(R.id.someOther_radioButton);
+            FontUtils.setFont(this, someOther);
+            other=(RadioButton)  reportDialog.findViewById(R.id.other_radioButton);
+            FontUtils.setFont(this, other);
+            reportBtn_dialogBox=(Button) reportDialog.findViewById(R.id.reportButton_report_dialog_box);
+            FontUtils.setFont(this, reportBtn_dialogBox);
+            titleReportBox=(TextView) reportDialog.findViewById(R.id.title_reportBox);
+            FontUtils.setFontWithStyle(this,titleReportBox,Typeface.BOLD);
+            enterReport=(EditText) reportDialog.findViewById(R.id.enterReport_editText);
 
-            rlVoucher = (RelativeLayout) header.findViewById(R.id.voucher_layout);
-
-            if(deal.is_exclusive == 0) {
-                rlVoucher.setVisibility(View.GONE);
-                tvDiscount.setVisibility(View.GONE);
-
-               // findViewById(R.id.tv_discount).setVisibility(View.GONE);
-                //findViewById(R.id.tv_deal_discount).setVisibility(View.GONE);
-            }
-            else
-            {
-                rlVoucher.setVisibility(View.VISIBLE);
-                tvDiscount.setVisibility(View.VISIBLE);
-            }
-
-            if(deal.discount == 0)
-            {
-                tvDiscount.setVisibility(View.GONE);
-            }
-
-            if(deal.isQticket == 1)
-            {
-                btGetCode.setText(R.string.get_qticket);
-            }
-           // deal.location = "doha";
-
-            RelativeLayout rlLocationHeader = (RelativeLayout) header.findViewById(R.id.location_header);
-
-            tvCity = ((TextView) header.findViewById(R.id.city));
-
-            FontUtils.setFontWithStyle(this, tvCity, Typeface.BOLD);
-
-            if(deal.location != null && !deal.location.isEmpty()) {
-
-                tvCity.setText(deal.location);
-            }
-            else
-            {
-               // rlLocationHeader.setVisibility(View.GONE);
-            }
-
+            ImageView ivViews = (ImageView)  findViewById(R.id.iv_views);
+            ivViews.setOnClickListener(this);
+            tvView.setOnClickListener(this);
 
             Logger.print("businessId Deal,"+deal.businessId);
 
             final ImageView ivBrandLogo = (ImageView) findViewById(R.id.brand_logo);
-            ivBrandLogo.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
-
-                    Intent intent = new Intent();
-                    intent.setClass(DealDetailActivity.this, BusinessDetailActivity.class);
-
-                    intent.putExtra(CATEGORY, "");
-                    intent.putExtra(AppConstant.ID, deal.businessId);
-                    intent.putExtra("color", deal.color );
-                    startActivity(intent);
-                }
-            });
 
             String brandLogo = deal.businessLogo;
 
@@ -610,14 +548,13 @@ public EditText etMerchantCode;
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl, ivBrandLogo);
+                    new CommonHelper().fallBackToDiskCache(this, imgUrl, diskCache, memoryCache,
+                            ivBrandLogo, progressBar, reqWidth, reqHeight);
                 }
             }
             else
             {
-                //ivBrandLogo.setVisibility(View.GONE);
-
-                TextView tvBrandTxt = (TextView) header.findViewById(R.id.brand_txt);
+                TextView tvBrandTxt = (TextView) findViewById(R.id.brand_txt);
                 FontUtils.setFontWithStyle(this, tvBrandTxt, Typeface.BOLD);
 
                 if(deal.businessName != null && !deal.businessName.isEmpty())
@@ -633,15 +570,9 @@ public EditText etMerchantCode;
 
             String discount = valueOf(deal.discount) + getString(R.string.percentage_off);
 
-            src.isFavorite = Favorite.isFavorite(id);
+            ivDetail = (ImageView) findViewById(R.id.detail_img);
 
-            findViewById(R.id.iv_favorite).setSelected(src.isFavorite);
-
-            int categoryIcon = getCategoryIcon(deal.category);
-
-            ivDetail = (ImageView) header.findViewById(R.id.detail_img);
-
-            progressBar = (ProgressBar) header.findViewById(R.id.progressBar);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
             String detailImageUrl = null;
             if(deal.image != null)
@@ -657,18 +588,7 @@ public EditText etMerchantCode;
 
                 Bitmap bitmap = memoryCache.getBitmapFromCache(imgUrl);
 
-                if(bitmap != null)
-                {
-                   /* Palette palette = Palette.from(bitmap).generate();
-                    if(palette != null)
-                    {
-                        Palette.Swatch swatch = palette.getLightMutedSwatch();
-                        if(swatch != null)
-                        {
-                            rlHeader.setBackgroundColor(swatch.getRgb());
-                        }
-                    }*/
-
+                if(bitmap != null) {
                     ivDetail.setImageBitmap(bitmap);
 
                     ivDetail.post(new Runnable() {
@@ -677,308 +597,30 @@ public EditText etMerchantCode;
                             AnimatorUtils.startDetailAnimation(rlDetails, tableLayout, llDiscount);
                         }
                     });
-
-                    //AnimatorUtils.expandAndFadeIn(ivDetail);
-
                 }
                 else
                 {
-                    fallBackToDiskCache(imgUrl, ivDetail);
+                    new CommonHelper().fallBackToDiskCache(this, imgUrl, diskCache, memoryCache,
+                            ivDetail, progressBar, reqWidth, reqHeight);
                 }
             }
-
-            tvDiscount.setText(discount);
-            FontUtils.setFontWithStyle(this, tvDiscount, Typeface.BOLD);
-
-            btSimilarDeals = (Button) header.findViewById(R.id.similar_deals);
-            btSimilarDeals.setOnClickListener(this);
-
-            FontUtils.setFont(this, btSimilarDeals);
-           // btSimilarDeals.performClick();
-
-            btNearbyDeals = (Button) header.findViewById(R.id.nearby_deals);
-            btNearbyDeals.setOnClickListener(this);
-
-            FontUtils.setFont(this,  btNearbyDeals);
-
-            //tvValidity.setText(getString(R.string.redeem_until) + " " + deal.endDate);
-
-            /*if(deal.voucher != null && !deal.voucher.isEmpty())
-            {
-                llVoucherCode.setVisibility(View.VISIBLE);
-
-                if(deal.status.equals("Available"))
-                {
-                    tvCode.setText(deal.voucher);
-
-                    tvNote.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    tvCode.setText("This voucher code has been already redeemed!");
-
-                    tvDiscountVoucher.setVisibility(View.GONE);
-                }
-
-                btGetCode.setVisibility(View.GONE);
-
-                ivLine.setVisibility(View.VISIBLE);
-            }*/
-
-            if(deal.is_exclusive == 1)
-            {
-               // header.findViewById(R.id.voucher_frame).setVisibility(View.VISIBLE);
-            }
-
-
 
         } else {
             makeText(getApplicationContext(), "No detail found", LENGTH_LONG).show();
         }
 
-      //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-
-       // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
-
-        commonAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-        commonAdapter.setListingType("deals");
-        listView.setAdapter(commonAdapter);
-        //listView.setAdapter(similarAdapter);
-        //listView.setAdapter(nearbyAdapter);
-
-        //String[] locations = new String[genericDeal.locations.size()];
-
-        if(deal.locations != null && deal.locations.size() > 0)
-        {
-            for(int i = 0; i<=deal.locations.size() - 1; i++)
-            {
-                /*if(deal.location != null && !deal.location.equalsIgnoreCase(deal.locations.get(i).title))
-                {
-                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
-                }*/
-                if(deal.locations.size() > 1 ||
-                        (deal.location != null
-                                &&
-                        (!deal.location.equalsIgnoreCase(deal.locations.get(i).title))))
-
-                {
-                    popupMenu.getMenu().add(1, deal.locations.get(i).id, 0, deal.locations.get(i).title);
-                }
-            }
-
-            if(deal.locations.size() == 1 && deal.location.equals(deal.locations.get(0).title))
-            {
-                tvLocations.setVisibility(View.GONE);
-            }
-        }
-        else
-        {
-            tvLocations.setVisibility(View.GONE);
-        }
-
-        if(popupMenu.getMenu().size() == 0)
-        {
-            tvLocations.setVisibility(View.GONE);
-        }
-
-       /* ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, locations);
-        spinner.setAdapter(spinnerAdapter);*/
-
-        updateOutlet(deal, null);
-
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.more_progress);
-
-        DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, similarDeals, nearbyDeals, progressBar);
+        DealDetailMiscTask detailMiscTask = new DealDetailMiscTask(this, null, null, null);
         detailMiscTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(deal.id),
                 String.valueOf(deal.businessId));
-    }
 
-    private void updateOutlet(GenericDeal deal, String selectedLoc)
-    {
-        if(selectedLoc != null)
-        tvCity.setText(selectedLoc);
+    }    //populateData function end.
 
-        RelativeLayout rlPhone = (RelativeLayout) findViewById(R.id.phone_layout);
-
-        TextView tvPhone= (TextView) header.findViewById(R.id.phone);
-
-        if(deal.contact != null && !deal.contact.isEmpty())
-        {
-            rlPhone.setVisibility(View.VISIBLE);
-            tvPhone.setText(PhoneNumberUtils.formatNumber(deal.contact.contains("+")
-                    ? deal.contact : "+" + deal.contact));
-        }
-        else
-        {
-            rlPhone.setVisibility(View.GONE);
-        }
-
-        ImageView ivArrow = (ImageView) findViewById(R.id.address_arrow);
-
-        RelativeLayout rlDistance = (RelativeLayout) findViewById(R.id.distance_layout);
-
-        if((deal.latitude == 0 && deal.longitude == 0)
-                || (HomeActivity.lat == 0 && HomeActivity.lng == 0))
-        {
-            llDirections.setVisibility(View.GONE);
-            rlDistance.setVisibility(View.GONE);
-
-            ivArrow.setVisibility(View.GONE);
-        }
-        else
-        {
-            /*float results[] = new float[3];
-            Location.distanceBetween(HomeActivity.lat, HomeActivity.lng,
-                    deal.latitude, deal.longitude,
-                    results);*/
-
-            ivArrow.setVisibility(View.VISIBLE);
-
-            genericDeal.latitude = deal.latitude;
-            genericDeal.longitude = deal.longitude;
-
-            TextView tvDirections = (TextView) header.findViewById(R.id.directions);
-
-            TextView tvDistance = (TextView) findViewById(R.id.distance);
-            tvDistance.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    startDirections();
-                }
-            });
-
-            String origin = HomeActivity.lat + "," + HomeActivity.lng;
-            String destination = deal.latitude + "," + deal.longitude;
-
-            CalculateDistanceTask distanceTask = new CalculateDistanceTask(this, deal,
-                    tvDistance, tvDirections, rlDistance, llDirections);
-            distanceTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, origin, destination);
-
-            if(genericDeal.mDistance != 0) {
-                llDirections.setVisibility(View.VISIBLE);
-                rlDistance.setVisibility(View.VISIBLE);
-                tvDistance.setText(String.format("%.1f", genericDeal.mDistance / 1000) + " " + getString(R.string.km_away));
-
-                tvDirections.setText(String.format("%.1f", genericDeal.mDistance / 1000) + " km");
-                tvDirections.setOnClickListener(this);
-            }
-            else {
-               // llDirections.setVisibility(View.GONE);
-
-                //rlDistance.setVisibility(View.GONE);
-            }
-        }
-
-        RelativeLayout rlAddress = (RelativeLayout) findViewById(R.id.address_layout);
-        rlAddress.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startDirections();
-            }
-        });
-
-        TextView tvAddress= (TextView) header.findViewById(R.id.address);
-
-        if(deal.address != null && !deal.address.isEmpty())
-        {
-            rlAddress.setVisibility(View.VISIBLE);
-            tvAddress.setText(deal.address);
-
-
-        }
-        else
-        {
-            rlAddress.setVisibility(View.GONE);
-
-
-        }
-
-        RelativeLayout rlTiming = (RelativeLayout) findViewById(R.id.timing_layout);
-
-        TextView tvTiming = (TextView) findViewById(R.id.timing);
-
-        if(deal.timing != null && !deal.timing.isEmpty())
-        {
-            rlTiming.setVisibility(View.VISIBLE);
-            tvTiming.setText(deal.timing);
-        }
-        else
-        {
-            rlTiming.setVisibility(View.GONE);
-        }
-    }
-
-  // Bitmap bitmap;
-    private void fallBackToDiskCache(final String url, final ImageView imageView)
-    {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-               final Bitmap bitmap = diskCache.getBitmapFromDiskCache(url);
-
-
-                Logger.print("dCache getting bitmap from cache");
-
-                if(bitmap != null)
-                {
-                    Logger.print("dCache found!");
-
-
-                    Logger.print("deal detail_fallback: "+url+ " ,"+bitmap);
-                    memoryCache.addBitmapToCache(url, bitmap);
-                    runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run() {
-
-                           /* Palette palette = Palette.from(bitmap).generate();
-                            if(palette != null)
-                            {
-                                Palette.Swatch swatch = palette.getLightMutedSwatch();
-                                if(swatch != null)
-                                {
-                                    rlHeader.setBackgroundColor(swatch.getRgb());
-                                }
-                            }*/
-
-                            imageView.setImageBitmap(bitmap);
-                            //AnimatorUtils.expandAndFadeIn(imageView);
-                        }
-                    });
-                }
-                else
-                {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
-                            BitmapForceDownloadTask bitmapDownloadTask = new BitmapForceDownloadTask
-                                    (imageView, progressBar, rlHeader);
-                        /*bitmapDownloadTask.execute(imgUrl, String.valueOf(displayMetrics.widthPixels),
-                                String.valueOf(displayMetrics.heightPixels / 2));*/
-                            bitmapDownloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                    url, String.valueOf(displayMetrics.widthPixels),
-                                    String.valueOf(displayMetrics.heightPixels / 2));
-                        }
-                    });
-                }
-            }
-        });
-
-        thread.start();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
             case android.R.id.home:
-
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
 
                 sendResult();
 
@@ -988,8 +630,8 @@ public EditText etMerchantCode;
         return super.onOptionsItemSelected(item);
     }
 
-    View lastSelected = null;
 
+public static MsisdnDialog dialog;
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
@@ -1002,11 +644,13 @@ public EditText etMerchantCode;
 
                 isFav = genericDeal.isFav;
 
-            } else {
-                //TODO src == null => No detail found OR any exception occurred.
             }
-        } else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
+        }
+        else if(viewId == R.id.iv_rate || viewId == R.id.tv_rate) {
+            if(!BizStore.username.isEmpty())
             ratingDialog = showRatingDialog(this, "deals", id);
+            else
+                Toast.makeText(this, "You are only able to rate, once subscribed.", Toast.LENGTH_SHORT).show();
         } else if(viewId == R.id.iv_call || viewId == R.id.tv_call) {
             if(src != null && isNotNullOrEmpty(src.contact)) {
                 String phoneNumber = src.contact.trim();
@@ -1018,168 +662,78 @@ public EditText etMerchantCode;
             } else {
                 makeText(getApplicationContext(), R.string.no_contact, LENGTH_LONG).show();
             }
-        } else if(viewId == R.id.iv_share || viewId == R.id.tv_share) {
+        } else if(viewId == R.id.share || viewId == R.id.share) {
 
             shareDeal(this, id);
         }
         else
         if(viewId == R.id.get_code)
         {
-            if(BuildConfig.FLAVOR.equals("telenor"))
-            {
-                RedeemViaSmsTask redeemViaSmsTask =
-                        new RedeemViaSmsTask(this, snackBarUtils, tracker);
+            if(!BizStore.username.isEmpty()) {
 
-                redeemViaSmsTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                if(genericDeal.latitude != 0 && genericDeal.longitude != 0) {
+                    if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        DialogUtils.createLocationDialog(this,
+                                "Dear user, Please turn on GPS to avail discount").show();
+                        return;
+                    }
+                }
 
-                return;
-            }
+                if (userLocation != null && mDeal.latitude != 0 && mDeal.longitude != 0) {
+                    float results[] = new float[3];
 
-            if(BuildConfig.FLAVOR.equals("mobilink"))
-            {
-                /*IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-                intentIntegrator.initiateScan();*/
+                    Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
+                            mDeal.latitude, mDeal.longitude, results);
 
-                startActivityForResult(new Intent(this, CaptureActivity.class), 303);
+                    if (results[0] >= 250) {
+                        DialogUtils.createAlertDialog(this, 0, R.string.error_out_of_range).show();
 
-                return;
-            }
+                        return;
+                    }
 
-            if(mDeal.isQticket == 1)
-            {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(qticketUrl));
-
-                startActivity(intent);
+                    VerifyMerchantCodeTask verifyMerchantCodeTask =
+                            new VerifyMerchantCodeTask(this, snackBarUtils, tracker, fbUtils);
+                    verifyMerchantCodeTask
+                            .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                                    String.valueOf(id), "0", String.valueOf(mDeal.businessId));
+                } else {
+                    DialogUtils.createAlertDialog(this, 0, R.string.redeem_loc_error).show();
+                }
             }
             else
             {
-                v.setVisibility(View.GONE);
+                dialog = MsisdnDialog.newInstance();
+                dialog.show(getFragmentManager(), null);
 
-                rlMerchandCode.setVisibility(View.VISIBLE);
-
-                etMerchantCode.requestFocus();
-
-                InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.toggleSoftInputFromWindow(etMerchantCode.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
             }
-
         }
         else
-            if(viewId == R.id.similar_deals)
-            {
-                setSelected(v);
-
-                commonAdapter.setData(similarDeals);
-                commonAdapter.notifyDataSetChanged();
-                listView.smoothScrollToPositionFromTop(1,
-                        (btSimilarDeals.getHeight() * 2 + (int) getResources().getDimension(R.dimen._9sdp)), 200);
-                //similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-                //similarAdapter.setListingType("deals");
-
-              // listView.setAdapter(similarAdapter);
-
-               // listView.scrollTo(0, (int) llSimilarNearby.getY());
-                //listView.setScrollY((int) llSimilarNearby.getY());
-               // listView.smoothScrollToPosition(1);
-
-                //listView.setSelection(1);
-               // listView.scrollTo(0, btSimilarDeals.getTop() - btSimilarDeals.getHeight());
-
-                /*new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        listView.smoothScrollToPositionFromTop(1,
-                                200, 2000);
-                    }
-                }, 2000);*/
-
-//listView.requestFocusFromTouch();
-
-                //similarAdapter.notifyDataSetChanged();
-
-            }
-        else
-                if(viewId == R.id.nearby_deals)
-                {
-                    if(HomeActivity.lat != 0 && HomeActivity.lng != 0)
-                    {
-                        if(nearbyDeals.size() > 0)
-                        {
-                            setSelected(v);
-
-                            commonAdapter.setData(nearbyDeals);
-                            commonAdapter.notifyDataSetChanged();
-
-                            listView.smoothScrollToPositionFromTop(1,
-                                    (btNearbyDeals.getHeight() * 2 + (int) getResources().getDimension(R.dimen._9sdp)), 200);
-
-                           // nearbyAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, nearbyDeals, null);
-                           // nearbyAdapter.setListingType("deals");
-
-                           // listView.setAdapter(nearbyAdapter);
-                           /* listView.smoothScrollToPositionFromTop(2,
-                                    0, 00);*/
-                            /*new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    listView.smoothScrollToPositionFromTop(2,
-                                            0, 00);
-                                }
-                            }, 0);
-                            */
-
-
-
-                            //listView.setSelection(1);
-                            //listView.scrollBy(0,  llSimilarNearby.getTop() - 100);
-
-                        }
-                        else
-                        {
-                            Toast.makeText(this, R.string.error_no_nearby_deals, Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                    else
-                    {
-                        Toast.makeText(this, R.string.error_your_loc_not_avaliable, Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                else
-                if(viewId == R.id.directions)
-                {
+        if(viewId == R.id.directions)
+        {
                     startDirections();
-                }
-            else
-                    if(viewId == R.id.verify_merchant_code)
-                    {
-                        String code = etMerchantCode.getText().toString().trim();
-
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(etMerchantCode.getWindowToken(), 0);
-                        if(!code.isEmpty())
-                        {
-                            VerifyMerchantCodeTask verifyMerchantCodeTask =
-                                    new VerifyMerchantCodeTask(this, snackBarUtils, tracker);
-                            verifyMerchantCodeTask
-                                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                            String.valueOf(id), code, String.valueOf(mDeal.businessId));
-                        }
-                        else
-                        {
-                            Toast.makeText(this, R.string.error_empty_voucher, Toast.LENGTH_SHORT).show();
-                        }
-                    }
+        }
         else
-                        if(viewId == R.id.how_this_work_note)
+        if(viewId == R.id.how_this_work_note)
                         {
-                            llHead.setVisibility(View.VISIBLE);
+                            if(llHead.getVisibility()==View.GONE){
+                                llHead.setVisibility(View.VISIBLE);
 
-                            tvHeadTitle.setText(R.string.how_this_works);
-                            tvHeadDescription.setText(mDeal.how_works);
+                                tvHeadTitle.setText(R.string.how_this_works);
+                                tvHeadDescription.setText(mDeal.how_works);
+
+                                scrollView.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scrollView.smoothScrollTo(0, llHead.getBottom());
+                                    }
+                                }, 200);
+
+                            }
+                            else{
+                                llHead.setVisibility(View.GONE);
+                            }
+
+
                         }
         else
                             if(viewId == R.id.tos_note)
@@ -1189,39 +743,118 @@ public EditText etMerchantCode;
                                 tvHeadTitle.setText(R.string.tos);
                                 tvHeadDescription.setText(mDeal.terms_services);
                             }
-    }
+        else
+                                if(viewId == R.id.brochure || viewId == R.id.download)
+                                {
+                                    Object tag = tvBrochure.getTag();
 
-    private void setSelected(View v)
-    {
-        if(lastSelected != null)
-        {
-            lastSelected.setSelected(false);
-        }
+                                    if(tag != null)
+                                    {
+                                        if(tag.equals("Downloading"))
+                                        {
+                                            return;
+                                        }
 
-        v.setSelected(true);
+                                        if(tag.equals("Downloaded")) {
+                                            Intent intent = IntentUtils.getPdfIntent(brochureFile);
+                                            try {
+                                                startActivity(intent);
+                                            } catch (ActivityNotFoundException e) {
+                                                Toast.makeText(this, "No application found to open pdf,", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
 
-        lastSelected = v;
+                                    }
+                                    else
+                                    {
+                                        downloadFile();
+                                    }
+                                }
+        else
+                                    if(viewId == R.id.view_all)
+                                    {
+                                        FragmentUtils.addFragmentWithBackStack(this, android.R.id.content,
+                                                ImageViewerFragment.newInstance(this.galleryList, 0), "gallery");
+                                    }
+        else
+                                        if(viewId == R.id.iv_views || viewId == R.id.tv_views)
+                                        {
+
+                                            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                                @Override
+                                                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                                                    if(checkedId==R.id.someOther_radioButton) {
+                                                        enterReport.setVisibility(View.GONE);
+                                                        reportMesage=(String) someOther.getText();
+                                                        reportEdittxt_Check=1;
+                                                    }
+                                                    else if(checkedId==R.id.other_radioButton) {
+                                                        enterReport.setVisibility(View.VISIBLE);
+                                                        reportMesage="";
+                                                        reportEdittxt_Check=2;
+                                                    }
+
+                                                }
+                                            });
+
+
+                                            reportBtn_dialogBox.setOnClickListener(new OnClickListener() {     // Report button on click listener.
+                                                @Override
+                                                public void onClick(View v) {
+
+
+                                                    if(reportEdittxt_Check==2) {
+                                                        reportMesage=enterReport.getText().toString();
+                                                        if (reportMesage.matches("")) {
+                                                            Toast.makeText(getApplicationContext(), "Please enter text", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            new ReportAsyncTask(DealDetailActivity.this,reportMesage,genericDeal.businessId,genericDeal.id).execute();
+                                                            reportDialog.dismiss();
+                                                        }
+                                                    }
+                                                    else if(reportEdittxt_Check==1 )  {
+
+                                                        new ReportAsyncTask(DealDetailActivity.this,reportMesage,genericDeal.businessId,genericDeal.id).execute();
+                                                        reportDialog.dismiss();
+                                                    }
+                                                    else {
+                                                        Toast.makeText(getApplicationContext(), "Please Select the one option", Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                    enterReport.setText("");
+
+                                                }
+                                            });
+
+                                            reportDialog.show();
+
+                                        }
     }
 
     public void showCode(int voucherClaimed, int maxAllowed, boolean hide)
     {
-        if(hide)
+        genericDeal.voucher_count = genericDeal.voucher_count + 1;
+
+        tvAvailedDeals.setText(genericDeal.voucher_count + " AVAILED");
+
+        if(genericDeal.date != null && !genericDeal.date.isEmpty())
         {
-            //rlMerchandCode.setVisibility(View.GONE);
+            llTimeStamp.setVisibility(View.VISIBLE);
 
-            etMerchantCode.setText("");
-            rlMerchandCode.setVisibility(View.GONE);
-
-            btGetCode.setVisibility(View.VISIBLE);
+            tvTimeStamp.setText("on "+genericDeal.date+ " at " + genericDeal.time);
         }
 
-       // voucherClaimed += 1;
+        if(hide)
+        {
+            btGetCode.setVisibility(View.VISIBLE);
+        }
 
         tvVoucherClaimed.setVisibility(View.VISIBLE);
 
         if(voucherClaimed >= maxAllowed)
         {
-            rlVoucher.setVisibility(View.GONE);
+            btGetCode.setVisibility(View.GONE);
 
             tvVoucherClaimed.setText(getString(R.string.already_availed_discount)+" " + maxAllowed + " " + getString(R.string.timess));
 
@@ -1230,31 +863,12 @@ public EditText etMerchantCode;
         else
         {
             tvVoucherClaimed.setVisibility(View.VISIBLE);
-
-            /*tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
-                    + " number of times "
-                    + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");*/
         }
 
-        tvVoucherClaimed.setText(getString(R.string.out_of)+" " + maxAllowed
+        tvVoucherClaimed.setText(getString(R.string.out_of) + " " + maxAllowed
                 + ", " + getString(R.string.you_have_availed) + " "
-                + ( voucherClaimed) + " " + getString(R.string.dealss));
+                + (voucherClaimed) + " " + getString(R.string.dealss));
 
-       /* tvVoucherClaimed.setText("Dear user, you have availed the discount " + voucherClaimed
-                + " number of times "
-                + (genericDeal.vouchers_max_allowed - voucherClaimed) + " attempts are still pending");
-*/
-        /*btGetCode.setVisibility(View.GONE);
-
-        ivLine.setVisibility(View.VISIBLE);
-
-        llVoucherCode.setVisibility(View.VISIBLE);
-
-        tvCode.setText(code);
-
-        tvNote.setVisibility(View.VISIBLE);
-
-        genericDeal.voucher = code;*/
     }
 
     public static void shareDeal(Activity activity, long dealId) {
@@ -1265,10 +879,10 @@ public EditText etMerchantCode;
 
         Logger.print("Uri: " + uri);
 
-        String operatorName = "Telenor";
+        String appName = activity.getString(R.string.app_name);
 
-        uri = "View this awesome deal on " + operatorName + " BizStore http://telenor.bizstore.deal/deal_detail?id=" + dealId +
-        "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
+        uri = "View this awesome deal on " + appName + " http://"+activity.getString(R.string.host)+"/deal_detail?id=" + dealId +
+                "\n\nor download app from play.google.com/store/apps/details?id="+packageName ;
 
         startShareIntent(activity, uri, dealId);
     }
@@ -1347,11 +961,22 @@ public EditText etMerchantCode;
             ratingDialog.dismiss();
         }
 
+       if(locationManager != null) locationManager.removeUpdates(this);
+
         super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
+
+        if(getFragmentManager().getBackStackEntryCount() > 0)
+        {
+            getFragmentManager().popBackStack();
+
+            Logger.print("backpressed return");
+
+            return;
+        }
 
         sendResult();
     }
@@ -1372,40 +997,83 @@ public EditText etMerchantCode;
         finish();
     }
 
+    File brochureFile;
 
+   public GalleryStatePagerAdapter adapter;
+
+    public List<Gallery> galleryList;
+    ImageView ivDownload;
     public void onHaveData(GenericDeal genericDeal)
-   {
-       if(genericDeal.similarDeals.size() > 0 || genericDeal.nearbyDeals.size() > 0)
+    {
+        if( genericDeal.galleryList != null && genericDeal.galleryList.size() > 0)
+        {
+            TextView tvGalleryCount = (TextView) findViewById(R.id.gallery_items_count);
+            tvGalleryCount.setText(genericDeal.galleryList.size() + " Photos");
+
+            TextView tvViewAll = (TextView) findViewById(R.id.view_all);
+            tvViewAll.setOnClickListener(this);
+
+            LinearLayout llGallery = (LinearLayout) findViewById(R.id.gallery_layout);
+            llGallery.setVisibility(View.VISIBLE);
+
+            this.galleryList = genericDeal.galleryList;
+
+            adapter = new GalleryStatePagerAdapter(getSupportFragmentManager(), genericDeal.galleryList, true);
+
+            ViewPager galleryPager = (ViewPager) findViewById(R.id.gallery);
+            galleryPager.setPageMargin((int) Converter.convertDpToPixels(4));
+            galleryPager.setAdapter(adapter);
+        }
+
+        if(genericDeal.document != null && !genericDeal.document.isEmpty()) {
+
+            fileUrl = BaseAsyncTask.SERVER_URL + genericDeal.document;
+
+            findViewById(R.id.brochure_layout).setVisibility(View.VISIBLE);
+
+            ivDownload = (ImageView) findViewById(R.id.download);
+            ivDownload.setOnClickListener(this);
+
+            brochureFile = new File(cacheDir, CryptoUtils.encodeToBase64(fileUrl) + ".pdf");
+
+            String docName = "";
+
+            if(genericDeal.documentName != null)
+            {
+                docName = genericDeal.documentName;
+            }
+
+            if (FileUtils.isFileAvailable(brochureFile)) {
+
+
+                tvBrochure.setText("View "+docName);
+                tvBrochure.setTag("Downloaded");
+                ivDownload.setVisibility(View.GONE);
+            } else {
+                tvBrochure.setText("Download "+docName);
+            }
+        }
+
+
+
+        tvAvailedDeals.setText(genericDeal.voucher_count + " AVAILED");
+
+       if(genericDeal.date != null && !genericDeal.date.isEmpty())
        {
-           llSimilarNearby.setVisibility(View.VISIBLE);
+           llTimeStamp.setVisibility(View.VISIBLE);
 
-           if(genericDeal.similarDeals.size() > 0)
-           {
-               commonAdapter.setData(similarDeals);
-               commonAdapter.notifyDataSetChanged();
-
-               btSimilarDeals.setSelected(true);
-
-               lastSelected = btSimilarDeals;
-
-           }
-           else {
-               btSimilarDeals.setVisibility(View.GONE);
-           }
-
-           if(genericDeal.nearbyDeals.size() < 1)
-           {
-               btNearbyDeals.setVisibility(View.GONE);
-           }
+           tvTimeStamp.setText("on "+genericDeal.date+ " at " + genericDeal.time);
        }
 
        this.genericDeal = genericDeal;
-
 
        if(genericDeal.is_exclusive == 0 || mDeal.isQticket == 1)
        {
            return;
        }
+
+        LinearLayout llCode = (LinearLayout) findViewById(R.id.code_layout);
+        llCode.setVisibility(View.VISIBLE);
 
        if(genericDeal.vouchers_claimed == 0)
        {
@@ -1417,58 +1085,74 @@ public EditText etMerchantCode;
 
        if(genericDeal.vouchers_claimed == genericDeal.vouchers_max_allowed)
        {
-           rlVoucher.setVisibility(View.GONE);
+           btGetCode.setVisibility(View.GONE);
+       }
+        else
+       {
+           btGetCode.setText("Get Discount Again");
        }
 
        tvVoucherClaimed.setVisibility(View.VISIBLE);
 
-       tvVoucherClaimed.setText(getString(R.string.out_of)+" " + genericDeal.vouchers_max_allowed
+       tvVoucherClaimed.setText(getString(R.string.out_of) + " " + genericDeal.vouchers_max_allowed
                + ", " + getString(R.string.you_have_availed) + " "
-               + ( genericDeal.vouchers_claimed) + " " + getString(R.string.dealss));
-
-      /* if(genericDeal.vouchers_claimed >= genericDeal.vouchers_max_allowed)
-       {
-           //rlVoucher.setVisibility(View.GONE);
-       }
-       else
-       {
-           tvVoucherClaimed.setVisibility(View.VISIBLE);
-
-           tvVoucherClaimed.setText("Out of " + genericDeal.vouchers_max_allowed
-                   + ", you have availed "
-                   + (genericDeal.vouchers_claimed) + " deals.");
-       }*/
-
-//
-      // similarAdapter = new ListViewBaseAdapter(this, R.layout.list_deal_promotional, similarDeals, null);
-       //similarAdapter.setListingType("deals");
-
-       //listView.setAdapter(similarAdapter);
+               + (genericDeal.vouchers_claimed) + " " + getString(R.string.dealss));
    }
 
     public void onNoData()
     {
-        llSimilarNearby.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onUpdated(GenericDeal deal, String value) {
-        updateOutlet(deal, value);
+    String fileUrl;
+    private void downloadFile()
+    {
+        FileDownloadTask downloadTask = new FileDownloadTask(this, brochureFile, genericDeal.id,
+                                                             fileUrl, tvBrochure, ivDownload);
+        downloadTask.execute();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        fbUtils.onActivityResult(requestCode, resultCode, data);
+
         if(requestCode == 303 && resultCode == RESULT_OK)
         {
-            etMerchantCode.setText(data.getStringExtra("code"));
-
             Logger.print("Code: "+data.getStringExtra("code"));
 
             btGetCode.setVisibility(View.GONE);
-
-            rlMerchandCode.setVisibility(View.VISIBLE);
         }
+    }
+
+    Location userLocation;
+    @Override
+    public void onLocationChanged(Location location) {
+        userLocation = location;
+
+        float results[] = new float[3];
+
+        Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
+                mDeal.latitude, mDeal.longitude, results);
+        mDeal.distance = results[0] / 1000;
+
+        tvDistance.setText(String.format("%.1f", mDeal.distance) +  " km");
+
+        Logger.print("Distance: "+mDeal.distance);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

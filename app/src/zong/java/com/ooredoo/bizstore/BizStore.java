@@ -15,7 +15,7 @@ import com.ooredoo.bizstore.utils.Logger;
 
 import java.util.HashMap;
 
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 
 import static com.ooredoo.bizstore.utils.CryptoUtils.encodeToBase64;
 import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
@@ -83,8 +83,8 @@ public class BizStore extends com.activeandroid.app.Application {
         ActiveAndroid.initialize(this);
 
         if(BuildConfig.FLAVOR.equals("ooredoo")) {
-            TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-            Fabric.with(this, new Twitter(authConfig));
+//            TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+//            Fabric.with(this, new Twitter(authConfig));
         }
         context = this;
         FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()

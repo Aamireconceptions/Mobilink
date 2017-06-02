@@ -29,10 +29,17 @@ public class FileUtils
         // Check if media is mounted or storage is built-in, if so, try and use external cache dir
         // otherwise use internal cache dir
 
-        final String cachePath =
+        /*final String cachePath =
                 Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) &&
                 !Environment.isExternalStorageRemovable() ? context.getExternalCacheDir().getPath() :
-                        context.getCacheDir().getPath();
+                        context.getCacheDir().getPath();*/
+
+        final String cachePath =
+                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) &&
+                        !Environment.isExternalStorageRemovable()
+                        ? (context.getExternalCacheDir() != null ? context.getExternalCacheDir().getPath()
+                        : context.getCacheDir().getPath())
+                        : context.getCacheDir().getPath();
 
         Logger.print("getDiskCacheDir name:" + cachePath + uniqueName);
 

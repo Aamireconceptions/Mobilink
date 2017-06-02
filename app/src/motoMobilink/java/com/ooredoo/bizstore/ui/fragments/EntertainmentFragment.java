@@ -393,7 +393,11 @@ public class EntertainmentFragment extends Fragment implements OnFilterChangeLis
     @Override
     public void onLocationChanged() {
         if(tvEmptyView != null){tvEmptyView.setText("");}
-
-        fetchAndDisplayEntertainment(null);
+        try {
+            fetchAndDisplayEntertainment(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
