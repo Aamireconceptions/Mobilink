@@ -1,6 +1,7 @@
 package com.ooredoo.bizstore.dialogs;
 
 import android.app.DialogFragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.ooredoo.bizstore.BizStore;
 import com.ooredoo.bizstore.R;
+import com.ooredoo.bizstore.asynctasks.CheckOperatorTask;
+import com.ooredoo.bizstore.ui.activities.DealDetailActivity;
 import com.ooredoo.bizstore.utils.CryptoUtils;
 import com.ooredoo.bizstore.utils.FontUtils;
 import com.ooredoo.bizstore.utils.NetworkUtils;
@@ -27,6 +30,7 @@ import static com.ooredoo.bizstore.utils.StringUtils.isNotNullOrEmpty;
  */
 public class MsisdnDialog extends DialogFragment implements View.OnClickListener
 {
+
     public static MsisdnDialog newInstance()
     {
         MsisdnDialog dialog = new MsisdnDialog();
@@ -88,11 +92,11 @@ public class MsisdnDialog extends DialogFragment implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
-        checkOperator();
+        checkOperator(v);
     }
 
     public static ChargesDialog chargesDialog;
-    public void checkOperator()
+    public void checkOperator(View v)
     {
         String msisdn = etMsisdn.getText().toString();
 
@@ -100,8 +104,11 @@ public class MsisdnDialog extends DialogFragment implements View.OnClickListener
         if(NetworkUtils.hasInternetConnection(getActivity())) {
             if(isNotNullOrEmpty(msisdn) && msisdn.length() >= MSISDN_MIN_LEN) {
 
-                chargesDialog = ChargesDialog.newInstance(msisdn);
-                chargesDialog.show(getFragmentManager(), null);
+                CheckOperatorTask checkOperatorTask = new CheckOperatorTask(DealDetailActivity.context,MsisdnDialog.newInstance());
+                checkOperatorTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,msisdn);
+
+//                chargesDialog = ChargesDialog.newInstance(msisdn);
+//                chargesDialog.show(getFragmentManager(), null);
 
             } else {
                 errMsg = getString(R.string.error_invalid_num);

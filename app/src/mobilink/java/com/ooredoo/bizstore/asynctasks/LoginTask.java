@@ -111,11 +111,16 @@ public class LoginTask extends BaseAsyncTask<String, Void, String> {
 
                     DialogUtils.activity = (Activity) activity;
 
-                    DialogUtils.dialog.dismiss();
+                    try {
+                        DialogUtils.dialog.dismiss();
 
-                    DealDetailActivity.dialog.dismiss();
+                        DealDetailActivity.dialog.dismiss();
 
-                    MsisdnDialog.chargesDialog.dismiss();
+                        CheckOperatorTask.chargesDialog.dismiss();
+                    }catch (Exception e)
+                    {
+
+                    }
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                         DealDetailActivity.btGetCode.callOnClick();

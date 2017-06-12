@@ -155,33 +155,37 @@ public class DialogUtils {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
 
+try {
+
+    final View view = inflater.inflate(R.layout.dialog_verification_code, null);
+
+    etCode = (EditText) view.findViewById(R.id.et_code);
+
+    progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+
+    builder.setView(view);
+
+    dialog = builder.create();
+
+    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    view.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            processVerificationCode();
+        }
 
 
-        final View view = inflater.inflate(R.layout.dialog_verification_code, null);
+    });
 
-        etCode = (EditText) view.findViewById(R.id.et_code);
+    dialog.setCancelable(true);
+    dialog.setCanceledOnTouchOutside(false);
+    dialog.show();
+}catch (Exception e)
+{
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-
-        builder.setView(view);
-
-        dialog = builder.create();
-
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        view.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                processVerificationCode();
-            }
-
-
-        });
-
-        dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+}
     }
 
     static LoginTask loginTask = new LoginTask(null);

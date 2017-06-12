@@ -79,7 +79,7 @@ public class SubscriptionTask extends BaseAsyncTask<String, Void, String> {
                     SubscriptionProcessor.processSubscription(context, subscription);
                 }
 
-            } catch(JsonSyntaxException e) {
+            } catch(Exception e) {
                 e.printStackTrace();
 
                 Toast.makeText(context, context.getString(R.string.error_server_down), Toast.LENGTH_SHORT).show();

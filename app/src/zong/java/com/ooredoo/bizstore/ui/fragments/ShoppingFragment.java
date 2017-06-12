@@ -244,8 +244,14 @@ public class ShoppingFragment extends Fragment implements OnFilterChangeListener
         CategoryUtils.showSubCategories(activity, CategoryUtils.CT_SHOPPING);
 
         isRefreshed = true;
-        fetchAndDisplayShopping(null);
         isRefreshed = false;
+        try {
+            fetchAndDisplayShopping(null);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

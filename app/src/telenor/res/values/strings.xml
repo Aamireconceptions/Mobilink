@@ -91,6 +91,8 @@
     <string name="error_out_of_range">"Dear user, it seems that you are away from outlet. Please go to the outlet to avail discount."</string>
     <string name="redeem_loc_error">Location must be available to avail discount</string>
 
+    <string name="facebook_app_id" translatable="false">134415933782658</string>
+    <string name="fb_authority">com.facebook.app.FacebookContentProvider134415933782658</string>
     <string name="fb_deep_link">https://fb.me/1578100429162454</string>
 
 </resources>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ooredoo.bizstore.R;
 import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
@@ -17,12 +18,16 @@ import com.ooredoo.bizstore.asynctasks.SubscriptionTask;
  */
 public class ChargesDialog extends DialogFragment
 {
-    public static ChargesDialog newInstance(String msisdn)
+    public static String Operator1;
+
+    public static ChargesDialog newInstance(String msisdn,String operator,String Package, String type)
     {
 
         Bundle bundle = new Bundle();
         bundle.putString("msisdn", msisdn);
-
+        bundle.putString("operator", operator);
+        bundle.putString("package", Package);
+        bundle.putString("billing", type);
         ChargesDialog dialog = new ChargesDialog();
         dialog.setArguments(bundle);
 
@@ -40,10 +45,60 @@ public class ChargesDialog extends DialogFragment
 
         return v;
     }
- public static String msisdn;
+ public static String msisdn, operator, description, type;
     private void init(View v)
     {
-        Button btSubscribe = (Button) v.findViewById(R.id.btn_subscribe);
+        TextView txtChargesTiltle   = (TextView) v.findViewById(R.id.charges_title);
+        TextView txtChargesValue    = (TextView) v.findViewById(R.id.charges_value);
+        Button btSubscribe          = (Button) v.findViewById(R.id.btn_subscribe);
+        operator    = getArguments().getString("operator");
+        operator.startsWith("\"");
+       // operator.replaceAll("\",")
+        description = getArguments().getString("package");
+        type        = getArguments().getString("billing");
+        if(operator.equals("Mobilink"))
+        {
+            if(description.equals("Prepaid"))
+            {
+                txtChargesTiltle.setText("Jazz Pre Paid");
+                txtChargesValue.setText("Rs 8.36/week");
+
+            }else if(description.equals("Postpaid"))
+            {
+                txtChargesTiltle.setText("Jazz Post Paid");
+                txtChargesValue.setText("Rs 35.85/month");
+
+            }/*else if(description.equals("champion"))
+            {
+                txtChargesTiltle.setText("Jazz Champion");
+                txtChargesValue.setText("Rs 15.50/month");
+
+            }else if(description.equals("nonchampion"))
+            {
+                txtChargesTiltle.setText("Jazz Non Champion");
+                txtChargesValue.setText("Rs 15.50/month");
+            }*/
+
+        }
+        else if(operator.equals("Warid"))
+        {
+            if(description.equals("Prepaid"))
+            {
+                txtChargesTiltle.setText("Warid Pre Paid");
+                txtChargesValue.setText("Rs 1.20/daily");
+
+            }else if(description.equals("postpaid"))
+            {
+                txtChargesTiltle.setText("Warid Pre Paid");
+                txtChargesValue.setText("Rs 1.20/daily");
+
+            }
+        }
+        else
+        {
+            txtChargesTiltle.setText("JAZZ gives you a chance to enjoy the discounts for free!");
+            txtChargesValue.setVisibility(View.GONE);
+        }
         btSubscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

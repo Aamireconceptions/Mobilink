@@ -196,7 +196,6 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener,
         String username = SharedPrefUtils.getStringVal(this, "username");
         String password = SharedPrefUtils.getStringVal(this, "password");
         String secret = SharedPrefUtils.getStringVal(this, "secret");
-
         HomeActivity.lat = SharedPrefUtils.getFloatValue(this, "lat");
         HomeActivity.lng = SharedPrefUtils.getFloatValue(this, "lng");
 

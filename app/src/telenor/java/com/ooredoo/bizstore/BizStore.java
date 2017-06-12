@@ -45,29 +45,13 @@ public class BizStore extends com.activeandroid.app.Application {
     private final static String SERIF = "SERIF";
     private final static String SANS_SERIF = "SANS_SERIF";
 
-    public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+    public static String DEFAULT_FONT = "fonts/lato_regular.ttf";
 
-    public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+    public static String MONOSPACE_FONT = "fonts/lato_regular.ttf";
 
-    public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+    public static String SERIF_FONT = "fonts/lato_regular.ttf";
 
-    public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+    public static String SANS_SERIF_FONT = "fonts/lato_regular.ttf";
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/lato_regular.ttf";
 

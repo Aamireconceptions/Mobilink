@@ -250,25 +250,27 @@ public class FBUtils
                     @Override
                     public void onCompleted(JSONArray jsonArray, GraphResponse graphResponse)
                     {
-                        String placeId = null;
-                        if(jsonArray != null && jsonArray.length() > 0)
+                        try {
+
+                            String placeId = null;
+                            if (jsonArray != null && jsonArray.length() > 0) {
+                                try {
+                                    JSONObject object = jsonArray.getJSONObject(0);
+                                    placeId = object.getString("id");
+
+                                    Logger.logV("FbUtils", "PlaceId found: " + placeId);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            lookupPlaceId = false;
+                            checkIn(contentTitle, contentDescription, contentUrl,
+                                    imageUrl, null, placeId);
+                        }catch (Exception e)
                         {
-                            try
-                            {
-                                JSONObject object = jsonArray.getJSONObject(0);
-                                placeId = object.getString("id");
-
-                                Logger.logV("FbUtils", "PlaceId found: " + placeId);
-                            }
-                            catch (JSONException e)
-                            {
-                                e.printStackTrace();
-                            }
+                            e.printStackTrace();
                         }
-
-                        lookupPlaceId = false;
-                        checkIn(contentTitle, contentDescription, contentUrl,
-                                imageUrl, null, placeId);
                     }
                 }).executeAsync();
     }

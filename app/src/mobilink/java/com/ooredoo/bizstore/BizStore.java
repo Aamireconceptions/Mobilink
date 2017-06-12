@@ -21,7 +21,6 @@ import static com.ooredoo.bizstore.utils.FontUtils.setDefaultFont;
 
 public class BizStore extends com.activeandroid.app.Application {
 
-
     public static Context context;
 
     private static final User user = new User();
@@ -45,64 +44,55 @@ public class BizStore extends com.activeandroid.app.Application {
     private final static String SERIF = "SERIF";
     private final static String SANS_SERIF = "SANS_SERIF";
 
-    public static String DEFAULT_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Futura/FuturaLT-Book.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+    public static String DEFAULT_FONT = "fonts/lato_regular.ttf";
 
-    public static String MONOSPACE_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Futura/FuturaLT.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+    public static String MONOSPACE_FONT = "fonts/lato_regular.ttf";
 
-    public static String SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
-    ? "fonts/Opifico/Opificio_Bold.ttf" : BuildConfig.FLAVOR.equals("telenor")
-            ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
-            ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+    public static String SERIF_FONT = "fonts/lato_regular.ttf";
 
-    public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
+    public static String SANS_SERIF_FONT = "fonts/lato_regular.ttf";
+  /*  public static String SANS_SERIF_FONT = BuildConfig.FLAVOR.equals("ooredoo")
     ? "fonts/Opifico/Opificio.ttf" : BuildConfig.FLAVOR.equals("telenor")
             ? "fonts/Telenor.otf" : BuildConfig.FLAVOR.equals("mobilink")
             ? "fonts/lato_regular.ttf" : BuildConfig.FLAVOR.equals("zong")
-            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";
+            ? "fonts/lato_regular.ttf" : "fonts/lato_regular.ttf";*/
+
 
     public final static String ARABIC_DEFAULT_FONT = "fonts/Arabic/GE SS Unique Light.otf";
 
     public void onCreate() {
 
         super.onCreate();
+        try {
+            ActiveAndroid.initialize(this);
 
-        ActiveAndroid.initialize(this);
+            context = this;
 
-        context = this;
-
-        FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback()
-        {
-            @Override
-            public void onInitialized() {
-                if(AccessToken.getCurrentAccessToken() == null){
-                    System.out.println("not logged in yet");
-                } else {
-                    System.out.println("Logged in");
+            FacebookSdk.sdkInitialize(getApplicationContext(), new FacebookSdk.InitializeCallback() {
+                @Override
+                public void onInitialized() {
+                    if (AccessToken.getCurrentAccessToken() == null) {
+                        System.out.println("not logged in yet");
+                    } else {
+                        System.out.println("Logged in");
+                    }
                 }
+            });
+
+            // FacebookSdk.setIsDebugEnabled(true);
+            //FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
+            AppEventsLogger.activateApp(this);
+
+            if (BuildConfig.DEBUG) {
+                GoogleAnalytics.getInstance(this).setDryRun(true);
+
+                Logger.setEnabled(true);
+            } else {
+                Logger.setEnabled(false);
             }
-        });
-
-        // FacebookSdk.setIsDebugEnabled(true);
-        //FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
-        AppEventsLogger.activateApp(this);
-
-        if(BuildConfig.DEBUG)
+        }catch (Exception e)
         {
-            GoogleAnalytics.getInstance(this).setDryRun(true);
-
-            Logger.setEnabled(true);
-        }
-        else {
-            Logger.setEnabled(false);
+            e.printStackTrace();
         }
     }
 

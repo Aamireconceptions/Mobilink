@@ -36,6 +36,12 @@ android {
             storeFile file('D:/Apk & Keystore/Telenor Bizstore/telenorbizstore.jks')
             storePassword 'telenorbizstore'
         }
+        WaridBizstore {
+            keyAlias 'waridbizstore'
+            keyPassword 'waridbizstore'
+            storeFile file('D:/Apk & Keystore/Warid Bizstore/waridbizstore.jks')
+            storePassword 'waridbizstore'
+        }
         JazzDiscountBazar {
             keyAlias keystoreProperties['mobilinkKeyAlias']
             keyPassword keystoreProperties['mobilinkKeyPassword']
@@ -118,12 +124,21 @@ android {
             minSdkVersion 14
             compileSdkVersion 22
             applicationId "pk.com.mobilink.bizstore"
-            versionName = "2.2.4"
-            versionCode = 28
+            versionName = "2.2.5"
+            versionCode = 29
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "2acc48ed8b70415a96aa62db6ae3d0aa"]
             signingConfig signingConfigs.JazzDiscountBazar
         }
 
+        warid {
+            minSdkVersion 14
+            compileSdkVersion 22
+            applicationId "com.warid.bizstore"
+            versionName = "1.0"
+            versionCode = 1
+            manifestPlaceholders = [HOCKEYAPP_APP_ID: "2acc48ed8b70415a96aa62db6ae3d0aa"]
+            signingConfig signingConfigs.WaridBizstore
+        }
         ufone {
             compileSdkVersion 22
             applicationId "com.ufone.bizstore"
@@ -134,8 +149,8 @@ android {
             compileSdkVersion 22
             minSdkVersion 14
             applicationId "com.zong.bizstore"
-            versionName = "1.0"
-            versionCode = 2
+            versionName = "1.1"
+            versionCode = 3
             manifestPlaceholders = [HOCKEYAPP_APP_ID: "4e8fc3ee285640c2ab08942dac59ae9a"]
             signingConfig signingConfigs.ZongBizStore
         }

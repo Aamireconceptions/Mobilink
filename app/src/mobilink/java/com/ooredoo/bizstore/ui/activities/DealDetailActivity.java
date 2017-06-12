@@ -104,6 +104,9 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     public String category;
     static String packageName;
 
+    public static Context context;
+    public static Activity mActivity;
+
     private ActionBar mActionBar;
 
     ScrollView scrollView;
@@ -160,6 +163,8 @@ public class DealDetailActivity extends BaseActivity implements OnClickListener,
     @Override
     public void init() {
 
+        context = getApplicationContext();
+        mActivity = this;
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         reqWidth = displayMetrics.widthPixels;
         reqHeight = displayMetrics.heightPixels / 2;

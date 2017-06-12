@@ -8,11 +8,16 @@ import com.google.gson.annotations.SerializedName;
 public class Operator
 {
     @SerializedName("result")
-    public int resultCode = -1;
+    public int result;
+    @SerializedName("results")
+    public String results;
+//    public String desc = null;
 
-    public String desc = null;
+ //   public String operator= null;
 
-    public String name;
+ /*   public String password;
 
-    public String password;
+    public String pack;
+    public String billing_type;*/
+
 }
